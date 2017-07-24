@@ -1,0 +1,24 @@
+\subsubsection usage Usage
+\verbatim
+<node name="dynamic_tutorials" pkg="registration_localization" type="dynamic_tutorials">
+  <param name="k_search" type="int" value="30" />
+  <param name="max_iterations" type="int" value="1000" />
+  <param name="radius_search" type="double" value="0.0" />
+  <param name="distance_threshold" type="double" value="0.15" />
+  <param name="normal_distance_weight" type="double" value="1.0" />
+  <param name="eps_angle" type="double" value="0.2" />
+  <param name="leaf_size" type="double" value="0.02" />
+  <param name="minmax" type="double" value="0.5" />
+  <param name="minmin" type="double" value="0.01" />
+  <param name="model_type" type="double" value="17.0" />
+  <param name="optimize_coefficients" type="bool" value="False" />
+  <param name="skip_downsample" type="bool" value="True" />
+  <param name="distance_threshold2" type="double" value="0.02" />
+  <param name="normal_distance_weight2" type="double" value="0.1" />
+  <param name="optimize_coefficients2" type="bool" value="False" />
+  <param name="dot_product" type="double" value="0.4567" />
+  <param name="dot_product_accuracy" type="double" value="0.02" />
+  <param name="purpendicularity_accuracy" type="double" value="0.15" />
+</node>
+\endverbatim
+

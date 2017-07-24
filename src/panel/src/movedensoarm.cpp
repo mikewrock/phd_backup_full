@@ -1,0 +1,44 @@
+// Always goes first
+#define _CUSTOM_UINT64
+// ROS
+#include <ros/ros.h>
+#include <wrock/arm_msg.h>
+
+
+
+
+
+int main(int argc, char **argv)
+{
+  ros::init (argc, argv, "arm_cmd_node");
+  ros::NodeHandle nh;
+    // Create a ROS subscriber for arm commands
+  ros::Publisher pub = nh.advertise<wrock::arm_msg>("arm_cmd", 1000);
+wrock::arm_msg arm_cmd;
+  if(argc<4){
+    arm_cmd.x = 262.581024;
+    arm_cmd.y = 27.017609;
+    arm_cmd.z = 371.975250;
+    arm_cmd.rx = 176.741241;
+    arm_cmd.ry = 15.685188;
+    arm_cmd.rz = 171.900635;
+    }else{
+      arm_cmd.x = atof(argv[1]);
+      arm_cmd.y = atof(argv[2]);
+      arm_cmd.z = atof(argv[3]);
+      if(argc<7){
+        arm_cmd.rx = 176.741241;
+        arm_cmd.ry = 15.685188;
+        arm_cmd.rz = 171.900635;
+      }else{    
+        arm_cmd.rx = atof(argv[4]);
+        arm_cmd.ry = atof(argv[5]);
+        arm_cmd.rz = atof(argv[6]);
+        }
+    }
+    ros::Duration(1).sleep();
+    ROS_INFO("Sending %f - %f - %f - %f - %f - %f",arm_cmd.x,arm_cmd.y,arm_cmd.z,arm_cmd.rx,arm_cmd.ry,arm_cmd.rz);
+pub.publish(arm_cmd);
+ros::spinOnce();
+
+};

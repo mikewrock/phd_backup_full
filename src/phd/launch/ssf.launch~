@@ -1,0 +1,12 @@
+<launch>
+
+
+  <!--- Run description -->
+  <include file="$(find husky_description)/launch/description.launch" />
+  
+<!--- Run demo visualization 
+<node name="denso_node" pkg="wrock" type="denso_node" output="screen" />
+-->
+     <node name="rviz" pkg="rviz" type="rviz" required="True" />
+
+</launch>

@@ -1,0 +1,8 @@
+prefix=/home/mike/catkin_ws/devel
+
+Name: schunk_libm5api
+Description: Description of schunk_libm5api
+Version: 0.5.4
+Cflags: -I/home/mike/catkin_ws/src/schunk_libm5api/include
+Libs: -L/home/mike/catkin_ws/devel/lib -lm5api
+Requires: libpcan libntcan roslib

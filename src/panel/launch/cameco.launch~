@@ -1,0 +1,46 @@
+<launch>
+
+  <!--- Run description -->
+  <include file="$(find husky_description)/launch/description.launch" />
+
+  <!--- Run husky base <arg name="port" value="/dev/serial/by-id/usb-FTDI_UC232R_FTUSXZW7-if00-port0" />-->
+  <include file="$(find husky_base)/launch/base.launch">
+  <arg name="port" value="/dev/ttyUSB0" />	
+  </include>
+  
+  <!--- Laser Scanner -->
+  <arg name="host" default="192.168.0.2" />
+  <node pkg="lms1xx" name="lms1xx" type="LMS1xx_node">
+    <param name="host" value="$(arg host)" />
+  </node>
+
+  <!--- Run local laser assembler -->
+  <node type="laser_scan_assembler" pkg="laser_assembler" name="my_assembler">
+    <param name="max_scans" type="int" value="10000" />
+    <param name="fixed_frame" type="string" value="base_link" />
+    <param name="tf_cache_time_secs" type="double" value="30.0" />
+  </node>
+
+  <!--- Run rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" required="True" > 
+  </node>
+
+  <!--- Run Powercube node-->
+  <node name="cube_node" pkg="wrock" type="cube_node" output="screen" />
+  
+  
+  <!--- Run Denso node
+  <node name="denso_node" pkg="wrock" type="denso_node" output="screen" />-->
+ <!--- Run Move Base -->
+ 
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <remap from="cmd_vel" to="husky/cmd_vel" />
+  </node>
+
+
+  <!--- Run master node--> 
+    <node name="master" pkg="wrock" type="master" output="screen"> 
+</node>    
+
+
+</launch>

@@ -1,0 +1,6 @@
+sensor_msgs/PointCloud2 cloud_1
+sensor_msgs/PointCloud2 cloud_2
+bool save
+string filename
+---
+sensor_msgs/PointCloud2 cloud_out

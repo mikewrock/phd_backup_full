@@ -1,0 +1,17 @@
+<launch>
+
+  <!--- Run description -->
+  <include file="$(find husky_description)/launch/description.launch" /> 
+
+
+  
+  <!--- Run husky base <arg name="port" value="/dev/serial/by-id/usb-FTDI_UC232R_FTUSXZW7-if00-port0" />-->
+  <include file="$(find husky_base)/launch/base.launch">
+  <arg name="port" value="/dev/ttyUSB0" />	
+  </include>
+  
+
+
+
+
+</launch>

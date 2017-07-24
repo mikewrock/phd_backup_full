@@ -1,0 +1,20 @@
+\subsubsection parameters ROS parameters
+
+Reads and maintains the following parameters on the ROS server
+
+- \b "~k_search" : \b [int] Number of neighbours to search for normal min: -2147483648, default: 30, max: 2147483647
+- \b "~max_iterations" : \b [int] Iterations for plane finding min: -2147483648, default: 1000, max: 2147483647
+- \b "~radius_search" : \b [double] radius for searching for coplanar points min: -std::numeric_limits<double>::infinity(), default: 0.0, max: std::numeric_limits<double>::infinity()
+- \b "~distance_threshold" : \b [double] threshold for how accurately points fit model min: -std::numeric_limits<double>::infinity(), default: 0.15, max: std::numeric_limits<double>::infinity()
+- \b "~normal_distance_weight" : \b [double] how much weight to put on normals vs coplanarity (1 for only normals) min: -std::numeric_limits<double>::infinity(), default: 1.0, max: std::numeric_limits<double>::infinity()
+- \b "~eps_angle" : \b [double] allowable angle variance min: -std::numeric_limits<double>::infinity(), default: 0.2, max: std::numeric_limits<double>::infinity()
+- \b "~leaf_size" : \b [double] downsample leaf size min: -std::numeric_limits<double>::infinity(), default: 0.02, max: std::numeric_limits<double>::infinity()
+- \b "~optimize_coefficients" : \b [bool] optimize plane coefficients after calculating min: False, default: False, max: True
+- \b "~skip_downsample" : \b [bool] skip the downsampling min: False, default: False, max: True
+- \b "~distance_threshold2" : \b [double] threshold for how accurately points fit model during refinement min: -std::numeric_limits<double>::infinity(), default: 0.02, max: std::numeric_limits<double>::infinity()
+- \b "~normal_distance_weight2" : \b [double] how much weight to put on normals vs coplanarity (0 is entirely distance based) min: -std::numeric_limits<double>::infinity(), default: 0.1, max: std::numeric_limits<double>::infinity()
+- \b "~optimize_coefficients2" : \b [bool] optimize plane coefficients after calculating min: False, default: False, max: True
+- \b "~dot_product" : \b [double] value of dot product between planes min: -std::numeric_limits<double>::infinity(), default: 0.4567, max: std::numeric_limits<double>::infinity()
+- \b "~dot_product_accuracy" : \b [double] threshold for accepting marker planes min: -std::numeric_limits<double>::infinity(), default: 0.02, max: std::numeric_limits<double>::infinity()
+- \b "~purpendicularity_accuracy" : \b [double] threshold for accepting vertical planes min: -std::numeric_limits<double>::infinity(), default: 0.15, max: std::numeric_limits<double>::infinity()
+

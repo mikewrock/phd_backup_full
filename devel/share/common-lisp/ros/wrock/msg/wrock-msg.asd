@@ -1,0 +1,21 @@
+
+(cl:in-package :asdf)
+
+(defsystem "wrock-msg"
+  :depends-on (:roslisp-msg-protocol :roslisp-utils )
+  :components ((:file "_package")
+    (:file "arm_msg" :depends-on ("_package_arm_msg"))
+    (:file "_package_arm_msg" :depends-on ("_package"))
+    (:file "cube_kin" :depends-on ("_package_cube_kin"))
+    (:file "_package_cube_kin" :depends-on ("_package"))
+    (:file "cube_pose" :depends-on ("_package_cube_pose"))
+    (:file "_package_cube_pose" :depends-on ("_package"))
+    (:file "joint_pose" :depends-on ("_package_joint_pose"))
+    (:file "_package_joint_pose" :depends-on ("_package"))
+    (:file "cube_msg" :depends-on ("_package_cube_msg"))
+    (:file "_package_cube_msg" :depends-on ("_package"))
+    (:file "joint_kin" :depends-on ("_package_joint_kin"))
+    (:file "_package_joint_kin" :depends-on ("_package"))
+    (:file "Num" :depends-on ("_package_Num"))
+    (:file "_package_Num" :depends-on ("_package"))
+  ))

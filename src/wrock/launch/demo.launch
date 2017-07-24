@@ -1,0 +1,35 @@
+<launch>
+
+<param name="/use_sim_time" value="true" />
+
+  <!--- Run description -->
+  <include file="$(find husky_description)/launch/description.launch" />
+  
+<node name="playback" pkg="rosbag" type="play" args="-u 20 --clock /home/mike/scans2.bag"/>
+  
+<!--- Run rviz -->
+    <node name="rviz" pkg="rviz" type="rviz"> 
+</node>
+
+
+
+  <!--- Run pcf -->
+    <node name="pco" pkg="wrock" type="matching" output="screen"> 
+</node>  
+<!--- Run pcf -->
+    <node name="global_trans" pkg="wrock" type="global_trans" output="screen"> 
+</node> 
+<!--- Runpcf -->
+    <node name="cloud_parser" pkg="wrock" type="cloud_parser" output="screen"> 
+</node>
+<!--- Run global laser assembler -->
+  <node type="point_cloud_assembler" pkg="laser_assembler"
+        name="global_assembler">
+<remap from="assemble_scans" to="assemble_clouds"/>
+    <remap from="cloud" to="local_cloud"/>
+    <param name="max_clouds" type="int" value="400" />
+    <param name="fixed_frame" type="string" value="marker" />
+    <param name="tf_cache_time_secs" type="double" value="40.0" />
+  </node>
+
+</launch>

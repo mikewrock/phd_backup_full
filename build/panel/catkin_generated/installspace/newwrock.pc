@@ -1,0 +1,8 @@
+prefix=/home/mike/catkin_ws/install
+
+Name: newwrock
+Description: Description of newwrock
+Version: 0.0.0
+Cflags: -I/home/mike/catkin_ws/install/include
+Libs: -L/home/mike/catkin_ws/install/lib 
+Requires: sensor_msgs tf urdf diagnostic_updater diagnostic_msgs control_msgs message_runtime roscpp

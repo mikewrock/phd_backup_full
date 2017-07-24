@@ -1,0 +1,12 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>aiga-down-arrow-bg.svg</file>
+    <file>aiga-forward-and-right-arow-bg.svg</file>
+    <file>aiga-left-and-down-arrow.svg</file>
+    <file>aiga-left-arrow-bg.svg</file>
+    <file>aiga-right-arrow-bg.svg</file>
+    <file>aiga-up-arrow-bg.svg</file>
+    <file>Rotate-Arrow-Bottom-to-Left.svg</file>
+    <file>Rotate-Arrow-Bottom-to-Right.svg</file>
+  </qresource>
+</RCC>

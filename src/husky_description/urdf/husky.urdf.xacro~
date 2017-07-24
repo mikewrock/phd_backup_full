@@ -1,0 +1,501 @@
+<?xml version="1.0"?>
+<!--
+Software License Agreement (BSD)
+
+\file      husky.urdf.xacro
+\authors   Paul Bovbel <pbovbel@clearpathrobotics.com>, Devon Ash <dash@clearpathrobotics.com>
+\copyright Copyright (c) 2015, Clearpath Robotics, Inc., All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that
+the following conditions are met:
+ * Redistributions of source code must retain the above copyright notice, this list of conditions and the
+   following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+   following disclaimer in the documentation and/or other materials provided with the distribution.
+ * Neither the name of Clearpath Robotics nor the names of its contributors may be used to endorse or promote
+   products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WAR-
+RANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, IN-
+DIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<robot name="husky_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- Included URDF/XACRO Files -->
+  <xacro:include filename="$(find husky_description)/urdf/decorations.urdf.xacro" />
+  <xacro:include filename="$(find husky_description)/urdf/wheel.urdf.xacro" />
+
+  <xacro:include filename="$(find husky_description)/urdf/accessories/kinect_camera.urdf.xacro"/>
+  <xacro:include filename="$(find husky_description)/urdf/accessories/sick_lms1xx_mount.urdf.xacro"/>
+  <xacro:include filename="$(find husky_description)/urdf/accessories/sensor_arch.urdf.xacro"/>
+  <xacro:include filename="$(find ur_description)/urdf/ur5.urdf.xacro" />
+
+  <property name="M_PI" value="3.14159"/>
+
+  <!-- Base Size -->
+  <property name="base_x_size" value="0.98740000" />
+  <property name="base_y_size" value="0.57090000" />
+  <property name="base_z_size" value="0.24750000" />
+
+  <!-- Wheel Mounting Positions -->
+  <xacro:property name="wheelbase" value="0.5120" />
+  <xacro:property name="track" value="0.5708" />
+  <xacro:property name="wheel_vertical_offset" value="0.03282" />
+
+  <!-- Wheel Properties -->
+  <xacro:property name="wheel_length" value="0.1143" />
+  <xacro:property name="wheel_radius" value="0.17775" />
+
+  <xacro:macro name="husky_robot">
+
+    <!-- Base link is the center of the robot's bottom plate -->
+    <link name="base_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://husky_description/meshes/base_link.dae" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 ${base_z_size/4}" rpy="0 0 0" />
+        <geometry>
+          <box size="${base_x_size} ${base_y_size} ${base_z_size/2}"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0 0 ${base_z_size*3/4}" rpy="0 0 0" />
+        <geometry>
+          <box size="${base_x_size*4/5} ${base_y_size} ${base_z_size/2}"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Base footprint is on the ground under the robot -->
+    <link name="base_footprint"/>
+
+    <joint name="base_footprint_joint" type="fixed">
+      <origin xyz="0 0 ${wheel_vertical_offset - wheel_radius}" rpy="0 0 0" />
+      <parent link="base_link" />
+      <child link="base_footprint" />
+    </joint>
+
+    <!-- Interial link stores the robot's inertial information -->
+    <link name="inertial_link">
+      <inertial>
+        <mass value="33.455" />
+        <origin xyz="-0.08748 -0.00085 0.09947" />
+        <inertia ixx="0.6022" ixy="-0.02364" ixz="-0.1197" iyy="1.7386" iyz="-0.001544" izz="2.0296" />
+      </inertial>
+    </link>
+
+    <joint name="inertial_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="base_link" />
+      <child link="inertial_link" />
+    </joint>
+
+    <!-- IMU Link is the standard mounting position for the UM6 IMU.-->
+    <!-- Can be modified with environment variables in /etc/ros/setup.bash -->
+    <link name="imu_link"/>
+    <joint name="imu_joint" type="fixed">
+      <origin xyz="$(optenv HUSKY_IMU_XYZ 0.19 0 0.149)" rpy="$(optenv HUSKY_IMU_RPY 0 -1.5708 3.1416)" />
+      <parent link="base_link" />
+      <child link="imu_link" />
+    </joint>
+    <gazebo reference="imu_link">
+    </gazebo>
+
+    <!-- Husky wheel macros -->
+    <xacro:husky_wheel wheel_prefix="front_left">
+      <origin xyz="${wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
+    </xacro:husky_wheel>
+    <xacro:husky_wheel wheel_prefix="front_right">
+      <origin xyz="${wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
+    </xacro:husky_wheel>
+    <xacro:husky_wheel wheel_prefix="rear_left">
+      <origin xyz="${-wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
+    </xacro:husky_wheel>
+    <xacro:husky_wheel wheel_prefix="rear_right">
+      <origin xyz="${-wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
+    </xacro:husky_wheel>
+
+    <xacro:husky_decorate />
+
+    <xacro:if value="$(arg ur5_enabled)">
+
+      <xacro:property name="reflect" value="-1" />
+
+      <!-- Spawn arm -->
+      <xacro:ur5_robot prefix="ur5_arm_" joint_limited="true"/>
+
+      <!-- Join arm -->
+      <joint name="ur5_arm_base" type="fixed">
+        <parent link="top_plate_link" />
+        <child link="ur5_arm_base_link" />
+        <origin xyz="0.3058 0 0.0065" rpy="0.0 0.0 -1.57" />
+      </joint>
+
+    </xacro:if>
+
+    <xacro:if value="$(arg laser_enabled)">
+
+      <sick_lms1xx_mount prefix="base" topic="scan"/>
+
+      <joint name="laser_mount_joint" type="fixed">
+        <origin xyz="$(optenv HUSKY_LMS1XX_XYZ 0.2206 0.0 0.00635)"
+                rpy="$(optenv HUSKY_LMS1XX_RPY 0.0 0.0 0.0)" />
+        <parent link="top_plate_link" />
+        <child link="base_laser_mount" />
+      </joint>
+
+    </xacro:if>
+
+    <xacro:if value="$(arg kinect_enabled)">
+
+      <xacro:sensor_arch prefix="" parent="top_plate_link">
+        <origin xyz="-0.35 0 0.51" rpy="0 0 -3.14"/>
+      </xacro:sensor_arch>
+      <joint name="kinect_frame_joint" type="fixed">
+        <origin xyz="$(optenv HUSKY_KINECT_XYZ 0 0 0)" rpy="$(optenv HUSKY_KINECT_RPY 0 0.18 3.14)" />
+        <parent link="sensor_arch_mount_link"/>
+        <child link="camera_link"/>
+      </joint>
+
+      <xacro:kinect_camera prefix="camera"/>
+    </xacro:if>
+
+  </xacro:macro>
+
+<!-- POWERCUBES -->
+
+    <property name="base_cube_origin_x" value=".1" />
+    <property name="base_cube_origin_y" value=".15" />
+    <property name="base_cube_origin_z" value=".4" />
+        
+<!-- Angle connector -->
+    <link name="angle_connector">
+        <inertial>
+            <mass value="0.0001" />
+            <origin xyz="0 0 0" />
+            <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                iyy="0.0001" iyz="0.0" 
+                izz="0.0001" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://husky_description/meshes/cubefinal.stl" />
+            </geometry>
+            <material name="DarkPCubeGrey" >
+		<color rgba=".1 .1 .1 1" />
+    	    </material>
+        </visual>
+    </link>
+
+
+    <joint name="base_cube_joint" type="fixed">
+		<origin xyz="0.265 .2005 0.345" rpy="${M_PI} ${M_PI/2} 0" />
+        <parent link="base_link"/>
+        <child link="angle_connector" />
+    </joint>
+<!-- FIXED-CUBE-5 -->
+    <link name="fixed_cube_5">
+        <inertial>
+            <mass value="0.0001" />
+            <origin xyz="0 0 0" />
+            <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                iyy="0.0001" iyz="0.0" 
+                izz="0.0001" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.07 0.07 0.07" />
+            </geometry>
+            <material name="PCubeGrey" >
+		<color rgba=".2 .2 .2 1" />
+    	    </material>
+        </visual>
+    </link>
+
+    <joint name="fixed_cube_5_joint" type="fixed">
+		<origin xyz="0.035 0.035 -0.035" rpy="0 0 ${-M_PI/2}" />
+        <parent link="angle_connector"/>
+        <child link="fixed_cube_5" />
+    </joint>
+ <!-- CUBE-5 -->
+    <link name="cube_5">
+        <inertial>
+            <mass value="0.0001" />
+            <origin xyz="0 0 0" />
+            <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                iyy="0.0001" iyz="0.0" 
+                izz="0.0001" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.07 0.07 0.07" />
+            </geometry>
+            <material name="PCubeGrey" >
+		<color rgba=".2 .2 .2 1" />
+    	    </material>
+        </visual>
+    </link>
+
+    <joint name="cube_5_joint" type="continuous">
+		<origin xyz="-0.07 0 0" rpy="0 0 0" />
+	  <axis xyz="-1 0 0" />
+        <parent link="fixed_cube_5"/>
+        <child link="cube_5" />
+    </joint>
+<!-- End Effector -->
+    <link name="endeffector">
+        <inertial>
+            <mass value="0.0001" />
+            <origin xyz="0 0 0" />
+            <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                iyy="0.0001" iyz="0.0" 
+                izz="0.0001" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size=" 0.325  0.03 0.03" />
+            </geometry>
+            <material name="8020Grey" >
+		<color rgba=".3 .3 .3 1" />
+    	    </material>
+        </visual>
+    </link>
+
+    <link name="endeffector2">
+        <inertial>
+            <mass value="0.0001" />
+            <origin xyz="0 0 0" />
+            <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                iyy="0.0001" iyz="0.0" 
+                izz="0.0001" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size=" 0.33  0.03 0.03" />
+            </geometry>
+            <material name="8020Grey" >
+		<color rgba=".3 .3 .3 1" />
+    	    </material>
+        </visual>
+    </link>
+
+    <joint name="endeffector_joint" type="fixed">
+		<origin xyz="-.12 0 0" rpy="${-M_PI*.75} 0 0" />
+        <parent link="cube_5"/>
+        <child link="endeffector" />
+    </joint>
+    <joint name="endeffector2_joint" type="fixed">
+		<origin xyz="0 0 -.165" rpy="0 ${-M_PI/2} 0" />
+        <parent link="endeffector"/>
+        <child link="endeffector2" />
+    </joint>
+
+
+  <!-- LASER payload (by default, a SICK LMS111). -->
+  
+    <link name="laser">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <!-- Origin of this mesh is the base of the bracket. -->
+          <mesh filename="package://husky_description/meshes/sick_lms1xx.dae" />
+        </geometry>
+        <material name="dark_grey" />
+      </visual>
+    </link>
+
+    <joint name="laser_mount_joint" type="fixed">
+      <origin xyz="0 0.075 0" rpy="${-M_PI/2} 0 ${M_PI/2}" />
+      <parent link="endeffector2" />
+      <child link="laser" />
+    </joint>
+
+
+  <link name="BASE">
+    <visual>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename ="file:///home/mike/Documents/catkin_ws/src/phd/vs060/model/meshes/j1.stl" scale = "0.001 0.001 0.001">
+         </mesh>
+      </geometry>
+            <material name="blue">
+        <color rgba="0 0 .8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename ="file:///home/mike/Documents/catkin_ws/src/phd/vs060/model/meshes/j1.stl" scale = "0.001 0.001 0.001">
+         </mesh>
+       </geometry>
+    </collision>
+    <inertial>
+      <mass value="1000" />
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <inertia ixx="20" ixy="0" ixz="0" iyy="20" iyz="0" izz="20"/>
+    </inertial>
+  </link>
+  <link name="J1">
+    <visual>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/mike/Documents/catkin_ws/src/phd/vs060/model/meshes/j2.stl" scale = "0.001 0.001 0.001"/>
+      </geometry>
+            <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/mike/Documents/catkin_ws/src/phd/vs060/model/meshes/j2.stl" scale = "0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="4.327" />
+      <origin xyz="0.013885 -0.005997 0.043991" rpy="0 -0 0"/>
+      <inertia ixx="0.025492" ixy="0" ixz="0" iyy="0.032502" iyz="-3.26672e-18" izz="0.01779"/>
+    </inertial>
+  </link>
+  <link name="J2">
+    <visual>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/mike/Documents/catkin_ws/src/phd/vs060/model/meshes/j3.stl" scale = "0.001 0.001 0.001"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/mike/Documents/catkin_ws/src/phd/vs060/model/meshes/j3.stl" scale = "0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="9.475" />
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <inertia ixx="0.108024" ixy="0" ixz="0" iyy="0.025579" iyz="1.93827e-17" izz="0.112871"/>
+    </inertial>
+  </link>
+  <link name="J3">
+    <visual>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/mike/Documents/catkin_ws/src/phd/vs060/model/meshes/j4.stl" scale = "0.001 0.001 0.001"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/mike/Documents/catkin_ws/src/phd/vs060/model/meshes/j4.stl" scale = "0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="4.097" />
+      <origin xyz="0.011544 -0.057408 0.006203" rpy="${M_PI/2} -0 0"/>
+      <inertia ixx="0.015999" ixy="0" ixz="0" iyy="0.00638" iyz="2.33191e-18" izz="0.016882"/>
+    </inertial>
+  </link>
+  <link name="J4">
+    <visual>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/mike/Documents/catkin_ws/src/phd/vs060/model/meshes/j5.stl" scale = "0.001 0.001 0.001"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/mike/Documents/catkin_ws/src/phd/vs060/model/meshes/j5.stl" scale = "0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.779" />
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <inertia ixx="0.005106" ixy="0" ixz="0" iyy="0.005266" iyz="-5.87308e-19" izz="0.002621"/>
+    </inertial>
+  </link>
+  <link name="J5">
+    <visual>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/mike/Documents/catkin_ws/src/phd/vs060/model/meshes/j6.stl" scale = "0.001 0.001 0.001"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/mike/Documents/catkin_ws/src/phd/vs060/model/meshes/j6.stl" scale = "0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.211" />
+      <origin xyz="0.011902 -0.004739 0.010398" rpy="${M_PI/2} -0 0"/>
+      <inertia ixx="0.001093" ixy="0" ixz="0" iyy="0.001629" iyz="-3.10862e-21" izz="0.001615"/>
+    </inertial>
+  </link>
+  
+
+  <joint name="j1" type="continuous">
+    <parent link="BASE"/>
+    <child  link="J1"/>
+    <origin xyz="0 0 0.155" rpy="0 -0 0 "/>
+    <axis   xyz="0 0 1"/>
+    <!-- <limit lower="-2.96706" upper="2.96706" effort="19.7336" velocity="0.5" /> -->
+  </joint>
+  <joint name="j2" type="continuous">
+    <parent link="J1"/>
+    <child  link="J2"/>
+    <origin xyz="0 0 0.125" rpy="0 -0 0 "/>
+    <axis   xyz="0 1 0"/>
+  </joint>
+  <joint name="j3" type="continuous">
+    <parent link="J2"/>
+    <child  link="J3"/>
+    <origin xyz="0 0 .210" rpy="0 -0 0 "/>
+    <axis   xyz="0 1 0"/>
+  </joint>
+  <joint name="j4" type="continuous">
+    <parent link="J3"/>
+    <child  link="J4"/>
+    <origin xyz="-.083 0 .075" rpy="0 -0 0 "/>
+    <axis   xyz="1 0 0"/>
+  </joint>
+  <joint name="j5" type="continuous">
+    <parent link="J4"/>
+    <child  link="J5"/>
+    <origin xyz="-.127 0 0" rpy="0 -0 0 "/>
+    <axis   xyz="0 1 0"/>
+  </joint>
+
+  
+      <joint name="Arm_Mount" type="fixed">
+      <origin xyz="-0.272 -.15 0" rpy="0 0 ${M_PI/2}" />
+      <parent link="user_rail_link" />
+      <child link="BASE" />
+    </joint>
+
+
+
+</robot>

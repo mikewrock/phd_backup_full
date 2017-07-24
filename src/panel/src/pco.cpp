@@ -1,0 +1,93 @@
+#include <ros/ros.h>
+// PCL specific includes
+#include <sensor_msgs/PointCloud2.h>
+#include <pcl_conversions/pcl_conversions.h>
+#include <pcl/point_cloud.h>
+#include <pcl/PCLPointCloud2.h>
+#include <pcl/point_types.h>
+#include <pcl/filters/voxel_grid.h>
+#include <string>
+#include <tf/transform_broadcaster.h>
+#include <pcl/conversions.h>
+#include "pcl_ros/transforms.h"
+#include <iostream>
+#include <pcl/filters/passthrough.h>
+#include <pcl/io/pcd_io.h>
+ros::Publisher pub;
+float px, py, pz;
+
+void 
+cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
+{
+  
+ROS_INFO("GOT A CLOUD");
+sensor_msgs::PointCloud2 cloud_msg2 = *cloud_msg;
+cloud_msg2.fields[3].name = "intensity";
+//pcl::PointCloud<pcl::PointXYZI> cloud;
+pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
+pcl::fromROSMsg(cloud_msg2,*cloud);
+pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_filteredx (new pcl::PointCloud<pcl::PointXYZ>);
+pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_filteredxy (new pcl::PointCloud<pcl::PointXYZ>);
+pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_filteredxyz (new pcl::PointCloud<pcl::PointXYZ>);
+
+  // Create the filtering object
+  pcl::PassThrough<pcl::PointXYZ> pass;
+  pass.setInputCloud (cloud);
+  pass.setFilterFieldName ("x");
+  pass.setFilterLimits (0,1.13);
+  //pass.setFilterLimitsNegative (true);
+  pass.filter (*cloud_filteredx);
+
+  pass.setInputCloud (cloud_filteredx);
+  pass.setFilterFieldName ("y");
+  pass.setFilterLimits (-.86,.28);
+  //pass.setFilterLimitsNegative (true);
+  pass.filter (*cloud_filteredxy);
+
+  pass.setInputCloud (cloud_filteredxy);
+  pass.setFilterFieldName ("z");
+  pass.setFilterLimits (-.12,.95);
+  //pass.setFilterLimitsNegative (true);
+  pass.filter (*cloud_filteredxyz);
+
+  std::cerr << "Cloud after filtering: " << std::endl;
+  for (size_t i = 0; i < cloud_filteredxyz->points.size (); ++i)
+    std::cerr << "    " << cloud_filteredxyz->points[i].x << " " 
+                        << cloud_filteredxyz->points[i].y << " " 
+                        << cloud_filteredxyz->points[i].z << std::endl;
+
+  // Convert to ROS data type
+  sensor_msgs::PointCloud2 output;
+  pcl::toROSMsg(*cloud_filteredxyz, output);
+pcl::io::savePCDFileASCII ("/home/mike/flo3.pcd", *cloud_filteredxyz);
+  // Publish the data
+  pub.publish (output);
+}
+
+int
+main (int argc, char** argv)
+{
+  // Initialize ROS
+  ros::init (argc, argv, "my_pcl_tutorial");
+  ros::NodeHandle nh;
+
+  // Create a ROS subscriber for the input point cloud
+  ros::Subscriber sub = nh.subscribe ("assembled_cloud", 1, cloud_cb);
+
+  // Create a ROS publisher for the output point cloud
+  pub = nh.advertise<sensor_msgs::PointCloud2> ("laser_trans", 1);
+
+  //tf::TransformBroadcaster broadcaster;
+ros::spin();
+  // Spin
+ /* while (ros::ok()){
+  ros::spinOnce();
+tf::Transform odom_trans;
+    odom_trans.setOrigin( tf::Vector3(px, py, pz) );
+  tf::Quaternion q;
+  q.setRPY(0, 0, 0);
+	odom_trans.setRotation(q);
+        //send the joint state and transform
+        broadcaster.sendTransform(tf::StampedTransform(odom_trans, ros::Time::now(), "global", "laser"));
+  }*/
+}

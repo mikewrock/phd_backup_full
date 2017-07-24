@@ -1,0 +1,33 @@
+<launch>
+
+
+
+  <!--- Run description -->
+  <include file="$(find husky_description)/launch/description.launch" />
+  
+<!--- Run cube_move -->
+<node name="cube_move" pkg="wrock" type="cube_move" output="screen" />
+
+  <arg name="host" default="192.168.0.2" />
+  <node pkg="lms1xx" name="lms1xx" type="LMS1xx_node">
+    <param name="host" value="$(arg host)" />
+  </node>
+
+<!--- Run local laser assembler -->
+  <node type="laser_scan_assembler" pkg="laser_assembler" name="my_assembler">
+    <param name="max_scans" type="int" value="4000" />
+    <param name="fixed_frame" type="string" value="base_link" />
+    <param name="tf_cache_time_secs" type="double" value="30.0" />
+  </node>
+
+
+<!--- Run demo visualization -->
+<node name="laser_demo" pkg="wrock" type="laser_demo" output="screen" />
+
+  <!--- Run rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" > 
+</node>
+
+
+
+</launch>

@@ -1,0 +1,52 @@
+<launch>
+
+  <!--- Run husky base -->
+  <include file="$(find husky_base)/launch/base.launch">
+	<arg name="port" value="/dev/serial/by-id/usb-FTDI_UC232R_FTUSXZW7-if00-port0" />
+  </include>
+
+  <!--- Run description -->
+  <include file="$(find husky_description)/launch/description.launch" />
+
+  <!--- Run ekf -->
+  <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf" output="screen">
+  <rosparam command="load" file="/home/mike/catkin_ws/src/husky_wrock/config/husky_ekf.yaml"/>
+  <remap from="gps" to="navsat/enu"/>
+  <remap from="imu_data" to="imu/data_compass"/>
+  <remap from="odom" to="encoder"/>
+</node>
+
+  <!--- Run um6 -->
+  <node pkg="um6" type="um6_driver" name="um6_driver">
+    <param name="port" type="string" value="/dev/serial/by-id/usb-FTDI_TTL232R-3V3_FTG3VBFM-if00-port0"/>
+    <param name="mag_updates" type="bool" value="false"/>
+  </node>
+  <node pkg="tf" type="static_transform_publisher" name="imu_tf"
+        args="$(optenv HUSKY_IMU_TF 0 0 0 1.5705 1.5705 0) base_link imu_link 10"/>
+	
+  <!--- Run gmapping -->
+  <include file="$(find husky_navigation)/launch/gmapping.launch" />
+
+  <!--- Run Move Base -->
+ 
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find husky_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="/opt/ros/hydro/share/husky_navigation/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="/opt/ros/hydro/share/husky_navigation/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="/opt/ros/hydro/share/husky_navigation/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="/opt/ros/hydro/share/husky_navigation/config/base_local_planner_params.yaml" command="load" />
+    <remap from="cmd_vel" to="husky/cmd_vel" />
+  </node>
+
+
+  <!--- Run openni -->
+  <include file="$(find openni_launch)/launch/openni.launch" />
+
+  <!--- Run depthimage_to_laserscan -->
+  <node name="depthimage_to_laserscan" pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" > 
+  <remap from="image" to="/camera/depth/image_raw"/>
+</node>
+
+  <!--- Run static transform for kinect -->
+  <node pkg="tf" type="static_transform_publisher" name="kinect_broadcaster" args="0 -.05 0 0 0 0 base_footprint_front_bumper_part camera_link 100" />
+</launch>

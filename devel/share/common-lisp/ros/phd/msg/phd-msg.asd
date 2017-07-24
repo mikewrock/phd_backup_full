@@ -1,0 +1,21 @@
+
+(cl:in-package :asdf)
+
+(defsystem "phd-msg"
+  :depends-on (:roslisp-msg-protocol :roslisp-utils )
+  :components ((:file "_package")
+    (:file "arm_msg" :depends-on ("_package_arm_msg"))
+    (:file "_package_arm_msg" :depends-on ("_package"))
+    (:file "trajectory_array" :depends-on ("_package_trajectory_array"))
+    (:file "_package_trajectory_array" :depends-on ("_package"))
+    (:file "trajectory_section" :depends-on ("_package_trajectory_section"))
+    (:file "_package_trajectory_section" :depends-on ("_package"))
+    (:file "cube_msg" :depends-on ("_package_cube_msg"))
+    (:file "_package_cube_msg" :depends-on ("_package"))
+    (:file "trajectory_msg" :depends-on ("_package_trajectory_msg"))
+    (:file "_package_trajectory_msg" :depends-on ("_package"))
+    (:file "trajectory_point" :depends-on ("_package_trajectory_point"))
+    (:file "_package_trajectory_point" :depends-on ("_package"))
+    (:file "trajectory_test" :depends-on ("_package_trajectory_test"))
+    (:file "_package_trajectory_test" :depends-on ("_package"))
+  ))

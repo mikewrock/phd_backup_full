@@ -1,0 +1,19 @@
+(cl:defpackage phd-msg
+  (:use )
+  (:export
+   "<ARM_MSG>"
+   "ARM_MSG"
+   "<TRAJECTORY_ARRAY>"
+   "TRAJECTORY_ARRAY"
+   "<TRAJECTORY_SECTION>"
+   "TRAJECTORY_SECTION"
+   "<CUBE_MSG>"
+   "CUBE_MSG"
+   "<TRAJECTORY_MSG>"
+   "TRAJECTORY_MSG"
+   "<TRAJECTORY_POINT>"
+   "TRAJECTORY_POINT"
+   "<TRAJECTORY_TEST>"
+   "TRAJECTORY_TEST"
+  ))
+

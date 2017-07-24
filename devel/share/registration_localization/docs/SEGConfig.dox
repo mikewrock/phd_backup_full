@@ -1,0 +1,23 @@
+\subsubsection parameters ROS parameters
+
+Reads and maintains the following parameters on the ROS server
+
+- \b "~k_search" : \b [int] An Integer parameter min: -2147483648, default: 30, max: 2147483647
+- \b "~max_iterations" : \b [int] An Integer parameter min: -2147483648, default: 1000, max: 2147483647
+- \b "~radius_search" : \b [double] A double parameter min: -std::numeric_limits<double>::infinity(), default: 0.0, max: std::numeric_limits<double>::infinity()
+- \b "~distance_threshold" : \b [double] A double parameter min: -std::numeric_limits<double>::infinity(), default: 0.15, max: std::numeric_limits<double>::infinity()
+- \b "~normal_distance_weight" : \b [double] A double parameter min: -std::numeric_limits<double>::infinity(), default: 1.0, max: std::numeric_limits<double>::infinity()
+- \b "~eps_angle" : \b [double] A double parameter min: -std::numeric_limits<double>::infinity(), default: 0.2, max: std::numeric_limits<double>::infinity()
+- \b "~leaf_size" : \b [double] A double parameter min: -std::numeric_limits<double>::infinity(), default: 0.02, max: std::numeric_limits<double>::infinity()
+- \b "~minmax" : \b [double] A double parameter min: -std::numeric_limits<double>::infinity(), default: 0.5, max: std::numeric_limits<double>::infinity()
+- \b "~minmin" : \b [double] A double parameter min: -std::numeric_limits<double>::infinity(), default: 0.01, max: std::numeric_limits<double>::infinity()
+- \b "~model_type" : \b [double] A double parameter min: -std::numeric_limits<double>::infinity(), default: 17.0, max: std::numeric_limits<double>::infinity()
+- \b "~optimize_coefficients" : \b [bool] A Boolean parameter min: False, default: False, max: True
+- \b "~skip_downsample" : \b [bool] A Boolean parameter min: False, default: True, max: True
+- \b "~distance_threshold2" : \b [double] A double parameter min: -std::numeric_limits<double>::infinity(), default: 0.02, max: std::numeric_limits<double>::infinity()
+- \b "~normal_distance_weight2" : \b [double] A double parameter min: -std::numeric_limits<double>::infinity(), default: 0.1, max: std::numeric_limits<double>::infinity()
+- \b "~optimize_coefficients2" : \b [bool] A Boolean parameter min: False, default: False, max: True
+- \b "~dot_product" : \b [double] A double parameter min: -std::numeric_limits<double>::infinity(), default: 0.4567, max: std::numeric_limits<double>::infinity()
+- \b "~dot_product_accuracy" : \b [double] A double parameter min: -std::numeric_limits<double>::infinity(), default: 0.02, max: std::numeric_limits<double>::infinity()
+- \b "~purpendicularity_accuracy" : \b [double] A double parameter min: -std::numeric_limits<double>::infinity(), default: 0.15, max: std::numeric_limits<double>::infinity()
+

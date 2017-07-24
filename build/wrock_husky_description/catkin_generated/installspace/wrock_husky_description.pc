@@ -1,0 +1,8 @@
+prefix=/home/mike/catkin_ws/install
+
+Name: wrock_husky_description
+Description: Description of wrock_husky_description
+Version: 0.0.2
+Cflags: 
+Libs: -L/home/mike/catkin_ws/install/lib 
+Requires: 

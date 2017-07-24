@@ -1,0 +1,86 @@
+<launch>
+
+  <!--- Run description  -->
+  <include file="$(find wrock_husky_description)/launch/description.launch" />
+  <!--- Run husky base -->
+  <include file="$(find husky_control)/launch/control.launch">
+  <arg name="port" value="/dev/serial/by-id/usb-FTDI_UC232R_FTUSXZW7-if00-port0" />
+  </include>
+ 
+  <!--- Laser Scanner default="192.168.0.2"-->
+  <arg name="host" default="192.168.0.2"  />
+  <node pkg="lms1xx" name="lms1xx" type="LMS1xx_node" output = "screen">
+    <param name="host" value="$(arg host)" />
+  </node>
+
+  <!--- Laser filters-->
+  <node pkg="laser_filters" type="scan_to_scan_filter_chain"
+      name="laser_filter" output = "screen">
+    <rosparam command="load" file="$(find phd)/cfg/my_laser_config.yaml" />
+  </node>
+
+  <!--- Run local laser assembler -->
+  <node type="laser_scan_assembler" pkg="laser_assembler" name="my_assembler">
+    <param name="max_scans" type="int" value="10000" />
+    <param name="fixed_frame" type="string" value="base_link" />
+    <param name="tf_cache_time_secs" type="double" value="30.0" />
+    <remap from="scan" to="scan_filtered" />
+  </node>
+
+  <!--- Run rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" required="True" output="screen" > 
+  </node>
+
+  <!--- Run Powercube node-->
+  <node name="cube_node" pkg="phd" type="cube_node" output="screen" />
+
+  <!--- Run Joint State Fusion node-->
+  <node name="joint_fusion_node" pkg="phd" type="joint_fusion_node" output="screen" />
+  
+  
+  <!--- Run Denso node
+  <node name="denso_node" pkg="wrock" type="denso_node" output="screen" />
+-->
+  <!--- Run master node 
+    <node name="master" pkg="wrock" type="master" output="screen"> 
+</node>    -->
+<!-- hector mapping -->
+<node pkg="hector_mapping" type="hector_mapping" 
+    name="hector_mapping" output="screen">
+
+
+
+  </node>
+  <!--- Run Move Base -->
+
+  <arg name="no_static_map" default="false"/>
+
+  <arg name="base_global_planner" default="navfn/NavfnROS"/>
+  <arg name="base_local_planner" default="dwa_local_planner/DWAPlannerROS"/>
+ 
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+
+    <param name="base_global_planner" value="$(arg base_global_planner)"/>
+    <param name="base_local_planner" value="$(arg base_local_planner)"/>  
+    <rosparam file="$(find husky_navigation)/config/planner.yaml" command="load"/>
+
+    <!-- observation sources located in costmap_common.yaml -->
+    <rosparam file="$(find husky_navigation)/config/costmap_common.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find husky_navigation)/config/costmap_common.yaml" command="load" ns="local_costmap" />
+
+    <!-- local costmap, needs size -->
+    <rosparam file="$(find husky_navigation)/config/costmap_local.yaml" command="load" ns="local_costmap" />
+    <param name="local_costmap/width" value="10.0"/>
+    <param name="local_costmap/height" value="10.0"/>
+
+    <!-- static global costmap, static map provides size -->
+    <rosparam file="$(find husky_navigation)/config/costmap_global_static.yaml" command="load" ns="global_costmap" unless="$(arg no_static_map)"/>
+    
+    <!-- global costmap with laser, for odom_navigation_demo -->
+    <rosparam file="$(find husky_navigation)/config/costmap_global_laser.yaml" command="load" ns="global_costmap" if="$(arg no_static_map)"/>
+    <param name="global_costmap/width" value="100.0" if="$(arg no_static_map)"/>
+    <param name="global_costmap/height" value="100.0" if="$(arg no_static_map)"/>
+  </node>
+
+
+</launch>

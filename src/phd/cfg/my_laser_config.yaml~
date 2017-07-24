@@ -1,0 +1,17 @@
+scan_filter_chain:
+- name: range
+  type: laser_filters/LaserScanRangeFilter
+  params:
+    lower_threshold: 0.6
+    upper_threshold: .inf
+- name: angle
+  type: laser_filters/LaserScanAngularBoundsFilter
+  params:
+    lower_angle: -1.5
+    upper_angle: 0
+- name: intensity
+  type: laser_filters/LaserScanIntensityFilter
+  params:
+    lower_threshold: 0
+    upper_threshold: 3000
+    disp_histogram: 0

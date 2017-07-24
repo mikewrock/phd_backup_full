@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC   -Wno-deprecated    -shared -Wl,-soname,libnewwrock.so -o /home/mike/catkin_ws/devel/lib/libnewwrock.so CMakeFiles/newwrock.dir/src/drive_widget.cpp.o CMakeFiles/newwrock.dir/src/teleop_panel.cpp.o CMakeFiles/newwrock.dir/include/moc_drive_widget.cxx.o CMakeFiles/newwrock.dir/include/moc_teleop_panel.cxx.o -lQtGui -lQtCore 

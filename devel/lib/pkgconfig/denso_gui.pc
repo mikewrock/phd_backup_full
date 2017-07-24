@@ -1,0 +1,8 @@
+prefix=/home/mike/catkin_ws/devel
+
+Name: denso_gui
+Description: Description of denso_gui
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/mike/catkin_ws/devel/lib -lbcap_client -lbcap_server
+Requires: std_srvs

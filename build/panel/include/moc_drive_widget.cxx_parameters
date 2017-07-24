@@ -1,0 +1,13 @@
+-I/usr/include/vtk-5.8
+-I/home/mike/catkin_ws/build/panel
+-I/home/mike/catkin_ws/src/panel/include/newwrock
+-I/usr/include/qt4
+-I/usr/include/qt4/QtGui
+-I/usr/include/qt4/QtCore
+-DROS_BUILD_SHARED_LIBS=1
+-DQT_NO_DEBUG
+-DQT_GUI_LIB
+-DQT_CORE_LIB
+-o
+/home/mike/catkin_ws/build/panel/include/moc_drive_widget.cxx
+/home/mike/catkin_ws/src/panel/include/drive_widget.h

@@ -1,0 +1,469 @@
+<?xml version="1.0"?>
+<robot 
+	xmlns:xi="http://www.w3.org/2001/XInclude"
+	xmlns:gazebo="http://playerstage.sourceforge.net/gazebo/xmlschema/#gz"
+    xmlns:model="http://playerstage.sourceforge.net/gazebo/xmlschema/#model"
+	xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+	xmlns:body="http://playerstage.sourceforge.net/gazebo/xmlschema/#body"
+    xmlns:geom="http://playerstage.sourceforge.net/gazebo/xmlschema/#geom"
+    xmlns:joint="http://playerstage.sourceforge.net/gazebo/xmlschema/#joint"
+	xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+	xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+	xmlns:rendering="http://playerstage.sourceforge.net/gazebo/xmlschema/#rendering"
+    xmlns:renderable="http://playerstage.sourceforge.net/gazebo/xmlschema/#renderable"
+    xmlns:physics="http://playerstage.sourceforge.net/gazebo/xmlschema/#physics"
+	xmlns:xacro="http://ros.org/wiki/xacro" name="husky">
+       
+	<!-- Included URDF/XACRO Files -->
+    <xacro:include filename="$(find wrock)/urdf/materials.urdf.xacro" />
+    <xacro:include filename="$(find wrock)/urdf/wheel.urdf.xacro" />
+    <xacro:include filename="$(find wrock)/urdf/parts.urdf.xacro" />
+    
+	<!-- PROPERTY LIST -->
+    <!--All units in m-kg-s-radians unit system -->
+    <property name="M_PI" value="3.1415926535897931" />
+
+    <!-- Main Body-base-->
+    <!-- Location of com : center of mass -->
+    <property name="base_x_com" value="-0.08748000" />
+    <property name="base_y_com" value="-0.00085000" />
+    <property name="base_z_com" value="0.09947000" />
+
+    <!-- Size of the base-->
+    <property name="base_x_size" value="0.98740000" /> 
+    <property name="base_y_size" value="0.57090000" /> 
+    <property name="base_z_size" value="0.24750000" />
+
+    <!--Weight of the base-->
+    <property name="base_mass" value="33.45489000" /> <!-- in kg-->
+
+    <!--Inertial values for the base at center of mass, aligned with coordinate system. Units are kg*m^2-->
+    <property name="base_ixx_com_cs" value="0.60216370" />
+    <property name="base_ixy_com_cs" value="-0.02364198" />
+    <property name="base_ixz_com_cs" value="-0.11972132" />
+    <property name="base_iyy_com_cs" value="1.73859574" />
+    <property name="base_iyz_com_cs" value="-0.00154437" />
+    <property name="base_izz_com_cs" value="2.02955229" />
+
+<!-- BASE-FOOTPRINT -->
+    <!-- base_footprint is a fictitious link(frame) that is on the ground right below base_link origin, navigation stack depends on this frame -->
+    <link name="base_footprint">
+        <inertial>
+            <mass value="0.0001" />
+            <origin xyz="0 0 0" />
+            <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                iyy="0.0001" iyz="0.0" 
+                izz="0.0001" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.001 0.001 0.001" />
+            </geometry>
+        </visual>
+    </link>
+
+    <gazebo reference="base_footprint">
+        <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+
+    <joint name="base_footprint_joint" type="fixed">
+		<origin xyz="0 0 ${wheel_x_size/2 - base_z_origin_to_wheel_origin}" rpy="0 0 0" />
+        <parent link="base_footprint"/>
+        <child link="base_link" />
+    </joint>
+
+    <!-- BASE-LINK -->
+    <!--Actual body/chassis of the robot-->
+    <link name="base_link">
+        <inertial>
+            <mass value="${base_mass}" />
+            <!--This is the pose of the inertial reference frame, relative to the link reference frame. The origin of the inertial reference frame needs to be at the center of gravity. The axes of the inertial reference frame do not need to be aligned with the principal axes of the inertia.-->
+            <origin xyz="${base_x_com} ${base_y_com} ${base_z_com}" />
+            <!--The 3x3 rotational inertia matrix. Because the rotational inertia matrix is symmetric, only 6 above-diagonal elements of this matrix are specified here, using the attributes ixx, ixy, ixz, iyy, iyz, izz.-->
+            <inertia ixx="${base_ixx_com_cs}" ixy="${base_ixy_com_cs}" ixz="${base_ixz_com_cs}"
+                iyy="${base_iyy_com_cs}" iyz="${base_iyz_com_cs}" izz="${base_izz_com_cs}" /> 
+        </inertial>
+        
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://wrock/meshes/base_link.stl" />
+            </geometry>
+            <material name="Black" />
+        </visual>
+    
+		<collision>
+			<origin xyz="0 0 ${wheel_x_size/2 - base_z_origin_to_wheel_origin - 0.02}" rpy="0 0 0 " />
+			<geometry>
+				<box size = "${base_x_size+0.02} ${base_y_size} ${base_z_size + 0.02}"/> <!--making it slightly bigger in x and z direction-->
+			</geometry>
+		</collision>     
+    </link>
+    <gazebo reference="base_link">
+        <material>Gazebo/FlatBlack</material>
+        <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+
+    <!-- WHEEL macros -->
+	<husky_wheel fb="back" lr="left" parent="base_link" translateX="-1" translateY="1" flipY="-1"/>
+	<husky_wheel fb="back" lr="right" parent="base_link" translateX="-1" translateY="-1" flipY="-1"/>
+	<husky_wheel fb="front" lr="left" parent="base_link" translateX="1" translateY="1" flipY="-1"/>
+	<husky_wheel fb="front" lr="right" parent="base_link" translateX="1" translateY="-1" flipY="-1"/>
+
+    <!-- DECORATIONS -->
+    <!-- Top Plate -->
+    <husky_part parent="base_footprint" name="top_plate" mesh="top_plate" 
+          colour="Yellow"
+          translateX="0.0" translateY="0.0" translateZ="${wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
+          rotateX="0.0" rotateY="0.0" rotateZ="0.0"/>
+    <gazebo reference="base_footprint_top_plate_part">
+        <material>Gazebo/Yellow</material>
+    </gazebo>
+
+    <!-- User Rail -->
+    <husky_part parent="base_footprint" name="user_rail" mesh="user_rail"
+          colour="DarkGray"
+          translateX="0.272" translateY="0.0" translateZ="${0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
+          rotateX="0.0" rotateY="0.0" rotateZ="0.0"/>
+    <gazebo reference="base_footprint_user_rail_part">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <!-- Bumpers -->
+    <husky_part parent="base_footprint" name="front_bumper" mesh="bumper" 
+          colour="DarkGray"
+          translateX="0.490" translateY="0.0" translateZ="${0.091 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
+          rotateX="0.0" rotateY="0.0" rotateZ="0.0"/>
+    <gazebo reference="base_footprint_front_bumper_part">
+        <material>Gazebo/FlatBlack</material>
+    </gazebo>
+    <husky_part parent="base_footprint" name="rear_bumper" mesh="bumper"
+          colour="DarkGray"
+          translateX="-0.48" translateY="0.0" translateZ="${0.091 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
+          rotateX="0.0" rotateY="0.0" rotateZ="3.14"/>
+    <gazebo reference="base_footprint_rear_bumper_part">
+        <material>Gazebo/FlatBlack</material>
+    </gazebo>
+
+    <gazebo>
+	    <plugin name="husky_diff_controller" filename="libhusky_gazebo_plugins.so">
+		    <alwaysOn>true</alwaysOn>
+            <updateRate>100.0</updateRate>
+            <backLeftJoint>joint_back_left_wheel</backLeftJoint>
+            <backRightJoint>joint_back_right_wheel</backRightJoint>
+            <frontLeftJoint>joint_front_left_wheel</frontLeftJoint>
+            <frontRightJoint>joint_front_right_wheel</frontRightJoint>
+            <wheelSeparation>${base_y_size}</wheelSeparation>
+            <wheelDiameter>${wheel_x_size}</wheelDiameter>
+            <torque>35</torque>	
+        </plugin>
+    </gazebo>
+
+<!-- POWERCUBES -->
+
+    <property name="base_cube_origin_x" value=".1" />
+    <property name="base_cube_origin_y" value=".15" />
+    <property name="base_cube_origin_z" value=".4" />
+        
+<!-- Angle connector -->
+    <link name="angle_connector">
+        <inertial>
+            <mass value="0.0001" />
+            <origin xyz="0 0 0" />
+            <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                iyy="0.0001" iyz="0.0" 
+                izz="0.0001" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://wrock/meshes/cubefinal.stl" />
+            </geometry>
+            <material name="DarkPCubeGrey" >
+		<color rgba=".1 .1 .1 1" />
+    	    </material>
+        </visual>
+    </link>
+
+
+    <joint name="base_cube_joint" type="fixed">
+		<origin xyz="0.265 .2005 ${0.345 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" rpy="${M_PI} ${M_PI/2} 0" />
+        <parent link="base_footprint"/>
+        <child link="angle_connector" />
+    </joint>
+<!-- FIXED-CUBE-5 -->
+    <link name="fixed_cube_5">
+        <inertial>
+            <mass value="0.0001" />
+            <origin xyz="0 0 0" />
+            <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                iyy="0.0001" iyz="0.0" 
+                izz="0.0001" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.07 0.07 0.07" />
+            </geometry>
+            <material name="PCubeGrey" >
+		<color rgba=".2 .2 .2 1" />
+    	    </material>
+        </visual>
+    </link>
+
+    <joint name="fixed_cube_5_joint" type="fixed">
+		<origin xyz="0.035 0.035 -0.035" rpy="0 0 0" />
+        <parent link="angle_connector"/>
+        <child link="fixed_cube_5" />
+    </joint>
+ <!-- CUBE-5 -->
+    <link name="cube_5">
+        <inertial>
+            <mass value="0.0001" />
+            <origin xyz="0 0 0" />
+            <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                iyy="0.0001" iyz="0.0" 
+                izz="0.0001" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.07 0.07 0.07" />
+            </geometry>
+            <material name="PCubeGrey" >
+		<color rgba=".2 .2 .2 1" />
+    	    </material>
+        </visual>
+    </link>
+
+    <joint name="cube_5_joint" type="continuous">
+		<origin xyz="-0.07 0 0" rpy="0 0 0" />
+	  <axis xyz="-1 0 0" />
+        <parent link="fixed_cube_5"/>
+        <child link="cube_5" />
+    </joint>
+<!-- End Effector -->
+    <link name="endeffector">
+        <inertial>
+            <mass value="0.0001" />
+            <origin xyz="0 0 0" />
+            <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                iyy="0.0001" iyz="0.0" 
+                izz="0.0001" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size=" 0.325  0.03 0.03" />
+            </geometry>
+            <material name="8020Grey" >
+		<color rgba=".3 .3 .3 1" />
+    	    </material>
+        </visual>
+    </link>
+
+    <joint name="endeffector_joint" type="fixed">
+		<origin xyz="-.1975 0 0" rpy="${M_PI/4} 0 0" />
+        <parent link="cube_5"/>
+        <child link="endeffector" />
+    </joint>
+
+
+  <!-- LASER payload (by default, a SICK LMS111). -->
+  
+    <link name="laser">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <!-- Origin of this mesh is the base of the bracket. -->
+          <mesh filename="package://wrock/meshes/sick_lms1xx.dae" />
+        </geometry>
+        <material name="dark_grey" />
+      </visual>
+    </link>
+
+    <joint name="laser_mount_joint" type="fixed">
+      <origin xyz="0 0.075 -.035" rpy="${M_PI} 0 ${M_PI/2}" />
+      <parent link="endeffector" />
+      <child link="laser" />
+    </joint>
+
+
+  <link name="BASE">
+    <visual>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename ="file:///home/mike/catkin_ws/src/wrock/vs060/model/meshes/j1.stl" scale = "0.001 0.001 0.001">
+         </mesh>
+      </geometry>
+            <material name="blue">
+        <color rgba="0 0 .8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename ="file:///home/mike/catkin_ws/src/wrock/vs060/model/meshes/j1.stl" scale = "0.001 0.001 0.001">
+         </mesh>
+       </geometry>
+    </collision>
+    <inertial>
+      <mass value="1000" />
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <inertia ixx="20" ixy="0" ixz="0" iyy="20" iyz="0" izz="20"/>
+    </inertial>
+  </link>
+  <link name="J1">
+    <visual>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/mike/catkin_ws/src/wrock/vs060/model/meshes/j2.stl" scale = "0.001 0.001 0.001"/>
+      </geometry>
+            <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/mike/catkin_ws/src/wrock/vs060/model/meshes/j2.stl" scale = "0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="4.327" />
+      <origin xyz="0.013885 -0.005997 0.043991" rpy="0 -0 0"/>
+      <inertia ixx="0.025492" ixy="0" ixz="0" iyy="0.032502" iyz="-3.26672e-18" izz="0.01779"/>
+    </inertial>
+  </link>
+  <link name="J2">
+    <visual>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/mike/catkin_ws/src/wrock/vs060/model/meshes/j3.stl" scale = "0.001 0.001 0.001"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/mike/catkin_ws/src/wrock/vs060/model/meshes/j3.stl" scale = "0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="9.475" />
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <inertia ixx="0.108024" ixy="0" ixz="0" iyy="0.025579" iyz="1.93827e-17" izz="0.112871"/>
+    </inertial>
+  </link>
+  <link name="J3">
+    <visual>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/mike/catkin_ws/src/wrock/vs060/model/meshes/j4.stl" scale = "0.001 0.001 0.001"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/mike/catkin_ws/src/wrock/vs060/model/meshes/j4.stl" scale = "0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="4.097" />
+      <origin xyz="0.011544 -0.057408 0.006203" rpy="${M_PI/2} -0 0"/>
+      <inertia ixx="0.015999" ixy="0" ixz="0" iyy="0.00638" iyz="2.33191e-18" izz="0.016882"/>
+    </inertial>
+  </link>
+  <link name="J4">
+    <visual>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/mike/catkin_ws/src/wrock/vs060/model/meshes/j5.stl" scale = "0.001 0.001 0.001"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/mike/catkin_ws/src/wrock/vs060/model/meshes/j5.stl" scale = "0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.779" />
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <inertia ixx="0.005106" ixy="0" ixz="0" iyy="0.005266" iyz="-5.87308e-19" izz="0.002621"/>
+    </inertial>
+  </link>
+  <link name="J5">
+    <visual>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/mike/catkin_ws/src/wrock/vs060/model/meshes/j6.stl" scale = "0.001 0.001 0.001"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/mike/catkin_ws/src/wrock/vs060/model/meshes/j6.stl" scale = "0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.211" />
+      <origin xyz="0.011902 -0.004739 0.010398" rpy="${M_PI/2} -0 0"/>
+      <inertia ixx="0.001093" ixy="0" ixz="0" iyy="0.001629" iyz="-3.10862e-21" izz="0.001615"/>
+    </inertial>
+  </link>
+  
+
+  <joint name="j1" type="continuous">
+    <parent link="BASE"/>
+    <child  link="J1"/>
+    <origin xyz="0 0 0.155" rpy="0 -0 0 "/>
+    <axis   xyz="0 0 1"/>
+    <!-- <limit lower="-2.96706" upper="2.96706" effort="19.7336" velocity="0.5" /> -->
+  </joint>
+  <joint name="j2" type="continuous">
+    <parent link="J1"/>
+    <child  link="J2"/>
+    <origin xyz="0 0 0.125" rpy="0 -0 0 "/>
+    <axis   xyz="0 1 0"/>
+  </joint>
+  <joint name="j3" type="continuous">
+    <parent link="J2"/>
+    <child  link="J3"/>
+    <origin xyz="0 0 .210" rpy="0 -0 0 "/>
+    <axis   xyz="0 1 0"/>
+  </joint>
+  <joint name="j4" type="continuous">
+    <parent link="J3"/>
+    <child  link="J4"/>
+    <origin xyz="-.083 0 .075" rpy="0 -0 0 "/>
+    <axis   xyz="1 0 0"/>
+  </joint>
+  <joint name="j5" type="continuous">
+    <parent link="J4"/>
+    <child  link="J5"/>
+    <origin xyz="-.127 0 0" rpy="0 -0 0 "/>
+    <axis   xyz="0 1 0"/>
+  </joint>
+
+  
+      <joint name="Arm_Mount" type="fixed">
+      <origin xyz="0 0 ${.3 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" rpy="0 0 0" />
+      <parent link="base_footprint" />
+      <child link="BASE" />
+    </joint>
+
+
+
+
+
+</robot>

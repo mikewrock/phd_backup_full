@@ -1,0 +1,425 @@
+#include <ros/ros.h>
+#include <sensor_msgs/PointCloud2.h>
+#include <pcl_conversions/pcl_conversions.h>
+#include <pcl/point_cloud.h>
+#include <pcl/PCLPointCloud2.h>
+#include <pcl/point_types.h>
+#include <pcl/filters/voxel_grid.h>
+#include <string>
+#include <tf/transform_broadcaster.h>
+#include <pcl/conversions.h>
+#include "pcl_ros/transforms.h"
+#include <iostream>
+#include <pcl/filters/passthrough.h>
+#include <pcl/io/pcd_io.h>
+#include "std_msgs/String.h"
+#include <sstream>
+#include <pcl/filters/extract_indices.h>
+#include <pcl/octree/octree.h>
+#include <vector>
+#include <ctime>
+#include <boost/make_shared.hpp>
+#include <pcl/point_representation.h>
+#include <pcl/filters/filter.h>
+#include <pcl/features/normal_3d.h>
+#include <pcl/registration/icp.h>
+#include <pcl/registration/icp_nl.h>
+#include <pcl/registration/transforms.h>
+#include <pcl/visualization/pcl_visualizer.h>
+#include <visualization_msgs/Marker.h>
+#include <pcl/filters/normal_space.h>
+#include <pcl/features/normal_3d.h>
+#include <pcl/visualization/pcl_visualizer.h>
+
+
+#define DEBUG 1
+#define WORKSPACE 1
+#define HEIGHT_STEP .2
+
+//convenient typedefs
+typedef pcl::PointXYZ PointT;
+typedef pcl::PointCloud<PointT> PointCloud;
+typedef pcl::PointNormal PointNormalT;
+typedef pcl::PointCloud<PointNormalT> PointCloudWithNormals;
+
+
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloudA (new pcl::PointCloud<pcl::PointXYZI> );
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloudB (new pcl::PointCloud<pcl::PointXYZI> );
+
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZI>);
+  pcl::PointCloud<pcl::PointXYZI>::Ptr main_cloud (new pcl::PointCloud<pcl::PointXYZI>);
+  //make the publisher global so we can publish from the callback
+  ros::Publisher pub;
+ ros::Publisher marker_pub;
+
+//calculates the distance between two points
+float vec_length(pcl::PointXYZI pointA,pcl::PointXYZI pointB){
+
+	return sqrt(pow(pointB.x-pointA.x,2)+pow(pointB.y-pointA.y,2)+pow(pointB.z-pointA.z,2));
+
+}
+
+//calculates a unit vector from the cross product
+pcl::PointXYZI unit_cross(pcl::PointXYZI vectorA,pcl::PointXYZI vectorB){
+	pcl::PointXYZI result;
+	result.z = vectorA.x*vectorB.y-vectorB.x*vectorA.y;
+	result.x = vectorA.y*vectorB.z-vectorB.y*vectorA.z;
+	result.y = vectorA.z*vectorB.x-vectorB.z*vectorA.x;
+	float length = sqrt(pow(result.x,2)+pow(result.y,2)+pow(result.z,2));
+	result.x = result.x/length;
+	result.y = result.y/length;
+	result.z = result.z/length;
+	if(result.z < 0){
+		result.x *= -1;
+		result.y *= -1;
+		result.z *= -1;
+	}
+	return result;
+
+}
+//calculates a unit vector
+pcl::PointXYZI unit_vector(pcl::PointXYZI vectorA,pcl::PointXYZI vectorB){
+	pcl::PointXYZI result;
+	float d_total = vec_length(vectorA,vectorB);
+	result.x = (vectorB.x-vectorA.x)/d_total;
+	result.y = (vectorB.y-vectorA.y)/d_total;
+	result.z = (vectorB.z-vectorA.z)/d_total;
+	return result;
+
+}
+
+pcl::PointXYZI find_pt(pcl::PointXYZI target_pt){
+	int K = 1;
+    std::vector<int> pointIdxNKNSearch;
+  std::vector<float> pointNKNSquaredDistance;
+    pcl::PointXYZI searchPoint;
+    float resolution = 128.0f;
+  pcl::PointXYZI foundpt;
+
+  pcl::octree::OctreePointCloudSearch<pcl::PointXYZI> octree (resolution);
+
+  octree.setInputCloud (cloud);
+  octree.addPointsFromInputCloud ();
+
+	if (octree.nearestKSearch (target_pt, K, pointIdxNKNSearch, pointNKNSquaredDistance) > 0){
+        	foundpt = cloud->points[pointIdxNKNSearch[0]];
+        	ROS_INFO("Found pt %f/%f/%f near %f/%f/%f",foundpt.x,foundpt.y,foundpt.z,target_pt.x,target_pt.y,target_pt.z);
+        }
+        
+     	return foundpt;
+
+}
+
+pcl::PointXYZI find_normal(pcl::PointXYZI target_pt){
+
+  pcl::PointXYZI foundpt;
+  pcl::PointCloud<pcl::PointXYZI> cloudB;
+  cloudB.push_back (target_pt);
+    // Create the normal estimation class, and pass the input dataset to it
+  pcl::NormalEstimation<pcl::PointXYZI, pcl::Normal> ne;
+    // set parameters
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloudptr = cloudB.makeShared();
+  ne.setInputCloud (cloudptr);
+  // Pass the original data (before downsampling) as the search surface
+  ne.setSearchSurface (cloud);
+  // Create an empty kdtree representation, and pass it to the normal estimation object.
+  // Its content will be filled inside the object, based on the given surface dataset.
+  pcl::search::KdTree<pcl::PointXYZI>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZI> ());
+  ne.setSearchMethod (tree);
+
+  // Output datasets
+  pcl::PointCloud<pcl::Normal>::Ptr cloud_normals (new pcl::PointCloud<pcl::Normal> ());
+
+  // Use all neighbors in a sphere of radius 3cm
+  ne.setRadiusSearch (0.05);
+  ne.setViewPoint (-10, 10, 10);
+  // Compute the features
+  ne.compute (*cloud_normals);
+  foundpt.x = cloud_normals->points[0].normal[0];
+  foundpt.y = cloud_normals->points[0].normal[1];
+  foundpt.z = cloud_normals->points[0].normal[2];
+     	return foundpt;
+
+}
+
+void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
+{
+ ROS_INFO("GOT A CLOUD");
+  pcl::PointCloud<pcl::PointXYZI> cloudB;
+  sensor_msgs::PointCloud2 cloud_msg2 = *cloud_msg;
+  //fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
+  cloud_msg2.fields[3].name = "intensity";
+  pcl::fromROSMsg(cloud_msg2,*cloud);
+pcl::PointXYZI maxX;
+pcl::PointXYZI maxY;
+pcl::PointXYZI maxZ;  
+pcl::PointXYZI minX;
+pcl::PointXYZI minY;
+pcl::PointXYZI minZ;  
+minX.x = 100;
+  BOOST_FOREACH (pcl::PointXYZI& p, cloud->points){
+   
+    if(p.x < minX.x){ 
+      minX = p;
+      }
+
+ }
+  
+  ROS_INFO("MIN: %f -- %f -- %f",minX.x,minX.y,minX.z);
+  
+  pcl::PointXYZI start_pt;
+  pcl::PointXYZI second_pt;
+  pcl::PointXYZI foundpt;
+    std::vector<int> pointIdxNKNSearch;
+  std::vector<float> pointNKNSquaredDistance;
+    pcl::PointXYZI searchPoint;
+    int K = 50;
+    float resolution = 128.0f;
+
+  pcl::octree::OctreePointCloudSearch<pcl::PointXYZI> octree (resolution);
+
+  octree.setInputCloud (cloud);
+  octree.addPointsFromInputCloud ();
+  start_pt = minX;
+  
+    uint32_t shape = visualization_msgs::Marker::ARROW;
+    visualization_msgs::Marker marker;
+    // Set the frame ID and timestamp.  See the TF tutorials for information on these.
+    marker.header.frame_id = "/base_link";
+    marker.header.stamp = ros::Time::now();
+    // Set the namespace and id for this marker.  This serves to create a unique ID
+    // Any marker sent with the same namespace and id will overwrite the old one
+    marker.ns = "basic_shapes";
+    marker.id = 0;
+    // Set the marker type.  Initially this is CUBE, and cycles between that and SPHERE, ARROW, and CYLINDER
+    marker.type = shape;
+    // Set the marker action.  Options are ADD, DELETE, and new in ROS Indigo: 3 (DELETEALL)
+    marker.action = visualization_msgs::Marker::ADD;
+    // Set the pose of the marker.  This is a full 6DOF pose relative to the frame/time specified in the header
+    marker.pose.position.x = 0;
+    marker.pose.position.y = 0;
+    marker.pose.position.z = 0;
+    marker.pose.orientation.x = 0.0;
+    marker.pose.orientation.y = 0.0;
+    marker.pose.orientation.z = 0.0;
+    marker.pose.orientation.w = 1.0;
+
+    // Set the scale of the marker -- 1x1x1 here means 1m on a side
+    marker.scale.x = 0.01;
+    marker.scale.y = 0.01;
+    marker.scale.z = 0.01;
+
+    // Set the color -- be sure to set alpha to something non-zero!
+    marker.color.r = 0.0f;
+    marker.color.g = 0.0f;
+    marker.color.b = 1.0f;
+    marker.color.a = 1.0;
+    marker.lifetime = ros::Duration(100);
+    
+float maxDistance=0;
+float newDistance=0;
+float weightedDistance=0;
+float newWeightedDistance=0;
+
+
+//find furthest point with constant X
+  if ( octree.nearestKSearch (start_pt, K, pointIdxNKNSearch, pointNKNSquaredDistance) > 0 )
+  {
+    for (size_t i = 0; i < pointIdxNKNSearch.size (); ++i){
+
+	if(fabs(start_pt.z - cloud->points[ pointIdxNKNSearch[i] ].z) < 0.02){
+		newDistance = sqrt((start_pt.x - cloud->points[ pointIdxNKNSearch[i] ].x)*(start_pt.x - cloud->points[ pointIdxNKNSearch[i] ].x)+(start_pt.y - cloud->points[ pointIdxNKNSearch[i] ].y)*(start_pt.y - cloud->points[ pointIdxNKNSearch[i] ].y));
+	std::cout << " (weighted distance: " << newDistance << ")" << std::endl;
+		if(newDistance > maxDistance){
+			maxDistance = newDistance;
+			second_pt = cloud->points[ pointIdxNKNSearch[i] ];
+		}
+	}
+
+  }
+}
+
+float d_total = vec_length(start_pt,second_pt);
+std::cout << " (dtotal: " << d_total << ")" << std::endl;
+pcl::PointXYZI unit_v;
+pcl::PointXYZI zero_vector;
+pcl::PointXYZI dir_vector;
+pcl::PointXYZI norm;
+pcl::PointXYZI end_pt;
+pcl::PointXYZI via_pt[6];
+pcl::PointXYZI target_pt[6];
+
+zero_vector.x = 0;
+zero_vector.y = 0;
+zero_vector.z = 0;
+unit_v = unit_vector(start_pt,second_pt);
+end_pt.x = start_pt.x+WORKSPACE*unit_v.x;
+end_pt.y = start_pt.y+WORKSPACE*unit_v.y;
+end_pt.z = start_pt.z;
+via_pt[0] = start_pt;
+via_pt[1] = find_pt(end_pt);
+dir_vector = unit_cross(find_normal(via_pt[1]),unit_vector(via_pt[0],via_pt[1]));
+target_pt[2].x = via_pt[1].x + dir_vector.x*HEIGHT_STEP;
+target_pt[2].y = via_pt[1].y + dir_vector.y*HEIGHT_STEP;
+target_pt[2].z = via_pt[1].z + dir_vector.z*HEIGHT_STEP;
+via_pt[2] = find_pt(target_pt[2]);
+dir_vector = unit_cross(find_normal(via_pt[2]),unit_vector(via_pt[1],via_pt[2]));
+target_pt[3].x = via_pt[2].x - dir_vector.x*WORKSPACE;
+target_pt[3].y = via_pt[2].y - dir_vector.y*WORKSPACE;
+target_pt[3].z = via_pt[2].z;
+via_pt[3] = find_pt(target_pt[3]);
+dir_vector = unit_cross(find_normal(via_pt[3]),unit_vector(via_pt[2],via_pt[3]));
+target_pt[4].x = via_pt[3].x + dir_vector.x*HEIGHT_STEP;
+target_pt[4].y = via_pt[3].y + dir_vector.y*HEIGHT_STEP;
+target_pt[4].z = via_pt[3].z + dir_vector.z*HEIGHT_STEP;
+via_pt[4] = find_pt(target_pt[4]);
+dir_vector = unit_cross(find_normal(via_pt[4]),unit_vector(via_pt[3],via_pt[4]));
+target_pt[5].x = via_pt[4].x - dir_vector.x*WORKSPACE;
+target_pt[5].y = via_pt[4].y - dir_vector.y*WORKSPACE;
+target_pt[5].z = via_pt[4].z;
+via_pt[5] = find_pt(target_pt[5]);
+     
+
+
+ marker.points.resize(2);
+      
+ // for(int ctr = 0; ctr < 12; ++ctr){
+/*
+     marker.id = 0;
+     marker.points[0].x = start_pt.x;
+     marker.points[0].y = start_pt.y;
+     marker.points[0].z = start_pt.z;
+     marker.points[1].x = end_pt.x;
+     marker.points[1].y = end_pt.y;
+     marker.points[1].z = end_pt.z;
+    // ROS_INFO("Found pt %f/%f/%f normal %f/%f/%f",foundpt[ctr].x,foundpt[ctr].y,foundpt[ctr].z,cloud_normals->points[ctr].normal[0],cloud_normals->points[ctr].normal[1],cloud_normals->points[ctr].normal[2]);
+        //ROS_INFO("%lu",cloud_normals->points.size ());
+     marker_pub.publish(marker);
+*/
+     marker.id = 0;
+     marker.points[0].x = via_pt[0].x;
+     marker.points[0].y = via_pt[0].y;
+     marker.points[0].z = via_pt[0].z;
+     marker.points[1].x = via_pt[1].x;
+     marker.points[1].y = via_pt[1].y;
+     marker.points[1].z = via_pt[1].z;
+     marker_pub.publish(marker);
+ros::Duration(0.5).sleep();
+     marker.id = 1;
+    marker.color.r = 0.0f;
+    marker.color.g = 1.0f;
+    marker.color.b = 0.0f;
+    marker.color.a = 1.0;
+     marker.points[0].x = via_pt[1].x;
+     marker.points[0].y = via_pt[1].y;
+     marker.points[0].z = via_pt[1].z;
+     marker.points[1].x = target_pt[2].x;
+     marker.points[1].y = target_pt[2].y;
+     marker.points[1].z = target_pt[2].z;
+     marker_pub.publish(marker);
+ros::Duration(0.5).sleep();
+     marker.id = 2;
+    marker.color.r = 1.0f;
+    marker.color.g = 0.0f;
+    marker.color.b = 0.0f;
+    marker.color.a = 1.0;
+     marker.points[0].x = via_pt[1].x;
+     marker.points[0].y = via_pt[1].y;
+     marker.points[0].z = via_pt[1].z;
+     marker.points[1].x = via_pt[1].x+norm.x;
+     marker.points[1].y = via_pt[1].y+norm.y;
+     marker.points[1].z = via_pt[1].z+norm.z;
+     marker_pub.publish(marker);
+ros::Duration(0.5).sleep();
+     marker.id = 3;
+    marker.color.r = 1.0f;
+    marker.color.g = 0.0f;
+    marker.color.b = 0.0f;
+    marker.color.a = 1.0;
+     marker.points[0].x = via_pt[1].x;
+     marker.points[0].y = via_pt[1].y;
+     marker.points[0].z = via_pt[1].z;
+     marker.points[1].x = via_pt[2].x;
+     marker.points[1].y = via_pt[2].y;
+     marker.points[1].z = via_pt[2].z;
+     marker_pub.publish(marker);
+ros::Duration(0.5).sleep();
+     marker.id = 4;
+    marker.color.r = 1.0f;
+    marker.color.g = 0.0f;
+    marker.color.b = 1.0f;
+    marker.color.a = 1.0;
+     marker.points[0].x = via_pt[2].x;
+     marker.points[0].y = via_pt[2].y;
+     marker.points[0].z = via_pt[2].z;
+     marker.points[1].x = via_pt[3].x;
+     marker.points[1].y = via_pt[3].y;
+     marker.points[1].z = via_pt[3].z;
+     marker_pub.publish(marker);
+ros::Duration(0.5).sleep();
+     marker.id = 5;
+    marker.color.r = 0.0f;
+    marker.color.g = 1.0f;
+    marker.color.b = 1.0f;
+    marker.color.a = 1.0;
+     marker.points[0].x = via_pt[3].x;
+     marker.points[0].y = via_pt[3].y;
+     marker.points[0].z = via_pt[3].z;
+     marker.points[1].x = via_pt[4].x;
+     marker.points[1].y = via_pt[4].y;
+     marker.points[1].z = via_pt[4].z;
+     marker_pub.publish(marker);
+ros::Duration(0.5).sleep();
+     marker.id = 6;
+    marker.color.r = 1.0f;
+    marker.color.g = 1.0f;
+    marker.color.b = 1.0f;
+    marker.color.a = 1.0;
+     marker.points[0].x = via_pt[4].x;
+     marker.points[0].y = via_pt[4].y;
+     marker.points[0].z = via_pt[4].z;
+     marker.points[1].x = via_pt[5].x;
+     marker.points[1].y = via_pt[5].y;
+     marker.points[1].z = via_pt[5].z;
+     marker_pub.publish(marker);
+ros::Duration(0.5).sleep();
+ 
+     
+/*std::cout << "Saving Cloud" << std::endl;
+    sensor_msgs::PointCloud2 output;
+  pcl::toROSMsg(*cloud, output);
+  output.header.frame_id = "base_link";
+    pub.publish(output);
+*/
+}
+
+
+
+
+
+void cloud2_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
+{
+ ROS_INFO("GOT MAIN CLOUD");
+  sensor_msgs::PointCloud2 cloud_msg2 = *cloud_msg;
+  //fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
+  cloud_msg2.fields[3].name = "intensity";
+  pcl::fromROSMsg(cloud_msg2,*main_cloud);
+
+}
+
+int
+main (int argc, char** argv)
+{
+  // Initialize ROS
+  ros::init (argc, argv, "trajectory_generator");
+  ros::NodeHandle nh;
+	ROS_INFO("Trajectory Generator online");
+  // Create a ROS publisher for the output point cloud
+  marker_pub = nh.advertise<visualization_msgs::Marker>("shotcrete_marker", 1);
+  ros::Subscriber sub = nh.subscribe ("shotcrete_selected_points", 1, cloud_cb);
+  ros::Subscriber sub2 = nh.subscribe ("assembled_cloud", 1, cloud2_cb);
+
+ros::spin();
+  
+  
+}
