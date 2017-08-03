@@ -36,6 +36,7 @@ namespace control_panel
 		//SIGNAL connections
 		connect(ui_.nav_mode_button, SIGNAL(clicked()), this, SLOT(do_nav()));
 		connect(ui_.step_button, SIGNAL(clicked()), this, SLOT(do_step()));
+		connect(ui_.est_pos, SIGNAL(clicked()), this, SLOT(do_estimate()));
 		connect(ui_.scan_button, SIGNAL(clicked()), this, SLOT(do_scan()));
 		connect(ui_.scan_button_2, SIGNAL(clicked()), this, SLOT(do_scan_2()));
 		connect(ui_.scan_button_3, SIGNAL(clicked()), this, SLOT(do_scan_3()));
@@ -92,6 +93,10 @@ namespace control_panel
 	void ControlPanel::do_scan(){
 
 		  control_panel.scan();
+	}
+	void ControlPanel::do_estimate(){
+
+		  control_panel.estimate();
 	}
 	void ControlPanel::do_step(){
 

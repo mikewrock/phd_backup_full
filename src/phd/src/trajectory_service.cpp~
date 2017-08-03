@@ -760,75 +760,7 @@ bool generate (phd::trajectory_service::Request  &req,
 	search_pt.z = z_val;
 	//pcl::PointXYZI start_pt = find_pt(search_pt);
 	t_msg_array = calc_points(z_val, search_pt.x, search_pt.y, zmax);
-		/*for(int i = 0; i < t_msg.points.size(); ++i){
-			if(t_msg.points[i].d < workspace_width){
-				t_msg_full.points.push_back(t_msg.points[i]);
-				if(t_msg.points[i].d > end_pt.d) end_pt = t_msg.points[i];
-				ROS_INFO("Adding (%d) %f - %f - %f/%f - %f - %f / %f",i,t_msg.points[i].x,t_msg.points[i].y,t_msg.points[i].z,t_msg.points[i].nx,t_msg.points[i].ny,t_msg.points[i].nz,t_msg.points[i].d);
-			}
-			else{
-				ROS_INFO("Remainer %f",t_msg.points[i].d);
-				section_complete = false;
-				t_remainder.points.push_back(t_msg.points[i]);
-			}
-		}
-		t_msg.points.clear();*/
-	/*	dir = dir * (-1);
-		t_msg_array_vect.push_back(t_msg_array);
-		t_msg_array.sections.clear();
-			
-	//}
-	int sec_count = 0;
-	for(int ctr = 0; ctr < t_msg_array_vect.size(); ++ctr){
-		if(t_msg_array_vect[ctr].sections.size() > sec_count) sec_count = t_msg_array_vect[ctr].sections.size();
-	}
-
-	phd::trajectory_msg v_sec;
-	for(int sctr = 0; sctr < sec_count; ++sctr){
-
-		for(int ctr = 0; ctr < t_msg_array_vect.size(); ++ctr){
-
-			for(int vctr = 0; vctr < t_msg_array_vect[ctr].sections[sctr].points.size(); ++vctr){
-
-				v_sec.points.push_back(t_msg_array_vect[ctr].sections[sctr].points[vctr]);
-
-			}
-
-		}
-		t_array.sections.push_back(v_sec);
-
-	}
-	/*	
-	t_array.sections.push_back(t_msg_full);
-	res.sections.push_back(t_msg_full);
-	int secnum = 2;
-	while(section_complete == false){
-		ROS_INFO("calling function");
-		t_remainder = recalc_d(t_remainder,end_pt);
-		ROS_INFO("done function");
-		end_pt.d = 0;
-		//workspace_width += WORKSPACE;
-		section_complete = true;
-		t_msg_full.points.clear();
-		for(int i = 0; i < t_remainder.points.size(); ++i){
-			if(t_remainder.points[i].d < workspace_width){
-				if(t_remainder.points[i].d > end_pt.d) end_pt = t_remainder.points[i];
-				t_msg_full.points.push_back(t_remainder.points[i]);
-				ROS_INFO("Adding Section %d (%d) %f - %f - %f/%f - %f - %f / %f",secnum,i,t_remainder.points[i].x,t_remainder.points[i].y,t_remainder.points[i].z,t_remainder.points[i].nx,t_remainder.points[i].ny,t_remainder.points[i].nz,t_remainder.points[i].d);
-			}
-			else{
-				section_complete = false;
-				t_second_remainder.points.push_back(t_remainder.points[i]);
-			}
-		}
-		++secnum;
-		t_remainder.points.swap(t_second_remainder.points);
-		t_second_remainder.points.clear();	
-		t_array.sections.push_back(t_msg_full);
-		res.sections.push_back(t_msg_full);
-	}
-	
-	show_markers(t_array);*/
+	res.trajectory = t_msg_array;
 	bool ret = true;
 	return ret;
 }

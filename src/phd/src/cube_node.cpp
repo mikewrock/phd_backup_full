@@ -104,19 +104,21 @@ int main(int argc, char** argv)
         joint_state.position[0] = j1pos;
 
 //move to initial pose
-ret = PCube_moveRamp(dev, modJ1, -.785, vel, acc);
+ret = PCube_moveRamp(dev, modJ1, -1.57, vel, acc);
         
 while(ros::ok()){  
   //Get the cube position
   ret = PCube_getPos( dev, modJ1, &j1pos);
   // update transform
   joint_state.header.stamp = ros::Time::now();
+if(joint_state.position[0] != j1pos){  
   joint_state.position[0] = j1pos;
   //send the joint state 
   joint_pub.publish(joint_state);
   //check for callbacks
-  ros::spinOnce();
-
+  
+}
+ros::spinOnce();
 }
 
 //close powercube connection

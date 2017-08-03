@@ -1,0 +1,63 @@
+#include <ros/ros.h>
+// PCL specific includes
+#include <sensor_msgs/PointCloud2.h>
+#include <pcl_conversions/pcl_conversions.h>
+#include <pcl/point_cloud.h>
+#include <pcl/PCLPointCloud2.h>
+#include <pcl/point_types.h>
+#include <pcl/filters/voxel_grid.h>
+#include <string>
+#include <tf/transform_broadcaster.h>
+#include <pcl/conversions.h>
+#include "pcl_ros/transforms.h"
+#include <iostream>
+#include <pcl/filters/passthrough.h>
+#include <pcl/io/pcd_io.h>
+#include "std_msgs/String.h"
+#include <sstream>
+#include <pcl/filters/extract_indices.h>
+
+std_msgs::String filename;
+void 
+cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
+{
+  
+ROS_INFO("GOT A CLOUD!");
+sensor_msgs::PointCloud2 cloud_msg2 = *cloud_msg;
+
+ROS_INFO("created params");
+//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
+cloud_msg2.fields[3].name = "intensity";
+ROS_INFO("created params");
+//Create a PCL pointcloud
+pcl::PointCloud<pcl::PointXYZI>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZI>);
+//Populate the PCL pointcloud with the ROS message
+pcl::fromROSMsg(cloud_msg2,*cloud);
+ 
+  pcl::io::savePCDFileASCII (filename.data.c_str(), *cloud);
+ROS_INFO("Saved to %s", filename.data.c_str());
+}
+
+int
+main (int argc, char** argv)
+{
+  // Initialize ROS
+  ros::init (argc, argv, "my_pcl_tutorial");
+  ros::NodeHandle nh;
+
+  // Create a ROS subscriber for the input point cloud
+  ros::Subscriber sub = nh.subscribe ("marker_selected_points", 1, cloud_cb);
+
+  // Create a ROS publisher for the output point cloud
+if(argc < 2){
+printf("usage: rosrun wrock savemarker \"filename\" to save to \\home\\mike\\filename.pcd");
+return(0);
+}
+    std::stringstream ss;
+    ss << "/home/mike/" << argv[1] << ".pcd";
+    filename.data = ss.str();
+
+    ROS_INFO("Writing to %s", filename.data.c_str());
+ros::spin();
+
+}

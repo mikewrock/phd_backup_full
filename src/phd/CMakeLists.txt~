@@ -30,6 +30,7 @@ find_package(catkin REQUIRED COMPONENTS
   husky_description
   qt_build
 dynamic_reconfigure
+	ndt_registration
 ) 
 find_package(PCL 1.7 REQUIRED)
 ## This plugin includes Qt widgets, so we must include Qt like so:
@@ -203,7 +204,12 @@ set(SOURCE_FILES
 set(${PROJECT_NAME}_UIS
   src/control_panel.ui
 )
-
+set (${PROJECT_NAME}_LIB_SRCS
+	/home/mike/catkin_ws/src/phd/src/ndt_matcher_d2d.cpp
+	/home/mike/catkin_ws/src/phd/src/ndt_matcher_d2d_2d.cpp	
+      	/home/mike/catkin_ws/src/phd/src/ndt_matcher_d2d_feature.cpp  
+	/home/mike/catkin_ws/src/phd/src/ndt_matcher_p2d.cpp
+    )
 QT4_ADD_RESOURCES(QT_RESOURCES include/ui_resource.qrc)
 qt4_wrap_ui(${PROJECT_NAME}_UIS_H ${${PROJECT_NAME}_UIS})
 
@@ -214,12 +220,14 @@ add_executable(joint_fusion_node src/joint_state_fusion.cpp)
 add_executable(cloud_localizer src/pointcloud_localization_service.cpp)
 add_executable(thickness_server src/thickness_service.cpp)
 add_executable(trajectory_server src/trajectory_service.cpp)
+add_executable(saveselection src/saveselection.cpp)
 
 ## Declare a cpp library
  add_library(${PROJECT_NAME} 
    ${SOURCE_FILES}
    ${${PROJECT_NAME}_UIS_H}
    ${QT_RESOURCES}
+${${PROJECT_NAME}_LIB_SRCS}
  )
 # Client library
 add_library(bcap_client 
@@ -247,6 +255,7 @@ target_link_libraries(thickness_server  ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(trajectory_server  ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(joint_fusion_node  ${catkin_LIBRARIES})
 target_link_libraries(denso_node bcap_client ${catkin_LIBRARIES})
+target_link_libraries(saveselection  ${catkin_LIBRARIES})
 
 
 set_target_properties(cube_node PROPERTIES COMPILE_FLAGS "-D__LINUX__ -DUSE_ESD")
@@ -257,7 +266,7 @@ add_dependencies(thickness_server  phd_EXPORTED_TARGETS phd_generate_messages_cp
 add_dependencies(trajectory_server  phd_EXPORTED_TARGETS phd_generate_messages_cpp phd_gencpp)
 add_dependencies(cube_node  phd_EXPORTED_TARGETS phd_generate_messages_cpp)
 add_dependencies(denso_node  phd_EXPORTED_TARGETS phd_generate_messages_cpp)
-add_dependencies(control_panel  phd_EXPORTED_TARGETS phd_generate_messages_cpp phd_gencpp)
+#add_dependencies(control_panel  phd_EXPORTED_TARGETS phd_generate_messages_cpp phd_gencpp)
 
 add_dependencies(cloud_localizer ${PROJECT_NAME}_gencfg)
 

@@ -301,6 +301,19 @@ color: rgb(255, 255, 255);</string>
       <string>Step</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="est_pos">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>400</y>
+       <width>121</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Estimate Position</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_2">
     <attribute name="title">

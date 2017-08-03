@@ -313,6 +313,7 @@ target_link_libraries(pcl  ${catkin_LIBRARIES})
 target_link_libraries(pcf  ${catkin_LIBRARIES})
 target_link_libraries(pco  ${catkin_LIBRARIES})
 target_link_libraries(savepcd  ${catkin_LIBRARIES})
+target_link_libraries(saveselection  ${catkin_LIBRARIES})
 target_link_libraries(savemarker  ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(fileplay  ${catkin_LIBRARIES})
 target_link_libraries(spatial  ${catkin_LIBRARIES})
@@ -341,6 +342,7 @@ add_dependencies(cube_move  wrock_EXPORTED_TARGETS wrock_generate_messages_cpp)
 #add_dependencies(cube_node  wrock_EXPORTED_TARGETS wrock_generate_messages_cpp)
 add_dependencies(cube_demo  wrock wrock_generate_messages_cpp)
 add_dependencies(laser_demo  wrock wrock_generate_messages_cpp)
+add_dependencies(move  wrock wrock_generate_messages_cpp)
 
 
 install(TARGETS 

@@ -203,7 +203,6 @@ set(SOURCE_FILES
 set(${PROJECT_NAME}_UIS
   src/control_panel.ui
 )
-
 QT4_ADD_RESOURCES(QT_RESOURCES include/ui_resource.qrc)
 qt4_wrap_ui(${PROJECT_NAME}_UIS_H ${${PROJECT_NAME}_UIS})
 
@@ -214,6 +213,7 @@ add_executable(joint_fusion_node src/joint_state_fusion.cpp)
 add_executable(cloud_localizer src/pointcloud_localization_service.cpp)
 add_executable(thickness_server src/thickness_service.cpp)
 add_executable(trajectory_server src/trajectory_service.cpp)
+add_executable(saveselection src/saveselection.cpp)
 
 ## Declare a cpp library
  add_library(${PROJECT_NAME} 
@@ -247,6 +247,7 @@ target_link_libraries(thickness_server  ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(trajectory_server  ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(joint_fusion_node  ${catkin_LIBRARIES})
 target_link_libraries(denso_node bcap_client ${catkin_LIBRARIES})
+target_link_libraries(saveselection  ${catkin_LIBRARIES})
 
 
 set_target_properties(cube_node PROPERTIES COMPILE_FLAGS "-D__LINUX__ -DUSE_ESD")
