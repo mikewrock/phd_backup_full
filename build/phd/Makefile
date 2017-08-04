@@ -685,6 +685,20 @@ phd_genpy/fast:
 .PHONY : phd_genpy/fast
 
 # Convenience name for target.
+phd/CMakeFiles/saveselection.dir/rule:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/saveselection.dir/rule
+.PHONY : phd/CMakeFiles/saveselection.dir/rule
+
+# Convenience name for target.
+saveselection: phd/CMakeFiles/saveselection.dir/rule
+.PHONY : saveselection
+
+# fast build rule for target.
+saveselection/fast:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/saveselection.dir/build.make phd/CMakeFiles/saveselection.dir/build
+.PHONY : saveselection/fast
+
+# Convenience name for target.
 phd/CMakeFiles/test_node.dir/rule:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/test_node.dir/rule
 .PHONY : phd/CMakeFiles/test_node.dir/rule
@@ -1299,6 +1313,30 @@ src/pointcloud_localization_service.cpp.s:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/cloud_localizer.dir/build.make phd/CMakeFiles/cloud_localizer.dir/src/pointcloud_localization_service.cpp.s
 .PHONY : src/pointcloud_localization_service.cpp.s
 
+src/saveselection.o: src/saveselection.cpp.o
+.PHONY : src/saveselection.o
+
+# target to build an object file
+src/saveselection.cpp.o:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/saveselection.dir/build.make phd/CMakeFiles/saveselection.dir/src/saveselection.cpp.o
+.PHONY : src/saveselection.cpp.o
+
+src/saveselection.i: src/saveselection.cpp.i
+.PHONY : src/saveselection.i
+
+# target to preprocess a source file
+src/saveselection.cpp.i:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/saveselection.dir/build.make phd/CMakeFiles/saveselection.dir/src/saveselection.cpp.i
+.PHONY : src/saveselection.cpp.i
+
+src/saveselection.s: src/saveselection.cpp.s
+.PHONY : src/saveselection.s
+
+# target to generate assembly for a file
+src/saveselection.cpp.s:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/saveselection.dir/build.make phd/CMakeFiles/saveselection.dir/src/saveselection.cpp.s
+.PHONY : src/saveselection.cpp.s
+
 src/test_node.o: src/test_node.cpp.o
 .PHONY : src/test_node.o
 
@@ -1445,6 +1483,7 @@ help:
 	@echo "... phd_genlisp"
 	@echo "... phd_genpy"
 	@echo "... rebuild_cache"
+	@echo "... saveselection"
 	@echo "... test"
 	@echo "... test_node"
 	@echo "... thickness_server"
@@ -1515,6 +1554,9 @@ help:
 	@echo "... src/pointcloud_localization_service.o"
 	@echo "... src/pointcloud_localization_service.i"
 	@echo "... src/pointcloud_localization_service.s"
+	@echo "... src/saveselection.o"
+	@echo "... src/saveselection.i"
+	@echo "... src/saveselection.s"
 	@echo "... src/test_node.o"
 	@echo "... src/test_node.i"
 	@echo "... src/test_node.s"

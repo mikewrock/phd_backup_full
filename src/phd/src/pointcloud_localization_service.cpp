@@ -139,7 +139,7 @@ std::vector<pcl::PointXYZI> cluster_points(pcl::PointCloud<pcl::PointXYZI>::Ptr 
 //this functon locates the marker within a point cloud, it takes any amount of normals, returns true if a marker is found, and sets the marker location and transformation matrix values at the adresses given
 bool locate_marker(std::vector<pcl::PointXYZI> Pts, Eigen::Matrix3f &marker_location, Eigen::Matrix4f &A_mat){
 	
-	if(DEBUG) ROS_INFO("Locating from %d points", Pts.size());
+	if(DEBUG) ROS_INFO("Locating from %lu points", Pts.size());
 	float bvecs = 1;
 	float vecs;
 	int cnts = 0;
@@ -423,7 +423,7 @@ bool localize(phd::localize_cloud::Request  &req,
 	std::vector<pcl::PointXYZI> Pts;
 
 	Pts = cluster_points(cloud_intensity_filtered);
-	if(DEBUG) ROS_INFO("Clustered Points: %d", Pts.size());
+	if(DEBUG) ROS_INFO("Clustered Points: %lu", Pts.size());
 	Eigen::Matrix3f marker_loc;
 	Eigen::Matrix4f transform_mat;
 

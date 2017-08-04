@@ -177,8 +177,6 @@ pcl/point_representation.h
 -
 pcl/filters/filter.h
 -
-pcl/features/normal_3d.h
--
 pcl/registration/icp.h
 -
 pcl/registration/icp_nl.h

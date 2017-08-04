@@ -347,11 +347,13 @@ registration_localization/CMakeFiles/keypoints.dir/src/show_keypoints.cpp.o
  /usr/include/pcl-1.7/pcl/common/impl/common.hpp
  /usr/include/pcl-1.7/pcl/common/impl/eigen.hpp
  /usr/include/pcl-1.7/pcl/common/impl/file_io.hpp
+ /usr/include/pcl-1.7/pcl/common/impl/intensity.hpp
  /usr/include/pcl-1.7/pcl/common/impl/io.hpp
  /usr/include/pcl-1.7/pcl/common/impl/norms.hpp
  /usr/include/pcl-1.7/pcl/common/impl/projection_matrix.hpp
  /usr/include/pcl-1.7/pcl/common/impl/transforms.hpp
  /usr/include/pcl-1.7/pcl/common/impl/vector_average.hpp
+ /usr/include/pcl-1.7/pcl/common/intensity.h
  /usr/include/pcl-1.7/pcl/common/io.h
  /usr/include/pcl-1.7/pcl/common/norms.h
  /usr/include/pcl-1.7/pcl/common/point_tests.h
@@ -366,7 +368,13 @@ registration_localization/CMakeFiles/keypoints.dir/src/show_keypoints.cpp.o
  /usr/include/pcl-1.7/pcl/exceptions.h
  /usr/include/pcl-1.7/pcl/features/feature.h
  /usr/include/pcl-1.7/pcl/features/impl/feature.hpp
+ /usr/include/pcl-1.7/pcl/features/impl/integral_image2D.hpp
+ /usr/include/pcl-1.7/pcl/features/impl/integral_image_normal.hpp
+ /usr/include/pcl-1.7/pcl/features/impl/normal_3d.hpp
  /usr/include/pcl-1.7/pcl/features/impl/range_image_border_extractor.hpp
+ /usr/include/pcl-1.7/pcl/features/integral_image2D.h
+ /usr/include/pcl-1.7/pcl/features/integral_image_normal.h
+ /usr/include/pcl-1.7/pcl/features/normal_3d.h
  /usr/include/pcl-1.7/pcl/features/range_image_border_extractor.h
  /usr/include/pcl-1.7/pcl/filters/boost.h
  /usr/include/pcl-1.7/pcl/filters/extract_indices.h
@@ -394,8 +402,10 @@ registration_localization/CMakeFiles/keypoints.dir/src/show_keypoints.cpp.o
  /usr/include/pcl-1.7/pcl/kdtree/kdtree.h
  /usr/include/pcl-1.7/pcl/kdtree/kdtree_flann.h
  /usr/include/pcl-1.7/pcl/keypoints/impl/keypoint.hpp
+ /usr/include/pcl-1.7/pcl/keypoints/impl/susan.hpp
  /usr/include/pcl-1.7/pcl/keypoints/keypoint.h
  /usr/include/pcl-1.7/pcl/keypoints/narf_keypoint.h
+ /usr/include/pcl-1.7/pcl/keypoints/susan.h
  /usr/include/pcl-1.7/pcl/octree/impl/octree_pointcloud.hpp
  /usr/include/pcl-1.7/pcl/octree/impl/octree_search.hpp
  /usr/include/pcl-1.7/pcl/octree/octree_base.h

@@ -47,6 +47,8 @@ public:
     QPushButton *thickness;
     QLabel *marker_info_2;
     QPushButton *step_button;
+    QPushButton *est_pos;
+    QPushButton *show_nav_button;
     QWidget *tab_2;
     QPushButton *armDown;
     QPushButton *roll_pos;
@@ -141,13 +143,19 @@ public:
         thickness = new QPushButton(tab);
         thickness->setObjectName(QString::fromUtf8("thickness"));
         thickness->setEnabled(true);
-        thickness->setGeometry(QRect(120, 200, 141, 27));
+        thickness->setGeometry(QRect(130, 200, 131, 31));
         marker_info_2 = new QLabel(tab);
         marker_info_2->setObjectName(QString::fromUtf8("marker_info_2"));
         marker_info_2->setGeometry(QRect(20, 250, 221, 17));
         step_button = new QPushButton(tab);
         step_button->setObjectName(QString::fromUtf8("step_button"));
         step_button->setGeometry(QRect(10, 400, 121, 31));
+        est_pos = new QPushButton(tab);
+        est_pos->setObjectName(QString::fromUtf8("est_pos"));
+        est_pos->setGeometry(QRect(140, 400, 121, 31));
+        show_nav_button = new QPushButton(tab);
+        show_nav_button->setObjectName(QString::fromUtf8("show_nav_button"));
+        show_nav_button->setGeometry(QRect(10, 200, 111, 31));
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -314,6 +322,8 @@ public:
         thickness->setText(QApplication::translate("Control_Form", "Estimate Thickness", 0, QApplication::UnicodeUTF8));
         marker_info_2->setText(QApplication::translate("Control_Form", "Testing/Research Functions", 0, QApplication::UnicodeUTF8));
         step_button->setText(QApplication::translate("Control_Form", "Step", 0, QApplication::UnicodeUTF8));
+        est_pos->setText(QApplication::translate("Control_Form", "Estimate Position", 0, QApplication::UnicodeUTF8));
+        show_nav_button->setText(QApplication::translate("Control_Form", "Show Nav Goal", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("Control_Form", "Operation", 0, QApplication::UnicodeUTF8));
         armDown->setText(QString());
         roll_pos->setText(QApplication::translate("Control_Form", "+", 0, QApplication::UnicodeUTF8));

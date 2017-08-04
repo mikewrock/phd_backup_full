@@ -55,6 +55,14 @@ pcl/keypoints/narf_keypoint.h
 -
 pcl/console/parse.h
 -
+pcl/features/normal_3d.h
+-
+pcl/search/search.h
+-
+pcl/keypoints/susan.h
+-
+pcl/common/projection_matrix.h
+-
 
 /opt/ros/indigo/include/XmlRpcDecl.h
 ros/macros.h
@@ -2848,6 +2856,10 @@ pcl/pcl_macros.h
 
 /usr/include/pcl-1.7/pcl/common/impl/file_io.hpp
 
+/usr/include/pcl-1.7/pcl/common/impl/intensity.hpp
+pcl/point_types.h
+-
+
 /usr/include/pcl-1.7/pcl/common/impl/io.hpp
 pcl/common/concatenate.h
 -
@@ -2867,6 +2879,10 @@ pcl/cloud_iterator.h
 /usr/include/pcl-1.7/pcl/common/impl/transforms.hpp
 
 /usr/include/pcl-1.7/pcl/common/impl/vector_average.hpp
+
+/usr/include/pcl-1.7/pcl/common/intensity.h
+pcl/common/impl/intensity.hpp
+-
 
 /usr/include/pcl-1.7/pcl/common/io.h
 string
@@ -3000,8 +3016,46 @@ pcl/features/impl/feature.hpp
 pcl/search/pcl_search.h
 -
 
+/usr/include/pcl-1.7/pcl/features/impl/integral_image2D.hpp
+cstddef
+-
+
+/usr/include/pcl-1.7/pcl/features/impl/integral_image_normal.hpp
+pcl/features/integral_image_normal.h
+-
+
+/usr/include/pcl-1.7/pcl/features/impl/normal_3d.hpp
+pcl/features/normal_3d.h
+-
+
 /usr/include/pcl-1.7/pcl/features/impl/range_image_border_extractor.hpp
 pcl/range_image/range_image.h
+-
+
+/usr/include/pcl-1.7/pcl/features/integral_image2D.h
+vector
+-
+pcl/features/impl/integral_image2D.hpp
+-
+
+/usr/include/pcl-1.7/pcl/features/integral_image_normal.h
+pcl/point_cloud.h
+-
+pcl/point_types.h
+-
+pcl/features/feature.h
+-
+pcl/features/integral_image2D.h
+-
+pcl/features/impl/integral_image_normal.hpp
+-
+
+/usr/include/pcl-1.7/pcl/features/normal_3d.h
+pcl/features/feature.h
+-
+pcl/common/centroid.h
+-
+pcl/features/impl/normal_3d.hpp
 -
 
 /usr/include/pcl-1.7/pcl/features/range_image_border_extractor.h
@@ -3300,6 +3354,14 @@ pcl/kdtree/impl/kdtree_flann.hpp
 
 /usr/include/pcl-1.7/pcl/keypoints/impl/keypoint.hpp
 
+/usr/include/pcl-1.7/pcl/keypoints/impl/susan.hpp
+pcl/keypoints/susan.h
+-
+pcl/features/normal_3d.h
+-
+pcl/features/integral_image_normal.h
+-
+
 /usr/include/pcl-1.7/pcl/keypoints/keypoint.h
 pcl/pcl_base.h
 -
@@ -3322,6 +3384,14 @@ pcl/point_cloud.h
 pcl/point_types.h
 -
 pcl/keypoints/keypoint.h
+-
+
+/usr/include/pcl-1.7/pcl/keypoints/susan.h
+pcl/keypoints/keypoint.h
+-
+pcl/common/intensity.h
+-
+pcl/keypoints/impl/susan.hpp
 -
 
 /usr/include/pcl-1.7/pcl/octree/impl/octree_pointcloud.hpp

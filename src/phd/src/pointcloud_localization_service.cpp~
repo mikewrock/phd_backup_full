@@ -57,7 +57,7 @@
 #include <rosbag/view.h>
 #include <boost/foreach.hpp>
 #include <dynamic_reconfigure/server.h>
-#include <phd/SEGConfig.h>
+#include <phd/seg_configConfig.h>
 
 #define VACC 0.01
 #define VINT 650
@@ -139,7 +139,7 @@ std::vector<pcl::PointXYZI> cluster_points(pcl::PointCloud<pcl::PointXYZI>::Ptr 
 //this functon locates the marker within a point cloud, it takes any amount of normals, returns true if a marker is found, and sets the marker location and transformation matrix values at the adresses given
 bool locate_marker(std::vector<pcl::PointXYZI> Pts, Eigen::Matrix3f &marker_location, Eigen::Matrix4f &A_mat){
 	
-	if(DEBUG) ROS_INFO("Locating from %d points", Pts.size());
+	if(DEBUG) ROS_INFO("Locating from %lu points", Pts.size());
 	float bvecs = 1;
 	float vecs;
 	int cnts = 0;

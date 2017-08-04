@@ -29,6 +29,7 @@ protected:
 protected Q_SLOTS:
 void do_nav();
 void do_step();
+void do_estimate();
 void do_scan();
 void do_scan_2();
 void do_scan_3();

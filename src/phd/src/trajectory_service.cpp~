@@ -22,7 +22,6 @@
 #include <boost/make_shared.hpp>
 #include <pcl/point_representation.h>
 #include <pcl/filters/filter.h>
-#include <pcl/features/normal_3d.h>
 #include <pcl/registration/icp.h>
 #include <pcl/registration/icp_nl.h>
 #include <pcl/registration/transforms.h>
@@ -453,7 +452,7 @@ phd::trajectory_array calc_line_points(float z_val, float P1x, float P1y, float 
 	while(line->points.size()>0){		
 		end_pt.d = 0;
 		int lctr = 0;
-		ROS_INFO("Size %d",line->points.size());
+		ROS_INFO("Size %lu",line->points.size());
 		for(pcl::PointCloud<pcl::PointXYZI>::iterator ctr = line->begin(); ctr < line->end(); ++ctr){
 			point_holder.x = ctr->x;
 			point_holder.y = ctr->y;
@@ -478,10 +477,10 @@ phd::trajectory_array calc_line_points(float z_val, float P1x, float P1y, float 
 		search_pt.y = end_pt.y;
 		if(dir == 1)		std::sort (line_points.begin(), line_points.end(), forward_sort);
 		else		std::sort (line_points.begin(), line_points.end(), reverse_sort);
-		ROS_INFO("Pushing %d points", line_points.size());
+		ROS_INFO("Pushing %lu points", line_points.size());
 		line_sections.push_back(line_points);
 		line_points.clear();	
-		ROS_INFO("%d points remaining",line->points.size());
+		ROS_INFO("%lu points remaining",line->points.size());
 	}
 
 	phd::trajectory_msg t_msg;

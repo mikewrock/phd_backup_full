@@ -28,6 +28,8 @@ public:
 protected:
 protected Q_SLOTS:
 void do_nav();
+void show_nav();
+void exe_nav();
 void do_step();
 void do_estimate();
 void do_scan();

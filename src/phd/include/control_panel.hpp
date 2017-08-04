@@ -71,6 +71,8 @@ public:
 	virtual ~QNode();
 	void scan();
 	void step();
+	void show_nav();
+	void exe_nav();
 	void estimate();
 	void nav_mode(float pos);
 	void fscan(int file);
@@ -80,6 +82,7 @@ public:
 	void lscan();
 	void run();
 	bool init();
+	phd::trajectory_point find_pose();
 	float P1x, P1y, P1z, P2x, P2y, P2z;
 	float T1x, T1y, T1z, T2x, T2y, T2z, T3x, T3y, T3z;
 
@@ -96,6 +99,8 @@ private:
 	ros::Subscriber traj_sub;
 	ros::Publisher cmd_pub;
 	ros::Publisher arm_pub;
+	ros::Publisher nav_vis_pub;
+	ros::Publisher nav_pub;
 	ros::Publisher pub;
 	ros::Publisher pub2;
 	ros::Publisher pub3;

@@ -37,6 +37,8 @@ namespace control_panel
 		connect(ui_.nav_mode_button, SIGNAL(clicked()), this, SLOT(do_nav()));
 		connect(ui_.step_button, SIGNAL(clicked()), this, SLOT(do_step()));
 		connect(ui_.est_pos, SIGNAL(clicked()), this, SLOT(do_estimate()));
+		connect(ui_.exe_path, SIGNAL(clicked()), this, SLOT(exe_nav()));
+		connect(ui_.show_nav_button, SIGNAL(clicked()), this, SLOT(show_nav()));
 		connect(ui_.scan_button, SIGNAL(clicked()), this, SLOT(do_scan()));
 		connect(ui_.scan_button_2, SIGNAL(clicked()), this, SLOT(do_scan_2()));
 		connect(ui_.scan_button_3, SIGNAL(clicked()), this, SLOT(do_scan_3()));
@@ -89,6 +91,14 @@ namespace control_panel
 	void ControlPanel::do_nav(){
 		float pos = ui_.pos_box->text().toFloat();
 		  control_panel.nav_mode(pos);
+	}
+	void ControlPanel::exe_nav(){
+
+		  control_panel.exe_nav();
+	}
+	void ControlPanel::show_nav(){
+
+		  control_panel.show_nav();
 	}
 	void ControlPanel::do_scan(){
 

@@ -265,10 +265,10 @@ color: rgb(255, 255, 255);</string>
      </property>
      <property name="geometry">
       <rect>
-       <x>120</x>
+       <x>130</x>
        <y>200</y>
-       <width>141</width>
-       <height>27</height>
+       <width>131</width>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
@@ -312,6 +312,19 @@ color: rgb(255, 255, 255);</string>
      </property>
      <property name="text">
       <string>Estimate Position</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="show_nav_button">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>200</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Show Nav Goal</string>
      </property>
     </widget>
    </widget>

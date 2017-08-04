@@ -71,6 +71,8 @@ public:
 	virtual ~QNode();
 	void scan();
 	void step();
+	void show_nav();
+	void exe_nav();
 	void estimate();
 	void nav_mode(float pos);
 	void fscan(int file);
@@ -96,9 +98,13 @@ private:
 	ros::Subscriber traj_sub;
 	ros::Publisher cmd_pub;
 	ros::Publisher arm_pub;
+	ros::Publisher nav_vis_pub;
+	ros::Publisher nav_pub;
 	ros::Publisher pub;
 	ros::Publisher pub2;
 	ros::Publisher pub3;
+	ros::Publisher pub4;
+	ros::Publisher pub5;
 	ros::ServiceClient client;
 	ros::ServiceClient loc_client;
 	ros::ServiceClient traj_client;
