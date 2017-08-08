@@ -2,34 +2,39 @@
 #define _CUSTOM_UINT64
 // ROS
 #include <ros/ros.h>
-
+//Header for this file
 #include "../include/control_panel.hpp"
 //#include <atlbase.h>
+//ROS includes
 #define _USE_MATH_DEFINES
-#include <math.h>
-#include <string>
 #include <tf/transform_broadcaster.h>
 #include <sensor_msgs/JointState.h>  
-
-#include <phd/cube_msg.h>
+#include <sensor_msgs/PointCloud2.h>
+#include <ros/time.h>
+#include <visualization_msgs/Marker.h>
+#include <std_msgs/Float64.h>
+#include <rosbag/bag.h>
+#include <rosbag/view.h>
+//C++ includes
+#include <math.h>
+#include <string>
 #include <cstdio>
+#include <QVariant>
+#include <iostream>
 // Services
 #include "laser_assembler/AssembleScans2.h"
 #include "phd/localize_cloud.h"
+#include "phd/trajectory_service.h"
 // Messages
 #include "sensor_msgs/PointCloud.h"
-
+#include <phd/cube_msg.h>
+#include <phd/arm_msg.h>
+//PCL includes
 #include <pcl/io/pcd_io.h>
 #include <pcl_conversions/pcl_conversions.h>
 #include <pcl/point_cloud.h>
 #include <pcl/PCLPointCloud2.h>
 #include <pcl/point_types.h>
-
-#include <ros/ros.h>
-#include <ros/time.h>
-#include <sensor_msgs/PointCloud2.h>
-#include <QVariant>
-#include <pcl_conversions/pcl_conversions.h>
 #include <pcl/common/transforms.h>
 #include <pcl/features/normal_3d.h>
 #include <pcl/search/search.h>
@@ -38,42 +43,34 @@
 #include <pcl/registration/ia_ransac.h>
 #include <pcl/filters/passthrough.h>
 #include <pcl/common/common.h>
-
 #include <pcl/filters/impl/box_clipper3D.hpp>
-
 #include <pcl/features/fpfh.h>
-#include <pcl/registration/ia_ransac.h>
-#include <visualization_msgs/Marker.h>
-
 #include <pcl/filters/crop_box.h>
 #include <pcl/filters/voxel_grid.h>
 #include <pcl/registration/icp.h>
 #include <pcl/registration/icp_nl.h>
 #include <pcl/common/angles.h>
-#include <iostream>
-#include <std_msgs/Float64.h>
-#include <rosbag/bag.h>
-#include <rosbag/view.h>
-
-
-#include "phd/trajectory_service.h"
-#include <phd/arm_msg.h>
 
 #define CALC true
 
 namespace control_panel{
 namespace control_panel_ns{
 
-
+//For displaying arm trajectory
 visualization_msgs::Marker point_list;
-        double joint1;
+//For keeping track of the powercube joint
+double joint1;
+//For assembling the laser scans
 laser_assembler::AssembleScans2 srv;
+//For localizing a pointcloud
 phd::localize_cloud loc_srv;
+//For generating arm trajectories
 phd::trajectory_service traj_srv;
 
 //DELETE
 pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_aligner (new pcl::PointCloud<pcl::PointXYZI> );
 
+//Destructor
 QNode::~QNode() {
     if(ros::isStarted()) {
       ros::shutdown(); // explicitly needed since we use ros::start();
@@ -81,50 +78,58 @@ QNode::~QNode() {
     }
 	wait();
 }
+//Callback for storing current powercube position
 void QNode::jointCallback(const sensor_msgs::JointState::ConstPtr& msg)
 {
 	std::string str1 = "cube_5_joint";
-	  std::string str2 =msg->name[0] ;
+	std::string str2 =msg->name[0] ;
+	//Since there are multiple joint_state_publishers, we need to make sure the message is actually the powercube joint	
 	if(str1==str2){
 	  joint1 = msg->position[0];
 	}
 }
+//Store the point cloud selection in current_pc_
 void QNode::cloudCallback(const sensor_msgs::PointCloud2::ConstPtr& cloud)
 {
 
 	current_pc_.reset(new pcl::PointCloud<pcl::PointXYZI>());
 	pcl::fromROSMsg(*cloud, *this->current_pc_);
-	geometry_msgs::Point p;
-	p.x = current_pc_->points[0].data[0];
-	p.y = current_pc_->points[0].data[1];
-	p.z = current_pc_->points[0].data[2];
-	point_list.points.push_back(p);
-	//vis_pub.publish(point_list);
+
 }
 
+//Initialization function
 bool QNode::init() {
 	ROS_INFO( "Control Panel initializing");
+	//The ros init function requires argc and argv, but we dont have any so we make empty ones
 	int fargc = 0;
 	char** fargv = (char**)malloc(sizeof(char*)*(fargc+1));
 	ros::init(fargc,fargv,"ControlPanelNode");
 	free(fargv);
 	ros::start();
+	//Our publishers for the powercube and manipulator
 	cmd_pub = nh_.advertise<phd::cube_msg>("joint_cmd", 100);
 	arm_pub = nh_.advertise<phd::arm_msg>("arm_cmd", 100);
+	//Point cloud publisher
 	pub = nh_.advertise<sensor_msgs::PointCloud2> ("assembled_cloud", 1);
 	pub2 = nh_.advertise<sensor_msgs::PointCloud2> ("aligned_cloud", 1);
 	pub3 = nh_.advertise<sensor_msgs::PointCloud2> ("aligned_cloud3", 1);
 	pub4 = nh_.advertise<sensor_msgs::PointCloud2> ("aligned_cloud4", 1);
 	pub5 = nh_.advertise<sensor_msgs::PointCloud2> ("aligned_cloud5", 1);
+	//Publisher for displaying navigation goal
+	nav_vis_pub = nh_.advertise<visualization_msgs::Marker>( "nav_vis_goal", 0 );
+	//Publisher for advertising navigation goal
+	nav_pub = nh_.advertise<geometry_msgs::PoseStamped>( "nav_goal", 0 );
+	//Subscribers to listen to the powercube position and point cloud selection
 	joint_sub = nh_.subscribe("cube_joint_states", 1, &control_panel::control_panel_ns::QNode::jointCallback,this);
 	cloud_sub = nh_.subscribe("marker_selected_points", 1, &control_panel::control_panel_ns::QNode::cloudCallback,this);
-	traj_sub = nh_.subscribe("trajectory_points", 1, &control_panel::control_panel_ns::QNode::cloudCallback,this);
-    //service client for calling the assembler
+	//traj_sub = nh_.subscribe("trajectory_points", 1, &control_panel::control_panel_ns::QNode::cloudCallback,this);
+	//Service client for calling the laser scan assembler
 	client = nh_.serviceClient<laser_assembler::AssembleScans2>("assemble_scans2");
+	//Service client for transforming th point cloud to the world coordinate frame
 	loc_client = nh_.serviceClient<phd::localize_cloud>("localize_pcd");
+	//Service client for gerneating an arm trajectory
 	traj_client = nh_.serviceClient<phd::trajectory_service>("trajectory_gen");
-	nav_vis_pub = nh_.advertise<visualization_msgs::Marker>( "nav_vis_goal", 0 );
-	nav_pub = nh_.advertise<geometry_msgs::PoseStamped>( "nav_goal", 0 );
+	//Initialize the trajectory display marker	
 	point_list.header.frame_id = "/base_link";
 	point_list.header.stamp = ros::Time::now();
 	point_list.ns = "points_and_lines";
@@ -134,14 +139,13 @@ bool QNode::init() {
 	point_list.type = visualization_msgs::Marker::POINTS;
 	point_list.scale.x = 0.1;
 	point_list.scale.y = 0.1;
-	// Line list is red
 	point_list.color.r = 1.0;
 	point_list.color.a = 1;
-
+	//Start the counters for trajectory sections and points at 0
 	sec_ctr = 0;
 	pt_ctr = 0;
-
-	ros::start();
+	
+	//ros::start();
 }
 
 phd::trajectory_point QNode::find_pose(void){
@@ -186,8 +190,8 @@ void QNode::show_nav() {
 	nav_goal.pose.orientation.w = 1.0;
 	nav_goal.id = 0;
 	nav_goal.type = visualization_msgs::Marker::ARROW;
-	nav_goal.scale.x = 0.1;
-	nav_goal.scale.y = 0.1;
+	nav_goal.scale.x = 0.01;
+	nav_goal.scale.y = 0.02;
 	nav_goal.color.g = 1.0;
 	nav_goal.color.a = 1;
 	geometry_msgs::Point p;
@@ -197,8 +201,8 @@ void QNode::show_nav() {
 	p.y = tp.y+0.2*tp.ny;
 	p.z = 0;
 	nav_goal.points.push_back(p);
-	p.x -= tp.ny;
-	p.y += tp.nx;
+	p.x -= 0.2*tp.ny;
+	p.y += 0.2*tp.nx;
 	nav_goal.points.push_back(p);
 	nav_vis_pub.publish(nav_goal);
 
@@ -537,7 +541,7 @@ void QNode::gen_trajectory(){
 
 }
 
-void QNode::trajectory(int index){
+void QNode::start_pt(){
 
 	T1x = current_pc_->points[0].data[0];
 	T1y = current_pc_->points[0].data[1];

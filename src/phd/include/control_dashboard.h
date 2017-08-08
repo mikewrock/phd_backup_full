@@ -27,6 +27,7 @@ public:
 
 protected:
 protected Q_SLOTS:
+//All of these functions are explained in control_dashboard.cpp
 void do_nav();
 void show_nav();
 void exe_nav();
@@ -67,10 +68,11 @@ protected:
 
 
 private:
+	//Create the control panel and manual operation nodes
 	control_panel_ns::QNode control_panel;
 	husky_control::QNode vel_control;
+	//this is used to keep track of whick marker point is being clustered
 	int cluster_index;
-	int trajectory_index;
 
 };
 }

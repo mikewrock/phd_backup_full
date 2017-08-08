@@ -178,7 +178,7 @@
       <string>Ready to cluster</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="trajectory_1">
+    <widget class="QPushButton" name="start_point">
      <property name="geometry">
       <rect>
        <x>10</x>

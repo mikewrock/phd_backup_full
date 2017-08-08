@@ -27,7 +27,10 @@ public:
 
 protected:
 protected Q_SLOTS:
+//All of these functions are explained in control_dashboard.cpp
 void do_nav();
+void show_nav();
+void exe_nav();
 void do_step();
 void do_estimate();
 void do_scan();

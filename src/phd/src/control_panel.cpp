@@ -2,34 +2,39 @@
 #define _CUSTOM_UINT64
 // ROS
 #include <ros/ros.h>
-
+//Header for this file
 #include "../include/control_panel.hpp"
 //#include <atlbase.h>
+//ROS includes
 #define _USE_MATH_DEFINES
-#include <math.h>
-#include <string>
 #include <tf/transform_broadcaster.h>
 #include <sensor_msgs/JointState.h>  
-
-#include <phd/cube_msg.h>
+#include <sensor_msgs/PointCloud2.h>
+#include <ros/time.h>
+#include <visualization_msgs/Marker.h>
+#include <std_msgs/Float64.h>
+#include <rosbag/bag.h>
+#include <rosbag/view.h>
+//C++ includes
+#include <math.h>
+#include <string>
 #include <cstdio>
+#include <QVariant>
+#include <iostream>
 // Services
 #include "laser_assembler/AssembleScans2.h"
 #include "phd/localize_cloud.h"
+#include "phd/trajectory_service.h"
 // Messages
 #include "sensor_msgs/PointCloud.h"
-
+#include <phd/cube_msg.h>
+#include <phd/arm_msg.h>
+//PCL includes
 #include <pcl/io/pcd_io.h>
 #include <pcl_conversions/pcl_conversions.h>
 #include <pcl/point_cloud.h>
 #include <pcl/PCLPointCloud2.h>
 #include <pcl/point_types.h>
-
-#include <ros/ros.h>
-#include <ros/time.h>
-#include <sensor_msgs/PointCloud2.h>
-#include <QVariant>
-#include <pcl_conversions/pcl_conversions.h>
 #include <pcl/common/transforms.h>
 #include <pcl/features/normal_3d.h>
 #include <pcl/search/search.h>
@@ -38,42 +43,35 @@
 #include <pcl/registration/ia_ransac.h>
 #include <pcl/filters/passthrough.h>
 #include <pcl/common/common.h>
-
 #include <pcl/filters/impl/box_clipper3D.hpp>
-
 #include <pcl/features/fpfh.h>
-#include <pcl/registration/ia_ransac.h>
-#include <visualization_msgs/Marker.h>
-
 #include <pcl/filters/crop_box.h>
 #include <pcl/filters/voxel_grid.h>
 #include <pcl/registration/icp.h>
 #include <pcl/registration/icp_nl.h>
 #include <pcl/common/angles.h>
-#include <iostream>
-#include <std_msgs/Float64.h>
-#include <rosbag/bag.h>
-#include <rosbag/view.h>
-
-
-#include "phd/trajectory_service.h"
-#include <phd/arm_msg.h>
 
 #define CALC true
+#define DEBUG true
 
 namespace control_panel{
 namespace control_panel_ns{
 
-
+//For displaying arm trajectory
 visualization_msgs::Marker point_list;
-        double joint1;
+//For keeping track of the powercube joint
+double joint1;
+//For assembling the laser scans
 laser_assembler::AssembleScans2 srv;
+//For localizing a pointcloud
 phd::localize_cloud loc_srv;
+//For generating arm trajectories
 phd::trajectory_service traj_srv;
 
 //DELETE
 pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_aligner (new pcl::PointCloud<pcl::PointXYZI> );
 
+//Destructor
 QNode::~QNode() {
     if(ros::isStarted()) {
       ros::shutdown(); // explicitly needed since we use ros::start();
@@ -81,50 +79,58 @@ QNode::~QNode() {
     }
 	wait();
 }
+//Callback for storing current powercube position
 void QNode::jointCallback(const sensor_msgs::JointState::ConstPtr& msg)
 {
 	std::string str1 = "cube_5_joint";
-	  std::string str2 =msg->name[0] ;
+	std::string str2 =msg->name[0] ;
+	//Since there are multiple joint_state_publishers, we need to make sure the message is actually the powercube joint	
 	if(str1==str2){
 	  joint1 = msg->position[0];
 	}
 }
+//Store the point cloud selection in current_pc_
 void QNode::cloudCallback(const sensor_msgs::PointCloud2::ConstPtr& cloud)
 {
 
 	current_pc_.reset(new pcl::PointCloud<pcl::PointXYZI>());
 	pcl::fromROSMsg(*cloud, *this->current_pc_);
-	geometry_msgs::Point p;
-	p.x = current_pc_->points[0].data[0];
-	p.y = current_pc_->points[0].data[1];
-	p.z = current_pc_->points[0].data[2];
-	point_list.points.push_back(p);
-	//vis_pub.publish(point_list);
+
 }
 
+//Initialization function
 bool QNode::init() {
 	ROS_INFO( "Control Panel initializing");
+	//The ros init function requires argc and argv, but we dont have any so we make empty ones
 	int fargc = 0;
 	char** fargv = (char**)malloc(sizeof(char*)*(fargc+1));
 	ros::init(fargc,fargv,"ControlPanelNode");
 	free(fargv);
 	ros::start();
+	//Our publishers for the powercube and manipulator
 	cmd_pub = nh_.advertise<phd::cube_msg>("joint_cmd", 100);
 	arm_pub = nh_.advertise<phd::arm_msg>("arm_cmd", 100);
+	//Point cloud publisher
 	pub = nh_.advertise<sensor_msgs::PointCloud2> ("assembled_cloud", 1);
 	pub2 = nh_.advertise<sensor_msgs::PointCloud2> ("aligned_cloud", 1);
 	pub3 = nh_.advertise<sensor_msgs::PointCloud2> ("aligned_cloud3", 1);
 	pub4 = nh_.advertise<sensor_msgs::PointCloud2> ("aligned_cloud4", 1);
 	pub5 = nh_.advertise<sensor_msgs::PointCloud2> ("aligned_cloud5", 1);
+	//Publisher for displaying navigation goal
+	nav_vis_pub = nh_.advertise<visualization_msgs::Marker>( "nav_vis_goal", 0 );
+	//Publisher for advertising navigation goal
+	nav_pub = nh_.advertise<geometry_msgs::PoseStamped>( "nav_goal", 0 );
+	//Subscribers to listen to the powercube position and point cloud selection
 	joint_sub = nh_.subscribe("cube_joint_states", 1, &control_panel::control_panel_ns::QNode::jointCallback,this);
 	cloud_sub = nh_.subscribe("marker_selected_points", 1, &control_panel::control_panel_ns::QNode::cloudCallback,this);
-	traj_sub = nh_.subscribe("trajectory_points", 1, &control_panel::control_panel_ns::QNode::cloudCallback,this);
-    //service client for calling the assembler
+	//traj_sub = nh_.subscribe("trajectory_points", 1, &control_panel::control_panel_ns::QNode::cloudCallback,this);
+	//Service client for calling the laser scan assembler
 	client = nh_.serviceClient<laser_assembler::AssembleScans2>("assemble_scans2");
+	//Service client for transforming th point cloud to the world coordinate frame
 	loc_client = nh_.serviceClient<phd::localize_cloud>("localize_pcd");
+	//Service client for gerneating an arm trajectory
 	traj_client = nh_.serviceClient<phd::trajectory_service>("trajectory_gen");
-	nav_vis_pub = nh_.advertise<visualization_msgs::Marker>( "nav_vis_goal", 0 );
-	nav_pub = nh_.advertise<geometry_msgs::PoseStamped>( "nav_goal", 0 );
+	//Initialize the trajectory display marker	
 	point_list.header.frame_id = "/base_link";
 	point_list.header.stamp = ros::Time::now();
 	point_list.ns = "points_and_lines";
@@ -134,18 +140,19 @@ bool QNode::init() {
 	point_list.type = visualization_msgs::Marker::POINTS;
 	point_list.scale.x = 0.1;
 	point_list.scale.y = 0.1;
-	// Line list is red
 	point_list.color.r = 1.0;
 	point_list.color.a = 1;
-
+	//Start the counters for trajectory sections and points at 0
 	sec_ctr = 0;
 	pt_ctr = 0;
-
-	ros::start();
+	
+	//ros::start();
 }
 
+//Determines the appropriate robot base pose for executing the arm trajectory
 phd::trajectory_point QNode::find_pose(void){
 	phd::trajectory_point ret;
+	//Custome messages dont have constructors, so this makes sure there is no random data in the message
 	ret.x = 0;
 	ret.y = 0;
 	ret.z = 0;
@@ -153,29 +160,37 @@ phd::trajectory_point QNode::find_pose(void){
 	ret.ny = 0;
 	ret.nz = 0;
 	ret.d = 0;
+	//Counter for averaging the bottom points of the trajectory
 	int avg_ctr = 0;
-ROS_INFO("start Point %f - %f",traj.sections[sec_ctr].points[0].x,traj.sections[sec_ctr].points[0].y);
+	if(DEBUG) ROS_INFO("start Point %f - %f",traj.sections[sec_ctr].points[0].x,traj.sections[sec_ctr].points[0].y);
+	//Average the normals of the bottom line, and find the furthest point on the bottom line for determining the midpoint
 	for(int ctr = 0; ctr < traj.sections[sec_ctr].points.size(); ++ctr){
+		//Only look at the bottom line of the trajectory		
 		if(traj.sections[sec_ctr].points[ctr].z - traj.sections[sec_ctr].points[0].z < 0.02){
+			//Only average the XY values of the normal, we dont need Z			
 			ret.nx += traj.sections[sec_ctr].points[ctr].nx;
 			ret.ny += traj.sections[sec_ctr].points[ctr].ny;
 			avg_ctr++;
-		}
-		if(traj.sections[sec_ctr].points[ctr].d>ret.d){
-			ret.x = traj.sections[sec_ctr].points[ctr].x;
-			ret.y = traj.sections[sec_ctr].points[ctr].y;
-			ret.d = traj.sections[sec_ctr].points[ctr].d;
+			//Look for furthest trjectory point on the bottom line
+			if(traj.sections[sec_ctr].points[ctr].d>ret.d){
+				ret.x = traj.sections[sec_ctr].points[ctr].x;
+				ret.y = traj.sections[sec_ctr].points[ctr].y;
+				ret.d = traj.sections[sec_ctr].points[ctr].d;
+			}
 		}	
 	}
+	//Normals point toward the surface, so we flip them when making them in to an average
 	ret.nx = -ret.nx/avg_ctr;
 	ret.ny = -ret.ny/avg_ctr;
-	ret.x = traj.sections[sec_ctr].points[0].x+((ret.x - traj.sections[sec_ctr].points[0].x)/2);// + 0.5*ret.nx;
-	ret.y = traj.sections[sec_ctr].points[0].y+((ret.y - traj.sections[sec_ctr].points[0].y)/2);// + 0.5*ret.ny;
+	//Find the midpoint of the bottom trajectory section
+	ret.x = traj.sections[sec_ctr].points[0].x+((ret.x - traj.sections[sec_ctr].points[0].x)/2);
+	ret.y = traj.sections[sec_ctr].points[0].y+((ret.y - traj.sections[sec_ctr].points[0].y)/2);
 	ret.z = 0;
-	ROS_INFO("Returnin %f - %f/ %f - %f",ret.x,ret.y,ret.nx,ret.ny);
+	if(DEBUG) ROS_INFO("Returning %f - %f/ %f - %f",ret.x,ret.y,ret.nx,ret.ny);
 	return ret;
 }
 
+//Calculate and display the current naviagtion goal
 void QNode::show_nav() {
 
 	visualization_msgs::Marker nav_goal;
@@ -192,20 +207,26 @@ void QNode::show_nav() {
 	nav_goal.color.a = 1;
 	geometry_msgs::Point p;
 	phd::trajectory_point tp;
+	//Find the appropriate pose
 	tp = find_pose();
+	//Offset the pose from the surface in the direction normal to the surface
 	p.x = tp.x+0.2*tp.nx;
 	p.y = tp.y+0.2*tp.ny;
 	p.z = 0;
 	nav_goal.points.push_back(p);
+	//The tip of the nav goal is a right angle to the normal (cross product of the Z axis and the normal)
 	p.x -= 0.2*tp.ny;
 	p.y += 0.2*tp.nx;
 	nav_goal.points.push_back(p);
+	//Display the marker
 	nav_vis_pub.publish(nav_goal);
 
 }
+
+//Send the desired base pose to the global planner
 void QNode::exe_nav() {
+
 	geometry_msgs::PoseStamped pose;
-	
 	pose.header.frame_id = "/base_link";
 	pose.header.stamp = ros::Time::now();
 	pose.pose.position.x = 0;
@@ -216,9 +237,10 @@ void QNode::exe_nav() {
 	pose.pose.orientation.z = 0;
 	pose.pose.orientation.w = 0;
 	nav_pub.publish(pose);
-	
 
 }
+
+//Main control loop, spins while ros is running
 void QNode::run() {
 	std::cout << "Control Panel Running" << std::endl;
 	
@@ -231,23 +253,30 @@ void QNode::run() {
 	Q_EMIT rosShutdown(); // used to signal the gui for a shutdown (useful to roslaunch)
 }
 
-
+//Testing function used to step through the trajectory points
 void QNode::step(){
-
+	//Generate and arm_msg and populatie it with the current point in the trajectory array
 	phd::arm_msg msg;
 	msg.x = traj.sections[sec_ctr].points[pt_ctr].x;
 	msg.y = traj.sections[sec_ctr].points[pt_ctr].y;
 	msg.z = traj.sections[sec_ctr].points[pt_ctr].z;
+	//Caluclate the rotation around the X and Y axis from the normal vector
 	float length = sqrt(pow(traj.sections[sec_ctr].points[pt_ctr].nx,2)+pow(traj.sections[sec_ctr].points[pt_ctr].ny,2)+pow(traj.sections[sec_ctr].points[pt_ctr].nz,2));
 	msg.rx = asin(traj.sections[sec_ctr].points[pt_ctr].ny / length);
+	//Prevent divide by zero errors
 	if(cos(msg.rx)!=0) msg.ry = asin( traj.sections[sec_ctr].points[pt_ctr].nx / (cos(msg.rx)*length) );
+	else msg.ry = 0;
+	//No need for the roll around the Z axis, since the spray pattern and radiation detection is conical
 	msg.rz = 0;
+	//This is the elbow configuration of the arm
 	msg.fig = 1;
+	//Increment the point counter, and if necessary the trajectory section counter
 	++pt_ctr;
 	if(pt_ctr >= traj.sections[sec_ctr].points.size()){
 		++sec_ctr;
 		pt_ctr = 0;
 	}
+	//Send the command to the arm
 	arm_pub.publish(msg);
 
 }
@@ -537,7 +566,7 @@ void QNode::gen_trajectory(){
 
 }
 
-void QNode::trajectory(int index){
+void QNode::start_pt(){
 
 	T1x = current_pc_->points[0].data[0];
 	T1y = current_pc_->points[0].data[1];

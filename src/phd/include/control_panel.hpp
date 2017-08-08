@@ -64,7 +64,7 @@ namespace control_panel_ns {
 class QNode : public QThread {
     Q_OBJECT
 public:
-
+	//See control_panel.cpp for description of these functions
 	void jointCallback(const sensor_msgs::JointState::ConstPtr& msg);
 	void cloudCallback(const sensor_msgs::PointCloud2::ConstPtr& cloud);
 	QNode(){}
@@ -77,14 +77,16 @@ public:
 	void nav_mode(float pos);
 	void fscan(int file);
 	void cluster(int index);
-	void trajectory(int index);
+	void start_pt();
 	void gen_trajectory();
 	void lscan();
 	void run();
 	bool init();
 	phd::trajectory_point find_pose();
+	//Variables for holding the first two points of the marker, when the third one comes in they all get saved to file
 	float P1x, P1y, P1z, P2x, P2y, P2z;
-	float T1x, T1y, T1z, T2x, T2y, T2z, T3x, T3y, T3z;
+	//Variables for holding the start point for the trajectory algorithm
+	float T1x, T1y, T1z;
 
 
 Q_SIGNALS:
@@ -94,6 +96,7 @@ private:
 	int init_argc;
 	char** init_argv;
 	ros::NodeHandle nh_;
+	//Subscribers, Publishers, and Services explained in control_panel.cpp
 	ros::Subscriber joint_sub;
 	ros::Subscriber cloud_sub;
 	ros::Subscriber traj_sub;
@@ -109,13 +112,17 @@ private:
 	ros::ServiceClient client;
 	ros::ServiceClient loc_client;
 	ros::ServiceClient traj_client;
+	//Pointer to the pointcloud selection
 	pcl::PointCloud<pcl::PointXYZI>::Ptr current_pc_;
+	//Holds the entire pointcloud from laser_scan_assembler, used for calculating normals (useful at the edges of current_pc_)
 	sensor_msgs::PointCloud2 cloud_surface;
+	//Holds the entire arm trajectory
 	phd::trajectory_array traj;
+	//Counters for keeping track of current trajectory section and point
 	int sec_ctr;
 	int pt_ctr;
 };
 }
 }  // namespace 
 
-#endif /* test_panel_QNODE_HPP_ */
+#endif /* control_panel_QNODE_HPP_ */

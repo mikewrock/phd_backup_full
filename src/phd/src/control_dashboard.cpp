@@ -29,9 +29,13 @@ namespace control_panel
 	  , control_panel()
 	, vel_control()
 	{
+		//Initial setup
 		ui_.setupUi(this);
+		//Start the time for the manual operation of the robot
 		QTimer* output_timer = new QTimer( this );
+		//Initialize control panel
 		int ret = control_panel.init();
+		//Initialize the manual operation node
 		ret = vel_control.init();
 		//SIGNAL connections
 		connect(ui_.nav_mode_button, SIGNAL(clicked()), this, SLOT(do_nav()));
@@ -46,7 +50,7 @@ namespace control_panel
 		connect(ui_.localization_button, SIGNAL(clicked()), this, SLOT(localization_scan()));
 		connect(ui_.localization_button_2, SIGNAL(clicked()), this, SLOT(localization_scan_2()));
 		connect(ui_.cluster1, SIGNAL(clicked()), this, SLOT(cluster_1()));
-		connect(ui_.trajectory_1, SIGNAL(clicked()), this, SLOT(trajectory()));
+		connect(ui_.start_point, SIGNAL(clicked()), this, SLOT(start_pt()));
 		connect(ui_.gen_trajectory, SIGNAL(clicked()), this, SLOT(gen_trajectory()));
 		connect(ui_.fwdButton, SIGNAL(pressed()), this, SLOT(fwd_vel()));
 		connect(ui_.revButton, SIGNAL(pressed()), this, SLOT(rev_vel()));
@@ -81,33 +85,38 @@ namespace control_panel
 		connect(ui_.yaw_neg, SIGNAL(released()), this, SLOT(clear_vel()));
 		connect(ui_.yaw_pos, SIGNAL(released()), this, SLOT(clear_vel()));
 		//connect( output_timer, SIGNAL( timeout() ), this, SLOT( sendVel() ));
-
+		//Index for keeping track of which marker point is being clustered
 		cluster_index = 0;
-		trajectory_index = 0;
 	}
 
 	ControlPanel::~ControlPanel(){}
 
+	//Move laser scanner to its navigation position (horizontal) or whatever position is specified by the user in the text box
 	void ControlPanel::do_nav(){
 		float pos = ui_.pos_box->text().toFloat();
 		  control_panel.nav_mode(pos);
 	}
+	//Tell the robot to drive to the desired goal by publishing the goal location
 	void ControlPanel::exe_nav(){
 
 		  control_panel.exe_nav();
 	}
+	//Show the robot's goal location and path
 	void ControlPanel::show_nav(){
 
 		  control_panel.show_nav();
 	}
+	//Perform and scan using the nodding head laser
 	void ControlPanel::do_scan(){
 
 		  control_panel.scan();
 	}
+	//Estimate the position correction through registration
 	void ControlPanel::do_estimate(){
 
 		  control_panel.estimate();
 	}
+	//Testing function, step through the arm strajectory pose
 	void ControlPanel::do_step(){
 
 		  control_panel.step();
@@ -124,8 +133,9 @@ namespace control_panel
 
 		  control_panel.fscan(4);
 	}
+	//Cluster the high intensity points in the selected area
 	void ControlPanel::cluster_1(){
-
+		//Call the cluster function in control_panel and pass it which marker point to be clustered, then update the text in the panel
 		control_panel.cluster(cluster_index);
 		if(cluster_index == 0){
 		 ui_.cluster1->setText("Cluster Pt. 2");
@@ -141,43 +151,38 @@ namespace control_panel
 		 cluster_index = 0;
 		}
 	}
-	void ControlPanel::trajectory(){
+	//Set the start point for trajectory generation
+	void ControlPanel::start_pt(){
 	
-		control_panel.trajectory(trajectory_index);
-		/*if(trajectory_index == 0){
-		 ui_.trajectory_1->setText("Trajectory Pt. 2");
-		 trajectory_index+=1;
-		}
-		else if(trajectory_index == 1){
-		 ui_.trajectory_1->setText("Trajectory Pt. 3");
-		 ++trajectory_index;
-		}
-		else if(trajectory_index == 2){
-		 ui_.trajectory_1->setText("Trajectory Pt. 1");
-		 ui_.gen_trajectory->setEnabled(true);
-		 trajectory_index = 0;
-		}*/
+		control_panel.start_pt();
+
 	}
+	//Generate a trajectory for the arm to spray
 	void ControlPanel::gen_trajectory(){
 
 		  control_panel.gen_trajectory();
 		 //ui_.gen_trajectory->setEnabled(false);
 
 	}
+	//Perform a laser scan and set current location as the coordinate frame to transform all future scans in to
 	void ControlPanel::localization_scan(){
-
+		
+		control_panel.lscan();
 
 	}
+	//Testing function
 	void ControlPanel::localization_scan_2(){
 
 		control_panel.lscan();
 
 	}
+	//A soft E-Stop
 	void ControlPanel::clear_vel(){
 
 		vel_control.stop();
 
 	}
+	//The remaining functions are for manual driving the robot
 	void ControlPanel::fwd_vel(){
 
 		vel_control.move(FORWARD,SPEED,HUSKY);

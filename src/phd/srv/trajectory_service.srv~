@@ -10,4 +10,4 @@ float32 P3z
 sensor_msgs/PointCloud2 cloud_in
 sensor_msgs/PointCloud2 cloud_surface
 ---
-trajectory_msg[] sections
+trajectory_array trajectory
