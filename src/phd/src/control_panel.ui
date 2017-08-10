@@ -32,12 +32,12 @@
     <attribute name="title">
      <string>Operation</string>
     </attribute>
-    <widget class="QPushButton" name="scan_button_3">
+    <widget class="QPushButton" name="fscan_button">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>360</y>
-       <width>121</width>
+       <width>81</width>
        <height>31</height>
       </rect>
      </property>
@@ -69,32 +69,6 @@
      </property>
      <property name="text">
       <string>Nav Mode</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="scan_button_2">
-     <property name="geometry">
-      <rect>
-       <x>140</x>
-       <y>320</y>
-       <width>121</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Fake Scan</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="scan_button_4">
-     <property name="geometry">
-      <rect>
-       <x>140</x>
-       <y>360</y>
-       <width>121</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Fake Scan</string>
      </property>
     </widget>
     <widget class="QPushButton" name="scan_button">
@@ -325,6 +299,32 @@ color: rgb(255, 255, 255);</string>
      </property>
      <property name="text">
       <string>Show Nav Goal</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="filename_box">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>360</y>
+       <width>161</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>/home/mike/marker/refined/dotsf4.pcd</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="auto_localize">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>321</y>
+       <width>121</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Auto Localize</string>
      </property>
     </widget>
    </widget>

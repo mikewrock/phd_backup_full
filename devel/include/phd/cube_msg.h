@@ -25,20 +25,12 @@ struct cube_msg_
 
   cube_msg_()
     : j1(0.0)
-    , j2(0.0)
-    , j3(0.0)
-    , j4(0.0)
-    , j5(0.0)
     , vel(0.0)
     , acc(0.0)
     , pose(false)  {
     }
   cube_msg_(const ContainerAllocator& _alloc)
     : j1(0.0)
-    , j2(0.0)
-    , j3(0.0)
-    , j4(0.0)
-    , j5(0.0)
     , vel(0.0)
     , acc(0.0)
     , pose(false)  {
@@ -49,18 +41,6 @@ struct cube_msg_
 
    typedef float _j1_type;
   _j1_type j1;
-
-   typedef float _j2_type;
-  _j2_type j2;
-
-   typedef float _j3_type;
-  _j3_type j3;
-
-   typedef float _j4_type;
-  _j4_type j4;
-
-   typedef float _j5_type;
-  _j5_type j5;
 
    typedef float _vel_type;
   _vel_type vel;
@@ -148,12 +128,12 @@ struct MD5Sum< ::phd::cube_msg_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "8b256f374af6530303e5be6f09f99d1e";
+    return "9433ee31d0089d713563a722639bb582";
   }
 
   static const char* value(const ::phd::cube_msg_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x8b256f374af65303ULL;
-  static const uint64_t static_value2 = 0x03e5be6f09f99d1eULL;
+  static const uint64_t static_value1 = 0x9433ee31d0089d71ULL;
+  static const uint64_t static_value2 = 0x3563a722639bb582ULL;
 };
 
 template<class ContainerAllocator>
@@ -173,10 +153,6 @@ struct Definition< ::phd::cube_msg_<ContainerAllocator> >
   static const char* value()
   {
     return "float32 j1\n\
-float32 j2\n\
-float32 j3\n\
-float32 j4\n\
-float32 j5\n\
 float32 vel\n\
 float32 acc\n\
 bool pose\n\
@@ -200,10 +176,6 @@ namespace serialization
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
       stream.next(m.j1);
-      stream.next(m.j2);
-      stream.next(m.j3);
-      stream.next(m.j4);
-      stream.next(m.j5);
       stream.next(m.vel);
       stream.next(m.acc);
       stream.next(m.pose);
@@ -227,14 +199,6 @@ struct Printer< ::phd::cube_msg_<ContainerAllocator> >
   {
     s << indent << "j1: ";
     Printer<float>::stream(s, indent + "  ", v.j1);
-    s << indent << "j2: ";
-    Printer<float>::stream(s, indent + "  ", v.j2);
-    s << indent << "j3: ";
-    Printer<float>::stream(s, indent + "  ", v.j3);
-    s << indent << "j4: ";
-    Printer<float>::stream(s, indent + "  ", v.j4);
-    s << indent << "j5: ";
-    Printer<float>::stream(s, indent + "  ", v.j5);
     s << indent << "vel: ";
     Printer<float>::stream(s, indent + "  ", v.vel);
     s << indent << "acc: ";

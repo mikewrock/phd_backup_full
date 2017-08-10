@@ -6,6 +6,8 @@
   :components ((:file "_package")
     (:file "arm_msg" :depends-on ("_package_arm_msg"))
     (:file "_package_arm_msg" :depends-on ("_package"))
+    (:file "multi_cube_msg" :depends-on ("_package_multi_cube_msg"))
+    (:file "_package_multi_cube_msg" :depends-on ("_package"))
     (:file "trajectory_array" :depends-on ("_package_trajectory_array"))
     (:file "_package_trajectory_array" :depends-on ("_package"))
     (:file "trajectory_section" :depends-on ("_package_trajectory_section"))

@@ -69,7 +69,7 @@ int main(int argc, char** argv)
 	    {
 		    ret = PCube_getModuleSerialNo( dev, i, &serNo );
 		    if( ret == 0 )
-		    printf( "Found module %d with SerialNo %d\n", i, serNo );
+		    	printf( "Found module %d with SerialNo %lu\n", i, serNo );
 		    //else printf("Mod %d Ret %d\n",i,ret);
 		    }
 	    }

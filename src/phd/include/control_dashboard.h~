@@ -33,10 +33,7 @@ void show_nav();
 void exe_nav();
 void do_step();
 void do_estimate();
-void do_scan();
-void do_scan_2();
-void do_scan_3();
-void do_scan_4();
+void fake_scan();
 void fwd_vel();
 void rev_vel();
 void left_vel();
@@ -68,10 +65,11 @@ protected:
 
 
 private:
+	//Create the control panel and manual operation nodes
 	control_panel_ns::QNode control_panel;
 	husky_control::QNode vel_control;
+	//this is used to keep track of whick marker point is being clustered
 	int cluster_index;
-	int trajectory_index;
 
 };
 }

@@ -29,12 +29,6 @@ struct trajectory_serviceRequest_
     : P1x(0.0)
     , P1y(0.0)
     , P1z(0.0)
-    , P2x(0.0)
-    , P2y(0.0)
-    , P2z(0.0)
-    , P3x(0.0)
-    , P3y(0.0)
-    , P3z(0.0)
     , cloud_in()
     , cloud_surface()  {
     }
@@ -42,12 +36,6 @@ struct trajectory_serviceRequest_
     : P1x(0.0)
     , P1y(0.0)
     , P1z(0.0)
-    , P2x(0.0)
-    , P2y(0.0)
-    , P2z(0.0)
-    , P3x(0.0)
-    , P3y(0.0)
-    , P3z(0.0)
     , cloud_in(_alloc)
     , cloud_surface(_alloc)  {
   (void)_alloc;
@@ -63,24 +51,6 @@ struct trajectory_serviceRequest_
 
    typedef float _P1z_type;
   _P1z_type P1z;
-
-   typedef float _P2x_type;
-  _P2x_type P2x;
-
-   typedef float _P2y_type;
-  _P2y_type P2y;
-
-   typedef float _P2z_type;
-  _P2z_type P2z;
-
-   typedef float _P3x_type;
-  _P3x_type P3x;
-
-   typedef float _P3y_type;
-  _P3y_type P3y;
-
-   typedef float _P3z_type;
-  _P3z_type P3z;
 
    typedef  ::sensor_msgs::PointCloud2_<ContainerAllocator>  _cloud_in_type;
   _cloud_in_type cloud_in;
@@ -165,12 +135,12 @@ struct MD5Sum< ::phd::trajectory_serviceRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "54868084020fc39cd99208bbcbc4b785";
+    return "0d256f445a7f93631d0c7004c61e0c8d";
   }
 
   static const char* value(const ::phd::trajectory_serviceRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x54868084020fc39cULL;
-  static const uint64_t static_value2 = 0xd99208bbcbc4b785ULL;
+  static const uint64_t static_value1 = 0x0d256f445a7f9363ULL;
+  static const uint64_t static_value2 = 0x1d0c7004c61e0c8dULL;
 };
 
 template<class ContainerAllocator>
@@ -192,12 +162,6 @@ struct Definition< ::phd::trajectory_serviceRequest_<ContainerAllocator> >
     return "float32 P1x\n\
 float32 P1y\n\
 float32 P1z\n\
-float32 P2x\n\
-float32 P2y\n\
-float32 P2z\n\
-float32 P3x\n\
-float32 P3y\n\
-float32 P3z\n\
 sensor_msgs/PointCloud2 cloud_in\n\
 sensor_msgs/PointCloud2 cloud_surface\n\
 \n\
@@ -287,12 +251,6 @@ namespace serialization
       stream.next(m.P1x);
       stream.next(m.P1y);
       stream.next(m.P1z);
-      stream.next(m.P2x);
-      stream.next(m.P2y);
-      stream.next(m.P2z);
-      stream.next(m.P3x);
-      stream.next(m.P3y);
-      stream.next(m.P3z);
       stream.next(m.cloud_in);
       stream.next(m.cloud_surface);
     }
@@ -319,18 +277,6 @@ struct Printer< ::phd::trajectory_serviceRequest_<ContainerAllocator> >
     Printer<float>::stream(s, indent + "  ", v.P1y);
     s << indent << "P1z: ";
     Printer<float>::stream(s, indent + "  ", v.P1z);
-    s << indent << "P2x: ";
-    Printer<float>::stream(s, indent + "  ", v.P2x);
-    s << indent << "P2y: ";
-    Printer<float>::stream(s, indent + "  ", v.P2y);
-    s << indent << "P2z: ";
-    Printer<float>::stream(s, indent + "  ", v.P2z);
-    s << indent << "P3x: ";
-    Printer<float>::stream(s, indent + "  ", v.P3x);
-    s << indent << "P3y: ";
-    Printer<float>::stream(s, indent + "  ", v.P3y);
-    s << indent << "P3z: ";
-    Printer<float>::stream(s, indent + "  ", v.P3z);
     s << indent << "cloud_in: ";
     s << std::endl;
     Printer< ::sensor_msgs::PointCloud2_<ContainerAllocator> >::stream(s, indent + "  ", v.cloud_in);

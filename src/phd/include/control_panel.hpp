@@ -75,7 +75,7 @@ public:
 	void exe_nav();
 	void estimate();
 	void nav_mode(float pos);
-	void fscan(int file);
+	void fscan(std::string, bool auto_localize);
 	void cluster(int index);
 	void start_pt();
 	void gen_trajectory();

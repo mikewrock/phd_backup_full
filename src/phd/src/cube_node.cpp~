@@ -104,7 +104,7 @@ int main(int argc, char** argv)
         joint_state.position[0] = j1pos;
 
 //move to initial pose
-ret = PCube_moveRamp(dev, modJ1, -.785, vel, acc);
+ret = PCube_moveRamp(dev, modJ1, -1.57, vel, acc);
         
 while(ros::ok()){  
   //Get the cube position

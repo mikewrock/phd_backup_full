@@ -43,10 +43,7 @@ namespace control_panel
 		connect(ui_.est_pos, SIGNAL(clicked()), this, SLOT(do_estimate()));
 		connect(ui_.exe_path, SIGNAL(clicked()), this, SLOT(exe_nav()));
 		connect(ui_.show_nav_button, SIGNAL(clicked()), this, SLOT(show_nav()));
-		connect(ui_.scan_button, SIGNAL(clicked()), this, SLOT(do_scan()));
-		connect(ui_.scan_button_2, SIGNAL(clicked()), this, SLOT(do_scan_2()));
-		connect(ui_.scan_button_3, SIGNAL(clicked()), this, SLOT(do_scan_3()));
-		connect(ui_.scan_button_4, SIGNAL(clicked()), this, SLOT(do_scan_4()));
+		connect(ui_.fscan_button, SIGNAL(clicked()), this, SLOT(fake_scan()));
 		connect(ui_.localization_button, SIGNAL(clicked()), this, SLOT(localization_scan()));
 		connect(ui_.localization_button_2, SIGNAL(clicked()), this, SLOT(localization_scan_2()));
 		connect(ui_.cluster1, SIGNAL(clicked()), this, SLOT(cluster_1()));
@@ -107,9 +104,9 @@ namespace control_panel
 		  control_panel.show_nav();
 	}
 	//Perform and scan using the nodding head laser
-	void ControlPanel::do_scan(){
+	void ControlPanel::fake_scan(){
 
-		  control_panel.scan();
+		  control_panel.fscan(ui_.filename_box->text().toStdString(),ui_.auto_localize->isChecked());
 	}
 	//Estimate the position correction through registration
 	void ControlPanel::do_estimate(){
@@ -120,18 +117,6 @@ namespace control_panel
 	void ControlPanel::do_step(){
 
 		  control_panel.step();
-	}
-	void ControlPanel::do_scan_2(){
-
-		  control_panel.fscan(2);
-	}
-	void ControlPanel::do_scan_3(){
-
-		  control_panel.fscan(3);
-	}
-	void ControlPanel::do_scan_4(){
-
-		  control_panel.fscan(4);
 	}
 	//Cluster the high intensity points in the selected area
 	void ControlPanel::cluster_1(){

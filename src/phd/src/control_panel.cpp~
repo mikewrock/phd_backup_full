@@ -52,6 +52,7 @@
 #include <pcl/common/angles.h>
 
 #define CALC true
+#define DEBUG true
 
 namespace control_panel{
 namespace control_panel_ns{
@@ -148,8 +149,10 @@ bool QNode::init() {
 	//ros::start();
 }
 
+//Determines the appropriate robot base pose for executing the arm trajectory
 phd::trajectory_point QNode::find_pose(void){
 	phd::trajectory_point ret;
+	//Custome messages dont have constructors, so this makes sure there is no random data in the message
 	ret.x = 0;
 	ret.y = 0;
 	ret.z = 0;
@@ -157,29 +160,37 @@ phd::trajectory_point QNode::find_pose(void){
 	ret.ny = 0;
 	ret.nz = 0;
 	ret.d = 0;
+	//Counter for averaging the bottom points of the trajectory
 	int avg_ctr = 0;
-ROS_INFO("start Point %f - %f",traj.sections[sec_ctr].points[0].x,traj.sections[sec_ctr].points[0].y);
+	if(DEBUG) ROS_INFO("start Point %f - %f",traj.sections[sec_ctr].points[0].x,traj.sections[sec_ctr].points[0].y);
+	//Average the normals of the bottom line, and find the furthest point on the bottom line for determining the midpoint
 	for(int ctr = 0; ctr < traj.sections[sec_ctr].points.size(); ++ctr){
+		//Only look at the bottom line of the trajectory		
 		if(traj.sections[sec_ctr].points[ctr].z - traj.sections[sec_ctr].points[0].z < 0.02){
+			//Only average the XY values of the normal, we dont need Z			
 			ret.nx += traj.sections[sec_ctr].points[ctr].nx;
 			ret.ny += traj.sections[sec_ctr].points[ctr].ny;
 			avg_ctr++;
-		}
-		if(traj.sections[sec_ctr].points[ctr].d>ret.d){
-			ret.x = traj.sections[sec_ctr].points[ctr].x;
-			ret.y = traj.sections[sec_ctr].points[ctr].y;
-			ret.d = traj.sections[sec_ctr].points[ctr].d;
+			//Look for furthest trjectory point on the bottom line
+			if(traj.sections[sec_ctr].points[ctr].d>ret.d){
+				ret.x = traj.sections[sec_ctr].points[ctr].x;
+				ret.y = traj.sections[sec_ctr].points[ctr].y;
+				ret.d = traj.sections[sec_ctr].points[ctr].d;
+			}
 		}	
 	}
+	//Normals point toward the surface, so we flip them when making them in to an average
 	ret.nx = -ret.nx/avg_ctr;
 	ret.ny = -ret.ny/avg_ctr;
-	ret.x = traj.sections[sec_ctr].points[0].x+((ret.x - traj.sections[sec_ctr].points[0].x)/2);// + 0.5*ret.nx;
-	ret.y = traj.sections[sec_ctr].points[0].y+((ret.y - traj.sections[sec_ctr].points[0].y)/2);// + 0.5*ret.ny;
+	//Find the midpoint of the bottom trajectory section
+	ret.x = traj.sections[sec_ctr].points[0].x+((ret.x - traj.sections[sec_ctr].points[0].x)/2);
+	ret.y = traj.sections[sec_ctr].points[0].y+((ret.y - traj.sections[sec_ctr].points[0].y)/2);
 	ret.z = 0;
-	ROS_INFO("Returnin %f - %f/ %f - %f",ret.x,ret.y,ret.nx,ret.ny);
+	if(DEBUG) ROS_INFO("Returning %f - %f/ %f - %f",ret.x,ret.y,ret.nx,ret.ny);
 	return ret;
 }
 
+//Calculate and display the current naviagtion goal
 void QNode::show_nav() {
 
 	visualization_msgs::Marker nav_goal;
@@ -196,20 +207,26 @@ void QNode::show_nav() {
 	nav_goal.color.a = 1;
 	geometry_msgs::Point p;
 	phd::trajectory_point tp;
+	//Find the appropriate pose
 	tp = find_pose();
+	//Offset the pose from the surface in the direction normal to the surface
 	p.x = tp.x+0.2*tp.nx;
 	p.y = tp.y+0.2*tp.ny;
 	p.z = 0;
 	nav_goal.points.push_back(p);
+	//The tip of the nav goal is a right angle to the normal (cross product of the Z axis and the normal)
 	p.x -= 0.2*tp.ny;
 	p.y += 0.2*tp.nx;
 	nav_goal.points.push_back(p);
+	//Display the marker
 	nav_vis_pub.publish(nav_goal);
 
 }
+
+//Send the desired base pose to the global planner
 void QNode::exe_nav() {
+
 	geometry_msgs::PoseStamped pose;
-	
 	pose.header.frame_id = "/base_link";
 	pose.header.stamp = ros::Time::now();
 	pose.pose.position.x = 0;
@@ -220,9 +237,10 @@ void QNode::exe_nav() {
 	pose.pose.orientation.z = 0;
 	pose.pose.orientation.w = 0;
 	nav_pub.publish(pose);
-	
 
 }
+
+//Main control loop, spins while ros is running
 void QNode::run() {
 	std::cout << "Control Panel Running" << std::endl;
 	
@@ -235,131 +253,105 @@ void QNode::run() {
 	Q_EMIT rosShutdown(); // used to signal the gui for a shutdown (useful to roslaunch)
 }
 
-
+//Testing function used to step through the trajectory points
 void QNode::step(){
-
+	//Generate and arm_msg and populatie it with the current point in the trajectory array
 	phd::arm_msg msg;
 	msg.x = traj.sections[sec_ctr].points[pt_ctr].x;
 	msg.y = traj.sections[sec_ctr].points[pt_ctr].y;
 	msg.z = traj.sections[sec_ctr].points[pt_ctr].z;
+	//Caluclate the rotation around the X and Y axis from the normal vector
 	float length = sqrt(pow(traj.sections[sec_ctr].points[pt_ctr].nx,2)+pow(traj.sections[sec_ctr].points[pt_ctr].ny,2)+pow(traj.sections[sec_ctr].points[pt_ctr].nz,2));
 	msg.rx = asin(traj.sections[sec_ctr].points[pt_ctr].ny / length);
+	//Prevent divide by zero errors
 	if(cos(msg.rx)!=0) msg.ry = asin( traj.sections[sec_ctr].points[pt_ctr].nx / (cos(msg.rx)*length) );
+	else msg.ry = 0;
+	//No need for the roll around the Z axis, since the spray pattern and radiation detection is conical
 	msg.rz = 0;
+	//This is the elbow configuration of the arm
 	msg.fig = 1;
+	//Increment the point counter, and if necessary the trajectory section counter
 	++pt_ctr;
 	if(pt_ctr >= traj.sections[sec_ctr].points.size()){
 		++sec_ctr;
 		pt_ctr = 0;
 	}
+	//Send the command to the arm
 	arm_pub.publish(msg);
 
 }
 
+//Perform a laser scan
 void QNode::scan(){
-
+	//Create a message to send to the powercube node, moving the powercube to its start location
 	phd::cube_msg cube_cmd;
-		joint1 = 1;
-	//ROS_INFO("Waiting for j1");
-	//while((joint1 < -.8 || joint1 > .77) && ros::ok()){
-	//ros::spinOnce();
-	//printf("j1: %f\n",joint1);
-	//} 
 	cube_cmd.j1 = -2;
-	cube_cmd.j2 = 0;
-	cube_cmd.j3 = 0;
-	cube_cmd.j4 = 0;
-	cube_cmd.j5 = 0;
 	cube_cmd.vel = 0.5;
 	cube_cmd.acc = 2;
+	//pose=true means we're sending a position. False means its a velocity and should eventually time out
 	cube_cmd.pose = true;
-		//send the joint state and transform
-	    // Populate our service request based on our timer callback times
 	cmd_pub.publish(cube_cmd);
 	ros::spinOnce();
-	printf("j1: %f\n",joint1);
-	ROS_INFO("going to start");
+	if(DEBUG) {
+		printf("j1: %f\n",joint1);
+		ROS_INFO("going to start");
+	}	
+	//Wait for the cube to reach the start location
 	while(joint1 > -1.9 && ros::ok()){
 	ros::spinOnce();
-	//printf("j1is: %f\n",joint1);
+	if(DEBUG) printf("j1is: %f\n",joint1);
 	} 
-	 srv.request.begin = ros::Time::now();
+	//Set the start time for the laser assembler service	
+	srv.request.begin = ros::Time::now();
+	//Tell the cube to go to the end location
 	cube_cmd.j1 = 0;
-
 	cube_cmd.vel = 0.25;
 	cmd_pub.publish(cube_cmd);
 	ros::spinOnce();
-	ROS_INFO("waiting for end");
+	if(DEBUG) ROS_INFO("waiting for end");
+	//Wait for cube to reach end location
 	while(joint1 < -.01 && ros::ok()){
-	ros::spinOnce();
+		ros::spinOnce();
 	} 
-	ROS_INFO("done");
-	 srv.request.end   = ros::Time::now();
+	if(DEBUG) ROS_INFO("done");
+	//Set end time for laser assembler
+	srv.request.end   = ros::Time::now();
+	//Spin to send the end time to the service before calling it
 	ros::spinOnce();
-	    // Make the service call
-	    if (client.call(srv))
-	    {
-	      ROS_INFO("Published Cloud %d", (uint32_t)(srv.response.cloud.width)) ;
-			cloud_surface = srv.response.cloud;
-			cloud_surface.fields[3].name = "intensities";
-	      pub.publish(cloud_surface);
- ROS_INFO("Published Cloud");
-	    }
-	    else
-	    {
-	      ROS_ERROR("Error making service call\n") ;
-	    }
+	// Make the service call
+	if (client.call(srv)){
+		ROS_INFO("Published Cloud %d", (uint32_t)(srv.response.cloud.width)) ;
+		//Save the new scan as cloud_surface		
+		cloud_surface = srv.response.cloud;
+		//Tell ros what the 4th field information is
+		cloud_surface.fields[3].name = "intensities";
+		//Publish cloud to assembled_cloud		
+		pub.publish(cloud_surface);
+	}
+	else ROS_ERROR("Error making service call\n") ;
 
 }
 
-
+//Move the cube to a navigation orientation (horizontal) or other specified position
 void QNode::nav_mode(float pos){
-
-phd::cube_msg cube_cmd;
-		
+	//Create the message for the cube node
+	phd::cube_msg cube_cmd;	
 	cube_cmd.j1 = pos;
-	cube_cmd.j2 = 0;
-	cube_cmd.j3 = 0;
-	cube_cmd.j4 = 0;
-	cube_cmd.j5 = 0;
 	cube_cmd.vel = 0.5;
 	cube_cmd.acc = 2;
+	//pose=true means we're sending a position. False means its a velocity and should eventually time out
 	cube_cmd.pose = true;
-		//send the joint state and transform
-	    // Populate our service request based on our timer callback times
+	//Publish the command and spin
 	cmd_pub.publish(cube_cmd);
 	ros::spinOnce();
 
 }
 
+//Testing function for publishing point clouds from file
+void QNode::fscan(std::string filename, bool auto_localize){
 
-void QNode::fscan(int file){
-
-pcl::PointCloud<pcl::PointXYZI>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZI> );
-
-if(file == 2){
-if (pcl::io::loadPCDFile<pcl::PointXYZI> ("/home/mike/marker/refined/dotsf4.pcd", *cloud) == -1) 
-{
-	PCL_ERROR ("Couldn't read file test_pcd.pcd \n");
-
-}else 
-std::cerr << "Sending cloud with: " << cloud->width * cloud->height << " data points." << std::endl;
-}
-
-if(file == 3){
-if (pcl::io::loadPCDFile<pcl::PointXYZI> ("/home/mike/marker/refined/dotsf5.pcd", *cloud) == -1) 
-{
-	PCL_ERROR ("Couldn't read file test_pcd.pcd \n");
-
-}else 
-std::cerr << "Sending cloud with: " << cloud->width * cloud->height << " data points." << std::endl;
-}
-if(file == 4){
-if (pcl::io::loadPCDFile<pcl::PointXYZI> ("/home/mike/marker/refined/dotsf3.pcd", *cloud_aligner) == -1) 
-{
-	PCL_ERROR ("Couldn't read file test_pcd.pcd \n");
-
-}else {
+//DELETE THIS
+/*else {
 //std::cerr << "Sending cloud with: " << cloud->width * cloud->height << " data points." << std::endl;
 sensor_msgs::PointCloud2 cloud_msg;
 	pcl::toROSMsg(*cloud_aligner,cloud_msg);
@@ -370,24 +362,38 @@ sensor_msgs::PointCloud2 cloud_msg;
 		      pub.publish(cloud_msg);
 	ros::spinOnce();
 return;
-}
-}
+}*/
 
-sensor_msgs::PointCloud2 cloud_msg;
+	//Create a pcl pointer to load the clound in to
+	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZI> );
+	//Create a ros message to publish the cloud as
+	sensor_msgs::PointCloud2 cloud_msg;
+	//Load the file
+	if (pcl::io::loadPCDFile<pcl::PointXYZI> (filename.c_str(), *cloud) == -1) PCL_ERROR ("Couldn't read file\n");
+	else{
+		if(DEBUG) ROS_INFO("File Opened");
+	}
+	//Convert from PCL to ROS
 	pcl::toROSMsg(*cloud,cloud_msg);
 	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
 	cloud_msg.fields[3].name = "intensities";
-
+	//Set the frame
 	cloud_msg.header.frame_id = "/base_link";
-loc_srv.request.cloud_in = cloud_msg;
-loc_srv.request.homing = false;
-loc_client.call(loc_srv);
-	if(loc_client.call(loc_srv)){
-	ROS_INFO("Received Cloud %d", (uint32_t)(loc_srv.response.cloud_out.width));
-		      pub.publish(loc_srv.response.cloud_out);
+	if(auto_localize){
+		if(DEBUG) ROS_INFO("Auto Localizing");	
+		//Call the localization service
+		loc_srv.request.cloud_in = cloud_msg;
+		loc_srv.request.homing = false;
+		loc_client.call(loc_srv);
+		if(loc_client.call(loc_srv)){
+			ROS_INFO("Localized Cloud %d", (uint32_t)(loc_srv.response.cloud_out.width));
+			pub.publish(loc_srv.response.cloud_out);
 			cloud_surface = loc_srv.response.cloud_out;
-	}else ROS_INFO("Service Failed");
-
+		}else ROS_INFO("Service Failed");
+	}else {
+		cloud_msg.fields[3].name = "intensity";
+		pub.publish(cloud_msg);
+	}
 }
 void QNode::lscan(){
 
@@ -516,12 +522,6 @@ void QNode::gen_trajectory(){
 	traj_srv.request.P1x = T1x;
 	traj_srv.request.P1y = T1y;
 	traj_srv.request.P1z = T1z;
-	traj_srv.request.P2x = T2x;
-	traj_srv.request.P2y = T2y;
-	traj_srv.request.P2z = T2z;
-	traj_srv.request.P3x = T3x;
-	traj_srv.request.P3y = T3y;
-	traj_srv.request.P3z = T3z;
 	sensor_msgs::PointCloud2 cloud_msg;
 	pcl::toROSMsg(*current_pc_,cloud_msg);
 	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")

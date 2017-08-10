@@ -12,26 +12,6 @@
     :initarg :j1
     :type cl:float
     :initform 0.0)
-   (j2
-    :reader j2
-    :initarg :j2
-    :type cl:float
-    :initform 0.0)
-   (j3
-    :reader j3
-    :initarg :j3
-    :type cl:float
-    :initform 0.0)
-   (j4
-    :reader j4
-    :initarg :j4
-    :type cl:float
-    :initform 0.0)
-   (j5
-    :reader j5
-    :initarg :j5
-    :type cl:float
-    :initform 0.0)
    (vel
     :reader vel
     :initarg :vel
@@ -62,26 +42,6 @@
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader phd-msg:j1-val is deprecated.  Use phd-msg:j1 instead.")
   (j1 m))
 
-(cl:ensure-generic-function 'j2-val :lambda-list '(m))
-(cl:defmethod j2-val ((m <cube_msg>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader phd-msg:j2-val is deprecated.  Use phd-msg:j2 instead.")
-  (j2 m))
-
-(cl:ensure-generic-function 'j3-val :lambda-list '(m))
-(cl:defmethod j3-val ((m <cube_msg>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader phd-msg:j3-val is deprecated.  Use phd-msg:j3 instead.")
-  (j3 m))
-
-(cl:ensure-generic-function 'j4-val :lambda-list '(m))
-(cl:defmethod j4-val ((m <cube_msg>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader phd-msg:j4-val is deprecated.  Use phd-msg:j4 instead.")
-  (j4 m))
-
-(cl:ensure-generic-function 'j5-val :lambda-list '(m))
-(cl:defmethod j5-val ((m <cube_msg>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader phd-msg:j5-val is deprecated.  Use phd-msg:j5 instead.")
-  (j5 m))
-
 (cl:ensure-generic-function 'vel-val :lambda-list '(m))
 (cl:defmethod vel-val ((m <cube_msg>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader phd-msg:vel-val is deprecated.  Use phd-msg:vel instead.")
@@ -99,26 +59,6 @@
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <cube_msg>) ostream)
   "Serializes a message object of type '<cube_msg>"
   (cl:let ((bits (roslisp-utils:encode-single-float-bits (cl:slot-value msg 'j1))))
-    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream))
-  (cl:let ((bits (roslisp-utils:encode-single-float-bits (cl:slot-value msg 'j2))))
-    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream))
-  (cl:let ((bits (roslisp-utils:encode-single-float-bits (cl:slot-value msg 'j3))))
-    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream))
-  (cl:let ((bits (roslisp-utils:encode-single-float-bits (cl:slot-value msg 'j4))))
-    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream))
-  (cl:let ((bits (roslisp-utils:encode-single-float-bits (cl:slot-value msg 'j5))))
     (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
@@ -148,30 +88,6 @@
       (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
-    (cl:setf (cl:slot-value msg 'j2) (roslisp-utils:decode-single-float-bits bits)))
-    (cl:let ((bits 0))
-      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
-    (cl:setf (cl:slot-value msg 'j3) (roslisp-utils:decode-single-float-bits bits)))
-    (cl:let ((bits 0))
-      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
-    (cl:setf (cl:slot-value msg 'j4) (roslisp-utils:decode-single-float-bits bits)))
-    (cl:let ((bits 0))
-      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
-    (cl:setf (cl:slot-value msg 'j5) (roslisp-utils:decode-single-float-bits bits)))
-    (cl:let ((bits 0))
-      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
     (cl:setf (cl:slot-value msg 'vel) (roslisp-utils:decode-single-float-bits bits)))
     (cl:let ((bits 0))
       (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
@@ -190,22 +106,18 @@
   "phd/cube_msg")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<cube_msg>)))
   "Returns md5sum for a message object of type '<cube_msg>"
-  "8b256f374af6530303e5be6f09f99d1e")
+  "9433ee31d0089d713563a722639bb582")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'cube_msg)))
   "Returns md5sum for a message object of type 'cube_msg"
-  "8b256f374af6530303e5be6f09f99d1e")
+  "9433ee31d0089d713563a722639bb582")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<cube_msg>)))
   "Returns full string definition for message of type '<cube_msg>"
-  (cl:format cl:nil "float32 j1~%float32 j2~%float32 j3~%float32 j4~%float32 j5~%float32 vel~%float32 acc~%bool pose~%~%~%~%"))
+  (cl:format cl:nil "float32 j1~%float32 vel~%float32 acc~%bool pose~%~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'cube_msg)))
   "Returns full string definition for message of type 'cube_msg"
-  (cl:format cl:nil "float32 j1~%float32 j2~%float32 j3~%float32 j4~%float32 j5~%float32 vel~%float32 acc~%bool pose~%~%~%~%"))
+  (cl:format cl:nil "float32 j1~%float32 vel~%float32 acc~%bool pose~%~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <cube_msg>))
   (cl:+ 0
-     4
-     4
-     4
-     4
      4
      4
      4
@@ -215,10 +127,6 @@
   "Converts a ROS message object to a list"
   (cl:list 'cube_msg
     (cl:cons ':j1 (j1 msg))
-    (cl:cons ':j2 (j2 msg))
-    (cl:cons ':j3 (j3 msg))
-    (cl:cons ':j4 (j4 msg))
-    (cl:cons ':j5 (j5 msg))
     (cl:cons ':vel (vel msg))
     (cl:cons ':acc (acc msg))
     (cl:cons ':pose (pose msg))

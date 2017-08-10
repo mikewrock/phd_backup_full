@@ -13,6 +13,7 @@
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
+#include <QtGui/QCheckBox>
 #include <QtGui/QFrame>
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
@@ -28,18 +29,16 @@ class Ui_Control_Form
 public:
     QTabWidget *tabWidget;
     QWidget *tab;
-    QPushButton *scan_button_3;
+    QPushButton *fscan_button;
     QLineEdit *pos_box;
     QPushButton *nav_mode_button;
-    QPushButton *scan_button_2;
-    QPushButton *scan_button_4;
     QPushButton *scan_button;
     QPushButton *localization_button;
     QPushButton *localization_button_2;
     QPushButton *cluster1;
     QPushButton *gen_trajectory;
     QLabel *marker_info;
-    QPushButton *trajectory_1;
+    QPushButton *start_point;
     QPushButton *exe_trajectory;
     QPushButton *soft_stop;
     QPushButton *plot_path;
@@ -49,6 +48,8 @@ public:
     QPushButton *step_button;
     QPushButton *est_pos;
     QPushButton *show_nav_button;
+    QLineEdit *filename_box;
+    QCheckBox *auto_localize;
     QWidget *tab_2;
     QPushButton *armDown;
     QPushButton *roll_pos;
@@ -85,21 +86,15 @@ public:
         tabWidget->setMovable(false);
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
-        scan_button_3 = new QPushButton(tab);
-        scan_button_3->setObjectName(QString::fromUtf8("scan_button_3"));
-        scan_button_3->setGeometry(QRect(10, 360, 121, 31));
+        fscan_button = new QPushButton(tab);
+        fscan_button->setObjectName(QString::fromUtf8("fscan_button"));
+        fscan_button->setGeometry(QRect(10, 360, 81, 31));
         pos_box = new QLineEdit(tab);
         pos_box->setObjectName(QString::fromUtf8("pos_box"));
         pos_box->setGeometry(QRect(140, 279, 121, 31));
         nav_mode_button = new QPushButton(tab);
         nav_mode_button->setObjectName(QString::fromUtf8("nav_mode_button"));
         nav_mode_button->setGeometry(QRect(10, 280, 121, 31));
-        scan_button_2 = new QPushButton(tab);
-        scan_button_2->setObjectName(QString::fromUtf8("scan_button_2"));
-        scan_button_2->setGeometry(QRect(140, 320, 121, 31));
-        scan_button_4 = new QPushButton(tab);
-        scan_button_4->setObjectName(QString::fromUtf8("scan_button_4"));
-        scan_button_4->setGeometry(QRect(140, 360, 121, 31));
         scan_button = new QPushButton(tab);
         scan_button->setObjectName(QString::fromUtf8("scan_button"));
         scan_button->setGeometry(QRect(10, 0, 121, 31));
@@ -119,9 +114,9 @@ public:
         marker_info = new QLabel(tab);
         marker_info->setObjectName(QString::fromUtf8("marker_info"));
         marker_info->setGeometry(QRect(120, 50, 151, 17));
-        trajectory_1 = new QPushButton(tab);
-        trajectory_1->setObjectName(QString::fromUtf8("trajectory_1"));
-        trajectory_1->setGeometry(QRect(10, 85, 101, 27));
+        start_point = new QPushButton(tab);
+        start_point->setObjectName(QString::fromUtf8("start_point"));
+        start_point->setGeometry(QRect(10, 85, 101, 27));
         exe_trajectory = new QPushButton(tab);
         exe_trajectory->setObjectName(QString::fromUtf8("exe_trajectory"));
         exe_trajectory->setEnabled(true);
@@ -156,6 +151,12 @@ public:
         show_nav_button = new QPushButton(tab);
         show_nav_button->setObjectName(QString::fromUtf8("show_nav_button"));
         show_nav_button->setGeometry(QRect(10, 200, 111, 31));
+        filename_box = new QLineEdit(tab);
+        filename_box->setObjectName(QString::fromUtf8("filename_box"));
+        filename_box->setGeometry(QRect(100, 360, 161, 31));
+        auto_localize = new QCheckBox(tab);
+        auto_localize->setObjectName(QString::fromUtf8("auto_localize"));
+        auto_localize->setGeometry(QRect(140, 321, 121, 30));
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -303,18 +304,16 @@ public:
     void retranslateUi(QWidget *Control_Form)
     {
         Control_Form->setWindowTitle(QApplication::translate("Control_Form", "Form", 0, QApplication::UnicodeUTF8));
-        scan_button_3->setText(QApplication::translate("Control_Form", "Fake Scan", 0, QApplication::UnicodeUTF8));
+        fscan_button->setText(QApplication::translate("Control_Form", "Fake Scan", 0, QApplication::UnicodeUTF8));
         pos_box->setText(QApplication::translate("Control_Form", "-1.57", 0, QApplication::UnicodeUTF8));
         nav_mode_button->setText(QApplication::translate("Control_Form", "Nav Mode", 0, QApplication::UnicodeUTF8));
-        scan_button_2->setText(QApplication::translate("Control_Form", "Fake Scan", 0, QApplication::UnicodeUTF8));
-        scan_button_4->setText(QApplication::translate("Control_Form", "Fake Scan", 0, QApplication::UnicodeUTF8));
         scan_button->setText(QApplication::translate("Control_Form", "Scan", 0, QApplication::UnicodeUTF8));
         localization_button->setText(QApplication::translate("Control_Form", "Localize", 0, QApplication::UnicodeUTF8));
         localization_button_2->setText(QApplication::translate("Control_Form", "Test Localization", 0, QApplication::UnicodeUTF8));
         cluster1->setText(QApplication::translate("Control_Form", "Cluster Pt.1", 0, QApplication::UnicodeUTF8));
         gen_trajectory->setText(QApplication::translate("Control_Form", "Generate Trajectory", 0, QApplication::UnicodeUTF8));
         marker_info->setText(QApplication::translate("Control_Form", "Ready to cluster", 0, QApplication::UnicodeUTF8));
-        trajectory_1->setText(QApplication::translate("Control_Form", "Start Point", 0, QApplication::UnicodeUTF8));
+        start_point->setText(QApplication::translate("Control_Form", "Start Point", 0, QApplication::UnicodeUTF8));
         exe_trajectory->setText(QApplication::translate("Control_Form", "Execute Trajectory", 0, QApplication::UnicodeUTF8));
         soft_stop->setText(QApplication::translate("Control_Form", "STOP", 0, QApplication::UnicodeUTF8));
         plot_path->setText(QApplication::translate("Control_Form", "Plot Path", 0, QApplication::UnicodeUTF8));
@@ -324,6 +323,8 @@ public:
         step_button->setText(QApplication::translate("Control_Form", "Step", 0, QApplication::UnicodeUTF8));
         est_pos->setText(QApplication::translate("Control_Form", "Estimate Position", 0, QApplication::UnicodeUTF8));
         show_nav_button->setText(QApplication::translate("Control_Form", "Show Nav Goal", 0, QApplication::UnicodeUTF8));
+        filename_box->setText(QApplication::translate("Control_Form", "/home/mike/marker/refined/dotsf4.pcd", 0, QApplication::UnicodeUTF8));
+        auto_localize->setText(QApplication::translate("Control_Form", "Auto Localize", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("Control_Form", "Operation", 0, QApplication::UnicodeUTF8));
         armDown->setText(QString());
         roll_pos->setText(QApplication::translate("Control_Form", "+", 0, QApplication::UnicodeUTF8));

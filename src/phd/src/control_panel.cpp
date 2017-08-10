@@ -281,110 +281,77 @@ void QNode::step(){
 
 }
 
+//Perform a laser scan
 void QNode::scan(){
-
+	//Create a message to send to the powercube node, moving the powercube to its start location
 	phd::cube_msg cube_cmd;
-		joint1 = 1;
-	//ROS_INFO("Waiting for j1");
-	//while((joint1 < -.8 || joint1 > .77) && ros::ok()){
-	//ros::spinOnce();
-	//printf("j1: %f\n",joint1);
-	//} 
 	cube_cmd.j1 = -2;
-	cube_cmd.j2 = 0;
-	cube_cmd.j3 = 0;
-	cube_cmd.j4 = 0;
-	cube_cmd.j5 = 0;
 	cube_cmd.vel = 0.5;
 	cube_cmd.acc = 2;
+	//pose=true means we're sending a position. False means its a velocity and should eventually time out
 	cube_cmd.pose = true;
-		//send the joint state and transform
-	    // Populate our service request based on our timer callback times
 	cmd_pub.publish(cube_cmd);
 	ros::spinOnce();
-	printf("j1: %f\n",joint1);
-	ROS_INFO("going to start");
+	if(DEBUG) {
+		printf("j1: %f\n",joint1);
+		ROS_INFO("going to start");
+	}	
+	//Wait for the cube to reach the start location
 	while(joint1 > -1.9 && ros::ok()){
 	ros::spinOnce();
-	//printf("j1is: %f\n",joint1);
+	if(DEBUG) printf("j1is: %f\n",joint1);
 	} 
-	 srv.request.begin = ros::Time::now();
+	//Set the start time for the laser assembler service	
+	srv.request.begin = ros::Time::now();
+	//Tell the cube to go to the end location
 	cube_cmd.j1 = 0;
-
 	cube_cmd.vel = 0.25;
 	cmd_pub.publish(cube_cmd);
 	ros::spinOnce();
-	ROS_INFO("waiting for end");
+	if(DEBUG) ROS_INFO("waiting for end");
+	//Wait for cube to reach end location
 	while(joint1 < -.01 && ros::ok()){
-	ros::spinOnce();
+		ros::spinOnce();
 	} 
-	ROS_INFO("done");
-	 srv.request.end   = ros::Time::now();
+	if(DEBUG) ROS_INFO("done");
+	//Set end time for laser assembler
+	srv.request.end   = ros::Time::now();
+	//Spin to send the end time to the service before calling it
 	ros::spinOnce();
-	    // Make the service call
-	    if (client.call(srv))
-	    {
-	      ROS_INFO("Published Cloud %d", (uint32_t)(srv.response.cloud.width)) ;
-			cloud_surface = srv.response.cloud;
-			cloud_surface.fields[3].name = "intensities";
-	      pub.publish(cloud_surface);
- ROS_INFO("Published Cloud");
-	    }
-	    else
-	    {
-	      ROS_ERROR("Error making service call\n") ;
-	    }
+	// Make the service call
+	if (client.call(srv)){
+		ROS_INFO("Published Cloud %d", (uint32_t)(srv.response.cloud.width)) ;
+		//Save the new scan as cloud_surface		
+		cloud_surface = srv.response.cloud;
+		//Tell ros what the 4th field information is
+		cloud_surface.fields[3].name = "intensities";
+		//Publish cloud to assembled_cloud		
+		pub.publish(cloud_surface);
+	}
+	else ROS_ERROR("Error making service call\n") ;
 
 }
 
-
+//Move the cube to a navigation orientation (horizontal) or other specified position
 void QNode::nav_mode(float pos){
-
-phd::cube_msg cube_cmd;
-		
+	//Create the message for the cube node
+	phd::cube_msg cube_cmd;	
 	cube_cmd.j1 = pos;
-	cube_cmd.j2 = 0;
-	cube_cmd.j3 = 0;
-	cube_cmd.j4 = 0;
-	cube_cmd.j5 = 0;
 	cube_cmd.vel = 0.5;
 	cube_cmd.acc = 2;
+	//pose=true means we're sending a position. False means its a velocity and should eventually time out
 	cube_cmd.pose = true;
-		//send the joint state and transform
-	    // Populate our service request based on our timer callback times
+	//Publish the command and spin
 	cmd_pub.publish(cube_cmd);
 	ros::spinOnce();
 
 }
 
+//Testing function for publishing point clouds from file
+void QNode::fscan(std::string filename, bool auto_localize){
 
-void QNode::fscan(int file){
-
-pcl::PointCloud<pcl::PointXYZI>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZI> );
-
-if(file == 2){
-if (pcl::io::loadPCDFile<pcl::PointXYZI> ("/home/mike/marker/refined/dotsf4.pcd", *cloud) == -1) 
-{
-	PCL_ERROR ("Couldn't read file test_pcd.pcd \n");
-
-}else 
-std::cerr << "Sending cloud with: " << cloud->width * cloud->height << " data points." << std::endl;
-}
-
-if(file == 3){
-if (pcl::io::loadPCDFile<pcl::PointXYZI> ("/home/mike/marker/refined/dotsf5.pcd", *cloud) == -1) 
-{
-	PCL_ERROR ("Couldn't read file test_pcd.pcd \n");
-
-}else 
-std::cerr << "Sending cloud with: " << cloud->width * cloud->height << " data points." << std::endl;
-}
-if(file == 4){
-if (pcl::io::loadPCDFile<pcl::PointXYZI> ("/home/mike/marker/refined/dotsf3.pcd", *cloud_aligner) == -1) 
-{
-	PCL_ERROR ("Couldn't read file test_pcd.pcd \n");
-
-}else {
+//DELETE THIS
+/*else {
 //std::cerr << "Sending cloud with: " << cloud->width * cloud->height << " data points." << std::endl;
 sensor_msgs::PointCloud2 cloud_msg;
 	pcl::toROSMsg(*cloud_aligner,cloud_msg);
@@ -395,24 +362,37 @@ sensor_msgs::PointCloud2 cloud_msg;
 		      pub.publish(cloud_msg);
 	ros::spinOnce();
 return;
-}
-}
+}*/
 
-sensor_msgs::PointCloud2 cloud_msg;
+	//Create a pcl pointer to load the clound in to
+	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZI> );
+	//Create a ros message to publish the cloud as
+	sensor_msgs::PointCloud2 cloud_msg;
+	//Load the file
+	if (pcl::io::loadPCDFile<pcl::PointXYZI> (filename.c_str(), *cloud) == -1) PCL_ERROR ("Couldn't read file\n");
+	else{
+		if(DEBUG) ROS_INFO("File Opened");
+	}
+	//Convert from PCL to ROS
 	pcl::toROSMsg(*cloud,cloud_msg);
 	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
-	cloud_msg.fields[3].name = "intensities";
-
+	cloud_msg.fields[3].name = "intensity";
+	//Set the frame
 	cloud_msg.header.frame_id = "/base_link";
-loc_srv.request.cloud_in = cloud_msg;
-loc_srv.request.homing = false;
-loc_client.call(loc_srv);
-	if(loc_client.call(loc_srv)){
-	ROS_INFO("Received Cloud %d", (uint32_t)(loc_srv.response.cloud_out.width));
-		      pub.publish(loc_srv.response.cloud_out);
+	if(auto_localize){
+		if(DEBUG) ROS_INFO("Auto Localizing");	
+		//Call the localization service
+		loc_srv.request.cloud_in = cloud_msg;
+		loc_srv.request.homing = false;
+		loc_client.call(loc_srv);
+		if(loc_client.call(loc_srv)){
+			ROS_INFO("Localized Cloud %d", (uint32_t)(loc_srv.response.cloud_out.width));
+			pub.publish(loc_srv.response.cloud_out);
 			cloud_surface = loc_srv.response.cloud_out;
-	}else ROS_INFO("Service Failed");
-
+		}else ROS_INFO("Service Failed");
+	}else {
+		pub.publish(cloud_msg);
+	}
 }
 void QNode::lscan(){
 
@@ -541,12 +521,6 @@ void QNode::gen_trajectory(){
 	traj_srv.request.P1x = T1x;
 	traj_srv.request.P1y = T1y;
 	traj_srv.request.P1z = T1z;
-	traj_srv.request.P2x = T2x;
-	traj_srv.request.P2y = T2y;
-	traj_srv.request.P2z = T2z;
-	traj_srv.request.P3x = T3x;
-	traj_srv.request.P3y = T3y;
-	traj_srv.request.P3z = T3z;
 	sensor_msgs::PointCloud2 cloud_msg;
 	pcl::toROSMsg(*current_pc_,cloud_msg);
 	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")

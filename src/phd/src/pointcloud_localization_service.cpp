@@ -376,8 +376,6 @@ bool localize(phd::localize_cloud::Request  &req,
 	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_output (new pcl::PointCloud<pcl::PointXYZI>);
 	sensor_msgs::PointCloud2 cloud_msg;
 	sensor_msgs::PointCloud2 cloud_req = req.cloud_in;
-	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
-	cloud_req.fields[3].name = "intensity";
 	pcl::fromROSMsg(cloud_req,*cloud_world);
 	//Create containers for filtered clouds
 	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_intensity_filtered (new pcl::PointCloud<pcl::PointXYZI>);

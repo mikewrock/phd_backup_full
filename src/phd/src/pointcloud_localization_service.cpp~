@@ -423,7 +423,7 @@ bool localize(phd::localize_cloud::Request  &req,
 	std::vector<pcl::PointXYZI> Pts;
 
 	Pts = cluster_points(cloud_intensity_filtered);
-	if(DEBUG) ROS_INFO("Clustered Points: %d", Pts.size());
+	if(DEBUG) ROS_INFO("Clustered Points: %lu", Pts.size());
 	Eigen::Matrix3f marker_loc;
 	Eigen::Matrix4f transform_mat;
 

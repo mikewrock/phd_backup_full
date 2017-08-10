@@ -3,6 +3,8 @@
   (:export
    "<ARM_MSG>"
    "ARM_MSG"
+   "<MULTI_CUBE_MSG>"
+   "MULTI_CUBE_MSG"
    "<TRAJECTORY_ARRAY>"
    "TRAJECTORY_ARRAY"
    "<TRAJECTORY_SECTION>"

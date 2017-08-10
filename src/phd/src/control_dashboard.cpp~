@@ -29,9 +29,13 @@ namespace control_panel
 	  , control_panel()
 	, vel_control()
 	{
+		//Initial setup
 		ui_.setupUi(this);
+		//Start the time for the manual operation of the robot
 		QTimer* output_timer = new QTimer( this );
+		//Initialize control panel
 		int ret = control_panel.init();
+		//Initialize the manual operation node
 		ret = vel_control.init();
 		//SIGNAL connections
 		connect(ui_.nav_mode_button, SIGNAL(clicked()), this, SLOT(do_nav()));
@@ -39,10 +43,7 @@ namespace control_panel
 		connect(ui_.est_pos, SIGNAL(clicked()), this, SLOT(do_estimate()));
 		connect(ui_.exe_path, SIGNAL(clicked()), this, SLOT(exe_nav()));
 		connect(ui_.show_nav_button, SIGNAL(clicked()), this, SLOT(show_nav()));
-		connect(ui_.scan_button, SIGNAL(clicked()), this, SLOT(do_scan()));
-		connect(ui_.scan_button_2, SIGNAL(clicked()), this, SLOT(do_scan_2()));
-		connect(ui_.scan_button_3, SIGNAL(clicked()), this, SLOT(do_scan_3()));
-		connect(ui_.scan_button_4, SIGNAL(clicked()), this, SLOT(do_scan_4()));
+		connect(ui_.fscan_button, SIGNAL(clicked()), this, SLOT(fake_scan()));
 		connect(ui_.localization_button, SIGNAL(clicked()), this, SLOT(localization_scan()));
 		connect(ui_.localization_button_2, SIGNAL(clicked()), this, SLOT(localization_scan_2()));
 		connect(ui_.cluster1, SIGNAL(clicked()), this, SLOT(cluster_1()));
@@ -81,9 +82,8 @@ namespace control_panel
 		connect(ui_.yaw_neg, SIGNAL(released()), this, SLOT(clear_vel()));
 		connect(ui_.yaw_pos, SIGNAL(released()), this, SLOT(clear_vel()));
 		//connect( output_timer, SIGNAL( timeout() ), this, SLOT( sendVel() ));
-
+		//Index for keeping track of which marker point is being clustered
 		cluster_index = 0;
-		trajectory_index = 0;
 	}
 
 	ControlPanel::~ControlPanel(){}
@@ -104,9 +104,9 @@ namespace control_panel
 		  control_panel.show_nav();
 	}
 	//Perform and scan using the nodding head laser
-	void ControlPanel::do_scan(){
+	void ControlPanel::fake_scan(){
 
-		  control_panel.scan();
+		  control_panel.fscan(ui_.filename_box->text().toStdString(),ui_.auto_localize->clicked().toBool());
 	}
 	//Estimate the position correction through registration
 	void ControlPanel::do_estimate(){
@@ -118,21 +118,9 @@ namespace control_panel
 
 		  control_panel.step();
 	}
-	void ControlPanel::do_scan_2(){
-
-		  control_panel.fscan(2);
-	}
-	void ControlPanel::do_scan_3(){
-
-		  control_panel.fscan(3);
-	}
-	void ControlPanel::do_scan_4(){
-
-		  control_panel.fscan(4);
-	}
 	//Cluster the high intensity points in the selected area
 	void ControlPanel::cluster_1(){
-
+		//Call the cluster function in control_panel and pass it which marker point to be clustered, then update the text in the panel
 		control_panel.cluster(cluster_index);
 		if(cluster_index == 0){
 		 ui_.cluster1->setText("Cluster Pt. 2");
