@@ -153,7 +153,7 @@ foreach(t ${phd_EXPORTED_TARGETS})
   endif()
 endforeach()
 
-set(depends "sensor_msgs;tf;urdf;diagnostic_updater;schunk_libm5api;libntcan;libpcan;cob_srvs;brics_actuator;diagnostic_msgs;control_msgs;message_runtime;roscpp")
+set(depends "sensor_msgs;tf;urdf;diagnostic_updater;schunk_libm5api;libntcan;libpcan;cob_srvs;brics_actuator;diagnostic_msgs;control_msgs;message_runtime;roscpp;dynamic_reconfigure")
 foreach(depend ${depends})
   string(REPLACE " " ";" depend_list ${depend})
   # the package name of the dependency must be kept in a unique variable so that it is not overwritten in recursive calls

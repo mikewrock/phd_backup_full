@@ -1,0 +1,13 @@
+#!/usr/bin/env python
+PACKAGE = "phd"
+
+from dynamic_reconfigure.parameter_generator_catkin import *
+
+gen = ParameterGenerator()
+
+gen.add("j_search",    int_t,    0, "Number of neighbours to search for normal", 30, 0, 100)
+
+exit(gen.generate(PACKAGE, "control_panel", "Param"))
+
+
+

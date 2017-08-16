@@ -1,0 +1,7 @@
+\subsubsection usage Usage
+\verbatim
+<node name="control_panel" pkg="phd" type="control_panel">
+  <param name="l_search" type="int" value="30" />
+</node>
+\endverbatim
+

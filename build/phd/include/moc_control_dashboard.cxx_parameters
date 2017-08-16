@@ -33,6 +33,7 @@
 -I/usr/include/pcl-1.7
 -I/usr/include/ni
 -I/usr/include/vtk-5.8
+-I/cmake/cfgbuild.cmake
 -DROS_BUILD_SHARED_LIBS=1
 -DROS_PACKAGE_NAME="phd"
 -DROSCONSOLE_BACKEND_LOG4CXX

@@ -81,6 +81,7 @@ endif()
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 generate_dynamic_reconfigure_options(
   cfg/seg_config.cfg
+  cfg/param_config.cfg
   #...
 )
 ## Generate messages in the 'msg' folder
@@ -155,7 +156,7 @@ catkin_package(
     LIBRARIES # TODO
       bcap_client
       bcap_server
-CATKIN_DEPENDS sensor_msgs tf urdf diagnostic_updater schunk_libm5api libntcan libpcan cob_srvs brics_actuator diagnostic_msgs control_msgs  message_runtime roscpp
+CATKIN_DEPENDS sensor_msgs tf urdf diagnostic_updater schunk_libm5api libntcan libpcan cob_srvs brics_actuator diagnostic_msgs control_msgs  message_runtime roscpp dynamic_reconfigure
 )    
 
 ###########
@@ -168,7 +169,7 @@ CATKIN_DEPENDS sensor_msgs tf urdf diagnostic_updater schunk_libm5api libntcan l
 # include_directories(include)
 #include_directories(common/include include /home/mike/pcl-master/filters/include/pcl/filters ${PCL_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS})
 include_directories(common/include include ${PCL_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS})
-
+include_directories(${dynamic_reconfigure_PACKAGE_PATH}/cmake/cfgbuild.cmake) 
 link_directories(${PCL_LIBRARY_DIRS})
 
 

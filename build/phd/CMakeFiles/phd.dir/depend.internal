@@ -81,6 +81,19 @@ phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o
  /home/mike/catkin_ws/src/phd/include/vel_control.hpp
  /opt/ros/indigo/include/XmlRpcDecl.h
  /opt/ros/indigo/include/XmlRpcValue.h
+ /opt/ros/indigo/include/dynamic_reconfigure/BoolParameter.h
+ /opt/ros/indigo/include/dynamic_reconfigure/Config.h
+ /opt/ros/indigo/include/dynamic_reconfigure/ConfigDescription.h
+ /opt/ros/indigo/include/dynamic_reconfigure/DoubleParameter.h
+ /opt/ros/indigo/include/dynamic_reconfigure/Group.h
+ /opt/ros/indigo/include/dynamic_reconfigure/GroupState.h
+ /opt/ros/indigo/include/dynamic_reconfigure/IntParameter.h
+ /opt/ros/indigo/include/dynamic_reconfigure/ParamDescription.h
+ /opt/ros/indigo/include/dynamic_reconfigure/Reconfigure.h
+ /opt/ros/indigo/include/dynamic_reconfigure/ReconfigureRequest.h
+ /opt/ros/indigo/include/dynamic_reconfigure/ReconfigureResponse.h
+ /opt/ros/indigo/include/dynamic_reconfigure/StrParameter.h
+ /opt/ros/indigo/include/dynamic_reconfigure/server.h
  /opt/ros/indigo/include/ros/advertise_options.h
  /opt/ros/indigo/include/ros/advertise_service_options.h
  /opt/ros/indigo/include/ros/assert.h
@@ -554,6 +567,19 @@ phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o
  /home/mike/catkin_ws/src/phd/include/control_panel.hpp
  /opt/ros/indigo/include/XmlRpcDecl.h
  /opt/ros/indigo/include/XmlRpcValue.h
+ /opt/ros/indigo/include/dynamic_reconfigure/BoolParameter.h
+ /opt/ros/indigo/include/dynamic_reconfigure/Config.h
+ /opt/ros/indigo/include/dynamic_reconfigure/ConfigDescription.h
+ /opt/ros/indigo/include/dynamic_reconfigure/DoubleParameter.h
+ /opt/ros/indigo/include/dynamic_reconfigure/Group.h
+ /opt/ros/indigo/include/dynamic_reconfigure/GroupState.h
+ /opt/ros/indigo/include/dynamic_reconfigure/IntParameter.h
+ /opt/ros/indigo/include/dynamic_reconfigure/ParamDescription.h
+ /opt/ros/indigo/include/dynamic_reconfigure/Reconfigure.h
+ /opt/ros/indigo/include/dynamic_reconfigure/ReconfigureRequest.h
+ /opt/ros/indigo/include/dynamic_reconfigure/ReconfigureResponse.h
+ /opt/ros/indigo/include/dynamic_reconfigure/StrParameter.h
+ /opt/ros/indigo/include/dynamic_reconfigure/server.h
  /opt/ros/indigo/include/ros/advertise_options.h
  /opt/ros/indigo/include/ros/advertise_service_options.h
  /opt/ros/indigo/include/ros/assert.h
@@ -1587,6 +1613,19 @@ phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o
  /opt/ros/indigo/include/class_loader/class_loader_exceptions.h
  /opt/ros/indigo/include/class_loader/class_loader_register_macro.h
  /opt/ros/indigo/include/class_loader/meta_object.h
+ /opt/ros/indigo/include/dynamic_reconfigure/BoolParameter.h
+ /opt/ros/indigo/include/dynamic_reconfigure/Config.h
+ /opt/ros/indigo/include/dynamic_reconfigure/ConfigDescription.h
+ /opt/ros/indigo/include/dynamic_reconfigure/DoubleParameter.h
+ /opt/ros/indigo/include/dynamic_reconfigure/Group.h
+ /opt/ros/indigo/include/dynamic_reconfigure/GroupState.h
+ /opt/ros/indigo/include/dynamic_reconfigure/IntParameter.h
+ /opt/ros/indigo/include/dynamic_reconfigure/ParamDescription.h
+ /opt/ros/indigo/include/dynamic_reconfigure/Reconfigure.h
+ /opt/ros/indigo/include/dynamic_reconfigure/ReconfigureRequest.h
+ /opt/ros/indigo/include/dynamic_reconfigure/ReconfigureResponse.h
+ /opt/ros/indigo/include/dynamic_reconfigure/StrParameter.h
+ /opt/ros/indigo/include/dynamic_reconfigure/server.h
  /opt/ros/indigo/include/geometry_msgs/Twist.h
  /opt/ros/indigo/include/geometry_msgs/Vector3.h
  /opt/ros/indigo/include/pluginlib/class_list_macros.h
@@ -2067,6 +2106,7 @@ phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o
  /usr/include/qt4/QtGui/qwmatrix.h
  phd/ui_control_panel.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o
+ /home/mike/catkin_ws/devel/include/phd/ParamConfig.h
  /home/mike/catkin_ws/devel/include/phd/arm_msg.h
  /home/mike/catkin_ws/devel/include/phd/cube_msg.h
  /home/mike/catkin_ws/devel/include/phd/localize_cloud.h
@@ -2085,6 +2125,21 @@ phd/CMakeFiles/phd.dir/src/control_panel.cpp.o
  /home/mike/catkin_ws/src/phd/src/control_panel.cpp
  /opt/ros/indigo/include/XmlRpcDecl.h
  /opt/ros/indigo/include/XmlRpcValue.h
+ /opt/ros/indigo/include/dynamic_reconfigure/BoolParameter.h
+ /opt/ros/indigo/include/dynamic_reconfigure/Config.h
+ /opt/ros/indigo/include/dynamic_reconfigure/ConfigDescription.h
+ /opt/ros/indigo/include/dynamic_reconfigure/DoubleParameter.h
+ /opt/ros/indigo/include/dynamic_reconfigure/Group.h
+ /opt/ros/indigo/include/dynamic_reconfigure/GroupState.h
+ /opt/ros/indigo/include/dynamic_reconfigure/IntParameter.h
+ /opt/ros/indigo/include/dynamic_reconfigure/ParamDescription.h
+ /opt/ros/indigo/include/dynamic_reconfigure/Reconfigure.h
+ /opt/ros/indigo/include/dynamic_reconfigure/ReconfigureRequest.h
+ /opt/ros/indigo/include/dynamic_reconfigure/ReconfigureResponse.h
+ /opt/ros/indigo/include/dynamic_reconfigure/StrParameter.h
+ /opt/ros/indigo/include/dynamic_reconfigure/config_init_mutex.h
+ /opt/ros/indigo/include/dynamic_reconfigure/config_tools.h
+ /opt/ros/indigo/include/dynamic_reconfigure/server.h
  /opt/ros/indigo/include/geometry_msgs/Point.h
  /opt/ros/indigo/include/geometry_msgs/Point32.h
  /opt/ros/indigo/include/geometry_msgs/PointStamped.h

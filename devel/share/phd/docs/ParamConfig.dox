@@ -1,0 +1,6 @@
+\subsubsection parameters ROS parameters
+
+Reads and maintains the following parameters on the ROS server
+
+- \b "~l_search" : \b [int] Number of neighbours to search for normal min: 0, default: 30, max: 100
+

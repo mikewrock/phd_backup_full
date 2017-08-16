@@ -79,6 +79,13 @@ QNode::~QNode() {
     }
 	wait();
 }
+//this callback is for dynamic reconfigure, it sets the global variables
+void reconfig_callback(phd::ParamConfig &config, uint32_t level) {
+
+	ROS_INFO("Callback %d", config.l_search);
+
+
+}
 //Callback for storing current powercube position
 void QNode::jointCallback(const sensor_msgs::JointState::ConstPtr& msg)
 {
@@ -124,6 +131,8 @@ bool QNode::init() {
 	joint_sub = nh_.subscribe("cube_joint_states", 1, &control_panel::control_panel_ns::QNode::jointCallback,this);
 	cloud_sub = nh_.subscribe("marker_selected_points", 1, &control_panel::control_panel_ns::QNode::cloudCallback,this);
 	//traj_sub = nh_.subscribe("trajectory_points", 1, &control_panel::control_panel_ns::QNode::cloudCallback,this);
+	callback_type = boost::bind(&reconfig_callback, _1, _2);
+	server.setCallback(callback_type);
 	//Service client for calling the laser scan assembler
 	client = nh_.serviceClient<laser_assembler::AssembleScans2>("assemble_scans2");
 	//Service client for transforming th point cloud to the world coordinate frame

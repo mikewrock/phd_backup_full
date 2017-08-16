@@ -43,7 +43,8 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <sensor_msgs/PointCloud2.h>
-
+#include <dynamic_reconfigure/server.h>
+#include <phd/ParamConfig.h>
 #include "phd/trajectory_array.h"
 #include <pcl/filters/extract_indices.h>
 // bCAP (Always last)
@@ -75,7 +76,7 @@ public:
 	void exe_nav();
 	void estimate();
 	void nav_mode(float pos);
-	void fscan(std::string);
+	void fscan(std::string, bool auto_localize);
 	void cluster(int index);
 	void start_pt();
 	void gen_trajectory();
@@ -112,6 +113,9 @@ private:
 	ros::ServiceClient client;
 	ros::ServiceClient loc_client;
 	ros::ServiceClient traj_client;
+	//Dynamic Reconfigure
+	dynamic_reconfigure::Server<phd::ParamConfig> server;
+	dynamic_reconfigure::Server<phd::ParamConfig>::CallbackType callback_type;
 	//Pointer to the pointcloud selection
 	pcl::PointCloud<pcl::PointXYZI>::Ptr current_pc_;
 	//Holds the entire pointcloud from laser_scan_assembler, used for calculating normals (useful at the edges of current_pc_)

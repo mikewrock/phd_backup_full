@@ -1,0 +1,8 @@
+prefix=/home/mike/catkin_ws/install
+
+Name: point_cloud_converter
+Description: Description of point_cloud_converter
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/mike/catkin_ws/install/lib 
+Requires: 

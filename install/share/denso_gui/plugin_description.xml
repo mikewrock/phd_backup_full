@@ -1,0 +1,9 @@
+<library path="lib/libdenso_gui">
+  <class name="denso_gui/Denso Dashboard"
+         type="denso_gui::DensoDashboardPanel"
+         base_class_type="rviz::Panel">
+    <description>
+      A panel containing controls for Denso.
+    </description>
+  </class>
+</library>
