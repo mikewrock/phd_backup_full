@@ -181,20 +181,6 @@ clustering/fast:
 .PHONY : clustering/fast
 
 # Convenience name for target.
-registration_localization/CMakeFiles/dotloop.dir/rule:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 registration_localization/CMakeFiles/dotloop.dir/rule
-.PHONY : registration_localization/CMakeFiles/dotloop.dir/rule
-
-# Convenience name for target.
-dotloop: registration_localization/CMakeFiles/dotloop.dir/rule
-.PHONY : dotloop
-
-# fast build rule for target.
-dotloop/fast:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f registration_localization/CMakeFiles/dotloop.dir/build.make registration_localization/CMakeFiles/dotloop.dir/build
-.PHONY : dotloop/fast
-
-# Convenience name for target.
 registration_localization/CMakeFiles/keypoints.dir/rule:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 registration_localization/CMakeFiles/keypoints.dir/rule
 .PHONY : registration_localization/CMakeFiles/keypoints.dir/rule
@@ -568,30 +554,6 @@ src/dashboard_panel.cpp.s:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f registration_localization/CMakeFiles/registration_localization.dir/build.make registration_localization/CMakeFiles/registration_localization.dir/src/dashboard_panel.cpp.s
 .PHONY : src/dashboard_panel.cpp.s
 
-src/dotloop.o: src/dotloop.cpp.o
-.PHONY : src/dotloop.o
-
-# target to build an object file
-src/dotloop.cpp.o:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f registration_localization/CMakeFiles/dotloop.dir/build.make registration_localization/CMakeFiles/dotloop.dir/src/dotloop.cpp.o
-.PHONY : src/dotloop.cpp.o
-
-src/dotloop.i: src/dotloop.cpp.i
-.PHONY : src/dotloop.i
-
-# target to preprocess a source file
-src/dotloop.cpp.i:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f registration_localization/CMakeFiles/dotloop.dir/build.make registration_localization/CMakeFiles/dotloop.dir/src/dotloop.cpp.i
-.PHONY : src/dotloop.cpp.i
-
-src/dotloop.s: src/dotloop.cpp.s
-.PHONY : src/dotloop.s
-
-# target to generate assembly for a file
-src/dotloop.cpp.s:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f registration_localization/CMakeFiles/dotloop.dir/build.make registration_localization/CMakeFiles/dotloop.dir/src/dotloop.cpp.s
-.PHONY : src/dotloop.cpp.s
-
 src/linering.o: src/linering.cpp.o
 .PHONY : src/linering.o
 
@@ -912,7 +874,6 @@ help:
 	@echo "... depend"
 	@echo "... algorithm"
 	@echo "... clustering"
-	@echo "... dotloop"
 	@echo "... edit_cache"
 	@echo "... install"
 	@echo "... install/local"
@@ -957,9 +918,6 @@ help:
 	@echo "... src/dashboard_panel.o"
 	@echo "... src/dashboard_panel.i"
 	@echo "... src/dashboard_panel.s"
-	@echo "... src/dotloop.o"
-	@echo "... src/dotloop.i"
-	@echo "... src/dotloop.s"
 	@echo "... src/linering.o"
 	@echo "... src/linering.i"
 	@echo "... src/linering.s"

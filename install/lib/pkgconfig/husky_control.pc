@@ -1,8 +1,0 @@
-prefix=/home/mike/catkin_ws/install
-
-Name: husky_control
-Description: Description of husky_control
-Version: 0.2.7
-Cflags: 
-Libs: -L/home/mike/catkin_ws/install/lib 
-Requires: 

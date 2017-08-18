@@ -35,6 +35,7 @@ find_package(PCL 1.7 REQUIRED)
 ## This plugin includes Qt widgets, so we must include Qt like so:
 find_package(Qt4 COMPONENTS QtCore QtGui REQUIRED)
 include(${QT_USE_FILE})
+include(/opt/ros/indigo/share/dynamic_reconfigure/cmake/cfgbuild.cmake)
 include_directories(include/)
 include_directories(
   ${catkin_INCLUDE_DIRS}
@@ -169,7 +170,7 @@ CATKIN_DEPENDS sensor_msgs tf urdf diagnostic_updater schunk_libm5api libntcan l
 # include_directories(include)
 #include_directories(common/include include /home/mike/pcl-master/filters/include/pcl/filters ${PCL_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS})
 include_directories(common/include include ${PCL_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS})
-
+include_directories(${dynamic_reconfigure_PACKAGE_PATH}/cmake/cfgbuild.cmake) 
 link_directories(${PCL_LIBRARY_DIRS})
 
 

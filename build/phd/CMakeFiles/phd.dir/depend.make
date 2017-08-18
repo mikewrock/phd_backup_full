@@ -69,6 +69,7 @@ phd/CMakeFiles/phd.dir/src/dn_udp.c.o: /home/mike/catkin_ws/src/phd/include/bcap
 phd/CMakeFiles/phd.dir/src/dn_udp.c.o: /home/mike/catkin_ws/src/phd/src/dn_udp.c
 
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: phd/include/moc_control_dashboard.cxx
+phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /home/mike/catkin_ws/devel/include/phd/ParamConfig.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /home/mike/catkin_ws/devel/include/phd/trajectory_array.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /home/mike/catkin_ws/devel/include/phd/trajectory_msg.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /home/mike/catkin_ws/devel/include/phd/trajectory_point.h
@@ -557,6 +558,7 @@ phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtG
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: phd/ui_control_panel.h
 
 phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o: phd/include/moc_control_panel.cxx
+phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o: /home/mike/catkin_ws/devel/include/phd/ParamConfig.h
 phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o: /home/mike/catkin_ws/devel/include/phd/trajectory_array.h
 phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o: /home/mike/catkin_ws/devel/include/phd/trajectory_msg.h
 phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o: /home/mike/catkin_ws/devel/include/phd/trajectory_point.h
@@ -1595,6 +1597,7 @@ phd/CMakeFiles/phd.dir/qrc_ui_resource.cxx.o: /usr/include/qt4/QtCore/qconfig.h
 phd/CMakeFiles/phd.dir/qrc_ui_resource.cxx.o: /usr/include/qt4/QtCore/qfeatures.h
 phd/CMakeFiles/phd.dir/qrc_ui_resource.cxx.o: /usr/include/qt4/QtCore/qglobal.h
 
+phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /home/mike/catkin_ws/devel/include/phd/ParamConfig.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /home/mike/catkin_ws/devel/include/phd/trajectory_array.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /home/mike/catkin_ws/devel/include/phd/trajectory_msg.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /home/mike/catkin_ws/devel/include/phd/trajectory_point.h
@@ -2136,8 +2139,6 @@ phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /opt/ros/indigo/include/dynamic_
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/ReconfigureRequest.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/ReconfigureResponse.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/StrParameter.h
-phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/config_init_mutex.h
-phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/config_tools.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/server.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /opt/ros/indigo/include/geometry_msgs/Point.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /opt/ros/indigo/include/geometry_msgs/Point32.h

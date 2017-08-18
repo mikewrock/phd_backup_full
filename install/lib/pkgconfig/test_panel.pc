@@ -1,8 +1,0 @@
-prefix=/home/mike/catkin_ws/install
-
-Name: test_panel
-Description: Description of test_panel
-Version: 0.1.0
-Cflags: 
-Libs: -L/home/mike/catkin_ws/install/lib 
-Requires: 

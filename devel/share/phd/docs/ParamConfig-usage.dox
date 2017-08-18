@@ -1,7 +1,9 @@
 \subsubsection usage Usage
 \verbatim
 <node name="control_panel" pkg="phd" type="control_panel">
-  <param name="l_search" type="int" value="30" />
+  <param name="q_search" type="int" value="8" />
+  <param name="group1_int" type="int" value="2" />
+  <param name="group2_double" type="double" value="3.333" />
 </node>
 \endverbatim
 

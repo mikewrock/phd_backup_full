@@ -1557,19 +1557,6 @@ clustering/fast:
 .PHONY : clustering/fast
 
 #=============================================================================
-# Target rules for targets named dotloop
-
-# Build rule for target.
-dotloop: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 dotloop
-.PHONY : dotloop
-
-# fast build rule for target.
-dotloop/fast:
-	$(MAKE) -f registration_localization/CMakeFiles/dotloop.dir/build.make registration_localization/CMakeFiles/dotloop.dir/build
-.PHONY : dotloop/fast
-
-#=============================================================================
 # Target rules for targets named keypoints
 
 # Build rule for target.
@@ -3263,7 +3250,6 @@ help:
 	@echo "... visualization_msgs_generate_messages_py"
 	@echo "... algorithm"
 	@echo "... clustering"
-	@echo "... dotloop"
 	@echo "... keypoints"
 	@echo "... linering"
 	@echo "... matching_test"

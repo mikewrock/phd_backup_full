@@ -1,0 +1,7 @@
+\subsubsection parameters ROS parameters
+
+Reads and maintains the following parameters on the ROS server
+
+- \b "~j_search" : \b [int] Global min: 0, default: 30, max: 100
+- \b "~o_search" : \b [int] Nroupl 1 min: 0, default: 8, max: 10
+

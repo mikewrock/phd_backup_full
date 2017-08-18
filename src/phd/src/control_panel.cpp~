@@ -82,6 +82,7 @@ QNode::~QNode() {
 //this callback is for dynamic reconfigure, it sets the global variables
 void reconfig_callback(phd::ParamConfig &config, uint32_t level) {
 
+	//ROS_INFO("Callback %d", config.l_search);
 
 
 }

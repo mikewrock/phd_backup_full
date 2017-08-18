@@ -1,1 +1,0 @@
-set(ORDERED_PATHS "/home/mike/catkin_ws/devel/lib;/opt/ros/indigo/lib")

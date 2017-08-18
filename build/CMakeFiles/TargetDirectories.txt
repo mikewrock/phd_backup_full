@@ -78,7 +78,6 @@
 /home/mike/catkin_ws/build/phd/CMakeFiles/diagnostic_msgs_generate_messages_cpp.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/diagnostic_msgs_generate_messages_lisp.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/diagnostic_msgs_generate_messages_py.dir
-/home/mike/catkin_ws/build/registration_localization/CMakeFiles/dotloop.dir
 /home/mike/catkin_ws/build/CMakeFiles/download_extra_data.dir
 /home/mike/catkin_ws/build/CMakeFiles/doxygen.dir
 /home/mike/catkin_ws/build/perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/dynamic_reconfigure_gencfg.dir
