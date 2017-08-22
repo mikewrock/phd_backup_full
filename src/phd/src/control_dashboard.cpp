@@ -44,6 +44,7 @@ namespace control_panel
 		connect(ui_.exe_path, SIGNAL(clicked()), this, SLOT(exe_nav()));
 		connect(ui_.show_nav_button, SIGNAL(clicked()), this, SLOT(show_nav()));
 		connect(ui_.fscan_button, SIGNAL(clicked()), this, SLOT(fake_scan()));
+		connect(ui_.scan_button, SIGNAL(clicked()), this, SLOT(scan()));
 		connect(ui_.localization_button, SIGNAL(clicked()), this, SLOT(localization_scan()));
 		connect(ui_.localization_button_2, SIGNAL(clicked()), this, SLOT(localization_scan_2()));
 		connect(ui_.cluster1, SIGNAL(clicked()), this, SLOT(cluster_1()));
@@ -103,7 +104,12 @@ namespace control_panel
 
 		  control_panel.show_nav();
 	}
-	//Perform and scan using the nodding head laser
+	//Perform a lase scan and tell control_panel the fiducial name and whether to set the pose as global origin 
+	void ControlPanel::scan(){
+
+		  control_panel.scan(ui_.marker_name_box->text().toStdString(),ui_.set_home->isChecked());
+	}
+	//Perform a fake scan using a pointcloud file (.pcl
 	void ControlPanel::fake_scan(){
 
 		  control_panel.fscan(ui_.filename_box->text().toStdString(),ui_.auto_localize->isChecked());
@@ -111,7 +117,7 @@ namespace control_panel
 	//Estimate the position correction through registration
 	void ControlPanel::do_estimate(){
 
-		  control_panel.estimate();
+		  control_panel.estimate(ui_.marker_name_box->text().toStdString());
 	}
 	//Testing function, step through the arm strajectory pose
 	void ControlPanel::do_step(){
@@ -121,7 +127,7 @@ namespace control_panel
 	//Cluster the high intensity points in the selected area
 	void ControlPanel::cluster_1(){
 		//Call the cluster function in control_panel and pass it which marker point to be clustered, then update the text in the panel
-		control_panel.cluster(cluster_index);
+		control_panel.cluster(ui_.marker_name_box->text().toStdString(),cluster_index);
 		if(cluster_index == 0){
 		 ui_.cluster1->setText("Cluster Pt. 2");
 		 cluster_index+=1;

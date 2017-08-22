@@ -40,7 +40,7 @@ template<>
 struct MD5Sum< ::phd::localize_cloud > {
   static const char* value()
   {
-    return "b8092357b1c84167e3da82720a08fb1d";
+    return "bc66c6bf05c24ed90cc2ba3c8c0ca59e";
   }
 
   static const char* value(const ::phd::localize_cloud&) { return value(); }

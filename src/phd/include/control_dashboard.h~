@@ -34,6 +34,7 @@ void exe_nav();
 void do_step();
 void do_estimate();
 void fake_scan();
+void start_pt();
 void fwd_vel();
 void rev_vel();
 void left_vel();

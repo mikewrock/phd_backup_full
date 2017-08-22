@@ -22,7 +22,7 @@ static const uint qt_meta_data_control_panel__ControlPanel[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      31,   14, // methods
+      32,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -37,30 +37,31 @@ static const uint qt_meta_data_control_panel__ControlPanel[] = {
       69,   28,   28,   28, 0x09,
       83,   28,   28,   28, 0x09,
       95,   28,   28,   28, 0x09,
-     106,   28,   28,   28, 0x09,
-     116,   28,   28,   28, 0x09,
-     126,   28,   28,   28, 0x09,
-     137,   28,   28,   28, 0x09,
-     149,   28,   28,   28, 0x09,
-     163,   28,   28,   28, 0x09,
-     178,   28,   28,   28, 0x09,
-     194,   28,   28,   28, 0x09,
-     208,   28,   28,   28, 0x09,
-     221,   28,   28,   28, 0x09,
-     236,   28,   28,   28, 0x09,
-     251,   28,   28,   28, 0x09,
-     266,   28,   28,   28, 0x09,
-     282,   28,   28,   28, 0x09,
-     298,   28,   28,   28, 0x09,
-     312,   28,   28,   28, 0x09,
-     326,   28,   28,   28, 0x09,
-     346,   28,   28,   28, 0x09,
-     368,   28,   28,   28, 0x09,
-     380,   28,   28,   28, 0x09,
-     392,   28,   28,   28, 0x09,
-     405,   28,   28,   28, 0x09,
-     417,   28,   28,   28, 0x09,
-     429,   28,   28,   28, 0x09,
+     102,   28,   28,   28, 0x09,
+     113,   28,   28,   28, 0x09,
+     123,   28,   28,   28, 0x09,
+     133,   28,   28,   28, 0x09,
+     144,   28,   28,   28, 0x09,
+     156,   28,   28,   28, 0x09,
+     170,   28,   28,   28, 0x09,
+     185,   28,   28,   28, 0x09,
+     201,   28,   28,   28, 0x09,
+     215,   28,   28,   28, 0x09,
+     228,   28,   28,   28, 0x09,
+     243,   28,   28,   28, 0x09,
+     258,   28,   28,   28, 0x09,
+     273,   28,   28,   28, 0x09,
+     289,   28,   28,   28, 0x09,
+     305,   28,   28,   28, 0x09,
+     319,   28,   28,   28, 0x09,
+     333,   28,   28,   28, 0x09,
+     353,   28,   28,   28, 0x09,
+     375,   28,   28,   28, 0x09,
+     387,   28,   28,   28, 0x09,
+     399,   28,   28,   28, 0x09,
+     412,   28,   28,   28, 0x09,
+     424,   28,   28,   28, 0x09,
+     436,   28,   28,   28, 0x09,
 
        0        // eod
 };
@@ -68,17 +69,17 @@ static const uint qt_meta_data_control_panel__ControlPanel[] = {
 static const char qt_meta_stringdata_control_panel__ControlPanel[] = {
     "control_panel::ControlPanel\0\0do_nav()\0"
     "show_nav()\0exe_nav()\0do_step()\0"
-    "do_estimate()\0fake_scan()\0start_pt()\0"
-    "fwd_vel()\0rev_vel()\0left_vel()\0"
-    "right_vel()\0arm_fwd_vel()\0arm_left_vel()\0"
-    "arm_right_vel()\0arm_rev_vel()\0"
-    "arm_up_vel()\0arm_down_vel()\0roll_vel_neg()\0"
-    "roll_vel_pos()\0pitch_vel_neg()\0"
-    "pitch_vel_pos()\0yaw_vel_neg()\0"
-    "yaw_vel_pos()\0localization_scan()\0"
-    "localization_scan_2()\0clear_vel()\0"
-    "cluster_1()\0trajectory()\0cluster_2()\0"
-    "cluster_3()\0gen_trajectory()\0"
+    "do_estimate()\0fake_scan()\0scan()\0"
+    "start_pt()\0fwd_vel()\0rev_vel()\0"
+    "left_vel()\0right_vel()\0arm_fwd_vel()\0"
+    "arm_left_vel()\0arm_right_vel()\0"
+    "arm_rev_vel()\0arm_up_vel()\0arm_down_vel()\0"
+    "roll_vel_neg()\0roll_vel_pos()\0"
+    "pitch_vel_neg()\0pitch_vel_pos()\0"
+    "yaw_vel_neg()\0yaw_vel_pos()\0"
+    "localization_scan()\0localization_scan_2()\0"
+    "clear_vel()\0cluster_1()\0trajectory()\0"
+    "cluster_2()\0cluster_3()\0gen_trajectory()\0"
 };
 
 void control_panel::ControlPanel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -93,31 +94,32 @@ void control_panel::ControlPanel::qt_static_metacall(QObject *_o, QMetaObject::C
         case 3: _t->do_step(); break;
         case 4: _t->do_estimate(); break;
         case 5: _t->fake_scan(); break;
-        case 6: _t->start_pt(); break;
-        case 7: _t->fwd_vel(); break;
-        case 8: _t->rev_vel(); break;
-        case 9: _t->left_vel(); break;
-        case 10: _t->right_vel(); break;
-        case 11: _t->arm_fwd_vel(); break;
-        case 12: _t->arm_left_vel(); break;
-        case 13: _t->arm_right_vel(); break;
-        case 14: _t->arm_rev_vel(); break;
-        case 15: _t->arm_up_vel(); break;
-        case 16: _t->arm_down_vel(); break;
-        case 17: _t->roll_vel_neg(); break;
-        case 18: _t->roll_vel_pos(); break;
-        case 19: _t->pitch_vel_neg(); break;
-        case 20: _t->pitch_vel_pos(); break;
-        case 21: _t->yaw_vel_neg(); break;
-        case 22: _t->yaw_vel_pos(); break;
-        case 23: _t->localization_scan(); break;
-        case 24: _t->localization_scan_2(); break;
-        case 25: _t->clear_vel(); break;
-        case 26: _t->cluster_1(); break;
-        case 27: _t->trajectory(); break;
-        case 28: _t->cluster_2(); break;
-        case 29: _t->cluster_3(); break;
-        case 30: _t->gen_trajectory(); break;
+        case 6: _t->scan(); break;
+        case 7: _t->start_pt(); break;
+        case 8: _t->fwd_vel(); break;
+        case 9: _t->rev_vel(); break;
+        case 10: _t->left_vel(); break;
+        case 11: _t->right_vel(); break;
+        case 12: _t->arm_fwd_vel(); break;
+        case 13: _t->arm_left_vel(); break;
+        case 14: _t->arm_right_vel(); break;
+        case 15: _t->arm_rev_vel(); break;
+        case 16: _t->arm_up_vel(); break;
+        case 17: _t->arm_down_vel(); break;
+        case 18: _t->roll_vel_neg(); break;
+        case 19: _t->roll_vel_pos(); break;
+        case 20: _t->pitch_vel_neg(); break;
+        case 21: _t->pitch_vel_pos(); break;
+        case 22: _t->yaw_vel_neg(); break;
+        case 23: _t->yaw_vel_pos(); break;
+        case 24: _t->localization_scan(); break;
+        case 25: _t->localization_scan_2(); break;
+        case 26: _t->clear_vel(); break;
+        case 27: _t->cluster_1(); break;
+        case 28: _t->trajectory(); break;
+        case 29: _t->cluster_2(); break;
+        case 30: _t->cluster_3(); break;
+        case 31: _t->gen_trajectory(); break;
         default: ;
         }
     }
@@ -158,9 +160,9 @@ int control_panel::ControlPanel::qt_metacall(QMetaObject::Call _c, int _id, void
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 31)
+        if (_id < 32)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 31;
+        _id -= 32;
     }
     return _id;
 }

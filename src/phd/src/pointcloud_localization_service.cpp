@@ -103,35 +103,36 @@ std::vector<pcl::PointXYZI> cluster_points(pcl::PointCloud<pcl::PointXYZI>::Ptr 
 	std::vector<pcl::PointXYZI> Pts;
 	for(int i = 0; i < (cloud_in->width * cloud_in->height) - 1 ; ++i){
 		if(cloud_in->points[i].intensity != 0){
-		std::vector<pcl::PointXYZI> cluster;
-		cluster.push_back(cloud_in->points[i]);
-		for(int j = i+ 1; j < (cloud_in->width * cloud_in->height); ++j){
+			std::vector<pcl::PointXYZI> cluster;
+			cluster.push_back(cloud_in->points[i]);
+			for(int j = i+ 1; j < (cloud_in->width * cloud_in->height); ++j){
 
-			if(sqrt(pow(cloud_in->points[i].x - cloud_in->points[j].x,2)+pow(cloud_in->points[i].y - cloud_in->points[j].y,2)+pow(cloud_in->points[i].z - cloud_in->points[j].z,2)) < 0.06 && cloud_in->points[j].intensity != 0){
-				cluster.push_back(cloud_in->points[j]);
-				cloud_in->points[j].intensity = 0;
+				if(sqrt(pow(cloud_in->points[i].x - cloud_in->points[j].x,2)+pow(cloud_in->points[i].y - cloud_in->points[j].y,2)+pow(cloud_in->points[i].z - cloud_in->points[j].z,2)) < 0.06 && cloud_in->points[j].intensity != 0){
+					cluster.push_back(cloud_in->points[j]);
+					cloud_in->points[j].intensity = 0;
+				}
+
 			}
 
-		}
-
-		float xs =0;
-		float ys=0;
-		float zs=0;
-		float is=0;
-		for(int k = 0; k < cluster.size(); ++k){
-			xs+=cluster[k].x;
-			ys+=cluster[k].y;
-			zs+=cluster[k].z;
-			is+=cluster[k].intensity;
+			float xs =0;
+			float ys=0;
+			float zs=0;
+			float is=0;
+			for(int k = 0; k < cluster.size(); ++k){
+				xs+=cluster[k].x;
+				ys+=cluster[k].y;
+				zs+=cluster[k].z;
+				is+=cluster[k].intensity;
 			}
-		pcl::PointXYZI Pt;
-		Pt.x = xs/cluster.size();
-		Pt.y = ys/cluster.size();
-		Pt.z = zs/cluster.size();
-		Pt.intensity = is/cluster.size();
-		Pts.push_back(Pt);
+			pcl::PointXYZI Pt;
+			Pt.x = xs/cluster.size();
+			Pt.y = ys/cluster.size();
+			Pt.z = zs/cluster.size();
+			Pt.intensity = is/cluster.size();
+			Pts.push_back(Pt);
 		}
 	}
+	//Write algorithm to detect if Pts.size > 3 and delete the cluster with the least points here if having issues
 	return Pts;
 }
 
@@ -393,9 +394,12 @@ bool localize(phd::localize_cloud::Request  &req,
 	cloud_debug.fields[3].name = "intensity";
 	cloud_debug.header.frame_id = "/base_link";
 	cloud_debug.header.stamp = ros::Time::now();
-	tpub.publish(cloud_req);
+	if(DEBUG) tpub.publish(cloud_req);
 	geometry_msgs::Point p1, p2, p3;
-	ifstream marker_file( "/home/mike/marker/location/filename.dat");
+	Eigen::Vector3f vec1, vec2;
+	std::stringstream fs;
+	fs << req.marker_file << "marker.dat";
+	ifstream marker_file( fs.str().c_str());
 	marker_file >> p1.x;
 	marker_file >> p1.y;
 	marker_file >> p1.z;
@@ -405,33 +409,32 @@ bool localize(phd::localize_cloud::Request  &req,
 	marker_file >> p3.x;
 	marker_file >> p3.y;
 	marker_file >> p3.z;
-	Eigen::Vector3f vec1, vec2;
-	VAL1 = sqrt(pow(p1.x - p2.x,2)+pow(p1.y - p2.y,2)+pow(p1.z - p2.z,2));
-	VAL3 = sqrt(pow(p1.x - p3.x,2)+pow(p1.y - p3.y,2)+pow(p1.z - p3.z,2));
-	VAL2 = sqrt(pow(p3.x - p2.x,2)+pow(p3.y - p2.y,2)+pow(p3.z - p2.z,2));
-	vec1[0] = p2.x - p1.x;
-	vec1[1] = p2.y - p1.y;
-	vec1[2] = p2.z - p1.z;
-	vec2[0] = p2.x - p3.x;
-	vec2[1] = p2.y - p3.y;
-	vec2[2] = p2.z - p3.z;
-	VAL4 = dot_product(vec1,vec2);
-
+	marker_file >> VAL1;
+	marker_file >> VAL2;
+	marker_file >> VAL3;
+	marker_file >> VAL4;
+	marker_file >> vec1[0];
+	marker_file >> vec1[1];
+	marker_file >> vec1[2];
+	marker_file >> vec2[0];
+	marker_file >> vec2[1];
+	marker_file >> vec2[2];
 	//if(DEBUG) ROS_INFO("Using VALS: %f - %f - %f - %f\n from pts %f - %f - %f\n%f - %f - %f\n%f - %f - %f\n", VAL1, VAL2, VAL3, VAL4, p1.x,p1.y,p1.z,p2.x,p2.y,p2.z,p3.x,p3.y,p3.z);
 	std::vector<pcl::PointXYZI> Pts;
-
 	Pts = cluster_points(cloud_intensity_filtered);
 	if(DEBUG) ROS_INFO("Clustered Points: %lu", Pts.size());
 	Eigen::Matrix3f marker_loc;
 	Eigen::Matrix4f transform_mat;
-
 	bool ret = locate_marker(Pts, marker_loc, transform_mat);
 	if(req.homing){
 		//std::cout << "Transform Mat" << transform_mat << std::endl;
 		pcl::toROSMsg(*cloud_world,cloud_msg);
+		//publish a map correction here
 	}else{
 
-		bag.open("/home/mike/marker/fiducial.bag", rosbag::bagmode::Read);
+		std::stringstream fs2;
+		fs2 << req.marker_file << "marker.bag";
+		bag.open(fs2.str().c_str(), rosbag::bagmode::Read);
 		Eigen::Matrix4f transformA;
 		rosbag::View view(bag, rosbag::TopicQuery("fiducial"));
 		int fctr = 0;
@@ -452,7 +455,7 @@ bool localize(phd::localize_cloud::Request  &req,
 		//std::cout << "Transform A" << transformA << std::endl;
 		pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_int (new pcl::PointCloud<pcl::PointXYZI>);
 		Eigen::Matrix4f transformAB = transform_mat.inverse();
-		Eigen::Matrix4f transformBB = transformA.inverse();
+		//Eigen::Matrix4f transformBB = transformA.inverse();
 		pcl::transformPointCloud (*cloud_world, *cloud_int, transformAB);
 		pcl::transformPointCloud (*cloud_int, *cloud_output, transformA);
 		pcl::toROSMsg(*cloud_output,cloud_msg);

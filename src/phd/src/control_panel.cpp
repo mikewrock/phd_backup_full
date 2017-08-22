@@ -67,6 +67,9 @@ laser_assembler::AssembleScans2 srv;
 phd::localize_cloud loc_srv;
 //For generating arm trajectories
 phd::trajectory_service traj_srv;
+//Dynamic Reconfig Variables
+std::string CLOUD;
+int CLOUD_NUM;
 
 //DELETE
 pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_aligner (new pcl::PointCloud<pcl::PointXYZI> );
@@ -82,6 +85,8 @@ QNode::~QNode() {
 //this callback is for dynamic reconfigure, it sets the global variables
 void reconfig_callback(phd::ParamConfig &config, uint32_t level) {
 
+	CLOUD = config.cloud_name;
+	CLOUD_NUM = config.cloud_number;
 	ROS_INFO("Callback");
 
 
@@ -154,7 +159,7 @@ bool QNode::init() {
 	//Start the counters for trajectory sections and points at 0
 	sec_ctr = 0;
 	pt_ctr = 0;
-	
+	cloud_ctr = 1;
 	//ros::start();
 }
 
@@ -290,8 +295,8 @@ void QNode::step(){
 
 }
 
-//Perform a laser scan
-void QNode::scan(){
+//Perform a laser scan, either localize the cloud or set it as the global frame, and save to disk
+void QNode::scan(std::string filename, bool localize){
 	//Create a message to send to the powercube node, moving the powercube to its start location
 	phd::cube_msg cube_cmd;
 	cube_cmd.j1 = -2;
@@ -299,6 +304,7 @@ void QNode::scan(){
 	cube_cmd.acc = 2;
 	//pose=true means we're sending a position. False means its a velocity and should eventually time out
 	cube_cmd.pose = true;
+	//Publish and spin
 	cmd_pub.publish(cube_cmd);
 	ros::spinOnce();
 	if(DEBUG) {
@@ -334,10 +340,26 @@ void QNode::scan(){
 		cloud_surface = srv.response.cloud;
 		//Tell ros what the 4th field information is
 		cloud_surface.fields[3].name = "intensities";
-		//Publish cloud to assembled_cloud		
-		pub.publish(cloud_surface);
+		//If set home box is checked, tell localization to save marker location to the filename specified, otheriwse load the file and localize
+		if(DEBUG&&localize) ROS_INFO("Setting Home");	
+		//Call the localization service, it will transform the cloud if the set home box is not checked
+		loc_srv.request.cloud_in = cloud_surface;
+		loc_srv.request.homing = localize;
+		loc_srv.request.marker_file = filename;
+		loc_client.call(loc_srv);
+		if(loc_client.call(loc_srv)){
+			if(DEBUG) ROS_INFO("Localize Service Cloud %d", (uint32_t)(loc_srv.response.cloud_out.width));
+			pub.publish(loc_srv.response.cloud_out);
+			if(localize) cloud_surface = loc_srv.response.cloud_out;
+		}else ROS_INFO("Localize Service Failed");
+		//Save the pointcloud to disk using filename CLOUD and the counter
+		pcl::PointCloud<pcl::PointXYZI>::Ptr save_cloud (new pcl::PointCloud<pcl::PointXYZI>);
+		pcl::fromROSMsg(cloud_surface, *save_cloud);
+		std::stringstream pf;
+		pf << filename << CLOUD << cloud_ctr++ << ".pcl";
+		pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
 	}
-	else ROS_ERROR("Error making service call\n") ;
+	else ROS_ERROR("Error making service call to laser assembler\n") ;
 
 }
 
@@ -403,6 +425,7 @@ return;
 		pub.publish(cloud_msg);
 	}
 }
+//Testing function: Localization scan, performs a laser scan and sets the frame /base_footprint as the origin of the global coordinate frame 
 void QNode::lscan(){
 
 	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZI> );
@@ -416,11 +439,7 @@ void QNode::lscan(){
 	std::cerr << "Sending cloud with: " << cloud->width * cloud->height << " data points." << std::endl;
 
 	sensor_msgs::PointCloud2 cloud_msg;
-		pcl::toROSMsg(*cloud,cloud_msg);
-		//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
-		cloud_msg.fields[3].name = "intensities";
 
-	cloud_msg.header.frame_id = "/base_link";
 	loc_srv.request.cloud_in = cloud_msg;
 	loc_srv.request.homing = true;
 	if(loc_client.call(loc_srv)){
@@ -429,10 +448,15 @@ void QNode::lscan(){
 			cloud_surface = loc_srv.response.cloud_out;
 	}else ROS_INFO("Service Failed");
 }
-void QNode::cluster(int index){
-	int init_size =  current_pc_->width * current_pc_->height;
-	ROS_INFO("Clustering %d, %d points", index,init_size) ;
-	//Create containers for filtered clouds
+//This function save the location of the IR reflective ball by clustering the highly reflective points in to a single location
+//On the third call to this function (index == 2) it will save the tranformation matrix from the robot to the marker as a rosbag
+void QNode::cluster(std::string filename, int index){
+	//Calculate how many points are being clustered
+	if(DEBUG){
+		int init_size =  current_pc_->width * current_pc_->height;
+		ROS_INFO("Clustering %d, %d points", index,init_size) ;
+	}	
+	//Create containers for the filtered cloud
 	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_intensity_filtered (new pcl::PointCloud<pcl::PointXYZI>);
 	// Create the filtering object
 	pcl::PassThrough<pcl::PointXYZI> pass (true);
@@ -441,14 +465,14 @@ void QNode::cluster(int index){
 	pass.setFilterFieldName ("intensity");
 	pass.setFilterLimits (550,1100);
 	pass.filter (*cloud_intensity_filtered);
-
+	//initialize the variables to hold the center of the points
 	float xs=0;
 	float ys=0;
 	float zs=0;
+	//Calculate how many points of sufficient intensity were found
 	int size = cloud_intensity_filtered->width * cloud_intensity_filtered->height;
 	//average all the points
 	for(int i = 0; i < size; ++i){
-	//ROS_INFO("Adding Point: %f - %f - %f / %d",cloud_intensity_filtered->points[i].x,cloud_intensity_filtered->points[i].y,cloud_intensity_filtered->points[i].z,i);
 		xs += cloud_intensity_filtered->points[i].x;
 		ys += cloud_intensity_filtered->points[i].y;
 		zs += cloud_intensity_filtered->points[i].z;
@@ -456,23 +480,31 @@ void QNode::cluster(int index){
 	xs = xs/size;
 	ys = ys/size;
 	zs = zs/size;
-	ROS_INFO("Saving Point: %f - %f - %f / %d",xs, ys, zs, size);
+	if(DEBUG) ROS_INFO("Saving Point: %f - %f - %f / %d",xs, ys, zs, size);
+	//Open file for saving marker location
 	ofstream myfile;
 	std::stringstream fs;
-	fs << "/home/mike/marker/location/" << "filename" << ".dat";
+	fs << filename << "marker.dat";
+	//Save either point 1, 2, or 3 to file
 	switch (index){
+		//point 1
 		case 0:	myfile.open (fs.str().c_str(), std::ios::out|std::ios::trunc);
 			P1x = xs;
 			P1y = ys;
 			P1z = zs;
+			myfile << xs << std::endl << ys << std::endl << zs << std::endl;
 			break;
+		//point 2
 		case 1: myfile.open (fs.str().c_str(), std::ios::out|std::ios::app);
 			P2x = xs;
 			P2y = ys;
 			P2z = zs;
+			myfile << xs << std::endl << ys << std::endl << zs << std::endl;
 			break;
+		//point 3 (final)
 		case 2: myfile.open (fs.str().c_str(), std::ios::out|std::ios::app);
-			rosbag::Bag bag;
+			myfile << xs << std::endl << ys << std::endl << zs << std::endl;
+			//Calculate the transformation matrix from the origin to the centre of the marker points
 			Eigen::Vector3f a,n,c,o;
 			Eigen::Matrix4f A_mat;
 			float mn = sqrt(pow(xs-P2x,2)+pow(ys-P2y,2)+pow(zs-P2z,2));
@@ -509,8 +541,28 @@ void QNode::cluster(int index){
 			A_mat(3,1) = 0;
 			A_mat(3,2) = 0;
 			A_mat(3,3) = 1;
-
-			bag.open("/home/mike/marker/fiducial.bag", rosbag::bagmode::Write);
+			//Calculate the distance between each point (VAL1-3) and the dot product of vector P1P2 and P3P2 (VAL4)
+			Eigen::Vector3f vec1, vec2;
+			float VAL1 = sqrt(pow(P1x - P2x,2)+pow(P1y - P2y,2)+pow(P1z - P2z,2));
+			float VAL3 = sqrt(pow(P1x - xs,2)+pow(P1y - ys,2)+pow(P1z - zs,2));
+			float VAL2 = sqrt(pow(xs - P2x,2)+pow(ys - P2y,2)+pow(zs - P2z,2));
+			vec1[0] = P2x - P1x;
+			vec1[1] = P2y - P1y;
+			vec1[2] = P2z - P1z;
+			vec2[0] = P2x - xs;
+			vec2[1] = P2y - ys;
+			vec2[2] = P2z - zs;
+			float VAL4 = vec1[0]*vec2[0] + vec1[1]*vec2[1] + vec1[2]*vec2[2];
+			//Save VAL1-4 to disk
+			myfile << VAL1 << std::endl << VAL2 << std::endl << VAL3 << std::endl << VAL4 << std::endl;
+			myfile << vec1[0] << std::endl << vec1[1] << std::endl << vec1[2] << std::endl;
+			myfile << vec2[0] << std::endl << vec2[1] << std::endl << vec2[2] << std::endl;
+			myfile.close();
+			//Save the transformation matrix as a rosbag
+			rosbag::Bag bag;
+			std::stringstream fs2;
+			fs2 << filename << "marker.bag";
+			bag.open(fs2.str().c_str(), rosbag::bagmode::Write);
 			std_msgs::Float64 f;
 			for(int fctr = 0; fctr < 4; ++fctr){
 				for(int fctr2 = 0; fctr2 < 4; ++fctr2){
@@ -518,37 +570,11 @@ void QNode::cluster(int index){
 					bag.write("fiducial", ros::Time::now(), f);
 				}
 			}
-			bag.close();	
+			bag.close();
 	}
-	myfile << xs << std::endl << ys << std::endl << zs << std::endl;
-	myfile.close();
 
 }
-
-void QNode::gen_trajectory(){
-	ROS_INFO("Generating Trajectory") ;
-	traj_srv.request.P1x = T1x;
-	traj_srv.request.P1y = T1y;
-	traj_srv.request.P1z = T1z;
-	sensor_msgs::PointCloud2 cloud_msg;
-	pcl::toROSMsg(*current_pc_,cloud_msg);
-	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
-	cloud_msg.fields[3].name = "intensities";
-
-	cloud_msg.header.frame_id = "/base_link";
-	traj_srv.request.cloud_in = cloud_msg;
-	traj_srv.request.cloud_surface = cloud_surface;
-	int ret = traj_client.call(traj_srv);
-	if(ret){
-	ROS_INFO("Received Trajectory");
-	traj = traj_srv.response.trajectory;
-	}else ROS_INFO("Service Failed");
-
-		
-
-
-}
-
+//The start pt is used to calculate the starting z height for trajectory generation and what corner of the selected area to start at
 void QNode::start_pt(){
 
 	T1x = current_pc_->points[0].data[0];
@@ -557,33 +583,52 @@ void QNode::start_pt(){
 
 
 }
-void QNode::estimate(){
-	setVerbosityLevel(pcl::console::L_VERBOSE); 
-	pcl::IterativeClosestPoint<pcl::PointXYZI, pcl::PointXYZI> icp;
+//Call the trajectory service, providing it with a starting point, pointcloud to cover, and original pointcloud surface (for calculating normals) 
+void QNode::gen_trajectory(){
+	if(DEBUG) ROS_INFO("Generating Trajectory") ;
+	//Set the start point
+	traj_srv.request.P1x = T1x;
+	traj_srv.request.P1y = T1y;
+	traj_srv.request.P1z = T1z;
+	//Set the pointcloud to cover
+	sensor_msgs::PointCloud2 cloud_msg;
+	pcl::toROSMsg(*current_pc_,cloud_msg);
+	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
+	cloud_msg.fields[3].name = "intensities";
+	cloud_msg.header.frame_id = "/base_link";
+	traj_srv.request.cloud_in = cloud_msg;
+	//Set the original surface for normals
+	traj_srv.request.cloud_surface = cloud_surface;
+	//Call the service
+	if(traj_client.call(traj_srv)){
+		if(DEBUG) ROS_INFO("Received Trajectory");
+		//Save the trajectory response
+		traj = traj_srv.response.trajectory;
+	}else ROS_INFO("Service Failed");
 
-	pcl::PointCloud<pcl::PointXYZI>::Ptr cloudB_downsampled (new pcl::PointCloud<pcl::PointXYZI> );
-	pcl::PointCloud<pcl::PointXYZI>::Ptr cloudA_downsampled (new    pcl::PointCloud<pcl::PointXYZI> );
+}
+//Estimate the base position using registration
+void QNode::estimate(std::string filename){
+	if(DEBUG) setVerbosityLevel(pcl::console::L_VERBOSE); 
+	//pcl::IterativeClosestPoint<pcl::PointXYZI, pcl::PointXYZI> icp;
+	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_tgt_downsampled (new pcl::PointCloud<pcl::PointXYZI> );
+	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_src_downsampled (new    pcl::PointCloud<pcl::PointXYZI> );
 	pcl::VoxelGrid<pcl::PointXYZI> sor;
+	//Downsample the alignment section
 	sor.setInputCloud (cloud_aligner);
 	sor.setLeafSize (0.01f, 0.01f, 0.01f);
-	sor.filter (*cloudA_downsampled);
-	ROS_INFO("curent pc setting");
-	icp.setInputSource (cloudA_downsampled);
-	ROS_INFO("curent pc set");
+	sor.filter (*cloud_src_downsampled);
+	////Set source for the iterative closes point algorithm
+	//icp.setInputSource (cloud_src_downsampled);
+	//Load the target to which we will align the source
 	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_tgt (new pcl::PointCloud<pcl::PointXYZI> );
-	pcl::PointCloud<pcl::PointXYZI>::Ptr output (new pcl::PointCloud<pcl::PointXYZI> );
-	pcl::PointCloud<pcl::PointXYZI>::Ptr output2 (new pcl::PointCloud<pcl::PointXYZI> );
-	pcl::PointCloud<pcl::PointXYZI>::Ptr output4 (new pcl::PointCloud<pcl::PointXYZI> );
-	pcl::PointCloud<pcl::PointXYZI>::Ptr output5 (new pcl::PointCloud<pcl::PointXYZI> );
-	pcl::io::loadPCDFile<pcl::PointXYZI> ("/home/mike/cheatwall2.pcd", *cloud_tgt);
-	for (size_t i = 0; i < cloud_tgt->points.size (); ++i)
-	cloud_tgt->points[i].x = cloud_tgt->points[i].x + 0.7f;
+	std::stringstream fs;
+	fs << filename << CLOUD << CLOUD_NUM << ".pcl";
+	pcl::io::loadPCDFile<pcl::PointXYZI> (fs.str().c_str(), *cloud_tgt);
+	//Downsample the target cloud	
 	sor.setInputCloud (cloud_tgt);
-	sor.filter (*cloudB_downsampled);
-
-	//compute normals
-	//ROS_INFO("Estimating Normal at %f - %f - %f",target_pt.x,target_pt.y,target_pt.z);
-	// Create the normal estimation class, and pass the input dataset to it
+	sor.filter (*cloud_tgt_downsampled);
+	// Create the normal estimation class
 	pcl::NormalEstimation<pcl::PointXYZI, pcl::Normal> ne;
 	// set parameters
 	ne.setInputCloud (cloud_aligner);
@@ -593,161 +638,153 @@ void QNode::estimate(){
 	// Its content will be filled inside the object, based on the given surface dataset.
 	pcl::search::KdTree<pcl::PointXYZI>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZI> ());
 	ne.setSearchMethod (tree);
-
-	// Output datasets
-	pcl::PointCloud<pcl::Normal>::Ptr cloud_normals (new pcl::PointCloud<pcl::Normal> ());
-
-	// Use all neighbors in a sphere of radius 3cm
+	// Normal pointcloud for source 
+	pcl::PointCloud<pcl::Normal>::Ptr cloud_src_normals (new pcl::PointCloud<pcl::Normal> ());
+	// Use all neighbors in a sphere of radius RAD cm
 	ne.setRadiusSearch (0.05);
 	ne.setViewPoint (0, 0, 0);
 	// Compute the features
+	//The if/else is to speed up testing and avoid recalculating normals, you can load normals from file
+	//Set filename for source normals file
+	std::stringstream ns;
+	ns << filename << CLOUD << "_src_normals.pcd";
 	if(CALC){
-		ne.compute (*cloud_normals);
-		pcl::io::savePCDFileASCII ("/home/mike/files/cloud_normals2.pcd", *cloud_normals);
+		//Compute cloud normals
+		ne.compute (*cloud_src_normals);
+		pcl::io::savePCDFileASCII (ns.str().c_str(), *cloud_src_normals);
 	}else
-	pcl::io::loadPCDFile<pcl::Normal> ("/home/mike/files/cloud_normals2.pcd", *cloud_normals);
+	pcl::io::loadPCDFile<pcl::Normal> (ns.str().c_str(), *cloud_src_normals);
+	//Calculate the normals of the target cloud	
 	ne.setInputCloud (cloud_tgt);
 	// Pass the original data (before downsampling) as the search surface
 	ne.setSearchSurface (cloud_tgt);
-
-	// Output datasets
+	// Normal pointcloud for target
 	pcl::PointCloud<pcl::Normal>::Ptr cloud_tgt_normals (new pcl::PointCloud<pcl::Normal> ());
-
-	if(true){
-		ne.compute (*cloud_tgt_normals);
-
-
-		pcl::io::savePCDFileASCII ("/home/mike/files/cloud_tgt_normals2.pcd", *cloud_tgt_normals);
-	}else
-	pcl::io::loadPCDFile<pcl::Normal> ("/home/mike/files/cloud_tgt_normals2.pcd", *cloud_tgt_normals);
+	//Compute target normals	
+	ne.compute (*cloud_tgt_normals);
+	//Set filename for target normals file
+	std::stringstream nt;
+	nt << filename << CLOUD << "_tgt_normals.pcd";
+	pcl::io::savePCDFileASCII (nt.str().c_str(), *cloud_tgt_normals);
+	//Pointclouds for intensity keypoints
 	pcl::PointCloud<pcl::PointXYZI>::Ptr intensity_keypoints (new pcl::PointCloud<pcl::PointXYZI>);
 	pcl::PointCloud<pcl::PointXYZI>::Ptr intensity_keypoints_tgt (new pcl::PointCloud<pcl::PointXYZI>);
+	//Pointcloud for SUSAN keypoints
 	pcl::SUSANKeypoint<pcl::PointXYZI, pcl::PointXYZI> susan;
+	//Set SUSAN keypoint parameters
 	susan.setNonMaxSupression (true);
-
-	std::cout << "input "<<cloud_aligner->size ()<<" points.\n";
-
+	if(DEBUG) ROS_INFO("Input %lu points",cloud_aligner->size());
 	susan.setInputCloud (cloud_aligner);
-	//susan.setRadius (0.03f);
-	susan.setNormals (cloud_normals);
+	susan.setNormals (cloud_src_normals);
 	susan.setRadiusSearch (0.03f);
+	//Filename to save keypoints
+	std::stringstream nk;
+	nk << filename << CLOUD << "_src_keypoints.pcd";
 	if(CALC){
 		susan.compute (*intensity_keypoints);
-
-		pcl::io::savePCDFileASCII ("/home/mike/files/keypoints2.pcd", *intensity_keypoints);
-	}else
-	pcl::io::loadPCDFile<pcl::PointXYZI> ("/home/mike/files/keypoints2.pcd", *intensity_keypoints);
-	std::cout << "Found "<<intensity_keypoints->size ()<<" key points.\n";
-	//pcl::copyPointCloud (*intensity_keypoints, keypoint_indices);
-
-
-	std::cout << "input "<<cloud_tgt->size ()<<" points.\n";
-
+		pcl::io::savePCDFileASCII (nk.str().c_str(), *intensity_keypoints);
+	}else pcl::io::loadPCDFile<pcl::PointXYZI> (nk.str().c_str(), *intensity_keypoints);
+	if(DEBUG) ROS_INFO("Found %lu src key points",intensity_keypoints->size());
+	//Set input cloud and normals	
 	susan.setInputCloud (cloud_tgt);
-	//susan.setRadius (0.03f);
 	susan.setNormals (cloud_tgt_normals);
-	if(true){
-		susan.compute (*intensity_keypoints_tgt);
-
-		pcl::io::savePCDFileASCII ("/home/mike/files/keypoints_tgt2.pcd", *intensity_keypoints_tgt);
-	}else
-	pcl::io::loadPCDFile<pcl::PointXYZI> ("/home/mike/files/keypoints_tgt2.pcd", *intensity_keypoints_tgt);
-	std::cout << "Found "<<intensity_keypoints_tgt->size ()<<" key points.\n";
-	//pcl::copyPointCloud (*intensity_keypoints, keypoint_indices);
-
+	susan.compute (*intensity_keypoints_tgt);
+	//Filename to save target keypoints
+	std::stringstream nkt;
+	nkt << filename << CLOUD << "_tgt_keypoints.pcd";
+	pcl::io::savePCDFileASCII (nkt.str().c_str(), *intensity_keypoints_tgt);
+	if(DEBUG) ROS_INFO("Found %lu tgt key points",intensity_keypoints_tgt->size());
+	//Create src feature dataset
 	pcl::PointCloud<pcl::FPFHSignature33>::Ptr features (new pcl::PointCloud<pcl::FPFHSignature33>);
-
+	//Use kd tree search method
 	pcl::search::KdTree<pcl::PointXYZI>::Ptr search_method_xyz_ (new pcl::search::KdTree<pcl::PointXYZI>);
-
+	//Feature estimation class
 	pcl::FPFHEstimation<pcl::PointXYZI, pcl::Normal, pcl::FPFHSignature33> fpfh_est;
-
+	//Calculate normals of source keypoints
 	ne.setInputCloud (intensity_keypoints);
 	// Pass the original data (before downsampling) as the search surface
 	ne.setSearchSurface (cloud_aligner);
-
-	// Output datasets
+	// Keypoint normal dataset
 	pcl::PointCloud<pcl::Normal>::Ptr keypoint_normals (new pcl::PointCloud<pcl::Normal> ());
-
+	//Compute src keypoint normals
 	ne.compute (*keypoint_normals);
+	//Calculate normals of target keypoints
 	ne.setInputCloud (intensity_keypoints_tgt);
 	// Pass the original data (before downsampling) as the search surface
 	ne.setSearchSurface (cloud_tgt);
-
-	// Output datasets
+	// Keypoint normal dataset
 	pcl::PointCloud<pcl::Normal>::Ptr keypoint_normals_tgt (new pcl::PointCloud<pcl::Normal> ());
-
+	//Compute tgt keypoint normals
 	ne.compute (*keypoint_normals_tgt);
-
+	//Compute src features from src keypoints
 	fpfh_est.setInputCloud (intensity_keypoints);
 	fpfh_est.setInputNormals (keypoint_normals);
 	fpfh_est.setSearchMethod (search_method_xyz_);
 	fpfh_est.setRadiusSearch (0.03f);
 	fpfh_est.compute (*features);
-
-	ROS_INFO("computed %lu featurs",features->size());
-
-
-
-
+	if(DEBUG) ROS_INFO("computed %lu src featurs",features->size());
+	//Create tgt feature dataset
 	pcl::PointCloud<pcl::FPFHSignature33>::Ptr features_tgt (new pcl::PointCloud<pcl::FPFHSignature33>);
-
-
+	//Compute tgt features from tgt keypoints
 	fpfh_est.setInputCloud (intensity_keypoints_tgt);
 	fpfh_est.setInputNormals (keypoint_normals_tgt);
 	fpfh_est.compute (*features_tgt);
-
-	ROS_INFO("computed %lu featurs",features_tgt->size());
-
-
+	if(DEBUG) ROS_INFO("computed %lu tgt featurs",features_tgt->size());
+	//create an alignment for the transform from src to tgt
 	pcl::SampleConsensusInitialAlignment<pcl::PointXYZI, pcl::PointXYZI, pcl::FPFHSignature33> sac_ia_;
-
 	// Intialize the parameters in the Sample Consensus Intial Alignment (SAC-IA) algorithm
 	sac_ia_.setMinSampleDistance (0.03f);
 	sac_ia_.setMaxCorrespondenceDistance (.05);
 	sac_ia_.setCorrespondenceRandomness (5);
 	sac_ia_.setMaximumIterations (1000);
-
-
 	sac_ia_.setInputTarget (intensity_keypoints);
 	sac_ia_.setTargetFeatures (features);
-
-
-	//sac_ia_.setInputCloud (intensity_keypoints_tgt);
 	sac_ia_.setInputSource (intensity_keypoints_tgt);
 	sac_ia_.setSourceFeatures (features_tgt);
-
-	ROS_INFO("aligning");
+	//Create output dataset
 	pcl::PointCloud<pcl::PointXYZI> registration_output;
+	//Provide an initial alignment guess
 	//Eigen::Matrix4f guess = Eigen::Matrix4f::Identity ();
 	// sac_ia_.align (registration_output, guess);
+	//Keep track of the alignment fitness	
 	float fitness_score = 1;
-	while(fitness_score > 0.0015){
-
+	while(fitness_score > 0.0015 && ros::ok()){
+		//If the fitness isn't better than FIT, we will keep calling the alignment algorithm
 		sac_ia_.align (registration_output);
 		fitness_score = (float) sac_ia_.getFitnessScore (.05);
-		ROS_INFO("align set fitness %f", fitness_score);
+		if(DEBUG) ROS_INFO("Alignment fitness %f", fitness_score);
 	}
+	//Store the transformation matrix
 	Eigen::Matrix4f final_transformation = sac_ia_.getFinalTransformation ();
-
-
+	//Create a pointloud to hold the aligned pointcloud
 	pcl::PointCloud<pcl::PointXYZI> Final;
-	ROS_INFO("align set fitness %f", fitness_score);
-	// icp.align (Final, guess);
+	if(DEBUG) ROS_INFO("Final alignment fitness %f", fitness_score);
+
+	//Should be done here, the rest is testing functions
+
+	/*
+
+
+	Eigen::Matrix4f Ti = Eigen::Matrix4f::Identity (), prev, targetToSource;
+	pcl::PointCloud<pcl::PointXYZI>::Ptr output (new pcl::PointCloud<pcl::PointXYZI> );
+	// Transform target to source frame
+	pcl::transformPointCloud (*cloud_tgt, *output, final_transformation);
+	sensor_msgs::PointCloud2 cloud_msg;
+	
+
+
+	//pcl::transformPointCloud (*intensity_keypoints_tgt, *output4, final_transformation);
+
+	//icp.align (Final, guess);
 	//std::cout << "has converged:" << icp.hasConverged() << " score: " << icp.getFitnessScore() << std::endl;
 	//std::cout << icp.getFinalTransformation() << std::endl;
 	// Eigen::Matrix4f T;
-	Eigen::Matrix4f Ti = Eigen::Matrix4f::Identity (), prev, targetToSource;
 	//T = icp.getFinalTransformation();
-	// Transform target back in source frame
-	pcl::transformPointCloud (*cloud_tgt, *output2, final_transformation);
-	pcl::transformPointCloud (*intensity_keypoints_tgt, *output4, final_transformation);
-
 
 	//targetToSource = T.inverse();
 
 	// pcl::transformPointCloud (*cloud_tgt, *output2, targetToSource);
 	//final_transform = targetToSource;
-	sensor_msgs::PointCloud2 cloud_msg;
 	//pcl::toROSMsg(*output,cloud_msg);
 	pcl::toROSMsg(*intensity_keypoints,cloud_msg);
 	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
@@ -764,9 +801,6 @@ void QNode::estimate(){
 
 	cloud_msg2.header.frame_id = "/base_link";
 	pub3.publish(cloud_msg2);
-
-
-
 
 	sensor_msgs::PointCloud2 cloud_msg5;
 	//pcl::toROSMsg(*output2,cloud_msg2);
@@ -787,7 +821,7 @@ void QNode::estimate(){
 
 	cloud_msg4.header.frame_id = "/base_link";
 	pub4.publish(cloud_msg4);
-
+	*/
 }
 
 }

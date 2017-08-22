@@ -26,11 +26,13 @@ struct localize_cloudRequest_
 
   localize_cloudRequest_()
     : cloud_in()
-    , homing(false)  {
+    , homing(false)
+    , marker_file()  {
     }
   localize_cloudRequest_(const ContainerAllocator& _alloc)
     : cloud_in(_alloc)
-    , homing(false)  {
+    , homing(false)
+    , marker_file(_alloc)  {
   (void)_alloc;
     }
 
@@ -41,6 +43,9 @@ struct localize_cloudRequest_
 
    typedef uint8_t _homing_type;
   _homing_type homing;
+
+   typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _marker_file_type;
+  _marker_file_type marker_file;
 
 
 
@@ -119,12 +124,12 @@ struct MD5Sum< ::phd::localize_cloudRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "b91cc9ee588586b4440cd98741870f04";
+    return "524cc1243157e15c3d10a9bf090e01f0";
   }
 
   static const char* value(const ::phd::localize_cloudRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xb91cc9ee588586b4ULL;
-  static const uint64_t static_value2 = 0x440cd98741870f04ULL;
+  static const uint64_t static_value1 = 0x524cc1243157e15cULL;
+  static const uint64_t static_value2 = 0x3d10a9bf090e01f0ULL;
 };
 
 template<class ContainerAllocator>
@@ -145,6 +150,7 @@ struct Definition< ::phd::localize_cloudRequest_<ContainerAllocator> >
   {
     return "sensor_msgs/PointCloud2 cloud_in\n\
 bool homing\n\
+string marker_file\n\
 \n\
 ================================================================================\n\
 MSG: sensor_msgs/PointCloud2\n\
@@ -231,6 +237,7 @@ namespace serialization
     {
       stream.next(m.cloud_in);
       stream.next(m.homing);
+      stream.next(m.marker_file);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -254,6 +261,8 @@ struct Printer< ::phd::localize_cloudRequest_<ContainerAllocator> >
     Printer< ::sensor_msgs::PointCloud2_<ContainerAllocator> >::stream(s, indent + "  ", v.cloud_in);
     s << indent << "homing: ";
     Printer<uint8_t>::stream(s, indent + "  ", v.homing);
+    s << indent << "marker_file: ";
+    Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.marker_file);
   }
 };
 

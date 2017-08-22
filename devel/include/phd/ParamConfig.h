@@ -226,11 +226,13 @@ class DEFAULT
         boost::any val;
         (*_i)->getValue(config, val);
 
-        if("q_search"==(*_i)->name){q_search = boost::any_cast<int>(val);}
+        if("cloud_name"==(*_i)->name){cloud_name = boost::any_cast<std::string>(val);}
+        if("cloud_number"==(*_i)->name){cloud_number = boost::any_cast<int>(val);}
       }
     }
 
-    int q_search;
+    std::string cloud_name;
+int cloud_number;
 
     bool state;
     std::string name;
@@ -295,10 +297,12 @@ class DEFAULT
 
 
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      int q_search;
-//#line 12 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      std::string cloud_name;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      int cloud_number;
+//#line 13 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       int group1_int;
-//#line 14 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 15 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       double group2_double;
 //#line 218 "/opt/ros/indigo/share/dynamic_reconfigure/cmake/../templates/ConfigType.h.template"
 
@@ -436,36 +440,46 @@ class DEFAULT
     {
 ParamConfig::GroupDescription<ParamConfig::DEFAULT, ParamConfig> Default("Default", "", 0, 0, true, &ParamConfig::groups);
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __min__.q_search = 0;
+      __min__.cloud_name = "";
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __max__.q_search = 10;
+      __max__.cloud_name = "";
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.q_search = 8;
+      __default__.cloud_name = "cloud";
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<int>("q_search", "int", 0, "Nroupl 1", "", &ParamConfig::q_search)));
+      Default.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<std::string>("cloud_name", "str", 0, "Cloud Save Filename", "", &ParamConfig::cloud_name)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<int>("q_search", "int", 0, "Nroupl 1", "", &ParamConfig::q_search)));
+      __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<std::string>("cloud_name", "str", 0, "Cloud Save Filename", "", &ParamConfig::cloud_name)));
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __min__.cloud_number = 0;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __max__.cloud_number = 10;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __default__.cloud_number = 1;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      Default.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<int>("cloud_number", "int", 0, "Cloud Alignment Number", "", &ParamConfig::cloud_number)));
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<int>("cloud_number", "int", 0, "Cloud Alignment Number", "", &ParamConfig::cloud_number)));
 ParamConfig::GroupDescription<ParamConfig::DEFAULT::GROUP_ONE, ParamConfig::DEFAULT> Group_One("Group_One", "collapse", 0, 1, true, &ParamConfig::DEFAULT::group_one);
-//#line 12 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 13 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __min__.group1_int = -2147483648;
-//#line 12 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 13 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __max__.group1_int = 2147483647;
-//#line 12 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 13 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __default__.group1_int = 2;
-//#line 12 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 13 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       Group_One.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<int>("group1_int", "int", 1, "A second level group parameter", "", &ParamConfig::group1_int)));
-//#line 12 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 13 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<int>("group1_int", "int", 1, "A second level group parameter", "", &ParamConfig::group1_int)));
 ParamConfig::GroupDescription<ParamConfig::DEFAULT::GROUP_ONE::GROUP2, ParamConfig::DEFAULT::GROUP_ONE> GROUP2("GROUP2", "", 1, 2, true, &ParamConfig::DEFAULT::GROUP_ONE::group2);
-//#line 14 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 15 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __min__.group2_double = -std::numeric_limits<double>::infinity();
-//#line 14 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 15 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __max__.group2_double = std::numeric_limits<double>::infinity();
-//#line 14 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 15 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __default__.group2_double = 3.333;
-//#line 14 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 15 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       GROUP2.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("group2_double", "double", 0, "A third level group parameter", "", &ParamConfig::group2_double)));
-//#line 14 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 15 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("group2_double", "double", 0, "A third level group parameter", "", &ParamConfig::group2_double)));
 //#line 109 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       GROUP2.convertParams();

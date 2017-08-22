@@ -70,14 +70,14 @@ public:
 	void cloudCallback(const sensor_msgs::PointCloud2::ConstPtr& cloud);
 	QNode(){}
 	virtual ~QNode();
-	void scan();
+	void scan(std::string, bool localize);
 	void step();
 	void show_nav();
 	void exe_nav();
-	void estimate();
+	void estimate(std::string);
 	void nav_mode(float pos);
 	void fscan(std::string, bool auto_localize);
-	void cluster(int index);
+	void cluster(std::string, int index);
 	void start_pt();
 	void gen_trajectory();
 	void lscan();
@@ -125,6 +125,7 @@ private:
 	//Counters for keeping track of current trajectory section and point
 	int sec_ctr;
 	int pt_ctr;
+	int cloud_ctr;
 };
 }
 }  // namespace 

@@ -93,6 +93,8 @@ phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/incl
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/include/dynamic_reconfigure/ReconfigureRequest.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/include/dynamic_reconfigure/ReconfigureResponse.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/include/dynamic_reconfigure/StrParameter.h
+phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/include/dynamic_reconfigure/config_init_mutex.h
+phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/include/dynamic_reconfigure/config_tools.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/include/dynamic_reconfigure/server.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/include/ros/advertise_options.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/include/ros/advertise_service_options.h
@@ -580,6 +582,8 @@ phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o: /opt/ros/indigo/include/
 phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o: /opt/ros/indigo/include/dynamic_reconfigure/ReconfigureRequest.h
 phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o: /opt/ros/indigo/include/dynamic_reconfigure/ReconfigureResponse.h
 phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o: /opt/ros/indigo/include/dynamic_reconfigure/StrParameter.h
+phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o: /opt/ros/indigo/include/dynamic_reconfigure/config_init_mutex.h
+phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o: /opt/ros/indigo/include/dynamic_reconfigure/config_tools.h
 phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o: /opt/ros/indigo/include/dynamic_reconfigure/server.h
 phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o: /opt/ros/indigo/include/ros/advertise_options.h
 phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o: /opt/ros/indigo/include/ros/advertise_service_options.h
@@ -1627,6 +1631,8 @@ phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/dyna
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/ReconfigureRequest.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/ReconfigureResponse.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/StrParameter.h
+phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/config_init_mutex.h
+phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/config_tools.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/server.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/geometry_msgs/Twist.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/geometry_msgs/Vector3.h
@@ -2139,6 +2145,8 @@ phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /opt/ros/indigo/include/dynamic_
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/ReconfigureRequest.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/ReconfigureResponse.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/StrParameter.h
+phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/config_init_mutex.h
+phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/config_tools.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/server.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /opt/ros/indigo/include/geometry_msgs/Point.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /opt/ros/indigo/include/geometry_msgs/Point32.h
