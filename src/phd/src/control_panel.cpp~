@@ -94,7 +94,7 @@ void reconfig_callback(phd::ParamConfig &config, uint32_t level) {
 //Callback for storing current powercube position
 void QNode::jointCallback(const sensor_msgs::JointState::ConstPtr& msg)
 {
-	std::string str1 = "cube_5_joint";
+	std::string str1 = "cube_joint";
 	std::string str2 =msg->name[0] ;
 	//Since there are multiple joint_state_publishers, we need to make sure the message is actually the powercube joint	
 	if(str1==str2){
@@ -335,7 +335,7 @@ void QNode::scan(std::string filename, bool localize){
 	ros::spinOnce();
 	// Make the service call
 	if (client.call(srv)){
-		ROS_INFO("Published Cloud %lu", (uint32_t)(srv.response.cloud.width)) ;
+		ROS_INFO("Published Cloud %d", (uint32_t)(srv.response.cloud.width)) ;
 		//Save the new scan as cloud_surface		
 		cloud_surface = srv.response.cloud;
 		//Tell ros what the 4th field information is
@@ -348,7 +348,7 @@ void QNode::scan(std::string filename, bool localize){
 		loc_srv.request.marker_file = filename;
 		loc_client.call(loc_srv);
 		if(loc_client.call(loc_srv)){
-			if(DEBUG) ROS_INFO("Localize Service Cloud %lu", (uint32_t)(loc_srv.response.cloud_out.width));
+			if(DEBUG) ROS_INFO("Localize Service Cloud %d", (uint32_t)(loc_srv.response.cloud_out.width));
 			pub.publish(loc_srv.response.cloud_out);
 			if(localize) cloud_surface = loc_srv.response.cloud_out;
 		}else ROS_INFO("Localize Service Failed");
@@ -417,7 +417,7 @@ return;
 		loc_srv.request.homing = false;
 		loc_client.call(loc_srv);
 		if(loc_client.call(loc_srv)){
-			ROS_INFO("Localized Cloud %lu", (uint32_t)(loc_srv.response.cloud_out.width));
+			ROS_INFO("Localized Cloud %d", (uint32_t)(loc_srv.response.cloud_out.width));
 			pub.publish(loc_srv.response.cloud_out);
 			cloud_surface = loc_srv.response.cloud_out;
 		}else ROS_INFO("Service Failed");
@@ -443,7 +443,7 @@ void QNode::lscan(){
 	loc_srv.request.cloud_in = cloud_msg;
 	loc_srv.request.homing = true;
 	if(loc_client.call(loc_srv)){
-	ROS_INFO("Received Cloud %lu", (uint32_t)(loc_srv.response.cloud_out.width));
+	ROS_INFO("Received Cloud %d", (uint32_t)(loc_srv.response.cloud_out.width));
 		      pub.publish(loc_srv.response.cloud_out);
 			cloud_surface = loc_srv.response.cloud_out;
 	}else ROS_INFO("Service Failed");

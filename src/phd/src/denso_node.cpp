@@ -3,7 +3,6 @@
 // ROS
 #include <ros/ros.h>
 #include "bcap/stdint.h"
-//#include <atlbase.h>
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <string>
@@ -13,20 +12,21 @@
 
 // bCAP (Always last)
 #include "bcap/bcap_client.h"
-
-#define E_BUF_FULL  (0x83201483)
-
+//Dont think we need this ->#define E_BUF_FULL  (0x83201483)
+//Defines for the Denso Controller
 #define SERVER_IP_ADDRESS "tcp:192.168.0.1"
 #define SERVER_PORT_NUM 5007
 #define PERIOD 100
 #define AMPLITUDE 15
 
-phd::arm_msg arm_cmd;
-bool move_flag = false;
-char buffer[180];
-int fd;
-float dJnt[8];
-float dPos[8];
+#define DEBUG 1
+
+phd::arm_msg arm_cmd; //An arm message datatype
+bool move_flag = false; //A flag to denote whether a new pose has been sent
+char buffer[180]; //Character buffer for sprintf-ing from an arm_msg to a denso variant
+int fd; //File descriptor
+float dJnt[8]; //Array for joint angles
+float dPos[8]; //Array for arm pose
 VARIANT vntErr; //Variant to hold error codes
 uint32_t hCtrl; //Controller Handle
 uint32_t hRobot; //Robot Handle
@@ -35,174 +35,151 @@ uint32_t hErr; //Error Handle
 uint32_t jHandle; //Joint angle handle
 uint32_t pHandle; //Arm Pose handle
 
-void 
-arm_cb (const phd::arm_msg::ConstPtr& msg)
+//Callback for the arm commands on topic /arm_cmd
+void arm_cb (const phd::arm_msg::ConstPtr& msg)
 {
-  //Parse the message to denso format. set the move flag
-  //5 represents the configuration (see denso manual setting-e pg 288)
-  arm_cmd = *msg;
-  int n=sprintf(buffer,"@P P(%f,%f,%f,%f,%f,%f,%d)",arm_cmd.x,arm_cmd.y,arm_cmd.z,arm_cmd.rx,arm_cmd.ry,arm_cmd.rz,arm_cmd.fig);
-  //move_flag = true;
-  ROS_INFO("Sending %s",buffer);
+	//Parse the message to denso format. set the move flag
+	//fig represents the configuration (see denso manual setting-e pg 288), 5 is an elbow up pose
+//arm_cmd = *msg;
+//int n=sprintf(buffer,"@P P(%f,%f,%f,%f,%f,%f,%d)",arm_cmd.x,arm_cmd.y,arm_cmd.z,arm_cmd.rx,arm_cmd.ry,arm_cmd.rz,arm_cmd.fig); 	
+	int n=sprintf(buffer,"@P P(%f,%f,%f,%f,%f,%f,%d)",msg->x,msg->y,msg->z,msg->rx,msg->ry,msg->rz,msg->fig);
+	move_flag = true; //Tell the loop in main a new command has come in
+	if(DEBUG) ROS_INFO("Sending %s",buffer);
 }
 
+//Initialization function
 HRESULT initArm(void);
 
 int main(int argc, char **argv)
 {
-  ros::init (argc, argv, "arm_node");
-  ros::NodeHandle nh, nh_private("~");
-  // Create a ROS subscriber for arm commands
-  ros::Subscriber sub = nh.subscribe ("arm_cmd", 1, arm_cb);
 
-  ///////////Transform Publisher
-  ros::Rate loop_rate(30);
-  ros::Publisher joint_pub = nh.advertise<sensor_msgs::JointState>("arm_joint_states", 1);
-  ros::Publisher pose_pub = nh.advertise<phd::arm_msg>("arm_pose", 1);
-  sensor_msgs::JointState joint_state;    
+	//Ros initialization
+	ros::init (argc, argv, "arm_node");
+	ros::NodeHandle nh;
+	// Create a ROS subscriber for arm commands
+	ros::Subscriber sub = nh.subscribe ("arm_cmd", 1, arm_cb);
 
-  tf::TransformBroadcaster broadcaster;
-  //Comment this when using husky
-  double blw=0, brw=0, flw=0, frw=0;
+	///////////Transform Publisher
+	ros::Rate loop_rate(30); //Set the rate to 30Hz
+	//Joint states published on /arm_joint_states to be fused by joint_state_fusion
+	ros::Publisher joint_pub = nh.advertise<sensor_msgs::JointState>("arm_joint_states", 1);
+	sensor_msgs::JointState joint_state;    
 
-  //////////////////Publish initial values
-  joint_state.header.stamp = ros::Time::now();
-  joint_state.name.resize(13);
-  joint_state.position.resize(13);
-  joint_state.name[0] ="joint_back_left_wheel";
-  joint_state.position[0] = blw;
-  joint_state.name[1] ="joint_back_right_wheel";
-  joint_state.position[1] = brw;
-  joint_state.name[2] ="joint_front_left_wheel";
-  joint_state.position[2] = flw;
-  joint_state.name[3] ="joint_front_right_wheel";
-  joint_state.position[3] = frw;
-  joint_state.name[4] ="cube_5_joint";
-  joint_state.position[4] = 0;
-  joint_state.name[5] ="j1";
-  joint_state.position[5] = 0;
-  joint_state.name[6] ="j2";
-  joint_state.position[6] = 0;
-  joint_state.name[7] ="j3";
-  joint_state.position[7] = 0;
-  joint_state.name[8] ="j4";
-  joint_state.position[8] = 0;
-  joint_state.name[9] ="j5";
-  joint_state.position[9] = 0;
-  joint_pub.publish(joint_state);
-  //Publish odometry messages
-  geometry_msgs::TransformStamped odom_trans;
-  odom_trans.header.frame_id = "odom";
-  odom_trans.child_frame_id = "base_footprint";
-  odom_trans.header.stamp = ros::Time::now();
-  odom_trans.transform.translation.x = 0;
-  odom_trans.transform.translation.y = 0;
-  odom_trans.transform.translation.z = 0;
-  odom_trans.transform.rotation = tf::createQuaternionMsgFromYaw(0);
-  broadcaster.sendTransform(odom_trans);
-  
+	//Publish initial values
+	joint_state.header.stamp = ros::Time::now();
+	joint_state.name.resize(5);
+	joint_state.position.resize(5);
+	joint_state.name[0] ="j1";
+	joint_state.position[0] = 0;
+	joint_state.name[1] ="j2";
+	joint_state.position[1] = 0;
+	joint_state.name[2] ="j3";
+	joint_state.position[2] = 0;
+	joint_state.name[3] ="j4";
+	joint_state.position[3] = 0;
+	joint_state.name[4] ="j5";
+	joint_state.position[4] = 0;
+	joint_pub.publish(joint_state);
 
-  //Declare Denso variables
-  HRESULT hr; //Result
-  BSTR bstrCommand;  //Command
-  VARIANT vntParam;  //Command Parameters
-  VARIANT vntResult;  //Variant to hold return values
-  VARIANT vJnt, vPos; //Joint angle and Positon variants
-  double *pdArray; //Array for reading joint angles
-  wchar_t wstr[180]; //Wide character array for arm motion commands
-  int n; //Int for swprintf function
-  /*
-  //Initialize Denso Arm
-  hr = initArm();
-  if (FAILED(hr))
-    ROS_ERROR("Init failed %x",hr);
-    else
-	ROS_INFO("Arm Initializaed");
 
-  while(ros::ok()){
-  
-  //Read joint angles
-  hr = bCap_VariableGetValue(fd, jHandle, &vJnt);
-  SafeArrayAccessData(vJnt.parray, (void**)&pdArray);
-  memcpy(dJnt, pdArray, sizeof(dJnt));
-  SafeArrayUnaccessData(vJnt.parray);
-  VariantClear(&vJnt);
-  //Read and publish pose
-  hr = bCap_VariableGetValue(fd, pHandle, &vPos);
-  SafeArrayAccessData(vPos.parray, (void**)&pdArray);
-  memcpy(dPos, pdArray, sizeof(dPos));
-  SafeArrayUnaccessData(vPos.parray);
-  VariantClear(&vPos);
-  phd::arm_msg pose_msg;
-  pose_msg.x = dPos[0];
-  pose_msg.y = dPos[1];
-  pose_msg.z = dPos[2];
-  pose_msg.rx = dPos[3];
-  pose_msg.ry = dPos[4];
-  pose_msg.rz = dPos[5];
-  pose_msg.fig = dPos[6];
-  pose_pub.publish(pose_msg);
-  //Publish joint angles
-  joint_state.header.stamp = ros::Time::now();
-  joint_state.name[5] ="j1";
-  joint_state.position[5] = 3.14/180*dJnt[0];
-  joint_state.name[6] ="j2";
-  joint_state.position[6] = -3.14/180*dJnt[1];
-  joint_state.name[7] ="j3";
-  joint_state.position[7] = -3.14/180*(dJnt[2]-90);
-  joint_state.name[8] ="j4";
-  joint_state.position[8] = -3.14/180*dJnt[3];
-  joint_state.name[9] ="j5";
-  joint_state.position[9] = -3.14/180*dJnt[4];
-  joint_pub.publish(joint_state);
-  
-  //Listen for arm command
-  ros::spinOnce();
-  //If a command is received
-  if(move_flag){      
+	//Declare Denso variables
+	HRESULT hr; //Result
+	BSTR bstrCommand;  //Command
+	VARIANT vntParam;  //Variant for Command Parameters
+	VARIANT vntResult;  //Variant to hold return values
+	VARIANT vJnt, vPos; //Joint angle and Positon variants
+	double *pdArray; //Array for reading joint angles
+	wchar_t wstr[180]; //Wide character array for arm motion commands
+	int n; //Int for swprintf function
+	
+	//Initialize Denso Arm
+	hr = initArm();
+	if (FAILED(hr)) ROS_ERROR("Init failed %x",hr);
+	else if(DEBUG)ROS_INFO("Arm Initializaed");
 
-    move_flag = false;
-    ROS_INFO("Moving to: %s",buffer);
-    n=swprintf(wstr,180, L"%s",buffer);
-    vntParam.vt = VT_BSTR;
-    vntParam.bstrVal = SysAllocString(wstr);
-    bstrCommand = SysAllocString(L"");
-    hr = bCap_RobotMove(fd, hRobot, 1L, vntParam, bstrCommand);
-    SysFreeString(bstrCommand);
-    VariantClear(&vntParam);
-    if (FAILED(hr))
-      ROS_ERROR("Move command failed %x",hr);
-      else ROS_INFO("Moved");
-    } 
+	//Main Loop
+	while(ros::ok()){
+		//Read joint angles and copy them in to dJnt
+		hr = bCap_VariableGetValue(fd, jHandle, &vJnt);
+		SafeArrayAccessData(vJnt.parray, (void**)&pdArray);
+		memcpy(dJnt, pdArray, sizeof(dJnt));
+		SafeArrayUnaccessData(vJnt.parray);
+		VariantClear(&vJnt);
+
+		//Publish joint angles converted to radians (and flipped for urdf if necessary)
+		joint_state.header.stamp = ros::Time::now();
+		joint_state.position[0] = 3.14/180*dJnt[0];
+		joint_state.position[1] = -3.14/180*dJnt[1];
+		joint_state.position[2] = -3.14/180*(dJnt[2]-90);
+		joint_state.position[3] = -3.14/180*dJnt[3];
+		joint_state.position[4] = -3.14/180*dJnt[4];
+		joint_pub.publish(joint_state);
+
+		/*//Read pose, copy to dPos, and publish
+		hr = bCap_VariableGetValue(fd, pHandle, &vPos);
+		SafeArrayAccessData(vPos.parray, (void**)&pdArray);
+		memcpy(dPos, pdArray, sizeof(dPos));
+		SafeArrayUnaccessData(vPos.parray);
+		VariantClear(&vPos);
+		//Create a message for publishing pose
+		phd::arm_msg pose_msg;
+		pose_msg.x = dPos[0];
+		pose_msg.y = dPos[1];
+		pose_msg.z = dPos[2];
+		pose_msg.rx = dPos[3];
+		pose_msg.ry = dPos[4];
+		pose_msg.rz = dPos[5];
+		pose_msg.fig = dPos[6];
+		pose_pub.publish(pose_msg);*/
+
+		//Check for arm command and publish joint states
+		ros::spinOnce();
+		//If a command is received
+		if(move_flag){      
+
+			move_flag = false; //Reset move flag
+			if(DEBUG) ROS_INFO("Moving to: %s",buffer);
+			//Copy contents of buffer to our wide char array for the variant to hold
+			n=swprintf(wstr,180, L"%s",buffer);
+			vntParam.vt = VT_BSTR; //set the parameter type to b-string
+			vntParam.bstrVal = SysAllocString(wstr); //set the value of the variant by pointing it to the wide string wstr
+			//Create a blank b-string for the funcntion to send in the spot thats supposed to be blank
+			bstrCommand = SysAllocString(L"");
+			hr = bCap_RobotMove(fd, hRobot, 1L, vntParam, bstrCommand); //Send the command to the controller
+			SysFreeString(bstrCommand); //free the bstring from memory
+			VariantClear(&vntParam); //clear the variant
+			if (FAILED(hr))
+				ROS_ERROR("Move command failed %x",hr);
+			else if(DEBUG) ROS_INFO("Moved");
+		} 
+	}
+
+	//Shut down sequence
+	if(DEBUG) ROS_INFO("Shutting Down");
+	
+	//Turn off motor
+	bstrCommand = SysAllocString(L"Motor");
+	vntParam.iVal = 0;
+	vntParam.vt = VT_I2;
+	hr = bCap_RobotExecute(fd, hRobot, bstrCommand, vntParam, &vntResult);
+	SysFreeString(bstrCommand);
+	VariantClear(&vntParam);
+	if FAILED(hr) {
+		ROS_INFO("Motors Not off: %x",hr);
+	return (hr);
+	}else if(DEBUG) ROS_INFO("Motor Off");
+	//* Release robot handle *
+	bCap_RobotRelease(fd, &hRobot);
+	//* Release controller handle *
+	bCap_ControllerDisconnect(fd, &hCtrl);
+	//* Stop b-CAP service (Very important in UDP/IP connection) *
+	bCap_ServiceStop(fd);
+	//* Close socket *
+	bCap_Close_Client(&fd);
+
 }
 
-
-ROS_INFO("Shutting Down");
-//Turn off motor
-bstrCommand = SysAllocString(L"Motor");
-vntParam.iVal = 0;
-vntParam.vt = VT_I2;
-hr = bCap_RobotExecute(fd, hRobot, bstrCommand, vntParam, &vntResult);
-SysFreeString(bstrCommand);
-VariantClear(&vntParam);
-if FAILED(hr) {
-ROS_INFO("Motors Not off: %x",hr);
-return (hr);
-}else ROS_INFO("Motor Off");
-//* Release robot handle *
-bCap_RobotRelease(fd, &hRobot);
-//* Release controller handle *
-bCap_ControllerDisconnect(fd, &hCtrl);
-//* Stop b-CAP service (Very important in UDP/IP connection) *
-bCap_ServiceStop(fd);
-//* Close socket *
-bCap_Close_Client(&fd);
-
-
-*/
-ros::spin();
-}
-
+//Denso initialization function
 HRESULT initArm(void){
   
   HRESULT hr; //Result
@@ -213,16 +190,15 @@ HRESULT initArm(void){
   uint32_t hSpd; //Speed Handle
   VARIANT vJnt, vSpd, vPos; //Joint, Position, and speed variants
   double *pdArray; //Array for reading joint angles
-  wchar_t wstr[100]; //Wide character array for arm motion commands
     
   /* Init socket */
   hr = bCap_Open_Client(SERVER_IP_ADDRESS, SERVER_PORT_NUM, 0, &fd);
   if FAILED(hr) return (hr);
-  else ROS_INFO("Socket Created");
+  else if(DEBUG) ROS_INFO("Socket Created");
   /* Start b-CAP service */
   hr = bCap_ServiceStart(fd, NULL);
   if FAILED(hr) return (hr);
-  else ROS_INFO("b-CAP started");
+  else if(DEBUG) ROS_INFO("b-CAP started");
   /* Get controller handle */
   BSTR bstrName, bstrProv, bstrMachine, bstrOpt;
   bstrName = SysAllocString(L"");
@@ -235,7 +211,7 @@ HRESULT initArm(void){
   SysFreeString(bstrMachine);
   SysFreeString(bstrOpt);
   if FAILED(hr) return (hr);
-  else ROS_INFO("Received controller handle");
+  else if(DEBUG) ROS_INFO("Received controller handle");
 
   /* Get robot handle */
   BSTR bstrRobotName, bstrRobotOpt;
@@ -245,7 +221,7 @@ HRESULT initArm(void){
   SysFreeString(bstrRobotName);
   SysFreeString(bstrRobotOpt);
   if FAILED(hr) return (hr);
-  else ROS_INFO("Received robot handle");
+  else if(DEBUG) ROS_INFO("Received robot handle");
   
  
   //Get error flag handle
@@ -256,36 +232,36 @@ HRESULT initArm(void){
   SysFreeString(bstrCommand);
   SysFreeString(nullstr);
   if FAILED(hr){
-  printf("Could not get handle for errors %x\n", hr);
+  	ROS_INFO("Could not get handle for errors %x", hr);
    return (hr);
    }
   else {
   //Read error value
   vntResult.vt = VT_I4;
   hr = bCap_VariableGetValue(fd, hErr, &vntErr);
-  ROS_INFO("Errors %d", vntErr.lVal);
+  if(DEBUG) ROS_INFO("Errors %d", vntErr.lVal);
   eStatus = vntErr.lVal;
   VariantClear(&vntErr);
   }
   //Sometimes it takes multiple calls to clear all the errors so its in a while loop
   while(ros::ok() && eStatus !=  0){
-  ROS_INFO("Clearing errors");
-  // Clear previous errors
-  bstrCommand = SysAllocString(L"ClearError");
-  vntParam.lVal = 0;
-  vntParam.vt = VT_I4;
-  hr = bCap_ControllerExecute(fd, hCtrl, bstrCommand, vntParam, &vntErr);
-  if (FAILED(hr))
-    ROS_ERROR("[ClearError] command failed %x",hr);
-  else ROS_INFO("Errors Cleared");
-  SysFreeString(bstrCommand);
-  VariantClear(&vntParam);
-  VariantClear(&vntErr);
-  //Check for error codes
-  hr = bCap_VariableGetValue(fd, hErr, &vntErr);
-  ROS_INFO("Errors %d", vntErr.lVal);
-  eStatus = vntErr.lVal;
-  VariantClear(&vntErr);
+  	if(DEBUG) ROS_INFO("Clearing errors");
+  	// Clear previous errors
+  	bstrCommand = SysAllocString(L"ClearError");
+  	vntParam.lVal = 0;
+  	vntParam.vt = VT_I4;
+  	hr = bCap_ControllerExecute(fd, hCtrl, bstrCommand, vntParam, &vntErr);
+  	if (FAILED(hr))
+  	  ROS_ERROR("[ClearError] command failed %x",hr);
+ 	 else if(DEBUG) ROS_INFO("Errors Cleared");
+  	SysFreeString(bstrCommand);
+  	VariantClear(&vntParam);
+  	VariantClear(&vntErr);
+  	//Check for error codes
+  	hr = bCap_VariableGetValue(fd, hErr, &vntErr);
+  	if(DEBUG) ROS_INFO("Errors %d", vntErr.lVal);
+  	eStatus = vntErr.lVal;
+  	VariantClear(&vntErr);
   }
   
   //Get ROBSLAVE task handle
@@ -298,7 +274,7 @@ HRESULT initArm(void){
   if FAILED(hr) {
   ROS_INFO("Could not find task handle %x", hr);
   return (hr);
-  }else ROS_INFO("Got Handle: %d",hTask);
+  }else if(DEBUG) ROS_INFO("Got Handle: %d",hTask);
   
   //Wait a moment then begin ROBSLAVE task
   ros::Duration(1).sleep();
@@ -306,7 +282,7 @@ HRESULT initArm(void){
   if FAILED(hr) {
   ROS_INFO("Could not start task: %x",hr);
   return (hr);
-  }else ROS_INFO("Started Task");
+  }else if(DEBUG) ROS_INFO("Started Task");
   VARIANT vntPose;
   
   /* Get handle for current angle */
@@ -318,16 +294,16 @@ HRESULT initArm(void){
   SysFreeString(bstrCommand);
   VariantClear(&vntParam);
   if FAILED(hr){
-  printf("Could not get handle %x\n", hr);
-   return (hr);
-   }
-   //Read joint values
+  ROS_ERROR("Could not get handle %x", hr);
+  return (hr);
+  }
+  //Read joint values
   hr = bCap_VariableGetValue(fd, jHandle, &vJnt);
   SafeArrayAccessData(vJnt.parray, (void**)&pdArray);
   memcpy(dJnt, pdArray, sizeof(dJnt));
   SafeArrayUnaccessData(vJnt.parray);
   VariantClear(&vJnt);
-  ROS_INFO("RET %x, Val %f -- %f -- %f -- %f -- %f -- %f Fig: %f",hr, dJnt[0], dJnt[1], dJnt[2], dJnt[3], dJnt[4], dJnt[5], dJnt[6]);
+  if(DEBUG) ROS_INFO("Joint Read RET %x, Val %f -- %f -- %f -- %f -- %f -- %f Fig: %f",hr, dJnt[0], dJnt[1], dJnt[2], dJnt[3], dJnt[4], dJnt[5], dJnt[6]);
   
   /* Get handle for current position */
   bstrCommand = SysAllocString(L"@CURRENT_POSITION");
@@ -339,15 +315,15 @@ HRESULT initArm(void){
   VariantClear(&vntParam);
   if FAILED(hr){
   printf("Could not get handle %x\n", hr);
-   return (hr);
-   }
-   //Read joint values
+  return (hr);
+  }
+  //Read pose
   hr = bCap_VariableGetValue(fd, pHandle, &vPos);
   SafeArrayAccessData(vPos.parray, (void**)&pdArray);
   memcpy(dPos, pdArray, sizeof(dPos));
   SafeArrayUnaccessData(vPos.parray);
   VariantClear(&vPos);
-  ROS_INFO("RET %x, Val %f -- %f -- %f -- %f -- %f -- %f Fig: %f",hr, dPos[0], dPos[1], dPos[2], dPos[3], dPos[4], dPos[5], dPos[6]);
+  if(DEBUG) ROS_INFO("Pose Read RET %x, Val %f -- %f -- %f -- %f -- %f -- %f Fig: %f",hr, dPos[0], dPos[1], dPos[2], dPos[3], dPos[4], dPos[5], dPos[6]);
   
   //Get speed handle
   bstrCommand = SysAllocString(L"@SPEED");
@@ -358,14 +334,14 @@ HRESULT initArm(void){
   SysFreeString(bstrCommand);
   VariantClear(&vntParam);
   if FAILED(hr){
-  printf("Could not get handle for speed %x\n", hr);
-   return (hr);
-   }
+  ROS_ERROR("Could not get handle for speed %x\n", hr);
+  return (hr);
+  }
   else {
   //Read speed value
   vSpd.vt = VT_R4;
   hr = bCap_VariableGetValue(fd, hSpd, &vSpd);
-  ROS_INFO("Speed %f", vSpd.fltVal);
+  if(DEBUG) ROS_INFO("Speed %f", vSpd.fltVal);
   VariantClear(&vSpd);
   }
   //Set speed vlaue
@@ -387,9 +363,9 @@ HRESULT initArm(void){
   VariantClear(&vSpd);
   if FAILED(hr){
   ROS_INFO("Ext Speed not set %x\n", hr);
-   return (hr);
-   }
-  else ROS_INFO("Ext Speed Set");
+  return (hr);
+  }
+  else if(DEBUG) ROS_INFO("Ext Speed Set");
 
   //Turn Motor ON
   bstrCommand = SysAllocString(L"Motor");
@@ -399,10 +375,10 @@ HRESULT initArm(void){
   SysFreeString(bstrCommand);
   VariantClear(&vntParam);
   if FAILED(hr){
-  printf("FAIL %x\n", hr);
-   return (hr);
-   }
-  else ROS_INFO("Motor On");
+  ROS_ERROR("FAIL %x\n", hr);
+  return (hr);
+  }
+  else if(DEBUG) ROS_INFO("Motor On");
 
   //Home the arm
   vntParam.vt = VT_BSTR;
@@ -413,10 +389,10 @@ HRESULT initArm(void){
   VariantClear(&vntParam);
   if FAILED(hr){
   printf("FAIL %x\n", hr);
-   return (hr);
-   }
-  else ROS_INFO("Homed");
-return(hr);
+  return (hr);
+  }
+  else if(DEBUG) ROS_INFO("Homed");
+  return(hr);
 };
 
 

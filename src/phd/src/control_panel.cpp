@@ -94,12 +94,7 @@ void reconfig_callback(phd::ParamConfig &config, uint32_t level) {
 //Callback for storing current powercube position
 void QNode::jointCallback(const sensor_msgs::JointState::ConstPtr& msg)
 {
-	std::string str1 = "cube_5_joint";
-	std::string str2 =msg->name[0] ;
-	//Since there are multiple joint_state_publishers, we need to make sure the message is actually the powercube joint	
-	if(str1==str2){
-	  joint1 = msg->position[0];
-	}
+	joint1 = msg->position[0];
 }
 //Store the point cloud selection in current_pc_
 void QNode::cloudCallback(const sensor_msgs::PointCloud2::ConstPtr& cloud)

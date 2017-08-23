@@ -32,23 +32,17 @@
 
 #ifndef MARKER_SELECTOR_H
 #define MARKER_SELECTOR_H
-
 #ifndef Q_MOC_RUN  // See: https://bugreports.qt-project.org/browse/QTBUG-22829
 # include <ros/node_handle.h>
 # include <ros/publisher.h>
-
 # include "rviz/tool.h"
-
 # include <QCursor>
 # include <QObject>
 #endif
-
 #include "rviz/default_plugin/tools/selection_tool.h"
-
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <sensor_msgs/PointCloud2.h>
-
 #include <pcl/filters/extract_indices.h>
 
 namespace rviz_plugin_marker_selector
@@ -75,7 +69,7 @@ public Q_SLOTS:
    * Creates the ROS topic
    */
   void updateTopic();
-
+  //Callback for saving pointclouds
   void PointCloudsCallback(const sensor_msgs::PointCloud2ConstPtr &pc_msg);
 
 protected:
@@ -89,9 +83,8 @@ protected:
   std::string rviz_cloud_topic_;
   std::string subs_cloud_topic_;
   bool selecting_;
-
+  //Pcl file for saving pointclouds
   pcl::PointCloud<pcl::PointXYZI>::Ptr current_pc_;
-
   int num_selected_points_;
 };
 } // end namespace rviz_plugin_marker_selector

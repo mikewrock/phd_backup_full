@@ -1,10 +1,4 @@
-/**
- * @file /include/test_panel/qnode.hpp
- *
- * @brief Communications central!
- *
- * @date February 2011
- **/
+//This node offers limited functionality to drive the base and arm manually
 /*****************************************************************************
 ** Ifdefs
 *****************************************************************************/
@@ -52,13 +46,13 @@ public:
 
 
 Q_SIGNALS:
-    void rosShutdown();
+	void rosShutdown();
 
 private:
 	int init_argc;
 	char** init_argv;
-  ros::NodeHandle nh_;
-  ros::Publisher pub;
+	ros::NodeHandle nh_;
+	ros::Publisher pub;
 	bool moving_base;
 	bool moving_arm;
 	int direction;

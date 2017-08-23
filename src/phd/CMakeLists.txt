@@ -261,7 +261,7 @@ add_dependencies(cube_node  phd_EXPORTED_TARGETS phd_generate_messages_cpp)
 add_dependencies(denso_node  phd_EXPORTED_TARGETS phd_generate_messages_cpp)
 #add_dependencies(control_panel  phd_EXPORTED_TARGETS phd_generate_messages_cpp phd_gencpp)
 
-add_dependencies(cloud_localizer ${PROJECT_NAME}_gencfg)
+#add_dependencies(cloud_localizer ${PROJECT_NAME}_gencfg)
 
 
 install(TARGETS 

@@ -35,7 +35,6 @@ find_package(PCL 1.7 REQUIRED)
 ## This plugin includes Qt widgets, so we must include Qt like so:
 find_package(Qt4 COMPONENTS QtCore QtGui REQUIRED)
 include(${QT_USE_FILE})
-include(/opt/ros/indigo/share/dynamic_reconfigure/cmake/cfgbuild.cmake)
 include_directories(include/)
 include_directories(
   ${catkin_INCLUDE_DIRS}

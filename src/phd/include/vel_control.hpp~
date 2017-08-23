@@ -52,17 +52,18 @@ public:
 
 
 Q_SIGNALS:
-    void rosShutdown();
+	void rosShutdown();
 
 private:
 	int init_argc;
 	char** init_argv;
-  ros::NodeHandle nh_;
-  ros::Publisher pub;
+	ros::NodeHandle nh_;
+	ros::Publisher pub;
 	bool moving_base;
 	bool moving_arm;
 	int direction;
-	float speed;
+	float arm_speed;
+	float base_speed;
 };
 }
 }  // namespace 
