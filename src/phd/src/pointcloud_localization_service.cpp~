@@ -427,8 +427,9 @@ bool localize(phd::localize_cloud::Request  &req,
 	Eigen::Matrix4f transform_mat;
 	bool ret = locate_marker(Pts, marker_loc, transform_mat);
 	if(req.homing){
+		if(DEBUG) ROS_INFO("Homing scan, returning assembled_cloud");
 		//std::cout << "Transform Mat" << transform_mat << std::endl;
-		pcl::toROSMsg(*cloud_world,cloud_msg);
+		cloud_msg = cloud_req;
 		//publish a map correction here
 	}else{
 
@@ -455,14 +456,14 @@ bool localize(phd::localize_cloud::Request  &req,
 		//std::cout << "Transform A" << transformA << std::endl;
 		pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_int (new pcl::PointCloud<pcl::PointXYZI>);
 		Eigen::Matrix4f transformAB = transform_mat.inverse();
-		Eigen::Matrix4f transformBB = transformA.inverse();
+		//Eigen::Matrix4f transformBB = transformA.inverse();
 		pcl::transformPointCloud (*cloud_world, *cloud_int, transformAB);
 		pcl::transformPointCloud (*cloud_int, *cloud_output, transformA);
 		pcl::toROSMsg(*cloud_output,cloud_msg);
 	}
 	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
 	cloud_msg.fields[3].name = "intensity";
-	cloud_msg.header.frame_id = "/base_link";
+	cloud_msg.header.frame_id = "/laser";
 	cloud_msg.header.stamp = ros::Time::now();
 	res.cloud_out = cloud_msg;
   	return marker;

@@ -117,9 +117,9 @@ int main(int argc, char** argv)
 		//If the joint has moved, update and publish the values
 		if(joint_state.position[0] != j1pos){  
 			joint_state.position[0] = j1pos;
+			}
 			//send the joint state 
 			joint_pub.publish(joint_state);
-			}
 		//check for callbacks and publish if necessary
 		ros::spinOnce();
 	}

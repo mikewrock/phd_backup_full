@@ -20,6 +20,15 @@
     <xacro:include filename="$(find wrock_husky_description)/urdf/parts.urdf.xacro" />
     
 	<!-- PROPERTY LIST -->
+  <!-- Wheel Mounting Positions -->
+  <xacro:property name="wheelbase" value="0.5120" />
+  <xacro:property name="track" value="0.5708" />
+  <xacro:property name="wheel_vertical_offset" value="0.03282" />
+
+  <!-- Wheel Properties -->
+  <xacro:property name="wheel_length" value="0.1143" />
+  <xacro:property name="wheel_radius" value="0.17775" />
+
     <!--All units in m-kg-s-radians unit system -->
     <property name="M_PI" value="3.1415926535897931" />
 

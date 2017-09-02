@@ -427,8 +427,9 @@ bool localize(phd::localize_cloud::Request  &req,
 	Eigen::Matrix4f transform_mat;
 	bool ret = locate_marker(Pts, marker_loc, transform_mat);
 	if(req.homing){
+		if(DEBUG) ROS_INFO("Homing scan, returning assembled_cloud");
 		//std::cout << "Transform Mat" << transform_mat << std::endl;
-		pcl::toROSMsg(*cloud_world,cloud_msg);
+		cloud_msg = cloud_req;
 		//publish a map correction here
 	}else{
 

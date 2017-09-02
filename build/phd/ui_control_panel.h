@@ -331,10 +331,10 @@ public:
         step_button->setText(QApplication::translate("Control_Form", "Step", 0, QApplication::UnicodeUTF8));
         est_pos->setText(QApplication::translate("Control_Form", "Estimate Position", 0, QApplication::UnicodeUTF8));
         show_nav_button->setText(QApplication::translate("Control_Form", "Show Nav Goal", 0, QApplication::UnicodeUTF8));
-        filename_box->setText(QApplication::translate("Control_Form", "/home/mike/marker/refined/dotsf4.pcd", 0, QApplication::UnicodeUTF8));
+        filename_box->setText(QApplication::translate("Control_Form", "/home/mike/testing/file.pcd", 0, QApplication::UnicodeUTF8));
         auto_localize->setText(QApplication::translate("Control_Form", "Auto Localize", 0, QApplication::UnicodeUTF8));
         set_home->setText(QApplication::translate("Control_Form", "Set Home", 0, QApplication::UnicodeUTF8));
-        marker_name_box->setText(QApplication::translate("Control_Form", "/home/mike/marker/location/filename", 0, QApplication::UnicodeUTF8));
+        marker_name_box->setText(QApplication::translate("Control_Form", "/home/mike/testing/", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("Control_Form", "Operation", 0, QApplication::UnicodeUTF8));
         armDown->setText(QString());
         roll_pos->setText(QApplication::translate("Control_Form", "+", 0, QApplication::UnicodeUTF8));

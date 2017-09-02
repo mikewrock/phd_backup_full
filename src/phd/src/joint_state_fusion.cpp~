@@ -13,7 +13,7 @@
 #include <brics_actuator/JointPositions.h>
 #include <brics_actuator/JointVelocities.h>
 
-
+#define DEBUG 1
 
 //Global Variables
 sensor_msgs::JointState joint_state;  
@@ -57,15 +57,15 @@ int main(int argc, char** argv)
 	ros::Publisher joint_pub = n.advertise<sensor_msgs::JointState>("fused_joint_states", 10, true);
 	//Publish initial values
 	joint_state.header.stamp = ros::Time::now();
-	joint_state.name.resize(13);
-	joint_state.position.resize(13);
-	joint_state.name[0] ="joint_back_left_wheel";
+	joint_state.name.resize(10);
+	joint_state.position.resize(10);
+	joint_state.name[0] ="back_left_wheel";
 	joint_state.position[0] = 0;
-	joint_state.name[1] ="joint_back_right_wheel";
+	joint_state.name[1] ="back_right_wheel";
 	joint_state.position[1] = 0;
-	joint_state.name[2] ="joint_front_left_wheel";
+	joint_state.name[2] ="front_left_wheel";
 	joint_state.position[2] = 0;
-	joint_state.name[3] ="joint_front_right_wheel";
+	joint_state.name[3] ="front_right_wheel";
 	joint_state.position[3] = 0;
 	joint_state.name[4] ="cube_joint";
 	joint_state.position[4] = -1.57;
@@ -84,6 +84,7 @@ int main(int argc, char** argv)
 	ros::spinOnce();
 	while(ros::ok()){
 		//Publish joint values
+		joint_state.header.stamp = ros::Time::now();
 		joint_pub.publish(joint_state);
 		//Spin to publish and execute callbacks
 		ros::spinOnce();

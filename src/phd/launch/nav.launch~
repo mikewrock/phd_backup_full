@@ -88,13 +88,12 @@
 
 <!-- hector mapping -->
 <node pkg="hector_mapping" type="hector_mapping"     name="hector_mapping" output="screen">
-<param name="base_frame" type="string" value="laser" />
+<param name="base_frame" type="string" value="base_footprint" />
   </node>
   <!--- Run rviz -->
     <node name="rviz" pkg="rviz" type="rviz" required="True" output="screen" > 
 
   </node>
-
 
 
   <!--- Run localization service -->
@@ -103,5 +102,10 @@
   <!--- Run trajectory service -->
   <node type="trajectory_server" pkg="phd" name="trajectory_service" output="screen" required="True">
   </node>
+
+  <!--- Run thickness service -->
+  <node type="thickness_server" pkg="phd" name="thickness_service" output="screen">
+  </node>
+
 
 </launch>

@@ -309,7 +309,6 @@ void QNode::scan(std::string filename, bool localize){
 	//Wait for the cube to reach the start location
 	while(joint1 > -1.9 && ros::ok()){
 	ros::spinOnce();
-	if(DEBUG) printf("j1is: %f\n",joint1);
 	} 
 	//Set the start time for the laser assembler service	
 	srv.request.begin = ros::Time::now();
@@ -330,7 +329,7 @@ void QNode::scan(std::string filename, bool localize){
 	ros::spinOnce();
 	// Make the service call
 	if (client.call(srv)){
-		ROS_INFO("Published Cloud %d", (uint32_t)(srv.response.cloud.width)) ;
+		ROS_INFO("Assembled Cloud %d", (uint32_t)(srv.response.cloud.width)) ;
 		//Save the new scan as cloud_surface		
 		cloud_surface = srv.response.cloud;
 		//Tell ros what the 4th field information is
@@ -346,15 +345,23 @@ void QNode::scan(std::string filename, bool localize){
 			if(DEBUG) ROS_INFO("Localize Service Cloud %d", (uint32_t)(loc_srv.response.cloud_out.width));
 			pub.publish(loc_srv.response.cloud_out);
 			if(localize) cloud_surface = loc_srv.response.cloud_out;
-		}else ROS_INFO("Localize Service Failed");
+		}else{
+			ROS_INFO("Localize Service Failed");
+			pub.publish(cloud_surface);
+		}
 		//Save the pointcloud to disk using filename CLOUD and the counter
 		pcl::PointCloud<pcl::PointXYZI>::Ptr save_cloud (new pcl::PointCloud<pcl::PointXYZI>);
+
+		//Tell pcl what the 4th field information is
+		cloud_surface.fields[3].name = "intensity";
 		pcl::fromROSMsg(cloud_surface, *save_cloud);
 		std::stringstream pf;
-		pf << filename << CLOUD << cloud_ctr++ << ".pcl";
+		pf << filename << CLOUD << cloud_ctr++ << ".pcd";
+		if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
 		pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
 	}
 	else ROS_ERROR("Error making service call to laser assembler\n") ;
+	ros::spinOnce();
 
 }
 

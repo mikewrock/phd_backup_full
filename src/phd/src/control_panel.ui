@@ -311,7 +311,7 @@ color: rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="text">
-      <string>/home/mike/marker/refined/dotsf4.pcd</string>
+      <string>/home/mike/testing/file.pcd</string>
      </property>
     </widget>
     <widget class="QCheckBox" name="auto_localize">
@@ -350,7 +350,7 @@ color: rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="text">
-      <string>/home/mike/marker/location/filename</string>
+      <string>/home/mike/testing/</string>
      </property>
     </widget>
    </widget>
