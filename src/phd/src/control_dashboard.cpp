@@ -112,7 +112,7 @@ namespace control_panel
 	//Perform a fake scan using a pointcloud file (.pcl
 	void ControlPanel::fake_scan(){
 
-		  control_panel.fscan(ui_.filename_box->text().toStdString(),ui_.auto_localize->isChecked());
+		  control_panel.fscan(ui_.filename_box->text().toStdString(),ui_.auto_localize->isChecked(),ui_.marker_name_box->text().toStdString());
 	}
 	//Estimate the position correction through registration
 	void ControlPanel::do_estimate(){

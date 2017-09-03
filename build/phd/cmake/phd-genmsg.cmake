@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "phd: 6 messages, 3 services")
+message(STATUS "phd: 7 messages, 3 services")
 
 set(MSG_I_FLAGS "-Iphd:/home/mike/catkin_ws/src/phd/msg;-Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg;-Iactionlib_msgs:/opt/ros/indigo/share/actionlib_msgs/cmake/../msg;-Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg")
 
@@ -18,6 +18,11 @@ add_custom_target(phd_generate_messages ALL)
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/localize_cloud.srv" NAME_WE)
 add_custom_target(_phd_generate_messages_check_deps_${_filename}
   COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "phd" "/home/mike/catkin_ws/src/phd/srv/localize_cloud.srv" "sensor_msgs/PointField:sensor_msgs/PointCloud2:std_msgs/Header"
+)
+
+get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/marker_val.msg" NAME_WE)
+add_custom_target(_phd_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "phd" "/home/mike/catkin_ws/src/phd/msg/marker_val.msg" ""
 )
 
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/trajectory_service.srv" NAME_WE)
@@ -66,6 +71,12 @@ add_custom_target(_phd_generate_messages_check_deps_${_filename}
 
 ### Section generating for lang: gencpp
 ### Generating Messages
+_generate_msg_cpp(phd
+  "/home/mike/catkin_ws/src/phd/msg/marker_val.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/phd
+)
 _generate_msg_cpp(phd
   "/home/mike/catkin_ws/src/phd/msg/arm_msg.msg"
   "${MSG_I_FLAGS}"
@@ -137,6 +148,8 @@ add_dependencies(phd_generate_messages phd_generate_messages_cpp)
 # add dependencies to all check dependencies targets
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/localize_cloud.srv" NAME_WE)
 add_dependencies(phd_generate_messages_cpp _phd_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/marker_val.msg" NAME_WE)
+add_dependencies(phd_generate_messages_cpp _phd_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/trajectory_service.srv" NAME_WE)
 add_dependencies(phd_generate_messages_cpp _phd_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/arm_msg.msg" NAME_WE)
@@ -163,6 +176,12 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS phd_generate_messages_cpp)
 
 ### Section generating for lang: genlisp
 ### Generating Messages
+_generate_msg_lisp(phd
+  "/home/mike/catkin_ws/src/phd/msg/marker_val.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/phd
+)
 _generate_msg_lisp(phd
   "/home/mike/catkin_ws/src/phd/msg/arm_msg.msg"
   "${MSG_I_FLAGS}"
@@ -234,6 +253,8 @@ add_dependencies(phd_generate_messages phd_generate_messages_lisp)
 # add dependencies to all check dependencies targets
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/localize_cloud.srv" NAME_WE)
 add_dependencies(phd_generate_messages_lisp _phd_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/marker_val.msg" NAME_WE)
+add_dependencies(phd_generate_messages_lisp _phd_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/trajectory_service.srv" NAME_WE)
 add_dependencies(phd_generate_messages_lisp _phd_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/arm_msg.msg" NAME_WE)
@@ -260,6 +281,12 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS phd_generate_messages_lisp)
 
 ### Section generating for lang: genpy
 ### Generating Messages
+_generate_msg_py(phd
+  "/home/mike/catkin_ws/src/phd/msg/marker_val.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/phd
+)
 _generate_msg_py(phd
   "/home/mike/catkin_ws/src/phd/msg/arm_msg.msg"
   "${MSG_I_FLAGS}"
@@ -330,6 +357,8 @@ add_dependencies(phd_generate_messages phd_generate_messages_py)
 
 # add dependencies to all check dependencies targets
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/localize_cloud.srv" NAME_WE)
+add_dependencies(phd_generate_messages_py _phd_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/marker_val.msg" NAME_WE)
 add_dependencies(phd_generate_messages_py _phd_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/trajectory_service.srv" NAME_WE)
 add_dependencies(phd_generate_messages_py _phd_generate_messages_check_deps_${_filename})

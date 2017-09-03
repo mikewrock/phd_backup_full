@@ -1,0 +1,8 @@
+\subsubsection parameters ROS parameters
+
+Reads and maintains the following parameters on the ROS server
+
+- \b "~accuracy" : \b [double] Marker Point Accuracy min: 0.0, default: 0.01, max: 1.0
+- \b "~intensity_min" : \b [int] Marker Intensiy Cutoff min: 0, default: 700, max: 3000
+- \b "~intensity_max" : \b [int] Marker Intensiy Cutoff min: 0, default: 1200, max: 3000
+

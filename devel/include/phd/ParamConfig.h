@@ -228,11 +228,15 @@ class DEFAULT
 
         if("cloud_name"==(*_i)->name){cloud_name = boost::any_cast<std::string>(val);}
         if("cloud_number"==(*_i)->name){cloud_number = boost::any_cast<int>(val);}
+        if("intensity_min"==(*_i)->name){intensity_min = boost::any_cast<int>(val);}
+        if("intensity_max"==(*_i)->name){intensity_max = boost::any_cast<int>(val);}
       }
     }
 
     std::string cloud_name;
 int cloud_number;
+int intensity_min;
+int intensity_max;
 
     bool state;
     std::string name;
@@ -300,9 +304,13 @@ int cloud_number;
       std::string cloud_name;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       int cloud_number;
-//#line 13 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
-      int group1_int;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      int intensity_min;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      int intensity_max;
 //#line 15 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      int group1_int;
+//#line 17 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       double group2_double;
 //#line 218 "/opt/ros/indigo/share/dynamic_reconfigure/cmake/../templates/ConfigType.h.template"
 
@@ -459,27 +467,47 @@ ParamConfig::GroupDescription<ParamConfig::DEFAULT, ParamConfig> Default("Defaul
       Default.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<int>("cloud_number", "int", 0, "Cloud Alignment Number", "", &ParamConfig::cloud_number)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<int>("cloud_number", "int", 0, "Cloud Alignment Number", "", &ParamConfig::cloud_number)));
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __min__.intensity_min = 0;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __max__.intensity_min = 3000;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __default__.intensity_min = 900;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      Default.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<int>("intensity_min", "int", 0, "Marker Intensiy Cutoff", "", &ParamConfig::intensity_min)));
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<int>("intensity_min", "int", 0, "Marker Intensiy Cutoff", "", &ParamConfig::intensity_min)));
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __min__.intensity_max = 0;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __max__.intensity_max = 3000;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __default__.intensity_max = 1200;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      Default.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<int>("intensity_max", "int", 0, "Marker Intensiy Cutoff", "", &ParamConfig::intensity_max)));
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<int>("intensity_max", "int", 0, "Marker Intensiy Cutoff", "", &ParamConfig::intensity_max)));
 ParamConfig::GroupDescription<ParamConfig::DEFAULT::GROUP_ONE, ParamConfig::DEFAULT> Group_One("Group_One", "collapse", 0, 1, true, &ParamConfig::DEFAULT::group_one);
-//#line 13 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 15 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __min__.group1_int = -2147483648;
-//#line 13 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 15 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __max__.group1_int = 2147483647;
-//#line 13 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 15 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __default__.group1_int = 2;
-//#line 13 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 15 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       Group_One.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<int>("group1_int", "int", 1, "A second level group parameter", "", &ParamConfig::group1_int)));
-//#line 13 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 15 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<int>("group1_int", "int", 1, "A second level group parameter", "", &ParamConfig::group1_int)));
 ParamConfig::GroupDescription<ParamConfig::DEFAULT::GROUP_ONE::GROUP2, ParamConfig::DEFAULT::GROUP_ONE> GROUP2("GROUP2", "", 1, 2, true, &ParamConfig::DEFAULT::GROUP_ONE::group2);
-//#line 15 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 17 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __min__.group2_double = -std::numeric_limits<double>::infinity();
-//#line 15 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 17 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __max__.group2_double = std::numeric_limits<double>::infinity();
-//#line 15 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 17 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __default__.group2_double = 3.333;
-//#line 15 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 17 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       GROUP2.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("group2_double", "double", 0, "A third level group parameter", "", &ParamConfig::group2_double)));
-//#line 15 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 17 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("group2_double", "double", 0, "A third level group parameter", "", &ParamConfig::group2_double)));
 //#line 109 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       GROUP2.convertParams();

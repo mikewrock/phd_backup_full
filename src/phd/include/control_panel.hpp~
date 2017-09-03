@@ -74,7 +74,7 @@ public:
 	void step();
 	void show_nav();
 	void exe_nav();
-	void estimate();
+	void estimate(std::string);
 	void nav_mode(float pos);
 	void fscan(std::string, bool auto_localize);
 	void cluster(std::string, int index);
@@ -106,6 +106,7 @@ private:
 	ros::Publisher nav_vis_pub;
 	ros::Publisher nav_pub;
 	ros::Publisher pub;
+	ros::Publisher rawpub;
 	ros::Publisher pub2;
 	ros::Publisher pub3;
 	ros::Publisher pub4;

@@ -1,5 +1,6 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/phd_generate_messages_py"
+  "/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_marker_val.py"
   "/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_arm_msg.py"
   "/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_cube_msg.py"
   "/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_trajectory_point.py"

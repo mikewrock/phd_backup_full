@@ -70,6 +70,7 @@ phd::trajectory_service traj_srv;
 //Dynamic Reconfig Variables
 std::string CLOUD;
 int CLOUD_NUM;
+float VINT_MIN,VINT_MAX;
 
 //DELETE
 pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_aligner (new pcl::PointCloud<pcl::PointXYZI> );
@@ -87,6 +88,8 @@ void reconfig_callback(phd::ParamConfig &config, uint32_t level) {
 
 	CLOUD = config.cloud_name;
 	CLOUD_NUM = config.cloud_number;
+	VINT_MIN = config.intensity_min;
+	VINT_MAX = config.intensity_max;
 	ROS_INFO("Callback");
 
 
@@ -119,6 +122,7 @@ bool QNode::init() {
 	arm_pub = nh_.advertise<phd::arm_msg>("arm_cmd", 100);
 	//Point cloud publisher
 	pub = nh_.advertise<sensor_msgs::PointCloud2> ("assembled_cloud", 1);
+	rawpub = nh_.advertise<sensor_msgs::PointCloud2> ("raw_cloud", 1);
 	pub2 = nh_.advertise<sensor_msgs::PointCloud2> ("aligned_cloud", 1);
 	pub3 = nh_.advertise<sensor_msgs::PointCloud2> ("aligned_cloud3", 1);
 	pub4 = nh_.advertise<sensor_msgs::PointCloud2> ("aligned_cloud4", 1);
@@ -327,11 +331,23 @@ void QNode::scan(std::string filename, bool localize){
 	srv.request.end   = ros::Time::now();
 	//Spin to send the end time to the service before calling it
 	ros::spinOnce();
+
 	// Make the service call
 	if (client.call(srv)){
 		ROS_INFO("Assembled Cloud %d", (uint32_t)(srv.response.cloud.width)) ;
 		//Save the new scan as cloud_surface		
 		cloud_surface = srv.response.cloud;
+		//publish the raw cloud
+		rawpub.publish(cloud_surface);
+		//Save the pointcloud to disk using filename CLOUD and the counter
+		pcl::PointCloud<pcl::PointXYZI>::Ptr save_cloud (new pcl::PointCloud<pcl::PointXYZI>);
+		std::stringstream pf;
+		//Tell pcl what the 4th field information is
+		cloud_surface.fields[3].name = "intensity";
+		pcl::fromROSMsg(cloud_surface, *save_cloud);
+		pf << filename << "raw" << CLOUD << cloud_ctr++ << ".pcd";
+		if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
+		pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
 		//Tell ros what the 4th field information is
 		cloud_surface.fields[3].name = "intensities";
 		//If set home box is checked, tell localization to save marker location to the filename specified, otheriwse load the file and localize
@@ -340,25 +356,14 @@ void QNode::scan(std::string filename, bool localize){
 		loc_srv.request.cloud_in = cloud_surface;
 		loc_srv.request.homing = localize;
 		loc_srv.request.marker_file = filename;
-		loc_client.call(loc_srv);
 		if(loc_client.call(loc_srv)){
 			if(DEBUG) ROS_INFO("Localize Service Cloud %d", (uint32_t)(loc_srv.response.cloud_out.width));
 			pub.publish(loc_srv.response.cloud_out);
 			if(localize) cloud_surface = loc_srv.response.cloud_out;
 		}else{
 			ROS_INFO("Localize Service Failed");
-			pub.publish(cloud_surface);
 		}
-		//Save the pointcloud to disk using filename CLOUD and the counter
-		pcl::PointCloud<pcl::PointXYZI>::Ptr save_cloud (new pcl::PointCloud<pcl::PointXYZI>);
 
-		//Tell pcl what the 4th field information is
-		cloud_surface.fields[3].name = "intensity";
-		pcl::fromROSMsg(cloud_surface, *save_cloud);
-		std::stringstream pf;
-		pf << filename << CLOUD << cloud_ctr++ << ".pcd";
-		if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
-		pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
 	}
 	else ROS_ERROR("Error making service call to laser assembler\n") ;
 	ros::spinOnce();
@@ -381,7 +386,7 @@ void QNode::nav_mode(float pos){
 }
 
 //Testing function for publishing point clouds from file
-void QNode::fscan(std::string filename, bool auto_localize){
+void QNode::fscan(std::string filename, bool auto_localize, std::string markername){
 
 //DELETE THIS
 /*else {
@@ -405,7 +410,18 @@ return;
 	if (pcl::io::loadPCDFile<pcl::PointXYZI> (filename.c_str(), *cloud) == -1) PCL_ERROR ("Couldn't read file\n");
 	else{
 		if(DEBUG) ROS_INFO("File Opened");
-	}
+	
+	/*//////////Crop the top
+	//Create containers for the filtered cloud
+	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_filtered (new pcl::PointCloud<pcl::PointXYZI>);
+	// Create the filtering object
+	pcl::PassThrough<pcl::PointXYZI> pass (true);
+	//filter the data for intensity
+	pass.setInputCloud (cloud);
+	pass.setFilterFieldName ("z");
+	pass.setFilterLimits (-10,1.3);
+	pass.filter (*cloud_filtered);
+	*/	
 	//Convert from PCL to ROS
 	pcl::toROSMsg(*cloud,cloud_msg);
 	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
@@ -417,14 +433,15 @@ return;
 		//Call the localization service
 		loc_srv.request.cloud_in = cloud_msg;
 		loc_srv.request.homing = false;
-		loc_client.call(loc_srv);
+		loc_srv.request.marker_file = markername;
 		if(loc_client.call(loc_srv)){
 			ROS_INFO("Localized Cloud %d", (uint32_t)(loc_srv.response.cloud_out.width));
 			pub.publish(loc_srv.response.cloud_out);
 			cloud_surface = loc_srv.response.cloud_out;
 		}else ROS_INFO("Service Failed");
 	}else {
-		pub.publish(cloud_msg);
+		rawpub.publish(cloud_msg);
+	}
 	}
 }
 //Testing function: Localization scan, performs a laser scan and sets the frame /base_footprint as the origin of the global coordinate frame 
@@ -465,7 +482,7 @@ void QNode::cluster(std::string filename, int index){
 	//filter the data for intensity
 	pass.setInputCloud (current_pc_);
 	pass.setFilterFieldName ("intensity");
-	pass.setFilterLimits (550,1100);
+	pass.setFilterLimits (VINT_MIN,VINT_MAX);
 	pass.filter (*cloud_intensity_filtered);
 	//initialize the variables to hold the center of the points
 	float xs=0;

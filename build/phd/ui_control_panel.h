@@ -162,6 +162,7 @@ public:
         set_home = new QCheckBox(tab);
         set_home->setObjectName(QString::fromUtf8("set_home"));
         set_home->setGeometry(QRect(140, 2, 121, 30));
+        set_home->setChecked(true);
         marker_name_box = new QLineEdit(tab);
         marker_name_box->setObjectName(QString::fromUtf8("marker_name_box"));
         marker_name_box->setGeometry(QRect(10, 34, 251, 30));

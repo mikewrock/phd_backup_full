@@ -117,7 +117,7 @@ namespace control_panel
 	//Estimate the position correction through registration
 	void ControlPanel::do_estimate(){
 
-		  control_panel.estimate();
+		  control_panel.estimate(ui_.marker_name_box->text().toStdString());
 	}
 	//Testing function, step through the arm strajectory pose
 	void ControlPanel::do_step(){

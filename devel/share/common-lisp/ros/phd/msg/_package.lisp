@@ -1,6 +1,8 @@
 (cl:defpackage phd-msg
   (:use )
   (:export
+   "<MARKER_VALS>"
+   "MARKER_VALS"
    "<ARM_MSG>"
    "ARM_MSG"
    "<MULTI_CUBE_MSG>"
@@ -17,5 +19,7 @@
    "TRAJECTORY_POINT"
    "<TRAJECTORY_TEST>"
    "TRAJECTORY_TEST"
+   "<MARKER_VAL>"
+   "MARKER_VAL"
   ))
 

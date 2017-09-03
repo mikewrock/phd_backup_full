@@ -68,14 +68,18 @@
   <node pkg="lms1xx" name="lms1xx" type="LMS1xx_node" output = "screen">
     <param name="host" value="$(arg host)" />
   </node>
-
+  <!--- Laser filters-->
+  <node pkg="laser_filters" type="scan_to_scan_filter_chain"
+      name="laser_filter" output = "screen">
+    <rosparam command="load" file="$(find phd)/cfg/my_laser_config.yaml" />
+  </node>
 
   <!--- Run local laser assembler -->
   <node type="laser_scan_assembler" pkg="laser_assembler" name="my_assembler">
     <param name="max_scans" type="int" value="10000" />
     <param name="fixed_frame" type="string" value="base_link" />
     <param name="tf_cache_time_secs" type="double" value="30.0" />
-    <!---<remap from="scan" to="scan_filtered" />-->
+    <remap from="scan" to="scan_filtered" />
   </node>
   <!--- Run Powercube node-->
   <node name="cube_node" pkg="phd" type="cube_node" output="screen" />
@@ -106,6 +110,12 @@
   <!--- Run thickness service -->
   <node type="thickness_server" pkg="phd" name="thickness_service" output="screen">
   </node>
+
+  <!--- Record data -->
+ <node pkg="rosbag" type="record" name="rosbag_record"
+       args="-O /home/mike/testing /assembled_cloud"
+       if="$(arg record)" />
+
 
 
 </launch>

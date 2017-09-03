@@ -1,5 +1,6 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/phd_generate_messages_lisp"
+  "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/marker_val.lisp"
   "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/arm_msg.lisp"
   "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/cube_msg.lisp"
   "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/trajectory_point.lisp"

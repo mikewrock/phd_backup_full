@@ -82,6 +82,7 @@ endif()
 generate_dynamic_reconfigure_options(
   cfg/seg_config.cfg
   cfg/param_config.cfg
+  cfg/localize_config.cfg
   #...
 )
 ## Generate messages in the 'msg' folder
@@ -89,6 +90,7 @@ generate_dynamic_reconfigure_options(
    FILES
    cube_msg.msg
    arm_msg.msg
+   marker_val.msg
    trajectory_point.msg
    trajectory_msg.msg
    trajectory_array.msg

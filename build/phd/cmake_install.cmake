@@ -41,6 +41,10 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/phd" TYPE FILE FILES "/home/mike/catkin_ws/devel/include/phd/localize_configConfig.h")
+ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+
+IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python2.7/dist-packages/phd" TYPE FILE FILES "/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/__init__.py")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
@@ -56,6 +60,7 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
   FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/phd/msg" TYPE FILE FILES
     "/home/mike/catkin_ws/src/phd/msg/cube_msg.msg"
     "/home/mike/catkin_ws/src/phd/msg/arm_msg.msg"
+    "/home/mike/catkin_ws/src/phd/msg/marker_val.msg"
     "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg"
     "/home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg"
     "/home/mike/catkin_ws/src/phd/msg/trajectory_array.msg"

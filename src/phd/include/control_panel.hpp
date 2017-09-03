@@ -76,7 +76,7 @@ public:
 	void exe_nav();
 	void estimate(std::string);
 	void nav_mode(float pos);
-	void fscan(std::string, bool auto_localize);
+	void fscan(std::string, bool auto_localize,std::string);
 	void cluster(std::string, int index);
 	void start_pt();
 	void gen_trajectory();
@@ -106,6 +106,7 @@ private:
 	ros::Publisher nav_vis_pub;
 	ros::Publisher nav_pub;
 	ros::Publisher pub;
+	ros::Publisher rawpub;
 	ros::Publisher pub2;
 	ros::Publisher pub3;
 	ros::Publisher pub4;

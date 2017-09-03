@@ -1,0 +1,9 @@
+\subsubsection usage Usage
+\verbatim
+<node name="localization_service" pkg="phd" type="localization_service">
+  <param name="accuracy" type="double" value="0.01" />
+  <param name="intensity_min" type="int" value="700" />
+  <param name="intensity_max" type="int" value="1200" />
+</node>
+\endverbatim
+

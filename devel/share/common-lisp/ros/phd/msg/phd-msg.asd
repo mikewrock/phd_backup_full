@@ -4,6 +4,8 @@
 (defsystem "phd-msg"
   :depends-on (:roslisp-msg-protocol :roslisp-utils )
   :components ((:file "_package")
+    (:file "marker_vals" :depends-on ("_package_marker_vals"))
+    (:file "_package_marker_vals" :depends-on ("_package"))
     (:file "arm_msg" :depends-on ("_package_arm_msg"))
     (:file "_package_arm_msg" :depends-on ("_package"))
     (:file "multi_cube_msg" :depends-on ("_package_multi_cube_msg"))
@@ -20,4 +22,6 @@
     (:file "_package_trajectory_point" :depends-on ("_package"))
     (:file "trajectory_test" :depends-on ("_package_trajectory_test"))
     (:file "_package_trajectory_test" :depends-on ("_package"))
+    (:file "marker_val" :depends-on ("_package_marker_val"))
+    (:file "_package_marker_val" :depends-on ("_package"))
   ))

@@ -3,6 +3,8 @@
 <node name="control_panel" pkg="phd" type="control_panel">
   <param name="cloud_name" type="str" value="cloud" />
   <param name="cloud_number" type="int" value="1" />
+  <param name="intensity_min" type="int" value="900" />
+  <param name="intensity_max" type="int" value="1200" />
   <param name="group1_int" type="int" value="2" />
   <param name="group2_double" type="double" value="3.333" />
 </node>

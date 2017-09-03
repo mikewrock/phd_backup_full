@@ -339,6 +339,9 @@ color: rgb(255, 255, 255);</string>
      <property name="text">
       <string>Set Home</string>
      </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
     </widget>
     <widget class="QLineEdit" name="marker_name_box">
      <property name="geometry">
