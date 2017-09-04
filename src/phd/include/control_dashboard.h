@@ -35,6 +35,7 @@ void do_step();
 void do_estimate();
 void fake_scan();
 void scan();
+void thickness();
 void start_pt();
 void fwd_vel();
 void rev_vel();

@@ -83,7 +83,7 @@ if(DEBUG) ROS_INFO("Calculating");
 	cloud_req2.fields[3].name = "intensity";
 	pcl::fromROSMsg(cloud_req2,*cloud_two);
 //if(DEBUG) ROS_INFO("Clouds: %f - %f", cloud_one->width , cloud_two->width);
-	float resolution = 0.001f;
+	float resolution = 0.01f;
 	pcl::octree::OctreePointCloudSearch<pcl::PointXYZI> octree (resolution);
 	octree.setInputCloud (cloud_one);
 	octree.addPointsFromInputCloud ();
@@ -123,7 +123,7 @@ main (int argc, char** argv)
 	// Initialize ROS
 	ros::init (argc, argv, "thickness_service");
 	ros::NodeHandle nh;
-	ros::ServiceServer service = nh.advertiseService("calc_thickness", do_calc); 
+	ros::ServiceServer service = nh.advertiseService("thick_srv", do_calc); 
 if(DEBUG) ROS_INFO("Thickness Service Started");
 	ros::spin();
 

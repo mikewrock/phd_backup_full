@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>2</number>
    </property>
    <property name="movable">
     <bool>false</bool>
@@ -836,6 +836,79 @@ color: rgb(255, 255, 255);</string>
        <width>60</width>
        <height>60</height>
       </size>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_3">
+    <attribute name="title">
+     <string>Thickness</string>
+    </attribute>
+    <widget class="QLineEdit" name="before_box">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>241</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>/home/mike/saved/Before/Localized Clouds/output.pcd</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="after_box">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>241</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>/home/mike/saved/After/Localized Clouds/output.pcd</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="marker_info_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>0</y>
+       <width>151</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Before</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="marker_info_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>151</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>After</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="thickness_button">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>120</y>
+       <width>131</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Estimate Thickness</string>
      </property>
     </widget>
    </widget>

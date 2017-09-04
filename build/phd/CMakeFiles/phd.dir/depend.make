@@ -2120,6 +2120,9 @@ phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/inclu
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/localize_cloud.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/localize_cloudRequest.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/localize_cloudResponse.h
+phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/thickness_service.h
+phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/thickness_serviceRequest.h
+phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/thickness_serviceResponse.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/trajectory_array.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/trajectory_msg.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/trajectory_point.h

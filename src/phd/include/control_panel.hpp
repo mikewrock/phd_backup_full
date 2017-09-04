@@ -75,6 +75,7 @@ public:
 	void show_nav();
 	void exe_nav();
 	void estimate(std::string);
+	void thickness(std::string,std::string);
 	void nav_mode(float pos);
 	void fscan(std::string, bool auto_localize,std::string);
 	void cluster(std::string, int index);
@@ -114,6 +115,7 @@ private:
 	ros::ServiceClient client;
 	ros::ServiceClient loc_client;
 	ros::ServiceClient traj_client;
+	ros::ServiceClient thick_client;
 	//Dynamic Reconfigure
 	dynamic_reconfigure::Server<phd::ParamConfig> server;
 	dynamic_reconfigure::Server<phd::ParamConfig>::CallbackType callback_type;

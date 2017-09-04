@@ -76,6 +76,12 @@ public:
     QPushButton *armFwd;
     QPushButton *fwdButton;
     QPushButton *turnRight;
+    QWidget *tab_3;
+    QLineEdit *before_box;
+    QLineEdit *after_box;
+    QLabel *marker_info_3;
+    QLabel *marker_info_4;
+    QPushButton *thickness_button;
 
     void setupUi(QWidget *Control_Form)
     {
@@ -301,10 +307,29 @@ public:
         turnRight->setIcon(icon7);
         turnRight->setIconSize(QSize(60, 60));
         tabWidget->addTab(tab_2, QString());
+        tab_3 = new QWidget();
+        tab_3->setObjectName(QString::fromUtf8("tab_3"));
+        before_box = new QLineEdit(tab_3);
+        before_box->setObjectName(QString::fromUtf8("before_box"));
+        before_box->setGeometry(QRect(10, 20, 241, 31));
+        after_box = new QLineEdit(tab_3);
+        after_box->setObjectName(QString::fromUtf8("after_box"));
+        after_box->setGeometry(QRect(10, 70, 241, 31));
+        marker_info_3 = new QLabel(tab_3);
+        marker_info_3->setObjectName(QString::fromUtf8("marker_info_3"));
+        marker_info_3->setGeometry(QRect(10, 0, 151, 17));
+        marker_info_4 = new QLabel(tab_3);
+        marker_info_4->setObjectName(QString::fromUtf8("marker_info_4"));
+        marker_info_4->setGeometry(QRect(10, 50, 151, 17));
+        thickness_button = new QPushButton(tab_3);
+        thickness_button->setObjectName(QString::fromUtf8("thickness_button"));
+        thickness_button->setEnabled(true);
+        thickness_button->setGeometry(QRect(20, 120, 131, 31));
+        tabWidget->addTab(tab_3, QString());
 
         retranslateUi(Control_Form);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(Control_Form);
@@ -359,6 +384,12 @@ public:
         fwdButton->setText(QString());
         turnRight->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("Control_Form", "Navigation", 0, QApplication::UnicodeUTF8));
+        before_box->setText(QApplication::translate("Control_Form", "/home/mike/saved/Before/Localized Clouds/output.pcd", 0, QApplication::UnicodeUTF8));
+        after_box->setText(QApplication::translate("Control_Form", "/home/mike/saved/After/Localized Clouds/output.pcd", 0, QApplication::UnicodeUTF8));
+        marker_info_3->setText(QApplication::translate("Control_Form", "Before", 0, QApplication::UnicodeUTF8));
+        marker_info_4->setText(QApplication::translate("Control_Form", "After", 0, QApplication::UnicodeUTF8));
+        thickness_button->setText(QApplication::translate("Control_Form", "Estimate Thickness", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("Control_Form", "Thickness", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

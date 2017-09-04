@@ -57,7 +57,7 @@
 #include <std_msgs/Float64.h>
 #include <boost/foreach.hpp>
 #include <dynamic_reconfigure/server.h>
-#include <phd/SEGConfig.h>
+#include <phd/seg_configConfig.h>
 #include <phd/thickness_service.h>
 
 #define DEBUG true
@@ -83,7 +83,7 @@ if(DEBUG) ROS_INFO("Calculating");
 	cloud_req2.fields[3].name = "intensity";
 	pcl::fromROSMsg(cloud_req2,*cloud_two);
 //if(DEBUG) ROS_INFO("Clouds: %f - %f", cloud_one->width , cloud_two->width);
-	float resolution = 0.001f;
+	float resolution = 0.01f;
 	pcl::octree::OctreePointCloudSearch<pcl::PointXYZI> octree (resolution);
 	octree.setInputCloud (cloud_one);
 	octree.addPointsFromInputCloud ();

@@ -25,6 +25,7 @@
 #include "laser_assembler/AssembleScans2.h"
 #include "phd/localize_cloud.h"
 #include "phd/trajectory_service.h"
+#include "phd/thickness_service.h"
 // Messages
 #include "sensor_msgs/PointCloud.h"
 #include <phd/cube_msg.h>
@@ -143,6 +144,8 @@ bool QNode::init() {
 	loc_client = nh_.serviceClient<phd::localize_cloud>("localize_pcd");
 	//Service client for gerneating an arm trajectory
 	traj_client = nh_.serviceClient<phd::trajectory_service>("trajectory_gen");
+	//Service client for estimating thickness
+	thick_client = nh_.serviceClient<phd::thickness_service>("thick_srv");
 	//Initialize the trajectory display marker	
 	point_list.header.frame_id = "/base_link";
 	point_list.header.stamp = ros::Time::now();
@@ -646,6 +649,59 @@ void QNode::gen_trajectory(){
 		//Save the trajectory response
 		traj = traj_srv.response.trajectory;
 	}else ROS_INFO("Service Failed");
+
+}
+//calculate thickess between two files
+void QNode::thickness(std::string before,std::string after){
+
+
+	pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_before (new pcl::PointCloud<pcl::PointXYZI> );
+	pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_after (new pcl::PointCloud<pcl::PointXYZI> );
+	//Create a ros message to publish the cloud as
+	sensor_msgs::PointCloud2 cloud_before;
+	sensor_msgs::PointCloud2 cloud_after;
+	//Load the file
+	if (pcl::io::loadPCDFile<pcl::PointXYZI> (before.c_str(), *pcl_before) == -1) PCL_ERROR ("Couldn't read file\n");
+	else{
+		if(DEBUG) ROS_INFO("File Opened");
+	//Load the file
+	if (pcl::io::loadPCDFile<pcl::PointXYZI> (after.c_str(), *pcl_after) == -1) PCL_ERROR ("Couldn't read file\n");
+	else{
+		if(DEBUG) ROS_INFO("File Opened");
+	
+	//Convert from PCL to ROS
+	pcl::toROSMsg(*pcl_before,cloud_before);
+	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
+	cloud_before.fields[3].name = "intensity";
+	//Set the frame
+	cloud_before.header.frame_id = "/base_link";
+	//Convert from PCL to ROS
+	pcl::toROSMsg(*pcl_after,cloud_after);
+	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
+	cloud_after.fields[3].name = "intensity";
+	//Set the frame
+	cloud_after.header.frame_id = "/base_link";
+		if(DEBUG) ROS_INFO("thickening");	
+	phd::thickness_service thick_srv;
+		//Call the localization service
+		thick_srv.request.cloud_1 = cloud_before;
+		thick_srv.request.cloud_2 = cloud_after;
+		if(thick_client.call(thick_srv)){
+			ROS_INFO("Thick Cloud %d", (uint32_t)(thick_srv.response.cloud_out.width));
+			pub.publish(thick_srv.response.cloud_out);
+			cloud_surface = thick_srv.response.cloud_out;
+
+		pcl::PointCloud<pcl::PointXYZI>::Ptr save_cloud (new pcl::PointCloud<pcl::PointXYZI>);
+		std::stringstream pf;
+		//Tell pcl what the 4th field information is
+		cloud_surface.fields[3].name = "intensity";
+		pcl::fromROSMsg(cloud_surface, *save_cloud);
+		pf << "/home/mike/testing/" << ++cloud_ctr << "thickened" << CLOUD << ".pcd";
+		if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
+		pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
+
+
+		}else ROS_INFO("Service Failed");
 
 }
 //Estimate the base position using registration
