@@ -77,7 +77,7 @@
   <!--- Run local laser assembler -->
   <node type="laser_scan_assembler" pkg="laser_assembler" name="my_assembler">
     <param name="max_scans" type="int" value="10000" />
-    <param name="fixed_frame" type="string" value="base_link" />
+    <param name="fixed_frame" type="string" value="laser" />
     <param name="tf_cache_time_secs" type="double" value="30.0" />
     <remap from="scan" to="scan_filtered" />
   </node>
@@ -113,8 +113,12 @@
 
   <!--- Record data -->
  <node pkg="rosbag" type="record" name="rosbag_record"
-       args="-O /home/mike/testing /assembled_cloud"
-       if="$(arg record)" />
+       args="-O /home/mike/testing/bag /assembled_cloud" />
+
+  <!--- Run dynamicreconfigure -->
+  <node type="rqt_reconfigure" pkg="rqt_reconfigure" name="rqt_reconfigure" output="screen">
+  </node>
+
 
 
 

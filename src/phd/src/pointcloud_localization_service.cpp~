@@ -402,10 +402,15 @@ bool localize(phd::localize_cloud::Request  &req,
 	pcl::fromROSMsg(cloud_req,*cloud_world);
 	//Create containers for filtered clouds
 	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_intensity_filtered (new pcl::PointCloud<pcl::PointXYZI>);
+	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_height_filtered (new pcl::PointCloud<pcl::PointXYZI>);
 	// Create the filtering object
 	pcl::PassThrough<pcl::PointXYZI> pass (true);
 	//filter the data
 	pass.setInputCloud (cloud_world);
+	pass.setFilterFieldName ("z");
+	pass.setFilterLimits (-100,CROP);
+	pass.filter (*cloud_height_filtered);
+	pass.setInputCloud (cloud_height_filtered);
 	pass.setFilterFieldName ("intensity");
 	pass.setFilterLimits (VINT_MIN,VINT_MAX);
 	pass.filter (*cloud_intensity_filtered);
@@ -414,7 +419,7 @@ bool localize(phd::localize_cloud::Request  &req,
 	pcl::toROSMsg(*cloud_intensity_filtered,cloud_debug);
 	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
 	cloud_debug.fields[3].name = "intensity";
-	cloud_debug.header.frame_id = "/base_link";
+	cloud_debug.header.frame_id = "/laser";
 	cloud_debug.header.stamp = ros::Time::now();
 	if(DEBUG) tpub.publish(cloud_req);
 
@@ -489,7 +494,7 @@ bool localize(phd::localize_cloud::Request  &req,
 	}
 	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
 	cloud_msg.fields[3].name = "intensity";
-	cloud_msg.header.frame_id = "/base_link";
+	cloud_msg.header.frame_id = "/world";
 	cloud_msg.header.stamp = ros::Time::now();
 	res.cloud_out = cloud_msg;
   	return marker;

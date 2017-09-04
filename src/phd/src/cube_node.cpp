@@ -56,7 +56,7 @@ int main(int argc, char** argv)
 	unsigned long serNo = 0; //holder for powercube serial number
 	//A custom version of m5wapi is used to allow for USB-Serial adapters, it has overwritten the serial part of the init string
 	//When /dev contains ttyusb1, the init string should be RS232:0 (use n-1 for usb #). 9600 is the baud rate
-	char strInitString[] = "RS232:0,9600";
+	char strInitString[] = "RS232:1,9600";
 	if(DEBUG) ROS_INFO( "Booting up PowerCube" );
 	if(DEBUG) ROS_INFO( "----------------------------------\n");
 	//Connect to device

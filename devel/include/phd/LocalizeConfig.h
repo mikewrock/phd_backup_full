@@ -227,12 +227,14 @@ class DEFAULT
         (*_i)->getValue(config, val);
 
         if("accuracy"==(*_i)->name){accuracy = boost::any_cast<double>(val);}
+        if("crop_height"==(*_i)->name){crop_height = boost::any_cast<double>(val);}
         if("intensity_min"==(*_i)->name){intensity_min = boost::any_cast<int>(val);}
         if("intensity_max"==(*_i)->name){intensity_max = boost::any_cast<int>(val);}
       }
     }
 
     double accuracy;
+double crop_height;
 int intensity_min;
 int intensity_max;
 
@@ -246,6 +248,8 @@ int intensity_max;
 
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       double accuracy;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      double crop_height;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       int intensity_min;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
@@ -395,6 +399,16 @@ LocalizeConfig::GroupDescription<LocalizeConfig::DEFAULT, LocalizeConfig> Defaul
       Default.abstract_parameters.push_back(LocalizeConfig::AbstractParamDescriptionConstPtr(new LocalizeConfig::ParamDescription<double>("accuracy", "double", 0, "Marker Point Accuracy", "", &LocalizeConfig::accuracy)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __param_descriptions__.push_back(LocalizeConfig::AbstractParamDescriptionConstPtr(new LocalizeConfig::ParamDescription<double>("accuracy", "double", 0, "Marker Point Accuracy", "", &LocalizeConfig::accuracy)));
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __min__.crop_height = -100.0;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __max__.crop_height = 100.0;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __default__.crop_height = 1.3;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      Default.abstract_parameters.push_back(LocalizeConfig::AbstractParamDescriptionConstPtr(new LocalizeConfig::ParamDescription<double>("crop_height", "double", 0, "Crop above this point", "", &LocalizeConfig::crop_height)));
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __param_descriptions__.push_back(LocalizeConfig::AbstractParamDescriptionConstPtr(new LocalizeConfig::ParamDescription<double>("crop_height", "double", 0, "Crop above this point", "", &LocalizeConfig::crop_height)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __min__.intensity_min = 0;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
