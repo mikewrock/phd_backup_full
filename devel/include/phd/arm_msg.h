@@ -39,7 +39,9 @@ struct arm_msg_
     , vel(0.0)
     , acc(0.0)
     , fig(0)
-    , pose(false)  {
+    , pose(false)
+    , motion_type(0)
+    , user_string()  {
     }
   arm_msg_(const ContainerAllocator& _alloc)
     : j1(0.0)
@@ -57,7 +59,9 @@ struct arm_msg_
     , vel(0.0)
     , acc(0.0)
     , fig(0)
-    , pose(false)  {
+    , pose(false)
+    , motion_type(0)
+    , user_string(_alloc)  {
   (void)_alloc;
     }
 
@@ -111,6 +115,12 @@ struct arm_msg_
    typedef uint8_t _pose_type;
   _pose_type pose;
 
+   typedef int32_t _motion_type_type;
+  _motion_type_type motion_type;
+
+   typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _user_string_type;
+  _user_string_type user_string;
+
 
 
 
@@ -144,7 +154,7 @@ namespace message_traits
 
 
 
-// BOOLTRAITS {'IsFixedSize': True, 'IsMessage': True, 'HasHeader': False}
+// BOOLTRAITS {'IsFixedSize': False, 'IsMessage': True, 'HasHeader': False}
 // {'sensor_msgs': ['/opt/ros/indigo/share/sensor_msgs/cmake/../msg'], 'actionlib_msgs': ['/opt/ros/indigo/share/actionlib_msgs/cmake/../msg'], 'std_msgs': ['/opt/ros/indigo/share/std_msgs/cmake/../msg'], 'geometry_msgs': ['/opt/ros/indigo/share/geometry_msgs/cmake/../msg'], 'phd': ['/home/mike/catkin_ws/src/phd/msg']}
 
 // !!!!!!!!!!! ['__class__', '__delattr__', '__dict__', '__doc__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_parsed_fields', 'constants', 'fields', 'full_name', 'has_header', 'header_present', 'names', 'package', 'parsed_fields', 'short_name', 'text', 'types']
@@ -154,12 +164,12 @@ namespace message_traits
 
 template <class ContainerAllocator>
 struct IsFixedSize< ::phd::arm_msg_<ContainerAllocator> >
-  : TrueType
+  : FalseType
   { };
 
 template <class ContainerAllocator>
 struct IsFixedSize< ::phd::arm_msg_<ContainerAllocator> const>
-  : TrueType
+  : FalseType
   { };
 
 template <class ContainerAllocator>
@@ -188,12 +198,12 @@ struct MD5Sum< ::phd::arm_msg_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "0bb97e20ed067fe2635824700ced1b68";
+    return "60ecd3f39bc022e6e6d98a74d7b832ac";
   }
 
   static const char* value(const ::phd::arm_msg_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x0bb97e20ed067fe2ULL;
-  static const uint64_t static_value2 = 0x635824700ced1b68ULL;
+  static const uint64_t static_value1 = 0x60ecd3f39bc022e6ULL;
+  static const uint64_t static_value2 = 0xe6d98a74d7b832acULL;
 };
 
 template<class ContainerAllocator>
@@ -228,6 +238,8 @@ float32 vel\n\
 float32 acc\n\
 int32 fig\n\
 bool pose\n\
+int32 motion_type\n\
+string user_string\n\
 \n\
 ";
   }
@@ -263,6 +275,8 @@ namespace serialization
       stream.next(m.acc);
       stream.next(m.fig);
       stream.next(m.pose);
+      stream.next(m.motion_type);
+      stream.next(m.user_string);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -313,6 +327,10 @@ struct Printer< ::phd::arm_msg_<ContainerAllocator> >
     Printer<int32_t>::stream(s, indent + "  ", v.fig);
     s << indent << "pose: ";
     Printer<uint8_t>::stream(s, indent + "  ", v.pose);
+    s << indent << "motion_type: ";
+    Printer<int32_t>::stream(s, indent + "  ", v.motion_type);
+    s << indent << "user_string: ";
+    Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.user_string);
   }
 };
 

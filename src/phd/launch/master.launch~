@@ -5,7 +5,7 @@
     <!-- Husky harware driver -->
     <node pkg="husky_base" type="husky_node" name="husky_node">
         <rosparam subst_value="true">
-            port: /dev/serial/by-id/usb-FTDI_UC232R_FTUSXZW7-if00-port0
+            port: /dev/ttyUSB0
 
             control_frequency: 10.0
             diagnostic_frequency: 1.0
@@ -56,17 +56,17 @@
   <node name="joint_fusion_node" pkg="phd" type="joint_fusion_node" output="screen" />
   
   
-  <!--- Run Denso node
-  <node name="denso_node" pkg="wrock" type="denso_node" output="screen" />
--->
+  <!--- Run Denso node-->
+  <node name="denso_node" pkg="phd" type="denso_node" output="screen" />
+
   <!--- Run master node 
     <node name="master" pkg="wrock" type="master" output="screen"> 
 </node>    -->
-<!-- hector mapping -->
+<!-- hector mapping 
 <node pkg="hector_mapping" type="hector_mapping" 
     name="hector_mapping" output="screen">
 
-
+-->
 
   </node>
   <!--- Run Move Base -->

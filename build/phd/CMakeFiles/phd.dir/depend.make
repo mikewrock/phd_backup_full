@@ -480,6 +480,7 @@ phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtC
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtCore/qstringlist.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtCore/qstringmatcher.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtCore/qthread.h
+phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtCore/qurl.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtCore/qvariant.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtCore/qvector.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/QAction
@@ -487,7 +488,6 @@ phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtG
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/QButtonGroup
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/QCheckBox
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/QCursor
-phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/QFrame
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/QHeaderView
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/QIcon
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/QLabel
@@ -496,6 +496,7 @@ phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtG
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/QPushButton
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/QStringListModel
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/QTabWidget
+phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/QTextBrowser
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/QWidget
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qabstractbutton.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qabstractitemdelegate.h
@@ -515,9 +516,11 @@ phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtG
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qdrag.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qevent.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qfont.h
+phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qfontdatabase.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qfontinfo.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qfontmetrics.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qframe.h
+phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qglyphrun.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qheaderview.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qicon.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qimage.h
@@ -537,6 +540,7 @@ phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtG
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qplatformwindowformat_qpa.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qpolygon.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qpushbutton.h
+phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qrawfont.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qregion.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qrgb.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qrubberband.h
@@ -547,8 +551,13 @@ phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtG
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qstyleoption.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qtabbar.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qtabwidget.h
+phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qtextbrowser.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qtextcursor.h
+phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qtextdocument.h
+phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qtextedit.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qtextformat.h
+phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qtextlayout.h
+phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qtextobject.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qtextoption.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qtransform.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/qt4/QtGui/qtransportauth_qws.h
@@ -2032,6 +2041,7 @@ phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtCore/qtex
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtCore/qtextstream.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtCore/qthread.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtCore/qtimer.h
+phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtCore/qurl.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtCore/qvariant.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtCore/qvector.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/QAction
@@ -2040,7 +2050,6 @@ phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/QButt
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/QCheckBox
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/QCursor
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/QFileDialog
-phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/QFrame
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/QHeaderView
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/QIcon
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/QLabel
@@ -2049,6 +2058,7 @@ phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/QPlat
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/QPushButton
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/QStringListModel
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/QTabWidget
+phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/QTextBrowser
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/QWidget
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qabstractbutton.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qabstractitemdelegate.h
@@ -2070,9 +2080,11 @@ phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qdrag
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qevent.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qfiledialog.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qfont.h
+phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qfontdatabase.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qfontinfo.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qfontmetrics.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qframe.h
+phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qglyphrun.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qheaderview.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qicon.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qimage.h
@@ -2092,6 +2104,7 @@ phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qplat
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qplatformwindowformat_qpa.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qpolygon.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qpushbutton.h
+phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qrawfont.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qregion.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qrgb.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qrubberband.h
@@ -2102,8 +2115,13 @@ phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qstyl
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qstyleoption.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qtabbar.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qtabwidget.h
+phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qtextbrowser.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qtextcursor.h
+phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qtextdocument.h
+phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qtextedit.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qtextformat.h
+phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qtextlayout.h
+phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qtextobject.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qtextoption.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qtransform.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qtransportauth_qws.h

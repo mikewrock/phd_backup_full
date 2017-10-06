@@ -84,6 +84,10 @@ public:
 	void lscan();
 	void run();
 	bool init();
+	void send_command(float x, float y, float z, float rx, float ry, float rz, float fig, int motion);
+	void send_joint_command(float j1, float j2, float j3, float j4, float j5, float j6);
+	void send_string(std::string user_string);
+	void scan_360();
 	phd::trajectory_point find_pose();
 	//Variables for holding the first two points of the marker, when the third one comes in they all get saved to file
 	float P1x, P1y, P1z, P2x, P2y, P2z;

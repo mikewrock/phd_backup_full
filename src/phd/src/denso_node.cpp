@@ -20,7 +20,10 @@
 #define AMPLITUDE 15
 
 #define DEBUG 1
-
+#define PTP 1
+#define CP 2
+#define JOINT 3
+#define STRING 4
 phd::arm_msg arm_cmd; //An arm message datatype
 bool move_flag = false; //A flag to denote whether a new pose has been sent
 char buffer[180]; //Character buffer for sprintf-ing from an arm_msg to a denso variant
@@ -34,15 +37,34 @@ uint32_t hTask; //Task Handle
 uint32_t hErr; //Error Handle
 uint32_t jHandle; //Joint angle handle
 uint32_t pHandle; //Arm Pose handle
+bool cp_flag = false;
 
 //Callback for the arm commands on topic /arm_cmd
 void arm_cb (const phd::arm_msg::ConstPtr& msg)
 {
+int n;
 	//Parse the message to denso format. set the move flag
 	//fig represents the configuration (see denso manual setting-e pg 288), 5 is an elbow up pose
 //arm_cmd = *msg;
 //int n=sprintf(buffer,"@P P(%f,%f,%f,%f,%f,%f,%d)",arm_cmd.x,arm_cmd.y,arm_cmd.z,arm_cmd.rx,arm_cmd.ry,arm_cmd.rz,arm_cmd.fig); 	
-	int n=sprintf(buffer,"@P P(%f,%f,%f,%f,%f,%f,%d)",msg->x,msg->y,msg->z,msg->rx,msg->ry,msg->rz,msg->fig);
+	switch(msg->motion_type){
+		case PTP: 
+			n=sprintf(buffer,"@P P(%f,%f,%f,%f,%f,%f,%d)",msg->x,msg->y,msg->z,msg->rx,msg->ry,msg->rz,msg->fig);
+			cp_flag = false;
+			break;
+		case CP: 
+			n=sprintf(buffer,"@P P(%f,%f,%f,%f,%f,%f,%d)",msg->x,msg->y,msg->z,msg->rx,msg->ry,msg->rz,msg->fig);
+			cp_flag = true;
+			break;
+		case JOINT:
+			n=sprintf(buffer,"@P J(%f,%f,%f,%f,%f,%f,0)",msg->j1,msg->j2,msg->j3,msg->j4,msg->j5,msg->j6);
+			cp_flag = false;
+			break;
+		case STRING:
+			n=sprintf(buffer,"%s",msg->user_string.c_str());
+			cp_flag = false;
+		}
+			
 	move_flag = true; //Tell the loop in main a new command has come in
 	if(DEBUG) ROS_INFO("Sending %s",buffer);
 }
@@ -145,7 +167,11 @@ int main(int argc, char **argv)
 			vntParam.bstrVal = SysAllocString(wstr); //set the value of the variant by pointing it to the wide string wstr
 			//Create a blank b-string for the funcntion to send in the spot thats supposed to be blank
 			bstrCommand = SysAllocString(L"");
-			hr = bCap_RobotMove(fd, hRobot, 1L, vntParam, bstrCommand); //Send the command to the controller
+			if(cp_flag){
+				hr = bCap_RobotMove(fd, hRobot, 2L, vntParam, bstrCommand); //Send the command to the controller
+			}else{
+				hr = bCap_RobotMove(fd, hRobot, 1L, vntParam, bstrCommand); //Send the command to the controller
+			}
 			SysFreeString(bstrCommand); //free the bstring from memory
 			VariantClear(&vntParam); //clear the variant
 			if (FAILED(hr))

@@ -35,6 +35,7 @@ void do_step();
 void do_estimate();
 void fake_scan();
 void scan();
+void thickness();
 void start_pt();
 void fwd_vel();
 void rev_vel();
@@ -59,7 +60,11 @@ void cluster_1();
 void trajectory();
 void cluster_2();
 void cluster_3();
-void gen_trajectory();
+void gen_trajectory();	
+void onPTPCommand();
+void onCPCommand();
+void onJointCommand();
+void onStringCommand();
 Q_SIGNALS:
 
 protected:

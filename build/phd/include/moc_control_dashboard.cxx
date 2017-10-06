@@ -22,7 +22,7 @@ static const uint qt_meta_data_control_panel__ControlPanel[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      33,   14, // methods
+      38,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -63,6 +63,11 @@ static const uint qt_meta_data_control_panel__ControlPanel[] = {
      424,   28,   28,   28, 0x09,
      436,   28,   28,   28, 0x09,
      448,   28,   28,   28, 0x09,
+     465,   28,   28,   28, 0x09,
+     480,   28,   28,   28, 0x09,
+     494,   28,   28,   28, 0x09,
+     511,   28,   28,   28, 0x09,
+     529,   28,   28,   28, 0x09,
 
        0        // eod
 };
@@ -82,6 +87,9 @@ static const char qt_meta_stringdata_control_panel__ControlPanel[] = {
     "localization_scan_2()\0clear_vel()\0"
     "cluster_1()\0trajectory()\0cluster_2()\0"
     "cluster_3()\0gen_trajectory()\0"
+    "onPTPCommand()\0onCPCommand()\0"
+    "onJointCommand()\0onStringCommand()\0"
+    "scan_360()\0"
 };
 
 void control_panel::ControlPanel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -123,6 +131,11 @@ void control_panel::ControlPanel::qt_static_metacall(QObject *_o, QMetaObject::C
         case 30: _t->cluster_2(); break;
         case 31: _t->cluster_3(); break;
         case 32: _t->gen_trajectory(); break;
+        case 33: _t->onPTPCommand(); break;
+        case 34: _t->onCPCommand(); break;
+        case 35: _t->onJointCommand(); break;
+        case 36: _t->onStringCommand(); break;
+        case 37: _t->scan_360(); break;
         default: ;
         }
     }
@@ -163,9 +176,9 @@ int control_panel::ControlPanel::qt_metacall(QMetaObject::Call _c, int _id, void
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 33)
+        if (_id < 38)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 33;
+        _id -= 38;
     }
     return _id;
 }

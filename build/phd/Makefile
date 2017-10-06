@@ -573,6 +573,20 @@ laser_assembler_generate_messages_py/fast:
 .PHONY : laser_assembler_generate_messages_py/fast
 
 # Convenience name for target.
+phd/CMakeFiles/parse_node.dir/rule:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/parse_node.dir/rule
+.PHONY : phd/CMakeFiles/parse_node.dir/rule
+
+# Convenience name for target.
+parse_node: phd/CMakeFiles/parse_node.dir/rule
+.PHONY : parse_node
+
+# fast build rule for target.
+parse_node/fast:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/parse_node.dir/build.make phd/CMakeFiles/parse_node.dir/build
+.PHONY : parse_node/fast
+
+# Convenience name for target.
 phd/CMakeFiles/phd.dir/rule:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/phd.dir/rule
 .PHONY : phd/CMakeFiles/phd.dir/rule
@@ -1303,6 +1317,30 @@ src/marker_selector.cpp.s:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/phd.dir/build.make phd/CMakeFiles/phd.dir/src/marker_selector.cpp.s
 .PHONY : src/marker_selector.cpp.s
 
+src/parse_file.o: src/parse_file.cpp.o
+.PHONY : src/parse_file.o
+
+# target to build an object file
+src/parse_file.cpp.o:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/parse_node.dir/build.make phd/CMakeFiles/parse_node.dir/src/parse_file.cpp.o
+.PHONY : src/parse_file.cpp.o
+
+src/parse_file.i: src/parse_file.cpp.i
+.PHONY : src/parse_file.i
+
+# target to preprocess a source file
+src/parse_file.cpp.i:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/parse_node.dir/build.make phd/CMakeFiles/parse_node.dir/src/parse_file.cpp.i
+.PHONY : src/parse_file.cpp.i
+
+src/parse_file.s: src/parse_file.cpp.s
+.PHONY : src/parse_file.s
+
+# target to generate assembly for a file
+src/parse_file.cpp.s:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/parse_node.dir/build.make phd/CMakeFiles/parse_node.dir/src/parse_file.cpp.s
+.PHONY : src/parse_file.cpp.s
+
 src/pointcloud_localization_service.o: src/pointcloud_localization_service.cpp.o
 .PHONY : src/pointcloud_localization_service.o
 
@@ -1488,6 +1526,7 @@ help:
 	@echo "... laser_assembler_generate_messages_lisp"
 	@echo "... laser_assembler_generate_messages_py"
 	@echo "... list_install_components"
+	@echo "... parse_node"
 	@echo "... phd"
 	@echo "... phd_gencfg"
 	@echo "... phd_gencpp"
@@ -1566,6 +1605,9 @@ help:
 	@echo "... src/marker_selector.o"
 	@echo "... src/marker_selector.i"
 	@echo "... src/marker_selector.s"
+	@echo "... src/parse_file.o"
+	@echo "... src/parse_file.i"
+	@echo "... src/parse_file.s"
 	@echo "... src/pointcloud_localization_service.o"
 	@echo "... src/pointcloud_localization_service.i"
 	@echo "... src/pointcloud_localization_service.s"

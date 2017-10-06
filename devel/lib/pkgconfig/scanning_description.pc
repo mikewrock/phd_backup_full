@@ -1,0 +1,8 @@
+prefix=/home/mike/catkin_ws/devel
+
+Name: scanning_description
+Description: Description of scanning_description
+Version: 0.0.2
+Cflags: 
+Libs: -L/home/mike/catkin_ws/devel/lib 
+Requires: 

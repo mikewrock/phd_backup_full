@@ -25,17 +25,24 @@ struct localize_cloudResponse_
   typedef localize_cloudResponse_<ContainerAllocator> Type;
 
   localize_cloudResponse_()
-    : cloud_out()  {
-    }
+    : cloud_out()
+    , transform_mat()  {
+      transform_mat.assign(0.0);
+  }
   localize_cloudResponse_(const ContainerAllocator& _alloc)
-    : cloud_out(_alloc)  {
+    : cloud_out(_alloc)
+    , transform_mat()  {
   (void)_alloc;
-    }
+      transform_mat.assign(0.0);
+  }
 
 
 
    typedef  ::sensor_msgs::PointCloud2_<ContainerAllocator>  _cloud_out_type;
   _cloud_out_type cloud_out;
+
+   typedef boost::array<double, 16>  _transform_mat_type;
+  _transform_mat_type transform_mat;
 
 
 
@@ -114,12 +121,12 @@ struct MD5Sum< ::phd::localize_cloudResponse_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "d638895a709be2cef85df359cc39f0dc";
+    return "b199ee0f9f915c62760e2e9b5c864faa";
   }
 
   static const char* value(const ::phd::localize_cloudResponse_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xd638895a709be2ceULL;
-  static const uint64_t static_value2 = 0xf85df359cc39f0dcULL;
+  static const uint64_t static_value1 = 0xb199ee0f9f915c62ULL;
+  static const uint64_t static_value2 = 0x760e2e9b5c864faaULL;
 };
 
 template<class ContainerAllocator>
@@ -139,6 +146,7 @@ struct Definition< ::phd::localize_cloudResponse_<ContainerAllocator> >
   static const char* value()
   {
     return "sensor_msgs/PointCloud2 cloud_out\n\
+float64[16] transform_mat\n\
 \n\
 \n\
 ================================================================================\n\
@@ -225,6 +233,7 @@ namespace serialization
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
       stream.next(m.cloud_out);
+      stream.next(m.transform_mat);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -246,6 +255,12 @@ struct Printer< ::phd::localize_cloudResponse_<ContainerAllocator> >
     s << indent << "cloud_out: ";
     s << std::endl;
     Printer< ::sensor_msgs::PointCloud2_<ContainerAllocator> >::stream(s, indent + "  ", v.cloud_out);
+    s << indent << "transform_mat[]" << std::endl;
+    for (size_t i = 0; i < v.transform_mat.size(); ++i)
+    {
+      s << indent << "  transform_mat[" << i << "]: ";
+      Printer<double>::stream(s, indent + "  ", v.transform_mat[i]);
+    }
   }
 };
 

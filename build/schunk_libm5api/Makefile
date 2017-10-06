@@ -153,20 +153,6 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-schunk_libm5api/CMakeFiles/_catkin_empty_exported_target.dir/rule:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 schunk_libm5api/CMakeFiles/_catkin_empty_exported_target.dir/rule
-.PHONY : schunk_libm5api/CMakeFiles/_catkin_empty_exported_target.dir/rule
-
-# Convenience name for target.
-_catkin_empty_exported_target: schunk_libm5api/CMakeFiles/_catkin_empty_exported_target.dir/rule
-.PHONY : _catkin_empty_exported_target
-
-# fast build rule for target.
-_catkin_empty_exported_target/fast:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f schunk_libm5api/CMakeFiles/_catkin_empty_exported_target.dir/build.make schunk_libm5api/CMakeFiles/_catkin_empty_exported_target.dir/build
-.PHONY : _catkin_empty_exported_target/fast
-
-# Convenience name for target.
 schunk_libm5api/CMakeFiles/m5api.dir/rule:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 schunk_libm5api/CMakeFiles/m5api.dir/rule
 .PHONY : schunk_libm5api/CMakeFiles/m5api.dir/rule
@@ -474,7 +460,6 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... _catkin_empty_exported_target"
 	@echo "... edit_cache"
 	@echo "... install"
 	@echo "... install/local"

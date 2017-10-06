@@ -31,4 +31,8 @@
           FIG
           POSE-VAL
           POSE
+          MOTION_TYPE-VAL
+          MOTION_TYPE
+          USER_STRING-VAL
+          USER_STRING
 ))

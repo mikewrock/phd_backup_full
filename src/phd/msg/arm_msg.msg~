@@ -12,6 +12,8 @@ float32 ry
 float32 rz
 float32 vel
 float32 acc
-int fig
+int32 fig
 bool pose
+int motion_type
+string user_string
 

@@ -56,19 +56,19 @@
   <node name="joint_fusion_node" pkg="phd" type="joint_fusion_node" output="screen" />
   
   
-  <!--- Run Denso node
-  <node name="denso_node" pkg="wrock" type="denso_node" output="screen" />
--->
+  <!--- Run Denso node-->
+  <node name="denso_node" pkg="phd" type="denso_node" output="screen" />
+
   <!--- Run master node 
     <node name="master" pkg="wrock" type="master" output="screen"> 
 </node>    -->
-<!-- hector mapping -->
+<!-- hector mapping 
 <node pkg="hector_mapping" type="hector_mapping" 
     name="hector_mapping" output="screen">
 
 
-
   </node>
+-->
   <!--- Run Move Base -->
 
   <arg name="no_static_map" default="false"/>

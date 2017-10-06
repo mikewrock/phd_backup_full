@@ -54,6 +54,10 @@
 
 #define CALC true
 #define DEBUG true
+#define PTP 1
+#define CP 2
+#define JOINT 3
+#define STRING 4
 
 namespace control_panel{
 namespace control_panel_ns{
@@ -460,9 +464,17 @@ return;
 		pcl::fromROSMsg(cloud_surface, *save_cloud);
 		pf << markername << ++cloud_ctr << "localized" << CLOUD << ".pcd";
 		if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
-		pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
-
-
+		//pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
+			//Open file for saving marker location
+	ofstream myfile;
+	std::stringstream fs;
+	fs << "/home/mike/testing/poses.csv";
+	myfile.open (fs.str().c_str(), std::ios::out|std::ios::app);
+	myfile << CLOUD << cloud_ctr << ",";
+	for(int i = 0; i <16; ++i){
+		myfile << loc_srv.response.transform_mat[i] << ",";
+	}
+	myfile << std::endl;
 		}else ROS_INFO("Service Failed");
 	}else {
 		rawpub.publish(cloud_msg);
@@ -662,12 +674,10 @@ void QNode::thickness(std::string before,std::string after){
 	sensor_msgs::PointCloud2 cloud_after;
 	//Load the file
 	if (pcl::io::loadPCDFile<pcl::PointXYZI> (before.c_str(), *pcl_before) == -1) PCL_ERROR ("Couldn't read file\n");
-	else{
-		if(DEBUG) ROS_INFO("File Opened");
+
 	//Load the file
 	if (pcl::io::loadPCDFile<pcl::PointXYZI> (after.c_str(), *pcl_after) == -1) PCL_ERROR ("Couldn't read file\n");
-	else{
-		if(DEBUG) ROS_INFO("File Opened");
+
 	
 	//Convert from PCL to ROS
 	pcl::toROSMsg(*pcl_before,cloud_before);
@@ -920,6 +930,115 @@ void QNode::estimate(std::string filename){
 	pub4.publish(cloud_msg4);
 	*/
 }
+
+
+
+void QNode::send_command(float x, float y, float z, float rx, float ry, float rz, float fig, int motion){
+
+	phd::arm_msg msg;
+	msg.x = x;
+	msg.y = y;
+	msg.z = z;
+	msg.rx = rx;
+	msg.ry = ry;
+	msg.rz = rz;
+	msg.fig = fig;
+	msg.motion_type = motion;
+	arm_pub.publish(msg);
+	ros::spinOnce();
+
+
+}
+void QNode::send_joint_command(float j1, float j2, float j3, float j4, float j5, float j6){
+	 
+	phd::arm_msg msg;
+	msg.j1 = j1;
+	msg.j2 = j2;
+	msg.j3 = j3;
+	msg.j4 = j4;
+	msg.j5 = j5;
+	msg.j6 = j6;
+	msg.motion_type = JOINT;
+	arm_pub.publish(msg);
+	ros::spinOnce();
+}
+
+
+void QNode::send_string(std::string user_string){
+	 
+	phd::arm_msg msg;
+	msg.user_string = user_string;
+	msg.motion_type = STRING;
+	arm_pub.publish(msg);
+	ros::spinOnce();
+
+}
+
+//Perform a laser scan, either localize the cloud or set it as the global frame, and save to disk
+void QNode::scan_360(){
+	//Create a message to send to the powercube node, moving the powercube to its start location
+	phd::cube_msg cube_cmd;
+	cube_cmd.j1 = -1.62;
+	cube_cmd.vel = 0.5;
+	cube_cmd.acc = 1;
+	//pose=true means we're sending a position. False means its a velocity and should eventually time out
+	cube_cmd.pose = true;
+	//Publish and spin
+	cmd_pub.publish(cube_cmd);
+	ros::spinOnce();
+	if(DEBUG) {
+		printf("j1: %f\n",joint1);
+		ROS_INFO("going to start");
+	}	
+	//Wait for the cube to reach the start location
+	while(joint1 > -1.6 && ros::ok()){
+	ros::spinOnce();
+	} 
+	//Set the start time for the laser assembler service	
+	srv.request.begin = ros::Time::now();
+	//Tell the cube to go to the end location
+	cube_cmd.j1 = 1.62;
+	cube_cmd.vel = 0.25;
+	cmd_pub.publish(cube_cmd);
+	ros::spinOnce();
+	if(DEBUG) ROS_INFO("waiting for end");
+	//Wait for cube to reach end location
+	while(joint1 < 1.6 && ros::ok()){
+		ros::spinOnce();
+	} 
+	if(DEBUG) ROS_INFO("done");
+	//Set end time for laser assembler
+	srv.request.end   = ros::Time::now();
+	//Spin to send the end time to the service before calling it
+	ros::spinOnce();
+
+	// Make the service call
+	if (client.call(srv)){
+		ROS_INFO("Assembled Cloud %d", (uint32_t)(srv.response.cloud.width)) ;
+		//Save the new scan as cloud_surface		
+		cloud_surface = srv.response.cloud;
+		//publish the raw cloud
+		rawpub.publish(cloud_surface);
+		//Save the pointcloud to disk using markername CLOUD and the counter
+		pcl::PointCloud<pcl::PointXYZI>::Ptr save_cloud (new pcl::PointCloud<pcl::PointXYZI>);
+		std::stringstream pf;
+		//Tell pcl what the 4th field information is
+		cloud_surface.fields[3].name = "intensity";
+		pcl::fromROSMsg(cloud_surface, *save_cloud);
+		cloud_ctr++;
+		pf << markername << cloud_ctr << "raw" << CLOUD << ".pcd";
+		if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
+		pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
+		//Tell ros what the 4th field information is
+		cloud_surface.fields[3].name = "intensities";
+		
+	}
+	else ROS_ERROR("Error making service call to laser assembler\n") ;
+	ros::spinOnce();
+
+}
+
+
 
 }
 };

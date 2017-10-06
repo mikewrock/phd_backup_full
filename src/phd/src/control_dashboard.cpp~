@@ -21,6 +21,10 @@
 #define ARM 1
 #define HUSKY 2
 #define SPEED 10
+#define PTP 1
+#define CP 2
+#define JOINT 3
+#define STRING 4
 
 namespace control_panel
 {
@@ -51,7 +55,8 @@ namespace control_panel
 		connect(ui_.cluster1, SIGNAL(clicked()), this, SLOT(cluster_1()));
 		connect(ui_.start_point, SIGNAL(clicked()), this, SLOT(start_pt()));
 		connect(ui_.gen_trajectory, SIGNAL(clicked()), this, SLOT(gen_trajectory()));
-		connect(ui_.fwdButton, SIGNAL(pressed()), this, SLOT(fwd_vel()));
+		connect(ui_.scan_360, SIGNAL(clicked()), this, SLOT(scan_360()));
+		/*connect(ui_.fwdButton, SIGNAL(pressed()), this, SLOT(fwd_vel()));
 		connect(ui_.revButton, SIGNAL(pressed()), this, SLOT(rev_vel()));
 		connect(ui_.turnLeft, SIGNAL(pressed()), this, SLOT(left_vel()));
 		connect(ui_.turnRight, SIGNAL(pressed()), this, SLOT(right_vel()));
@@ -83,6 +88,15 @@ namespace control_panel
 		connect(ui_.pitch_pos, SIGNAL(released()), this, SLOT(clear_vel()));
 		connect(ui_.yaw_neg, SIGNAL(released()), this, SLOT(clear_vel()));
 		connect(ui_.yaw_pos, SIGNAL(released()), this, SLOT(clear_vel()));
+*/
+		  connect(ui_.launch_node_button, SIGNAL(clicked()), this, SLOT(onLaunchNode()));
+		  connect(ui_.shutdown_button, SIGNAL(clicked()), this, SLOT(onShutdownCommand()));
+		  connect(ui_.clear_error_button, SIGNAL(clicked()), this, SLOT(onClearErrorCommand()));
+		  connect(ui_.ptp_command_button, SIGNAL(clicked()), this, SLOT(onPTPCommand()));
+		  connect(ui_.cp_command_button, SIGNAL(clicked()), this, SLOT(onCPCommand()));
+		  connect(ui_.speed_button, SIGNAL(clicked()), this, SLOT(onSpeedCommand()));
+		  connect(ui_.string_button, SIGNAL(clicked()), this, SLOT(onStringCommand()));
+		  connect(ui_.joint_command_button, SIGNAL(clicked()), this, SLOT(onJointCommand()));
 		//connect( output_timer, SIGNAL( timeout() ), this, SLOT( sendVel() ));
 		//Index for keeping track of which marker point is being clustered
 		cluster_index = 0;
@@ -118,7 +132,7 @@ namespace control_panel
 	//Calculate thickness from the two files specified
 	void ControlPanel::thickness(){
 
-		  control_panel.thickness(ui_.before_box->text().toStdString(),ui_.after_box->text().toStdString(),\);
+		  control_panel.thickness(ui_.before_box->text().toStdString(),ui_.after_box->text().toStdString());
 	}
 	//Estimate the position correction through registration
 	void ControlPanel::do_estimate(){
@@ -259,6 +273,27 @@ namespace control_panel
 	void ControlPanel::yaw_vel_pos(){
 
 		vel_control.move(YAW_UP,SPEED,ARM);
+
+	}
+
+	void ControlPanel::onPTPCommand(){
+
+		  control_panel.send_command(ui_.x_box->text().toFloat(),ui_.y_box->text().toFloat(),ui_.z_box->text().toFloat(),ui_.rx_box->text().toFloat(),ui_.ry_box->text().toFloat(),ui_.rz_box->text().toFloat(),ui_.fig_box->text().toFloat(), PTP);
+	}
+	void ControlPanel::onCPCommand(){
+
+		  control_panel.send_command(ui_.x_box->text().toFloat(),ui_.y_box->text().toFloat(),ui_.z_box->text().toFloat(),ui_.rx_box->text().toFloat(),ui_.ry_box->text().toFloat(),ui_.rz_box->text().toFloat(),ui_.fig_box->text().toFloat(), CP);
+	}
+
+
+	void ControlPanel::onJointCommand(){
+
+		control_panel.send_joint_command(ui_.j1_box->text().toFloat(),ui_.j2_box->text().toFloat(),ui_.j3_box->text().toFloat(),ui_.j4_box->text().toFloat(),ui_.j5_box->text().toFloat(),ui_.j6_box->text().toFloat());
+
+	}
+	void ControlPanel::onStringCommand(){
+
+		control_panel.send_string(ui_.string_box->text().toStdString());
 
 	}
 	

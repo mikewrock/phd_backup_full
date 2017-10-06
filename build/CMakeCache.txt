@@ -1477,6 +1477,12 @@ rostime_DIR:PATH=/opt/ros/indigo/share/rostime/cmake
 rviz_DIR:PATH=/opt/ros/indigo/share/rviz/cmake
 
 //Value Computed by CMake
+scanning_description_BINARY_DIR:STATIC=/home/mike/catkin_ws/build/scanning_description
+
+//Value Computed by CMake
+scanning_description_SOURCE_DIR:STATIC=/home/mike/catkin_ws/src/scanning_description
+
+//Value Computed by CMake
 schunk_libm5api_BINARY_DIR:STATIC=/home/mike/catkin_ws/build/schunk_libm5api
 
 //The directory containing a CMake configuration file for schunk_libm5api.
@@ -1723,7 +1729,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=20
+CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=21
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

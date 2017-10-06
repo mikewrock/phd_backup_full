@@ -7,7 +7,7 @@ import struct
 
 
 class arm_msg(genpy.Message):
-  _md5sum = "0bb97e20ed067fe2635824700ced1b68"
+  _md5sum = "60ecd3f39bc022e6e6d98a74d7b832ac"
   _type = "phd/arm_msg"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """float32 j1
@@ -26,10 +26,12 @@ float32 vel
 float32 acc
 int32 fig
 bool pose
+int32 motion_type
+string user_string
 
 """
-  __slots__ = ['j1','j2','j3','j4','j5','j6','x','y','z','rx','ry','rz','vel','acc','fig','pose']
-  _slot_types = ['float32','float32','float32','float32','float32','float32','float32','float32','float32','float32','float32','float32','float32','float32','int32','bool']
+  __slots__ = ['j1','j2','j3','j4','j5','j6','x','y','z','rx','ry','rz','vel','acc','fig','pose','motion_type','user_string']
+  _slot_types = ['float32','float32','float32','float32','float32','float32','float32','float32','float32','float32','float32','float32','float32','float32','int32','bool','int32','string']
 
   def __init__(self, *args, **kwds):
     """
@@ -39,7 +41,7 @@ bool pose
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       j1,j2,j3,j4,j5,j6,x,y,z,rx,ry,rz,vel,acc,fig,pose
+       j1,j2,j3,j4,j5,j6,x,y,z,rx,ry,rz,vel,acc,fig,pose,motion_type,user_string
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -80,6 +82,10 @@ bool pose
         self.fig = 0
       if self.pose is None:
         self.pose = False
+      if self.motion_type is None:
+        self.motion_type = 0
+      if self.user_string is None:
+        self.user_string = ''
     else:
       self.j1 = 0.
       self.j2 = 0.
@@ -97,6 +103,8 @@ bool pose
       self.acc = 0.
       self.fig = 0
       self.pose = False
+      self.motion_type = 0
+      self.user_string = ''
 
   def _get_types(self):
     """
@@ -111,7 +119,16 @@ bool pose
     """
     try:
       _x = self
-      buff.write(_struct_14fiB.pack(_x.j1, _x.j2, _x.j3, _x.j4, _x.j5, _x.j6, _x.x, _x.y, _x.z, _x.rx, _x.ry, _x.rz, _x.vel, _x.acc, _x.fig, _x.pose))
+      buff.write(_struct_14fiBi.pack(_x.j1, _x.j2, _x.j3, _x.j4, _x.j5, _x.j6, _x.x, _x.y, _x.z, _x.rx, _x.ry, _x.rz, _x.vel, _x.acc, _x.fig, _x.pose, _x.motion_type))
+      _x = self.user_string
+      length = len(_x)
+      if python3 or type(_x) == unicode:
+        _x = _x.encode('utf-8')
+        length = len(_x)
+      if python3:
+        buff.write(struct.pack('<I%sB'%length, length, *_x))
+      else:
+        buff.write(struct.pack('<I%ss'%length, length, _x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -124,9 +141,18 @@ bool pose
       end = 0
       _x = self
       start = end
-      end += 61
-      (_x.j1, _x.j2, _x.j3, _x.j4, _x.j5, _x.j6, _x.x, _x.y, _x.z, _x.rx, _x.ry, _x.rz, _x.vel, _x.acc, _x.fig, _x.pose,) = _struct_14fiB.unpack(str[start:end])
+      end += 65
+      (_x.j1, _x.j2, _x.j3, _x.j4, _x.j5, _x.j6, _x.x, _x.y, _x.z, _x.rx, _x.ry, _x.rz, _x.vel, _x.acc, _x.fig, _x.pose, _x.motion_type,) = _struct_14fiBi.unpack(str[start:end])
       self.pose = bool(self.pose)
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      if python3:
+        self.user_string = str[start:end].decode('utf-8')
+      else:
+        self.user_string = str[start:end]
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -140,7 +166,16 @@ bool pose
     """
     try:
       _x = self
-      buff.write(_struct_14fiB.pack(_x.j1, _x.j2, _x.j3, _x.j4, _x.j5, _x.j6, _x.x, _x.y, _x.z, _x.rx, _x.ry, _x.rz, _x.vel, _x.acc, _x.fig, _x.pose))
+      buff.write(_struct_14fiBi.pack(_x.j1, _x.j2, _x.j3, _x.j4, _x.j5, _x.j6, _x.x, _x.y, _x.z, _x.rx, _x.ry, _x.rz, _x.vel, _x.acc, _x.fig, _x.pose, _x.motion_type))
+      _x = self.user_string
+      length = len(_x)
+      if python3 or type(_x) == unicode:
+        _x = _x.encode('utf-8')
+        length = len(_x)
+      if python3:
+        buff.write(struct.pack('<I%sB'%length, length, *_x))
+      else:
+        buff.write(struct.pack('<I%ss'%length, length, _x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -154,12 +189,21 @@ bool pose
       end = 0
       _x = self
       start = end
-      end += 61
-      (_x.j1, _x.j2, _x.j3, _x.j4, _x.j5, _x.j6, _x.x, _x.y, _x.z, _x.rx, _x.ry, _x.rz, _x.vel, _x.acc, _x.fig, _x.pose,) = _struct_14fiB.unpack(str[start:end])
+      end += 65
+      (_x.j1, _x.j2, _x.j3, _x.j4, _x.j5, _x.j6, _x.x, _x.y, _x.z, _x.rx, _x.ry, _x.rz, _x.vel, _x.acc, _x.fig, _x.pose, _x.motion_type,) = _struct_14fiBi.unpack(str[start:end])
       self.pose = bool(self.pose)
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      if python3:
+        self.user_string = str[start:end].decode('utf-8')
+      else:
+        self.user_string = str[start:end]
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
 
 _struct_I = genpy.struct_I
-_struct_14fiB = struct.Struct("<14fiB")
+_struct_14fiBi = struct.Struct("<14fiBi")

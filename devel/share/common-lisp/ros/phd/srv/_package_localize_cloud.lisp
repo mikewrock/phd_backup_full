@@ -7,4 +7,6 @@
           MARKER_FILE
           CLOUD_OUT-VAL
           CLOUD_OUT
+          TRANSFORM_MAT-VAL
+          TRANSFORM_MAT
 ))

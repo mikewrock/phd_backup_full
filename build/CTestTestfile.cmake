@@ -5,6 +5,7 @@
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
 SUBDIRS(gtest)
+SUBDIRS(scanning_description)
 SUBDIRS(schunk_libm5api)
 SUBDIRS(husky_msgs)
 SUBDIRS(wrock_husky_description)

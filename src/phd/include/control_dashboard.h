@@ -60,7 +60,12 @@ void cluster_1();
 void trajectory();
 void cluster_2();
 void cluster_3();
-void gen_trajectory();
+void gen_trajectory();	
+void onPTPCommand();
+void onCPCommand();
+void onJointCommand();
+void onStringCommand();
+void scan_360();
 Q_SIGNALS:
 
 protected:

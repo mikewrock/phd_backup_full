@@ -86,7 +86,17 @@
     :reader pose
     :initarg :pose
     :type cl:boolean
-    :initform cl:nil))
+    :initform cl:nil)
+   (motion_type
+    :reader motion_type
+    :initarg :motion_type
+    :type cl:integer
+    :initform 0)
+   (user_string
+    :reader user_string
+    :initarg :user_string
+    :type cl:string
+    :initform ""))
 )
 
 (cl:defclass arm_msg (<arm_msg>)
@@ -176,6 +186,16 @@
 (cl:defmethod pose-val ((m <arm_msg>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader phd-msg:pose-val is deprecated.  Use phd-msg:pose instead.")
   (pose m))
+
+(cl:ensure-generic-function 'motion_type-val :lambda-list '(m))
+(cl:defmethod motion_type-val ((m <arm_msg>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader phd-msg:motion_type-val is deprecated.  Use phd-msg:motion_type instead.")
+  (motion_type m))
+
+(cl:ensure-generic-function 'user_string-val :lambda-list '(m))
+(cl:defmethod user_string-val ((m <arm_msg>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader phd-msg:user_string-val is deprecated.  Use phd-msg:user_string instead.")
+  (user_string m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <arm_msg>) ostream)
   "Serializes a message object of type '<arm_msg>"
   (cl:let ((bits (roslisp-utils:encode-single-float-bits (cl:slot-value msg 'j1))))
@@ -255,6 +275,18 @@
     (cl:write-byte (cl:ldb (cl:byte 8 24) unsigned) ostream)
     )
   (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:if (cl:slot-value msg 'pose) 1 0)) ostream)
+  (cl:let* ((signed (cl:slot-value msg 'motion_type)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 4294967296) signed)))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) unsigned) ostream)
+    )
+  (cl:let ((__ros_str_len (cl:length (cl:slot-value msg 'user_string))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) __ros_str_len) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) __ros_str_len) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) __ros_str_len) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) __ros_str_len) ostream))
+  (cl:map cl:nil #'(cl:lambda (c) (cl:write-byte (cl:char-code c) ostream)) (cl:slot-value msg 'user_string))
 )
 (cl:defmethod roslisp-msg-protocol:deserialize ((msg <arm_msg>) istream)
   "Deserializes a message object of type '<arm_msg>"
@@ -349,6 +381,20 @@
       (cl:setf (cl:ldb (cl:byte 8 24) unsigned) (cl:read-byte istream))
       (cl:setf (cl:slot-value msg 'fig) (cl:if (cl:< unsigned 2147483648) unsigned (cl:- unsigned 4294967296))))
     (cl:setf (cl:slot-value msg 'pose) (cl:not (cl:zerop (cl:read-byte istream))))
+    (cl:let ((unsigned 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:slot-value msg 'motion_type) (cl:if (cl:< unsigned 2147483648) unsigned (cl:- unsigned 4294967296))))
+    (cl:let ((__ros_str_len 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) __ros_str_len) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) __ros_str_len) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) __ros_str_len) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) __ros_str_len) (cl:read-byte istream))
+      (cl:setf (cl:slot-value msg 'user_string) (cl:make-string __ros_str_len))
+      (cl:dotimes (__ros_str_idx __ros_str_len msg)
+        (cl:setf (cl:char (cl:slot-value msg 'user_string) __ros_str_idx) (cl:code-char (cl:read-byte istream)))))
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<arm_msg>)))
@@ -359,16 +405,16 @@
   "phd/arm_msg")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<arm_msg>)))
   "Returns md5sum for a message object of type '<arm_msg>"
-  "0bb97e20ed067fe2635824700ced1b68")
+  "60ecd3f39bc022e6e6d98a74d7b832ac")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'arm_msg)))
   "Returns md5sum for a message object of type 'arm_msg"
-  "0bb97e20ed067fe2635824700ced1b68")
+  "60ecd3f39bc022e6e6d98a74d7b832ac")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<arm_msg>)))
   "Returns full string definition for message of type '<arm_msg>"
-  (cl:format cl:nil "float32 j1~%float32 j2~%float32 j3~%float32 j4~%float32 j5~%float32 j6~%float32 x~%float32 y~%float32 z~%float32 rx~%float32 ry~%float32 rz~%float32 vel~%float32 acc~%int32 fig~%bool pose~%~%~%~%"))
+  (cl:format cl:nil "float32 j1~%float32 j2~%float32 j3~%float32 j4~%float32 j5~%float32 j6~%float32 x~%float32 y~%float32 z~%float32 rx~%float32 ry~%float32 rz~%float32 vel~%float32 acc~%int32 fig~%bool pose~%int32 motion_type~%string user_string~%~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'arm_msg)))
   "Returns full string definition for message of type 'arm_msg"
-  (cl:format cl:nil "float32 j1~%float32 j2~%float32 j3~%float32 j4~%float32 j5~%float32 j6~%float32 x~%float32 y~%float32 z~%float32 rx~%float32 ry~%float32 rz~%float32 vel~%float32 acc~%int32 fig~%bool pose~%~%~%~%"))
+  (cl:format cl:nil "float32 j1~%float32 j2~%float32 j3~%float32 j4~%float32 j5~%float32 j6~%float32 x~%float32 y~%float32 z~%float32 rx~%float32 ry~%float32 rz~%float32 vel~%float32 acc~%int32 fig~%bool pose~%int32 motion_type~%string user_string~%~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <arm_msg>))
   (cl:+ 0
      4
@@ -387,6 +433,8 @@
      4
      4
      1
+     4
+     4 (cl:length (cl:slot-value msg 'user_string))
 ))
 (cl:defmethod roslisp-msg-protocol:ros-message-to-list ((msg <arm_msg>))
   "Converts a ROS message object to a list"
@@ -407,4 +455,6 @@
     (cl:cons ':acc (acc msg))
     (cl:cons ':fig (fig msg))
     (cl:cons ':pose (pose msg))
+    (cl:cons ':motion_type (motion_type msg))
+    (cl:cons ':user_string (user_string msg))
 ))
