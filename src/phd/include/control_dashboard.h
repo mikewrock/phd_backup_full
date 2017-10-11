@@ -13,6 +13,7 @@
 #include <QFileInfo>
 #include "control_panel.hpp"
 #include "vel_control.hpp"
+#include <phd/arm_msg.h>
 
 namespace control_panel
 {
@@ -26,6 +27,7 @@ public:
   virtual ~ControlPanel();
 
 protected:
+void poseCB(const phd::arm_msg msg);
 protected Q_SLOTS:
 //All of these functions are explained in control_dashboard.cpp
 void do_nav();
@@ -66,10 +68,14 @@ void onCPCommand();
 void onJointCommand();
 void onStringCommand();
 void scan_360();
+void load_traj();
+void rosSpinner();
 Q_SIGNALS:
 
 protected:
   Ui::Control_Form ui_;
+  ros::NodeHandle nh_;
+  ros::Subscriber pose_sub_;
 
 
 private:

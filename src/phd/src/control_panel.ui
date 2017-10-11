@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <property name="movable">
     <bool>false</bool>
@@ -88,7 +88,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>465</y>
+       <y>500</y>
        <width>121</width>
        <height>31</height>
       </rect>
@@ -266,8 +266,8 @@ color: rgb(255, 255, 255);</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>425</y>
-       <width>121</width>
+       <y>460</y>
+       <width>91</width>
        <height>31</height>
       </rect>
      </property>
@@ -279,7 +279,7 @@ color: rgb(255, 255, 255);</string>
      <property name="geometry">
       <rect>
        <x>140</x>
-       <y>425</y>
+       <y>460</y>
        <width>121</width>
        <height>31</height>
       </rect>
@@ -328,6 +328,9 @@ color: rgb(255, 255, 255);</string>
      </property>
     </widget>
     <widget class="QCheckBox" name="set_home">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>140</x>
@@ -340,7 +343,7 @@ color: rgb(255, 255, 255);</string>
       <string>Set Home</string>
      </property>
      <property name="checked">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
     </widget>
     <widget class="QLineEdit" name="marker_name_box">
@@ -353,20 +356,65 @@ color: rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="text">
-      <string>/home/mike/testing/</string>
+      <string>/home/mike/testing/s</string>
      </property>
     </widget>
     <widget class="QPushButton" name="scan_360">
      <property name="geometry">
       <rect>
        <x>140</x>
-       <y>465</y>
+       <y>500</y>
        <width>121</width>
        <height>31</height>
       </rect>
      </property>
      <property name="text">
       <string>360 scan</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="f_traj">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>420</y>
+       <width>81</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Load Traj</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="filename_box_2">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>420</y>
+       <width>161</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>/home/mike/testing/s1trajectory.bag</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="step">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>460</y>
+       <width>21</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
      </property>
     </widget>
    </widget>
@@ -511,7 +559,7 @@ color: rgb(255, 255, 255);</string>
       <string>Send CP</string>
      </property>
     </widget>
-    <widget class="QTextBrowser" name="rx_browser_2">
+    <widget class="QTextBrowser" name="rz_browser">
      <property name="geometry">
       <rect>
        <x>200</x>
@@ -681,7 +729,7 @@ color: rgb(255, 255, 255);</string>
       <string>Current Pose:</string>
      </property>
     </widget>
-    <widget class="QTextBrowser" name="j3_browser_2">
+    <widget class="QTextBrowser" name="j4_browser">
      <property name="geometry">
       <rect>
        <x>20</x>

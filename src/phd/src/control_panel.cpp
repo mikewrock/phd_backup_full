@@ -15,6 +15,7 @@
 #include <std_msgs/Float64.h>
 #include <rosbag/bag.h>
 #include <rosbag/view.h>
+#include <boost/foreach.hpp>
 //C++ includes
 #include <math.h>
 #include <string>
@@ -58,12 +59,14 @@
 #define CP 2
 #define JOINT 3
 #define STRING 4
+#define OFFSET .8
 
 namespace control_panel{
 namespace control_panel_ns{
 
 //For displaying arm trajectory
 visualization_msgs::Marker point_list;
+visualization_msgs::Marker armpoint_list;
 //For keeping track of the powercube joint
 double joint1;
 //For assembling the laser scans
@@ -132,6 +135,10 @@ bool QNode::init() {
 	pub3 = nh_.advertise<sensor_msgs::PointCloud2> ("aligned_cloud3", 1);
 	pub4 = nh_.advertise<sensor_msgs::PointCloud2> ("aligned_cloud4", 1);
 	pub5 = nh_.advertise<sensor_msgs::PointCloud2> ("aligned_cloud5", 1);
+	marker_pub = nh_.advertise<visualization_msgs::Marker>( "visualization_marker", 0 );
+	path_pub = nh_.advertise<visualization_msgs::Marker>( "path_marker", 0 );
+	dir_pub = nh_.advertise<visualization_msgs::Marker>( "dir_marker", 0 );
+	arm_pose_pub = nh_.advertise<visualization_msgs::Marker>( "pose_marker", 0 );
 	//Publisher for displaying navigation goal
 	nav_vis_pub = nh_.advertise<visualization_msgs::Marker>( "nav_vis_goal", 0 );
 	//Publisher for advertising navigation goal
@@ -166,6 +173,7 @@ bool QNode::init() {
 	sec_ctr = 0;
 	pt_ctr = 0;
 	cloud_ctr = 0;
+	tctr = 0;
 	//ros::start();
 }
 
@@ -274,12 +282,15 @@ void QNode::run() {
 }
 
 //Testing function used to step through the trajectory points
-void QNode::step(){
-	//Generate and arm_msg and populatie it with the current point in the trajectory array
+void QNode::step(bool arm){
+	//Generate and arm_msg and populate it with the current point in the trajectory array
 	phd::arm_msg msg;
-	msg.x = traj.sections[sec_ctr].points[pt_ctr].x;
-	msg.y = traj.sections[sec_ctr].points[pt_ctr].y;
-	msg.z = traj.sections[sec_ctr].points[pt_ctr].z;
+	msg.x = traj.sections[sec_ctr].points[pt_ctr].x-traj.sections[sec_ctr].points[pt_ctr].nx*OFFSET -.156971;
+	msg.y = traj.sections[sec_ctr].points[pt_ctr].y-traj.sections[sec_ctr].points[pt_ctr].ny*OFFSET + .096013;
+	msg.z = traj.sections[sec_ctr].points[pt_ctr].z-traj.sections[sec_ctr].points[pt_ctr].nz*OFFSET - .405369;
+	msg.x = msg.x*1000;
+	msg.y = msg.y*1000;
+	msg.z = msg.z*1000;
 	//Caluclate the rotation around the X and Y axis from the normal vector
 	float length = sqrt(pow(traj.sections[sec_ctr].points[pt_ctr].nx,2)+pow(traj.sections[sec_ctr].points[pt_ctr].ny,2)+pow(traj.sections[sec_ctr].points[pt_ctr].nz,2));
 	msg.rx = asin(traj.sections[sec_ctr].points[pt_ctr].ny / length);
@@ -296,8 +307,33 @@ void QNode::step(){
 		++sec_ctr;
 		pt_ctr = 0;
 	}
+	msg.motion_type = PTP;
+
+	//DELETE THIS
+	msg.rx = 0;
+	msg.ry = 90;
+	msg.rz = 0;
+	//Initialize the trajectory display marker	
+	armpoint_list.header.frame_id = "/BASE";
+	armpoint_list.header.stamp = ros::Time::now();
+	armpoint_list.ns = "points_and_lines";
+	armpoint_list.action = visualization_msgs::Marker::ADD;
+	armpoint_list.pose.orientation.w = 1.0;
+	armpoint_list.id = 0;
+	armpoint_list.type = visualization_msgs::Marker::POINTS;
+	armpoint_list.scale.x = 0.01;
+	armpoint_list.scale.y = 0.01;
+	armpoint_list.color.r = 1.0;
+	armpoint_list.color.a = 1;
+	geometry_msgs::Point p;	
+	p.x = -msg.x/1000;
+	p.y = -msg.y/1000;
+	p.z = msg.z/1000;
+	armpoint_list.points.push_back(p);
+	arm_pose_pub.publish(armpoint_list);
+	ros::spinOnce();
 	//Send the command to the arm
-	arm_pub.publish(msg);
+	if(arm) arm_pub.publish(msg);
 
 }
 
@@ -343,25 +379,25 @@ void QNode::scan(std::string markername, bool localize){
 	if (client.call(srv)){
 		ROS_INFO("Assembled Cloud %d", (uint32_t)(srv.response.cloud.width)) ;
 		//Save the new scan as cloud_surface		
-		cloud_surface = srv.response.cloud;
+		cloud_surface_raw = srv.response.cloud;
 		//publish the raw cloud
-		rawpub.publish(cloud_surface);
+		rawpub.publish(cloud_surface_raw);
 		//Save the pointcloud to disk using markername CLOUD and the counter
 		pcl::PointCloud<pcl::PointXYZI>::Ptr save_cloud (new pcl::PointCloud<pcl::PointXYZI>);
 		std::stringstream pf;
 		//Tell pcl what the 4th field information is
-		cloud_surface.fields[3].name = "intensity";
-		pcl::fromROSMsg(cloud_surface, *save_cloud);
+		cloud_surface_raw.fields[3].name = "intensity";
+		pcl::fromROSMsg(cloud_surface_raw, *save_cloud);
 		cloud_ctr++;
 		pf << markername << cloud_ctr << "raw" << CLOUD << ".pcd";
 		if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
 		pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
 		//Tell ros what the 4th field information is
-		cloud_surface.fields[3].name = "intensities";
+		cloud_surface_raw.fields[3].name = "intensities";
 		//If set home box is checked, tell localization to save marker location to the filename specified, otheriwse load the file and localize
 		if(DEBUG&&localize) ROS_INFO("Setting Home");	
 		//Call the localization service, it will transform the cloud if the set home box is not checked
-		loc_srv.request.cloud_in = cloud_surface;
+		loc_srv.request.cloud_in = cloud_surface_raw;
 		loc_srv.request.homing = localize;
 		loc_srv.request.marker_file = markername;
 		if(loc_client.call(loc_srv)){
@@ -374,9 +410,12 @@ void QNode::scan(std::string markername, bool localize){
 			pcl::fromROSMsg(cloud_save, *save_cloud);
 			pf.str("");			
 			if(localize){
-				cloud_surface = loc_srv.response.cloud_out;
+				cloud_surface_world = loc_srv.response.cloud_out;
 				pf << markername << cloud_ctr << "home" << CLOUD << ".pcd";
-			}else pf << markername << cloud_ctr << "localized" << CLOUD << ".pcd";
+			}else{
+				cloud_surface_world = loc_srv.response.cloud_out;
+				pf << markername << cloud_ctr << "localized" << CLOUD << ".pcd";
+			}
 			pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
 		}else{
 			ROS_INFO("Localize Service Failed");
@@ -455,13 +494,13 @@ return;
 		if(loc_client.call(loc_srv)){
 			ROS_INFO("Localized Cloud %d", (uint32_t)(loc_srv.response.cloud_out.width));
 			pub.publish(loc_srv.response.cloud_out);
-			cloud_surface = loc_srv.response.cloud_out;
+			cloud_surface_world = loc_srv.response.cloud_out;
 
 		pcl::PointCloud<pcl::PointXYZI>::Ptr save_cloud (new pcl::PointCloud<pcl::PointXYZI>);
 		std::stringstream pf;
 		//Tell pcl what the 4th field information is
-		cloud_surface.fields[3].name = "intensity";
-		pcl::fromROSMsg(cloud_surface, *save_cloud);
+		cloud_surface_world.fields[3].name = "intensity";
+		pcl::fromROSMsg(cloud_surface_world, *save_cloud);
 		pf << markername << ++cloud_ctr << "localized" << CLOUD << ".pcd";
 		if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
 		//pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
@@ -501,7 +540,7 @@ void QNode::lscan(){
 	if(loc_client.call(loc_srv)){
 	ROS_INFO("Received Cloud %d", (uint32_t)(loc_srv.response.cloud_out.width));
 		      pub.publish(loc_srv.response.cloud_out);
-			cloud_surface = loc_srv.response.cloud_out;
+			cloud_surface_world = loc_srv.response.cloud_out;
 	}else ROS_INFO("Service Failed");
 }
 //This function save the location of the IR reflective ball by clustering the highly reflective points in to a single location
@@ -640,8 +679,8 @@ void QNode::start_pt(){
 
 }
 //Call the trajectory service, providing it with a starting point, pointcloud to cover, and original pointcloud surface (for calculating normals) 
-void QNode::gen_trajectory(){
-	if(DEBUG) ROS_INFO("Generating Trajectory") ;
+void QNode::gen_trajectory(std::string filename){
+	if(DEBUG) ROS_INFO("Generating Trajectory starting from %f - %f - %f",T1x,T1y,T1z) ;
 	//Set the start point
 	traj_srv.request.P1x = T1x;
 	traj_srv.request.P1y = T1y;
@@ -651,16 +690,47 @@ void QNode::gen_trajectory(){
 	pcl::toROSMsg(*current_pc_,cloud_msg);
 	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
 	cloud_msg.fields[3].name = "intensities";
-	cloud_msg.header.frame_id = "/base_link";
+	cloud_msg.header.frame_id = "/world";
 	traj_srv.request.cloud_in = cloud_msg;
 	//Set the original surface for normals
-	traj_srv.request.cloud_surface = cloud_surface;
+	traj_srv.request.cloud_surface = cloud_surface_world;
 	//Call the service
 	if(traj_client.call(traj_srv)){
 		if(DEBUG) ROS_INFO("Received Trajectory");
 		//Save the trajectory response
 		traj = traj_srv.response.trajectory;
+
+		rosbag::Bag bag;
+		std::stringstream bagname;
+		bagname << filename << ++tctr << "trajectory.bag";
+		bag.open(bagname.str().c_str(), rosbag::bagmode::Write);
+		bag.write("trajectory", ros::Time::now(), traj);
+		bag.close();
+
+
+
 	}else ROS_INFO("Service Failed");
+
+}
+
+void QNode::load_traj(std::string filename){
+		
+		rosbag::Bag bag;
+		std::stringstream bagname;
+		bagname << filename;
+		ROS_INFO("Loading trajectory %s",bagname.str().c_str());
+		bag.open(bagname.str().c_str(), rosbag::bagmode::Read);
+		std::vector<std::string> topics;
+		topics.push_back("trajectory");
+		rosbag::View view(bag, rosbag::TopicQuery(topics));
+		BOOST_FOREACH(rosbag::MessageInstance const m, view){
+
+			phd::trajectory_array::ConstPtr i = m.instantiate<phd::trajectory_array>();
+			if (i != NULL) traj = *i;
+		}
+		bag.close();	
+		show_markers(traj);
+
 
 }
 //calculate thickess between two files
@@ -699,13 +769,13 @@ void QNode::thickness(std::string before,std::string after){
 		if(thick_client.call(thick_srv)){
 			ROS_INFO("Thick Cloud %d", (uint32_t)(thick_srv.response.cloud_out.width));
 			pub.publish(thick_srv.response.cloud_out);
-			cloud_surface = thick_srv.response.cloud_out;
+			cloud_surface_world = thick_srv.response.cloud_out;
 
 		pcl::PointCloud<pcl::PointXYZI>::Ptr save_cloud (new pcl::PointCloud<pcl::PointXYZI>);
 		std::stringstream pf;
 		//Tell pcl what the 4th field information is
-		cloud_surface.fields[3].name = "intensity";
-		pcl::fromROSMsg(cloud_surface, *save_cloud);
+		cloud_surface_world.fields[3].name = "intensity";
+		pcl::fromROSMsg(cloud_surface_world, *save_cloud);
 		pf << "/home/mike/testing/" << ++cloud_ctr << "thickened" << CLOUD << ".pcd";
 		if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
 		pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
@@ -1016,21 +1086,21 @@ void QNode::scan_360(){
 	if (client.call(srv)){
 		ROS_INFO("Assembled Cloud %d", (uint32_t)(srv.response.cloud.width)) ;
 		//Save the new scan as cloud_surface		
-		cloud_surface = srv.response.cloud;
+		cloud_surface_raw = srv.response.cloud;
 		//publish the raw cloud
-		rawpub.publish(cloud_surface);
+		rawpub.publish(cloud_surface_raw);
 		//Save the pointcloud to disk using markername CLOUD and the counter
 		pcl::PointCloud<pcl::PointXYZI>::Ptr save_cloud (new pcl::PointCloud<pcl::PointXYZI>);
 		std::stringstream pf;
 		//Tell pcl what the 4th field information is
-		cloud_surface.fields[3].name = "intensity";
-		pcl::fromROSMsg(cloud_surface, *save_cloud);
+		cloud_surface_raw.fields[3].name = "intensity";
+		pcl::fromROSMsg(cloud_surface_raw, *save_cloud);
 		cloud_ctr++;
 		pf << "360_scan" << cloud_ctr << "raw" << CLOUD << ".pcd";
 		if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
 		pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
 		//Tell ros what the 4th field information is
-		cloud_surface.fields[3].name = "intensities";
+		cloud_surface_raw.fields[3].name = "intensities";
 		
 	}
 	else ROS_ERROR("Error making service call to laser assembler\n") ;
@@ -1038,7 +1108,133 @@ void QNode::scan_360(){
 
 }
 
+void QNode::show_markers(phd::trajectory_array t_array){
 
+	uint32_t shape = visualization_msgs::Marker::LINE_LIST;
+	visualization_msgs::Marker marker;
+	visualization_msgs::Marker path;
+	visualization_msgs::Marker surface_path;
+	// Set the frame ID and timestamp.  See the TF tutorials for information on these.
+	marker.header.frame_id = "/world";
+	marker.header.stamp = ros::Time::now();
+	marker.ns = "basic_shapes";
+	marker.id = 0;
+	marker.type = shape;
+	marker.action = visualization_msgs::Marker::ADD;
+	marker.pose.position.x = 0;
+	marker.pose.position.y = 0;
+	marker.pose.position.z = 0;
+	marker.pose.orientation.x = 0.0;
+	marker.pose.orientation.y = 0.0;
+	marker.pose.orientation.z = 0.0;
+	marker.pose.orientation.w = 1.0;
+	marker.scale.x = 0.01;
+	marker.scale.y = 0.01;
+	//marker.scale.y = 0.015;
+	marker.color.r = 0.0f;
+	marker.color.g = 0.0f;
+	marker.color.b = 1.0f;
+	marker.color.a = 0.8;
+	marker.lifetime = ros::Duration();
+	
+	    // Set the frame ID and timestamp.  See the TF tutorials for information on these.
+	path.header.frame_id = "/world";
+	path.header.stamp = ros::Time::now();
+	// Set the namespace and id for this path.  This serves to create a unique ID
+	// Any path sent with the same namespace and id will overwrite the old one
+	path.ns = "path_shapes";
+	path.id = 0;
+	// Set the path type.  Initially this is CUBE, and cycles between that and SPHERE, ARROW, and CYLINDER
+	path.type = visualization_msgs::Marker::LINE_STRIP;
+	// Set the path action.  Options are ADD, DELETE, and new in ROS Indigo: 3 (DELETEALL)
+	path.action = visualization_msgs::Marker::ADD;
+	// Set the pose of the path.  This is a full 6DOF pose relative to the frame/time specified in the header
+	path.pose.position.x = 0;
+	path.pose.position.y = 0;
+	path.pose.position.z = 0;
+	path.pose.orientation.x = 0.0;
+	path.pose.orientation.y = 0.0;
+	path.pose.orientation.z = 0.0;
+	path.pose.orientation.w = 1.0;
+	// Set the scale of the path -- 1x1x1 here means 1m on a side
+	path.scale.x = 0.01;
+	// Set the color -- be sure to set alpha to something non-zero!
+	path.color.r = 0.0f;
+	path.color.g = 1.0f;
+	path.color.b = 0.0f;
+	path.color.a = 1.0;
+	path.lifetime = ros::Duration();	    
+	// Set the frame ID and timestamp.  See the TF tutorials for information on these.
+	surface_path.header.frame_id = "/world";
+	surface_path.header.stamp = ros::Time::now();
+	// Set the namespace and id for this path.  This serves to create a unique ID
+	// Any path sent with the same namespace and id will overwrite the old one
+	surface_path.ns = "surface_path_shapes";
+	surface_path.id = 0;
+	// Set the path type.  Initially this is CUBE, and cycles between that and SPHERE, ARROW, and CYLINDER
+	surface_path.type = visualization_msgs::Marker::LINE_STRIP;
+	// Set the path action.  Options are ADD, DELETE, and new in ROS Indigo: 3 (DELETEALL)
+	surface_path.action = visualization_msgs::Marker::ADD;
+	// Set the pose of the path.  This is a full 6DOF pose relative to the frame/time specified in the header
+	surface_path.pose.position.x = 0;
+	surface_path.pose.position.y = 0;
+	surface_path.pose.position.z = 0;
+	surface_path.pose.orientation.x = 0.0;
+	surface_path.pose.orientation.y = 0.0;
+	surface_path.pose.orientation.z = 0.0;
+	surface_path.pose.orientation.w = 1.0;
+	// Set the scale of the path -- 1x1x1 here means 1m on a side
+	surface_path.scale.x = 0.01;
+	// Set the color -- be sure to set alpha to something non-zero!
+	surface_path.color.r = 1.0f;
+	surface_path.color.g = 0.0f;
+	surface_path.color.b = 0.0f;
+	surface_path.color.a = 1.0;
+	surface_path.lifetime = ros::Duration();
+	phd::trajectory_msg t_msg;
+	for(int ctr = 0; ctr < t_array.sections.size(); ++ctr){
+
+		path.id = ctr;
+		surface_path.id = ctr;
+		marker.id = ctr;
+		path.color.b = 0.2*ctr;
+		marker.color.r = 0.2*ctr;
+		t_msg.points.swap(t_array.sections[ctr].points);
+		int num_pts = t_msg.points.size();
+		path.points.resize(num_pts);
+		surface_path.points.resize(num_pts);
+		marker.points.resize(2*num_pts);
+		for(int i = 0; i < num_pts; ++i){
+		
+			//ROS_INFO("SPoint %d: %f- %f- %f",i,t_msg.points[i].x,t_msg.points[i].y,t_msg.points[i].z);
+			//ROS_INFO("Normal %d: %f- %f- %f",i,t_msg.points[i].nx,t_msg.points[i].ny,t_msg.points[i].nz);
+			path.points[i].x = t_msg.points[i].x-(OFFSET*t_msg.points[i].nx);
+			path.points[i].y = t_msg.points[i].y-(OFFSET*t_msg.points[i].ny);
+			path.points[i].z = t_msg.points[i].z-(OFFSET*t_msg.points[i].nz);
+			surface_path.points[i].x = t_msg.points[i].x;
+			surface_path.points[i].y = t_msg.points[i].y;
+			surface_path.points[i].z = t_msg.points[i].z;
+
+			//ROS_INFO("Point %d: %f- %f- %f",i,path.points[i].x,path.points[i].y,path.points[i].z);
+			marker.points[i*2].x = t_msg.points[i].x-(OFFSET*t_msg.points[i].nx);
+			marker.points[i*2].y = t_msg.points[i].y-(OFFSET*t_msg.points[i].ny);
+			marker.points[i*2].z = t_msg.points[i].z-(OFFSET*t_msg.points[i].nz);
+			marker.points[(i*2)+1].x = t_msg.points[i].x;
+			marker.points[(i*2)+1].y = t_msg.points[i].y;
+			marker.points[(i*2)+1].z = t_msg.points[i].z;
+		}
+
+		dir_pub.publish(surface_path);
+		ros::Duration(0.5).sleep();
+		path_pub.publish(path);
+		ros::Duration(0.5).sleep();
+		marker_pub.publish(marker);
+		ros::Duration(0.5).sleep();
+		ros::spinOnce();
+	}
+	
+
+}
 
 }
 };

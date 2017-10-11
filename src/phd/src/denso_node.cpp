@@ -51,22 +51,25 @@ int n;
 		case PTP: 
 			n=sprintf(buffer,"@P P(%f,%f,%f,%f,%f,%f,%d)",msg->x,msg->y,msg->z,msg->rx,msg->ry,msg->rz,msg->fig);
 			cp_flag = false;
+			if(DEBUG) ROS_INFO("Sending PTP %s",buffer);
 			break;
 		case CP: 
 			n=sprintf(buffer,"@P P(%f,%f,%f,%f,%f,%f,%d)",msg->x,msg->y,msg->z,msg->rx,msg->ry,msg->rz,msg->fig);
 			cp_flag = true;
+			if(DEBUG) ROS_INFO("Sending CP %s",buffer);
 			break;
 		case JOINT:
 			n=sprintf(buffer,"@P J(%f,%f,%f,%f,%f,%f,0)",msg->j1,msg->j2,msg->j3,msg->j4,msg->j5,msg->j6);
 			cp_flag = false;
+			if(DEBUG) ROS_INFO("Sending %s",buffer);
 			break;
 		case STRING:
 			n=sprintf(buffer,"%s",msg->user_string.c_str());
 			cp_flag = false;
+			if(DEBUG) ROS_INFO("Sending %s",buffer);
 		}
 			
 	move_flag = true; //Tell the loop in main a new command has come in
-	if(DEBUG) ROS_INFO("Sending %s",buffer);
 }
 
 //Initialization function
@@ -85,6 +88,8 @@ int main(int argc, char **argv)
 	ros::Rate loop_rate(30); //Set the rate to 30Hz
 	//Joint states published on /arm_joint_states to be fused by joint_state_fusion
 	ros::Publisher joint_pub = nh.advertise<sensor_msgs::JointState>("arm_joint_states", 1);
+	//pose publisher
+	ros::Publisher pose_pub = nh.advertise<phd::arm_msg>("arm_pose", 1);
 	sensor_msgs::JointState joint_state;    
 
 	//Publish initial values
@@ -137,7 +142,7 @@ int main(int argc, char **argv)
 		joint_state.position[4] = -3.14/180*dJnt[4];
 		joint_pub.publish(joint_state);
 
-		/*//Read pose, copy to dPos, and publish
+		//Read pose, copy to dPos, and publish
 		hr = bCap_VariableGetValue(fd, pHandle, &vPos);
 		SafeArrayAccessData(vPos.parray, (void**)&pdArray);
 		memcpy(dPos, pdArray, sizeof(dPos));
@@ -152,7 +157,7 @@ int main(int argc, char **argv)
 		pose_msg.ry = dPos[4];
 		pose_msg.rz = dPos[5];
 		pose_msg.fig = dPos[6];
-		pose_pub.publish(pose_msg);*/
+		pose_pub.publish(pose_msg);
 
 		//Check for arm command and publish joint states
 		ros::spinOnce();
@@ -160,7 +165,7 @@ int main(int argc, char **argv)
 		if(move_flag){      
 
 			move_flag = false; //Reset move flag
-			if(DEBUG) ROS_INFO("Moving to: %s",buffer);
+			//if(DEBUG) ROS_INFO("Moving to: %s",buffer);
 			//Copy contents of buffer to our wide char array for the variant to hold
 			n=swprintf(wstr,180, L"%s",buffer);
 			vntParam.vt = VT_BSTR; //set the parameter type to b-string
@@ -174,8 +179,69 @@ int main(int argc, char **argv)
 			}
 			SysFreeString(bstrCommand); //free the bstring from memory
 			VariantClear(&vntParam); //clear the variant
-			if (FAILED(hr))
+			if (FAILED(hr)){
 				ROS_ERROR("Move command failed %x",hr);
+				  	hr = bCap_VariableGetValue(fd, hErr, &vntErr);
+				  	if(DEBUG) ROS_INFO("Errors %x", vntErr.lVal);
+				  	int eStatus = vntErr.lVal;
+				  	VariantClear(&vntErr);
+				/*//Sometimes it takes multiple calls to clear all the errors so its in a while loop
+				int eStatus = 1;
+  				while(ros::ok() && eStatus !=  0){
+				  	if(DEBUG) ROS_INFO("Clearing errors");
+				  	// Clear previous errors
+				  	bstrCommand = SysAllocString(L"ClearError");
+				  	vntParam.lVal = 0;
+				  	vntParam.vt = VT_I4;
+				  	hr = bCap_ControllerExecute(fd, hCtrl, bstrCommand, vntParam, &vntErr);
+				  	if (FAILED(hr))
+				  	  ROS_ERROR("[ClearError] command failed %x",hr);
+				 	 else if(DEBUG) ROS_INFO("Errors Cleared");
+				  	SysFreeString(bstrCommand);
+				  	VariantClear(&vntParam);
+				  	VariantClear(&vntErr);
+				  	//Check for error codes
+				  	hr = bCap_VariableGetValue(fd, hErr, &vntErr);
+				  	if(DEBUG) ROS_INFO("Errors %x", vntErr.lVal);
+				  	eStatus = vntErr.lVal;
+				  	VariantClear(&vntErr);
+ 				}  
+				hr = bCap_TaskStart(fd, hTask, 1, NULL);
+				if FAILED(hr) {
+  				ROS_INFO("Could not restart task: %x",hr);
+				}else if(DEBUG) ROS_INFO("Restarted Task"); 
+				eStatus = 1;
+  				while(ros::ok() && eStatus !=  0){
+				  	if(DEBUG) ROS_INFO("Clearing errors");
+				  	// Clear previous errors
+				  	bstrCommand = SysAllocString(L"ClearError");
+				  	vntParam.lVal = 0;
+				  	vntParam.vt = VT_I4;
+				  	hr = bCap_ControllerExecute(fd, hCtrl, bstrCommand, vntParam, &vntErr);
+				  	if (FAILED(hr))
+				  	  ROS_ERROR("[ClearError] command failed %x",hr);
+				 	 else if(DEBUG) ROS_INFO("Errors Cleared");
+				  	SysFreeString(bstrCommand);
+				  	VariantClear(&vntParam);
+				  	VariantClear(&vntErr);
+				  	//Check for error codes
+				  	hr = bCap_VariableGetValue(fd, hErr, &vntErr);
+				  	if(DEBUG) ROS_INFO("Errors %x", vntErr.lVal);
+				  	eStatus = vntErr.lVal;
+				  	VariantClear(&vntErr);
+ 				}   
+				bstrCommand = SysAllocString(L"Motor");
+				vntParam.vt = VT_I2;
+				vntParam.iVal = 1;
+				hr = bCap_RobotExecute(fd, hRobot, bstrCommand, vntParam, &vntResult);
+				SysFreeString(bstrCommand);
+				VariantClear(&vntParam);
+				if FAILED(hr){
+				ROS_ERROR("Motor Restart %x\n", hr);
+				return (hr);
+				}
+				else if(DEBUG) ROS_INFO("Motor On");*/
+			}
 			else if(DEBUG) ROS_INFO("Moved");
 		} 
 	}

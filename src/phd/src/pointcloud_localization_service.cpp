@@ -144,6 +144,7 @@ std::vector<pcl::PointXYZI> cluster_points(pcl::PointCloud<pcl::PointXYZI>::Ptr 
 			Pt.y = ys/cluster.size();
 			Pt.z = zs/cluster.size();
 			Pt.intensity = is/cluster.size();
+			if(DEBUG) ROS_INFO("Found point %f",Pt.intensity);
 			Pts.push_back(Pt);
 		}
 	}
@@ -174,7 +175,7 @@ bool locate_marker(std::vector<pcl::PointXYZI> Pts, Eigen::Matrix3f &marker_loca
 	std::vector<phd::marker_val> val_array;
 	phd::marker_val marker_val;
 	visualization_msgs::Marker point_list;
-	point_list.header.frame_id = "/laser";
+	point_list.header.frame_id = "/base_link";
 	point_list.header.stamp = ros::Time::now();
 	point_list.ns = "points_and_lines";
 	point_list.action = visualization_msgs::Marker::ADD;
@@ -419,7 +420,7 @@ bool localize(phd::localize_cloud::Request  &req,
 	pcl::toROSMsg(*cloud_intensity_filtered,cloud_debug);
 	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
 	cloud_debug.fields[3].name = "intensity";
-	cloud_debug.header.frame_id = "/laser";
+	cloud_debug.header.frame_id = "/base_link";
 	cloud_debug.header.stamp = ros::Time::now();
 	if(DEBUG) tpub.publish(cloud_req);
 

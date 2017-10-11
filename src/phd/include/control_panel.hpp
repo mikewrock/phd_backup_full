@@ -71,7 +71,7 @@ public:
 	QNode(){}
 	virtual ~QNode();
 	void scan(std::string, bool localize);
-	void step();
+	void step(bool arm);
 	void show_nav();
 	void exe_nav();
 	void estimate(std::string);
@@ -80,7 +80,8 @@ public:
 	void fscan(std::string, bool auto_localize,std::string);
 	void cluster(std::string, int index);
 	void start_pt();
-	void gen_trajectory();
+	void gen_trajectory(std::string);
+	void load_traj(std::string);
 	void lscan();
 	void run();
 	bool init();
@@ -88,6 +89,7 @@ public:
 	void send_joint_command(float j1, float j2, float j3, float j4, float j5, float j6);
 	void send_string(std::string user_string);
 	void scan_360();
+	void show_markers(phd::trajectory_array t_array);
 	phd::trajectory_point find_pose();
 	//Variables for holding the first two points of the marker, when the third one comes in they all get saved to file
 	float P1x, P1y, P1z, P2x, P2y, P2z;
@@ -116,6 +118,10 @@ private:
 	ros::Publisher pub3;
 	ros::Publisher pub4;
 	ros::Publisher pub5;
+	ros::Publisher marker_pub;
+	ros::Publisher dir_pub;
+	ros::Publisher path_pub;
+	ros::Publisher arm_pose_pub;
 	ros::ServiceClient client;
 	ros::ServiceClient loc_client;
 	ros::ServiceClient traj_client;
@@ -126,13 +132,15 @@ private:
 	//Pointer to the pointcloud selection
 	pcl::PointCloud<pcl::PointXYZI>::Ptr current_pc_;
 	//Holds the entire pointcloud from laser_scan_assembler, used for calculating normals (useful at the edges of current_pc_)
-	sensor_msgs::PointCloud2 cloud_surface;
+	sensor_msgs::PointCloud2 cloud_surface_raw;
+	sensor_msgs::PointCloud2 cloud_surface_world;
 	//Holds the entire arm trajectory
 	phd::trajectory_array traj;
 	//Counters for keeping track of current trajectory section and point
 	int sec_ctr;
 	int pt_ctr;
 	int cloud_ctr;
+	int tctr;
 };
 }
 }  // namespace 

@@ -22,7 +22,7 @@ static const uint qt_meta_data_control_panel__ControlPanel[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      38,   14, // methods
+      40,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -68,6 +68,8 @@ static const uint qt_meta_data_control_panel__ControlPanel[] = {
      494,   28,   28,   28, 0x09,
      511,   28,   28,   28, 0x09,
      529,   28,   28,   28, 0x09,
+     540,   28,   28,   28, 0x09,
+     552,   28,   28,   28, 0x09,
 
        0        // eod
 };
@@ -89,7 +91,7 @@ static const char qt_meta_stringdata_control_panel__ControlPanel[] = {
     "cluster_3()\0gen_trajectory()\0"
     "onPTPCommand()\0onCPCommand()\0"
     "onJointCommand()\0onStringCommand()\0"
-    "scan_360()\0"
+    "scan_360()\0load_traj()\0rosSpinner()\0"
 };
 
 void control_panel::ControlPanel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -136,6 +138,8 @@ void control_panel::ControlPanel::qt_static_metacall(QObject *_o, QMetaObject::C
         case 35: _t->onJointCommand(); break;
         case 36: _t->onStringCommand(); break;
         case 37: _t->scan_360(); break;
+        case 38: _t->load_traj(); break;
+        case 39: _t->rosSpinner(); break;
         default: ;
         }
     }
@@ -176,9 +180,9 @@ int control_panel::ControlPanel::qt_metacall(QMetaObject::Call _c, int _id, void
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 38)
+        if (_id < 40)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 38;
+        _id -= 40;
     }
     return _id;
 }

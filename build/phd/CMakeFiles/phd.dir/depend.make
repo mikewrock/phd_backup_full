@@ -70,6 +70,7 @@ phd/CMakeFiles/phd.dir/src/dn_udp.c.o: /home/mike/catkin_ws/src/phd/src/dn_udp.c
 
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: phd/include/moc_control_dashboard.cxx
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /home/mike/catkin_ws/devel/include/phd/ParamConfig.h
+phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /home/mike/catkin_ws/devel/include/phd/arm_msg.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /home/mike/catkin_ws/devel/include/phd/trajectory_array.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /home/mike/catkin_ws/devel/include/phd/trajectory_msg.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /home/mike/catkin_ws/devel/include/phd/trajectory_point.h
@@ -1611,6 +1612,7 @@ phd/CMakeFiles/phd.dir/qrc_ui_resource.cxx.o: /usr/include/qt4/QtCore/qfeatures.
 phd/CMakeFiles/phd.dir/qrc_ui_resource.cxx.o: /usr/include/qt4/QtCore/qglobal.h
 
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /home/mike/catkin_ws/devel/include/phd/ParamConfig.h
+phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /home/mike/catkin_ws/devel/include/phd/arm_msg.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /home/mike/catkin_ws/devel/include/phd/trajectory_array.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /home/mike/catkin_ws/devel/include/phd/trajectory_msg.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /home/mike/catkin_ws/devel/include/phd/trajectory_point.h

@@ -71,6 +71,7 @@ phd/CMakeFiles/phd.dir/src/dn_udp.c.o
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o
  /home/mike/catkin_ws/build/phd/include/moc_control_dashboard.cxx
  /home/mike/catkin_ws/devel/include/phd/ParamConfig.h
+ /home/mike/catkin_ws/devel/include/phd/arm_msg.h
  /home/mike/catkin_ws/devel/include/phd/trajectory_array.h
  /home/mike/catkin_ws/devel/include/phd/trajectory_msg.h
  /home/mike/catkin_ws/devel/include/phd/trajectory_point.h
@@ -1612,6 +1613,7 @@ phd/CMakeFiles/phd.dir/qrc_ui_resource.cxx.o
  /usr/include/qt4/QtCore/qglobal.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o
  /home/mike/catkin_ws/devel/include/phd/ParamConfig.h
+ /home/mike/catkin_ws/devel/include/phd/arm_msg.h
  /home/mike/catkin_ws/devel/include/phd/trajectory_array.h
  /home/mike/catkin_ws/devel/include/phd/trajectory_msg.h
  /home/mike/catkin_ws/devel/include/phd/trajectory_point.h

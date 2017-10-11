@@ -35,8 +35,9 @@ namespace control_panel
 	{
 		//Initial setup
 		ui_.setupUi(this);
-		//Start the time for the manual operation of the robot
-		QTimer* output_timer = new QTimer( this );
+		//pose sub
+		pose_sub_ = nh_.subscribe("arm_pose", 1, &ControlPanel::poseCB, this);
+		QTimer* spin_timer = new QTimer( this );
 		//Initialize control panel
 		int ret = control_panel.init();
 		//Initialize the manual operation node
@@ -56,6 +57,10 @@ namespace control_panel
 		connect(ui_.start_point, SIGNAL(clicked()), this, SLOT(start_pt()));
 		connect(ui_.gen_trajectory, SIGNAL(clicked()), this, SLOT(gen_trajectory()));
 		connect(ui_.scan_360, SIGNAL(clicked()), this, SLOT(scan_360()));
+		connect(ui_.f_traj, SIGNAL(clicked()), this, SLOT(load_traj()));
+
+
+		connect(spin_timer, SIGNAL(timeout()), this, SLOT(rosSpinner()));
 		/*connect(ui_.fwdButton, SIGNAL(pressed()), this, SLOT(fwd_vel()));
 		connect(ui_.revButton, SIGNAL(pressed()), this, SLOT(rev_vel()));
 		connect(ui_.turnLeft, SIGNAL(pressed()), this, SLOT(left_vel()));
@@ -100,9 +105,31 @@ namespace control_panel
 		//connect( output_timer, SIGNAL( timeout() ), this, SLOT( sendVel() ));
 		//Index for keeping track of which marker point is being clustered
 		cluster_index = 0;
+  
+		spin_timer->start( 100 );
 	}
 
 	ControlPanel::~ControlPanel(){}
+	
+	//ros callbacks
+	void ControlPanel::poseCB(const phd::arm_msg msg){
+		ui_.x_browser->setText(QString::number(msg.x));
+		ui_.y_browser->setText(QString::number(msg.y));
+		ui_.z_browser->setText(QString::number(msg.z));
+		ui_.rx_browser->setText(QString::number(msg.rx));
+		ui_.ry_browser->setText(QString::number(msg.ry));
+		ui_.rz_browser->setText(QString::number(msg.rz));
+		ui_.j1_browser->setText(QString::number(msg.j1));
+		ui_.j2_browser->setText(QString::number(msg.j2));
+		ui_.j3_browser->setText(QString::number(msg.j3));
+		ui_.j4_browser->setText(QString::number(msg.j4));
+		ui_.j5_browser->setText(QString::number(msg.j5));
+		ui_.j6_browser->setText(QString::number(msg.j6));
+	}
+
+	void ControlPanel::rosSpinner(){
+		ros::spinOnce();
+	}
 
 	//Move laser scanner to its navigation position (horizontal) or whatever position is specified by the user in the text box
 	void ControlPanel::do_nav(){
@@ -119,7 +146,7 @@ namespace control_panel
 
 		  control_panel.show_nav();
 	}
-	//Perform a lase scan and tell control_panel the fiducial name and whether to set the pose as global origin 
+	//Perform a laser scan and tell control_panel the fiducial name and whether to set the pose as global origin 
 	void ControlPanel::scan(){
 
 		  control_panel.scan(ui_.marker_name_box->text().toStdString(),ui_.set_home->isChecked());
@@ -142,7 +169,7 @@ namespace control_panel
 	//Testing function, step through the arm strajectory pose
 	void ControlPanel::do_step(){
 
-		  control_panel.step();
+		  control_panel.step(ui_.step->isChecked());
 	}
 	//Cluster the high intensity points in the selected area
 	void ControlPanel::cluster_1(){
@@ -151,6 +178,7 @@ namespace control_panel
 		if(cluster_index == 0){
 		 ui_.cluster1->setText("Cluster Pt. 2");
 		 cluster_index+=1;
+		 ui_.marker_info->setText("Ready to cluster");
 		}
 		else if(cluster_index == 1){
 		 ui_.cluster1->setText("Cluster Pt. 3");
@@ -171,7 +199,7 @@ namespace control_panel
 	//Generate a trajectory for the arm to spray
 	void ControlPanel::gen_trajectory(){
 
-		  control_panel.gen_trajectory();
+		  control_panel.gen_trajectory(ui_.marker_name_box->text().toStdString());
 		 //ui_.gen_trajectory->setEnabled(false);
 
 	}
@@ -294,6 +322,17 @@ namespace control_panel
 	void ControlPanel::onStringCommand(){
 
 		control_panel.send_string(ui_.string_box->text().toStdString());
+
+	}
+	void ControlPanel::scan_360(){
+
+		control_panel.scan_360();
+
+	}
+	
+	void ControlPanel::load_traj(){
+
+		control_panel.load_traj(ui_.filename_box_2->text().toStdString());
 
 	}
 	

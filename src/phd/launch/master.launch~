@@ -55,6 +55,16 @@
   <!--- Run Joint State Fusion node-->
   <node name="joint_fusion_node" pkg="phd" type="joint_fusion_node" output="screen" />
   
+  <!--- Run localization service -->
+  <node type="cloud_localizer" pkg="phd" name="localization_service" output="screen">
+  </node>
+  <!--- Run trajectory service -->
+  <node type="trajectory_server" pkg="phd" name="trajectory_service" output="screen" required="True">
+  </node>
+
+  <!--- Run thickness service -->
+  <node type="thickness_server" pkg="phd" name="thickness_service" output="screen">
+  </node>
   
   <!--- Run Denso node-->
   <node name="denso_node" pkg="phd" type="denso_node" output="screen" />
@@ -62,13 +72,13 @@
   <!--- Run master node 
     <node name="master" pkg="wrock" type="master" output="screen"> 
 </node>    -->
-<!-- hector mapping 
+<!-- hector mapping -->
 <node pkg="hector_mapping" type="hector_mapping" 
     name="hector_mapping" output="screen">
 
--->
 
   </node>
+
   <!--- Run Move Base -->
 
   <arg name="no_static_map" default="false"/>
@@ -99,6 +109,9 @@
     <param name="global_costmap/width" value="100.0" if="$(arg no_static_map)"/>
     <param name="global_costmap/height" value="100.0" if="$(arg no_static_map)"/>
   </node>
+
+<node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0 0 0 0 0 0 1 base_link world 100" />
+
 
 
 </launch>

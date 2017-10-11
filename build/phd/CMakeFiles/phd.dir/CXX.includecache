@@ -335,6 +335,8 @@ rosbag/bag.h
 -
 rosbag/view.h
 -
+boost/foreach.hpp
+-
 math.h
 -
 string

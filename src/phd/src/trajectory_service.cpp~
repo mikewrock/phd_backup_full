@@ -244,7 +244,7 @@ void show_markers(phd::trajectory_array t_array){
 	visualization_msgs::Marker path;
 	visualization_msgs::Marker surface_path;
 	// Set the frame ID and timestamp.  See the TF tutorials for information on these.
-	marker.header.frame_id = "/base_link";
+	marker.header.frame_id = "/world";
 	marker.header.stamp = ros::Time::now();
 	marker.ns = "basic_shapes";
 	marker.id = 0;
@@ -267,7 +267,7 @@ void show_markers(phd::trajectory_array t_array){
 	marker.lifetime = ros::Duration();
 	
 	    // Set the frame ID and timestamp.  See the TF tutorials for information on these.
-	path.header.frame_id = "/base_link";
+	path.header.frame_id = "/world";
 	path.header.stamp = ros::Time::now();
 	// Set the namespace and id for this path.  This serves to create a unique ID
 	// Any path sent with the same namespace and id will overwrite the old one
@@ -294,7 +294,7 @@ void show_markers(phd::trajectory_array t_array){
 	path.color.a = 1.0;
 	path.lifetime = ros::Duration();	    
 	// Set the frame ID and timestamp.  See the TF tutorials for information on these.
-	surface_path.header.frame_id = "/base_link";
+	surface_path.header.frame_id = "/world";
 	surface_path.header.stamp = ros::Time::now();
 	// Set the namespace and id for this path.  This serves to create a unique ID
 	// Any path sent with the same namespace and id will overwrite the old one
@@ -369,7 +369,7 @@ void show_marker(pcl::PointXYZI one,pcl::PointXYZI two){
 	uint32_t shape = visualization_msgs::Marker::LINE_LIST;
 	visualization_msgs::Marker marker;
 	// Set the frame ID and timestamp.  See the TF tutorials for information on these.
-	marker.header.frame_id = "/base_link";
+	marker.header.frame_id = "/world";
 	marker.header.stamp = ros::Time::now();
 	marker.ns = "basic_shapes";
 	marker.id = 0;
@@ -634,11 +634,12 @@ phd::trajectory_array calc_points(float z_val, float P1x, float P1y, float zmax)
 		pass.filter (*line);
 		search_pt.z = z_val;
 		sorted_line = sort_line(line, search_pt,dir);
+		if(DEBUG) ROS_INFO("DLine Sorted %d - points",sorted_line.points.size());
 		sorted_array.sections.push_back(sorted_line);
 		z_val+=HEIGHT_STEP;
 		dir = dir * -1;
 	}
-	ROS_INFO("Done while");
+	if(DEBUG) ROS_INFO("Done making lines %d - lines",sorted_array.sections.size());
 	//remainder_array.sections.resize(sorted_array.sections.size());
 	for(int actr = 0; actr<sorted_array.sections.size(); ++actr){
 		start_pt = pt_copy(sorted_array.sections[actr].points[0]);
@@ -669,10 +670,12 @@ phd::trajectory_array calc_points(float z_val, float P1x, float P1y, float zmax)
 		remainder_d.points.clear();
 	}
 	t_array.sections.push_back(chunk);
+	if(DEBUG) ROS_INFO("Done making chunks %d - chunks",t_array.sections.size());
 	chunk.points.clear();
 	bool complete = false;
-ROS_INFO("Done while");
 	int r_pts = remainder_array.sections[0].points.size()+1;
+	
+	if(DEBUG) ROS_INFO("remainder array %d",remainder_array.sections[0].points.size());
 	while(remainder_array.sections[0].points.size()>0 && remainder_array.sections[0].points.size() != r_pts){
 		r_pts = remainder_array.sections[0].points.size();
 		for(int actr = 0; actr<remainder_array.sections.size(); ++actr){
@@ -710,6 +713,7 @@ ROS_INFO("Done while");
 		t_array.sections.push_back(chunk);
 		chunk.points.clear();
 	}
+	if(DEBUG) ROS_INFO("done remainder array");
 		
 	sensor_msgs::PointCloud2 line_cloud;
 	pcl::toROSMsg(*line,line_cloud);
@@ -727,6 +731,7 @@ bool generate (phd::trajectory_service::Request  &req,
 	pcl::PointCloud<pcl::PointXYZI> cloudB;
 	sensor_msgs::PointCloud2 cloud_msg1 = req.cloud_surface;
 	sensor_msgs::PointCloud2 cloud_msg2 = req.cloud_in;
+	if(DEBUG) ROS_INFO("Cloud Surface: %d -- Cloud Selection %d",cloud_msg1.width,cloud_msg2.width) ;
 	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
 	cloud_msg1.fields[3].name = "intensity";
 	pcl::fromROSMsg(cloud_msg1,*cloud_surface_full);
@@ -759,6 +764,7 @@ bool generate (phd::trajectory_service::Request  &req,
 	search_pt.z = z_val;
 	//pcl::PointXYZI start_pt = find_pt(search_pt);
 	t_msg_array = calc_points(z_val, search_pt.x, search_pt.y, zmax);
+	if(DEBUG) ROS_INFO("Done calculation");
 	res.trajectory = t_msg_array;
 	bool ret = true;
 	return ret;

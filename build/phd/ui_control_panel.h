@@ -53,6 +53,9 @@ public:
     QCheckBox *set_home;
     QLineEdit *marker_name_box;
     QPushButton *scan_360;
+    QPushButton *f_traj;
+    QLineEdit *filename_box_2;
+    QCheckBox *step;
     QWidget *tab_2;
     QLineEdit *j5_box;
     QLabel *label_24;
@@ -65,7 +68,7 @@ public:
     QLabel *label;
     QLabel *label_8;
     QPushButton *cp_command_button;
-    QTextBrowser *rx_browser_2;
+    QTextBrowser *rz_browser;
     QLineEdit *y_box;
     QLabel *label_19;
     QLabel *label_12;
@@ -79,7 +82,7 @@ public:
     QTextBrowser *j5_browser;
     QTextBrowser *ry_browser;
     QLabel *label_3;
-    QTextBrowser *j3_browser_2;
+    QTextBrowser *j4_browser;
     QTextBrowser *rx_browser;
     QPushButton *string_button;
     QTextBrowser *z_browser;
@@ -147,7 +150,7 @@ public:
         scan_button->setGeometry(QRect(10, 0, 121, 31));
         localization_button = new QPushButton(tab);
         localization_button->setObjectName(QString::fromUtf8("localization_button"));
-        localization_button->setGeometry(QRect(10, 465, 121, 31));
+        localization_button->setGeometry(QRect(10, 500, 121, 31));
         localization_button_2 = new QPushButton(tab);
         localization_button_2->setObjectName(QString::fromUtf8("localization_button_2"));
         localization_button_2->setGeometry(QRect(10, 345, 121, 31));
@@ -191,10 +194,10 @@ public:
         marker_info_2->setGeometry(QRect(20, 275, 221, 17));
         step_button = new QPushButton(tab);
         step_button->setObjectName(QString::fromUtf8("step_button"));
-        step_button->setGeometry(QRect(10, 425, 121, 31));
+        step_button->setGeometry(QRect(10, 460, 91, 31));
         est_pos = new QPushButton(tab);
         est_pos->setObjectName(QString::fromUtf8("est_pos"));
-        est_pos->setGeometry(QRect(140, 425, 121, 31));
+        est_pos->setGeometry(QRect(140, 460, 121, 31));
         show_nav_button = new QPushButton(tab);
         show_nav_button->setObjectName(QString::fromUtf8("show_nav_button"));
         show_nav_button->setGeometry(QRect(10, 225, 111, 31));
@@ -206,14 +209,26 @@ public:
         auto_localize->setGeometry(QRect(140, 346, 121, 30));
         set_home = new QCheckBox(tab);
         set_home->setObjectName(QString::fromUtf8("set_home"));
+        set_home->setEnabled(true);
         set_home->setGeometry(QRect(140, 2, 121, 30));
-        set_home->setChecked(true);
+        set_home->setChecked(false);
         marker_name_box = new QLineEdit(tab);
         marker_name_box->setObjectName(QString::fromUtf8("marker_name_box"));
         marker_name_box->setGeometry(QRect(10, 34, 251, 30));
         scan_360 = new QPushButton(tab);
         scan_360->setObjectName(QString::fromUtf8("scan_360"));
-        scan_360->setGeometry(QRect(140, 465, 121, 31));
+        scan_360->setGeometry(QRect(140, 500, 121, 31));
+        f_traj = new QPushButton(tab);
+        f_traj->setObjectName(QString::fromUtf8("f_traj"));
+        f_traj->setGeometry(QRect(10, 420, 81, 31));
+        filename_box_2 = new QLineEdit(tab);
+        filename_box_2->setObjectName(QString::fromUtf8("filename_box_2"));
+        filename_box_2->setGeometry(QRect(100, 420, 161, 31));
+        step = new QCheckBox(tab);
+        step->setObjectName(QString::fromUtf8("step"));
+        step->setEnabled(true);
+        step->setGeometry(QRect(110, 460, 21, 30));
+        step->setChecked(false);
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -250,9 +265,9 @@ public:
         cp_command_button = new QPushButton(tab_2);
         cp_command_button->setObjectName(QString::fromUtf8("cp_command_button"));
         cp_command_button->setGeometry(QRect(140, 44, 131, 31));
-        rx_browser_2 = new QTextBrowser(tab_2);
-        rx_browser_2->setObjectName(QString::fromUtf8("rx_browser_2"));
-        rx_browser_2->setGeometry(QRect(200, 454, 71, 31));
+        rz_browser = new QTextBrowser(tab_2);
+        rz_browser->setObjectName(QString::fromUtf8("rz_browser"));
+        rz_browser->setGeometry(QRect(200, 454, 71, 31));
         y_box = new QLineEdit(tab_2);
         y_box->setObjectName(QString::fromUtf8("y_box"));
         y_box->setGeometry(QRect(110, 86, 61, 31));
@@ -292,9 +307,9 @@ public:
         label_3 = new QLabel(tab_2);
         label_3->setObjectName(QString::fromUtf8("label_3"));
         label_3->setGeometry(QRect(0, 384, 151, 17));
-        j3_browser_2 = new QTextBrowser(tab_2);
-        j3_browser_2->setObjectName(QString::fromUtf8("j3_browser_2"));
-        j3_browser_2->setGeometry(QRect(20, 534, 71, 31));
+        j4_browser = new QTextBrowser(tab_2);
+        j4_browser->setObjectName(QString::fromUtf8("j4_browser"));
+        j4_browser->setGeometry(QRect(20, 534, 71, 31));
         rx_browser = new QTextBrowser(tab_2);
         rx_browser->setObjectName(QString::fromUtf8("rx_browser"));
         rx_browser->setGeometry(QRect(20, 454, 71, 31));
@@ -423,7 +438,7 @@ public:
 
         retranslateUi(Control_Form);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(Control_Form);
@@ -454,8 +469,11 @@ public:
         filename_box->setText(QApplication::translate("Control_Form", "/home/mike/testing/file.pcd", 0, QApplication::UnicodeUTF8));
         auto_localize->setText(QApplication::translate("Control_Form", "Auto Localize", 0, QApplication::UnicodeUTF8));
         set_home->setText(QApplication::translate("Control_Form", "Set Home", 0, QApplication::UnicodeUTF8));
-        marker_name_box->setText(QApplication::translate("Control_Form", "/home/mike/testing/", 0, QApplication::UnicodeUTF8));
+        marker_name_box->setText(QApplication::translate("Control_Form", "/home/mike/testing/s", 0, QApplication::UnicodeUTF8));
         scan_360->setText(QApplication::translate("Control_Form", "360 scan", 0, QApplication::UnicodeUTF8));
+        f_traj->setText(QApplication::translate("Control_Form", "Load Traj", 0, QApplication::UnicodeUTF8));
+        filename_box_2->setText(QApplication::translate("Control_Form", "/home/mike/testing/s1trajectory.bag", 0, QApplication::UnicodeUTF8));
+        step->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("Control_Form", "Operation", 0, QApplication::UnicodeUTF8));
         j5_box->setText(QApplication::translate("Control_Form", "0", 0, QApplication::UnicodeUTF8));
         label_24->setText(QApplication::translate("Control_Form", "z", 0, QApplication::UnicodeUTF8));
