@@ -34,6 +34,7 @@
 # include <QObject>
 #include <sensor_msgs/PointCloud2.h>
 #include <sensor_msgs/JointState.h>
+#include <tf/transform_broadcaster.h>
 
 #include "std_msgs/String.h"
 #include <sstream>
@@ -71,7 +72,7 @@ public:
 	QNode(){}
 	virtual ~QNode();
 	void scan(std::string, bool localize);
-	void step();
+	void step(bool arm);
 	void show_nav();
 	void exe_nav();
 	void estimate(std::string);
@@ -141,6 +142,9 @@ private:
 	int pt_ctr;
 	int cloud_ctr;
 	int tctr;
+	tf::TransformBroadcaster br;
+	tf::Transform transform;
+	tf::Quaternion q;
 };
 }
 }  // namespace 

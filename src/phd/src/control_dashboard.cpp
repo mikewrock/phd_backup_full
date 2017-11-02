@@ -58,6 +58,7 @@ namespace control_panel
 		connect(ui_.gen_trajectory, SIGNAL(clicked()), this, SLOT(gen_trajectory()));
 		connect(ui_.scan_360, SIGNAL(clicked()), this, SLOT(scan_360()));
 		connect(ui_.f_traj, SIGNAL(clicked()), this, SLOT(load_traj()));
+		connect(ui_.pose_button, SIGNAL(clicked()), this, SLOT(do_poses()));
 
 
 		connect(spin_timer, SIGNAL(timeout()), this, SLOT(rosSpinner()));
@@ -333,6 +334,12 @@ namespace control_panel
 	void ControlPanel::load_traj(){
 
 		control_panel.load_traj(ui_.filename_box_2->text().toStdString());
+
+	}
+	
+	void ControlPanel::do_poses(){
+
+		control_panel.calc_poses();
 
 	}
 	

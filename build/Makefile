@@ -2597,6 +2597,19 @@ saveselection/fast:
 .PHONY : saveselection/fast
 
 #=============================================================================
+# Target rules for targets named simple_trajectory_server
+
+# Build rule for target.
+simple_trajectory_server: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 simple_trajectory_server
+.PHONY : simple_trajectory_server
+
+# fast build rule for target.
+simple_trajectory_server/fast:
+	$(MAKE) -f phd/CMakeFiles/simple_trajectory_server.dir/build.make phd/CMakeFiles/simple_trajectory_server.dir/build
+.PHONY : simple_trajectory_server/fast
+
+#=============================================================================
 # Target rules for targets named test_node
 
 # Build rule for target.
@@ -3356,6 +3369,7 @@ help:
 	@echo "... phd_genlisp"
 	@echo "... phd_genpy"
 	@echo "... saveselection"
+	@echo "... simple_trajectory_server"
 	@echo "... test_node"
 	@echo "... thickness_server"
 	@echo "... trajectory_msgs_generate_messages_cpp"

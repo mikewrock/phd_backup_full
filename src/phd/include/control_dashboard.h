@@ -70,6 +70,7 @@ void onStringCommand();
 void scan_360();
 void load_traj();
 void rosSpinner();
+void do_poses();
 Q_SIGNALS:
 
 protected:

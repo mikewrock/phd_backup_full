@@ -266,13 +266,13 @@ clean: gtest/CMakeFiles/gtest.dir/clean
 gtest/CMakeFiles/gtest_main.dir/all: gtest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f gtest/CMakeFiles/gtest_main.dir/build.make gtest/CMakeFiles/gtest_main.dir/depend
 	$(MAKE) -f gtest/CMakeFiles/gtest_main.dir/build.make gtest/CMakeFiles/gtest_main.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  23
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles 
 	@echo "Built target gtest_main"
 .PHONY : gtest/CMakeFiles/gtest_main.dir/all
 
 # Build rule for subdir invocation for target.
 gtest/CMakeFiles/gtest_main.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 gtest/CMakeFiles/gtest_main.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : gtest/CMakeFiles/gtest_main.dir/rule
@@ -455,7 +455,7 @@ husky_msgs/CMakeFiles/husky_msgs_gencpp.dir/all: husky_msgs/CMakeFiles/husky_msg
 
 # Build rule for subdir invocation for target.
 husky_msgs/CMakeFiles/husky_msgs_gencpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 husky_msgs/CMakeFiles/husky_msgs_gencpp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : husky_msgs/CMakeFiles/husky_msgs_gencpp.dir/rule
@@ -477,9 +477,9 @@ clean: husky_msgs/CMakeFiles/husky_msgs_gencpp.dir/clean
 # Target rules for target husky_msgs/CMakeFiles/husky_msgs_generate_messages.dir
 
 # All Build rule for target.
-husky_msgs/CMakeFiles/husky_msgs_generate_messages.dir/all: husky_msgs/CMakeFiles/husky_msgs_generate_messages_lisp.dir/all
 husky_msgs/CMakeFiles/husky_msgs_generate_messages.dir/all: husky_msgs/CMakeFiles/husky_msgs_generate_messages_py.dir/all
 husky_msgs/CMakeFiles/husky_msgs_generate_messages.dir/all: husky_msgs/CMakeFiles/husky_msgs_generate_messages_cpp.dir/all
+husky_msgs/CMakeFiles/husky_msgs_generate_messages.dir/all: husky_msgs/CMakeFiles/husky_msgs_generate_messages_lisp.dir/all
 	$(MAKE) -f husky_msgs/CMakeFiles/husky_msgs_generate_messages.dir/build.make husky_msgs/CMakeFiles/husky_msgs_generate_messages.dir/depend
 	$(MAKE) -f husky_msgs/CMakeFiles/husky_msgs_generate_messages.dir/build.make husky_msgs/CMakeFiles/husky_msgs_generate_messages.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles 
@@ -492,7 +492,7 @@ all: husky_msgs/CMakeFiles/husky_msgs_generate_messages.dir/all
 
 # Build rule for subdir invocation for target.
 husky_msgs/CMakeFiles/husky_msgs_generate_messages.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 husky_msgs/CMakeFiles/husky_msgs_generate_messages.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : husky_msgs/CMakeFiles/husky_msgs_generate_messages.dir/rule
@@ -514,17 +514,17 @@ clean: husky_msgs/CMakeFiles/husky_msgs_generate_messages.dir/clean
 # Target rules for target husky_msgs/CMakeFiles/husky_msgs_generate_messages_cpp.dir
 
 # All Build rule for target.
-husky_msgs/CMakeFiles/husky_msgs_generate_messages_cpp.dir/all: husky_msgs/CMakeFiles/_husky_msgs_generate_messages_check_deps_HuskyStatus.dir/all
 husky_msgs/CMakeFiles/husky_msgs_generate_messages_cpp.dir/all: husky_msgs/CMakeFiles/std_msgs_generate_messages_cpp.dir/all
+husky_msgs/CMakeFiles/husky_msgs_generate_messages_cpp.dir/all: husky_msgs/CMakeFiles/_husky_msgs_generate_messages_check_deps_HuskyStatus.dir/all
 	$(MAKE) -f husky_msgs/CMakeFiles/husky_msgs_generate_messages_cpp.dir/build.make husky_msgs/CMakeFiles/husky_msgs_generate_messages_cpp.dir/depend
 	$(MAKE) -f husky_msgs/CMakeFiles/husky_msgs_generate_messages_cpp.dir/build.make husky_msgs/CMakeFiles/husky_msgs_generate_messages_cpp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  23
 	@echo "Built target husky_msgs_generate_messages_cpp"
 .PHONY : husky_msgs/CMakeFiles/husky_msgs_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 husky_msgs/CMakeFiles/husky_msgs_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 husky_msgs/CMakeFiles/husky_msgs_generate_messages_cpp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : husky_msgs/CMakeFiles/husky_msgs_generate_messages_cpp.dir/rule
@@ -578,8 +578,8 @@ clean: husky_msgs/CMakeFiles/husky_msgs_generate_messages_lisp.dir/clean
 # Target rules for target husky_msgs/CMakeFiles/husky_msgs_generate_messages_py.dir
 
 # All Build rule for target.
-husky_msgs/CMakeFiles/husky_msgs_generate_messages_py.dir/all: husky_msgs/CMakeFiles/_husky_msgs_generate_messages_check_deps_HuskyStatus.dir/all
 husky_msgs/CMakeFiles/husky_msgs_generate_messages_py.dir/all: husky_msgs/CMakeFiles/std_msgs_generate_messages_py.dir/all
+husky_msgs/CMakeFiles/husky_msgs_generate_messages_py.dir/all: husky_msgs/CMakeFiles/_husky_msgs_generate_messages_check_deps_HuskyStatus.dir/all
 	$(MAKE) -f husky_msgs/CMakeFiles/husky_msgs_generate_messages_py.dir/build.make husky_msgs/CMakeFiles/husky_msgs_generate_messages_py.dir/depend
 	$(MAKE) -f husky_msgs/CMakeFiles/husky_msgs_generate_messages_py.dir/build.make husky_msgs/CMakeFiles/husky_msgs_generate_messages_py.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  24
@@ -1964,7 +1964,7 @@ test_panel/preinstall:
 test_panel/CMakeFiles/test_panel.dir/all:
 	$(MAKE) -f test_panel/CMakeFiles/test_panel.dir/build.make test_panel/CMakeFiles/test_panel.dir/depend
 	$(MAKE) -f test_panel/CMakeFiles/test_panel.dir/build.make test_panel/CMakeFiles/test_panel.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  84 85 86 87
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  85 86 87
 	@echo "Built target test_panel"
 .PHONY : test_panel/CMakeFiles/test_panel.dir/all
 
@@ -1974,7 +1974,7 @@ all: test_panel/CMakeFiles/test_panel.dir/all
 
 # Build rule for subdir invocation for target.
 test_panel/CMakeFiles/test_panel.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 test_panel/CMakeFiles/test_panel.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : test_panel/CMakeFiles/test_panel.dir/rule
@@ -2748,7 +2748,7 @@ clean: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/n
 perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/p2d_deathmatch.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/ndt_registration.dir/all
 	$(MAKE) -f perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/p2d_deathmatch.dir/build.make perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/p2d_deathmatch.dir/depend
 	$(MAKE) -f perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/p2d_deathmatch.dir/build.make perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/p2d_deathmatch.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  37
 	@echo "Built target p2d_deathmatch"
 .PHONY : perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/p2d_deathmatch.dir/all
 
@@ -2758,7 +2758,7 @@ all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/p2d
 
 # Build rule for subdir invocation for target.
 perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/p2d_deathmatch.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/p2d_deathmatch.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/p2d_deathmatch.dir/rule
@@ -2907,7 +2907,7 @@ clean: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/p
 perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/simple_test.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/ndt_registration.dir/all
 	$(MAKE) -f perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/simple_test.dir/build.make perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/simple_test.dir/depend
 	$(MAKE) -f perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/simple_test.dir/build.make perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/simple_test.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  74
 	@echo "Built target simple_test"
 .PHONY : perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/simple_test.dir/all
 
@@ -2917,7 +2917,7 @@ all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/sim
 
 # Build rule for subdir invocation for target.
 perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/simple_test.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/simple_test.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/simple_test.dir/rule
@@ -3286,59 +3286,59 @@ denso_gui/CMakeFiles/denso_gui.dir/all: scanning_description/CMakeFiles/_catkin_
 denso_gui/CMakeFiles/denso_gui.dir/all: husky_msgs/CMakeFiles/std_msgs_generate_messages_lisp.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: husky_msgs/CMakeFiles/std_msgs_generate_messages_py.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: husky_msgs/CMakeFiles/std_msgs_generate_messages_cpp.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: denso_gui/CMakeFiles/nav_msgs_generate_messages_py.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: denso_gui/CMakeFiles/map_msgs_generate_messages_cpp.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: denso_gui/CMakeFiles/visualization_msgs_generate_messages_py.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/roscpp_generate_messages_cpp.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/roscpp_generate_messages_lisp.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/roscpp_generate_messages_py.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/geometry_msgs_generate_messages_py.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/sensor_msgs_generate_messages_py.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/nodelet_generate_messages_py.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/pcl_msgs_generate_messages_py.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/sensor_msgs_generate_messages_py.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/topic_tools_generate_messages_py.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/nodelet_generate_messages_lisp.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/pcl_ros_gencfg.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/dynamic_reconfigure_gencfg.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/nodelet_generate_messages_cpp.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf_generate_messages_py.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/nodelet_generate_messages_py.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/topic_tools_generate_messages_lisp.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/pcl_ros_gencfg.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/pcl_msgs_generate_messages_py.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/pcl_msgs_generate_messages_cpp.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/nodelet_generate_messages_lisp.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf_generate_messages_lisp.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/nodelet_generate_messages_cpp.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/topic_tools_generate_messages_cpp.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/bond_generate_messages_cpp.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/bond_generate_messages_lisp.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/bond_generate_messages_py.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf_generate_messages_lisp.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/bond_generate_messages_cpp.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf_generate_messages_cpp.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/topic_tools_generate_messages_py.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/topic_tools_generate_messages_lisp.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_generate_messages_py.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_generate_messages_lisp.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_generate_messages_cpp.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf_generate_messages_py.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_generate_messages_py.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_msgs_generate_messages_py.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf2_msgs_generate_messages_py.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf2_msgs_generate_messages_cpp.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf2_msgs_generate_messages_py.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: denso_gui/CMakeFiles/std_srvs_generate_messages_cpp.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: denso_gui/CMakeFiles/std_srvs_generate_messages_py.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: denso_gui/CMakeFiles/map_msgs_generate_messages_lisp.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: denso_gui/CMakeFiles/map_msgs_generate_messages_py.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: denso_gui/CMakeFiles/nav_msgs_generate_messages_lisp.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: denso_gui/CMakeFiles/visualization_msgs_generate_messages_py.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: denso_gui/CMakeFiles/std_srvs_generate_messages_lisp.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: denso_gui/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: denso_gui/CMakeFiles/nav_msgs_generate_messages_cpp.dir/all
-denso_gui/CMakeFiles/denso_gui.dir/all: denso_gui/CMakeFiles/map_msgs_generate_messages_cpp.dir/all
 denso_gui/CMakeFiles/denso_gui.dir/all: denso_gui/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: denso_gui/CMakeFiles/nav_msgs_generate_messages_lisp.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: denso_gui/CMakeFiles/nav_msgs_generate_messages_py.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: denso_gui/CMakeFiles/map_msgs_generate_messages_lisp.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: denso_gui/CMakeFiles/std_srvs_generate_messages_cpp.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: denso_gui/CMakeFiles/map_msgs_generate_messages_py.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: denso_gui/CMakeFiles/std_srvs_generate_messages_py.dir/all
+denso_gui/CMakeFiles/denso_gui.dir/all: denso_gui/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/all
 	$(MAKE) -f denso_gui/CMakeFiles/denso_gui.dir/build.make denso_gui/CMakeFiles/denso_gui.dir/depend
 	$(MAKE) -f denso_gui/CMakeFiles/denso_gui.dir/build.make denso_gui/CMakeFiles/denso_gui.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  15 16 17 18 19 20 21
@@ -3861,7 +3861,7 @@ clean: registration_localization/CMakeFiles/clustering.dir/clean
 registration_localization/CMakeFiles/keypoints.dir/all:
 	$(MAKE) -f registration_localization/CMakeFiles/keypoints.dir/build.make registration_localization/CMakeFiles/keypoints.dir/depend
 	$(MAKE) -f registration_localization/CMakeFiles/keypoints.dir/build.make registration_localization/CMakeFiles/keypoints.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  25
 	@echo "Built target keypoints"
 .PHONY : registration_localization/CMakeFiles/keypoints.dir/all
 
@@ -3871,7 +3871,7 @@ all: registration_localization/CMakeFiles/keypoints.dir/all
 
 # Build rule for subdir invocation for target.
 registration_localization/CMakeFiles/keypoints.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 registration_localization/CMakeFiles/keypoints.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : registration_localization/CMakeFiles/keypoints.dir/rule
@@ -3966,7 +3966,7 @@ clean: registration_localization/CMakeFiles/matching_test.dir/clean
 registration_localization/CMakeFiles/planes.dir/all:
 	$(MAKE) -f registration_localization/CMakeFiles/planes.dir/build.make registration_localization/CMakeFiles/planes.dir/depend
 	$(MAKE) -f registration_localization/CMakeFiles/planes.dir/build.make registration_localization/CMakeFiles/planes.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  62
 	@echo "Built target planes"
 .PHONY : registration_localization/CMakeFiles/planes.dir/all
 
@@ -3976,7 +3976,7 @@ all: registration_localization/CMakeFiles/planes.dir/all
 
 # Build rule for subdir invocation for target.
 registration_localization/CMakeFiles/planes.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 registration_localization/CMakeFiles/planes.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : registration_localization/CMakeFiles/planes.dir/rule
@@ -4002,59 +4002,59 @@ registration_localization/CMakeFiles/registration_localization.dir/all: scanning
 registration_localization/CMakeFiles/registration_localization.dir/all: husky_msgs/CMakeFiles/std_msgs_generate_messages_lisp.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: husky_msgs/CMakeFiles/std_msgs_generate_messages_py.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: husky_msgs/CMakeFiles/std_msgs_generate_messages_cpp.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: denso_gui/CMakeFiles/nav_msgs_generate_messages_py.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: denso_gui/CMakeFiles/map_msgs_generate_messages_cpp.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: denso_gui/CMakeFiles/visualization_msgs_generate_messages_py.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/roscpp_generate_messages_cpp.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/roscpp_generate_messages_lisp.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/roscpp_generate_messages_py.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/geometry_msgs_generate_messages_py.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/sensor_msgs_generate_messages_py.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/nodelet_generate_messages_py.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/pcl_msgs_generate_messages_py.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/sensor_msgs_generate_messages_py.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/topic_tools_generate_messages_py.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/nodelet_generate_messages_lisp.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/pcl_ros_gencfg.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/dynamic_reconfigure_gencfg.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/nodelet_generate_messages_cpp.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf_generate_messages_py.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/nodelet_generate_messages_py.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/topic_tools_generate_messages_lisp.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/pcl_ros_gencfg.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/pcl_msgs_generate_messages_py.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/pcl_msgs_generate_messages_cpp.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/nodelet_generate_messages_lisp.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf_generate_messages_lisp.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/nodelet_generate_messages_cpp.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/topic_tools_generate_messages_cpp.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/bond_generate_messages_cpp.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/bond_generate_messages_lisp.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/bond_generate_messages_py.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf_generate_messages_lisp.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/bond_generate_messages_cpp.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf_generate_messages_cpp.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/topic_tools_generate_messages_py.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/topic_tools_generate_messages_lisp.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_generate_messages_py.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_generate_messages_lisp.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_generate_messages_cpp.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf_generate_messages_py.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_generate_messages_py.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_msgs_generate_messages_py.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf2_msgs_generate_messages_py.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf2_msgs_generate_messages_cpp.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf2_msgs_generate_messages_py.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: denso_gui/CMakeFiles/std_srvs_generate_messages_cpp.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: denso_gui/CMakeFiles/std_srvs_generate_messages_py.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: denso_gui/CMakeFiles/map_msgs_generate_messages_lisp.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: denso_gui/CMakeFiles/map_msgs_generate_messages_py.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: denso_gui/CMakeFiles/nav_msgs_generate_messages_lisp.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: denso_gui/CMakeFiles/visualization_msgs_generate_messages_py.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: denso_gui/CMakeFiles/std_srvs_generate_messages_lisp.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: denso_gui/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: denso_gui/CMakeFiles/nav_msgs_generate_messages_cpp.dir/all
-registration_localization/CMakeFiles/registration_localization.dir/all: denso_gui/CMakeFiles/map_msgs_generate_messages_cpp.dir/all
 registration_localization/CMakeFiles/registration_localization.dir/all: denso_gui/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: denso_gui/CMakeFiles/nav_msgs_generate_messages_lisp.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: denso_gui/CMakeFiles/nav_msgs_generate_messages_py.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: denso_gui/CMakeFiles/map_msgs_generate_messages_lisp.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: denso_gui/CMakeFiles/std_srvs_generate_messages_cpp.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: denso_gui/CMakeFiles/map_msgs_generate_messages_py.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: denso_gui/CMakeFiles/std_srvs_generate_messages_py.dir/all
+registration_localization/CMakeFiles/registration_localization.dir/all: denso_gui/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/all
 	$(MAKE) -f registration_localization/CMakeFiles/registration_localization.dir/build.make registration_localization/CMakeFiles/registration_localization.dir/depend
 	$(MAKE) -f registration_localization/CMakeFiles/registration_localization.dir/build.make registration_localization/CMakeFiles/registration_localization.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  64 65 66 67 68
@@ -4092,7 +4092,7 @@ clean: registration_localization/CMakeFiles/registration_localization.dir/clean
 registration_localization/CMakeFiles/registration_localization_gencfg.dir/all:
 	$(MAKE) -f registration_localization/CMakeFiles/registration_localization_gencfg.dir/build.make registration_localization/CMakeFiles/registration_localization_gencfg.dir/depend
 	$(MAKE) -f registration_localization/CMakeFiles/registration_localization_gencfg.dir/build.make registration_localization/CMakeFiles/registration_localization_gencfg.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  69
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles 
 	@echo "Built target registration_localization_gencfg"
 .PHONY : registration_localization/CMakeFiles/registration_localization_gencfg.dir/all
 
@@ -4102,7 +4102,7 @@ all: registration_localization/CMakeFiles/registration_localization_gencfg.dir/a
 
 # Build rule for subdir invocation for target.
 registration_localization/CMakeFiles/registration_localization_gencfg.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 registration_localization/CMakeFiles/registration_localization_gencfg.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : registration_localization/CMakeFiles/registration_localization_gencfg.dir/rule
@@ -4127,7 +4127,7 @@ clean: registration_localization/CMakeFiles/registration_localization_gencfg.dir
 registration_localization/CMakeFiles/saveapcd.dir/all:
 	$(MAKE) -f registration_localization/CMakeFiles/saveapcd.dir/build.make registration_localization/CMakeFiles/saveapcd.dir/depend
 	$(MAKE) -f registration_localization/CMakeFiles/saveapcd.dir/build.make registration_localization/CMakeFiles/saveapcd.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  69
 	@echo "Built target saveapcd"
 .PHONY : registration_localization/CMakeFiles/saveapcd.dir/all
 
@@ -4137,7 +4137,7 @@ all: registration_localization/CMakeFiles/saveapcd.dir/all
 
 # Build rule for subdir invocation for target.
 registration_localization/CMakeFiles/saveapcd.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 registration_localization/CMakeFiles/saveapcd.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : registration_localization/CMakeFiles/saveapcd.dir/rule
@@ -4162,7 +4162,7 @@ clean: registration_localization/CMakeFiles/saveapcd.dir/clean
 registration_localization/CMakeFiles/segmentation.dir/all:
 	$(MAKE) -f registration_localization/CMakeFiles/segmentation.dir/build.make registration_localization/CMakeFiles/segmentation.dir/depend
 	$(MAKE) -f registration_localization/CMakeFiles/segmentation.dir/build.make registration_localization/CMakeFiles/segmentation.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  71
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles 
 	@echo "Built target segmentation"
 .PHONY : registration_localization/CMakeFiles/segmentation.dir/all
 
@@ -4172,7 +4172,7 @@ all: registration_localization/CMakeFiles/segmentation.dir/all
 
 # Build rule for subdir invocation for target.
 registration_localization/CMakeFiles/segmentation.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 registration_localization/CMakeFiles/segmentation.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : registration_localization/CMakeFiles/segmentation.dir/rule
@@ -4232,7 +4232,7 @@ clean: registration_localization/CMakeFiles/showcloud.dir/clean
 registration_localization/CMakeFiles/showclouds.dir/all:
 	$(MAKE) -f registration_localization/CMakeFiles/showclouds.dir/build.make registration_localization/CMakeFiles/showclouds.dir/depend
 	$(MAKE) -f registration_localization/CMakeFiles/showclouds.dir/build.make registration_localization/CMakeFiles/showclouds.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  74
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles 
 	@echo "Built target showclouds"
 .PHONY : registration_localization/CMakeFiles/showclouds.dir/all
 
@@ -4242,7 +4242,7 @@ all: registration_localization/CMakeFiles/showclouds.dir/all
 
 # Build rule for subdir invocation for target.
 registration_localization/CMakeFiles/showclouds.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 registration_localization/CMakeFiles/showclouds.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : registration_localization/CMakeFiles/showclouds.dir/rule
@@ -4387,7 +4387,7 @@ selected_points_publisher/preinstall:
 selected_points_publisher/CMakeFiles/selected_points_publisher.dir/all:
 	$(MAKE) -f selected_points_publisher/CMakeFiles/selected_points_publisher.dir/build.make selected_points_publisher/CMakeFiles/selected_points_publisher.dir/depend
 	$(MAKE) -f selected_points_publisher/CMakeFiles/selected_points_publisher.dir/build.make selected_points_publisher/CMakeFiles/selected_points_publisher.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  72
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  71
 	@echo "Built target selected_points_publisher"
 .PHONY : selected_points_publisher/CMakeFiles/selected_points_publisher.dir/all
 
@@ -4437,7 +4437,7 @@ shotcrete_points/preinstall:
 shotcrete_points/CMakeFiles/shotcrete_points_publisher.dir/all:
 	$(MAKE) -f shotcrete_points/CMakeFiles/shotcrete_points_publisher.dir/build.make shotcrete_points/CMakeFiles/shotcrete_points_publisher.dir/depend
 	$(MAKE) -f shotcrete_points/CMakeFiles/shotcrete_points_publisher.dir/build.make shotcrete_points/CMakeFiles/shotcrete_points_publisher.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  73
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  72 73
 	@echo "Built target shotcrete_points_publisher"
 .PHONY : shotcrete_points/CMakeFiles/shotcrete_points_publisher.dir/all
 
@@ -4447,7 +4447,7 @@ all: shotcrete_points/CMakeFiles/shotcrete_points_publisher.dir/all
 
 # Build rule for subdir invocation for target.
 shotcrete_points/CMakeFiles/shotcrete_points_publisher.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 shotcrete_points/CMakeFiles/shotcrete_points_publisher.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : shotcrete_points/CMakeFiles/shotcrete_points_publisher.dir/rule
@@ -5014,9 +5014,9 @@ clean: teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_gencpp.dir/cl
 # Target rules for target teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages.dir
 
 # All Build rule for target.
-teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages.dir/all: teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/all
-teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages.dir/all: teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_cpp.dir/all
 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages.dir/all: teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py.dir/all
+teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages.dir/all: teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_cpp.dir/all
+teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages.dir/all: teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/all
 	$(MAKE) -f teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages.dir/build.make teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages.dir/depend
 	$(MAKE) -f teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages.dir/build.make teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles 
@@ -5053,9 +5053,9 @@ clean: teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_mess
 # All Build rule for target.
 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_cpp.dir/all: husky_msgs/CMakeFiles/std_msgs_generate_messages_cpp.dir/all
 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_cpp.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/all
-teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_cpp.dir/all: teb_local_planner-indigo-devel/CMakeFiles/_teb_local_planner_generate_messages_check_deps_TrajectoryPointMsg.dir/all
-teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_cpp.dir/all: teb_local_planner-indigo-devel/CMakeFiles/_teb_local_planner_generate_messages_check_deps_FeedbackMsg.dir/all
 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_cpp.dir/all: teb_local_planner-indigo-devel/CMakeFiles/_teb_local_planner_generate_messages_check_deps_ObstacleMsg.dir/all
+teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_cpp.dir/all: teb_local_planner-indigo-devel/CMakeFiles/_teb_local_planner_generate_messages_check_deps_FeedbackMsg.dir/all
+teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_cpp.dir/all: teb_local_planner-indigo-devel/CMakeFiles/_teb_local_planner_generate_messages_check_deps_TrajectoryPointMsg.dir/all
 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_cpp.dir/all: teb_local_planner-indigo-devel/CMakeFiles/_teb_local_planner_generate_messages_check_deps_TrajectoryMsg.dir/all
 	$(MAKE) -f teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_cpp.dir/build.make teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_cpp.dir/depend
 	$(MAKE) -f teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_cpp.dir/build.make teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_cpp.dir/build
@@ -5089,9 +5089,9 @@ clean: teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_mess
 # All Build rule for target.
 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/all: husky_msgs/CMakeFiles/std_msgs_generate_messages_lisp.dir/all
 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/all
-teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/all: teb_local_planner-indigo-devel/CMakeFiles/_teb_local_planner_generate_messages_check_deps_TrajectoryPointMsg.dir/all
-teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/all: teb_local_planner-indigo-devel/CMakeFiles/_teb_local_planner_generate_messages_check_deps_FeedbackMsg.dir/all
 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/all: teb_local_planner-indigo-devel/CMakeFiles/_teb_local_planner_generate_messages_check_deps_ObstacleMsg.dir/all
+teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/all: teb_local_planner-indigo-devel/CMakeFiles/_teb_local_planner_generate_messages_check_deps_FeedbackMsg.dir/all
+teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/all: teb_local_planner-indigo-devel/CMakeFiles/_teb_local_planner_generate_messages_check_deps_TrajectoryPointMsg.dir/all
 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/all: teb_local_planner-indigo-devel/CMakeFiles/_teb_local_planner_generate_messages_check_deps_TrajectoryMsg.dir/all
 	$(MAKE) -f teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/build.make teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/depend
 	$(MAKE) -f teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/build.make teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/build
@@ -5125,9 +5125,9 @@ clean: teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_mess
 # All Build rule for target.
 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py.dir/all: husky_msgs/CMakeFiles/std_msgs_generate_messages_py.dir/all
 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/geometry_msgs_generate_messages_py.dir/all
-teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py.dir/all: teb_local_planner-indigo-devel/CMakeFiles/_teb_local_planner_generate_messages_check_deps_TrajectoryPointMsg.dir/all
-teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py.dir/all: teb_local_planner-indigo-devel/CMakeFiles/_teb_local_planner_generate_messages_check_deps_FeedbackMsg.dir/all
 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py.dir/all: teb_local_planner-indigo-devel/CMakeFiles/_teb_local_planner_generate_messages_check_deps_ObstacleMsg.dir/all
+teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py.dir/all: teb_local_planner-indigo-devel/CMakeFiles/_teb_local_planner_generate_messages_check_deps_FeedbackMsg.dir/all
+teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py.dir/all: teb_local_planner-indigo-devel/CMakeFiles/_teb_local_planner_generate_messages_check_deps_TrajectoryPointMsg.dir/all
 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py.dir/all: teb_local_planner-indigo-devel/CMakeFiles/_teb_local_planner_generate_messages_check_deps_TrajectoryMsg.dir/all
 	$(MAKE) -f teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py.dir/build.make teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py.dir/depend
 	$(MAKE) -f teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py.dir/build.make teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py.dir/build
@@ -5224,7 +5224,7 @@ clean: teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_genpy.dir/cle
 teb_local_planner-indigo-devel/CMakeFiles/test_optim_node.dir/all: teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner.dir/all
 	$(MAKE) -f teb_local_planner-indigo-devel/CMakeFiles/test_optim_node.dir/build.make teb_local_planner-indigo-devel/CMakeFiles/test_optim_node.dir/depend
 	$(MAKE) -f teb_local_planner-indigo-devel/CMakeFiles/test_optim_node.dir/build.make teb_local_planner-indigo-devel/CMakeFiles/test_optim_node.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  84
 	@echo "Built target test_optim_node"
 .PHONY : teb_local_planner-indigo-devel/CMakeFiles/test_optim_node.dir/all
 
@@ -5234,7 +5234,7 @@ all: teb_local_planner-indigo-devel/CMakeFiles/test_optim_node.dir/all
 
 # Build rule for subdir invocation for target.
 teb_local_planner-indigo-devel/CMakeFiles/test_optim_node.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 5
 	$(MAKE) -f CMakeFiles/Makefile2 teb_local_planner-indigo-devel/CMakeFiles/test_optim_node.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : teb_local_planner-indigo-devel/CMakeFiles/test_optim_node.dir/rule
@@ -5274,7 +5274,7 @@ panel/preinstall:
 panel/CMakeFiles/newwrock.dir/all: scanning_description/CMakeFiles/_catkin_empty_exported_target.dir/all
 	$(MAKE) -f panel/CMakeFiles/newwrock.dir/build.make panel/CMakeFiles/newwrock.dir/depend
 	$(MAKE) -f panel/CMakeFiles/newwrock.dir/build.make panel/CMakeFiles/newwrock.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  35 36 37
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  35 36
 	@echo "Built target newwrock"
 .PHONY : panel/CMakeFiles/newwrock.dir/all
 
@@ -5284,7 +5284,7 @@ all: panel/CMakeFiles/newwrock.dir/all
 
 # Build rule for subdir invocation for target.
 panel/CMakeFiles/newwrock.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 panel/CMakeFiles/newwrock.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : panel/CMakeFiles/newwrock.dir/rule
@@ -5316,6 +5316,7 @@ phd/all: phd/CMakeFiles/phd.dir/all
 phd/all: phd/CMakeFiles/phd_gencfg.dir/all
 phd/all: phd/CMakeFiles/phd_generate_messages.dir/all
 phd/all: phd/CMakeFiles/saveselection.dir/all
+phd/all: phd/CMakeFiles/simple_trajectory_server.dir/all
 phd/all: phd/CMakeFiles/test_node.dir/all
 phd/all: phd/CMakeFiles/thickness_server.dir/all
 phd/all: phd/CMakeFiles/trajectory_server.dir/all
@@ -5363,6 +5364,7 @@ phd/clean: phd/CMakeFiles/phd_generate_messages_py.dir/clean
 phd/clean: phd/CMakeFiles/phd_genlisp.dir/clean
 phd/clean: phd/CMakeFiles/phd_genpy.dir/clean
 phd/clean: phd/CMakeFiles/saveselection.dir/clean
+phd/clean: phd/CMakeFiles/simple_trajectory_server.dir/clean
 phd/clean: phd/CMakeFiles/test_node.dir/clean
 phd/clean: phd/CMakeFiles/thickness_server.dir/clean
 phd/clean: phd/CMakeFiles/trajectory_msgs_generate_messages_cpp.dir/clean
@@ -5819,8 +5821,8 @@ clean: phd/CMakeFiles/brics_actuator_generate_messages_py.dir/clean
 # All Build rule for target.
 phd/CMakeFiles/cloud_localizer.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
 phd/CMakeFiles/cloud_localizer.dir/all: phd/CMakeFiles/phd_gencfg.dir/all
-phd/CMakeFiles/cloud_localizer.dir/all: phd/CMakeFiles/phd_generate_messages_cpp.dir/all
 phd/CMakeFiles/cloud_localizer.dir/all: phd/CMakeFiles/phd_gencpp.dir/all
+phd/CMakeFiles/cloud_localizer.dir/all: phd/CMakeFiles/phd_generate_messages_cpp.dir/all
 	$(MAKE) -f phd/CMakeFiles/cloud_localizer.dir/build.make phd/CMakeFiles/cloud_localizer.dir/depend
 	$(MAKE) -f phd/CMakeFiles/cloud_localizer.dir/build.make phd/CMakeFiles/cloud_localizer.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  12
@@ -6210,7 +6212,7 @@ clean: phd/CMakeFiles/diagnostic_msgs_generate_messages_py.dir/clean
 phd/CMakeFiles/joint_fusion_node.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
 	$(MAKE) -f phd/CMakeFiles/joint_fusion_node.dir/build.make phd/CMakeFiles/joint_fusion_node.dir/depend
 	$(MAKE) -f phd/CMakeFiles/joint_fusion_node.dir/build.make phd/CMakeFiles/joint_fusion_node.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  25
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles 
 	@echo "Built target joint_fusion_node"
 .PHONY : phd/CMakeFiles/joint_fusion_node.dir/all
 
@@ -6220,7 +6222,7 @@ all: phd/CMakeFiles/joint_fusion_node.dir/all
 
 # Build rule for subdir invocation for target.
 phd/CMakeFiles/joint_fusion_node.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/joint_fusion_node.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : phd/CMakeFiles/joint_fusion_node.dir/rule
@@ -6373,7 +6375,7 @@ clean: phd/CMakeFiles/parse_node.dir/clean
 phd/CMakeFiles/phd.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
 	$(MAKE) -f phd/CMakeFiles/phd.dir/build.make phd/CMakeFiles/phd.dir/depend
 	$(MAKE) -f phd/CMakeFiles/phd.dir/build.make phd/CMakeFiles/phd.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  40 41 42 43 44 45 46 47 48
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  39 40 41 42 43 44 45 46 47 48
 	@echo "Built target phd"
 .PHONY : phd/CMakeFiles/phd.dir/all
 
@@ -6383,7 +6385,7 @@ all: phd/CMakeFiles/phd.dir/all
 
 # Build rule for subdir invocation for target.
 phd/CMakeFiles/phd.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 13
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 14
 	$(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/phd.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : phd/CMakeFiles/phd.dir/rule
@@ -6486,7 +6488,7 @@ all: phd/CMakeFiles/phd_generate_messages.dir/all
 
 # Build rule for subdir invocation for target.
 phd/CMakeFiles/phd_generate_messages.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 13
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 12
 	$(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/phd_generate_messages.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : phd/CMakeFiles/phd_generate_messages.dir/rule
@@ -6511,16 +6513,16 @@ clean: phd/CMakeFiles/phd_generate_messages.dir/clean
 phd/CMakeFiles/phd_generate_messages_cpp.dir/all: husky_msgs/CMakeFiles/std_msgs_generate_messages_cpp.dir/all
 phd/CMakeFiles/phd_generate_messages_cpp.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/all
 phd/CMakeFiles/phd_generate_messages_cpp.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/all
-phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_service.dir/all
-phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_msg.dir/all
-phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_section.dir/all
-phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_thickness_service.dir/all
-phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_localize_cloud.dir/all
-phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_array.dir/all
-phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir/all
-phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_arm_msg.dir/all
 phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_point.dir/all
+phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_arm_msg.dir/all
+phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_localize_cloud.dir/all
+phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_msg.dir/all
 phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_cube_msg.dir/all
+phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_array.dir/all
+phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_section.dir/all
+phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_service.dir/all
+phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir/all
+phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_thickness_service.dir/all
 	$(MAKE) -f phd/CMakeFiles/phd_generate_messages_cpp.dir/build.make phd/CMakeFiles/phd_generate_messages_cpp.dir/depend
 	$(MAKE) -f phd/CMakeFiles/phd_generate_messages_cpp.dir/build.make phd/CMakeFiles/phd_generate_messages_cpp.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  50 51 52 53
@@ -6554,16 +6556,16 @@ clean: phd/CMakeFiles/phd_generate_messages_cpp.dir/clean
 phd/CMakeFiles/phd_generate_messages_lisp.dir/all: husky_msgs/CMakeFiles/std_msgs_generate_messages_lisp.dir/all
 phd/CMakeFiles/phd_generate_messages_lisp.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/all
 phd/CMakeFiles/phd_generate_messages_lisp.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/all
-phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_service.dir/all
-phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_msg.dir/all
-phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_section.dir/all
-phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_thickness_service.dir/all
-phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_localize_cloud.dir/all
-phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_array.dir/all
-phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir/all
-phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_arm_msg.dir/all
 phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_point.dir/all
+phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_arm_msg.dir/all
+phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_localize_cloud.dir/all
+phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_msg.dir/all
 phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_cube_msg.dir/all
+phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_array.dir/all
+phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_section.dir/all
+phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_service.dir/all
+phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir/all
+phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_thickness_service.dir/all
 	$(MAKE) -f phd/CMakeFiles/phd_generate_messages_lisp.dir/build.make phd/CMakeFiles/phd_generate_messages_lisp.dir/depend
 	$(MAKE) -f phd/CMakeFiles/phd_generate_messages_lisp.dir/build.make phd/CMakeFiles/phd_generate_messages_lisp.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  54 55 56 57
@@ -6597,25 +6599,25 @@ clean: phd/CMakeFiles/phd_generate_messages_lisp.dir/clean
 phd/CMakeFiles/phd_generate_messages_py.dir/all: husky_msgs/CMakeFiles/std_msgs_generate_messages_py.dir/all
 phd/CMakeFiles/phd_generate_messages_py.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/sensor_msgs_generate_messages_py.dir/all
 phd/CMakeFiles/phd_generate_messages_py.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_msgs_generate_messages_py.dir/all
-phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_service.dir/all
-phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_msg.dir/all
-phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_section.dir/all
-phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_thickness_service.dir/all
-phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_localize_cloud.dir/all
-phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_array.dir/all
-phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir/all
-phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_arm_msg.dir/all
 phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_point.dir/all
+phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_arm_msg.dir/all
+phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_localize_cloud.dir/all
+phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_msg.dir/all
 phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_cube_msg.dir/all
+phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_array.dir/all
+phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_section.dir/all
+phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_service.dir/all
+phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir/all
+phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_thickness_service.dir/all
 	$(MAKE) -f phd/CMakeFiles/phd_generate_messages_py.dir/build.make phd/CMakeFiles/phd_generate_messages_py.dir/depend
 	$(MAKE) -f phd/CMakeFiles/phd_generate_messages_py.dir/build.make phd/CMakeFiles/phd_generate_messages_py.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  58 59 60 61 62
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  58 59 60 61
 	@echo "Built target phd_generate_messages_py"
 .PHONY : phd/CMakeFiles/phd_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 phd/CMakeFiles/phd_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/phd_generate_messages_py.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : phd/CMakeFiles/phd_generate_messages_py.dir/rule
@@ -6677,7 +6679,7 @@ phd/CMakeFiles/phd_genpy.dir/all: phd/CMakeFiles/phd_generate_messages_py.dir/al
 
 # Build rule for subdir invocation for target.
 phd/CMakeFiles/phd_genpy.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/phd_genpy.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : phd/CMakeFiles/phd_genpy.dir/rule
@@ -6731,6 +6733,43 @@ clean: phd/CMakeFiles/saveselection.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target phd/CMakeFiles/simple_trajectory_server.dir
+
+# All Build rule for target.
+phd/CMakeFiles/simple_trajectory_server.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
+phd/CMakeFiles/simple_trajectory_server.dir/all: phd/CMakeFiles/phd_gencpp.dir/all
+phd/CMakeFiles/simple_trajectory_server.dir/all: phd/CMakeFiles/phd_generate_messages_cpp.dir/all
+	$(MAKE) -f phd/CMakeFiles/simple_trajectory_server.dir/build.make phd/CMakeFiles/simple_trajectory_server.dir/depend
+	$(MAKE) -f phd/CMakeFiles/simple_trajectory_server.dir/build.make phd/CMakeFiles/simple_trajectory_server.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles 
+	@echo "Built target simple_trajectory_server"
+.PHONY : phd/CMakeFiles/simple_trajectory_server.dir/all
+
+# Include target in all.
+all: phd/CMakeFiles/simple_trajectory_server.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+phd/CMakeFiles/simple_trajectory_server.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 8
+	$(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/simple_trajectory_server.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
+.PHONY : phd/CMakeFiles/simple_trajectory_server.dir/rule
+
+# Convenience name for target.
+simple_trajectory_server: phd/CMakeFiles/simple_trajectory_server.dir/rule
+.PHONY : simple_trajectory_server
+
+# clean rule for target.
+phd/CMakeFiles/simple_trajectory_server.dir/clean:
+	$(MAKE) -f phd/CMakeFiles/simple_trajectory_server.dir/build.make phd/CMakeFiles/simple_trajectory_server.dir/clean
+.PHONY : phd/CMakeFiles/simple_trajectory_server.dir/clean
+
+# clean rule for target.
+clean: phd/CMakeFiles/simple_trajectory_server.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target phd/CMakeFiles/test_node.dir
 
 # All Build rule for target.
@@ -6771,8 +6810,8 @@ clean: phd/CMakeFiles/test_node.dir/clean
 # All Build rule for target.
 phd/CMakeFiles/thickness_server.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
 phd/CMakeFiles/thickness_server.dir/all: phd/CMakeFiles/phd_gencfg.dir/all
-phd/CMakeFiles/thickness_server.dir/all: phd/CMakeFiles/phd_generate_messages_cpp.dir/all
 phd/CMakeFiles/thickness_server.dir/all: phd/CMakeFiles/phd_gencpp.dir/all
+phd/CMakeFiles/thickness_server.dir/all: phd/CMakeFiles/phd_generate_messages_cpp.dir/all
 	$(MAKE) -f phd/CMakeFiles/thickness_server.dir/build.make phd/CMakeFiles/thickness_server.dir/depend
 	$(MAKE) -f phd/CMakeFiles/thickness_server.dir/build.make phd/CMakeFiles/thickness_server.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  89
@@ -6901,8 +6940,8 @@ clean: phd/CMakeFiles/trajectory_msgs_generate_messages_py.dir/clean
 
 # All Build rule for target.
 phd/CMakeFiles/trajectory_server.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
-phd/CMakeFiles/trajectory_server.dir/all: phd/CMakeFiles/phd_generate_messages_cpp.dir/all
 phd/CMakeFiles/trajectory_server.dir/all: phd/CMakeFiles/phd_gencpp.dir/all
+phd/CMakeFiles/trajectory_server.dir/all: phd/CMakeFiles/phd_generate_messages_cpp.dir/all
 	$(MAKE) -f phd/CMakeFiles/trajectory_server.dir/build.make phd/CMakeFiles/trajectory_server.dir/depend
 	$(MAKE) -f phd/CMakeFiles/trajectory_server.dir/build.make phd/CMakeFiles/trajectory_server.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles 
@@ -7591,7 +7630,7 @@ clean: wrock/CMakeFiles/master.dir/clean
 wrock/CMakeFiles/matching.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
 	$(MAKE) -f wrock/CMakeFiles/matching.dir/build.make wrock/CMakeFiles/matching.dir/depend
 	$(MAKE) -f wrock/CMakeFiles/matching.dir/build.make wrock/CMakeFiles/matching.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  32
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles 
 	@echo "Built target matching"
 .PHONY : wrock/CMakeFiles/matching.dir/all
 
@@ -7601,7 +7640,7 @@ all: wrock/CMakeFiles/matching.dir/all
 
 # Build rule for subdir invocation for target.
 wrock/CMakeFiles/matching.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 wrock/CMakeFiles/matching.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : wrock/CMakeFiles/matching.dir/rule
@@ -7626,7 +7665,7 @@ clean: wrock/CMakeFiles/matching.dir/clean
 wrock/CMakeFiles/matching2.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
 	$(MAKE) -f wrock/CMakeFiles/matching2.dir/build.make wrock/CMakeFiles/matching2.dir/depend
 	$(MAKE) -f wrock/CMakeFiles/matching2.dir/build.make wrock/CMakeFiles/matching2.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles 
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  32
 	@echo "Built target matching2"
 .PHONY : wrock/CMakeFiles/matching2.dir/all
 
@@ -7636,7 +7675,7 @@ all: wrock/CMakeFiles/matching2.dir/all
 
 # Build rule for subdir invocation for target.
 wrock/CMakeFiles/matching2.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 5
 	$(MAKE) -f CMakeFiles/Makefile2 wrock/CMakeFiles/matching2.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : wrock/CMakeFiles/matching2.dir/rule
@@ -7768,7 +7807,7 @@ clean: wrock/CMakeFiles/pcl.dir/clean
 wrock/CMakeFiles/pco.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
 	$(MAKE) -f wrock/CMakeFiles/pco.dir/build.make wrock/CMakeFiles/pco.dir/depend
 	$(MAKE) -f wrock/CMakeFiles/pco.dir/build.make wrock/CMakeFiles/pco.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  39
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles 
 	@echo "Built target pco"
 .PHONY : wrock/CMakeFiles/pco.dir/all
 
@@ -7778,7 +7817,7 @@ all: wrock/CMakeFiles/pco.dir/all
 
 # Build rule for subdir invocation for target.
 wrock/CMakeFiles/pco.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 wrock/CMakeFiles/pco.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : wrock/CMakeFiles/pco.dir/rule
@@ -8077,8 +8116,8 @@ clean: wrock/CMakeFiles/wrock_gencpp.dir/clean
 
 # All Build rule for target.
 wrock/CMakeFiles/wrock_generate_messages.dir/all: wrock/CMakeFiles/wrock_generate_messages_cpp.dir/all
-wrock/CMakeFiles/wrock_generate_messages.dir/all: wrock/CMakeFiles/wrock_generate_messages_py.dir/all
 wrock/CMakeFiles/wrock_generate_messages.dir/all: wrock/CMakeFiles/wrock_generate_messages_lisp.dir/all
+wrock/CMakeFiles/wrock_generate_messages.dir/all: wrock/CMakeFiles/wrock_generate_messages_py.dir/all
 	$(MAKE) -f wrock/CMakeFiles/wrock_generate_messages.dir/build.make wrock/CMakeFiles/wrock_generate_messages.dir/depend
 	$(MAKE) -f wrock/CMakeFiles/wrock_generate_messages.dir/build.make wrock/CMakeFiles/wrock_generate_messages.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles 
@@ -8116,12 +8155,12 @@ clean: wrock/CMakeFiles/wrock_generate_messages.dir/clean
 wrock/CMakeFiles/wrock_generate_messages_cpp.dir/all: husky_msgs/CMakeFiles/std_msgs_generate_messages_cpp.dir/all
 wrock/CMakeFiles/wrock_generate_messages_cpp.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/all
 wrock/CMakeFiles/wrock_generate_messages_cpp.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/all
-wrock/CMakeFiles/wrock_generate_messages_cpp.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_cube_kin.dir/all
 wrock/CMakeFiles/wrock_generate_messages_cpp.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_joint_kin.dir/all
 wrock/CMakeFiles/wrock_generate_messages_cpp.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_cube_msg.dir/all
+wrock/CMakeFiles/wrock_generate_messages_cpp.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_arm_msg.dir/all
+wrock/CMakeFiles/wrock_generate_messages_cpp.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_cube_kin.dir/all
 wrock/CMakeFiles/wrock_generate_messages_cpp.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_cube_pose.dir/all
 wrock/CMakeFiles/wrock_generate_messages_cpp.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_joint_pose.dir/all
-wrock/CMakeFiles/wrock_generate_messages_cpp.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_arm_msg.dir/all
 	$(MAKE) -f wrock/CMakeFiles/wrock_generate_messages_cpp.dir/build.make wrock/CMakeFiles/wrock_generate_messages_cpp.dir/depend
 	$(MAKE) -f wrock/CMakeFiles/wrock_generate_messages_cpp.dir/build.make wrock/CMakeFiles/wrock_generate_messages_cpp.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  93 94
@@ -8155,12 +8194,12 @@ clean: wrock/CMakeFiles/wrock_generate_messages_cpp.dir/clean
 wrock/CMakeFiles/wrock_generate_messages_lisp.dir/all: husky_msgs/CMakeFiles/std_msgs_generate_messages_lisp.dir/all
 wrock/CMakeFiles/wrock_generate_messages_lisp.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/all
 wrock/CMakeFiles/wrock_generate_messages_lisp.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/all
-wrock/CMakeFiles/wrock_generate_messages_lisp.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_cube_kin.dir/all
 wrock/CMakeFiles/wrock_generate_messages_lisp.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_joint_kin.dir/all
 wrock/CMakeFiles/wrock_generate_messages_lisp.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_cube_msg.dir/all
+wrock/CMakeFiles/wrock_generate_messages_lisp.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_arm_msg.dir/all
+wrock/CMakeFiles/wrock_generate_messages_lisp.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_cube_kin.dir/all
 wrock/CMakeFiles/wrock_generate_messages_lisp.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_cube_pose.dir/all
 wrock/CMakeFiles/wrock_generate_messages_lisp.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_joint_pose.dir/all
-wrock/CMakeFiles/wrock_generate_messages_lisp.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_arm_msg.dir/all
 	$(MAKE) -f wrock/CMakeFiles/wrock_generate_messages_lisp.dir/build.make wrock/CMakeFiles/wrock_generate_messages_lisp.dir/depend
 	$(MAKE) -f wrock/CMakeFiles/wrock_generate_messages_lisp.dir/build.make wrock/CMakeFiles/wrock_generate_messages_lisp.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  95 96 97
@@ -8194,12 +8233,12 @@ clean: wrock/CMakeFiles/wrock_generate_messages_lisp.dir/clean
 wrock/CMakeFiles/wrock_generate_messages_py.dir/all: husky_msgs/CMakeFiles/std_msgs_generate_messages_py.dir/all
 wrock/CMakeFiles/wrock_generate_messages_py.dir/all: point_cloud_converter-hydro-devel/CMakeFiles/sensor_msgs_generate_messages_py.dir/all
 wrock/CMakeFiles/wrock_generate_messages_py.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_msgs_generate_messages_py.dir/all
-wrock/CMakeFiles/wrock_generate_messages_py.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_cube_kin.dir/all
 wrock/CMakeFiles/wrock_generate_messages_py.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_joint_kin.dir/all
 wrock/CMakeFiles/wrock_generate_messages_py.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_cube_msg.dir/all
+wrock/CMakeFiles/wrock_generate_messages_py.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_arm_msg.dir/all
+wrock/CMakeFiles/wrock_generate_messages_py.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_cube_kin.dir/all
 wrock/CMakeFiles/wrock_generate_messages_py.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_cube_pose.dir/all
 wrock/CMakeFiles/wrock_generate_messages_py.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_joint_pose.dir/all
-wrock/CMakeFiles/wrock_generate_messages_py.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_arm_msg.dir/all
 	$(MAKE) -f wrock/CMakeFiles/wrock_generate_messages_py.dir/build.make wrock/CMakeFiles/wrock_generate_messages_py.dir/depend
 	$(MAKE) -f wrock/CMakeFiles/wrock_generate_messages_py.dir/build.make wrock/CMakeFiles/wrock_generate_messages_py.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles  98 99 100

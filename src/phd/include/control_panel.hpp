@@ -34,6 +34,7 @@
 # include <QObject>
 #include <sensor_msgs/PointCloud2.h>
 #include <sensor_msgs/JointState.h>
+#include <tf/transform_broadcaster.h>
 
 #include "std_msgs/String.h"
 #include <sstream>
@@ -85,6 +86,7 @@ public:
 	void lscan();
 	void run();
 	bool init();
+	void calc_poses();
 	void send_command(float x, float y, float z, float rx, float ry, float rz, float fig, int motion);
 	void send_joint_command(float j1, float j2, float j3, float j4, float j5, float j6);
 	void send_string(std::string user_string);
@@ -141,6 +143,9 @@ private:
 	int pt_ctr;
 	int cloud_ctr;
 	int tctr;
+	tf::TransformBroadcaster br;
+	tf::Transform transform;
+	tf::Quaternion q;
 };
 }
 }  // namespace 

@@ -69,6 +69,7 @@ void onJointCommand();
 void onStringCommand();
 void scan_360();
 void load_traj();
+void rosSpinner();
 Q_SIGNALS:
 
 protected:

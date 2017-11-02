@@ -727,6 +727,20 @@ saveselection/fast:
 .PHONY : saveselection/fast
 
 # Convenience name for target.
+phd/CMakeFiles/simple_trajectory_server.dir/rule:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/simple_trajectory_server.dir/rule
+.PHONY : phd/CMakeFiles/simple_trajectory_server.dir/rule
+
+# Convenience name for target.
+simple_trajectory_server: phd/CMakeFiles/simple_trajectory_server.dir/rule
+.PHONY : simple_trajectory_server
+
+# fast build rule for target.
+simple_trajectory_server/fast:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/simple_trajectory_server.dir/build.make phd/CMakeFiles/simple_trajectory_server.dir/build
+.PHONY : simple_trajectory_server/fast
+
+# Convenience name for target.
 phd/CMakeFiles/test_node.dir/rule:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/test_node.dir/rule
 .PHONY : phd/CMakeFiles/test_node.dir/rule
@@ -1389,6 +1403,30 @@ src/saveselection.cpp.s:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/saveselection.dir/build.make phd/CMakeFiles/saveselection.dir/src/saveselection.cpp.s
 .PHONY : src/saveselection.cpp.s
 
+src/simple_trajectory_service.o: src/simple_trajectory_service.cpp.o
+.PHONY : src/simple_trajectory_service.o
+
+# target to build an object file
+src/simple_trajectory_service.cpp.o:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/simple_trajectory_server.dir/build.make phd/CMakeFiles/simple_trajectory_server.dir/src/simple_trajectory_service.cpp.o
+.PHONY : src/simple_trajectory_service.cpp.o
+
+src/simple_trajectory_service.i: src/simple_trajectory_service.cpp.i
+.PHONY : src/simple_trajectory_service.i
+
+# target to preprocess a source file
+src/simple_trajectory_service.cpp.i:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/simple_trajectory_server.dir/build.make phd/CMakeFiles/simple_trajectory_server.dir/src/simple_trajectory_service.cpp.i
+.PHONY : src/simple_trajectory_service.cpp.i
+
+src/simple_trajectory_service.s: src/simple_trajectory_service.cpp.s
+.PHONY : src/simple_trajectory_service.s
+
+# target to generate assembly for a file
+src/simple_trajectory_service.cpp.s:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/simple_trajectory_server.dir/build.make phd/CMakeFiles/simple_trajectory_server.dir/src/simple_trajectory_service.cpp.s
+.PHONY : src/simple_trajectory_service.cpp.s
+
 src/test_node.o: src/test_node.cpp.o
 .PHONY : src/test_node.o
 
@@ -1538,6 +1576,7 @@ help:
 	@echo "... phd_genpy"
 	@echo "... rebuild_cache"
 	@echo "... saveselection"
+	@echo "... simple_trajectory_server"
 	@echo "... test"
 	@echo "... test_node"
 	@echo "... thickness_server"
@@ -1614,6 +1653,9 @@ help:
 	@echo "... src/saveselection.o"
 	@echo "... src/saveselection.i"
 	@echo "... src/saveselection.s"
+	@echo "... src/simple_trajectory_service.o"
+	@echo "... src/simple_trajectory_service.i"
+	@echo "... src/simple_trajectory_service.s"
 	@echo "... src/test_node.o"
 	@echo "... src/test_node.i"
 	@echo "... src/test_node.s"

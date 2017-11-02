@@ -8,7 +8,7 @@
   <node type="cloud_localizer" pkg="phd" name="localization_service" output="screen">
   </node>
   <!--- Run trajectory service -->
-  <node type="trajectory_server" pkg="phd" name="trajectory_service" output="screen" required="True">
+  <node type="simple_trajectory_server" pkg="phd" name="trajectory_service" output="screen" required="True">
   </node>
 
   <!--- Run thickness service -->
@@ -16,7 +16,7 @@
   </node>
 
   <!--- Run rviz -->
-    <node name="rviz" pkg="rviz" type="rviz" required="True" output="screen" > 
+    <node name="rviz" pkg="rviz" type="rviz" required="True" output="screen" args="-d $(find phd)/cfg/rviz_scan.rviz"> 
   </node>
 <node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0 0 0 0 0 0 1 base_link world 100" />
 <node pkg="tf" type="static_transform_publisher" name="link2_broadcaster" args="0 0 0 0 0 0 1 base_link laser 100" />

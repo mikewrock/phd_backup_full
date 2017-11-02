@@ -217,13 +217,14 @@ add_executable(joint_fusion_node src/joint_state_fusion.cpp)
 add_executable(cloud_localizer src/pointcloud_localization_service.cpp)
 add_executable(thickness_server src/thickness_service.cpp)
 add_executable(trajectory_server src/trajectory_service.cpp)
+add_executable(simple_trajectory_server src/simple_trajectory_service.cpp)
 add_executable(saveselection src/saveselection.cpp)
 
 ## Declare a cpp library
  add_library(${PROJECT_NAME} 
    ${SOURCE_FILES}
    ${${PROJECT_NAME}_UIS_H}
-   ${QT_RESOURCES}
+   ${QT_RESOURCES} ${MOC_FILES}
  )
 # Client library
 add_library(bcap_client 
@@ -250,6 +251,7 @@ target_link_libraries(test_node  ${catkin_LIBRARIES})
 target_link_libraries(cloud_localizer  ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(thickness_server  ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(trajectory_server  ${catkin_LIBRARIES} ${PCL_LIBRARIES})
+target_link_libraries(simple_trajectory_server  ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(joint_fusion_node  ${catkin_LIBRARIES})
 target_link_libraries(denso_node bcap_client ${catkin_LIBRARIES})
 target_link_libraries(saveselection  ${catkin_LIBRARIES})
@@ -261,6 +263,7 @@ set_target_properties(cube_node PROPERTIES COMPILE_FLAGS "-D__LINUX__ -DUSE_ESD"
 add_dependencies(cloud_localizer  phd_EXPORTED_TARGETS phd_generate_messages_cpp phd_gencpp phd_gencfg)
 add_dependencies(thickness_server  phd_EXPORTED_TARGETS phd_generate_messages_cpp phd_gencpp phd_gencfg)
 add_dependencies(trajectory_server  phd_EXPORTED_TARGETS phd_generate_messages_cpp phd_gencpp)
+add_dependencies(simple_trajectory_server  phd_EXPORTED_TARGETS phd_generate_messages_cpp phd_gencpp)
 add_dependencies(cube_node  phd_EXPORTED_TARGETS phd_generate_messages_cpp)
 add_dependencies(denso_node  phd_EXPORTED_TARGETS phd_generate_messages_cpp)
 #add_dependencies(control_panel  phd_EXPORTED_TARGETS phd_generate_messages_cpp phd_gencpp)

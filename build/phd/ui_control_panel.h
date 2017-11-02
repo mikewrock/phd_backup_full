@@ -56,6 +56,7 @@ public:
     QPushButton *f_traj;
     QLineEdit *filename_box_2;
     QCheckBox *step;
+    QPushButton *pose_button;
     QWidget *tab_2;
     QLineEdit *j5_box;
     QLabel *label_24;
@@ -160,35 +161,35 @@ public:
         gen_trajectory = new QPushButton(tab);
         gen_trajectory->setObjectName(QString::fromUtf8("gen_trajectory"));
         gen_trajectory->setEnabled(true);
-        gen_trajectory->setGeometry(QRect(120, 110, 141, 27));
+        gen_trajectory->setGeometry(QRect(120, 107, 141, 27));
         marker_info = new QLabel(tab);
         marker_info->setObjectName(QString::fromUtf8("marker_info"));
         marker_info->setGeometry(QRect(120, 75, 151, 17));
         start_point = new QPushButton(tab);
         start_point->setObjectName(QString::fromUtf8("start_point"));
-        start_point->setGeometry(QRect(10, 110, 101, 27));
+        start_point->setGeometry(QRect(10, 107, 101, 27));
         exe_trajectory = new QPushButton(tab);
         exe_trajectory->setObjectName(QString::fromUtf8("exe_trajectory"));
         exe_trajectory->setEnabled(true);
-        exe_trajectory->setGeometry(QRect(120, 150, 141, 27));
+        exe_trajectory->setGeometry(QRect(120, 147, 141, 27));
         soft_stop = new QPushButton(tab);
         soft_stop->setObjectName(QString::fromUtf8("soft_stop"));
         soft_stop->setEnabled(true);
-        soft_stop->setGeometry(QRect(10, 150, 101, 27));
+        soft_stop->setGeometry(QRect(10, 147, 101, 27));
         soft_stop->setStyleSheet(QString::fromUtf8("background-color: rgb(170, 0, 0);\n"
 "color: rgb(255, 255, 255);"));
         plot_path = new QPushButton(tab);
         plot_path->setObjectName(QString::fromUtf8("plot_path"));
         plot_path->setEnabled(true);
-        plot_path->setGeometry(QRect(10, 190, 111, 27));
+        plot_path->setGeometry(QRect(10, 210, 111, 27));
         exe_path = new QPushButton(tab);
         exe_path->setObjectName(QString::fromUtf8("exe_path"));
         exe_path->setEnabled(true);
-        exe_path->setGeometry(QRect(130, 190, 131, 27));
+        exe_path->setGeometry(QRect(130, 210, 131, 27));
         thickness = new QPushButton(tab);
         thickness->setObjectName(QString::fromUtf8("thickness"));
         thickness->setEnabled(true);
-        thickness->setGeometry(QRect(130, 225, 131, 31));
+        thickness->setGeometry(QRect(130, 245, 131, 31));
         marker_info_2 = new QLabel(tab);
         marker_info_2->setObjectName(QString::fromUtf8("marker_info_2"));
         marker_info_2->setGeometry(QRect(20, 275, 221, 17));
@@ -200,7 +201,7 @@ public:
         est_pos->setGeometry(QRect(140, 460, 121, 31));
         show_nav_button = new QPushButton(tab);
         show_nav_button->setObjectName(QString::fromUtf8("show_nav_button"));
-        show_nav_button->setGeometry(QRect(10, 225, 111, 31));
+        show_nav_button->setGeometry(QRect(10, 245, 111, 31));
         filename_box = new QLineEdit(tab);
         filename_box->setObjectName(QString::fromUtf8("filename_box"));
         filename_box->setGeometry(QRect(100, 385, 161, 31));
@@ -229,6 +230,9 @@ public:
         step->setEnabled(true);
         step->setGeometry(QRect(110, 460, 21, 30));
         step->setChecked(false);
+        pose_button = new QPushButton(tab);
+        pose_button->setObjectName(QString::fromUtf8("pose_button"));
+        pose_button->setGeometry(QRect(10, 180, 111, 27));
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -438,7 +442,7 @@ public:
 
         retranslateUi(Control_Form);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(Control_Form);
@@ -466,7 +470,7 @@ public:
         step_button->setText(QApplication::translate("Control_Form", "Step", 0, QApplication::UnicodeUTF8));
         est_pos->setText(QApplication::translate("Control_Form", "Estimate Position", 0, QApplication::UnicodeUTF8));
         show_nav_button->setText(QApplication::translate("Control_Form", "Show Nav Goal", 0, QApplication::UnicodeUTF8));
-        filename_box->setText(QApplication::translate("Control_Form", "/home/mike/testing/file.pcd", 0, QApplication::UnicodeUTF8));
+        filename_box->setText(QApplication::translate("Control_Form", "/home/mike/mine.pcd", 0, QApplication::UnicodeUTF8));
         auto_localize->setText(QApplication::translate("Control_Form", "Auto Localize", 0, QApplication::UnicodeUTF8));
         set_home->setText(QApplication::translate("Control_Form", "Set Home", 0, QApplication::UnicodeUTF8));
         marker_name_box->setText(QApplication::translate("Control_Form", "/home/mike/testing/s", 0, QApplication::UnicodeUTF8));
@@ -474,6 +478,7 @@ public:
         f_traj->setText(QApplication::translate("Control_Form", "Load Traj", 0, QApplication::UnicodeUTF8));
         filename_box_2->setText(QApplication::translate("Control_Form", "/home/mike/testing/s1trajectory.bag", 0, QApplication::UnicodeUTF8));
         step->setText(QString());
+        pose_button->setText(QApplication::translate("Control_Form", "Generate Poses", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("Control_Form", "Operation", 0, QApplication::UnicodeUTF8));
         j5_box->setText(QApplication::translate("Control_Form", "0", 0, QApplication::UnicodeUTF8));
         label_24->setText(QApplication::translate("Control_Form", "z", 0, QApplication::UnicodeUTF8));

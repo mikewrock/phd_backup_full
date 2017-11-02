@@ -217,7 +217,11 @@ phd::trajectory_point QNode::find_pose(void){
 	if(DEBUG) ROS_INFO("Returning %f - %f/ %f - %f",ret.x,ret.y,ret.nx,ret.ny);
 	return ret;
 }
+void QNode::calc_poses(){
 
+	
+
+}
 //Calculate and display the current naviagtion goal
 void QNode::show_nav() {
 
@@ -412,8 +416,30 @@ void QNode::scan(std::string markername, bool localize){
 			if(localize){
 				cloud_surface_world = loc_srv.response.cloud_out;
 				pf << markername << cloud_ctr << "home" << CLOUD << ".pcd";
+				transform.setOrigin( tf::Vector3(0, 0, 0) );
+				q.setRPY(0, 0, 0);
+				transform.setRotation(q);
+				br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "world", "base_footprint"));
 			}else{
 				cloud_surface_world = loc_srv.response.cloud_out;
+				transform.setOrigin( tf::Vector3(loc_srv.response.transform_mat[3], loc_srv.response.transform_mat[7], loc_srv.response.transform_mat[11]) );
+				/*Eigen::Matrix3d m;
+				m <<static_cast<float>(loc_srv.response.transform_mat[0]),static_cast<float>(loc_srv.response.transform_mat[1]),static_cast<float>(loc_srv.response.transform_mat[2]),
+				  static_cast<float>(loc_srv.response.transform_mat[4]),static_cast<float>(loc_srv.response.transform_mat[5]),static_cast<float>(loc_srv.response.transform_mat[6]),
+				  static_cast<float>(loc_srv.response.transform_mat[8]),static_cast<float>(loc_srv.response.transform_mat[9]),static_cast<float>(loc_srv.response.transform_mat[10]);
+				m(0,0) = loc_srv.response.transform_mat[0];
+				m(0,1) = loc_srv.response.transform_mat[1];
+				m(0,2) = loc_srv.response.transform_mat[2];
+				m(1,0) = loc_srv.response.transform_mat[4];
+				m(1,1) = loc_srv.response.transform_mat[5];
+				m(1,2) = loc_srv.response.transform_mat[6];
+				m(2,0) = loc_srv.response.transform_mat[8];
+				m(2,1) = loc_srv.response.transform_mat[9];
+				m(2,2) = loc_srv.response.transform_mat[10];*/
+				tf::Matrix3x3 m(loc_srv.response.transform_mat[0], loc_srv.response.transform_mat[1], loc_srv.response.transform_mat[2], loc_srv.response.transform_mat[4], loc_srv.response.transform_mat[5], loc_srv.response.transform_mat[6], loc_srv.response.transform_mat[8], loc_srv.response.transform_mat[9], loc_srv.response.transform_mat[10]);
+				m.getRotation(q);
+				transform.setRotation(q);
+				br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "world", "base_footprint"));
 				pf << markername << cloud_ctr << "localized" << CLOUD << ".pcd";
 			}
 			pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
@@ -516,6 +542,7 @@ return;
 	myfile << std::endl;
 		}else ROS_INFO("Service Failed");
 	}else {
+		cloud_surface_world = cloud_msg;
 		rawpub.publish(cloud_msg);
 	}
 	}
