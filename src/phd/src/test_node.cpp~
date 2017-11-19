@@ -152,9 +152,9 @@ pcl::fromROSMsg(cloud_msg2,*cloud);
       minPoint[1]=0;  // define minimum point y 
       minPoint[2]=0;  // define minimum point z 
      Eigen::Vector4f maxPoint; 
-      maxPoint[0]=10;  // define max point x 
-      maxPoint[1]=10;  // define max point y 
-      maxPoint[2]=.05;  // define max point z 
+      minPoint[0]=10;  // define max point x 
+      minPoint[1]=10;  // define max point y 
+      minPoint[2]=.05;  // define max point z 
 
      Eigen::Vector3f boxTranslatation; 
       boxTranslatation[0]=2.4;   

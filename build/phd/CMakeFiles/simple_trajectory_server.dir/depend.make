@@ -385,9 +385,11 @@ phd/CMakeFiles/simple_trajectory_server.dir/src/simple_trajectory_service.cpp.o:
 phd/CMakeFiles/simple_trajectory_server.dir/src/simple_trajectory_service.cpp.o: /usr/include/pcl-1.7/pcl/features/impl/normal_3d.hpp
 phd/CMakeFiles/simple_trajectory_server.dir/src/simple_trajectory_service.cpp.o: /usr/include/pcl-1.7/pcl/features/normal_3d.h
 phd/CMakeFiles/simple_trajectory_server.dir/src/simple_trajectory_service.cpp.o: /usr/include/pcl-1.7/pcl/filters/boost.h
+phd/CMakeFiles/simple_trajectory_server.dir/src/simple_trajectory_service.cpp.o: /usr/include/pcl-1.7/pcl/filters/crop_box.h
 phd/CMakeFiles/simple_trajectory_server.dir/src/simple_trajectory_service.cpp.o: /usr/include/pcl-1.7/pcl/filters/extract_indices.h
 phd/CMakeFiles/simple_trajectory_server.dir/src/simple_trajectory_service.cpp.o: /usr/include/pcl-1.7/pcl/filters/filter.h
 phd/CMakeFiles/simple_trajectory_server.dir/src/simple_trajectory_service.cpp.o: /usr/include/pcl-1.7/pcl/filters/filter_indices.h
+phd/CMakeFiles/simple_trajectory_server.dir/src/simple_trajectory_service.cpp.o: /usr/include/pcl-1.7/pcl/filters/impl/crop_box.hpp
 phd/CMakeFiles/simple_trajectory_server.dir/src/simple_trajectory_service.cpp.o: /usr/include/pcl-1.7/pcl/filters/impl/extract_indices.hpp
 phd/CMakeFiles/simple_trajectory_server.dir/src/simple_trajectory_service.cpp.o: /usr/include/pcl-1.7/pcl/filters/impl/filter.hpp
 phd/CMakeFiles/simple_trajectory_server.dir/src/simple_trajectory_service.cpp.o: /usr/include/pcl-1.7/pcl/filters/impl/filter_indices.hpp

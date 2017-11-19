@@ -193,6 +193,8 @@ pcl/features/normal_3d.h
 -
 pcl/visualization/pcl_visualizer.h
 -
+pcl/filters/crop_box.h
+-
 boost/foreach.hpp
 -
 phd/trajectory_service.h
@@ -3246,6 +3248,18 @@ boost/function.hpp
 boost/optional.hpp
 -
 
+/usr/include/pcl-1.7/pcl/filters/crop_box.h
+pcl/point_types.h
+-
+pcl/filters/filter_indices.h
+-
+pcl/common/transforms.h
+-
+pcl/common/eigen.h
+-
+pcl/filters/impl/crop_box.hpp
+-
+
 /usr/include/pcl-1.7/pcl/filters/extract_indices.h
 pcl/filters/filter_indices.h
 -
@@ -3270,6 +3284,12 @@ pcl/filters/impl/filter.hpp
 pcl/filters/filter.h
 -
 pcl/filters/impl/filter_indices.hpp
+-
+
+/usr/include/pcl-1.7/pcl/filters/impl/crop_box.hpp
+pcl/filters/crop_box.h
+-
+pcl/common/io.h
 -
 
 /usr/include/pcl-1.7/pcl/filters/impl/extract_indices.hpp
