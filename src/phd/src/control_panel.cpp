@@ -53,6 +53,7 @@
 #include <pcl/registration/icp_nl.h>
 #include <pcl/common/angles.h>
 
+#include <pcl/filters/crop_box.h>
 #define CALC true
 #define DEBUG true
 #define PTP 1
@@ -60,6 +61,7 @@
 #define JOINT 3
 #define STRING 4
 #define OFFSET .8
+#define WORKSPACE_WIDTH 0.5
 
 namespace control_panel{
 namespace control_panel_ns{
@@ -174,6 +176,7 @@ bool QNode::init() {
 	pt_ctr = 0;
 	cloud_ctr = 0;
 	tctr = 0;
+	current_pc_.reset(new pcl::PointCloud<pcl::PointXYZI>());
 	//ros::start();
 }
 
@@ -712,13 +715,52 @@ void QNode::gen_trajectory(std::string filename){
 	traj_srv.request.P1x = T1x;
 	traj_srv.request.P1y = T1y;
 	traj_srv.request.P1z = T1z;
-	//Set the pointcloud to cover
-	sensor_msgs::PointCloud2 cloud_msg;
-	pcl::toROSMsg(*current_pc_,cloud_msg);
-	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
-	cloud_msg.fields[3].name = "intensities";
-	cloud_msg.header.frame_id = "/world";
-	traj_srv.request.cloud_in = cloud_msg;
+	ROS_INFO("PC size %lu",current_pc_->size());
+	if(current_pc_->size() != 0){
+		//Set the pointcloud to cover
+		sensor_msgs::PointCloud2 cloud_msg;
+		pcl::toROSMsg(*current_pc_,cloud_msg);
+		//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
+		cloud_msg.fields[3].name = "intensities";
+		cloud_msg.header.frame_id = "/world";
+		traj_srv.request.cloud_in = cloud_msg;
+	}else{
+		Eigen::Vector4f minPoint; 
+		minPoint[0]=0;  // define minimum point x 
+		minPoint[1]=-WORKSPACE_WIDTH;  // define minimum point y 
+		minPoint[2]=-0.1;  // define minimum point z 
+		Eigen::Vector4f maxPoint; 
+		maxPoint[0]=10;  // define max point x 
+		maxPoint[1]=WORKSPACE_WIDTH;  // define max point y 
+		maxPoint[2]=1.37;  // define max point z 
+		Eigen::Vector3f boxTranslatation; 
+		boxTranslatation[0]=0;   
+		boxTranslatation[1]=0;   
+		boxTranslatation[2]=0;   
+		Eigen::Vector3f boxRotation; 
+		boxRotation[0]=0;  // rotation around x-axis 
+		boxRotation[1]=0;  // rotation around y-axis 
+		boxRotation[2]=0;  //in radians rotation around z-axis. this rotates your cube 45deg around z-axis. 
+		pcl::PointCloud<pcl::PointXYZI>::Ptr cloudOut (new pcl::PointCloud<pcl::PointXYZI>); 
+		pcl::CropBox<pcl::PointXYZI> cropFilter; 
+		pcl::PointCloud<pcl::PointXYZI>::Ptr full_cloud (new pcl::PointCloud<pcl::PointXYZI>);
+		//Tell pcl what the 4th field information is
+		cloud_surface_world.fields[3].name = "intensity";
+		pcl::fromROSMsg(cloud_surface_world, *full_cloud);
+		cropFilter.setInputCloud (full_cloud); 
+		cropFilter.setMin(minPoint); 
+		cropFilter.setMax(maxPoint);
+		cropFilter.setTranslation(boxTranslatation); 
+		cropFilter.setRotation(boxRotation); 
+		cropFilter.filter (*cloudOut); 
+		//Set the pointcloud to cover
+		sensor_msgs::PointCloud2 cloud_msg;
+		pcl::toROSMsg(*cloudOut,cloud_msg);
+		//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
+		cloud_msg.fields[3].name = "intensities";
+		cloud_msg.header.frame_id = "/world";
+		traj_srv.request.cloud_in = cloud_msg;
+	}
 	//Set the original surface for normals
 	traj_srv.request.cloud_surface = cloud_surface_world;
 	//Call the service
