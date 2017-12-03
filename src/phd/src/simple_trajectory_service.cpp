@@ -666,11 +666,9 @@ pcl::PointCloud<pcl::PointXYZI> sort_vertical_line(pcl::PointCloud<pcl::PointXYZ
 //			}
 			}else broken = true;
 			step_sz += 0.01;
-		ROS_INFO("inside");
 		}while(next_pt.x == prev_pt.x && next_pt.y == prev_pt.y && next_pt.z == prev_pt.z && step_sz < 0.2 && broken == false);
 	
 		next_pt.intensity = prev_pt.intensity + sqrt(pow(next_pt.x-prev_pt.x,2)+pow(next_pt.y-prev_pt.y,2)+pow(next_pt.z-prev_pt.z,2));
-		ROS_INFO("outside");
 	}while(step_sz < 0.2 && prev_pt.intensity < 10 && broken == false);
 	ROS_INFO("int %f", prev_pt.intensity);
 	//std::sort (sorted.points.begin(), sorted.points.end(), forward_pcl_sort);
