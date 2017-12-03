@@ -91,7 +91,7 @@ public:
 	void send_joint_command(float j1, float j2, float j3, float j4, float j5, float j6);
 	void send_string(std::string user_string);
 	void scan_360();
-	void show_markers(phd::trajectory_array t_array);
+	void show_markers(phd::trajectory_msg t_array);
 	phd::trajectory_point find_pose();
 	//Variables for holding the first two points of the marker, when the third one comes in they all get saved to file
 	float P1x, P1y, P1z, P2x, P2y, P2z;
@@ -137,7 +137,7 @@ private:
 	sensor_msgs::PointCloud2 cloud_surface_raw;
 	sensor_msgs::PointCloud2 cloud_surface_world;
 	//Holds the entire arm trajectory
-	phd::trajectory_array traj;
+	phd::trajectory_msg traj;
 	//Counters for keeping track of current trajectory section and point
 	int sec_ctr;
 	int pt_ctr;

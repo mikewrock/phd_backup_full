@@ -1,2 +1,2 @@
 denso_gui:husky_control:husky_description:husky_msgs:husky_navigation:husky_ur5_moveit_config:panel:perception_oru-release-debian-indigo-trusty-ndt_registration:phd:point_cloud_converter-hydro-devel:registration_localization:scanning_description:schunk_libm5api:selected_points_publisher:shotcrete_points:teb_local_planner-indigo-devel:test_panel:wrock:wrock_husky_description
--DCATKIN_DEVEL_PREFIX=/home/mike/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/mike/catkin_ws/install -G Unix Makefiles
+-DCMAKE_BUILD_TYPE=Debug -DCATKIN_DEVEL_PREFIX=/home/mike/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/mike/catkin_ws/install -G Unix Makefiles

@@ -209,6 +209,20 @@ _phd_generate_messages_check_deps_marker_val/fast:
 .PHONY : _phd_generate_messages_check_deps_marker_val/fast
 
 # Convenience name for target.
+phd/CMakeFiles/_phd_generate_messages_check_deps_simple_trajectory_service.dir/rule:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/_phd_generate_messages_check_deps_simple_trajectory_service.dir/rule
+.PHONY : phd/CMakeFiles/_phd_generate_messages_check_deps_simple_trajectory_service.dir/rule
+
+# Convenience name for target.
+_phd_generate_messages_check_deps_simple_trajectory_service: phd/CMakeFiles/_phd_generate_messages_check_deps_simple_trajectory_service.dir/rule
+.PHONY : _phd_generate_messages_check_deps_simple_trajectory_service
+
+# fast build rule for target.
+_phd_generate_messages_check_deps_simple_trajectory_service/fast:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/_phd_generate_messages_check_deps_simple_trajectory_service.dir/build.make phd/CMakeFiles/_phd_generate_messages_check_deps_simple_trajectory_service.dir/build
+.PHONY : _phd_generate_messages_check_deps_simple_trajectory_service/fast
+
+# Convenience name for target.
 phd/CMakeFiles/_phd_generate_messages_check_deps_thickness_service.dir/rule:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/_phd_generate_messages_check_deps_thickness_service.dir/rule
 .PHONY : phd/CMakeFiles/_phd_generate_messages_check_deps_thickness_service.dir/rule
@@ -1533,6 +1547,7 @@ help:
 	@echo "... _phd_generate_messages_check_deps_cube_msg"
 	@echo "... _phd_generate_messages_check_deps_localize_cloud"
 	@echo "... _phd_generate_messages_check_deps_marker_val"
+	@echo "... _phd_generate_messages_check_deps_simple_trajectory_service"
 	@echo "... _phd_generate_messages_check_deps_thickness_service"
 	@echo "... _phd_generate_messages_check_deps_trajectory_array"
 	@echo "... _phd_generate_messages_check_deps_trajectory_msg"

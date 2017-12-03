@@ -311,7 +311,7 @@ color: rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="text">
-      <string>/home/mike/mine.pcd</string>
+      <string>/home/mike/testing/s1rawcloud.pcd</string>
      </property>
     </widget>
     <widget class="QCheckBox" name="auto_localize">

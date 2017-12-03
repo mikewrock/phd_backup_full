@@ -440,7 +440,7 @@ HRESULT initArm(void){
   vSpd.fltVal = 100;
   bstrCommand = SysAllocString(L"EXTSPEED");
   float dnt[3];
-  dnt[0] = 10.0; //Velocity
+  dnt[0] = 50.0; //Velocity
   dnt[1] = 100.0; //Acceleration
   dnt[2] = 100.0; //Decceleration
   VARIANT vntS; //Holds the desired speed values

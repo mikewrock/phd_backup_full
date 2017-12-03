@@ -14,4 +14,6 @@
     (:file "_package_trajectory_service (nonlinear)" :depends-on ("_package"))
     (:file "trajectory_service" :depends-on ("_package_trajectory_service"))
     (:file "_package_trajectory_service" :depends-on ("_package"))
+    (:file "simple_trajectory_service" :depends-on ("_package_simple_trajectory_service"))
+    (:file "_package_simple_trajectory_service" :depends-on ("_package"))
   ))

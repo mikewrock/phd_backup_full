@@ -9,6 +9,7 @@ FILE(REMOVE_RECURSE
   "/home/mike/catkin_ws/devel/include/phd/trajectory_msg.h"
   "/home/mike/catkin_ws/devel/include/phd/localize_cloud.h"
   "/home/mike/catkin_ws/devel/include/phd/thickness_service.h"
+  "/home/mike/catkin_ws/devel/include/phd/simple_trajectory_service.h"
   "/home/mike/catkin_ws/devel/include/phd/trajectory_service.h"
 )
 

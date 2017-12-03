@@ -4,6 +4,7 @@
 /home/mike/catkin_ws/build/phd/CMakeFiles/_phd_generate_messages_check_deps_cube_msg.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/_phd_generate_messages_check_deps_localize_cloud.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir
+/home/mike/catkin_ws/build/phd/CMakeFiles/_phd_generate_messages_check_deps_simple_trajectory_service.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/_phd_generate_messages_check_deps_thickness_service.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_array.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_msg.dir

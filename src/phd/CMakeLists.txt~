@@ -247,7 +247,7 @@ target_link_libraries(bcap_client ${catkin_LIBRARIES})
 
 target_link_libraries(cube_node  ${catkin_LIBRARIES})
 target_link_libraries(parse_node  ${catkin_LIBRARIES})
-target_link_libraries(test_node  ${catkin_LIBRARIES})
+target_link_libraries(test_node  ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(cloud_localizer  ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(thickness_server  ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(trajectory_server  ${catkin_LIBRARIES} ${PCL_LIBRARIES})

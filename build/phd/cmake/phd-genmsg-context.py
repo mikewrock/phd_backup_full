@@ -1,7 +1,7 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
 messages_str = "/home/mike/catkin_ws/src/phd/msg/cube_msg.msg;/home/mike/catkin_ws/src/phd/msg/arm_msg.msg;/home/mike/catkin_ws/src/phd/msg/marker_val.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_array.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_section.msg"
-services_str = "/home/mike/catkin_ws/src/phd/srv/localize_cloud.srv;/home/mike/catkin_ws/src/phd/srv/thickness_service.srv;/home/mike/catkin_ws/src/phd/srv/trajectory_service.srv"
+services_str = "/home/mike/catkin_ws/src/phd/srv/localize_cloud.srv;/home/mike/catkin_ws/src/phd/srv/thickness_service.srv;/home/mike/catkin_ws/src/phd/srv/trajectory_service.srv;/home/mike/catkin_ws/src/phd/srv/simple_trajectory_service.srv"
 pkg_name = "phd"
 dependencies_str = "std_msgs;actionlib_msgs;sensor_msgs"
 langs = "gencpp;genlisp;genpy"

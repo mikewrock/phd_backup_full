@@ -2116,6 +2116,19 @@ _phd_generate_messages_check_deps_marker_val/fast:
 .PHONY : _phd_generate_messages_check_deps_marker_val/fast
 
 #=============================================================================
+# Target rules for targets named _phd_generate_messages_check_deps_simple_trajectory_service
+
+# Build rule for target.
+_phd_generate_messages_check_deps_simple_trajectory_service: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _phd_generate_messages_check_deps_simple_trajectory_service
+.PHONY : _phd_generate_messages_check_deps_simple_trajectory_service
+
+# fast build rule for target.
+_phd_generate_messages_check_deps_simple_trajectory_service/fast:
+	$(MAKE) -f phd/CMakeFiles/_phd_generate_messages_check_deps_simple_trajectory_service.dir/build.make phd/CMakeFiles/_phd_generate_messages_check_deps_simple_trajectory_service.dir/build
+.PHONY : _phd_generate_messages_check_deps_simple_trajectory_service/fast
+
+#=============================================================================
 # Target rules for targets named _phd_generate_messages_check_deps_thickness_service
 
 # Build rule for target.
@@ -3332,6 +3345,7 @@ help:
 	@echo "... _phd_generate_messages_check_deps_cube_msg"
 	@echo "... _phd_generate_messages_check_deps_localize_cloud"
 	@echo "... _phd_generate_messages_check_deps_marker_val"
+	@echo "... _phd_generate_messages_check_deps_simple_trajectory_service"
 	@echo "... _phd_generate_messages_check_deps_thickness_service"
 	@echo "... _phd_generate_messages_check_deps_trajectory_array"
 	@echo "... _phd_generate_messages_check_deps_trajectory_msg"

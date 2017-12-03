@@ -86,6 +86,7 @@ public:
 	void lscan();
 	void run();
 	bool init();
+	void calc_poses();
 	void send_command(float x, float y, float z, float rx, float ry, float rz, float fig, int motion);
 	void send_joint_command(float j1, float j2, float j3, float j4, float j5, float j6);
 	void send_string(std::string user_string);
@@ -136,7 +137,7 @@ private:
 	sensor_msgs::PointCloud2 cloud_surface_raw;
 	sensor_msgs::PointCloud2 cloud_surface_world;
 	//Holds the entire arm trajectory
-	phd::trajectory_array traj;
+	phd::trajectory_msg traj;
 	//Counters for keeping track of current trajectory section and point
 	int sec_ctr;
 	int pt_ctr;
