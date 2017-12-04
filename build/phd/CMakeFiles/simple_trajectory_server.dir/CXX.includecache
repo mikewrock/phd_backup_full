@@ -171,6 +171,8 @@ algorithm
 -
 ctime
 -
+math.h
+-
 boost/make_shared.hpp
 -
 pcl/point_representation.h
@@ -194,6 +196,8 @@ pcl/features/normal_3d.h
 pcl/visualization/pcl_visualizer.h
 -
 pcl/filters/crop_box.h
+-
+pcl/kdtree/kdtree_flann.h
 -
 boost/foreach.hpp
 -

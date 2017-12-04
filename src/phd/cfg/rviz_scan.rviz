@@ -502,10 +502,10 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: Intensity
       Decay Time: 6000
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
-      Max Intensity: 3949
+      Max Intensity: 1499
       Min Color: 0; 0; 0
       Min Intensity: 76
       Name: raw
@@ -519,7 +519,7 @@ Visualization Manager:
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -535,22 +535,22 @@ Visualization Manager:
       Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
-      Max Intensity: 1.7364
+      Max Intensity: 7.11096
       Min Color: 0; 0; 0
-      Min Intensity: 0
+      Min Intensity: -0.040903
       Name: line_points
       Position Transformer: XYZ
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.01
+      Size (m): 0.02
       Style: Flat Squares
       Topic: /line_points
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
-    - Alpha: 0.3
+    - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
         Max Value: 10
@@ -573,7 +573,7 @@ Visualization Manager:
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.02
+      Size (m): 0.003
       Style: Flat Squares
       Topic: /line_points2
       Unreliable: false
@@ -1129,7 +1129,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 3.30451
+      Distance: 3.79968
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
@@ -1141,10 +1141,10 @@ Visualization Manager:
         Z: 0.231048
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.374797
+      Pitch: 0.514797
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 2.80418
+      Yaw: 2.50918
     Saved: ~
 Window Geometry:
   Control Panel:

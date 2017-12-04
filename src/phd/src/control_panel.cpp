@@ -728,7 +728,7 @@ void QNode::gen_trajectory(std::string filename){
 		Eigen::Vector4f maxPoint; 
 		maxPoint[0]=10;  // define max point x 
 		maxPoint[1]=10;  // define max point y 
-		maxPoint[2]=1.37;  // define max point z 
+		maxPoint[2]=1.5;  // define max point z 
 		Eigen::Vector3f boxTranslatation; 
 		boxTranslatation[0]=0;   
 		boxTranslatation[1]=0;   
