@@ -430,6 +430,19 @@ color: rgb(255, 255, 255);</string>
       <string>Generate Poses</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="pose_step">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>180</y>
+       <width>131</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Pose Step</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_2">
     <attribute name="title">

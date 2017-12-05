@@ -7,10 +7,10 @@
   <!--- Run localization service -->
   <node type="cloud_localizer" pkg="phd" name="localization_service" output="screen">
   </node>
-  <!--- Run trajectory service 
+  <!--- Run trajectory service -->
 
   <node type="simple_trajectory_server" pkg="phd" name="trajectory_service" output="screen" required="True">
-  </node>-->
+  </node>
   <!--- Run thickness service -->
   <node type="thickness_server" pkg="phd" name="thickness_service" output="screen">
   </node>

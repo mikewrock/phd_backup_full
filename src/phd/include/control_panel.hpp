@@ -21,8 +21,11 @@
 #include <ros/ros.h>
 # include <ros/node_handle.h>
 # include <ros/publisher.h>
+# include <geometry_msgs/PoseStamped.h>
+# include <geometry_msgs/PoseArray.h>
 # include "rviz/tool.h"
 #include "bcap/stdint.h"
+#include <move_base_msgs/MoveBaseAction.h>
 //#include <atlbase.h>
 
 #define _USE_MATH_DEFINES
@@ -87,6 +90,7 @@ public:
 	void run();
 	bool init();
 	void calc_poses();
+	void pose_step();
 	void send_command(float x, float y, float z, float rx, float ry, float rz, float fig, int motion);
 	void send_joint_command(float j1, float j2, float j3, float j4, float j5, float j6);
 	void send_string(std::string user_string);
@@ -142,10 +146,12 @@ private:
 	int sec_ctr;
 	int pt_ctr;
 	int cloud_ctr;
+	int pose_ctr;
 	int tctr;
 	tf::TransformBroadcaster br;
 	tf::Transform transform;
 	tf::Quaternion q;
+	geometry_msgs::PoseArray goals;
 };
 }
 }  // namespace 

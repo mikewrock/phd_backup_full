@@ -25,6 +25,7 @@
 #define CP 2
 #define JOINT 3
 #define STRING 4
+#define SHUTDOWN 5
 
 namespace control_panel
 {
@@ -59,6 +60,7 @@ namespace control_panel
 		connect(ui_.scan_360, SIGNAL(clicked()), this, SLOT(scan_360()));
 		connect(ui_.f_traj, SIGNAL(clicked()), this, SLOT(load_traj()));
 		connect(ui_.pose_button, SIGNAL(clicked()), this, SLOT(do_poses()));
+		connect(ui_.pose_step, SIGNAL(clicked()), this, SLOT(pose_step()));
 
 
 		connect(spin_timer, SIGNAL(timeout()), this, SLOT(rosSpinner()));
@@ -313,6 +315,10 @@ namespace control_panel
 
 		  control_panel.send_command(ui_.x_box->text().toFloat(),ui_.y_box->text().toFloat(),ui_.z_box->text().toFloat(),ui_.rx_box->text().toFloat(),ui_.ry_box->text().toFloat(),ui_.rz_box->text().toFloat(),ui_.fig_box->text().toFloat(), CP);
 	}
+	void ControlPanel::onShutdownCommand(){
+
+		  control_panel.send_command(ui_.x_box->text().toFloat(),ui_.y_box->text().toFloat(),ui_.z_box->text().toFloat(),ui_.rx_box->text().toFloat(),ui_.ry_box->text().toFloat(),ui_.rz_box->text().toFloat(),ui_.fig_box->text().toFloat(), SHUTDOWN);
+	}
 
 
 	void ControlPanel::onJointCommand(){
@@ -340,6 +346,11 @@ namespace control_panel
 	void ControlPanel::do_poses(){
 
 		control_panel.calc_poses();
+
+	}
+	void ControlPanel::pose_step(){
+
+		control_panel.pose_step();
 
 	}
 	

@@ -16,6 +16,7 @@
 #include <rosbag/bag.h>
 #include <rosbag/view.h>
 #include <boost/foreach.hpp>
+#include <actionlib/client/simple_action_client.h>
 //C++ includes
 #include <math.h>
 #include <string>
@@ -62,6 +63,11 @@
 #define STRING 4
 #define OFFSET .8
 #define WORKSPACE_WIDTH 0.5
+#define H_SLICE 0.5
+#define CHUNK_RADIUS 0.03
+#define POSE_DISTANCE 0.5
+
+
 
 namespace control_panel{
 namespace control_panel_ns{
@@ -81,6 +87,8 @@ phd::simple_trajectory_service traj_srv;
 std::string CLOUD;
 int CLOUD_NUM;
 float VINT_MIN,VINT_MAX;
+
+actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient("move_base", true);
 
 //DELETE
 pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_aligner (new pcl::PointCloud<pcl::PointXYZI> );
@@ -142,7 +150,7 @@ bool QNode::init() {
 	dir_pub = nh_.advertise<visualization_msgs::Marker>( "dir_marker", 0 );
 	arm_pose_pub = nh_.advertise<visualization_msgs::Marker>( "pose_marker", 0 );
 	//Publisher for displaying navigation goal
-	nav_vis_pub = nh_.advertise<visualization_msgs::Marker>( "nav_vis_goal", 0 );
+	nav_vis_pub = nh_.advertise<geometry_msgs::PoseArray>( "nav_vis_goal", 0 );
 	//Publisher for advertising navigation goal
 	nav_pub = nh_.advertise<geometry_msgs::PoseStamped>( "nav_goal", 0 );
 	//Subscribers to listen to the powercube position and point cloud selection
@@ -175,6 +183,7 @@ bool QNode::init() {
 	sec_ctr = 0;
 	pt_ctr = 0;
 	cloud_ctr = 0;
+	pose_ctr = 0;
 	tctr = 0;
 	current_pc_.reset(new pcl::PointCloud<pcl::PointXYZI>());
 	//ros::start();
@@ -220,44 +229,182 @@ phd::trajectory_point QNode::find_pose(void){
 	if(DEBUG) ROS_INFO("Returning %f - %f/ %f - %f",ret.x,ret.y,ret.nx,ret.ny);
 	return ret;
 }
-void QNode::calc_poses(){
+bool delete_point(pcl::PointCloud<pcl::PointXYZI>::Ptr line, pcl::PointXYZI target_pt){
+	float resolution = 128.0f; //Octree resolution
+	pcl::octree::OctreePointCloudSearch<pcl::PointXYZI> octree (resolution);
+	int K = 1; //Number of points to find
+	std::vector<int> pointIdxNKNSearch; //vector to hold points (used by pcl)
+	std::vector<float> pointNKNSquaredDistance; //vector to hold distance of points (used by pcl)
+		octree.setInputCloud (line);
+		octree.addPointsFromInputCloud ();
 
-	
+		
+	if (octree.nearestKSearch (target_pt, K, pointIdxNKNSearch, pointNKNSquaredDistance) > 0){
+		if(pointNKNSquaredDistance[0] < CHUNK_RADIUS){
+			line->points.erase(line->points.begin()+pointIdxNKNSearch[0]);
+				//ROS_INFO("eaten");
+			return true;
+		}else {
+			//ROS_INFO("Could not eat find point");	
+			return false;
+		}
+	}else return false;
+	}
+void eat_chunk(pcl::PointCloud<pcl::PointXYZI>::Ptr line, pcl::PointXYZI target_pt){
 
-}
+	while(delete_point(line, target_pt) && line->points.size() > 0);
+	}
+
+bool find_and_delete_NN(pcl::PointXYZI point_holder,pcl::PointCloud<pcl::PointXYZI>::Ptr line, pcl::PointXYZI* ret_pt){
+
+	int K = 1; //Number of points to find
+	std::vector<int> pointIdxNKNSearch; //vector to hold points (used by pcl)
+	std::vector<float> pointNKNSquaredDistance; //vector to hold distance of points (used by pcl)
+	pcl::PointXYZI searchPoint; //Location of where to search
+	float resolution = 128.0f; //Octree resolution
+
+	//ROS_INFO("Looking %f - %f - %f",point_holder.x,point_holder.y,point_holder.z);
+	//ROS_INFO("line size %lu",line->points.size());
+	if(line->points.size() > 0){
+		//Create the octree object
+		pcl::octree::OctreePointCloudSearch<pcl::PointXYZI> octree (resolution);
+		//Set the octree input cloud, then add the points
+		octree.setInputCloud (line);
+		octree.addPointsFromInputCloud ();
+			//Search for the nearest 1 neighbour
+		if(std::isfinite(point_holder.x) && std::isfinite(point_holder.x) && std::isfinite(point_holder.x)){
+			if (octree.nearestKSearch (point_holder, K, pointIdxNKNSearch, pointNKNSquaredDistance) > 0){
+				*ret_pt = line->points[pointIdxNKNSearch[0]];
+				eat_chunk(line,*ret_pt);
+				return true;	
+			}else{ //ROS_INFO("Could eat find point");
+				return false;
+			}
+		}else ROS_INFO("Bad Data");
+			return false;
+		
+
+		//ROS_INFO("Dist %f - %f - %f - %f", pointNKNSquaredDistance[0], pointNKNSquaredDistance[1], pointNKNSquaredDistance[2], pointNKNSquaredDistance[3]);
+
+		}else return false;
+
+
+
+	}
+//calculates the distance between two points
+float vec_length(pcl::PointXYZI pointA,pcl::PointXYZI pointB){
+
+	return sqrt(pow(pointB.x-pointA.x,2)+pow(pointB.y-pointA.y,2)+pow(pointB.z-pointA.z,2));
+
+	}
 //Calculate and display the current naviagtion goal
 void QNode::show_nav() {
 
-	visualization_msgs::Marker nav_goal;
-	nav_goal.header.frame_id = "/base_link";
-	nav_goal.header.stamp = ros::Time::now();
-	nav_goal.ns = "nav_goal_marker";
-	nav_goal.action = visualization_msgs::Marker::ADD;
-	nav_goal.pose.orientation.w = 1.0;
-	nav_goal.id = 0;
-	nav_goal.type = visualization_msgs::Marker::ARROW;
-	nav_goal.scale.x = 0.01;
-	nav_goal.scale.y = 0.02;
-	nav_goal.color.g = 1.0;
-	nav_goal.color.a = 1;
-	geometry_msgs::Point p;
-	phd::trajectory_point tp;
-	//Find the appropriate pose
-	tp = find_pose();
-	//Offset the pose from the surface in the direction normal to the surface
-	p.x = tp.x+0.2*tp.nx;
-	p.y = tp.y+0.2*tp.ny;
-	p.z = 0;
-	nav_goal.points.push_back(p);
-	//The tip of the nav goal is a right angle to the normal (cross product of the Z axis and the normal)
-	p.x -= 0.2*tp.ny;
-	p.y += 0.2*tp.nx;
-	nav_goal.points.push_back(p);
-	//Display the marker
-	nav_vis_pub.publish(nav_goal);
+	goals.header.frame_id = "/world";
+	goals.header.stamp = ros::Time::now();
+	nav_vis_pub.publish(goals);
 
 }
 
+
+void QNode::calc_poses(){
+
+	pcl::PointCloud<pcl::PointXYZI>::Ptr line (new pcl::PointCloud<pcl::PointXYZI>);
+	Eigen::Vector4f minPoint = (Eigen::Vector4f() << -100,-100,H_SLICE-0.01,0).finished();
+	Eigen::Vector4f maxPoint = (Eigen::Vector4f() << 100,100,H_SLICE+0.01,0).finished();
+	Eigen::Vector3f boxTranslatation = (Eigen::Vector3f() << 0,0,0).finished();
+	Eigen::Vector3f boxRotation = boxTranslatation; 
+	pcl::CropBox<pcl::PointXYZI> cropFilter; 
+	if(current_pc_->size() > 0) cropFilter.setInputCloud (current_pc_); 
+	else{
+		pcl::PointCloud<pcl::PointXYZI>::Ptr full_cloud (new pcl::PointCloud<pcl::PointXYZI>);
+		//Tell pcl what the 4th field information is
+		cloud_surface_world.fields[3].name = "intensity";
+		pcl::fromROSMsg(cloud_surface_world, *full_cloud);
+		cropFilter.setInputCloud (full_cloud); 
+	}
+	cropFilter.setMin(minPoint); 
+	cropFilter.setMax(maxPoint); 
+	cropFilter.setTranslation(boxTranslatation);	
+	cropFilter.setRotation(boxRotation); 
+	cropFilter.filter (*line); 
+	pcl::PointXYZI target_pt, ret_pt, start_pt, pose_pt, cross;
+	target_pt.x = -100;
+	target_pt.y = -100;
+	target_pt.z = H_SLICE;
+	find_and_delete_NN(target_pt,line,&start_pt);
+	find_and_delete_NN(start_pt,line,&ret_pt);
+	geometry_msgs::Pose goal;
+	goals.poses.clear();
+	std::vector<pcl::PointXYZI> pts;
+	pts.push_back(start_pt);
+	while(line->points.size()>0){
+			ROS_INFO("Start pt %f - %f - %f", start_pt.x, start_pt.y, start_pt.z);
+		while(vec_length(start_pt,ret_pt)<WORKSPACE_WIDTH && line->points.size() > 0){
+			ROS_INFO("vec length %f\n pt found %f - %f - %f",vec_length(start_pt,ret_pt),ret_pt.x, ret_pt.y, ret_pt.z );
+		find_and_delete_NN(ret_pt,line,&ret_pt);
+		}
+		ROS_INFO("pt used %f - %f - %f",ret_pt.x, ret_pt.y, ret_pt.z );
+		//Cross product	
+		cross.z = 0;
+		cross.x = (ret_pt.y-start_pt.y);
+		cross.y = -(ret_pt.x-start_pt.x);
+		float length = sqrt(pow(cross.x,2)+pow(cross.y,2));
+		//Convert to unit vector
+		cross.x = POSE_DISTANCE*cross.x/length;
+		cross.y = POSE_DISTANCE*cross.y/length;
+		goal.position.x = start_pt.x + (ret_pt.x - start_pt.x)/2 - cross.x;
+		goal.position.y = start_pt.y + (ret_pt.y - start_pt.y)/2 - cross.y;
+		goal.position.z = 0;
+		quaternionTFToMsg(tf::createQuaternionFromRPY(0, 0, asin(cross.y/POSE_DISTANCE)), goal.orientation);
+		goals.poses.push_back(goal);
+		start_pt = ret_pt;
+		pts.push_back(start_pt);
+	}
+	QNode::show_nav();
+/////////////////////////////
+	visualization_msgs::Marker marker;
+	// Set the frame ID and timestamp.  See the TF tutorials for information on these.
+	marker.header.frame_id = "/world";
+	marker.header.stamp = ros::Time::now();
+	marker.ns = "basic_shapes";
+	marker.id = 0;
+	marker.type = visualization_msgs::Marker::LINE_STRIP;
+	marker.action = visualization_msgs::Marker::ADD;
+	marker.pose.position.x = 0;
+	marker.pose.position.y = 0;
+	marker.pose.position.z = 0;
+	marker.pose.orientation.x = 0.0;
+	marker.pose.orientation.y = 0.0;
+	marker.pose.orientation.z = 0.0;
+	marker.pose.orientation.w = 1.0;
+	marker.scale.x = 0.01;
+	marker.scale.y = 0.01;
+	//marker.scale.y = 0.015;
+	marker.color.r = 0.0f;
+	marker.color.g = 0.0f;
+	marker.color.b = 1.0f;
+	marker.color.a = 0.8;
+	marker.lifetime = ros::Duration();
+
+		int num_pts = pts.size();;
+		marker.points.resize(num_pts);
+		for(int i = 0; i < num_pts; ++i){
+		
+			marker.points[i].x = pts[i].x;
+			marker.points[i].y = pts[i].y;
+			marker.points[i].z = pts[i].z;
+		}
+		marker_pub.publish(marker);
+		ros::Duration(0.5).sleep();
+		ros::spinOnce();
+
+}
+void QNode::pose_step(){
+	
+	//MoveBaseClient.sendGoal(goals.poses[pose_ctr]);
+	pose_ctr++;
+}
 //Send the desired base pose to the global planner
 void QNode::exe_nav() {
 

@@ -24,6 +24,7 @@
 #define CP 2
 #define JOINT 3
 #define STRING 4
+#define SHUTDOWN 5
 phd::arm_msg arm_cmd; //An arm message datatype
 bool move_flag = false; //A flag to denote whether a new pose has been sent
 char buffer[180]; //Character buffer for sprintf-ing from an arm_msg to a denso variant
@@ -38,6 +39,7 @@ uint32_t hErr; //Error Handle
 uint32_t jHandle; //Joint angle handle
 uint32_t pHandle; //Arm Pose handle
 bool cp_flag = false;
+bool shutdown = false;
 
 //Callback for the arm commands on topic /arm_cmd
 void arm_cb (const phd::arm_msg::ConstPtr& msg)
@@ -67,6 +69,9 @@ int n;
 			n=sprintf(buffer,"%s",msg->user_string.c_str());
 			cp_flag = false;
 			if(DEBUG) ROS_INFO("Sending %s",buffer);
+			break;
+		case SHUTDOWN:
+			shutdown = true;
 		}
 			
 	move_flag = true; //Tell the loop in main a new command has come in
@@ -125,7 +130,7 @@ int main(int argc, char **argv)
 	else if(DEBUG)ROS_INFO("Arm Initializaed");
 
 	//Main Loop
-	while(ros::ok()){
+	while(ros::ok() && shutdown == false){
 		//Read joint angles and copy them in to dJnt
 		hr = bCap_VariableGetValue(fd, jHandle, &vJnt);
 		SafeArrayAccessData(vJnt.parray, (void**)&pdArray);

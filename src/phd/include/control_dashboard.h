@@ -67,10 +67,12 @@ void onPTPCommand();
 void onCPCommand();
 void onJointCommand();
 void onStringCommand();
+void onShutdownCommand();
 void scan_360();
 void load_traj();
 void rosSpinner();
 void do_poses();
+void pose_step();
 Q_SIGNALS:
 
 protected:

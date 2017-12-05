@@ -57,6 +57,7 @@ public:
     QLineEdit *filename_box_2;
     QCheckBox *step;
     QPushButton *pose_button;
+    QPushButton *pose_step;
     QWidget *tab_2;
     QLineEdit *j5_box;
     QLabel *label_24;
@@ -233,6 +234,9 @@ public:
         pose_button = new QPushButton(tab);
         pose_button->setObjectName(QString::fromUtf8("pose_button"));
         pose_button->setGeometry(QRect(10, 180, 111, 27));
+        pose_step = new QPushButton(tab);
+        pose_step->setObjectName(QString::fromUtf8("pose_step"));
+        pose_step->setGeometry(QRect(130, 180, 131, 27));
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -479,6 +483,7 @@ public:
         filename_box_2->setText(QApplication::translate("Control_Form", "/home/mike/testing/s1trajectory.bag", 0, QApplication::UnicodeUTF8));
         step->setText(QString());
         pose_button->setText(QApplication::translate("Control_Form", "Generate Poses", 0, QApplication::UnicodeUTF8));
+        pose_step->setText(QApplication::translate("Control_Form", "Pose Step", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("Control_Form", "Operation", 0, QApplication::UnicodeUTF8));
         j5_box->setText(QApplication::translate("Control_Form", "0", 0, QApplication::UnicodeUTF8));
         label_24->setText(QApplication::translate("Control_Form", "z", 0, QApplication::UnicodeUTF8));

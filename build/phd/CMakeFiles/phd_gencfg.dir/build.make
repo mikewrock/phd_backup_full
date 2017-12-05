@@ -54,6 +54,8 @@ phd/CMakeFiles/phd_gencfg: /home/mike/catkin_ws/devel/include/phd/param_configCo
 phd/CMakeFiles/phd_gencfg: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/cfg/param_configConfig.py
 phd/CMakeFiles/phd_gencfg: /home/mike/catkin_ws/devel/include/phd/localize_configConfig.h
 phd/CMakeFiles/phd_gencfg: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/cfg/localize_configConfig.py
+phd/CMakeFiles/phd_gencfg: /home/mike/catkin_ws/devel/include/phd/trajectory_configConfig.h
+phd/CMakeFiles/phd_gencfg: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/cfg/trajectory_configConfig.py
 
 /home/mike/catkin_ws/devel/include/phd/seg_configConfig.h: /home/mike/catkin_ws/src/phd/cfg/seg_config.cfg
 /home/mike/catkin_ws/devel/include/phd/seg_configConfig.h: /opt/ros/indigo/share/dynamic_reconfigure/cmake/../templates/ConfigType.py.template
@@ -100,6 +102,21 @@ phd/CMakeFiles/phd_gencfg: /home/mike/catkin_ws/devel/lib/python2.7/dist-package
 
 /home/mike/catkin_ws/devel/share/phd/docs/localize_configConfig.wikidoc: /home/mike/catkin_ws/devel/include/phd/localize_configConfig.h
 
+/home/mike/catkin_ws/devel/include/phd/trajectory_configConfig.h: /home/mike/catkin_ws/src/phd/cfg/trajectory_config.cfg
+/home/mike/catkin_ws/devel/include/phd/trajectory_configConfig.h: /opt/ros/indigo/share/dynamic_reconfigure/cmake/../templates/ConfigType.py.template
+/home/mike/catkin_ws/devel/include/phd/trajectory_configConfig.h: /opt/ros/indigo/share/dynamic_reconfigure/cmake/../templates/ConfigType.h.template
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating dynamic reconfigure files from cfg/trajectory_config.cfg: /home/mike/catkin_ws/devel/include/phd/trajectory_configConfig.h /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/cfg/trajectory_configConfig.py"
+	cd /home/mike/catkin_ws/build/phd && ../catkin_generated/env_cached.sh /home/mike/catkin_ws/build/phd/setup_custom_pythonpath.sh /home/mike/catkin_ws/src/phd/cfg/trajectory_config.cfg /opt/ros/indigo/share/dynamic_reconfigure/cmake/.. /home/mike/catkin_ws/devel/share/phd /home/mike/catkin_ws/devel/include/phd /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd
+
+/home/mike/catkin_ws/devel/share/phd/docs/trajectory_configConfig.dox: /home/mike/catkin_ws/devel/include/phd/trajectory_configConfig.h
+
+/home/mike/catkin_ws/devel/share/phd/docs/trajectory_configConfig-usage.dox: /home/mike/catkin_ws/devel/include/phd/trajectory_configConfig.h
+
+/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/cfg/trajectory_configConfig.py: /home/mike/catkin_ws/devel/include/phd/trajectory_configConfig.h
+
+/home/mike/catkin_ws/devel/share/phd/docs/trajectory_configConfig.wikidoc: /home/mike/catkin_ws/devel/include/phd/trajectory_configConfig.h
+
 phd_gencfg: phd/CMakeFiles/phd_gencfg
 phd_gencfg: /home/mike/catkin_ws/devel/include/phd/seg_configConfig.h
 phd_gencfg: /home/mike/catkin_ws/devel/share/phd/docs/seg_configConfig.dox
@@ -116,6 +133,11 @@ phd_gencfg: /home/mike/catkin_ws/devel/share/phd/docs/localize_configConfig.dox
 phd_gencfg: /home/mike/catkin_ws/devel/share/phd/docs/localize_configConfig-usage.dox
 phd_gencfg: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/cfg/localize_configConfig.py
 phd_gencfg: /home/mike/catkin_ws/devel/share/phd/docs/localize_configConfig.wikidoc
+phd_gencfg: /home/mike/catkin_ws/devel/include/phd/trajectory_configConfig.h
+phd_gencfg: /home/mike/catkin_ws/devel/share/phd/docs/trajectory_configConfig.dox
+phd_gencfg: /home/mike/catkin_ws/devel/share/phd/docs/trajectory_configConfig-usage.dox
+phd_gencfg: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/cfg/trajectory_configConfig.py
+phd_gencfg: /home/mike/catkin_ws/devel/share/phd/docs/trajectory_configConfig.wikidoc
 phd_gencfg: phd/CMakeFiles/phd_gencfg.dir/build.make
 .PHONY : phd_gencfg
 

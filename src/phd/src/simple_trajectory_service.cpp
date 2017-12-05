@@ -17,6 +17,7 @@
 #include <pcl/filters/extract_indices.h>
 #include <pcl/octree/octree.h>
 #include <vector>
+#include <dynamic_reconfigure/server.h>
 #include <algorithm>
 #include <ctime>
 #include <math.h>
@@ -38,22 +39,22 @@
 #include "phd/simple_trajectory_service.h"
 #include "phd/trajectory_array.h"
 #include "phd/trajectory_section.h"
-
+#include <phd/TrajectoryConfig.h>
 #define DEBUG 1 //For displaying debug info
-#define WORKSPACE 0.5 //Robot workspace width in m
-#define HEIGHT_STEP .25 //Increment for each horizontal line
-#define MAX_HEIGHT 1.3 //Maximum reachable height
-#define OFFSET 0.1 //Optimal distance from wall to end effector
-#define Z_HEIGHT 0.03 //Thickness of line slice
-#define VIA_DISTANCE 0.2 //Distance between via points
-#define NORM_ANGLE .1 //Maximum angle before adding additiona via points
-#define PLANE_TOLERANCE .06 //Maximum distance from plane to keep for line points
-#define RADIAL_STEPS 10
 #define PI 3.1415925
-#define V_STEP_SIZE 0.01
-#define CHUNK_RADIUS .001
-#define CONNECTING_TOLERANCE .03
-#define D_MAX 2.5
+float WORKSPACE;  //Robot workspace width in m
+float HEIGHT_STEP; //Increment for each horizontal line
+float MAX_HEIGHT;//Maximum reachable height
+float OFFSET; //Optimal distance from wall to end effector
+float Z_HEIGHT;  //Thickness of line slice
+float VIA_DISTANCE;  //Distance between via points
+float RADIAL_STEPS; 
+float START_ANGLE; 
+float END_ANGLE; 
+float CHUNK_RADIUS;
+float CONNECTING_TOLERANCE;
+float D_MAX;
+float Z_VERTICAL_LIMIT;
 
 //convenient typedefs **are these used?**
 typedef pcl::PointXYZ PointT;
@@ -77,7 +78,24 @@ pcl::PointCloud<pcl::PointXYZI> flines;
 bool forward_sort (phd::trajectory_point i,phd::trajectory_point j) { return (i.d<j.d); }
 bool forward_pcl_sort (pcl::PointXYZI i,pcl::PointXYZI j) { return (i.intensity<j.intensity); }
 bool reverse_sort (phd::trajectory_point i,phd::trajectory_point j) { return (i.d>j.d); }
+//this callback is for dynamic reconfigure, it sets the global variables
+void reconfig_callback(phd::TrajectoryConfig &config, uint32_t level) {
 
+WORKSPACE=config.workspace;  //Robot workspace width in m
+HEIGHT_STEP=config.height_step; //Increment for each horizontal line
+MAX_HEIGHT=config.max_height;//Maximum reachable height
+OFFSET=config.offset; //Optimal distance from wall to end effector
+Z_HEIGHT=config.slice_thickness;  //Thickness of line slice
+VIA_DISTANCE=config.via_distance;  //Distance between via points
+RADIAL_STEPS=config.radial_steps; 
+START_ANGLE=config.start_angle; 
+END_ANGLE=config.end_angle; 
+CHUNK_RADIUS=config.rib_downsampling*config.rib_downsampling;
+CONNECTING_TOLERANCE=config.rib_tolerance;
+D_MAX=config.max_rib_length;
+Z_VERTICAL_LIMIT=config.z_vert_limit;
+
+}
 //Functions for finding max and min values
 float find_min(float i, float j){
 	if(i<j) return i;
@@ -244,7 +262,7 @@ bool delete_point(pcl::PointCloud<pcl::PointXYZI>::Ptr line, pcl::PointXYZI targ
 		}
 	}else return false;
 	}
-	void eat_chunk(pcl::PointCloud<pcl::PointXYZI>::Ptr line, pcl::PointXYZI target_pt){
+void eat_chunk(pcl::PointCloud<pcl::PointXYZI>::Ptr line, pcl::PointXYZI target_pt){
 
 	while(delete_point(line, target_pt) && line->points.size() > 0);
 	}
@@ -699,10 +717,11 @@ pcl::PointCloud<pcl::PointXYZI> sort_vertical_line(pcl::PointCloud<pcl::PointXYZ
 	sorted.push_back(next_pt);
 	ROS_INFO("first pt %f - %f - %f",next_pt.x,next_pt.y,next_pt.z);
 	//while(next_pt.x == sorted.points[0].x && next_pt.y == sorted.points[0].y && next_pt.z == sorted.points[0].z && V_STEP_SIZE < 1){
-	find_and_delete_NN(vertical_step_vector(prev_pt,sorted.points[0],V_STEP_SIZE),line, &next_pt);
+	find_and_delete_NN(vertical_step_vector(prev_pt,sorted.points[0],0.01),line, &next_pt);
 		//V_STEP_SIZE += 0.01;
 	//}
-	next_pt.intensity = sorted.points[0].intensity+sqrt(pow(next_pt.x-sorted.points[0].x,2)+pow(next_pt.y-sorted.points[0].y,2)+pow(next_pt.z-sorted.points[0].z,2));
+	if(next_pt.z<Z_VERTICAL_LIMIT) next_pt.intensity = next_pt.z;
+	else	next_pt.intensity = sorted.points[0].intensity+sqrt(pow(next_pt.x-sorted.points[0].x,2)+pow(next_pt.y-sorted.points[0].y,2)+pow(next_pt.z-sorted.points[0].z,2));
 	//sorted.push_back(next_pt);
 	ROS_INFO("Starting loop %lu", line->points.size());
 	pcl::PointXYZI stepp;
@@ -879,7 +898,7 @@ bool generate (phd::simple_trajectory_service::Request  &req,
 	lines.clear();
 	for(int ctr = 0; ctr <= RADIAL_STEPS; ++ctr){
 	
-		boxRotation[2]=-PI/2 + ctr*(PI/RADIAL_STEPS);  //in radians rotation around z-axis 
+		boxRotation[2]=START_ANGLE + ctr*((END_ANGLE-START_ANGLE)/RADIAL_STEPS);  //in radians rotation around z-axis 
 		cropFilter.setRotation(boxRotation); 
 		cropFilter.filter (*line); 
 		lines = lines + *line;
@@ -967,6 +986,10 @@ main (int argc, char** argv)
 	line_pub2 = nh.advertise<sensor_msgs::PointCloud2>( "line_points2", 0 );
 	path_pub = nh.advertise<visualization_msgs::Marker>( "path_marker", 0 );
 	dir_pub = nh.advertise<visualization_msgs::Marker>( "dir_marker", 0 );
+	dynamic_reconfigure::Server<phd::TrajectoryConfig> server;
+	dynamic_reconfigure::Server<phd::TrajectoryConfig>::CallbackType callback_type;
+	callback_type = boost::bind(&reconfig_callback, _1, _2);
+	server.setCallback(callback_type);
 	ROS_INFO("Trajectory Generator online");
 	nsid = 0;
 	ros::spin();  
