@@ -153,6 +153,10 @@ namespace control_panel
 	void ControlPanel::scan(){
 
 		  control_panel.scan(ui_.marker_name_box->text().toStdString(),ui_.set_home->isChecked());
+		  	if(ui_.set_home->isChecked()){
+				  ui_.set_home->setCheckState(Qt::Unchecked);
+				  ui_.scan_button->setText("Scan");
+			  }
 	}
 	//Perform a fake scan using a pointcloud file (.pcl
 	void ControlPanel::fake_scan(){
@@ -169,7 +173,7 @@ namespace control_panel
 
 		  control_panel.estimate(ui_.marker_name_box->text().toStdString());
 	}
-	//Testing function, step through the arm strajectory pose
+	//Testing function, step through the arm's trajectory pose
 	void ControlPanel::do_step(){
 
 		  control_panel.step(ui_.step->isChecked());
@@ -190,6 +194,7 @@ namespace control_panel
 		else if(cluster_index == 2){
 		 ui_.cluster1->setText("Cluster Pt. 1");
 		 ui_.marker_info->setText("Marker Recorded");
+		 ui_.auto_localize->setCheckState(Qt::Checked);
 		 cluster_index = 0;
 		}
 	}
@@ -339,7 +344,7 @@ namespace control_panel
 	
 	void ControlPanel::load_traj(){
 
-		control_panel.load_traj(ui_.filename_box_2->text().toStdString());
+		control_panel.load_traj(ui_.filename_box_5->text().toStdString());
 
 	}
 	

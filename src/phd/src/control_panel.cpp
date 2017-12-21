@@ -483,7 +483,7 @@ void QNode::step(bool arm){
 	arm_pose_pub.publish(armpoint_list);
 	ros::spinOnce();
 	//Send the command to the arm
-	if(arm) arm_pub.publish(msg);
+	if(!arm) arm_pub.publish(msg);
 
 }
 
