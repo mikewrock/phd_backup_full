@@ -7,8 +7,8 @@
   <!--- Run localization service -->
   <node type="cloud_localizer" pkg="phd" name="localization_service" output="screen">
   </node>
-  <!--- Run trajectory service 
--->
+  <!--- Run trajectory service -->
+
   <node type="simple_trajectory_server" pkg="phd" name="trajectory_service" output="screen" required="True">
   </node>
   <!--- Run thickness service -->
@@ -24,6 +24,7 @@
   <!--- Run dynamicreconfigure -->
   <node type="rqt_reconfigure" pkg="rqt_reconfigure" name="rqt_reconfigure" output="screen">
   </node>
-
+  <!--- Run Joint State Fusion node-->
+  <node name="joint_fusion_node" pkg="phd" type="joint_fusion_node" output="screen" />
 
 </launch>

@@ -1,6 +1,3 @@
-float32 P1x
-float32 P1y
-float32 P1z
 sensor_msgs/PointCloud2 cloud_in
 sensor_msgs/PointCloud2 cloud_surface
 ---

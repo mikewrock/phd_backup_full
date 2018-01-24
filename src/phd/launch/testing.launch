@@ -18,12 +18,12 @@
   <!--- Run rviz -->
     <node name="rviz" pkg="rviz" type="rviz" required="True" output="screen" args="-d $(find phd)/cfg/rviz_scan.rviz"> 
   </node>
-<node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0 0 0 0 0 0 1 base_link world 100" />
-<node pkg="tf" type="static_transform_publisher" name="link2_broadcaster" args="0 0 0 0 0 0 1 base_link laser 100" />
+<node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0 0 0 0 0 0 1 base_footprint world 100" />
 
   <!--- Run dynamicreconfigure -->
   <node type="rqt_reconfigure" pkg="rqt_reconfigure" name="rqt_reconfigure" output="screen">
   </node>
-
+  <!--- Run Joint State Fusion node-->
+  <node name="joint_fusion_node" pkg="phd" type="joint_fusion_node" output="screen" />
 
 </launch>

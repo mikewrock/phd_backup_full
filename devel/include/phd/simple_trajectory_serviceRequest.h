@@ -26,31 +26,16 @@ struct simple_trajectory_serviceRequest_
   typedef simple_trajectory_serviceRequest_<ContainerAllocator> Type;
 
   simple_trajectory_serviceRequest_()
-    : P1x(0.0)
-    , P1y(0.0)
-    , P1z(0.0)
-    , cloud_in()
+    : cloud_in()
     , cloud_surface()  {
     }
   simple_trajectory_serviceRequest_(const ContainerAllocator& _alloc)
-    : P1x(0.0)
-    , P1y(0.0)
-    , P1z(0.0)
-    , cloud_in(_alloc)
+    : cloud_in(_alloc)
     , cloud_surface(_alloc)  {
   (void)_alloc;
     }
 
 
-
-   typedef float _P1x_type;
-  _P1x_type P1x;
-
-   typedef float _P1y_type;
-  _P1y_type P1y;
-
-   typedef float _P1z_type;
-  _P1z_type P1z;
 
    typedef  ::sensor_msgs::PointCloud2_<ContainerAllocator>  _cloud_in_type;
   _cloud_in_type cloud_in;
@@ -135,12 +120,12 @@ struct MD5Sum< ::phd::simple_trajectory_serviceRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "0d256f445a7f93631d0c7004c61e0c8d";
+    return "f97060d711283f6369cb8c6aa53028f1";
   }
 
   static const char* value(const ::phd::simple_trajectory_serviceRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x0d256f445a7f9363ULL;
-  static const uint64_t static_value2 = 0x1d0c7004c61e0c8dULL;
+  static const uint64_t static_value1 = 0xf97060d711283f63ULL;
+  static const uint64_t static_value2 = 0x69cb8c6aa53028f1ULL;
 };
 
 template<class ContainerAllocator>
@@ -159,10 +144,7 @@ struct Definition< ::phd::simple_trajectory_serviceRequest_<ContainerAllocator> 
 {
   static const char* value()
   {
-    return "float32 P1x\n\
-float32 P1y\n\
-float32 P1z\n\
-sensor_msgs/PointCloud2 cloud_in\n\
+    return "sensor_msgs/PointCloud2 cloud_in\n\
 sensor_msgs/PointCloud2 cloud_surface\n\
 \n\
 ================================================================================\n\
@@ -248,9 +230,6 @@ namespace serialization
   {
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
-      stream.next(m.P1x);
-      stream.next(m.P1y);
-      stream.next(m.P1z);
       stream.next(m.cloud_in);
       stream.next(m.cloud_surface);
     }
@@ -271,12 +250,6 @@ struct Printer< ::phd::simple_trajectory_serviceRequest_<ContainerAllocator> >
 {
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::phd::simple_trajectory_serviceRequest_<ContainerAllocator>& v)
   {
-    s << indent << "P1x: ";
-    Printer<float>::stream(s, indent + "  ", v.P1x);
-    s << indent << "P1y: ";
-    Printer<float>::stream(s, indent + "  ", v.P1y);
-    s << indent << "P1z: ";
-    Printer<float>::stream(s, indent + "  ", v.P1z);
     s << indent << "cloud_in: ";
     s << std::endl;
     Printer< ::sensor_msgs::PointCloud2_<ContainerAllocator> >::stream(s, indent + "  ", v.cloud_in);

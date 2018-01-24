@@ -490,7 +490,7 @@ TrajectoryConfig::GroupDescription<TrajectoryConfig::DEFAULT, TrajectoryConfig> 
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.radial_steps = 100.0;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.radial_steps = 10.0;
+      __default__.radial_steps = 50.0;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.abstract_parameters.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("radial_steps", "double", 0, "number of ribs to make", "", &TrajectoryConfig::radial_steps)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"

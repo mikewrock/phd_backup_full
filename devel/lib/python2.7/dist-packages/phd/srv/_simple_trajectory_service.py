@@ -9,13 +9,10 @@ import std_msgs.msg
 import sensor_msgs.msg
 
 class simple_trajectory_serviceRequest(genpy.Message):
-  _md5sum = "0d256f445a7f93631d0c7004c61e0c8d"
+  _md5sum = "f97060d711283f6369cb8c6aa53028f1"
   _type = "phd/simple_trajectory_serviceRequest"
   _has_header = False #flag to mark the presence of a Header object
-  _full_text = """float32 P1x
-float32 P1y
-float32 P1z
-sensor_msgs/PointCloud2 cloud_in
+  _full_text = """sensor_msgs/PointCloud2 cloud_in
 sensor_msgs/PointCloud2 cloud_surface
 
 ================================================================================
@@ -84,8 +81,8 @@ uint32 offset    # Offset from start of point struct
 uint8  datatype  # Datatype enumeration, see above
 uint32 count     # How many elements in the field
 """
-  __slots__ = ['P1x','P1y','P1z','cloud_in','cloud_surface']
-  _slot_types = ['float32','float32','float32','sensor_msgs/PointCloud2','sensor_msgs/PointCloud2']
+  __slots__ = ['cloud_in','cloud_surface']
+  _slot_types = ['sensor_msgs/PointCloud2','sensor_msgs/PointCloud2']
 
   def __init__(self, *args, **kwds):
     """
@@ -95,7 +92,7 @@ uint32 count     # How many elements in the field
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       P1x,P1y,P1z,cloud_in,cloud_surface
+       cloud_in,cloud_surface
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -104,20 +101,11 @@ uint32 count     # How many elements in the field
     if args or kwds:
       super(simple_trajectory_serviceRequest, self).__init__(*args, **kwds)
       #message fields cannot be None, assign default values for those that are
-      if self.P1x is None:
-        self.P1x = 0.
-      if self.P1y is None:
-        self.P1y = 0.
-      if self.P1z is None:
-        self.P1z = 0.
       if self.cloud_in is None:
         self.cloud_in = sensor_msgs.msg.PointCloud2()
       if self.cloud_surface is None:
         self.cloud_surface = sensor_msgs.msg.PointCloud2()
     else:
-      self.P1x = 0.
-      self.P1y = 0.
-      self.P1z = 0.
       self.cloud_in = sensor_msgs.msg.PointCloud2()
       self.cloud_surface = sensor_msgs.msg.PointCloud2()
 
@@ -134,7 +122,7 @@ uint32 count     # How many elements in the field
     """
     try:
       _x = self
-      buff.write(_struct_3f3I.pack(_x.P1x, _x.P1y, _x.P1z, _x.cloud_in.header.seq, _x.cloud_in.header.stamp.secs, _x.cloud_in.header.stamp.nsecs))
+      buff.write(_struct_3I.pack(_x.cloud_in.header.seq, _x.cloud_in.header.stamp.secs, _x.cloud_in.header.stamp.nsecs))
       _x = self.cloud_in.header.frame_id
       length = len(_x)
       if python3 or type(_x) == unicode:
@@ -222,8 +210,8 @@ uint32 count     # How many elements in the field
       end = 0
       _x = self
       start = end
-      end += 24
-      (_x.P1x, _x.P1y, _x.P1z, _x.cloud_in.header.seq, _x.cloud_in.header.stamp.secs, _x.cloud_in.header.stamp.nsecs,) = _struct_3f3I.unpack(str[start:end])
+      end += 12
+      (_x.cloud_in.header.seq, _x.cloud_in.header.stamp.secs, _x.cloud_in.header.stamp.nsecs,) = _struct_3I.unpack(str[start:end])
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
@@ -334,7 +322,7 @@ uint32 count     # How many elements in the field
     """
     try:
       _x = self
-      buff.write(_struct_3f3I.pack(_x.P1x, _x.P1y, _x.P1z, _x.cloud_in.header.seq, _x.cloud_in.header.stamp.secs, _x.cloud_in.header.stamp.nsecs))
+      buff.write(_struct_3I.pack(_x.cloud_in.header.seq, _x.cloud_in.header.stamp.secs, _x.cloud_in.header.stamp.nsecs))
       _x = self.cloud_in.header.frame_id
       length = len(_x)
       if python3 or type(_x) == unicode:
@@ -423,8 +411,8 @@ uint32 count     # How many elements in the field
       end = 0
       _x = self
       start = end
-      end += 24
-      (_x.P1x, _x.P1y, _x.P1z, _x.cloud_in.header.seq, _x.cloud_in.header.stamp.secs, _x.cloud_in.header.stamp.nsecs,) = _struct_3f3I.unpack(str[start:end])
+      end += 12
+      (_x.cloud_in.header.seq, _x.cloud_in.header.stamp.secs, _x.cloud_in.header.stamp.nsecs,) = _struct_3I.unpack(str[start:end])
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
@@ -529,7 +517,7 @@ uint32 count     # How many elements in the field
 _struct_I = genpy.struct_I
 _struct_IBI = struct.Struct("<IBI")
 _struct_B = struct.Struct("<B")
-_struct_3f3I = struct.Struct("<3f3I")
+_struct_3I = struct.Struct("<3I")
 _struct_B3I = struct.Struct("<B3I")
 _struct_B2I = struct.Struct("<B2I")
 _struct_2I = struct.Struct("<2I")
@@ -692,6 +680,6 @@ _struct_I = genpy.struct_I
 _struct_8f = struct.Struct("<8f")
 class simple_trajectory_service(object):
   _type          = 'phd/simple_trajectory_service'
-  _md5sum = 'b21993cb52c2540858ed98b988a9faf4'
+  _md5sum = 'ec2097f146620dc0173601d47c914868'
   _request_class  = simple_trajectory_serviceRequest
   _response_class = simple_trajectory_serviceResponse

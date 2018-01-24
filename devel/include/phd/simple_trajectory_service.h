@@ -40,7 +40,7 @@ template<>
 struct MD5Sum< ::phd::simple_trajectory_service > {
   static const char* value()
   {
-    return "b21993cb52c2540858ed98b988a9faf4";
+    return "ec2097f146620dc0173601d47c914868";
   }
 
   static const char* value(const ::phd::simple_trajectory_service&) { return value(); }

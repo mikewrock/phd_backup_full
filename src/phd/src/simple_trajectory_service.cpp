@@ -68,6 +68,8 @@ pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_surface_full (new pcl::PointCloud<pcl
 //make the publishers global so we can publish from callbacks
 ros::Publisher marker_pub; //Publishes normals
 ros::Publisher dir_pub; //Path along the surface
+ros::Publisher gp_pub; //Points within robot workspace
+ros::Publisher bp_pub; //Points outside robot workspace
 ros::Publisher path_pub; //End effector path
 ros::Publisher line_pub; //For debugging, publishes the cropped line that the via points are calculated on
 ros::Publisher line_pub2; //For debugging, publishes the cropped line that the via points are calculated on
@@ -497,6 +499,8 @@ void show_markers(phd::trajectory_msg t_msg){
 	visualization_msgs::Marker marker;
 	visualization_msgs::Marker path;
 	visualization_msgs::Marker surface_path;
+	visualization_msgs::Marker good_points;
+	visualization_msgs::Marker bad_points;
 	// Set the frame ID and timestamp.  See the TF tutorials for information on these.
 	marker.header.frame_id = "/world";
 	marker.header.stamp = ros::Time::now();
@@ -575,6 +579,51 @@ void show_markers(phd::trajectory_msg t_msg){
 	surface_path.color.a = 1.0;
 	surface_path.lifetime = ros::Duration();
 
+	good_points.header.frame_id = "/world";
+	good_points.header.stamp = ros::Time::now();
+	good_points.ns = "basic_shapes";
+	good_points.id = 0;
+	good_points.type = visualization_msgs::Marker::POINTS;
+	good_points.action = visualization_msgs::Marker::ADD;
+	good_points.pose.position.x = 0;
+	good_points.pose.position.y = 0;
+	good_points.pose.position.z = 0;
+	good_points.pose.orientation.x = 0.0;
+	good_points.pose.orientation.y = 0.0;
+	good_points.pose.orientation.z = 0.0;
+	good_points.pose.orientation.w = 1.0;
+	good_points.scale.x = 0.02;
+	good_points.scale.y = 0.02;
+	good_points.scale.z = 0.02;
+	good_points.color.r = 0.0f;
+	good_points.color.g = 1.0f;
+	good_points.color.b = 0.0f;
+	good_points.color.a = 0.8;
+	good_points.lifetime = ros::Duration();
+
+	bad_points.header.frame_id = "/world";
+	bad_points.header.stamp = ros::Time::now();
+	bad_points.ns = "basic_shapes";
+	bad_points.id = 0;
+	bad_points.type = visualization_msgs::Marker::POINTS;
+	bad_points.action = visualization_msgs::Marker::ADD;
+	bad_points.pose.position.x = 0;
+	bad_points.pose.position.y = 0;
+	bad_points.pose.position.z = 0;
+	bad_points.pose.orientation.x = 0.0;
+	bad_points.pose.orientation.y = 0.0;
+	bad_points.pose.orientation.z = 0.0;
+	bad_points.pose.orientation.w = 1.0;
+	bad_points.scale.x = 0.02;
+	bad_points.scale.y = 0.02;
+	bad_points.scale.z = 0.02;
+	bad_points.color.r = 1.0f;
+	bad_points.color.g = 0.0f;
+	bad_points.color.b = 0.0f;
+	bad_points.color.a = 0.8;
+	bad_points.lifetime = ros::Duration();
+
+
 		int num_pts = t_msg.points.size();
 		path.points.resize(num_pts);
 		surface_path.points.resize(num_pts);
@@ -589,6 +638,10 @@ void show_markers(phd::trajectory_msg t_msg){
 			surface_path.points[i].x = t_msg.points[i].x;
 			surface_path.points[i].y = t_msg.points[i].y;
 			surface_path.points[i].z = t_msg.points[i].z;
+
+			float abs_pose = sqrt(pow(path.points[i].x-.156971,2)+pow(path.points[i].y+ .096013,2)+pow(path.points[i].z- .405369,2));
+			if(abs_pose < .432)	good_points.points.push_back(path.points[i]);
+			else bad_points.points.push_back(path.points[i]);
 
 			//ROS_INFO("Point %d: %f- %f- %f",i,path.points[i].x,path.points[i].y,path.points[i].z);
 			marker.points[i*2].x = t_msg.points[i].x-(OFFSET*t_msg.points[i].nx);
@@ -605,6 +658,11 @@ void show_markers(phd::trajectory_msg t_msg){
 		ros::Duration(0.5).sleep();
 		marker_pub.publish(marker);
 		ros::Duration(0.5).sleep();
+		gp_pub.publish(good_points);
+		ros::Duration(0.5).sleep();
+		bp_pub.publish(bad_points);
+		ros::Duration(0.5).sleep();
+
 	
 
 	}
@@ -986,11 +1044,16 @@ main (int argc, char** argv)
 	line_pub2 = nh.advertise<sensor_msgs::PointCloud2>( "line_points2", 0 );
 	path_pub = nh.advertise<visualization_msgs::Marker>( "path_marker", 0 );
 	dir_pub = nh.advertise<visualization_msgs::Marker>( "dir_marker", 0 );
+	gp_pub = nh.advertise<visualization_msgs::Marker>( "good_points_marker", 0 );
+	bp_pub = nh.advertise<visualization_msgs::Marker>( "bad_points_marker", 0 );
 	dynamic_reconfigure::Server<phd::TrajectoryConfig> server;
 	dynamic_reconfigure::Server<phd::TrajectoryConfig>::CallbackType callback_type;
 	callback_type = boost::bind(&reconfig_callback, _1, _2);
 	server.setCallback(callback_type);
 	ROS_INFO("Trajectory Generator online");
 	nsid = 0;
+
+
+
 	ros::spin();  
 }
