@@ -4,6 +4,7 @@
   <param name="workspace" type="double" value="0.5" />
   <param name="height_step" type="double" value="0.25" />
   <param name="max_height" type="double" value="1.3" />
+  <param name="min_height" type="double" value="0.75" />
   <param name="offset" type="double" value="0.65" />
   <param name="slice_thickness" type="double" value="0.03" />
   <param name="via_distance" type="double" value="0.2" />

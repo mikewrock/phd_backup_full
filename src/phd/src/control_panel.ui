@@ -207,12 +207,12 @@ Trajectory</string>
       <rect>
        <x>140</x>
        <y>170</y>
-       <width>121</width>
+       <width>91</width>
        <height>41</height>
       </rect>
      </property>
      <property name="text">
-      <string>Execute Poses</string>
+      <string>Pose Step</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="after_box">
@@ -303,6 +303,37 @@ Trajectory</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="pose_ctr">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>180</y>
+       <width>21</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="pose_ctr_2">
+     <property name="geometry">
+      <rect>
+       <x>237</x>
+       <y>165</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Ctr:</string>
      </property>
     </widget>
    </widget>
@@ -593,6 +624,19 @@ color: rgb(255, 255, 255);</string>
      </property>
      <property name="text">
       <string>Pose Step</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="reset_button">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>60</y>
+       <width>121</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Reset</string>
      </property>
     </widget>
    </widget>
@@ -1051,7 +1095,7 @@ color: rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="text">
-      <string>0</string>
+      <string>-45</string>
      </property>
     </widget>
     <widget class="QTextBrowser" name="j6_browser">

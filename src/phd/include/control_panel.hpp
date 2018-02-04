@@ -89,7 +89,7 @@ public:
 	void lscan();
 	void run();
 	bool init();
-	void calc_poses();
+	int calc_poses();
 	void pose_step();
 	void send_command(float x, float y, float z, float rx, float ry, float rz, float fig, int motion);
 	void send_joint_command(float j1, float j2, float j3, float j4, float j5, float j6);

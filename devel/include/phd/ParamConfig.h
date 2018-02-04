@@ -556,7 +556,7 @@ ParamConfig::GroupDescription<ParamConfig::DEFAULT, ParamConfig> Default("Defaul
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.auto_crop_max_z = 10.0;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.auto_crop_max_z = 1.5;
+      __default__.auto_crop_max_z = 2.0;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_crop_max_z", "double", 0, "Max Z value when auto-cropping for trajectory generation", "", &ParamConfig::auto_crop_max_z)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"

@@ -42,9 +42,13 @@
 #include <phd/TrajectoryConfig.h>
 #define DEBUG 1 //For displaying debug info
 #define PI 3.1415925
+#define X_BASE_TO_ARM .274795
+#define Y_BASE_TO_ARM -.08635
+#define Z_BASE_TO_ARM .2658
 float WORKSPACE;  //Robot workspace width in m
 float HEIGHT_STEP; //Increment for each horizontal line
 float MAX_HEIGHT;//Maximum reachable height
+float MIN_HEIGHT;//Minimum reachable height
 float OFFSET; //Optimal distance from wall to end effector
 float Z_HEIGHT;  //Thickness of line slice
 float VIA_DISTANCE;  //Distance between via points
@@ -70,7 +74,6 @@ ros::Publisher marker_pub; //Publishes normals
 ros::Publisher dir_pub; //Path along the surface
 ros::Publisher gp_pub; //Points within robot workspace
 ros::Publisher bp_pub; //Points outside robot workspace
-ros::Publisher ws_pub; //Visualization of robot workspace
 ros::Publisher path_pub; //End effector path
 ros::Publisher line_pub; //For debugging, publishes the cropped line that the via points are calculated on
 ros::Publisher line_pub2; //For debugging, publishes the cropped line that the via points are calculated on
@@ -84,19 +87,21 @@ bool reverse_sort (phd::trajectory_point i,phd::trajectory_point j) { return (i.
 //this callback is for dynamic reconfigure, it sets the global variables
 void reconfig_callback(phd::TrajectoryConfig &config, uint32_t level) {
 
-WORKSPACE=config.workspace;  //Robot workspace width in m
-HEIGHT_STEP=config.height_step; //Increment for each horizontal line
-MAX_HEIGHT=config.max_height;//Maximum reachable height
-OFFSET=config.offset; //Optimal distance from wall to end effector
-Z_HEIGHT=config.slice_thickness;  //Thickness of line slice
-VIA_DISTANCE=config.via_distance;  //Distance between via points
-RADIAL_STEPS=config.radial_steps; 
-START_ANGLE=config.start_angle; 
-END_ANGLE=config.end_angle; 
-CHUNK_RADIUS=config.rib_downsampling*config.rib_downsampling;
-CONNECTING_TOLERANCE=config.rib_tolerance;
-D_MAX=config.max_rib_length;
-Z_VERTICAL_LIMIT=config.z_vert_limit;
+	WORKSPACE=config.workspace;  //Robot workspace width in m
+	HEIGHT_STEP=config.height_step; //Increment for each horizontal line
+	MAX_HEIGHT=config.max_height;//Maximum reachable height
+	MIN_HEIGHT=config.min_height;//Maximum reachable height
+	OFFSET=config.offset; //Optimal distance from wall to end effector
+	Z_HEIGHT=config.slice_thickness;  //Thickness of line slice
+	VIA_DISTANCE=config.via_distance;  //Distance between via points
+	RADIAL_STEPS=config.radial_steps; 
+	START_ANGLE=config.start_angle; 
+	END_ANGLE=config.end_angle; 
+	CHUNK_RADIUS=config.rib_downsampling*config.rib_downsampling;
+	CONNECTING_TOLERANCE=config.rib_tolerance;
+	D_MAX=config.max_rib_length;
+	Z_VERTICAL_LIMIT=config.z_vert_limit;
+	ros::param::set("/global_offset", OFFSET);
 
 }
 //Functions for finding max and min values
@@ -640,7 +645,7 @@ void show_markers(phd::trajectory_msg t_msg){
 			surface_path.points[i].y = t_msg.points[i].y;
 			surface_path.points[i].z = t_msg.points[i].z;
 
-			float abs_pose = sqrt(pow(path.points[i].x-.156971,2)+pow(path.points[i].y+ .096013,2)+pow(path.points[i].z- .405369,2));
+			float abs_pose = sqrt(pow(path.points[i].x-X_BASE_TO_ARM,2)+pow(path.points[i].y- Y_BASE_TO_ARM,2)+pow(path.points[i].z- (Z_BASE_TO_ARM+.28),2));
 			if(abs_pose < .432)	good_points.points.push_back(path.points[i]);
 			else bad_points.points.push_back(path.points[i]);
 
@@ -933,11 +938,11 @@ bool generate (phd::simple_trajectory_service::Request  &req,
 	Eigen::Vector4f minPoint; 
 	minPoint[0]=-100;  // define minimum point x 
 	minPoint[1]=-.010;  // define minimum point y 
-	minPoint[2]=-100;  // define minimum point z 
+	minPoint[2]=MIN_HEIGHT;  // define minimum point z 
 	Eigen::Vector4f maxPoint; 
 	maxPoint[0]=100;  // define max point x 
 	maxPoint[1]=.010;  // define max point y 
-	maxPoint[2]=100;  // define max point z 
+	maxPoint[2]=MAX_HEIGHT;  // define max point z 
 
 	Eigen::Vector3f boxTranslatation; 
 	boxTranslatation[0]=0;   
@@ -1047,7 +1052,6 @@ main (int argc, char** argv)
 	dir_pub = nh.advertise<visualization_msgs::Marker>( "dir_marker", 0 );
 	gp_pub = nh.advertise<visualization_msgs::Marker>( "good_points_marker", 0 );
 	bp_pub = nh.advertise<visualization_msgs::Marker>( "bad_points_marker", 0 );
-	ws_pub = nh.advertise<visualization_msgs::Marker>( "ws_points_marker", 0 );
 	dynamic_reconfigure::Server<phd::TrajectoryConfig> server;
 	dynamic_reconfigure::Server<phd::TrajectoryConfig>::CallbackType callback_type;
 	callback_type = boost::bind(&reconfig_callback, _1, _2);
@@ -1056,29 +1060,6 @@ main (int argc, char** argv)
 	nsid = 0;
 
 
-	visualization_msgs::Marker ws_points;
-	ws_points.header.frame_id = "/world";
-	ws_points.header.stamp = ros::Time::now();
-	ws_points.ns = "basic_shapes";
-	ws_points.id = 0;
-	ws_points.type = visualization_msgs::Marker::SPHERE;
-	ws_points.action = visualization_msgs::Marker::ADD;
-	ws_points.pose.position.x = -.156971;
-	ws_points.pose.position.y = .096013;
-	ws_points.pose.position.z = .505369;
-	ws_points.pose.orientation.x = 0.0;
-	ws_points.pose.orientation.y = 0.0;
-	ws_points.pose.orientation.z = 0.0;
-	ws_points.pose.orientation.w = 1.0;
-	ws_points.scale.x = .4;
-	ws_points.scale.y = .4;
-	ws_points.scale.z = .4;
-	ws_points.color.r = 1.0f;
-	ws_points.color.g = 1.0f;
-	ws_points.color.b = 1.0f;
-	ws_points.color.a = 0.3;
-	ws_points.lifetime = ros::Duration();
-		ws_pub.publish(ws_points);
-		ros::Duration(0.5).sleep();
+
 	ros::spin();  
 }

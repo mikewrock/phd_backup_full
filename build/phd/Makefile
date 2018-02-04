@@ -363,6 +363,20 @@ brics_actuator_generate_messages_py/fast:
 .PHONY : brics_actuator_generate_messages_py/fast
 
 # Convenience name for target.
+phd/CMakeFiles/calibration_node.dir/rule:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/calibration_node.dir/rule
+.PHONY : phd/CMakeFiles/calibration_node.dir/rule
+
+# Convenience name for target.
+calibration_node: phd/CMakeFiles/calibration_node.dir/rule
+.PHONY : calibration_node
+
+# fast build rule for target.
+calibration_node/fast:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/calibration_node.dir/build.make phd/CMakeFiles/calibration_node.dir/build
+.PHONY : calibration_node/fast
+
+# Convenience name for target.
 phd/CMakeFiles/cloud_localizer.dir/rule:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/cloud_localizer.dir/rule
 .PHONY : phd/CMakeFiles/cloud_localizer.dir/rule
@@ -1012,6 +1026,30 @@ src/bcap_common.c.s:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/phd.dir/build.make phd/CMakeFiles/phd.dir/src/bcap_common.c.s
 .PHONY : src/bcap_common.c.s
 
+src/calibration.o: src/calibration.cpp.o
+.PHONY : src/calibration.o
+
+# target to build an object file
+src/calibration.cpp.o:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/calibration_node.dir/build.make phd/CMakeFiles/calibration_node.dir/src/calibration.cpp.o
+.PHONY : src/calibration.cpp.o
+
+src/calibration.i: src/calibration.cpp.i
+.PHONY : src/calibration.i
+
+# target to preprocess a source file
+src/calibration.cpp.i:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/calibration_node.dir/build.make phd/CMakeFiles/calibration_node.dir/src/calibration.cpp.i
+.PHONY : src/calibration.cpp.i
+
+src/calibration.s: src/calibration.cpp.s
+.PHONY : src/calibration.s
+
+# target to generate assembly for a file
+src/calibration.cpp.s:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/calibration_node.dir/build.make phd/CMakeFiles/calibration_node.dir/src/calibration.cpp.s
+.PHONY : src/calibration.cpp.s
+
 src/control_dashboard.o: src/control_dashboard.cpp.o
 .PHONY : src/control_dashboard.o
 
@@ -1558,6 +1596,7 @@ help:
 	@echo "... brics_actuator_generate_messages_cpp"
 	@echo "... brics_actuator_generate_messages_lisp"
 	@echo "... brics_actuator_generate_messages_py"
+	@echo "... calibration_node"
 	@echo "... cloud_localizer"
 	@echo "... cob_srvs_generate_messages_cpp"
 	@echo "... cob_srvs_generate_messages_lisp"
@@ -1620,6 +1659,9 @@ help:
 	@echo "... src/bcap_common.o"
 	@echo "... src/bcap_common.i"
 	@echo "... src/bcap_common.s"
+	@echo "... src/calibration.o"
+	@echo "... src/calibration.i"
+	@echo "... src/calibration.s"
 	@echo "... src/control_dashboard.o"
 	@echo "... src/control_dashboard.i"
 	@echo "... src/control_dashboard.s"

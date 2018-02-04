@@ -229,6 +229,7 @@ class DEFAULT
         if("workspace"==(*_i)->name){workspace = boost::any_cast<double>(val);}
         if("height_step"==(*_i)->name){height_step = boost::any_cast<double>(val);}
         if("max_height"==(*_i)->name){max_height = boost::any_cast<double>(val);}
+        if("min_height"==(*_i)->name){min_height = boost::any_cast<double>(val);}
         if("offset"==(*_i)->name){offset = boost::any_cast<double>(val);}
         if("slice_thickness"==(*_i)->name){slice_thickness = boost::any_cast<double>(val);}
         if("via_distance"==(*_i)->name){via_distance = boost::any_cast<double>(val);}
@@ -245,6 +246,7 @@ class DEFAULT
     double workspace;
 double height_step;
 double max_height;
+double min_height;
 double offset;
 double slice_thickness;
 double via_distance;
@@ -270,6 +272,8 @@ double max_rib_length;
       double height_step;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       double max_height;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      double min_height;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       double offset;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
@@ -455,6 +459,16 @@ TrajectoryConfig::GroupDescription<TrajectoryConfig::DEFAULT, TrajectoryConfig> 
       Default.abstract_parameters.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("max_height", "double", 0, "Maximum reachable height", "", &TrajectoryConfig::max_height)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __param_descriptions__.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("max_height", "double", 0, "Maximum reachable height", "", &TrajectoryConfig::max_height)));
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __min__.min_height = 0.0;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __max__.min_height = 10.0;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __default__.min_height = 0.75;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      Default.abstract_parameters.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("min_height", "double", 0, "Minimum reachable height", "", &TrajectoryConfig::min_height)));
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __param_descriptions__.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("min_height", "double", 0, "Minimum reachable height", "", &TrajectoryConfig::min_height)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __min__.offset = 0.0;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"

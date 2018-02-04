@@ -443,7 +443,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 
   
       <joint name="Arm_Mount" type="fixed">
-      <origin xyz=".2 -.20 ${.2 + 0.35550000/2 - 0.03282508}" rpy="0 0 ${M_PI}" />
+      <origin xyz=".278095 -.101335 .372471" rpy="0 0 ${M_PI}" />
       <parent link="base_footprint" />
       <child link="BASE" />
     </joint>

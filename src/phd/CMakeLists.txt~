@@ -83,6 +83,7 @@ generate_dynamic_reconfigure_options(
   cfg/seg_config.cfg
   cfg/param_config.cfg
   cfg/localize_config.cfg
+  cfg/trajectory_config.cfg
   #...
 )
 ## Generate messages in the 'msg' folder
@@ -103,6 +104,7 @@ generate_dynamic_reconfigure_options(
 	localize_cloud.srv
 	thickness_service.srv
 	trajectory_service.srv
+	simple_trajectory_service.srv
 #   Service2.srv
  )
 
@@ -263,7 +265,7 @@ set_target_properties(cube_node PROPERTIES COMPILE_FLAGS "-D__LINUX__ -DUSE_ESD"
 add_dependencies(cloud_localizer  phd_EXPORTED_TARGETS phd_generate_messages_cpp phd_gencpp phd_gencfg)
 add_dependencies(thickness_server  phd_EXPORTED_TARGETS phd_generate_messages_cpp phd_gencpp phd_gencfg)
 add_dependencies(trajectory_server  phd_EXPORTED_TARGETS phd_generate_messages_cpp phd_gencpp)
-add_dependencies(simple_trajectory_server  phd_EXPORTED_TARGETS phd_generate_messages_cpp phd_gencpp)
+add_dependencies(simple_trajectory_server  phd_EXPORTED_TARGETS phd_generate_messages_cpp phd_gencpp phd_gencfg)
 add_dependencies(cube_node  phd_EXPORTED_TARGETS phd_generate_messages_cpp)
 add_dependencies(denso_node  phd_EXPORTED_TARGETS phd_generate_messages_cpp)
 #add_dependencies(control_panel  phd_EXPORTED_TARGETS phd_generate_messages_cpp phd_gencpp)

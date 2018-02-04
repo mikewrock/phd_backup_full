@@ -48,6 +48,7 @@ namespace control_panel
 		connect(ui_.step_button, SIGNAL(clicked()), this, SLOT(do_step()));
 		connect(ui_.est_pos, SIGNAL(clicked()), this, SLOT(do_estimate()));
 		connect(ui_.exe_path, SIGNAL(clicked()), this, SLOT(exe_nav()));
+		connect(ui_.exe_poses, SIGNAL(clicked()), this, SLOT(pose_step()));
 		connect(ui_.show_nav_button, SIGNAL(clicked()), this, SLOT(show_nav()));
 		connect(ui_.fscan_button, SIGNAL(clicked()), this, SLOT(fake_scan()));
 		connect(ui_.scan_button, SIGNAL(clicked()), this, SLOT(scan()));
@@ -108,7 +109,7 @@ namespace control_panel
 		//connect( output_timer, SIGNAL( timeout() ), this, SLOT( sendVel() ));
 		//Index for keeping track of which marker point is being clustered
 		cluster_index = 0;
-  
+		pose_ctr = 0;
 		spin_timer->start( 10 );
 	}
 
@@ -350,12 +351,15 @@ namespace control_panel
 	
 	void ControlPanel::do_poses(){
 
-		control_panel.calc_poses();
+		pose_nums = control_panel.calc_poses();
+		ui_.pose_button->setText(QString("%1 Poses").arg(QString::number(pose_nums)));
 
 	}
 	void ControlPanel::pose_step(){
 
 		control_panel.pose_step();
+		++pose_ctr;
+		ui_.pose_ctr->setText(QString::number(pose_ctr));
 
 	}
 	

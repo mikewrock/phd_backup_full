@@ -2259,6 +2259,19 @@ brics_actuator_generate_messages_py/fast:
 .PHONY : brics_actuator_generate_messages_py/fast
 
 #=============================================================================
+# Target rules for targets named calibration_node
+
+# Build rule for target.
+calibration_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 calibration_node
+.PHONY : calibration_node
+
+# fast build rule for target.
+calibration_node/fast:
+	$(MAKE) -f phd/CMakeFiles/calibration_node.dir/build.make phd/CMakeFiles/calibration_node.dir/build
+.PHONY : calibration_node/fast
+
+#=============================================================================
 # Target rules for targets named cloud_localizer
 
 # Build rule for target.
@@ -3356,6 +3369,7 @@ help:
 	@echo "... brics_actuator_generate_messages_cpp"
 	@echo "... brics_actuator_generate_messages_lisp"
 	@echo "... brics_actuator_generate_messages_py"
+	@echo "... calibration_node"
 	@echo "... cloud_localizer"
 	@echo "... cob_srvs_generate_messages_cpp"
 	@echo "... cob_srvs_generate_messages_lisp"

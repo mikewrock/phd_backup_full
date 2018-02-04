@@ -61,13 +61,14 @@
 #define CP 2
 #define JOINT 3
 #define STRING 4
-#define OFFSET .8
+//#define OFFSET .8
 #define WORKSPACE_WIDTH 0.5
 #define H_SLICE 0.5
 #define CHUNK_RADIUS 0.03
 #define POSE_DISTANCE 0.5
-
-
+#define X_BASE_TO_ARM .156971
+#define Y_BASE_TO_ARM -.096013
+#define Z_BASE_TO_ARM .405369
 
 namespace control_panel{
 namespace control_panel_ns{
@@ -196,7 +197,7 @@ bool QNode::init() {
 	//ros::start();
 
 
-ros::Publisher ws_pub; //Visualization of robot workspace
+	ros::Publisher ws_pub; //Visualization of robot workspace
 	ws_pub = nh_.advertise<visualization_msgs::Marker>( "ws_points_marker", 0 );
 	visualization_msgs::Marker ws_points;
 	ws_points.header.frame_id = "/world";
@@ -205,9 +206,9 @@ ros::Publisher ws_pub; //Visualization of robot workspace
 	ws_points.id = 0;
 	ws_points.type = visualization_msgs::Marker::SPHERE;
 	ws_points.action = visualization_msgs::Marker::ADD;
-	ws_points.pose.position.x = .156971;
-	ws_points.pose.position.y = -.096013;
-	ws_points.pose.position.z = .505369;
+	ws_points.pose.position.x = X_BASE_TO_ARM;
+	ws_points.pose.position.y = Y_BASE_TO_ARM;
+	ws_points.pose.position.z = Z_BASE_TO_ARM+.28;
 	ws_points.pose.orientation.x = 0.0;
 	ws_points.pose.orientation.y = 0.0;
 	ws_points.pose.orientation.z = 0.0;
@@ -343,7 +344,7 @@ void QNode::show_nav() {
 }
 
 
-void QNode::calc_poses(){
+int QNode::calc_poses(){
 
 	pcl::PointCloud<pcl::PointXYZI>::Ptr line (new pcl::PointCloud<pcl::PointXYZI>);
 	Eigen::Vector4f minPoint = (Eigen::Vector4f() << -100,-100,H_SLICE-0.01,0).finished();
@@ -434,6 +435,7 @@ void QNode::calc_poses(){
 		marker_pub.publish(marker);
 		ros::Duration(0.5).sleep();
 		ros::spinOnce();
+		return num_pts;
 
 }
 void QNode::pose_step(){
@@ -471,21 +473,79 @@ void QNode::run() {
 	Q_EMIT rosShutdown(); // used to signal the gui for a shutdown (useful to roslaunch)
 }
 
-//Testing function used to step through the trajectory points
-void QNode::step(bool arm){
-	//Generate and arm_msg and populate it with the current point in the trajectory array
+phd::arm_msg move_to_workspace(phd::trajectory_point t_point){
+
 	phd::arm_msg msg;
-	msg.x = (traj.points[pt_ctr].x-traj.points[pt_ctr].nx*OFFSET -.156971)*1000;
-	msg.y = (traj.points[pt_ctr].y-traj.points[pt_ctr].ny*OFFSET + .096013)*1000;
-	msg.z = (traj.points[pt_ctr].z-traj.points[pt_ctr].nz*OFFSET - .405369)*1000;
+	float vec_len = sqrt(pow(t_point.x-X_BASE_TO_ARM,2)+pow(t_point.y-Y_BASE_TO_ARM,2)+pow(t_point.z-(Z_BASE_TO_ARM+.28),2));
+	t_point.nx = (t_point.x - X_BASE_TO_ARM) / vec_len;
+	t_point.ny = (t_point.y - Y_BASE_TO_ARM) / vec_len;
+	t_point.nz = (t_point.z - (Z_BASE_TO_ARM + .28)) / vec_len;
+	msg.x = (.4*(t_point.nx))*1000;
+	msg.y = (.4*(t_point.ny))*1000;
+	msg.z = 280 + (.4*(t_point.nz))*1000;
+	float normal_len = sqrt(pow(t_point.nx,2)+pow(t_point.ny,2)+pow(t_point.nz,2));
+	float msg_len = sqrt(pow(msg.x,2)+pow(msg.y,2)+pow(msg.z-280,2));
+	ROS_INFO("DOING trig %f - %f : %f, %f, %f - %f - %f - %f /%f",msg_len,normal_len,t_point.x,t_point.y,t_point.z,t_point.nx,t_point.ny,t_point.nz,vec_len);
 	//Caluclate the rotation around the X and Y axis from the normal vector
-	float length = sqrt(pow(traj.points[pt_ctr].nx,2)+pow(traj.points[pt_ctr].ny,2)+pow(traj.points[pt_ctr].nz,2));
-	msg.rx = asin(traj.points[pt_ctr].ny / length);
+	msg.rx = asin(-t_point.ny / vec_len);
 	//Prevent divide by zero errors
-	if(cos(msg.rx)!=0) msg.ry = asin( traj.points[pt_ctr].nx / (cos(msg.rx)*length) );
+
+	ROS_INFO("DOING trig");
+	if(cos(msg.rx)!=0) msg.ry = asin( -t_point.nx / (cos(msg.rx)*vec_len) );
 	else msg.ry = 0;
+	ROS_INFO("DOING trig");
 	//No need for the roll around the Z axis, since the spray pattern and radiation detection is conical
 	msg.rz = 0;
+	return msg;
+}
+
+//Testing function used to step through the trajectory points
+void QNode::step(bool sim){
+	//Generate and arm_msg and populate it with the current point in the trajectory array
+	phd::arm_msg msg;
+	geometry_msgs::Point p;	
+	float P_OFFSET;
+	ros::param::get("/global_offset", P_OFFSET);
+	ROS_INFO("Using offset %f",P_OFFSET);
+	msg.x = (traj.points[pt_ctr].x-(traj.points[pt_ctr].nx*P_OFFSET) - X_BASE_TO_ARM)*1000;
+	msg.y = (traj.points[pt_ctr].y-(traj.points[pt_ctr].ny*P_OFFSET) - Y_BASE_TO_ARM)*1000;
+	msg.z = (traj.points[pt_ctr].z-(traj.points[pt_ctr].nz*P_OFFSET) - Z_BASE_TO_ARM)*1000;
+	//ROS_INFO("PT %f - %f - %f, ctr %d",msg.x/1000+X_BASE_TO_ARM,msg.y/1000+Y_BASE_TO_ARM,msg.z/1000+Z_BASE_TO_ARM,pt_ctr);
+	//ROS_INFO("MSG %f - %f - %f",msg.x,msg.y,msg.z);
+	float ws_dist = sqrt(pow(msg.x,2)+pow(msg.y,2)+pow(msg.z-280,2));
+	if(ws_dist > 400){
+	ROS_INFO("Modifying %d, %f",pt_ctr,ws_dist);
+	msg = move_to_workspace(traj.points[pt_ctr]);
+
+		p.x = msg.x/1000 + X_BASE_TO_ARM;
+		p.y = msg.y/1000 + Y_BASE_TO_ARM;
+		p.z = msg.z/1000 + Z_BASE_TO_ARM;
+		armpoint_list.points.push_back(p);
+
+		p.x = traj.points[pt_ctr].x;
+		p.y = traj.points[pt_ctr].y;
+		p.z = traj.points[pt_ctr].z;
+		armpoint_list.points.push_back(p);
+	ROS_INFO("Modified");
+	}else{
+		//Caluclate the rotation around the X and Y axis from the normal vector
+		float length = sqrt(pow(traj.points[pt_ctr].nx,2)+pow(traj.points[pt_ctr].ny,2)+pow(traj.points[pt_ctr].nz,2));
+		msg.rx = asin(traj.points[pt_ctr].ny / length);
+		//Prevent divide by zero errors
+		if(cos(msg.rx)!=0) msg.ry = asin( traj.points[pt_ctr].nx / (cos(msg.rx)*length) );
+		else msg.ry = 0;
+		//No need for the roll around the Z axis, since the spray pattern and radiation detection is conical
+		msg.rz = 0;
+		p.x = msg.x/1000 + X_BASE_TO_ARM;
+		p.y = msg.y/1000 + Y_BASE_TO_ARM;
+		p.z = msg.z/1000 + Z_BASE_TO_ARM;
+		armpoint_list.points.push_back(p);
+		p.x = msg.x/1000 + X_BASE_TO_ARM + P_OFFSET*traj.points[pt_ctr].nx;
+		p.y = msg.y/1000 + Y_BASE_TO_ARM + P_OFFSET*traj.points[pt_ctr].ny;
+		p.z = msg.z/1000 + Z_BASE_TO_ARM + P_OFFSET*traj.points[pt_ctr].nz;
+		armpoint_list.points.push_back(p);
+
+	}
 	//This is the elbow configuration of the arm
 	msg.fig = 1;
 	//Increment the point counter, and if necessary the trajectory section counter
@@ -496,28 +556,40 @@ void QNode::step(bool arm){
 	msg.rx = 0;
 	msg.ry = 90;
 	msg.rz = 0;
+	if(!sim){
+
+			arm_pub.publish(msg);
+
+	}else ROS_INFO("Marker Published");	
+
 	//Initialize the trajectory display marker	
-	armpoint_list.header.frame_id = "/BASE";
+	armpoint_list.header.frame_id = "/world";
 	armpoint_list.header.stamp = ros::Time::now();
 	armpoint_list.ns = "points_and_lines";
 	armpoint_list.action = visualization_msgs::Marker::ADD;
+	armpoint_list.pose.position.x = 0.0;
+	armpoint_list.pose.position.y = 0.0;
+	armpoint_list.pose.position.z = 0.0;
+	armpoint_list.pose.orientation.x = 0.0;
+	armpoint_list.pose.orientation.y = 0.0;
+	armpoint_list.pose.orientation.z = 0.0;
 	armpoint_list.pose.orientation.w = 1.0;
 	armpoint_list.id = 0;
-	armpoint_list.type = visualization_msgs::Marker::POINTS;
+	armpoint_list.type = visualization_msgs::Marker::LINE_LIST;
 	armpoint_list.scale.x = 0.01;
 	armpoint_list.scale.y = 0.01;
+	armpoint_list.scale.z = 0.01;
 	armpoint_list.color.r = 1.0;
+	armpoint_list.color.b = 1.0;
+	armpoint_list.color.g = 1.0;
 	armpoint_list.color.a = 1;
-	geometry_msgs::Point p;	
-	p.x = -msg.x/1000;
-	p.y = -msg.y/1000;
-	p.z = msg.z/1000;
-	armpoint_list.points.push_back(p);
+
+	//Send the command to the arm
+
+
+
 	arm_pose_pub.publish(armpoint_list);
 	ros::spinOnce();
-	//Send the command to the arm
-	if(!arm && sqrt(pow(p.x,2)+pow(p.y,2)+pow(p.z,2)) < 0.44) arm_pub.publish(msg);
-
 }
 
 //Perform a laser scan, either localize the cloud or set it as the global frame, and save to disk
@@ -549,7 +621,7 @@ void QNode::scan(std::string markername, bool localize){
 	ros::spinOnce();
 	if(DEBUG) ROS_INFO("waiting for end");
 	//Wait for cube to reach end location
-	while(joint1 < -.01 && ros::ok()){
+	while(joint1 < .69 && ros::ok()){
 		ros::spinOnce();
 	} 
 	if(DEBUG) ROS_INFO("done");
@@ -592,9 +664,9 @@ void QNode::scan(std::string markername, bool localize){
 			minPoint[1]=-1;  // define minimum point y 
 			minPoint[2]=-0.1;  // define minimum point z 
 			Eigen::Vector4f maxPoint; 
-			maxPoint[0]=.5;  // define max point x 
+			maxPoint[0]=.75;  // define max point x 
 			maxPoint[1]=1;  // define max point y 
-			maxPoint[2]=1.3;  // define max point z 
+			maxPoint[2]=1.4;  // define max point z 
 			Eigen::Vector3f boxTranslatation; 
 			boxTranslatation[0]=0;   
 			boxTranslatation[1]=0;   
@@ -1103,7 +1175,7 @@ void QNode::estimate(std::string filename){
 	if(DEBUG) setVerbosityLevel(pcl::console::L_VERBOSE); 
 	//pcl::IterativeClosestPoint<pcl::PointXYZI, pcl::PointXYZI> icp;
 	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_tgt_downsampled (new pcl::PointCloud<pcl::PointXYZI> );
-	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_src_downsampled (new    pcl::PointCloud<pcl::PointXYZI> );
+	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_src_downsampled (new pcl::PointCloud<pcl::PointXYZI> );
 	pcl::VoxelGrid<pcl::PointXYZI> sor;
 	//Downsample the alignment section
 	sor.setInputCloud (cloud_aligner);
@@ -1515,21 +1587,24 @@ void QNode::show_markers(phd::trajectory_msg t_msg){
 		surface_path.points.resize(num_pts);
 		marker.points.resize(2*num_pts);
 ROS_INFO("For loop");
+float P_OFFSET;
+ros::param::get("/global_offset", P_OFFSET);
+ROS_INFO("Using pffset %f", P_OFFSET);
 		for(int i = 0; i < num_pts; ++i){
 		
 			ROS_INFO("SPoint %d: %f- %f- %f",i,t_msg.points[i].x,t_msg.points[i].y,t_msg.points[i].z);
 			ROS_INFO("Normal %d: %f- %f- %f",i,t_msg.points[i].nx,t_msg.points[i].ny,t_msg.points[i].nz);
-			path.points[i].x = t_msg.points[i].x-(OFFSET*t_msg.points[i].nx);
-			path.points[i].y = t_msg.points[i].y-(OFFSET*t_msg.points[i].ny);
-			path.points[i].z = t_msg.points[i].z-(OFFSET*t_msg.points[i].nz);
+			path.points[i].x = t_msg.points[i].x-(P_OFFSET*t_msg.points[i].nx);
+			path.points[i].y = t_msg.points[i].y-(P_OFFSET*t_msg.points[i].ny);
+			path.points[i].z = t_msg.points[i].z-(P_OFFSET*t_msg.points[i].nz);
 			surface_path.points[i].x = t_msg.points[i].x;
 			surface_path.points[i].y = t_msg.points[i].y;
 			surface_path.points[i].z = t_msg.points[i].z;
 
 			ROS_INFO("Point %d: %f- %f- %f",i,path.points[i].x,path.points[i].y,path.points[i].z);
-			marker.points[i*2].x = t_msg.points[i].x-(OFFSET*t_msg.points[i].nx);
-			marker.points[i*2].y = t_msg.points[i].y-(OFFSET*t_msg.points[i].ny);
-			marker.points[i*2].z = t_msg.points[i].z-(OFFSET*t_msg.points[i].nz);
+			marker.points[i*2].x = t_msg.points[i].x-(P_OFFSET*t_msg.points[i].nx);
+			marker.points[i*2].y = t_msg.points[i].y-(P_OFFSET*t_msg.points[i].ny);
+			marker.points[i*2].z = t_msg.points[i].z-(P_OFFSET*t_msg.points[i].nz);
 			marker.points[(i*2)+1].x = t_msg.points[i].x;
 			marker.points[(i*2)+1].y = t_msg.points[i].y;
 			marker.points[(i*2)+1].z = t_msg.points[i].z;

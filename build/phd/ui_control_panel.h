@@ -48,6 +48,8 @@ public:
     QPushButton *thickness_button;
     QLabel *marker_info_4;
     QLabel *marker_info_16;
+    QLabel *pose_ctr;
+    QLabel *pose_ctr_2;
     QWidget *tab;
     QPushButton *fscan_button;
     QLineEdit *pos_box;
@@ -69,6 +71,7 @@ public:
     QCheckBox *step;
     QPushButton *step_button;
     QPushButton *pose_step;
+    QPushButton *reset_button;
     QWidget *tab_2;
     QLineEdit *j5_box;
     QLabel *label_24;
@@ -186,7 +189,7 @@ public:
         marker_info_15->setGeometry(QRect(17, 270, 231, 17));
         exe_poses = new QPushButton(tab_4);
         exe_poses->setObjectName(QString::fromUtf8("exe_poses"));
-        exe_poses->setGeometry(QRect(140, 170, 121, 41));
+        exe_poses->setGeometry(QRect(140, 170, 91, 41));
         after_box = new QLineEdit(tab_4);
         after_box->setObjectName(QString::fromUtf8("after_box"));
         after_box->setGeometry(QRect(10, 420, 251, 31));
@@ -211,6 +214,15 @@ public:
         font.setWeight(75);
         marker_info_16->setFont(font);
         marker_info_16->setAlignment(Qt::AlignCenter);
+        pose_ctr = new QLabel(tab_4);
+        pose_ctr->setObjectName(QString::fromUtf8("pose_ctr"));
+        pose_ctr->setGeometry(QRect(240, 180, 21, 31));
+        pose_ctr_2 = new QLabel(tab_4);
+        pose_ctr_2->setObjectName(QString::fromUtf8("pose_ctr_2"));
+        pose_ctr_2->setGeometry(QRect(237, 165, 41, 31));
+        QFont font1;
+        font1.setPointSize(8);
+        pose_ctr_2->setFont(font1);
         tabWidget->addTab(tab_4, QString());
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
@@ -283,6 +295,9 @@ public:
         pose_step = new QPushButton(tab);
         pose_step->setObjectName(QString::fromUtf8("pose_step"));
         pose_step->setGeometry(QRect(130, 20, 131, 31));
+        reset_button = new QPushButton(tab);
+        reset_button->setObjectName(QString::fromUtf8("reset_button"));
+        reset_button->setGeometry(QRect(130, 60, 121, 27));
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -499,13 +514,15 @@ public:
 "Trajectory", 0, QApplication::UnicodeUTF8));
         filename_box_5->setText(QApplication::translate("Control_Form", "/home/mike/testing/s1trajectory.bag", 0, QApplication::UnicodeUTF8));
         marker_info_15->setText(QApplication::translate("Control_Form", "Trajectory Save Location:", 0, QApplication::UnicodeUTF8));
-        exe_poses->setText(QApplication::translate("Control_Form", "Execute Poses", 0, QApplication::UnicodeUTF8));
+        exe_poses->setText(QApplication::translate("Control_Form", "Pose Step", 0, QApplication::UnicodeUTF8));
         after_box->setText(QApplication::translate("Control_Form", "/home/mike/saved/After/Localized Clouds/output.pcd", 0, QApplication::UnicodeUTF8));
         marker_info_3->setText(QApplication::translate("Control_Form", "Initial Scan", 0, QApplication::UnicodeUTF8));
         before_box->setText(QApplication::translate("Control_Form", "/home/mike/saved/Before/Localized Clouds/output.pcd", 0, QApplication::UnicodeUTF8));
         thickness_button->setText(QApplication::translate("Control_Form", "Estimate Thickness", 0, QApplication::UnicodeUTF8));
         marker_info_4->setText(QApplication::translate("Control_Form", "Final Scan", 0, QApplication::UnicodeUTF8));
         marker_info_16->setText(QApplication::translate("Control_Form", "Thickness Estimation", 0, QApplication::UnicodeUTF8));
+        pose_ctr->setText(QApplication::translate("Control_Form", "0", 0, QApplication::UnicodeUTF8));
+        pose_ctr_2->setText(QApplication::translate("Control_Form", "Ctr:", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_4), QApplication::translate("Control_Form", "Operation", 0, QApplication::UnicodeUTF8));
         fscan_button->setText(QApplication::translate("Control_Form", "Fake Scan", 0, QApplication::UnicodeUTF8));
         pos_box->setText(QApplication::translate("Control_Form", "-1.57", 0, QApplication::UnicodeUTF8));
@@ -527,6 +544,7 @@ public:
         step->setText(QApplication::translate("Control_Form", "Marker Only", 0, QApplication::UnicodeUTF8));
         step_button->setText(QApplication::translate("Control_Form", "Step", 0, QApplication::UnicodeUTF8));
         pose_step->setText(QApplication::translate("Control_Form", "Pose Step", 0, QApplication::UnicodeUTF8));
+        reset_button->setText(QApplication::translate("Control_Form", "Reset", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("Control_Form", "Testing", 0, QApplication::UnicodeUTF8));
         j5_box->setText(QApplication::translate("Control_Form", "0", 0, QApplication::UnicodeUTF8));
         label_24->setText(QApplication::translate("Control_Form", "z", 0, QApplication::UnicodeUTF8));
@@ -555,7 +573,7 @@ public:
         joint_command_button->setText(QApplication::translate("Control_Form", "Send Joint", 0, QApplication::UnicodeUTF8));
         label_27->setText(QApplication::translate("Control_Form", "rz", 0, QApplication::UnicodeUTF8));
         label_21->setText(QApplication::translate("Control_Form", "J2", 0, QApplication::UnicodeUTF8));
-        j1_box->setText(QApplication::translate("Control_Form", "0", 0, QApplication::UnicodeUTF8));
+        j1_box->setText(QApplication::translate("Control_Form", "-45", 0, QApplication::UnicodeUTF8));
         speed_box->setText(QApplication::translate("Control_Form", "50", 0, QApplication::UnicodeUTF8));
         label_23->setText(QApplication::translate("Control_Form", "y", 0, QApplication::UnicodeUTF8));
         label_10->setText(QApplication::translate("Control_Form", "rx", 0, QApplication::UnicodeUTF8));

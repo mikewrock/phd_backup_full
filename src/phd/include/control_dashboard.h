@@ -87,6 +87,7 @@ private:
 	husky_control::QNode vel_control;
 	//this is used to keep track of whick marker point is being clustered
 	int cluster_index;
+	int pose_ctr, pose_nums;
 
 };
 }
