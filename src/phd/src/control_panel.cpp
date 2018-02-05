@@ -1434,7 +1434,7 @@ void QNode::send_string(std::string user_string){
 void QNode::scan_360(){
 	//Create a message to send to the powercube node, moving the powercube to its start location
 	phd::cube_msg cube_cmd;
-	cube_cmd.j1 = -1.62;
+	cube_cmd.j1 = -2.1;
 	cube_cmd.vel = 0.5;
 	cube_cmd.acc = 1;
 	//pose=true means we're sending a position. False means its a velocity and should eventually time out
@@ -1447,7 +1447,7 @@ void QNode::scan_360(){
 		ROS_INFO("going to start");
 	}	
 	//Wait for the cube to reach the start location
-	while(joint1 > -1.6 && ros::ok()){
+	while(joint1 > -2 && ros::ok()){
 	ros::spinOnce();
 	} 
 	//Set the start time for the laser assembler service	
