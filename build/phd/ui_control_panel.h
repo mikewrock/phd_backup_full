@@ -72,6 +72,8 @@ public:
     QPushButton *step_button;
     QPushButton *pose_step;
     QPushButton *reset_button;
+    QPushButton *pose_loop_button;
+    QPushButton *arm_loop_button;
     QWidget *tab_2;
     QLineEdit *j5_box;
     QLabel *label_24;
@@ -287,17 +289,23 @@ public:
         step = new QCheckBox(tab);
         step->setObjectName(QString::fromUtf8("step"));
         step->setEnabled(true);
-        step->setGeometry(QRect(10, 60, 111, 30));
+        step->setGeometry(QRect(10, 70, 111, 30));
         step->setChecked(false);
         step_button = new QPushButton(tab);
         step_button->setObjectName(QString::fromUtf8("step_button"));
-        step_button->setGeometry(QRect(10, 20, 91, 31));
+        step_button->setGeometry(QRect(10, 10, 91, 31));
         pose_step = new QPushButton(tab);
         pose_step->setObjectName(QString::fromUtf8("pose_step"));
         pose_step->setGeometry(QRect(130, 20, 131, 31));
         reset_button = new QPushButton(tab);
         reset_button->setObjectName(QString::fromUtf8("reset_button"));
         reset_button->setGeometry(QRect(130, 60, 121, 27));
+        pose_loop_button = new QPushButton(tab);
+        pose_loop_button->setObjectName(QString::fromUtf8("pose_loop_button"));
+        pose_loop_button->setGeometry(QRect(130, 96, 131, 41));
+        arm_loop_button = new QPushButton(tab);
+        arm_loop_button->setObjectName(QString::fromUtf8("arm_loop_button"));
+        arm_loop_button->setGeometry(QRect(10, 40, 91, 31));
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -491,7 +499,7 @@ public:
 
         retranslateUi(Control_Form);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(Control_Form);
@@ -542,9 +550,11 @@ public:
         f_traj->setText(QApplication::translate("Control_Form", "Load Traj", 0, QApplication::UnicodeUTF8));
         exe_trajectory->setText(QApplication::translate("Control_Form", "Execute Trajectory", 0, QApplication::UnicodeUTF8));
         step->setText(QApplication::translate("Control_Form", "Marker Only", 0, QApplication::UnicodeUTF8));
-        step_button->setText(QApplication::translate("Control_Form", "Step", 0, QApplication::UnicodeUTF8));
+        step_button->setText(QApplication::translate("Control_Form", "Arm Step", 0, QApplication::UnicodeUTF8));
         pose_step->setText(QApplication::translate("Control_Form", "Pose Step", 0, QApplication::UnicodeUTF8));
         reset_button->setText(QApplication::translate("Control_Form", "Reset", 0, QApplication::UnicodeUTF8));
+        pose_loop_button->setText(QApplication::translate("Control_Form", "Continuous Poses", 0, QApplication::UnicodeUTF8));
+        arm_loop_button->setText(QApplication::translate("Control_Form", "Arm Loop", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("Control_Form", "Testing", 0, QApplication::UnicodeUTF8));
         j5_box->setText(QApplication::translate("Control_Form", "0", 0, QApplication::UnicodeUTF8));
         label_24->setText(QApplication::translate("Control_Form", "z", 0, QApplication::UnicodeUTF8));

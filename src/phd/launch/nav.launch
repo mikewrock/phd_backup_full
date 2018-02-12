@@ -86,16 +86,16 @@
   <!--- Run Joint State Fusion node-->
   <node name="joint_fusion_node" pkg="phd" type="joint_fusion_node" output="screen" />
 
-    <!--- Run static transform for laser
-  <node pkg="tf" type="static_transform_publisher" name="kinect_broadcaster" args="0.400 0.067 0.455 0 0 0 base_footprint laser 100" />
- -->
+    <!--- Run static transform for laser-->
+  <node pkg="tf" type="static_transform_publisher" name="kinect_broadcaster" args="0 0 0 0 0 0 world map 100" />
+ 
 
 <!-- hector mapping -->
 <node pkg="hector_mapping" type="hector_mapping"     name="hector_mapping" output="screen">
 <param name="base_frame" type="string" value="base_footprint" />
   </node>
   <!--- Run rviz -->
-    <node name="rviz" pkg="rviz" type="rviz" required="True" output="screen" > 
+    <node name="rviz" pkg="rviz" type="rviz" required="True" output="screen" args="-d $(find phd)/cfg/rviz_scan.rviz"> 
 
   </node>
 

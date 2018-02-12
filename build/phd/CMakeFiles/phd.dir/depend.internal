@@ -80,7 +80,6 @@ phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o
  /home/mike/catkin_ws/src/phd/include/bcap/stdint.h
  /home/mike/catkin_ws/src/phd/include/control_dashboard.h
  /home/mike/catkin_ws/src/phd/include/control_panel.hpp
- /home/mike/catkin_ws/src/phd/include/vel_control.hpp
  /opt/ros/indigo/include/XmlRpcDecl.h
  /opt/ros/indigo/include/XmlRpcValue.h
  /opt/ros/indigo/include/actionlib_msgs/GoalID.h
@@ -620,6 +619,7 @@ phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o
 phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o
  /home/mike/catkin_ws/build/phd/include/moc_control_panel.cxx
  /home/mike/catkin_ws/devel/include/phd/ParamConfig.h
+ /home/mike/catkin_ws/devel/include/phd/arm_msg.h
  /home/mike/catkin_ws/devel/include/phd/trajectory_array.h
  /home/mike/catkin_ws/devel/include/phd/trajectory_msg.h
  /home/mike/catkin_ws/devel/include/phd/trajectory_point.h
@@ -1718,7 +1718,6 @@ phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o
  /home/mike/catkin_ws/src/phd/include/bcap/stdint.h
  /home/mike/catkin_ws/src/phd/include/control_dashboard.h
  /home/mike/catkin_ws/src/phd/include/control_panel.hpp
- /home/mike/catkin_ws/src/phd/include/vel_control.hpp
  /home/mike/catkin_ws/src/phd/src/control_dashboard.cpp
  /opt/ros/indigo/include/XmlRpcDecl.h
  /opt/ros/indigo/include/XmlRpcValue.h

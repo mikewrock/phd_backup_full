@@ -79,7 +79,6 @@ phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /home/mike/catkin_ws
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /home/mike/catkin_ws/src/phd/include/bcap/stdint.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /home/mike/catkin_ws/src/phd/include/control_dashboard.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /home/mike/catkin_ws/src/phd/include/control_panel.hpp
-phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /home/mike/catkin_ws/src/phd/include/vel_control.hpp
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/include/XmlRpcDecl.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/include/XmlRpcValue.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/include/actionlib_msgs/GoalID.h
@@ -619,6 +618,7 @@ phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: phd/ui_control_panel
 
 phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o: phd/include/moc_control_panel.cxx
 phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o: /home/mike/catkin_ws/devel/include/phd/ParamConfig.h
+phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o: /home/mike/catkin_ws/devel/include/phd/arm_msg.h
 phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o: /home/mike/catkin_ws/devel/include/phd/trajectory_array.h
 phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o: /home/mike/catkin_ws/devel/include/phd/trajectory_msg.h
 phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o: /home/mike/catkin_ws/devel/include/phd/trajectory_point.h
@@ -1717,7 +1717,6 @@ phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /home/mike/catkin_ws/src/phd
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /home/mike/catkin_ws/src/phd/include/bcap/stdint.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /home/mike/catkin_ws/src/phd/include/control_dashboard.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /home/mike/catkin_ws/src/phd/include/control_panel.hpp
-phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /home/mike/catkin_ws/src/phd/include/vel_control.hpp
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /home/mike/catkin_ws/src/phd/src/control_dashboard.cpp
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/XmlRpcDecl.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/XmlRpcValue.h

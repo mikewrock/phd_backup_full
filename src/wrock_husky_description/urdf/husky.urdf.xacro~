@@ -275,7 +275,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     </link>
 
     <joint name="laser_mount_joint" type="fixed">
-      <origin xyz="-.0285 -0.1 0" rpy="-${M_PI/2} 0 -${M_PI/2}" />
+      <origin xyz="-.0285 -0.1 0" rpy="${M_PI/2} 0 -${M_PI/2}" />
       <parent link="cube_5" />
       <child link="laser" />
     </joint>

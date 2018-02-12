@@ -26,29 +26,31 @@
 #define JOINT 3
 #define STRING 4
 #define SHUTDOWN 5
+#define TARGET_TOLERANCE .01
 
 namespace control_panel
 {
 	ControlPanel::ControlPanel( QWidget* parent )
 	  : rviz::Panel( parent )
 	  , control_panel()
-	, vel_control()
+	//, vel_control()
 	{
 		//Initial setup
 		ui_.setupUi(this);
 		//pose sub
 		pose_sub_ = nh_.subscribe("arm_pose", 1, &ControlPanel::poseCB, this);
+		//move_base sub
+		move_base_sub_ = nh_.subscribe("move_base/result", 1, &ControlPanel::movebaseCB, this);
 		QTimer* spin_timer = new QTimer( this );
 		//Initialize control panel
 		int ret = control_panel.init();
 		//Initialize the manual operation node
-		ret = vel_control.init();
+		//ret = vel_control.init();
 		//SIGNAL connections
 		connect(ui_.nav_mode_button, SIGNAL(clicked()), this, SLOT(do_nav()));
-		connect(ui_.step_button, SIGNAL(clicked()), this, SLOT(do_step()));
 		connect(ui_.est_pos, SIGNAL(clicked()), this, SLOT(do_estimate()));
 		connect(ui_.exe_path, SIGNAL(clicked()), this, SLOT(exe_nav()));
-		connect(ui_.exe_poses, SIGNAL(clicked()), this, SLOT(pose_step()));
+		//connect(ui_.exe_poses, SIGNAL(clicked()), this, SLOT(pose_step()));
 		connect(ui_.show_nav_button, SIGNAL(clicked()), this, SLOT(show_nav()));
 		connect(ui_.fscan_button, SIGNAL(clicked()), this, SLOT(fake_scan()));
 		connect(ui_.scan_button, SIGNAL(clicked()), this, SLOT(scan()));
@@ -62,6 +64,10 @@ namespace control_panel
 		connect(ui_.f_traj, SIGNAL(clicked()), this, SLOT(load_traj()));
 		connect(ui_.pose_button, SIGNAL(clicked()), this, SLOT(do_poses()));
 		connect(ui_.pose_step, SIGNAL(clicked()), this, SLOT(pose_step()));
+		connect(ui_.pose_loop_button, SIGNAL(clicked()), this, SLOT(pose_loop()));
+		connect(ui_.arm_loop_button, SIGNAL(clicked()), this, SLOT(arm_loop()));
+		connect(ui_.step_button, SIGNAL(clicked()), this, SLOT(arm_step()));
+		connect(ui_.soft_stop, SIGNAL(clicked()), this, SLOT(soft_stop()));
 
 
 		connect(spin_timer, SIGNAL(timeout()), this, SLOT(rosSpinner()));
@@ -98,18 +104,22 @@ namespace control_panel
 		connect(ui_.yaw_neg, SIGNAL(released()), this, SLOT(clear_vel()));
 		connect(ui_.yaw_pos, SIGNAL(released()), this, SLOT(clear_vel()));
 */
-		  connect(ui_.launch_node_button, SIGNAL(clicked()), this, SLOT(onLaunchNode()));
+		  //connect(ui_.launch_node_button, SIGNAL(clicked()), this, SLOT(onLaunchNode()));
 		  connect(ui_.shutdown_button, SIGNAL(clicked()), this, SLOT(onShutdownCommand()));
-		  connect(ui_.clear_error_button, SIGNAL(clicked()), this, SLOT(onClearErrorCommand()));
+		  //connect(ui_.clear_error_button, SIGNAL(clicked()), this, SLOT(onClearErrorCommand()));
 		  connect(ui_.ptp_command_button, SIGNAL(clicked()), this, SLOT(onPTPCommand()));
 		  connect(ui_.cp_command_button, SIGNAL(clicked()), this, SLOT(onCPCommand()));
-		  connect(ui_.speed_button, SIGNAL(clicked()), this, SLOT(onSpeedCommand()));
+		  //connect(ui_.speed_button, SIGNAL(clicked()), this, SLOT(onSpeedCommand()));
 		  connect(ui_.string_button, SIGNAL(clicked()), this, SLOT(onStringCommand()));
 		  connect(ui_.joint_command_button, SIGNAL(clicked()), this, SLOT(onJointCommand()));
 		//connect( output_timer, SIGNAL( timeout() ), this, SLOT( sendVel() ));
 		//Index for keeping track of which marker point is being clustered
 		cluster_index = 0;
-		pose_ctr = 0;
+		pose_ctr = 5;
+		traj_ctr = 0;
+		traj_size = 0;
+		auto_arm = false;
+		auto_pose = false;
 		spin_timer->start( 10 );
 	}
 
@@ -129,10 +139,22 @@ namespace control_panel
 		ui_.j4_browser->setText(QString::number(msg.j4));
 		ui_.j5_browser->setText(QString::number(msg.j5));
 		ui_.j6_browser->setText(QString::number(msg.j6));
+		if(auto_arm&&tgt_distance(msg,arm_tgt)<TARGET_TOLERANCE) ControlPanel::arm_loop();
+	}
+	void ControlPanel::movebaseCB(const move_base_msgs::MoveBaseActionResult result){
+
+		ROS_INFO("Goal Achieved :)");
+		//do trajectory
+
 	}
 
 	void ControlPanel::rosSpinner(){
 		ros::spinOnce();
+	}
+
+	float ControlPanel::tgt_distance(phd::arm_msg arm, phd::arm_msg tgt){
+		float ret = sqrt(pow(arm.x-tgt.x,2)+pow(arm.y-tgt.y,2)+pow(arm.z-tgt.z,2));
+		return ret;
 	}
 
 	//Move laser scanner to its navigation position (horizontal) or whatever position is specified by the user in the text box
@@ -174,11 +196,6 @@ namespace control_panel
 
 		  control_panel.estimate(ui_.marker_name_box->text().toStdString());
 	}
-	//Testing function, step through the arm's trajectory pose
-	void ControlPanel::do_step(){
-
-		  control_panel.step(ui_.step->isChecked());
-	}
 	//Cluster the high intensity points in the selected area
 	void ControlPanel::cluster_1(){
 		//Call the cluster function in control_panel and pass it which marker point to be clustered, then update the text in the panel
@@ -208,7 +225,7 @@ namespace control_panel
 	//Generate a trajectory for the arm to spray
 	void ControlPanel::gen_trajectory(){
 
-		  control_panel.gen_trajectory(ui_.marker_name_box->text().toStdString());
+		  traj_size = control_panel.gen_trajectory(ui_.marker_name_box->text().toStdString());
 		 //ui_.gen_trajectory->setEnabled(false);
 
 	}
@@ -222,94 +239,6 @@ namespace control_panel
 	void ControlPanel::localization_scan_2(){
 
 		control_panel.lscan();
-
-	}
-	//A soft E-Stop
-	void ControlPanel::clear_vel(){
-
-		vel_control.stop();
-
-	}
-	//The remaining functions are for manual driving the robot
-	void ControlPanel::fwd_vel(){
-
-		vel_control.move(FORWARD,SPEED,HUSKY);
-
-	}
-
-	void ControlPanel::rev_vel(){
-
-		vel_control.move(REVERSE,SPEED,HUSKY);
-
-	}
-	void ControlPanel::left_vel(){
-
-		vel_control.move(LEFT,SPEED,HUSKY);
-
-	}
-	void ControlPanel::right_vel(){
-
-		vel_control.move(RIGHT,SPEED,HUSKY);
-
-	}
-	void ControlPanel::arm_fwd_vel(){
-
-		vel_control.move(FORWARD,SPEED,ARM);
-
-	}
-	void ControlPanel::arm_left_vel(){
-
-		vel_control.move(LEFT,SPEED,ARM);
-
-	}
-	void ControlPanel::arm_right_vel(){
-
-		vel_control.move(RIGHT,SPEED,ARM);
-
-	}
-	void ControlPanel::arm_rev_vel(){
-
-		vel_control.move(REVERSE,SPEED,ARM);
-
-	}
-	void ControlPanel::arm_up_vel(){
-
-		vel_control.move(UP,SPEED,ARM);
-
-	}
-	void ControlPanel::arm_down_vel(){
-
-		vel_control.move(DOWN,SPEED,ARM);
-
-	}
-	void ControlPanel::roll_vel_neg(){
-
-		vel_control.move(ROLL_DOWN,SPEED,ARM);
-
-	}
-	void ControlPanel::roll_vel_pos(){
-
-		vel_control.move(ROLL_UP,SPEED,ARM);
-
-	}
-	void ControlPanel::pitch_vel_neg(){
-
-		vel_control.move(PITCH_DOWN,SPEED,ARM);
-
-	}
-	void ControlPanel::pitch_vel_pos(){
-
-		vel_control.move(PITCH_UP,SPEED,ARM);
-
-	}
-	void ControlPanel::yaw_vel_neg(){
-
-		vel_control.move(YAW_DOWN,SPEED,ARM);
-
-	}
-	void ControlPanel::yaw_vel_pos(){
-
-		vel_control.move(YAW_UP,SPEED,ARM);
 
 	}
 
@@ -345,24 +274,61 @@ namespace control_panel
 	
 	void ControlPanel::load_traj(){
 
-		control_panel.load_traj(ui_.filename_box_5->text().toStdString());
+		traj_size = control_panel.load_traj(ui_.filename_box_5->text().toStdString());
 
 	}
 	
 	void ControlPanel::do_poses(){
 
-		pose_nums = control_panel.calc_poses();
-		ui_.pose_button->setText(QString("%1 Poses").arg(QString::number(pose_nums)));
+		pose_size = control_panel.calc_poses();
+		ui_.pose_button->setText(QString("%1 Poses").arg(QString::number(pose_size)));
 
 	}
 	void ControlPanel::pose_step(){
 
-		control_panel.pose_step();
-		++pose_ctr;
+		if(pose_ctr>=pose_size){
+			auto_pose = false;
+			pose_ctr = 0;
+			ROS_INFO("Pose Trajectory Complete");
+		}
+		else{
+			control_panel.pose_step(pose_ctr);
+			++pose_ctr;
+		}
 		ui_.pose_ctr->setText(QString::number(pose_ctr));
 
 	}
-	
+	void ControlPanel::arm_step(){
+
+		if(traj_ctr>=traj_size){
+			ROS_INFO("Arm Trajectory Complete");
+			auto_arm = false;
+			traj_ctr = 0;
+			if(auto_pose) ControlPanel::pose_loop();
+		}
+		else{
+			arm_tgt = control_panel.step(traj_ctr,ui_.step->isChecked());
+			++traj_ctr;
+		}
+	}
+	void ControlPanel::pose_loop(){
+			
+		auto_pose = true;
+		ControlPanel::pose_step();
+	}
+	void ControlPanel::arm_loop(){
+
+		auto_arm = true;
+		ControlPanel::arm_step();
+
+	}
+	void ControlPanel::soft_stop(){
+
+		auto_arm = false;
+		auto_pose = false;
+		control_panel.soft_stop();
+
+	}
 
 }
 

@@ -189,9 +189,9 @@ bool QNode::init() {
 	point_list.color.a = 1;
 	//Start the counters for trajectory sections and points at 0
 	sec_ctr = 0;
-	pt_ctr = 0;
+	//pt_ctr = 0;
 	cloud_ctr = 0;
-	pose_ctr = 0;
+	//pose_ctr = 0;
 	tctr = 0;
 	current_pc_.reset(new pcl::PointCloud<pcl::PointXYZI>());
 	//ros::start();
@@ -224,6 +224,21 @@ bool QNode::init() {
 		ws_pub.publish(ws_points);
 		ros::Duration(0.5).sleep();
 ros::spinOnce();
+}
+
+void QNode::soft_stop(void){
+
+	phd::arm_msg msg;
+	msg.j1 = 0;
+	msg.j2 = 0;
+	msg.j3 = 90;
+	msg.j4 = 0;
+	msg.j5 = 0;
+	msg.j6 = 0;
+	msg.motion_type = JOINT;
+	arm_pub.publish(msg);
+	ros::spinOnce();
+
 }
 
 //Determines the appropriate robot base pose for executing the arm trajectory
@@ -438,10 +453,17 @@ int QNode::calc_poses(){
 		return num_pts;
 
 }
-void QNode::pose_step(){
-	
-	//MoveBaseClient.sendGoal(goals.poses[pose_ctr]);
-	pose_ctr++;
+void QNode::pose_step(int pose_ctr){
+	move_base_msgs::MoveBaseGoal goal;
+
+	//we'll send a goal to the robot to move 1 meter forward
+	goal.target_pose.header.frame_id = "base_footprint";
+	goal.target_pose.header.stamp = ros::Time::now();
+
+	goal.target_pose.pose.position = goals.poses[pose_ctr].position;
+	goal.target_pose.pose.orientation = goals.poses[pose_ctr].orientation;
+	MoveBaseClient.sendGoal(goal);
+
 }
 //Send the desired base pose to the global planner
 void QNode::exe_nav() {
@@ -500,39 +522,40 @@ phd::arm_msg move_to_workspace(phd::trajectory_point t_point){
 }
 
 //Testing function used to step through the trajectory points
-void QNode::step(bool sim){
+phd::arm_msg QNode::step(int traj_ctr,bool sim){
 	//Generate and arm_msg and populate it with the current point in the trajectory array
 	phd::arm_msg msg;
 	geometry_msgs::Point p;	
 	float P_OFFSET;
 	ros::param::get("/global_offset", P_OFFSET);
 	ROS_INFO("Using offset %f",P_OFFSET);
-	msg.x = (traj.points[pt_ctr].x-(traj.points[pt_ctr].nx*P_OFFSET) - X_BASE_TO_ARM)*1000;
-	msg.y = (traj.points[pt_ctr].y-(traj.points[pt_ctr].ny*P_OFFSET) - Y_BASE_TO_ARM)*1000;
-	msg.z = (traj.points[pt_ctr].z-(traj.points[pt_ctr].nz*P_OFFSET) - Z_BASE_TO_ARM)*1000;
-	//ROS_INFO("PT %f - %f - %f, ctr %d",msg.x/1000+X_BASE_TO_ARM,msg.y/1000+Y_BASE_TO_ARM,msg.z/1000+Z_BASE_TO_ARM,pt_ctr);
+	if(traj_ctr == 0) armpoint_list.points.clear();
+	msg.x = (traj.points[traj_ctr].x-(traj.points[traj_ctr].nx*P_OFFSET) - X_BASE_TO_ARM)*1000;
+	msg.y = (traj.points[traj_ctr].y-(traj.points[traj_ctr].ny*P_OFFSET) - Y_BASE_TO_ARM)*1000;
+	msg.z = (traj.points[traj_ctr].z-(traj.points[traj_ctr].nz*P_OFFSET) - Z_BASE_TO_ARM)*1000;
+	//ROS_INFO("PT %f - %f - %f, ctr %d",msg.x/1000+X_BASE_TO_ARM,msg.y/1000+Y_BASE_TO_ARM,msg.z/1000+Z_BASE_TO_ARM,traj_ctr);
 	//ROS_INFO("MSG %f - %f - %f",msg.x,msg.y,msg.z);
 	float ws_dist = sqrt(pow(msg.x,2)+pow(msg.y,2)+pow(msg.z-280,2));
 	if(ws_dist > 400){
-	ROS_INFO("Modifying %d, %f",pt_ctr,ws_dist);
-	msg = move_to_workspace(traj.points[pt_ctr]);
+	ROS_INFO("Modifying %d, %f",traj_ctr,ws_dist);
+	msg = move_to_workspace(traj.points[traj_ctr]);
 
 		p.x = msg.x/1000 + X_BASE_TO_ARM;
 		p.y = msg.y/1000 + Y_BASE_TO_ARM;
 		p.z = msg.z/1000 + Z_BASE_TO_ARM;
 		armpoint_list.points.push_back(p);
 
-		p.x = traj.points[pt_ctr].x;
-		p.y = traj.points[pt_ctr].y;
-		p.z = traj.points[pt_ctr].z;
+		p.x = traj.points[traj_ctr].x;
+		p.y = traj.points[traj_ctr].y;
+		p.z = traj.points[traj_ctr].z;
 		armpoint_list.points.push_back(p);
 	ROS_INFO("Modified");
 	}else{
 		//Caluclate the rotation around the X and Y axis from the normal vector
-		float length = sqrt(pow(traj.points[pt_ctr].nx,2)+pow(traj.points[pt_ctr].ny,2)+pow(traj.points[pt_ctr].nz,2));
-		msg.rx = asin(traj.points[pt_ctr].ny / length);
+		float length = sqrt(pow(traj.points[traj_ctr].nx,2)+pow(traj.points[traj_ctr].ny,2)+pow(traj.points[traj_ctr].nz,2));
+		msg.rx = asin(traj.points[traj_ctr].ny / length);
 		//Prevent divide by zero errors
-		if(cos(msg.rx)!=0) msg.ry = asin( traj.points[pt_ctr].nx / (cos(msg.rx)*length) );
+		if(cos(msg.rx)!=0) msg.ry = asin( traj.points[traj_ctr].nx / (cos(msg.rx)*length) );
 		else msg.ry = 0;
 		//No need for the roll around the Z axis, since the spray pattern and radiation detection is conical
 		msg.rz = 0;
@@ -540,16 +563,16 @@ void QNode::step(bool sim){
 		p.y = msg.y/1000 + Y_BASE_TO_ARM;
 		p.z = msg.z/1000 + Z_BASE_TO_ARM;
 		armpoint_list.points.push_back(p);
-		p.x = msg.x/1000 + X_BASE_TO_ARM + P_OFFSET*traj.points[pt_ctr].nx;
-		p.y = msg.y/1000 + Y_BASE_TO_ARM + P_OFFSET*traj.points[pt_ctr].ny;
-		p.z = msg.z/1000 + Z_BASE_TO_ARM + P_OFFSET*traj.points[pt_ctr].nz;
+		p.x = msg.x/1000 + X_BASE_TO_ARM + P_OFFSET*traj.points[traj_ctr].nx;
+		p.y = msg.y/1000 + Y_BASE_TO_ARM + P_OFFSET*traj.points[traj_ctr].ny;
+		p.z = msg.z/1000 + Z_BASE_TO_ARM + P_OFFSET*traj.points[traj_ctr].nz;
 		armpoint_list.points.push_back(p);
 
 	}
 	//This is the elbow configuration of the arm
 	msg.fig = 1;
 	//Increment the point counter, and if necessary the trajectory section counter
-	++pt_ctr;
+	//++pt_ctr;
 	msg.motion_type = PTP;
 
 	//DELETE THIS
@@ -557,7 +580,7 @@ void QNode::step(bool sim){
 	msg.ry = 90;
 	msg.rz = 0;
 	if(!sim){
-
+			//Send the command to the arm
 			arm_pub.publish(msg);
 
 	}else ROS_INFO("Marker Published");	
@@ -583,13 +606,10 @@ void QNode::step(bool sim){
 	armpoint_list.color.b = 1.0;
 	armpoint_list.color.g = 1.0;
 	armpoint_list.color.a = 1;
-
-	//Send the command to the arm
-
-
-
 	arm_pose_pub.publish(armpoint_list);
 	ros::spinOnce();
+
+	return msg;
 }
 
 //Perform a laser scan, either localize the cloud or set it as the global frame, and save to disk
@@ -1026,7 +1046,7 @@ void QNode::start_pt(){
 
 }
 //Call the trajectory service, providing it with a starting point, pointcloud to cover, and original pointcloud surface (for calculating normals) 
-void QNode::gen_trajectory(std::string filename){
+int QNode::gen_trajectory(std::string filename){
 	if(DEBUG) ROS_INFO("Generating Trajectory starting from %f - %f - %f",T1x,T1y,T1z) ;
 	//Set the start point
 	//traj_srv.request.P1x = T1x;
@@ -1096,10 +1116,10 @@ void QNode::gen_trajectory(std::string filename){
 
 
 	}else ROS_INFO("Service Failed");
-
+	return traj.points.size();
 }
 
-void QNode::load_traj(std::string filename){
+int QNode::load_traj(std::string filename){
 		
 		rosbag::Bag bag;
 		std::stringstream bagname;
@@ -1116,7 +1136,7 @@ void QNode::load_traj(std::string filename){
 		}
 		bag.close();	
 		show_markers(traj);
-
+		return traj.points.size();
 
 }
 //calculate thickess between two files

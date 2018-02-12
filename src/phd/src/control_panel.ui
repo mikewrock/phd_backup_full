@@ -588,7 +588,7 @@ color: rgb(255, 255, 255);</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>60</y>
+       <y>70</y>
        <width>111</width>
        <height>30</height>
       </rect>
@@ -604,13 +604,13 @@ color: rgb(255, 255, 255);</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>20</y>
+       <y>10</y>
        <width>91</width>
        <height>31</height>
       </rect>
      </property>
      <property name="text">
-      <string>Step</string>
+      <string>Arm Step</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pose_step">
@@ -637,6 +637,32 @@ color: rgb(255, 255, 255);</string>
      </property>
      <property name="text">
       <string>Reset</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pose_loop_button">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>96</y>
+       <width>131</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Continuous Poses</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="arm_loop_button">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Arm Loop</string>
      </property>
     </widget>
    </widget>

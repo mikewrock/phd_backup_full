@@ -50,6 +50,7 @@
 #include <dynamic_reconfigure/server.h>
 #include <phd/ParamConfig.h>
 #include "phd/trajectory_array.h"
+#include "phd/arm_msg.h"
 #include <pcl/filters/extract_indices.h>
 // bCAP (Always last)
 #include "bcap/bcap_client.h"
@@ -75,7 +76,7 @@ public:
 	QNode(){}
 	virtual ~QNode();
 	void scan(std::string, bool localize);
-	void step(bool arm);
+	phd::arm_msg step(int traj_ctr, bool arm);
 	void show_nav();
 	void exe_nav();
 	void estimate(std::string);
@@ -84,18 +85,19 @@ public:
 	void fscan(std::string, bool auto_localize,std::string);
 	void cluster(std::string, int index);
 	void start_pt();
-	void gen_trajectory(std::string);
-	void load_traj(std::string);
+	int gen_trajectory(std::string);
+	int load_traj(std::string);
 	void lscan();
 	void run();
 	bool init();
 	int calc_poses();
-	void pose_step();
 	void send_command(float x, float y, float z, float rx, float ry, float rz, float fig, int motion);
 	void send_joint_command(float j1, float j2, float j3, float j4, float j5, float j6);
 	void send_string(std::string user_string);
 	void scan_360();
+	void soft_stop();
 	void show_markers(phd::trajectory_msg t_array);
+	void pose_step(int pose_ctr);
 	phd::trajectory_point find_pose();
 	//Variables for holding the first two points of the marker, when the third one comes in they all get saved to file
 	float P1x, P1y, P1z, P2x, P2y, P2z;
@@ -144,9 +146,9 @@ private:
 	phd::trajectory_msg traj;
 	//Counters for keeping track of current trajectory section and point
 	int sec_ctr;
-	int pt_ctr;
+	//int pt_ctr;
 	int cloud_ctr;
-	int pose_ctr;
+	//int pose_ctr;
 	int tctr;
 	tf::TransformBroadcaster br;
 	tf::Transform transform;

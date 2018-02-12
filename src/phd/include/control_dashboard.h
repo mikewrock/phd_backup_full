@@ -12,7 +12,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include "control_panel.hpp"
-#include "vel_control.hpp"
+//#include "vel_control.hpp"
 #include <phd/arm_msg.h>
 
 namespace control_panel
@@ -28,36 +28,20 @@ public:
 
 protected:
 void poseCB(const phd::arm_msg msg);
+void movebaseCB(const move_base_msgs::MoveBaseActionResult result);
 protected Q_SLOTS:
 //All of these functions are explained in control_dashboard.cpp
 void do_nav();
 void show_nav();
 void exe_nav();
-void do_step();
+void arm_step();
 void do_estimate();
 void fake_scan();
 void scan();
 void thickness();
 void start_pt();
-void fwd_vel();
-void rev_vel();
-void left_vel();
-void right_vel();
-void arm_fwd_vel();
-void arm_left_vel();
-void arm_right_vel();
-void arm_rev_vel();
-void arm_up_vel();
-void arm_down_vel();
-void roll_vel_neg();
-void roll_vel_pos();
-void pitch_vel_neg();
-void pitch_vel_pos();
-void yaw_vel_neg();
-void yaw_vel_pos();
 void localization_scan();
 void localization_scan_2();
-void clear_vel();
 void cluster_1();
 void trajectory();
 void cluster_2();
@@ -72,22 +56,28 @@ void scan_360();
 void load_traj();
 void rosSpinner();
 void do_poses();
+void soft_stop();
 void pose_step();
+void pose_loop();
+void arm_loop();
+float tgt_distance(phd::arm_msg arm, phd::arm_msg tgt);
 Q_SIGNALS:
 
 protected:
   Ui::Control_Form ui_;
   ros::NodeHandle nh_;
   ros::Subscriber pose_sub_;
+  ros::Subscriber move_base_sub_;
 
 
 private:
 	//Create the control panel and manual operation nodes
 	control_panel_ns::QNode control_panel;
-	husky_control::QNode vel_control;
 	//this is used to keep track of whick marker point is being clustered
 	int cluster_index;
-	int pose_ctr, pose_nums;
+	int pose_ctr, pose_size, traj_ctr, traj_size;
+	phd::arm_msg arm_tgt;
+	bool auto_pose, auto_arm;
 
 };
 }
