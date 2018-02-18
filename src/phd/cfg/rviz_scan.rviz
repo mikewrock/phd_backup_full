@@ -6,7 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
         - /RobotModel1
-        - /line_points1
+        - /sorted horizontal1
         - /Marker5/Namespaces1
         - /Marker12
         - /Marker13
@@ -78,7 +78,7 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: Intensity
       Decay Time: 0
-      Enabled: false
+      Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Max Intensity: 3996
@@ -95,7 +95,7 @@ Visualization Manager:
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
-      Value: false
+      Value: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -509,7 +509,7 @@ Visualization Manager:
       Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
-      Max Intensity: 1456
+      Max Intensity: 1146
       Min Color: 0; 0; 0
       Min Intensity: 76
       Name: raw
@@ -564,20 +564,20 @@ Visualization Manager:
       Channel Name: intensity
       Class: rviz/PointCloud2
       Color: 255; 255; 255
-      Color Transformer: FlatColor
+      Color Transformer: Intensity
       Decay Time: 0
       Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
-      Max Intensity: 3991
+      Max Intensity: 9.99527
       Min Color: 0; 0; 0
-      Min Intensity: 181
-      Name: PointCloud2
+      Min Intensity: 0.764335
+      Name: sorted horizontal
       Position Transformer: XYZ
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.003
+      Size (m): 0.01
       Style: Flat Squares
       Topic: /line_points2
       Unreliable: false
@@ -831,7 +831,7 @@ Visualization Manager:
       Marker Topic: visualization_marker
       Name: Marker
       Namespaces:
-        basic_shapes: true
+        {}
       Queue Size: 100
       Value: true
     - Alpha: 0.7
@@ -878,7 +878,7 @@ Visualization Manager:
       Marker Topic: /path_marker
       Name: Marker
       Namespaces:
-        path_shapes: true
+        {}
       Queue Size: 10000
       Value: true
     - Class: rviz/Marker
@@ -886,7 +886,7 @@ Visualization Manager:
       Marker Topic: /dir_marker
       Name: Marker
       Namespaces:
-        surface_path_shapes: true
+        {}
       Queue Size: 100
       Value: true
     - Class: rviz/Marker
@@ -1097,7 +1097,7 @@ Visualization Manager:
       Marker Topic: /bad_points_marker
       Name: Marker
       Namespaces:
-        basic_shapes: true
+        {}
       Queue Size: 100
       Value: true
     - Class: rviz/Marker
@@ -1105,7 +1105,7 @@ Visualization Manager:
       Marker Topic: /good_points_marker
       Name: Marker
       Namespaces:
-        basic_shapes: true
+        {}
       Queue Size: 100
       Value: true
     - Class: rviz/Marker
@@ -1121,7 +1121,7 @@ Visualization Manager:
       Marker Topic: /pose_marker
       Name: Marker
       Namespaces:
-        points_and_lines: true
+        {}
       Queue Size: 100
       Value: true
   Enabled: true
@@ -1150,7 +1150,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 1.85008
+      Distance: 5.11654
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
@@ -1162,10 +1162,10 @@ Visualization Manager:
         Z: 0.674369
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.484797
+      Pitch: 0.344797
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 2.9292
+      Yaw: 3.39421
     Saved: ~
 Window Geometry:
   Control Panel:

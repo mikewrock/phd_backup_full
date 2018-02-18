@@ -23,6 +23,7 @@
 #include <math.h>
 #include <boost/make_shared.hpp>
 #include <pcl/point_representation.h>
+#include <pcl/common/common.h>
 #include <pcl/filters/filter.h>
 #include <pcl/registration/icp.h>
 #include <pcl/registration/icp_nl.h>
@@ -508,7 +509,7 @@ void show_markers(phd::trajectory_msg t_msg){
 	visualization_msgs::Marker good_points;
 	visualization_msgs::Marker bad_points;
 	// Set the frame ID and timestamp.  See the TF tutorials for information on these.
-	marker.header.frame_id = "/world";
+	marker.header.frame_id = "/base_footprint";
 	marker.header.stamp = ros::Time::now();
 	marker.ns = "basic_shapes";
 	marker.id = 0;
@@ -531,7 +532,7 @@ void show_markers(phd::trajectory_msg t_msg){
 	marker.lifetime = ros::Duration();
 	
 	    // Set the frame ID and timestamp.  See the TF tutorials for information on these.
-	path.header.frame_id = "/world";
+	path.header.frame_id = "/base_footprint";
 	path.header.stamp = ros::Time::now();
 	// Set the namespace and id for this path.  This serves to create a unique ID
 	// Any path sent with the same namespace and id will overwrite the old one
@@ -558,7 +559,7 @@ void show_markers(phd::trajectory_msg t_msg){
 	path.color.a = 1.0;
 	path.lifetime = ros::Duration();	    
 	// Set the frame ID and timestamp.  See the TF tutorials for information on these.
-	surface_path.header.frame_id = "/world";
+	surface_path.header.frame_id = "/base_footprint";
 	surface_path.header.stamp = ros::Time::now();
 	// Set the namespace and id for this path.  This serves to create a unique ID
 	// Any path sent with the same namespace and id will overwrite the old one
@@ -585,7 +586,7 @@ void show_markers(phd::trajectory_msg t_msg){
 	surface_path.color.a = 1.0;
 	surface_path.lifetime = ros::Duration();
 
-	good_points.header.frame_id = "/world";
+	good_points.header.frame_id = "/base_footprint";
 	good_points.header.stamp = ros::Time::now();
 	good_points.ns = "basic_shapes";
 	good_points.id = 0;
@@ -607,7 +608,7 @@ void show_markers(phd::trajectory_msg t_msg){
 	good_points.color.a = 0.8;
 	good_points.lifetime = ros::Duration();
 
-	bad_points.header.frame_id = "/world";
+	bad_points.header.frame_id = "/base_footprint";
 	bad_points.header.stamp = ros::Time::now();
 	bad_points.ns = "basic_shapes";
 	bad_points.id = 0;
@@ -678,7 +679,7 @@ void show_marker(pcl::PointXYZI one,pcl::PointXYZI two,pcl::PointXYZI three, pcl
 	uint32_t shape = visualization_msgs::Marker::LINE_LIST;
 	visualization_msgs::Marker marker;
 	// Set the frame ID and timestamp.  See the TF tutorials for information on these.
-	marker.header.frame_id = "/world";
+	marker.header.frame_id = "/base_footprint";
 	marker.header.stamp = ros::Time::now();
 	marker.ns = "basic_shapes";
 	marker.id = nsid;
@@ -809,6 +810,44 @@ pcl::PointCloud<pcl::PointXYZI> sort_vertical_line(pcl::PointCloud<pcl::PointXYZ
 	return sorted;
 
 	}
+////////////////////////////
+pcl::PointCloud<pcl::PointXYZI> sort_horizontal_line(pcl::PointCloud<pcl::PointXYZI>::Ptr line, Eigen::Vector4f start){
+
+	pcl::PointCloud<pcl::PointXYZI> sorted;
+	pcl::PointXYZI point_holder;
+	pcl::PointXYZI start_pt, found_pt, prev_pt, next_pt;
+	pcl::PointCloud<pcl::PointXYZI>::iterator start_it, next_it;
+	float c_val;
+	pcl::PointXYZI dir, search_pt, d_pt, ctr_pt, ctr_pt2;
+	float calc_d, d_total;
+	float dir_val, old_d;	
+	bool broken = false;
+	prev_pt.x = start[0];
+	prev_pt.y = start[1];
+	prev_pt.z = start[2];
+	prev_pt.intensity = 0;
+	pcl::PassThrough<pcl::PointXYZI> pass;
+	find_and_delete_NN(prev_pt,line, &next_pt);
+	find_and_delete_NN(prev_pt,line, &next_pt);
+	next_pt.intensity = 0;
+	sorted.push_back(next_pt);
+	find_and_delete_NN(horizontal_step_vector(prev_pt,sorted.points[0],0.01),line, &next_pt);
+	next_pt.intensity = sorted.points[0].intensity+sqrt(pow(next_pt.x-sorted.points[0].x,2)+pow(next_pt.y-sorted.points[0].y,2)+pow(next_pt.z-sorted.points[0].z,2));
+	pcl::PointXYZI stepp;
+	sorted.push_back(next_pt);
+	do{	
+		prev_pt = next_pt;	
+		if(find_and_delete_NN(prev_pt,line, &next_pt)){
+			next_pt.intensity = prev_pt.intensity + sqrt(pow(next_pt.x-prev_pt.x,2)+pow(next_pt.y-prev_pt.y,2)+pow(next_pt.z-prev_pt.z,2));
+			sorted.push_back(next_pt);
+			}else{
+				ROS_INFO("Couldnt find neighbour");
+				break;
+			} 
+		}while(line->points.size()>0);
+	return sorted;
+
+	}
 
 pcl::PointXYZI find_plane(pcl::PointXYZI pt_location){
 
@@ -923,6 +962,8 @@ bool generate (phd::simple_trajectory_service::Request  &req,
 	t_msg_full.points.clear();
 	t_remainder.points.clear();
 	pcl::PointCloud<pcl::PointXYZI>::Ptr line (new pcl::PointCloud<pcl::PointXYZI>);
+	pcl::PointCloud<pcl::PointXYZI>::Ptr horizontal_line (new pcl::PointCloud<pcl::PointXYZI>);
+	pcl::PointCloud<pcl::PointXYZI> sorted_horizontal_line;
 	pcl::PassThrough<pcl::PointXYZI> pass;
 	/*pass.setInputCloud (cloud_surface);
 	pass.setFilterFieldName ("y");
@@ -937,13 +978,12 @@ bool generate (phd::simple_trajectory_service::Request  &req,
 
 	Eigen::Vector4f minPoint; 
 	minPoint[0]=-100;  // define minimum point x 
-	minPoint[1]=-.010;  // define minimum point y 
-	minPoint[2]=MIN_HEIGHT;  // define minimum point z 
+	minPoint[1]=-100;  // define minimum point y 
+	minPoint[2]=MIN_HEIGHT - Z_HEIGHT/2;  // define minimum point z 
 	Eigen::Vector4f maxPoint; 
 	maxPoint[0]=100;  // define max point x 
-	maxPoint[1]=.010;  // define max point y 
-	maxPoint[2]=MAX_HEIGHT;  // define max point z 
-
+	maxPoint[1]=100;  // define max point y 
+	maxPoint[2]=MIN_HEIGHT + Z_HEIGHT/2;  // define max point z 	
 	Eigen::Vector3f boxTranslatation; 
 	boxTranslatation[0]=0;   
 	boxTranslatation[1]=0;   
@@ -951,7 +991,34 @@ bool generate (phd::simple_trajectory_service::Request  &req,
 	Eigen::Vector3f boxRotation; 
 	boxRotation[0]=0;  // rotation around x-axis 
 	boxRotation[1]=0;  // rotation around y-axis 
+	boxRotation[2]=0;  // rotation around z-axis 
 	pcl::CropBox<pcl::PointXYZI> cropFilter; 
+	cropFilter.setInputCloud (cloud_surface); 
+	cropFilter.setMin(minPoint); 
+	cropFilter.setMax(maxPoint); 
+	cropFilter.setTranslation(boxTranslatation); 
+	cropFilter.setRotation(boxRotation); 
+	cropFilter.filter (*horizontal_line); 
+	Eigen::Vector4f zeroPoint = Eigen::ArrayXf::Zero(4); 
+	Eigen::Vector4f farPoint; 
+	pcl::getMaxDistance(*horizontal_line, zeroPoint, farPoint);
+	ROS_INFO("Furthest point %f - %f - %f", farPoint[0], farPoint[1], farPoint[2]);
+	sorted_horizontal_line = sort_horizontal_line(horizontal_line,farPoint);
+	sensor_msgs::PointCloud2 line_cloud3;
+	pcl::toROSMsg(sorted_horizontal_line,line_cloud3);
+	line_cloud3.header.frame_id = "/base_footprint";
+	line_cloud3.header.stamp = ros::Time::now();
+	line_pub2.publish(line_cloud3);
+	ros::spinOnce();
+
+
+
+	minPoint[0]=-100;  // define minimum point x 
+	minPoint[1]=-.010;  // define minimum point y 
+	minPoint[2]=MIN_HEIGHT;  // define minimum point z 
+	maxPoint[0]=100;  // define max point x 
+	maxPoint[1]=.010;  // define max point y 
+	maxPoint[2]=MAX_HEIGHT;  // define max point z
 	cropFilter.setInputCloud (cloud_surface); 
 	cropFilter.setMin(minPoint); 
 	cropFilter.setMax(maxPoint); 
@@ -960,6 +1027,7 @@ bool generate (phd::simple_trajectory_service::Request  &req,
 	pcl::PointCloud<pcl::PointXYZI> vertical_lines;
 
 	lines.clear();
+/*
 	for(int ctr = 0; ctr <= RADIAL_STEPS; ++ctr){
 	
 		boxRotation[2]=START_ANGLE + ctr*((END_ANGLE-START_ANGLE)/RADIAL_STEPS);  //in radians rotation around z-axis 
@@ -995,7 +1063,7 @@ bool generate (phd::simple_trajectory_service::Request  &req,
 	sensor_msgs::PointCloud2 line_cloud;
 	pcl::toROSMsg(vertical_lines,line_cloud);
 	ROS_INFO("Publishing %d ptd", line_cloud.width);
-	line_cloud.header.frame_id = "/world";
+	line_cloud.header.frame_id = "/base_footprint";
 	line_cloud.header.stamp = ros::Time::now();
 	line_pub.publish(line_cloud);
 	ros::spinOnce();
@@ -1021,17 +1089,13 @@ bool generate (phd::simple_trajectory_service::Request  &req,
 	/*sensor_msgs::PointCloud2 line_cloud2;
 	pcl::toROSMsg(horizontal_line,line_cloud2);
 	ROS_INFO("Publishing %d pts", line_cloud2.width);
-	line_cloud2.header.frame_id = "/world";
+	line_cloud2.header.frame_id = "/base_footprint";
 	line_cloud2.header.stamp = ros::Time::now();
 	line_pub.publish(line_cloud2);
-	*/sensor_msgs::PointCloud2 line_cloud3;
-	pcl::toROSMsg(lines,line_cloud3);
-	line_cloud3.header.frame_id = "/world";
-	line_cloud3.header.stamp = ros::Time::now();
-	line_pub2.publish(line_cloud3);
-	show_markers(t_msg);
-	ros::spinOnce();
-	res.trajectory = t_msg;
+	*/
+	//show_markers(t_msg);
+	//ros::spinOnce();
+	//res.trajectory = t_msg;
 	bool ret = true;
 	return ret;
 }

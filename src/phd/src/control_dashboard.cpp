@@ -49,7 +49,6 @@ namespace control_panel
 		//SIGNAL connections
 		connect(ui_.nav_mode_button, SIGNAL(clicked()), this, SLOT(do_nav()));
 		connect(ui_.est_pos, SIGNAL(clicked()), this, SLOT(do_estimate()));
-		connect(ui_.exe_path, SIGNAL(clicked()), this, SLOT(exe_nav()));
 		//connect(ui_.exe_poses, SIGNAL(clicked()), this, SLOT(pose_step()));
 		connect(ui_.show_nav_button, SIGNAL(clicked()), this, SLOT(show_nav()));
 		connect(ui_.fscan_button, SIGNAL(clicked()), this, SLOT(fake_scan()));
@@ -161,11 +160,6 @@ namespace control_panel
 	void ControlPanel::do_nav(){
 		float pos = ui_.pos_box->text().toFloat();
 		  control_panel.nav_mode(pos);
-	}
-	//Tell the robot to drive to the desired goal by publishing the goal location
-	void ControlPanel::exe_nav(){
-
-		  control_panel.exe_nav();
 	}
 	//Show the robot's goal location and path
 	void ControlPanel::show_nav(){

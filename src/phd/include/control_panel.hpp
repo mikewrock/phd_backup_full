@@ -78,7 +78,6 @@ public:
 	void scan(std::string, bool localize);
 	phd::arm_msg step(int traj_ctr, bool arm);
 	void show_nav();
-	void exe_nav();
 	void estimate(std::string);
 	void thickness(std::string,std::string);
 	void nav_mode(float pos);
@@ -98,7 +97,6 @@ public:
 	void soft_stop();
 	void show_markers(phd::trajectory_msg t_array);
 	void pose_step(int pose_ctr);
-	phd::trajectory_point find_pose();
 	//Variables for holding the first two points of the marker, when the third one comes in they all get saved to file
 	float P1x, P1y, P1z, P2x, P2y, P2z;
 	//Variables for holding the start point for the trajectory algorithm

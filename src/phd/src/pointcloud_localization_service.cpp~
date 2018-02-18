@@ -144,6 +144,7 @@ std::vector<pcl::PointXYZI> cluster_points(pcl::PointCloud<pcl::PointXYZI>::Ptr 
 			Pt.y = ys/cluster.size();
 			Pt.z = zs/cluster.size();
 			Pt.intensity = is/cluster.size();
+			if(DEBUG) ROS_INFO("Found point %f",Pt.intensity);
 			Pts.push_back(Pt);
 		}
 	}

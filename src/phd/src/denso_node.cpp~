@@ -24,6 +24,7 @@
 #define CP 2
 #define JOINT 3
 #define STRING 4
+#define SHUTDOWN 5
 phd::arm_msg arm_cmd; //An arm message datatype
 bool move_flag = false; //A flag to denote whether a new pose has been sent
 char buffer[180]; //Character buffer for sprintf-ing from an arm_msg to a denso variant
@@ -38,6 +39,7 @@ uint32_t hErr; //Error Handle
 uint32_t jHandle; //Joint angle handle
 uint32_t pHandle; //Arm Pose handle
 bool cp_flag = false;
+bool shutdown = false;
 
 //Callback for the arm commands on topic /arm_cmd
 void arm_cb (const phd::arm_msg::ConstPtr& msg)
@@ -67,6 +69,9 @@ int n;
 			n=sprintf(buffer,"%s",msg->user_string.c_str());
 			cp_flag = false;
 			if(DEBUG) ROS_INFO("Sending %s",buffer);
+			break;
+		case SHUTDOWN:
+			shutdown = true;
 		}
 			
 	move_flag = true; //Tell the loop in main a new command has come in
@@ -91,7 +96,7 @@ int main(int argc, char **argv)
 	//pose publisher
 	ros::Publisher pose_pub = nh.advertise<phd::arm_msg>("arm_pose", 1);
 	sensor_msgs::JointState joint_state;    
-
+ROS_INFO("about to ");
 	//Publish initial values
 	joint_state.header.stamp = ros::Time::now();
 	joint_state.name.resize(5);
@@ -118,14 +123,14 @@ int main(int argc, char **argv)
 	double *pdArray; //Array for reading joint angles
 	wchar_t wstr[180]; //Wide character array for arm motion commands
 	int n; //Int for swprintf function
-	
+	ROS_INFO("about to init");
 	//Initialize Denso Arm
 	hr = initArm();
 	if (FAILED(hr)) ROS_ERROR("Init failed %x",hr);
 	else if(DEBUG)ROS_INFO("Arm Initializaed");
 
 	//Main Loop
-	while(ros::ok()){
+	while(ros::ok() && shutdown == false){
 		//Read joint angles and copy them in to dJnt
 		hr = bCap_VariableGetValue(fd, jHandle, &vJnt);
 		SafeArrayAccessData(vJnt.parray, (void**)&pdArray);
@@ -282,15 +287,21 @@ HRESULT initArm(void){
   uint32_t hSpd; //Speed Handle
   VARIANT vJnt, vSpd, vPos; //Joint, Position, and speed variants
   double *pdArray; //Array for reading joint angles
-    
+    ROS_INFO("vars ctd");
   /* Init socket */
   hr = bCap_Open_Client(SERVER_IP_ADDRESS, SERVER_PORT_NUM, 0, &fd);
+
+    ROS_INFO("vars ctd");
   if FAILED(hr) return (hr);
   else if(DEBUG) ROS_INFO("Socket Created");
+
+    ROS_INFO("vars ctd");
   /* Start b-CAP service */
   hr = bCap_ServiceStart(fd, NULL);
   if FAILED(hr) return (hr);
   else if(DEBUG) ROS_INFO("b-CAP started");
+
+    ROS_INFO("vars ctd");
   /* Get controller handle */
   BSTR bstrName, bstrProv, bstrMachine, bstrOpt;
   bstrName = SysAllocString(L"");
@@ -440,7 +451,7 @@ HRESULT initArm(void){
   vSpd.fltVal = 100;
   bstrCommand = SysAllocString(L"EXTSPEED");
   float dnt[3];
-  dnt[0] = 50.0; //Velocity
+  dnt[0] = 10.0; //Velocity
   dnt[1] = 100.0; //Acceleration
   dnt[2] = 100.0; //Decceleration
   VARIANT vntS; //Holds the desired speed values

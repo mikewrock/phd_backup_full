@@ -95,7 +95,7 @@
 <param name="base_frame" type="string" value="base_footprint" />
   </node>
   <!--- Run rviz -->
-    <node name="rviz" pkg="rviz" type="rviz" required="True" output="screen" > 
+    <node name="rviz" pkg="rviz" type="rviz" required="True" output="screen" args="-d $(find phd)/cfg/rviz_scan.rviz"> 
 
   </node>
 

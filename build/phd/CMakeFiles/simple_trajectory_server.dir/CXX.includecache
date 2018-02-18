@@ -197,6 +197,8 @@ boost/make_shared.hpp
 -
 pcl/point_representation.h
 -
+pcl/common/common.h
+-
 pcl/filters/filter.h
 -
 pcl/registration/icp.h

@@ -420,7 +420,7 @@ bool localize(phd::localize_cloud::Request  &req,
 	pcl::toROSMsg(*cloud_intensity_filtered,cloud_debug);
 	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
 	cloud_debug.fields[3].name = "intensity";
-	cloud_debug.header.frame_id = "/base_link";
+	cloud_debug.header.frame_id = "/base_footprint";
 	cloud_debug.header.stamp = ros::Time::now();
 	if(DEBUG) tpub.publish(cloud_req);
 

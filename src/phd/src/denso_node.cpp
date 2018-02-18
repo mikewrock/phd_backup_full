@@ -95,8 +95,7 @@ int main(int argc, char **argv)
 	ros::Publisher joint_pub = nh.advertise<sensor_msgs::JointState>("arm_joint_states", 1);
 	//pose publisher
 	ros::Publisher pose_pub = nh.advertise<phd::arm_msg>("arm_pose", 1);
-	sensor_msgs::JointState joint_state;    
-
+	sensor_msgs::JointState joint_state;
 	//Publish initial values
 	joint_state.header.stamp = ros::Time::now();
 	joint_state.name.resize(5);
@@ -123,7 +122,6 @@ int main(int argc, char **argv)
 	double *pdArray; //Array for reading joint angles
 	wchar_t wstr[180]; //Wide character array for arm motion commands
 	int n; //Int for swprintf function
-	
 	//Initialize Denso Arm
 	hr = initArm();
 	if (FAILED(hr)) ROS_ERROR("Init failed %x",hr);
@@ -287,7 +285,6 @@ HRESULT initArm(void){
   uint32_t hSpd; //Speed Handle
   VARIANT vJnt, vSpd, vPos; //Joint, Position, and speed variants
   double *pdArray; //Array for reading joint angles
-    
   /* Init socket */
   hr = bCap_Open_Client(SERVER_IP_ADDRESS, SERVER_PORT_NUM, 0, &fd);
   if FAILED(hr) return (hr);

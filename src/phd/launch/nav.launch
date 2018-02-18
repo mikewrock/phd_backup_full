@@ -111,10 +111,10 @@
   <node type="thickness_server" pkg="phd" name="thickness_service" output="screen">
   </node>
 
-  <!--- Record data -->
+  <!--- Record data 
  <node pkg="rosbag" type="record" name="rosbag_record"
        args="-O /home/mike/testing/bag /assembled_cloud" />
-
+-->
   <!--- Run dynamicreconfigure -->
   <node type="rqt_reconfigure" pkg="rqt_reconfigure" name="rqt_reconfigure" output="screen">
   </node>
