@@ -6,6 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
         - /RobotModel1
+        - /line_points1
         - /sorted horizontal1
         - /Marker5/Namespaces1
         - /Marker12
@@ -517,7 +518,7 @@ Visualization Manager:
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.001
+      Size (m): 0.01
       Style: Flat Squares
       Topic: /raw_cloud
       Unreliable: false
@@ -547,7 +548,7 @@ Visualization Manager:
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.002
+      Size (m): 0.02
       Style: Flat Squares
       Topic: /line_points
       Unreliable: false
@@ -1109,13 +1110,13 @@ Visualization Manager:
       Queue Size: 100
       Value: true
     - Class: rviz/Marker
-      Enabled: true
+      Enabled: false
       Marker Topic: /ws_points_marker
       Name: Marker
       Namespaces:
-        basic_shapes: true
+        {}
       Queue Size: 100
-      Value: true
+      Value: false
     - Class: rviz/Marker
       Enabled: true
       Marker Topic: /pose_marker

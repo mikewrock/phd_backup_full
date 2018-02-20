@@ -12,7 +12,8 @@ Reads and maintains the following parameters on the ROS server
 - \b "~radial_steps" : \b [double] number of ribs to make min: 0.0, default: 50.0, max: 100.0
 - \b "~start_angle" : \b [double] starting angle for ribs min: -10.0, default: -1.4, max: 10.0
 - \b "~end_angle" : \b [double] ending angle for ribs min: -10.0, default: 1.3, max: 10.0
-- \b "~rib_downsampling" : \b [double] distance between rib points min: 0.0, default: 0.05, max: 10.0
+- \b "~rib_downsampling" : \b [double] distance between rib points min: 0.0, default: 0.02, max: 10.0
+- \b "~rib_spacing" : \b [double] distance between ribs min: 0.0, default: 0.05, max: 10.0
 - \b "~z_vert_limit" : \b [double] limit for z value to only use Z for distance min: 0.0, default: 1.0, max: 10.0
 - \b "~rib_tolerance" : \b [double] maximim distance a rib point can be from target point min: 0.0, default: 0.03, max: 10.0
 - \b "~max_rib_length" : \b [double] maximum distance along rib to calculate trajectory points min: 0.0, default: 2.26, max: 10.0

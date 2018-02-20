@@ -11,7 +11,8 @@
   <param name="radial_steps" type="double" value="50.0" />
   <param name="start_angle" type="double" value="-1.4" />
   <param name="end_angle" type="double" value="1.3" />
-  <param name="rib_downsampling" type="double" value="0.05" />
+  <param name="rib_downsampling" type="double" value="0.02" />
+  <param name="rib_spacing" type="double" value="0.05" />
   <param name="z_vert_limit" type="double" value="1.0" />
   <param name="rib_tolerance" type="double" value="0.03" />
   <param name="max_rib_length" type="double" value="2.26" />
