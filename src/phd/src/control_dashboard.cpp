@@ -41,6 +41,7 @@ namespace control_panel
 		pose_sub_ = nh_.subscribe("arm_pose", 1, &ControlPanel::poseCB, this);
 		//move_base sub
 		move_base_sub_ = nh_.subscribe("move_base/result", 1, &ControlPanel::movebaseCB, this);
+		reset_map_pub_ = nh_.advertise<std_msgs::String> ("syscommand", 1);
 		QTimer* spin_timer = new QTimer( this );
 		//Initialize control panel
 		int ret = control_panel.init();
@@ -67,6 +68,12 @@ namespace control_panel
 		connect(ui_.arm_loop_button, SIGNAL(clicked()), this, SLOT(arm_loop()));
 		connect(ui_.step_button, SIGNAL(clicked()), this, SLOT(arm_step()));
 		connect(ui_.soft_stop, SIGNAL(clicked()), this, SLOT(soft_stop()));
+		connect(ui_.reset_map_button, SIGNAL(clicked()), this, SLOT(reset_map()));
+		connect(ui_.clean_button, SIGNAL(clicked()), this, SLOT(set_clean()));
+		connect(ui_.sprayed_button, SIGNAL(clicked()), this, SLOT(set_sprayed()));
+		connect(ui_.calculate_button, SIGNAL(clicked()), this, SLOT(calculate_thickness()));
+		connect(ui_.compare_button, SIGNAL(clicked()), this, SLOT(compare_results()));
+		connect(ui_.save_selection, SIGNAL(clicked()), this, SLOT(save_selection()));
 
 
 		connect(spin_timer, SIGNAL(timeout()), this, SLOT(rosSpinner()));
@@ -161,10 +168,45 @@ namespace control_panel
 		float pos = ui_.pos_box->text().toFloat();
 		  control_panel.nav_mode(pos);
 	}
+	//Reset the map
+	void ControlPanel::reset_map(){
+		std_msgs::String msg;
+
+		std::stringstream ss;
+		ss << "reset";
+		msg.data = ss.str();
+
+		reset_map_pub_.publish(msg);
+		  
+	}
 	//Show the robot's goal location and path
 	void ControlPanel::show_nav(){
 
 		  control_panel.show_nav();
+	}
+	//
+	void ControlPanel::save_selection(){
+
+		  control_panel.save_selection();
+	}
+	//
+	void ControlPanel::set_clean(){
+
+		  control_panel.set_clean();
+	}
+	//
+	void ControlPanel::set_sprayed(){
+
+		  control_panel.set_sprayed();
+	}
+	//
+	void ControlPanel::calculate_thickness(){
+
+		  control_panel.calculate_thickness(ui_.save_name_box->text().toStdString());
+	}
+	void ControlPanel::compare_results(){
+
+		  control_panel.compare_results(ui_.save_name_box->text().toStdString(),ui_.before_box->text().toStdString(),ui_.after_box->text().toStdString());
 	}
 	//Perform a laser scan and tell control_panel the fiducial name and whether to set the pose as global origin 
 	void ControlPanel::scan(){
@@ -178,7 +220,7 @@ namespace control_panel
 	//Perform a fake scan using a pointcloud file (.pcl
 	void ControlPanel::fake_scan(){
 
-		  control_panel.fscan(ui_.filename_box->text().toStdString(),ui_.auto_localize->isChecked(),ui_.marker_name_box->text().toStdString());
+		  control_panel.fscan(ui_.filename_box->text().toStdString(),ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
 	}
 	//Calculate thickness from the two files specified
 	void ControlPanel::thickness(){

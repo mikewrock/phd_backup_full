@@ -22,7 +22,7 @@ static const uint qt_meta_data_control_panel__ControlPanel[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      30,   14, // methods
+      36,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -59,7 +59,13 @@ static const uint qt_meta_data_control_panel__ControlPanel[] = {
      377,   28,   28,   28, 0x09,
      389,   28,   28,   28, 0x09,
      401,   28,   28,   28, 0x09,
-     426,  418,  412,   28, 0x09,
+     412,   28,   28,   28, 0x09,
+     424,   28,   28,   28, 0x09,
+     436,   28,   28,   28, 0x09,
+     450,   28,   28,   28, 0x09,
+     472,   28,   28,   28, 0x09,
+     490,   28,   28,   28, 0x09,
+     521,  513,  507,   28, 0x09,
 
        0        // eod
 };
@@ -76,7 +82,10 @@ static const char qt_meta_stringdata_control_panel__ControlPanel[] = {
     "onStringCommand()\0onShutdownCommand()\0"
     "scan_360()\0load_traj()\0rosSpinner()\0"
     "do_poses()\0soft_stop()\0pose_step()\0"
-    "pose_loop()\0arm_loop()\0float\0arm,tgt\0"
+    "pose_loop()\0arm_loop()\0reset_map()\0"
+    "set_clean()\0set_sprayed()\0"
+    "calculate_thickness()\0compare_results()\0"
+    "save_selection()\0float\0arm,tgt\0"
     "tgt_distance(phd::arm_msg,phd::arm_msg)\0"
 };
 
@@ -115,7 +124,13 @@ void control_panel::ControlPanel::qt_static_metacall(QObject *_o, QMetaObject::C
         case 26: _t->pose_step(); break;
         case 27: _t->pose_loop(); break;
         case 28: _t->arm_loop(); break;
-        case 29: { float _r = _t->tgt_distance((*reinterpret_cast< phd::arm_msg(*)>(_a[1])),(*reinterpret_cast< phd::arm_msg(*)>(_a[2])));
+        case 29: _t->reset_map(); break;
+        case 30: _t->set_clean(); break;
+        case 31: _t->set_sprayed(); break;
+        case 32: _t->calculate_thickness(); break;
+        case 33: _t->compare_results(); break;
+        case 34: _t->save_selection(); break;
+        case 35: { float _r = _t->tgt_distance((*reinterpret_cast< phd::arm_msg(*)>(_a[1])),(*reinterpret_cast< phd::arm_msg(*)>(_a[2])));
             if (_a[0]) *reinterpret_cast< float*>(_a[0]) = _r; }  break;
         default: ;
         }
@@ -156,9 +171,9 @@ int control_panel::ControlPanel::qt_metacall(QMetaObject::Call _c, int _id, void
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 30)
+        if (_id < 36)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 30;
+        _id -= 36;
     }
     return _id;
 }

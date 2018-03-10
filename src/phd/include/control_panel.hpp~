@@ -50,6 +50,7 @@
 #include <dynamic_reconfigure/server.h>
 #include <phd/ParamConfig.h>
 #include "phd/trajectory_array.h"
+#include "phd/arm_msg.h"
 #include <pcl/filters/extract_indices.h>
 // bCAP (Always last)
 #include "bcap/bcap_client.h"
@@ -75,28 +76,31 @@ public:
 	QNode(){}
 	virtual ~QNode();
 	void scan(std::string, bool localize);
-	void step(bool arm);
+	phd::arm_msg step(int traj_ctr, bool arm);
 	void show_nav();
-	void exe_nav();
 	void estimate(std::string);
 	void thickness(std::string,std::string);
 	void nav_mode(float pos);
-	void fscan(std::string, bool auto_localize,std::string);
+	void fscan(std::string, bool auto_localize,bool set_home,std::string,bool autocrop);
 	void cluster(std::string, int index);
 	void start_pt();
-	void gen_trajectory(std::string);
-	void load_traj(std::string);
+	int gen_trajectory(std::string);
+	int load_traj(std::string);
 	void lscan();
 	void run();
 	bool init();
-	void calc_poses();
-	int pose_step();
+	int calc_poses();
 	void send_command(float x, float y, float z, float rx, float ry, float rz, float fig, int motion);
 	void send_joint_command(float j1, float j2, float j3, float j4, float j5, float j6);
 	void send_string(std::string user_string);
+	void calculate_thickness(std::string);
+	void compare_results(std::string,std::string,std::string);
+	void set_clean();
+	void set_sprayed();
 	void scan_360();
+	void soft_stop();
 	void show_markers(phd::trajectory_msg t_array);
-	phd::trajectory_point find_pose();
+	void pose_step(int pose_ctr);
 	//Variables for holding the first two points of the marker, when the third one comes in they all get saved to file
 	float P1x, P1y, P1z, P2x, P2y, P2z;
 	//Variables for holding the start point for the trajectory algorithm
@@ -137,6 +141,8 @@ private:
 	dynamic_reconfigure::Server<phd::ParamConfig>::CallbackType callback_type;
 	//Pointer to the pointcloud selection
 	pcl::PointCloud<pcl::PointXYZI>::Ptr current_pc_;
+	sensor_msgs::PointCloud2 clean_cloud;
+	sensor_msgs::PointCloud2 sprayed_cloud;
 	//Holds the entire pointcloud from laser_scan_assembler, used for calculating normals (useful at the edges of current_pc_)
 	sensor_msgs::PointCloud2 cloud_surface_raw;
 	sensor_msgs::PointCloud2 cloud_surface_world;
@@ -144,9 +150,9 @@ private:
 	phd::trajectory_msg traj;
 	//Counters for keeping track of current trajectory section and point
 	int sec_ctr;
-	int pt_ctr;
+	//int pt_ctr;
 	int cloud_ctr;
-	int pose_ctr;
+	//int pose_ctr;
 	int tctr;
 	tf::TransformBroadcaster br;
 	tf::Transform transform;

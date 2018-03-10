@@ -188,7 +188,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <mesh filename="package://wrock_husky_description/meshes/cubefinal.stl" />
+                <mesh filename="file:///home/mike/catkin_ws/src/wrock_husky_description/meshes/Bracket.stl" scale="0.001 0.001 0.001"/>
             </geometry>
             <material name="DarkPCubeGrey" >
 		<color rgba=".1 .1 .1 1" />
@@ -198,7 +198,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 
 
     <joint name="base_cube_joint" type="fixed">
-		<origin xyz="0.265 .2005 ${0.445 + 0.35550000/2 - 0.03282508}" rpy="${M_PI} ${M_PI/2} 0" />
+		<origin xyz="${.31089+.094967} ${.195262 - .047625} ${.50343-.247016}" rpy="0.698132 0 ${M_PI/2}" />
         <parent link="base_footprint"/>
         <child link="angle_connector" />
     </joint>
@@ -213,7 +213,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
         </inertial>
 
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="-.035 -.035 -.035" rpy="0 0 0" />
             <geometry>
                 <box size="0.07 0.07 0.07" />
             </geometry>
@@ -224,7 +224,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     </link>
 
     <joint name="fixed_cube_5_joint" type="fixed">
-		<origin xyz="0.035 0.035 -0.035" rpy="0 0 ${-M_PI/2}" />
+		<origin xyz="${.047625} ${.231527766824} ${.128181623232}" rpy="${-.698132} 0 0" />
         <parent link="angle_connector"/>
         <child link="fixed_cube_5" />
     </joint>
@@ -250,7 +250,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     </link>
 
     <joint name="cube_joint" type="continuous">
-		<origin xyz="0 0 -0.07" rpy="0 0 0" />
+		<origin xyz="-.035 -.105 -.035" rpy="-${M_PI/2} 0 0" />
 	  <axis xyz="0 0 -1 " />
         <parent link="fixed_cube_5"/>
         <child link="cube_5" />
@@ -265,17 +265,21 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   
     <link name="laser">
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="0 0 0" rpy="0 0 ${M_PI/2}" />
         <geometry>
           <!-- Origin of this mesh is the base of the bracket. -${M_PI/2}-->
-          <mesh filename="package://wrock_husky_description/meshes/sick_lms1xx.dae" />
+          <mesh filename="file:///home/mike/catkin_ws/src/wrock_husky_description/meshes/laser.stl" scale = "0.001 0.001 0.001"/>
         </geometry>
-        <material name="dark_grey" />
+        
+            <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
       </visual>
     </link>
 
     <joint name="laser_mount_joint" type="fixed">
-      <origin xyz="-.0285 -0.1 0" rpy="${M_PI/2} 0 -${M_PI/2}" />
+      <!--<origin xyz="${.019663 - .035} ${-.035 - .05974} -.027623" rpy="${M_PI/2} 0 ${-M_PI/2}" />-->
+<origin xyz="${.019663 -.027623} ${-.035 - .05974} -.027623" rpy="0 0 0" />
       <parent link="cube_5" />
       <child link="laser" />
     </joint>

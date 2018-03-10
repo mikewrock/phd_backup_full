@@ -102,8 +102,8 @@ if(DEBUG) ROS_INFO("Calculating");
 		searchPoint.z = pt.z;
 
 		if(octree.nearestKSearch (searchPoint, K, pointIdxNKNSearch, pointNKNSquaredDistance) > 0){
-			if(pointNKNSquaredDistance[0]<.15)
-				pt.intensity = pointNKNSquaredDistance[0];
+			if(pointNKNSquaredDistance[0]<.1)
+				pt.intensity = pointNKNSquaredDistance[0]*pointNKNSquaredDistance[0];
 			else
 				pt.intensity = 0;
 		}
@@ -112,7 +112,7 @@ if(DEBUG) ROS_INFO("Calculating");
 	pcl::toROSMsg(*cloud_two,cloud_msg);
 	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
 	cloud_msg.fields[3].name = "intensities";
-	cloud_msg.header.frame_id = "/base_link";
+	cloud_msg.header.frame_id = "/base_footprint";
 	res.cloud_out = cloud_msg;
 	return true;
 }

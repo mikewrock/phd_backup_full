@@ -460,7 +460,7 @@
 
   
       <joint name="Arm_Mount" type="fixed">
-      <origin xyz=".2 -.20 ${.3 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" rpy="0 0 ${M_PI}" />
+      <origin xyz="1 -.20 ${.3 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" rpy="0 0 ${M_PI}" />
       <parent link="base_footprint" />
       <child link="BASE" />
     </joint>

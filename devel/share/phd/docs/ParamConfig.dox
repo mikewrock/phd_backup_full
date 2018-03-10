@@ -5,13 +5,19 @@ Reads and maintains the following parameters on the ROS server
 - \b "~cloud_name" : \b [str] Cloud Save Filename min: , default: cloud, max: 
 - \b "~cloud_number" : \b [int] Cloud Alignment Number min: 0, default: 1, max: 10
 - \b "~intensity_min" : \b [int] Marker Intensiy Cutoff min: 0, default: 900, max: 3000
-- \b "~intensity_max" : \b [int] Marker Intensiy Cutoff min: 0, default: 1200, max: 3000
+- \b "~intensity_max" : \b [int] Marker Intensiy Cutoff min: 0, default: 3000, max: 3000
 - \b "~auto_crop_max_x" : \b [double] Max X value when auto-cropping for trajectory generation min: 0.0, default: 5.0, max: 10.0
 - \b "~auto_crop_min_x" : \b [double] Min X value when auto-cropping for trajectory generation min: -10.0, default: -5.0, max: 0.0
 - \b "~auto_crop_max_y" : \b [double] Max Y value when auto-cropping for trajectory generation min: 0.0, default: 0.5, max: 10.0
 - \b "~auto_crop_min_y" : \b [double] Min Y value when auto-cropping for trajectory generation min: -10.0, default: -0.5, max: 0.0
 - \b "~auto_crop_max_z" : \b [double] Max Z value when auto-cropping for trajectory generation min: 0.0, default: 2.0, max: 10.0
 - \b "~auto_crop_min_z" : \b [double] Min Z value when auto-cropping for trajectory generation min: -10.0, default: 0.0, max: 0.0
+- \b "~auto_occlude_max_x" : \b [double] Max X value when auto-cropping for nearby objects min: 0.0, default: 0.0075, max: 1.0
+- \b "~auto_occlude_min_x" : \b [double] Min X value when auto-cropping for nearby objects min: -2.0, default: -1.6, max: 0.0
+- \b "~auto_occlude_max_y" : \b [double] Max Y value when auto-cropping for nearby objects min: 0.0, default: 0.4, max: 1.0
+- \b "~auto_occlude_min_y" : \b [double] Min Y value when auto-cropping for nearby objects min: -1.0, default: -0.4, max: 0.0
+- \b "~auto_occlude_max_z" : \b [double] Max Z value when auto-cropping for nearby objects min: 0.0, default: 1.0, max: 2.0
+- \b "~auto_occlude_min_z" : \b [double] Min Z value when auto-cropping for nearby objects min: -1.0, default: -0.01, max: 0.0
 - \b "~group1_int" : \b [int] A second level group parameter min: -2147483648, default: 2, max: 2147483647
 - \b "~group2_double" : \b [double] A third level group parameter min: -std::numeric_limits<double>::infinity(), default: 3.333, max: std::numeric_limits<double>::infinity()
 

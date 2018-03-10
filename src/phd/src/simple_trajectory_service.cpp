@@ -79,6 +79,7 @@ ros::Publisher bp_pub; //Points outside robot workspace
 ros::Publisher path_pub; //End effector path
 ros::Publisher line_pub; //For debugging, publishes the cropped line that the via points are calculated on
 ros::Publisher line_pub2; //For debugging, publishes the cropped line that the via points are calculated on
+ros::Publisher line_pub3; //For debugging, publishes the cropped line that the via points are calculated on
 int nsid;
 pcl::PointCloud<pcl::PointXYZI> lines;
 pcl::PointCloud<pcl::PointXYZI> flines;
@@ -1053,14 +1054,14 @@ bool generate (phd::simple_trajectory_service::Request  &req,
 	pcl::PointXYZI target_pt = find_min(vertical_line);
 	phd::trajectory_point found_pt;
 	while(target_pt.intensity < D_MAX){
-		ROS_INFO("while %lu",vertical_line.size());
+		//ROS_INFO("while %lu",vertical_line.size());
 		for(int ctr = 0; ctr<vertical_line.size();++ctr){
 			ROS_INFO("finding point %d", ctr);
 			found_pt = find_phd_pt(vertical_line[ctr].makeShared(),target_pt);
 			if(fabs(found_pt.d-target_pt.intensity)<CONNECTING_TOLERANCE)	t_msg.points.push_back(found_pt);
 		}
 		//add final point in line?
-		ROS_INFO("while %lu",vertical_line.size());
+		//ROS_INFO("while %lu",vertical_line.size());
 		target_pt.intensity += HEIGHT_STEP;
 		if(target_pt.intensity > D_MAX) break;
 		for(int ctr = vertical_line.size(); ctr>0;--ctr){
@@ -1074,11 +1075,11 @@ bool generate (phd::simple_trajectory_service::Request  &req,
 	}
 
 
-	ROS_INFO("TMS size %lu", t_msg.points.size());
+	ROS_INFO("T-MSG size %lu", t_msg.points.size());
 
 	sensor_msgs::PointCloud2 line_cloud;
 	pcl::toROSMsg(vertical_lines,line_cloud);
-	ROS_INFO("Publishing %d ptd", line_cloud.width);
+	//ROS_INFO("Publishing %d ptd", line_cloud.width);
 	line_cloud.header.frame_id = "/base_footprint";
 	line_cloud.header.stamp = ros::Time::now();
 	line_pub.publish(line_cloud);
@@ -1101,14 +1102,14 @@ bool generate (phd::simple_trajectory_service::Request  &req,
 	}
 	dir = dir * -1;
 	calc_points(&t_msg,vertical_line.points[vertical_line.size()-1],dir);
-
-	sensor_msgs::PointCloud2 line_cloud2;
-	pcl::toROSMsg(horizontal_line,line_cloud2);
-	ROS_INFO("Publishing %d pts", line_cloud2.width);
-	line_cloud2.header.frame_id = "/base_footprint";
-	line_cloud2.header.stamp = ros::Time::now();
-	line_pub.publish(line_cloud2);
-	*/
+*/
+	//sensor_msgs::PointCloud2 line_cloud3;
+	pcl::toROSMsg(vertical_lines,line_cloud3);
+	ROS_INFO("Publishing %d pts", line_cloud3.width);
+	line_cloud3.header.frame_id = "/base_footprint";
+	line_cloud3.header.stamp = ros::Time::now();
+	line_pub3.publish(line_cloud3);
+	
 	show_markers(t_msg);
 	ros::spinOnce();
 	res.trajectory = t_msg;
@@ -1128,6 +1129,7 @@ main (int argc, char** argv)
 	marker_pub = nh.advertise<visualization_msgs::Marker>( "visualization_marker", 0 );
 	line_pub = nh.advertise<sensor_msgs::PointCloud2>( "line_points", 0 );
 	line_pub2 = nh.advertise<sensor_msgs::PointCloud2>( "line_points2", 0 );
+	line_pub3 = nh.advertise<sensor_msgs::PointCloud2>( "line_points3", 0 );
 	path_pub = nh.advertise<visualization_msgs::Marker>( "path_marker", 0 );
 	dir_pub = nh.advertise<visualization_msgs::Marker>( "dir_marker", 0 );
 	gp_pub = nh.advertise<visualization_msgs::Marker>( "good_points_marker", 0 );

@@ -538,7 +538,7 @@ TrajectoryConfig::GroupDescription<TrajectoryConfig::DEFAULT, TrajectoryConfig> 
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.rib_downsampling = 10.0;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.rib_downsampling = 0.02;
+      __default__.rib_downsampling = 0.05;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.abstract_parameters.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("rib_downsampling", "double", 0, "distance between rib points", "", &TrajectoryConfig::rib_downsampling)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"

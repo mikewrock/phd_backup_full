@@ -60,6 +60,12 @@ void soft_stop();
 void pose_step();
 void pose_loop();
 void arm_loop();
+void reset_map();
+void set_clean();
+void set_sprayed();
+void calculate_thickness();
+void compare_results();
+void save_selection();
 float tgt_distance(phd::arm_msg arm, phd::arm_msg tgt);
 Q_SIGNALS:
 
@@ -68,6 +74,7 @@ protected:
   ros::NodeHandle nh_;
   ros::Subscriber pose_sub_;
   ros::Subscriber move_base_sub_;
+  ros::Publisher reset_map_pub_;
 
 
 private:

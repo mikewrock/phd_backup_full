@@ -81,7 +81,7 @@ public:
 	void estimate(std::string);
 	void thickness(std::string,std::string);
 	void nav_mode(float pos);
-	void fscan(std::string, bool auto_localize,std::string);
+	void fscan(std::string, bool auto_localize,bool set_home,std::string,bool autocrop);
 	void cluster(std::string, int index);
 	void start_pt();
 	int gen_trajectory(std::string);
@@ -93,6 +93,11 @@ public:
 	void send_command(float x, float y, float z, float rx, float ry, float rz, float fig, int motion);
 	void send_joint_command(float j1, float j2, float j3, float j4, float j5, float j6);
 	void send_string(std::string user_string);
+	void calculate_thickness(std::string);
+	void compare_results(std::string,std::string,std::string);
+	void set_clean();
+	void save_selection();
+	void set_sprayed();
 	void scan_360();
 	void soft_stop();
 	void show_markers(phd::trajectory_msg t_array);
@@ -137,6 +142,8 @@ private:
 	dynamic_reconfigure::Server<phd::ParamConfig>::CallbackType callback_type;
 	//Pointer to the pointcloud selection
 	pcl::PointCloud<pcl::PointXYZI>::Ptr current_pc_;
+	sensor_msgs::PointCloud2 clean_cloud;
+	sensor_msgs::PointCloud2 sprayed_cloud;
 	//Holds the entire pointcloud from laser_scan_assembler, used for calculating normals (useful at the edges of current_pc_)
 	sensor_msgs::PointCloud2 cloud_surface_raw;
 	sensor_msgs::PointCloud2 cloud_surface_world;

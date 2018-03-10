@@ -68,16 +68,17 @@
 #define foreach BOOST_FOREACH
 
 float VAL1, VAL2, VAL3, VAL4, CROP;
-float VACC;
+float VACC, CLUSTER_SIZE;
 int VINT_MIN, VINT_MAX;
 ros::Publisher tpub;
 ros::Publisher vis_pub;
-
+visualization_msgs::Marker point_list;
 
 //this callback is for dynamic reconfigure, it sets the global variables
 void reconfig_callback(phd::LocalizeConfig &config, uint32_t level) {
 
 	VACC = config.accuracy;
+	CLUSTER_SIZE = config.cluster_size;
 	VINT_MIN = config.intensity_min;
 	VINT_MAX = config.intensity_max;
 	CROP = config.crop_height;
@@ -114,6 +115,7 @@ std::vector<pcl::PointXYZI> cluster_points(pcl::PointCloud<pcl::PointXYZI>::Ptr 
 
 	if(DEBUG) ROS_INFO("Clustering");
 
+	point_list.header.stamp = ros::Time::now();
 
 	std::vector<pcl::PointXYZI> Pts;
 	for(int i = 0; i < (cloud_in->width * cloud_in->height) - 1 ; ++i){
@@ -122,7 +124,7 @@ std::vector<pcl::PointXYZI> cluster_points(pcl::PointCloud<pcl::PointXYZI>::Ptr 
 			cluster.push_back(cloud_in->points[i]);
 			for(int j = i+ 1; j < (cloud_in->width * cloud_in->height); ++j){
 
-				if(sqrt(pow(cloud_in->points[i].x - cloud_in->points[j].x,2)+pow(cloud_in->points[i].y - cloud_in->points[j].y,2)+pow(cloud_in->points[i].z - cloud_in->points[j].z,2)) < 0.06 && cloud_in->points[j].intensity != 0){
+				if(sqrt(pow(cloud_in->points[i].x - cloud_in->points[j].x,2)+pow(cloud_in->points[i].y - cloud_in->points[j].y,2)+pow(cloud_in->points[i].z - cloud_in->points[j].z,2)) < CLUSTER_SIZE && cloud_in->points[j].intensity != 0){
 					cluster.push_back(cloud_in->points[j]);
 					cloud_in->points[j].intensity = 0;
 				}
@@ -140,15 +142,24 @@ std::vector<pcl::PointXYZI> cluster_points(pcl::PointCloud<pcl::PointXYZI>::Ptr 
 				is+=cluster[k].intensity;
 			}
 			pcl::PointXYZI Pt;
+			geometry_msgs::Point p;
 			Pt.x = xs/cluster.size();
 			Pt.y = ys/cluster.size();
 			Pt.z = zs/cluster.size();
 			Pt.intensity = is/cluster.size();
-			if(DEBUG) ROS_INFO("Found point %f",Pt.intensity);
+			p.x = Pt.x;
+			p.y = Pt.y;
+			p.z = Pt.z;
+			if(DEBUG) ROS_INFO("Found point %f/%f - %f - %f",Pt.intensity,Pt.x,Pt.y,Pt.z);
 			Pts.push_back(Pt);
+			point_list.points.push_back(p);
 		}
 	}
 	//Write algorithm to detect if Pts.size > 3 and delete the cluster with the least points here if having issues
+
+	point_list.color.r = 1.0;
+	point_list.color.b = 0.0;
+	vis_pub.publish(point_list);
 	return Pts;
 }
 
@@ -174,26 +185,8 @@ bool locate_marker(std::vector<pcl::PointXYZI> Pts, Eigen::Matrix3f &marker_loca
 	float mn, mc;
 	std::vector<phd::marker_val> val_array;
 	phd::marker_val marker_val;
-	visualization_msgs::Marker point_list;
-	point_list.header.frame_id = "/base_link";
-	point_list.header.stamp = ros::Time::now();
-	point_list.ns = "points_and_lines";
-	point_list.action = visualization_msgs::Marker::ADD;
-	point_list.pose.orientation.w = 1.0;
-
-	point_list.id = 2;
-	point_list.type = visualization_msgs::Marker::POINTS;
-
-
-
-	point_list.scale.x = 0.05;
-	point_list.scale.y = 0.05;
-
-
-	// Line list is red
-	point_list.color.r = 1.0;
-	point_list.color.b = 0.0;
-	point_list.color.a = 0.5;
+	point_list.color.r = 0.0;
+	point_list.color.b = 1.0;
 
 	geometry_msgs::Point p;	
 	for(i = 0; i < Pts.size(); ++i){
@@ -231,19 +224,19 @@ bool locate_marker(std::vector<pcl::PointXYZI> Pts, Eigen::Matrix3f &marker_loca
 						P3x = Pts[k].x;
 						P3y = Pts[k].y;
 						P3z = Pts[k].z;
-			p.x = P1x;
-			p.y = P1y;
-			p.z = P1z;
-			point_list.points.push_back(p);
-			p.x = P2x;
-			p.y = P2y;
-			p.z = P2z;
-			point_list.points.push_back(p);
-			p.x = P3x;
-			p.y = P3y;
-			p.z = P3z;
-			point_list.points.push_back(p);
-			vis_pub.publish(point_list);
+						p.x = P1x;
+						p.y = P1y;
+						p.z = P1z;
+						point_list.points.push_back(p);
+						p.x = P2x;
+						p.y = P2y;
+						p.z = P2z;
+						point_list.points.push_back(p);
+						p.x = P3x;
+						p.y = P3y;
+						p.z = P3z;
+						point_list.points.push_back(p);
+						vis_pub.publish(point_list);
 						if(DEBUG) ROS_INFO("Marker Location: %f/%f/%f - %f/%f/%f - %f/%f/%f", P1x,P1y,P1z,P2x,P2y,P2z,P3x,P3y,P3z);		
 					}
 				}
@@ -329,9 +322,9 @@ bool locate_marker(std::vector<pcl::PointXYZI> Pts, Eigen::Matrix3f &marker_loca
 			p.y = P3y;
 			p.z = P3z;
 			point_list.points.push_back(p);
+			point_list.color.r += 0.1;
+			point_list.color.b -= 0.1;
 			vis_pub.publish(point_list);
-			point_list.color.r -= 0.1;
-			point_list.color.b += 0.1;
 	if(DEBUG)ROS_INFO("Marker Location: %f/%f/%f - %f/%f/%f - %f/%f/%f -- %f",P1x,P1y,P1z,P2x,P2y,P2z,P3x,P3y,P3z,bval);		
 		}
 
@@ -433,37 +426,37 @@ bool localize(phd::localize_cloud::Request  &req,
 		//publish a map correction here
 	}else{
 		
-	if(DEBUG) ROS_INFO("Localizing scan");
-	geometry_msgs::Point p1, p2, p3;
-	Eigen::Vector3f vec1, vec2;
-	std::stringstream fs;
-	fs << req.marker_file << "marker.dat";
-	ifstream marker_file( fs.str().c_str());
-	marker_file >> p1.x;
-	marker_file >> p1.y;
-	marker_file >> p1.z;
-	marker_file >> p2.x;
-	marker_file >> p2.y;
-	marker_file >> p2.z;
-	marker_file >> p3.x;
-	marker_file >> p3.y;
-	marker_file >> p3.z;
-	marker_file >> VAL1;
-	marker_file >> VAL2;
-	marker_file >> VAL3;
-	marker_file >> VAL4;
-	marker_file >> vec1[0];
-	marker_file >> vec1[1];
-	marker_file >> vec1[2];
-	marker_file >> vec2[0];
-	marker_file >> vec2[1];
-	marker_file >> vec2[2];
-	std::vector<pcl::PointXYZI> Pts;
-	Pts = cluster_points(cloud_intensity_filtered);
-	if(DEBUG) ROS_INFO("Clustered Points: %lu", Pts.size());
-	Eigen::Matrix3f marker_loc;
-	Eigen::Matrix4f transform_mat;
-	marker = locate_marker(Pts, marker_loc, transform_mat);
+		if(DEBUG) ROS_INFO("Localizing scan");
+		geometry_msgs::Point p1, p2, p3;
+		Eigen::Vector3f vec1, vec2;
+		std::stringstream fs;
+		fs << req.marker_file << "marker.dat";
+		ifstream marker_file( fs.str().c_str());
+		marker_file >> p1.x;
+		marker_file >> p1.y;
+		marker_file >> p1.z;
+		marker_file >> p2.x;
+		marker_file >> p2.y;
+		marker_file >> p2.z;
+		marker_file >> p3.x;
+		marker_file >> p3.y;
+		marker_file >> p3.z;
+		marker_file >> VAL1;
+		marker_file >> VAL2;
+		marker_file >> VAL3;
+		marker_file >> VAL4;
+		marker_file >> vec1[0];
+		marker_file >> vec1[1];
+		marker_file >> vec1[2];
+		marker_file >> vec2[0];
+		marker_file >> vec2[1];
+		marker_file >> vec2[2];
+		std::vector<pcl::PointXYZI> Pts;
+		Pts = cluster_points(cloud_intensity_filtered);
+		if(DEBUG) ROS_INFO("Clustered Points: %lu", Pts.size());
+		Eigen::Matrix3f marker_loc;
+		Eigen::Matrix4f transform_mat;
+		marker = locate_marker(Pts, marker_loc, transform_mat);
 		std::stringstream fs2;
 		fs2 << req.marker_file << "marker.bag";
 		ROS_INFO("Using marker file %s",fs2.str().c_str());
@@ -484,10 +477,11 @@ bool localize(phd::localize_cloud::Request  &req,
 		}
 		bag.close();	
 
-		//std::cout << "Transform Mat" << transform_mat << std::endl;
-		//std::cout << "Transform A" << transformA << std::endl;
+		std::cout << "Transform Mat" << transform_mat << std::endl;
+		std::cout << "Transform A" << transformA << std::endl;
 		pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_int (new pcl::PointCloud<pcl::PointXYZI>);
 		Eigen::Matrix4f transformAB = transform_mat.inverse();
+		std::cout << "Transform AB" << transformAB << std::endl;
 		res.transform_mat[0] = transformAB(0,0);
 		res.transform_mat[1] = transformAB(0,1);
 		res.transform_mat[2] = transformAB(0,2);
@@ -531,6 +525,19 @@ main (int argc, char** argv)
 	dynamic_reconfigure::Server<phd::LocalizeConfig>::CallbackType callback_type;
 	callback_type = boost::bind(&reconfig_callback, _1, _2);
 	server.setCallback(callback_type);
+	point_list.header.frame_id = "/base_footprint";
+	point_list.header.stamp = ros::Time::now();
+	point_list.ns = "points_and_lines";
+	point_list.action = visualization_msgs::Marker::ADD;
+	point_list.pose.orientation.w = 1.0;
+	point_list.id = 2;
+	point_list.type = visualization_msgs::Marker::POINTS;
+	point_list.scale.x = 0.05;
+	point_list.scale.y = 0.05;
+	// Line list is red
+	point_list.color.r = 1.0;
+	point_list.color.b = 0.0;
+	point_list.color.a = 0.5;
 	ros::spin();
 
 
