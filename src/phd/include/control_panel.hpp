@@ -50,6 +50,7 @@
 #include <dynamic_reconfigure/server.h>
 #include <phd/ParamConfig.h>
 #include "phd/trajectory_array.h"
+#include "phd/empty.h"
 #include "phd/arm_msg.h"
 #include <pcl/filters/extract_indices.h>
 // bCAP (Always last)
@@ -76,7 +77,7 @@ public:
 	QNode(){}
 	virtual ~QNode();
 	void scan(std::string, bool localize);
-	phd::arm_msg step(int traj_ctr, bool arm);
+	phd::arm_msg step(int traj_ctr, bool arm, float fig);
 	void show_nav();
 	void estimate(std::string);
 	void thickness(std::string,std::string);
@@ -98,14 +99,18 @@ public:
 	void set_clean();
 	void save_selection();
 	void set_sprayed();
+	void set_speed(float speed);
 	void scan_360();
 	void soft_stop();
+	void find_and_move(bool marker);
+	pcl::PointXYZI find_and_delete_point(pcl::PointCloud<pcl::PointXYZI>::Ptr line, pcl::PointXYZI target_pt);
 	void show_markers(phd::trajectory_msg t_array);
 	void pose_step(int pose_ctr);
 	//Variables for holding the first two points of the marker, when the third one comes in they all get saved to file
 	float P1x, P1y, P1z, P2x, P2y, P2z;
 	//Variables for holding the start point for the trajectory algorithm
 	float T1x, T1y, T1z;
+	pcl::PointCloud<pcl::PointXYZI>::Ptr raw_pc_;
 
 
 Q_SIGNALS:
@@ -133,6 +138,8 @@ private:
 	ros::Publisher dir_pub;
 	ros::Publisher path_pub;
 	ros::Publisher arm_pose_pub;
+	ros::Publisher reset_map_pub;
+	ros::ServiceClient reset_map_srv;
 	ros::ServiceClient client;
 	ros::ServiceClient loc_client;
 	ros::ServiceClient traj_client;

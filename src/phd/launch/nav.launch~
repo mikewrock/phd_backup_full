@@ -77,7 +77,7 @@
   <!--- Run local laser assembler -->
   <node type="laser_scan_assembler" pkg="laser_assembler" name="my_assembler">
     <param name="max_scans" type="int" value="10000" />
-    <param name="fixed_frame" type="string" value="base_link" />
+    <param name="fixed_frame" type="string" value="base_footprint" />
     <param name="tf_cache_time_secs" type="double" value="30.0" />
     <remap from="scan" to="scan_filtered" />
   </node>
@@ -85,14 +85,12 @@
   <node name="cube_node" pkg="phd" type="cube_node" output="screen" />
   <!--- Run Joint State Fusion node-->
   <node name="joint_fusion_node" pkg="phd" type="joint_fusion_node" output="screen" />
-
-    <!--- Run static transform for laser-->
-  <node pkg="tf" type="static_transform_publisher" name="kinect_broadcaster" args="0 0 0 0 0 0 world map 100" />
  
 
 <!-- hector mapping -->
 <node pkg="hector_mapping" type="hector_mapping"     name="hector_mapping" output="screen">
 <param name="base_frame" type="string" value="base_footprint" />
+<remap from="scan" to="scan_filtered" />
   </node>
   <!--- Run rviz -->
     <node name="rviz" pkg="rviz" type="rviz" required="True" output="screen" args="-d $(find phd)/cfg/rviz_scan.rviz"> 
@@ -111,10 +109,10 @@
   <node type="thickness_server" pkg="phd" name="thickness_service" output="screen">
   </node>
 
-  <!--- Record data -->
+  <!--- Record data 
  <node pkg="rosbag" type="record" name="rosbag_record"
        args="-O /home/mike/testing/bag /assembled_cloud" />
-
+-->
   <!--- Run dynamicreconfigure -->
   <node type="rqt_reconfigure" pkg="rqt_reconfigure" name="rqt_reconfigure" output="screen">
   </node>

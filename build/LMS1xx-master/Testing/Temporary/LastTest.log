@@ -1,0 +1,45 @@
+Start testing: Mar 29 15:23 EDT
+----------------------------------------------------------
+1/2 Testing: _ctest_lms1xx_gtest_test_buffer
+1/2 Test: _ctest_lms1xx_gtest_test_buffer
+Command: "/home/mike/catkin_ws/build/catkin_generated/env_cached.sh" "/usr/bin/python" "/opt/ros/indigo/share/catkin/cmake/test/run_tests.py" "/home/mike/catkin_ws/build/test_results/lms1xx/gtest-test_buffer.xml" "--return-code" "/home/mike/catkin_ws/devel/lib/lms1xx/test_buffer --gtest_output=xml:/home/mike/catkin_ws/build/test_results/lms1xx/gtest-test_buffer.xml"
+Directory: /home/mike/catkin_ws/build/LMS1xx-master
+"_ctest_lms1xx_gtest_test_buffer" start time: Mar 29 15:23 EDT
+Output:
+----------------------------------------------------------
+/bin/sh: 1: /home/mike/catkin_ws/devel/lib/lms1xx/test_buffer: not found
+Cannot find results, writing failure results to '/home/mike/catkin_ws/build/test_results/lms1xx/MISSING-gtest-test_buffer.xml'
+-- run_tests.py: execute commands
+  /home/mike/catkin_ws/devel/lib/lms1xx/test_buffer --gtest_output=xml:/home/mike/catkin_ws/build/test_results/lms1xx/gtest-test_buffer.xml
+-- run_tests.py: verify result "/home/mike/catkin_ws/build/test_results/lms1xx/gtest-test_buffer.xml"
+<end of output>
+Test time =   0.13 sec
+----------------------------------------------------------
+Test Failed.
+"_ctest_lms1xx_gtest_test_buffer" end time: Mar 29 15:23 EDT
+"_ctest_lms1xx_gtest_test_buffer" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/2 Testing: _ctest_lms1xx_roslaunch-check_launch_LMS1xx.launch
+2/2 Test: _ctest_lms1xx_roslaunch-check_launch_LMS1xx.launch
+Command: "/home/mike/catkin_ws/build/catkin_generated/env_cached.sh" "/usr/bin/python" "/opt/ros/indigo/share/catkin/cmake/test/run_tests.py" "/home/mike/catkin_ws/build/test_results/lms1xx/roslaunch-check_launch_LMS1xx.launch.xml" "--return-code" "/usr/bin/cmake -E make_directory /home/mike/catkin_ws/build/test_results/lms1xx" "/opt/ros/indigo/share/roslaunch/cmake/../scripts/roslaunch-check -o '/home/mike/catkin_ws/build/test_results/lms1xx/roslaunch-check_launch_LMS1xx.launch.xml' '/home/mike/catkin_ws/src/LMS1xx-master/launch/LMS1xx.launch' "
+Directory: /home/mike/catkin_ws/build/LMS1xx-master
+"_ctest_lms1xx_roslaunch-check_launch_LMS1xx.launch" start time: Mar 29 15:23 EDT
+Output:
+----------------------------------------------------------
+checking /home/mike/catkin_ws/src/LMS1xx-master/launch/LMS1xx.launch
+...writing test results to /home/mike/catkin_ws/build/test_results/lms1xx/roslaunch-check_launch_LMS1xx.launch.xml
+passed
+-- run_tests.py: execute commands
+  /usr/bin/cmake -E make_directory /home/mike/catkin_ws/build/test_results/lms1xx
+  /opt/ros/indigo/share/roslaunch/cmake/../scripts/roslaunch-check -o '/home/mike/catkin_ws/build/test_results/lms1xx/roslaunch-check_launch_LMS1xx.launch.xml' '/home/mike/catkin_ws/src/LMS1xx-master/launch/LMS1xx.launch' 
+-- run_tests.py: verify result "/home/mike/catkin_ws/build/test_results/lms1xx/roslaunch-check_launch_LMS1xx.launch.xml"
+<end of output>
+Test time =   2.24 sec
+----------------------------------------------------------
+Test Passed.
+"_ctest_lms1xx_roslaunch-check_launch_LMS1xx.launch" end time: Mar 29 15:23 EDT
+"_ctest_lms1xx_roslaunch-check_launch_LMS1xx.launch" time elapsed: 00:00:02
+----------------------------------------------------------
+
+End testing: Mar 29 15:23 EDT

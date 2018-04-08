@@ -10,6 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
   rviz
   sensor_msgs
   std_msgs
+  std_srvs
   tf
   urdf 
   diagnostic_updater
@@ -102,6 +103,7 @@ generate_dynamic_reconfigure_options(
  add_service_files(
    FILES
 	localize_cloud.srv
+	empty.srv
 	thickness_service.srv
 	trajectory_service.srv
 	simple_trajectory_service.srv
@@ -119,6 +121,7 @@ generate_dynamic_reconfigure_options(
  generate_messages(
    DEPENDENCIES
   std_msgs
+  std_srvs
    actionlib_msgs
   sensor_msgs
  )
@@ -214,6 +217,7 @@ qt4_wrap_ui(${PROJECT_NAME}_UIS_H ${${PROJECT_NAME}_UIS})
 add_executable(cube_node src/cube_node.cpp)
 add_executable(parse_node src/parse_file.cpp)
 add_executable(test_node src/test_node.cpp)
+add_executable(calibration_node src/calibration.cpp)
 add_executable(denso_node src/denso_node.cpp)
 add_executable(joint_fusion_node src/joint_state_fusion.cpp)
 add_executable(cloud_localizer src/pointcloud_localization_service.cpp)
@@ -250,6 +254,7 @@ target_link_libraries(bcap_client ${catkin_LIBRARIES})
 target_link_libraries(cube_node  ${catkin_LIBRARIES})
 target_link_libraries(parse_node  ${catkin_LIBRARIES})
 target_link_libraries(test_node  ${catkin_LIBRARIES} ${PCL_LIBRARIES})
+target_link_libraries(calibration_node  ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(cloud_localizer  ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(thickness_server  ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(trajectory_server  ${catkin_LIBRARIES} ${PCL_LIBRARIES})

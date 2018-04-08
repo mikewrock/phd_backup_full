@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>283</width>
+    <width>284</width>
     <height>656</height>
    </rect>
   </property>
@@ -143,7 +143,7 @@ Trajectory</string>
       </rect>
      </property>
      <property name="text">
-      <string>/home/mike/results/saved/</string>
+      <string>/home/mike/saved/full</string>
      </property>
     </widget>
     <widget class="QLabel" name="marker_info_9">
@@ -186,7 +186,7 @@ Trajectory</string>
       </rect>
      </property>
      <property name="text">
-      <string>/home/mike/testing/s1trajectory.bag</string>
+      <string>/home/mike/testing/1trajectory.bag</string>
      </property>
     </widget>
     <widget class="QLabel" name="marker_info_15">
@@ -565,7 +565,7 @@ color: rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="text">
-      <string>/home/mike/results/saved/localized big marker/pose1cleanlocalized.pcd</string>
+      <string>/home/mike/results/saved/unlocalized/pose1clean.pcd</string>
      </property>
     </widget>
     <widget class="QPushButton" name="scan_360">
@@ -626,7 +626,7 @@ color: rgb(255, 255, 255);</string>
       <string>Marker Only</string>
      </property>
      <property name="checked">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QPushButton" name="step_button">
@@ -852,9 +852,9 @@ color: rgb(255, 255, 255);</string>
     <widget class="QPushButton" name="cp_command_button">
      <property name="geometry">
       <rect>
-       <x>140</x>
+       <x>100</x>
        <y>44</y>
-       <width>131</width>
+       <width>91</width>
        <height>31</height>
       </rect>
      </property>
@@ -947,7 +947,7 @@ color: rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="text">
-      <string>61.16</string>
+      <string>90</string>
      </property>
     </widget>
     <widget class="QTextBrowser" name="j1_browser">
@@ -1313,7 +1313,7 @@ color: rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="text">
-      <string>-167.28</string>
+      <string>-180</string>
      </property>
     </widget>
     <widget class="QPushButton" name="launch_node_button">
@@ -1373,7 +1373,7 @@ color: rgb(255, 255, 255);</string>
       <rect>
        <x>0</x>
        <y>44</y>
-       <width>131</width>
+       <width>91</width>
        <height>31</height>
       </rect>
      </property>
@@ -1480,6 +1480,19 @@ color: rgb(255, 255, 255);</string>
      </property>
      <property name="text">
       <string>J6</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="t_command_button">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>45</y>
+       <width>71</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Send T</string>
      </property>
     </widget>
    </widget>

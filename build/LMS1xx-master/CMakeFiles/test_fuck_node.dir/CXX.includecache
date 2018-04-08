@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/mike/catkin_ws/src/LMS1xx-master/include/LMS1xx/lms_buffer.h
+console_bridge/console.h
+/home/mike/catkin_ws/src/LMS1xx-master/include/LMS1xx/console_bridge/console.h
+stdint.h
+-
+string.h
+-
+unistd.h
+-
+
+/home/mike/catkin_ws/src/LMS1xx-master/test/test_buffer.cpp
+LMS1xx/lms_buffer.h
+/home/mike/catkin_ws/src/LMS1xx-master/test/LMS1xx/lms_buffer.h
+gtest/gtest.h
+/home/mike/catkin_ws/src/LMS1xx-master/test/gtest/gtest.h
+errno.h
+-
+unistd.h
+-
+

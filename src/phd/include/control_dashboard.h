@@ -14,6 +14,7 @@
 #include "control_panel.hpp"
 //#include "vel_control.hpp"
 #include <phd/arm_msg.h>
+#include "phd/empty.h"
 
 namespace control_panel
 {
@@ -49,9 +50,11 @@ void cluster_3();
 void gen_trajectory();	
 void onPTPCommand();
 void onCPCommand();
+void onTCommand();
 void onJointCommand();
 void onStringCommand();
 void onShutdownCommand();
+void onSpeedCommand();
 void scan_360();
 void load_traj();
 void rosSpinner();
@@ -75,7 +78,7 @@ protected:
   ros::Subscriber pose_sub_;
   ros::Subscriber move_base_sub_;
   ros::Publisher reset_map_pub_;
-
+  ros::ServiceClient reset_map_srv;
 
 private:
 	//Create the control panel and manual operation nodes

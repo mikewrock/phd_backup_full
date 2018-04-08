@@ -8,6 +8,7 @@ FILE(REMOVE_RECURSE
   "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/trajectory_array.lisp"
   "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/trajectory_msg.lisp"
   "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/localize_cloud.lisp"
+  "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/empty.lisp"
   "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/thickness_service.lisp"
   "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/simple_trajectory_service.lisp"
   "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/trajectory_service.lisp"

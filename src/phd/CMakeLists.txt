@@ -102,6 +102,7 @@ generate_dynamic_reconfigure_options(
  add_service_files(
    FILES
 	localize_cloud.srv
+	empty.srv
 	thickness_service.srv
 	trajectory_service.srv
 	simple_trajectory_service.srv

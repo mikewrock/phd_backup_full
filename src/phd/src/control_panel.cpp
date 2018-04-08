@@ -61,6 +61,7 @@
 #define CP 2
 #define JOINT 3
 #define STRING 4
+#define SPEED 7
 //#define OFFSET .8
 #define WORKSPACE_WIDTH 0.5
 #define H_SLICE 0.5
@@ -88,8 +89,12 @@ phd::simple_trajectory_service traj_srv;
 std::string CLOUD;
 int CLOUD_NUM;
 float VINT_MIN,VINT_MAX;
+float POSE_OFFSET;
 double cropMaxX, cropMaxY, cropMaxZ, cropMinX, cropMinY, cropMinZ;
 double occludeMaxX, occludeMaxY, occludeMaxZ, occludeMinX, occludeMinY, occludeMinZ;
+	ros::Publisher crop_pub;
+bool pose_waiting, marker_only, INIT_CLEAR;
+std_msgs::String RESET_MAP;
 
 //This is our client for sending move_base goals
 actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient("move_base", true);
@@ -121,6 +126,190 @@ void reconfig_callback(phd::ParamConfig &config, uint32_t level) {
 	occludeMinX = config.auto_occlude_min_x;
 	occludeMinY = config.auto_occlude_min_y;
 	occludeMinZ = config.auto_occlude_min_z;
+	POSE_OFFSET = config.pose_offset;
+	INIT_CLEAR = config.init_clear;
+	visualization_msgs::Marker crop_marker;
+	crop_marker.header.frame_id = "/base_footprint";
+	crop_marker.header.stamp = ros::Time::now();
+	crop_marker.ns = "basic_shapes";
+	crop_marker.id = 0;
+	crop_marker.type = visualization_msgs::Marker::LINE_LIST;
+	crop_marker.action = visualization_msgs::Marker::ADD;
+	crop_marker.scale.x = .02;
+	crop_marker.color.r = 0.0f;
+	crop_marker.color.g = 1.0f;
+	crop_marker.color.b = 1.0f;
+	crop_marker.color.a = 1;
+	crop_marker.lifetime = ros::Duration();
+	crop_marker.points.resize(52);
+	crop_marker.points[0].x = occludeMinX;
+	crop_marker.points[0].y = occludeMinY;
+	crop_marker.points[0].z = occludeMinZ;
+	crop_marker.points[1].x = occludeMinX;
+	crop_marker.points[1].y = occludeMaxY;
+	crop_marker.points[1].z = occludeMinZ;
+	crop_marker.points[2].x = occludeMinX;
+	crop_marker.points[2].y = occludeMinY;
+	crop_marker.points[2].z = occludeMinZ;
+	crop_marker.points[3].x = occludeMinX;
+	crop_marker.points[3].y = occludeMinY;
+	crop_marker.points[3].z = occludeMaxZ;
+	crop_marker.points[4].x = occludeMinX;
+	crop_marker.points[4].y = occludeMinY;
+	crop_marker.points[4].z = occludeMinZ;
+	crop_marker.points[5].x = occludeMaxX;
+	crop_marker.points[5].y = occludeMinY;
+	crop_marker.points[5].z = occludeMinZ;
+	crop_marker.points[6].x = occludeMaxX;
+	crop_marker.points[6].y = occludeMinY;
+	crop_marker.points[6].z = occludeMinZ;
+	crop_marker.points[7].x = occludeMaxX;
+	crop_marker.points[7].y = occludeMaxY;
+	crop_marker.points[7].z = occludeMinZ;
+	crop_marker.points[8].x = occludeMaxX;
+	crop_marker.points[8].y = occludeMinY;
+	crop_marker.points[8].z = occludeMinZ;
+	crop_marker.points[9].x = occludeMaxX;
+	crop_marker.points[9].y = occludeMinY;
+	crop_marker.points[9].z = occludeMaxZ;
+
+	crop_marker.points[10].x = occludeMaxX;
+	crop_marker.points[10].y = occludeMaxY;
+	crop_marker.points[10].z = occludeMaxZ;
+	crop_marker.points[11].x = occludeMaxX;
+	crop_marker.points[11].y = occludeMaxY;
+	crop_marker.points[11].z = occludeMinZ;
+	crop_marker.points[12].x = occludeMaxX;
+	crop_marker.points[12].y = occludeMaxY;
+	crop_marker.points[12].z = occludeMaxZ;
+	crop_marker.points[13].x = occludeMaxX;
+	crop_marker.points[13].y = occludeMinY;
+	crop_marker.points[13].z = occludeMaxZ;
+	crop_marker.points[14].x = occludeMaxX;
+	crop_marker.points[14].y = occludeMaxY;
+	crop_marker.points[14].z = occludeMaxZ;
+	crop_marker.points[15].x = occludeMinX;
+	crop_marker.points[15].y = occludeMaxY;
+	crop_marker.points[15].z = occludeMaxZ;
+	crop_marker.points[16].x = occludeMinX;
+	crop_marker.points[16].y = occludeMaxY;
+	crop_marker.points[16].z = occludeMaxZ;
+	crop_marker.points[17].x = occludeMinX;
+	crop_marker.points[17].y = occludeMaxY;
+	crop_marker.points[17].z = occludeMinZ;
+	crop_marker.points[18].x = occludeMinX;
+	crop_marker.points[18].y = occludeMaxY;
+	crop_marker.points[18].z = occludeMaxZ;
+	crop_marker.points[19].x = occludeMaxX;
+	crop_marker.points[19].y = occludeMaxY;
+	crop_marker.points[19].z = occludeMaxZ;
+
+	crop_marker.points[20].x = occludeMinX;
+	crop_marker.points[20].y = occludeMaxY;
+	crop_marker.points[20].z = occludeMinZ;
+	crop_marker.points[21].x = occludeMaxX;
+	crop_marker.points[21].y = occludeMaxY;
+	crop_marker.points[21].z = occludeMinZ;
+	crop_marker.points[22].x = occludeMinX;
+	crop_marker.points[22].y = occludeMinY;
+	crop_marker.points[22].z = occludeMaxZ;
+	crop_marker.points[23].x = occludeMaxX;
+	crop_marker.points[23].y = occludeMinY;
+	crop_marker.points[23].z = occludeMaxZ;
+
+	crop_marker.points[30].x = cropMinX;
+	crop_marker.points[30].y = cropMinY;
+	crop_marker.points[30].z = cropMinZ;
+	crop_marker.points[31].x = cropMinX;
+	crop_marker.points[31].y = cropMaxY;
+	crop_marker.points[31].z = cropMinZ;
+	crop_marker.points[32].x = cropMinX;
+	crop_marker.points[32].y = cropMinY;
+	crop_marker.points[32].z = cropMinZ;
+	crop_marker.points[33].x = cropMinX;
+	crop_marker.points[33].y = cropMinY;
+	crop_marker.points[33].z = cropMaxZ;
+	crop_marker.points[34].x = cropMinX;
+	crop_marker.points[34].y = cropMinY;
+	crop_marker.points[34].z = cropMinZ;
+	crop_marker.points[35].x = cropMaxX;
+	crop_marker.points[35].y = cropMinY;
+	crop_marker.points[35].z = cropMinZ;
+	crop_marker.points[36].x = cropMaxX;
+	crop_marker.points[36].y = cropMinY;
+	crop_marker.points[36].z = cropMinZ;
+	crop_marker.points[37].x = cropMaxX;
+	crop_marker.points[37].y = cropMaxY;
+	crop_marker.points[37].z = cropMinZ;
+	crop_marker.points[38].x = cropMaxX;
+	crop_marker.points[38].y = cropMinY;
+	crop_marker.points[38].z = cropMinZ;
+	crop_marker.points[39].x = cropMaxX;
+	crop_marker.points[39].y = cropMinY;
+	crop_marker.points[39].z = cropMaxZ;
+
+	crop_marker.points[40].x = cropMaxX;
+	crop_marker.points[40].y = cropMaxY;
+	crop_marker.points[40].z = cropMaxZ;
+	crop_marker.points[41].x = cropMaxX;
+	crop_marker.points[41].y = cropMaxY;
+	crop_marker.points[41].z = cropMinZ;
+	crop_marker.points[42].x = cropMaxX;
+	crop_marker.points[42].y = cropMaxY;
+	crop_marker.points[42].z = cropMaxZ;
+	crop_marker.points[43].x = cropMaxX;
+	crop_marker.points[43].y = cropMinY;
+	crop_marker.points[43].z = cropMaxZ;
+	crop_marker.points[44].x = cropMaxX;
+	crop_marker.points[44].y = cropMaxY;
+	crop_marker.points[44].z = cropMaxZ;
+	crop_marker.points[45].x = cropMinX;
+	crop_marker.points[45].y = cropMaxY;
+	crop_marker.points[45].z = cropMaxZ;
+	crop_marker.points[46].x = cropMinX;
+	crop_marker.points[46].y = cropMaxY;
+	crop_marker.points[46].z = cropMaxZ;
+	crop_marker.points[47].x = cropMinX;
+	crop_marker.points[47].y = cropMaxY;
+	crop_marker.points[47].z = cropMinZ;
+	crop_marker.points[28].x = cropMinX;
+	crop_marker.points[28].y = cropMaxY;
+	crop_marker.points[28].z = cropMaxZ;
+	crop_marker.points[29].x = cropMaxX;
+	crop_marker.points[29].y = cropMaxY;
+	crop_marker.points[29].z = cropMaxZ;
+
+	crop_marker.points[24].x = cropMinX;
+	crop_marker.points[24].y = cropMaxY;
+	crop_marker.points[24].z = cropMinZ;
+	crop_marker.points[25].x = cropMaxX;
+	crop_marker.points[25].y = cropMaxY;
+	crop_marker.points[25].z = cropMinZ;
+	crop_marker.points[26].x = cropMinX;
+	crop_marker.points[26].y = cropMinY;
+	crop_marker.points[26].z = cropMaxZ;
+	crop_marker.points[27].x = cropMaxX;
+	crop_marker.points[27].y = cropMinY;
+	crop_marker.points[27].z = cropMaxZ;
+
+	crop_marker.points[48].x = cropMinX;
+	crop_marker.points[48].y = cropMaxY;
+	crop_marker.points[48].z = cropMaxZ;
+	crop_marker.points[49].x = cropMinX;
+	crop_marker.points[49].y = cropMinY;
+	crop_marker.points[49].z = cropMaxZ;
+	crop_marker.points[50].x = occludeMinX;
+	crop_marker.points[50].y = occludeMinY;
+	crop_marker.points[50].z = occludeMaxZ;
+	crop_marker.points[51].x = occludeMinX;
+	crop_marker.points[51].y = occludeMaxY;
+	crop_marker.points[51].z = occludeMaxZ;
+
+
+
+	crop_pub.publish(crop_marker);
+	ros::Duration(0.5).sleep();
+	ros::spinOnce();
 
 
 }
@@ -132,9 +321,9 @@ void QNode::jointCallback(const sensor_msgs::JointState::ConstPtr& msg)
 //Store the point cloud selection in current_pc_
 void QNode::cloudCallback(const sensor_msgs::PointCloud2::ConstPtr& cloud)
 {
-
 	current_pc_.reset(new pcl::PointCloud<pcl::PointXYZI>());
 	pcl::fromROSMsg(*cloud, *this->current_pc_);
+
 
 }
 
@@ -161,10 +350,13 @@ bool QNode::init() {
 	path_pub = nh_.advertise<visualization_msgs::Marker>( "path_marker", 0 );
 	dir_pub = nh_.advertise<visualization_msgs::Marker>( "dir_marker", 0 );
 	arm_pose_pub = nh_.advertise<visualization_msgs::Marker>( "pose_marker", 0 );
+	crop_pub = nh_.advertise<visualization_msgs::Marker>( "crop_marker", 0 );
 	//Publisher for displaying navigation goal
 	nav_vis_pub = nh_.advertise<geometry_msgs::PoseArray>( "nav_vis_goal", 0 );
 	//Publisher for advertising navigation goal
 	nav_pub = nh_.advertise<geometry_msgs::PoseStamped>( "nav_goal", 0 );
+	reset_map_pub = nh_.advertise<std_msgs::String> ("syscommand", 1);
+	reset_map_srv = nh_.serviceClient<phd::empty>("move_base/clear_costmaps");
 	//Subscribers to listen to the powercube position and point cloud selection
 	joint_sub = nh_.subscribe("cube_joint_states", 1, &control_panel::control_panel_ns::QNode::jointCallback,this);
 	cloud_sub = nh_.subscribe("marker_selected_points", 1, &control_panel::control_panel_ns::QNode::cloudCallback,this);
@@ -198,6 +390,7 @@ bool QNode::init() {
 	//pose_ctr = 0;
 	tctr = 0;
 	current_pc_.reset(new pcl::PointCloud<pcl::PointXYZI>());
+	raw_pc_.reset(new pcl::PointCloud<pcl::PointXYZI>());
 	//ros::start();
 
 	//Visualization of robot workspace
@@ -228,6 +421,24 @@ bool QNode::init() {
 	ws_pub.publish(ws_points);
 	ros::Duration(0.5).sleep();
 	ros::spinOnce();
+	pose_waiting = false;
+	while(joint1 > -1.56 && ros::ok() && INIT_CLEAR){
+		//ROS_INFO("Waiting to reset map");
+		ros::spinOnce();
+	}
+	ROS_INFO("Resetting Map");
+	std::stringstream ss;
+	ss << "reset";
+	phd::empty esrv;
+	reset_map_srv.call(esrv);
+	RESET_MAP.data = ss.str();
+	transform.setOrigin( tf::Vector3(0, 0, 0) );
+	q.setRPY(0, 0, 0);
+	transform.setRotation(q);
+	br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "world", "map"));
+	ros::spinOnce();
+
+
 }
 
 //Soft stop for the arm and base
@@ -245,6 +456,18 @@ void QNode::soft_stop(void){
 	arm_pub.publish(msg);
 	//Cancel all move_base goals
 	MoveBaseClient.cancelAllGoals();
+	ros::spinOnce();
+
+}
+
+//Soft stop for the arm and base
+void QNode::set_speed(float speed){
+
+	//Send the arm to its home location
+	phd::arm_msg msg;
+	msg.vel = speed;
+	msg.motion_type = SPEED;
+	arm_pub.publish(msg);
 	ros::spinOnce();
 
 }
@@ -312,7 +535,7 @@ float vec_length(pcl::PointXYZI pointA,pcl::PointXYZI pointB){
 //Display the current naviagtion goals
 void QNode::show_nav() {
 
-	goals.header.frame_id = "/world";
+	goals.header.frame_id = "/base_footprint";
 	goals.header.stamp = ros::Time::now();
 	nav_vis_pub.publish(goals);
 
@@ -434,6 +657,81 @@ void QNode::run() {
 	std::cout << "Ros shutdown, proceeding to close the gui." << std::endl;
 	Q_EMIT rosShutdown(); // used to signal the gui for a shutdown (useful to roslaunch)
 }
+tfScalar dot_p(float v1[3], float v2[3]){
+
+	tfScalar ret = v1[0]*v2[0]+v1[1]*v2[1]+v1[2]*v2[2];
+	return ret;
+
+}
+
+
+void calc_RPY(phd::trajectory_point t_point, phd::arm_msg* msg){
+
+	float bX[3], bY[3], bZ[3], temp[3];
+	float aX[3], aY[3], aZ[3];
+	aX[0] = 1;
+	aX[1] = 0;
+	aX[2] = 0;
+	aY[0] = 0;
+	aY[1] = 1;
+	aY[2] = 0;
+	aZ[0] = 0;
+	aZ[1] = 0;
+	aZ[2] = 1;
+	bZ[0] = -t_point.nx;
+	bZ[1] = t_point.ny;
+	bZ[2] = t_point.nz;
+float length = sqrt(pow(bZ[0],2)+pow(bZ[1],2)+pow(bZ[2],2));
+
+	//Convert to unit vector
+	bZ[0] = bZ[0]/length;
+	bZ[1] = bZ[1]/length;
+	bZ[2] = bZ[2]/length;
+	if(bZ[0] != 1){
+		temp[0] = 0;
+		temp[1] = bZ[2];
+		temp[2]  = -bZ[1];
+	}else{	
+		temp[0] = -bZ[2];
+		temp[1] = 0;
+		temp[2]  = bZ[0];
+	}
+
+	bY[0] = bZ[1]*temp[2]-temp[1]*bZ[2];
+	bY[1] = bZ[2]*temp[0]-temp[2]*bZ[0];
+	bY[2]  = bZ[0]*temp[1]-temp[0]*bZ[1];
+	length = sqrt(pow(bY[0],2)+pow(bY[1],2)+pow(bY[2],2));
+	//Convert to unit vector
+	bY[0] = bY[0]/length;
+	bY[1] = bY[1]/length;
+	bY[2] = bY[2]/length;
+
+	bX[0] = bZ[1]*bY[2]-bY[1]*bZ[2];
+	bX[1] = bZ[2]*bY[0]-bY[2]*bZ[0];
+	bX[2]  = bZ[0]*bY[1]-bY[0]*bZ[1];
+	length = sqrt(pow(bX[0],2)+pow(bX[1],2)+pow(bX[2],2));
+	//Convert to unit vector
+	bX[0] = bX[0]/length;
+	bX[1] = bX[1]/length;
+	bX[2] = bX[2]/length;
+	tfScalar yaw, pitch, roll;
+length = sqrt(pow(bZ[0],2)+pow(bZ[1],2)+pow(bZ[2],2));
+	ROS_INFO("bz %f", length);
+	ROS_INFO("dots %f - %f - %f", dot_p(bX,bY),dot_p(bX,bZ),dot_p(bZ,bY));
+	tf::Matrix3x3 mat(dot_p(bX,aX),dot_p(bY,aX),dot_p(bZ,aX),dot_p(bX,aY),dot_p(bY,aY),dot_p(bZ,aY),dot_p(bX,aZ),dot_p(bY,aZ),dot_p(bZ,aZ));
+	mat.getRPY(roll,pitch,yaw);
+
+	ROS_INFO("Z: %f Y: %f X: %f",yaw,pitch,roll);
+	msg->rx = roll;
+	msg->ry = pitch;
+	msg->rz = yaw;
+	//msg->x = 320;
+	//msg->y = 72;
+	//msg->z = 500;
+
+}
+
+
 
 //Helper function for when a trajectory point is outside the robot's workspace, returns an arm message
 phd::arm_msg move_to_workspace(phd::trajectory_point t_point){
@@ -446,24 +744,43 @@ phd::arm_msg move_to_workspace(phd::trajectory_point t_point){
 	t_point.ny = (t_point.y - Y_BASE_TO_ARM) / vec_len;
 	t_point.nz = (t_point.z - (Z_BASE_TO_ARM + .28)) / vec_len;
 	//create the arm trajectory point near the limits of the robot workspace (.4m) then convert to mm
-	msg.x = (.4*(t_point.nx))*1000;
-	msg.y = (.4*(t_point.ny))*1000;
-	msg.z = 280 + (.4*(t_point.nz))*1000;
+	msg.x = (.375*(t_point.nx))*1000;
+	msg.y = (.375*(t_point.ny))*1000;
+	msg.z = 280 + (.375*(t_point.nz))*1000;
 	//float normal_len = sqrt(pow(t_point.nx,2)+pow(t_point.ny,2)+pow(t_point.nz,2));
 	//float msg_len = sqrt(pow(msg.x,2)+pow(msg.y,2)+pow(msg.z-280,2));
 	//ROS_INFO("DOING trig %f - %f : %f, %f, %f - %f - %f - %f /%f",msg_len,normal_len,t_point.x,t_point.y,t_point.z,t_point.nx,t_point.ny,t_point.nz,vec_len);
 	//Caluclate the rotation around the X and Y axis from the normal vector
-	msg.rx = asin(-t_point.ny / vec_len);
+	calc_RPY(t_point,&msg);
+	//msg.rx = -atan2(t_point.ny,t_point.nz);//asin(-t_point.ny / vec_len);
+	//msg.ry = atan2(t_point.nx,t_point.nz);
 	//Prevent divide by zero errors
-	if(cos(msg.rx)!=0) msg.ry = asin( -t_point.nx / (cos(msg.rx)*vec_len) );
-	else msg.ry = 0;
+	//if(cos(msg.rx)!=0) msg.ry = asin( -t_point.nx / (cos(msg.rx)*vec_len) );
+	//else msg.ry = 0;
 	//No need for the roll around the Z axis, since the spray pattern and radiation detection is conical
-	msg.rz = 0;
+	//msg.rz = atan2(t_point.ny,t_point.nx);
+	float f1, f2, f3 ,f4;
+	f1 = atan2(-t_point.nz,-t_point.ny)* (180.0/3.141592653589793238463);
+	f2 = atan2(t_point.nz,-t_point.ny)* (180.0/3.141592653589793238463);
+	f3 = atan2(-t_point.nz,t_point.ny)* (180.0/3.141592653589793238463);
+	f4 = atan2(t_point.nz,t_point.ny)* (180.0/3.141592653589793238463);
+	float d1, d2, d3 ,d4;
+	d1 = atan2(-t_point.nz,-t_point.nx)* (180.0/3.141592653589793238463);
+	d2 = atan2(t_point.nz,-t_point.nx)* (180.0/3.141592653589793238463);
+	d3 = atan2(-t_point.nz,t_point.nx)* (180.0/3.141592653589793238463);
+	d4 = atan2(t_point.nz,t_point.nx)* (180.0/3.141592653589793238463);
+	float x1, x2, x3 ,x4;
+	x1 = atan2(-t_point.ny,-t_point.nx)* (180.0/3.141592653589793238463);
+	x2 = atan2(t_point.ny,-t_point.nx)* (180.0/3.141592653589793238463);
+	x3 = atan2(-t_point.ny,t_point.nx)* (180.0/3.141592653589793238463);
+	x4 = atan2(t_point.ny,t_point.nx)* (180.0/3.141592653589793238463);
+	ROS_INFO("ARM POSE %f %f %f",msg.rx* (180.0/3.141592653589793238463),msg.ry* (180.0/3.141592653589793238463),msg.rz* (180.0/3.141592653589793238463));
+	ROS_INFO("ARM VALS \n%f %f %f %f\n%f %f %f %f\n%f %f %f %f\n",f1,f2,f3,f4,d1,d2,d3,d4,x1,x2,x3,x4);
 	return msg;
 }
 
 //Function used to step through the trajectory points, traj_ctr tells the arm which trajectory point to go to and sim says whether to simulate movement or actually move the arm
-phd::arm_msg QNode::step(int traj_ctr,bool sim){
+phd::arm_msg QNode::step(int traj_ctr,bool sim, float fig){
 	//Generate and arm_msg and populate it with the current point in the trajectory array
 	phd::arm_msg msg;
 	geometry_msgs::Point p;	
@@ -477,7 +794,7 @@ phd::arm_msg QNode::step(int traj_ctr,bool sim){
 	msg.z = (traj.points[traj_ctr].z-(traj.points[traj_ctr].nz*P_OFFSET) - Z_BASE_TO_ARM)*1000;
 	//check to see if the arm point is within the arms workspace
 	float ws_dist = sqrt(pow(msg.x,2)+pow(msg.y,2)+pow(msg.z-280,2));
-	if(ws_dist > 400){
+	if(ws_dist > 375){
 		if(DEBUG) ROS_INFO("Modifying %d, %f",traj_ctr,ws_dist);
 		//if outside workspace, move within
 		msg = move_to_workspace(traj.points[traj_ctr]);
@@ -513,17 +830,21 @@ phd::arm_msg QNode::step(int traj_ctr,bool sim){
 
 	}
 	//This is the elbow configuration of the arm
-	msg.fig = 1;
+	//msg.fig = -2;
 	msg.motion_type = PTP;
-
+	msg.rx =  (msg.rx* (180.0/3.141592653589793238463));
+	msg.ry =  (msg.ry* (180.0/3.141592653589793238463));
+	msg.rz = (msg.rz* (180.0/3.141592653589793238463));
+	ROS_INFO("ARM POSE %f %f %f",msg.rx,msg.ry,msg.rz);
 	//DELETE THIS
-	msg.rx = 0;
-	msg.ry = 90;
-	msg.rz = 0;
-	//only send the arm command is sim is not true
+	//msg.rx = -180;
+	//msg.ry = 90;
+	//msg.rz = -90;
+	//only send the arm command if sim is not true
 	if(!sim){
 			//Send the command to the arm
 			arm_pub.publish(msg);
+			ros::spinOnce();
 
 	}else ROS_INFO("Marker Published");	
 
@@ -567,7 +888,7 @@ void QNode::calculate_thickness(std::string filename){
 		pcl::fromROSMsg(thick_srv.response.cloud_out, *save_cloud);
 		pf << filename << "thickened.pcd";
 	if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
-	pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
+	if(save_cloud->size() > 0) pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
 
 
 	}else ROS_INFO("Service Failed");
@@ -612,6 +933,7 @@ if(DEBUG) ROS_INFO("Calculating");
 	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
 	cloud_msg.fields[3].name = "intensities";
 	cloud_msg.header.frame_id = "/base_footprint";
+	cloud_msg.header.stamp = ros::Time::now();
 	rawpub.publish(cloud_msg);
 		std::stringstream pf;
 		pf << filename << "compared.pcd";
@@ -676,70 +998,76 @@ void QNode::scan(std::string markername, bool localize){
 		//Save the new scan as cloud_surface		
 		cloud_surface_raw = srv.response.cloud;
 		//publish the raw cloud
+		cloud_surface_raw.header.stamp = ros::Time::now();
+		cloud_surface_raw.header.frame_id = "/world";
 		rawpub.publish(cloud_surface_raw);
 		//Save the pointcloud to disk using markername CLOUD and the counter
 		pcl::PointCloud<pcl::PointXYZI>::Ptr save_cloud (new pcl::PointCloud<pcl::PointXYZI>);
 		std::stringstream pf;
 		//Tell pcl what the 4th field information is
 		cloud_surface_raw.fields[3].name = "intensity";
+		ROS_INFO("Converting");
 		pcl::fromROSMsg(cloud_surface_raw, *save_cloud);
 		cloud_ctr++;
 		pf << markername << cloud_ctr << "raw" << CLOUD << ".pcd";
 		if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
-		pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
+		if(save_cloud->size() > 0) pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
 		//Tell ros what the 4th field information is
 		cloud_surface_raw.fields[3].name = "intensities";
 		//If set home box is checked, tell localization to save marker location to the filename specified, otheriwse load the file and localize
+//Crop points that are the robot itself
+		Eigen::Vector4f minPoint; 
+		minPoint[0]=occludeMinX;//-.01;  // define minimum point x 
+		minPoint[1]=occludeMinY;//-.01;  // define minimum point y 
+		minPoint[2]=occludeMinZ;//-0.01;  // define minimum point z 
+		Eigen::Vector4f maxPoint; 
+		maxPoint[0]=occludeMaxX;//.0075;  // define max point x 
+		maxPoint[1]=occludeMaxY;//.01;  // define max point y 
+		maxPoint[2]=occludeMaxZ;//.014;  // define max point z 
+		Eigen::Vector3f boxTranslatation; 
+		boxTranslatation[0]=0;   
+		boxTranslatation[1]=0;   
+		boxTranslatation[2]=0;   
+		Eigen::Vector3f boxRotation; 
+		boxRotation[0]=0;  // rotation around x-axis 
+		boxRotation[1]=0;  // rotation around y-axis 
+		boxRotation[2]=0;  //in radians rotation around z-axis. this rotates your cube 45deg around z-axis. 
+		pcl::PointCloud<pcl::PointXYZI>::Ptr cloudOut (new pcl::PointCloud<pcl::PointXYZI>); 
+		pcl::CropBox<pcl::PointXYZI> cropFilter; 
+
+		cropFilter.setInputCloud (save_cloud); 
+		cropFilter.setMin(minPoint); 
+		cropFilter.setMax(maxPoint);
+		cropFilter.setTranslation(boxTranslatation); 
+		cropFilter.setRotation(boxRotation); 
+		cropFilter.setNegative(true);
+		cropFilter.filter (*cloudOut); 
+			//Set the pointcloud to cover
+			pcl::toROSMsg(*cloudOut,cloud_surface_world);
+			raw_pc_ = cloudOut;
 		if(DEBUG&&localize) ROS_INFO("Setting Home");	
 		//Call the localization service, it will transform the cloud if the set home box is not checked
-		loc_srv.request.cloud_in = cloud_surface_raw;
+		loc_srv.request.cloud_in = cloud_surface_world;//raw;
 		loc_srv.request.homing = localize;
 		loc_srv.request.marker_file = markername;
 		if(loc_client.call(loc_srv)){
 			if(DEBUG) ROS_INFO("Localize Service Cloud %d", (uint32_t)(loc_srv.response.cloud_out.width));
 			cloud_surface_world = loc_srv.response.cloud_out;
-			//Crop points that are the robot itself
-			Eigen::Vector4f minPoint; 
-			minPoint[0]=occludeMinX;//-.01;  // define minimum point x 
-			minPoint[1]=occludeMinY;//-.01;  // define minimum point y 
-			minPoint[2]=occludeMinZ;//-0.01;  // define minimum point z 
-			Eigen::Vector4f maxPoint; 
-			maxPoint[0]=occludeMaxX;//.0075;  // define max point x 
-			maxPoint[1]=occludeMaxY;//.01;  // define max point y 
-			maxPoint[2]=occludeMaxZ;//.014;  // define max point z 
-			Eigen::Vector3f boxTranslatation; 
-			boxTranslatation[0]=0;   
-			boxTranslatation[1]=0;   
-			boxTranslatation[2]=0;   
-			Eigen::Vector3f boxRotation; 
-			boxRotation[0]=0;  // rotation around x-axis 
-			boxRotation[1]=0;  // rotation around y-axis 
-			boxRotation[2]=0;  //in radians rotation around z-axis. this rotates your cube 45deg around z-axis. 
-			pcl::PointCloud<pcl::PointXYZI>::Ptr cloudOut (new pcl::PointCloud<pcl::PointXYZI>); 
-			pcl::CropBox<pcl::PointXYZI> cropFilter; 
+			
 			pcl::PointCloud<pcl::PointXYZI>::Ptr full_cloud (new pcl::PointCloud<pcl::PointXYZI>);
 			//Tell pcl what the 4th field information is
 			cloud_surface_world.fields[3].name = "intensity";
 			pcl::fromROSMsg(cloud_surface_world, *full_cloud);
-			cropFilter.setInputCloud (full_cloud); 
-			cropFilter.setMin(minPoint); 
-			cropFilter.setMax(maxPoint);
-			cropFilter.setTranslation(boxTranslatation); 
-			cropFilter.setRotation(boxRotation); 
-			cropFilter.setNegative(true);
-			cropFilter.filter (*cloudOut); 
-			//Set the pointcloud to cover
-			pcl::toROSMsg(*cloudOut,cloud_surface_world);
 			pf.str("");			
 			if(localize){
-				cloud_surface_world.header.frame_id = "/base_footprint";
+				cloud_surface_world.header.frame_id = "/world";
 				pf << markername << cloud_ctr << "home" << CLOUD << ".pcd";
 				transform.setOrigin( tf::Vector3(0, 0, 0) );
 				q.setRPY(0, 0, 0);
 				transform.setRotation(q);
 				//br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "world", "base_footprint"));
 			}else{
-				cloud_surface_world.header.frame_id = "/global";
+				cloud_surface_world.header.frame_id = "/world";
 				transform.setOrigin( tf::Vector3(loc_srv.response.transform_mat[3], loc_srv.response.transform_mat[7], loc_srv.response.transform_mat[11]) );
 				/*Eigen::Matrix3d m;
 				m <<static_cast<float>(loc_srv.response.transform_mat[0]),static_cast<float>(loc_srv.response.transform_mat[1]),static_cast<float>(loc_srv.response.transform_mat[2]),
@@ -767,7 +1095,8 @@ void QNode::scan(std::string markername, bool localize){
 			cloud_save.fields[3].name = "intensity";
 			save_cloud->clear();
 			pcl::fromROSMsg(cloud_save, *save_cloud);
-			pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
+			if(save_cloud->size() > 0) pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
+			cloud_surface_world.header.stamp = cloud_surface_raw.header.stamp;
 			pub.publish(cloud_surface_world);
 		}else{
 			ROS_INFO("Localize Service Failed");
@@ -776,9 +1105,24 @@ void QNode::scan(std::string markername, bool localize){
 	}
 	else ROS_ERROR("Error making service call to laser assembler\n") ;
 	cube_cmd.j1 = -1.57;
-	cube_cmd.vel = 0.25;
+	cube_cmd.vel = 0.75;
 	cmd_pub.publish(cube_cmd);
-	ros::spinOnce();
+	while(joint1 > -1.56 && ros::ok()){
+		ros::spinOnce();
+	}
+	phd::empty esrv;
+	reset_map_srv.call(esrv);
+	reset_map_pub.publish(RESET_MAP);
+
+	transform.setOrigin( tf::Vector3(0, 0, 0) );
+	q.setRPY(0, 0, 0);
+	transform.setRotation(q);
+	br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "world", "map"));
+	if(pose_waiting){
+		ROS_INFO("Auto moving");
+		//Do trajectory first?
+		QNode::find_and_move(marker_only);
+	}
 
 }
 
@@ -804,6 +1148,8 @@ void QNode::fscan(std::string filename, bool auto_localize,bool set_home, std::s
 	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZI> );
 	//Create a ros message to publish the cloud as
 	sensor_msgs::PointCloud2 cloud_msg;
+
+	current_pc_.reset(new pcl::PointCloud<pcl::PointXYZI>());
 	//Load the file
 	if (pcl::io::loadPCDFile<pcl::PointXYZI> (filename.c_str(), *cloud) == -1) PCL_ERROR ("Couldn't read file\n");
 	else{
@@ -832,7 +1178,7 @@ void QNode::fscan(std::string filename, bool auto_localize,bool set_home, std::s
 				pcl::fromROSMsg(cloud_surface_world, *save_cloud);
 				pf << filename << "localized.pcd";
 				if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
-				pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
+				if(save_cloud->size() > 0) pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
 				//Open file for saving marker location
 				ofstream myfile;
 				std::stringstream fs;
@@ -880,13 +1226,17 @@ void QNode::fscan(std::string filename, bool auto_localize,bool set_home, std::s
 			cropFilter.filter (*cloudOut); 
 			//Set the pointcloud to cover
 			pcl::toROSMsg(*cloudOut,cloud_surface_world);
+			current_pc_ = cloudOut;
 		}else{
 		cloud_surface_world = cloud_msg;
 		cloud_surface_world.fields[3].name = "intensities";
+		current_pc_ = cloud;
 		}
 			cloud_surface_world.header.frame_id = "/world";
 			rawpub.publish(cloud_surface_world);
 	}
+	
+
 }
 //Testing function: Localization scan, performs a laser scan and sets the frame /base_footprint as the origin of the global coordinate frame 
 void QNode::lscan(){
@@ -1063,6 +1413,7 @@ int QNode::gen_trajectory(std::string filename){
 		cloud_msg.header.frame_id = "/base_footprint";
 		traj_srv.request.cloud_in = cloud_msg;
 	}else{
+		//the part of the pointcloud to keep
 		Eigen::Vector4f minPoint; 
 		minPoint[0]=cropMinX;  // define minimum point x 
 		minPoint[1]=cropMinY;  // define minimum point y 
@@ -1090,6 +1441,18 @@ int QNode::gen_trajectory(std::string filename){
 		cropFilter.setMax(maxPoint);
 		cropFilter.setTranslation(boxTranslatation); 
 		cropFilter.setRotation(boxRotation); 
+		cropFilter.filter (*cloudOut); 
+		//Crop points that are the robot itself
+		minPoint[0]=occludeMinX;//-.01;  // define minimum point x 
+		minPoint[1]=occludeMinY;//-.01;  // define minimum point y 
+		minPoint[2]=occludeMinZ;//-0.01;  // define minimum point z 
+		maxPoint[0]=occludeMaxX;//.0075;  // define max point x 
+		maxPoint[1]=occludeMaxY;//.01;  // define max point y 
+		maxPoint[2]=occludeMaxZ;//.014;  // define max point z 
+		cropFilter.setInputCloud (cloudOut); 
+		cropFilter.setMin(minPoint); 
+		cropFilter.setMax(maxPoint);
+		cropFilter.setNegative(true);
 		cropFilter.filter (*cloudOut); 
 		//Set the pointcloud to cover
 		sensor_msgs::PointCloud2 cloud_msg;
@@ -1185,7 +1548,7 @@ void QNode::thickness(std::string before,std::string after){
 		pcl::fromROSMsg(cloud_surface_world, *save_cloud);
 		pf << "/home/mike/testing/" << ++cloud_ctr << "thickened" << CLOUD << ".pcd";
 		if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
-		pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
+		if(save_cloud->size() > 0) pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
 
 
 		}else ROS_INFO("Service Failed");
@@ -1197,7 +1560,7 @@ void QNode::save_selection(){
 		
 		pf << "/home/mike/testing/" << ++cloud_ctr << "saved" << CLOUD << ".pcd";
 		if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
-		pcl::io::savePCDFileASCII (pf.str().c_str(), *current_pc_);
+		if(current_pc_->size() > 0) pcl::io::savePCDFileASCII (pf.str().c_str(), *current_pc_);
 
 }
 //Estimate the base position using registration
@@ -1504,6 +1867,7 @@ void QNode::scan_360(){
 		ROS_INFO("Assembled Cloud %d", (uint32_t)(srv.response.cloud.width)) ;
 		//Save the new scan as cloud_surface		
 		cloud_surface_raw = srv.response.cloud;
+		cloud_surface_raw.header.stamp = ros::Time::now();
 		//publish the raw cloud
 		rawpub.publish(cloud_surface_raw);
 		//Save the pointcloud to disk using markername CLOUD and the counter
@@ -1515,7 +1879,7 @@ void QNode::scan_360(){
 		cloud_ctr++;
 		pf << "360_scan" << cloud_ctr << "raw" << CLOUD << ".pcd";
 		if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
-		pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
+		if(save_cloud->size() > 0) pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
 		//Tell ros what the 4th field information is
 		cloud_surface_raw.fields[3].name = "intensities";
 		
@@ -1652,6 +2016,201 @@ ROS_INFO("Using pffset %f", P_OFFSET);
 	
 
 }
+
+pcl::PointXYZI QNode::find_and_delete_point(pcl::PointCloud<pcl::PointXYZI>::Ptr line, pcl::PointXYZI target_pt){
+	pcl::PointXYZI ret;
+	float resolution = 128.0f; //Octree resolution
+	pcl::octree::OctreePointCloudSearch<pcl::PointXYZI> octree (resolution);
+	int K = 1; //Number of points to find
+	std::vector<int> pointIdxNKNSearch; //vector to hold points (used by pcl)
+	std::vector<float> pointNKNSquaredDistance; //vector to hold distance of points (used by pcl)
+		octree.setInputCloud (line);
+		octree.addPointsFromInputCloud ();
+
+		
+	if (octree.nearestKSearch (target_pt, K, pointIdxNKNSearch, pointNKNSquaredDistance) > 0){
+		ret = line->points[pointIdxNKNSearch[0]];
+			line->points.erase(line->points.begin()+pointIdxNKNSearch[0]);
+				//ROS_INFO("eaten");
+
+	}else{
+		ROS_INFO("octree");
+	}
+	return ret;
+}
+
+void  QNode::find_and_move(bool marker){
+
+	pose_waiting = false;
+	if(raw_pc_->size() == 0){
+ROS_INFO("Scanning");
+		pose_waiting = true;
+		marker_only = marker;
+		QNode::scan("string",true);
+	}else{
+ROS_INFO("Finding Pose");
+
+
+	int K = 1; //Number of points to find
+	std::vector<int> pointIdxNKNSearch; //vector to hold points (used by pcl)
+	std::vector<float> pointNKNSquaredDistance; //vector to hold distance of points (used by pcl)
+	float resolution = 128.0f; //Octree resolution
+	pcl::PointXYZI foundpt; //Container for found point (to return)
+	pcl::PointXYZI posept; //Container for found point (to return)
+	//Create the octree object
+	pcl::octree::OctreePointCloudSearch<pcl::PointXYZI> octree (resolution);
+	pcl::octree::OctreePointCloudSearch<pcl::PointXYZI> octree2 (resolution);
+	//Set the octree input cloud, then add the points
+	//ROS_INFO("surface size %lu",cloud_surface->points.size());
+
+		//Set the pointcloud to cover
+		sensor_msgs::PointCloud2 cloud_msg;
+	Eigen::Vector4f minPoint = (Eigen::Vector4f() << 0,-100,1,0).finished();
+	Eigen::Vector4f maxPoint = (Eigen::Vector4f() << 100,100,1.01,0).finished();	
+	Eigen::Vector3f boxTranslatation = Eigen::ArrayXf::Zero(3); 
+	Eigen::Vector3f boxRotation = Eigen::ArrayXf::Zero(3); 
+		pcl::PointCloud<pcl::PointXYZI>::Ptr cloudOut (new pcl::PointCloud<pcl::PointXYZI>); 
+		pcl::CropBox<pcl::PointXYZI> cropFilter; 
+		pcl::PointCloud<pcl::PointXYZI>::Ptr full_cloud (new pcl::PointCloud<pcl::PointXYZI>);
+		//Tell pcl what the 4th field information is
+		cloud_surface_world.fields[3].name = "intensity";
+		cropFilter.setInputCloud (raw_pc_); 
+		cropFilter.setMin(minPoint); 
+		cropFilter.setMax(maxPoint);
+		cropFilter.setTranslation(boxTranslatation); 
+		cropFilter.setRotation(boxRotation); 
+		cropFilter.filter (*cloudOut); 
+
+
+		pcl::toROSMsg(*cloudOut,cloud_msg);
+		cloud_msg.header.frame_id = "/base_footprint";
+		cloud_msg.header.stamp = ros::Time::now();
+		pub3.publish(cloud_msg);
+ROS_INFO("Starting sort");
+	pcl::PointCloud<pcl::PointXYZI> unsorted;
+  	pcl::copyPointCloud(*cloudOut, unsorted);
+	octree.setInputCloud (cloudOut);
+	octree.addPointsFromInputCloud ();
+	pcl::PointCloud<pcl::PointXYZI> sorted;
+	pcl::PointXYZI point_holder;
+	pcl::PointXYZI start_pt, found_pt, prev_pt, next_pt, last_pt;
+	pcl::PointCloud<pcl::PointXYZI>::iterator start_it, next_it;
+	float c_val;
+	pcl::PointXYZI dir, search_pt, d_pt, ctr_pt, ctr_pt2;
+	float calc_d, d_total;
+	float dir_val, old_d;	
+	bool broken = false;
+	Eigen::Vector4f zeroPoint, farPoint; 
+	prev_pt.x =0;
+	prev_pt.y =0;
+	prev_pt.z =0;
+	prev_pt.intensity = 0;
+ROS_INFO("Starting sort");
+	next_pt = QNode::find_and_delete_point(cloudOut, prev_pt);
+	next_pt.intensity = 0;
+ROS_INFO("Starting sort");
+	sorted.push_back(next_pt);
+	while(cloudOut->points.size()>0){	
+		prev_pt = next_pt;
+		next_pt = QNode::find_and_delete_point(cloudOut, prev_pt);
+			next_pt.intensity = prev_pt.intensity + sqrt(pow(next_pt.x-prev_pt.x,2)+pow(next_pt.y-prev_pt.y,2)+pow(next_pt.z-prev_pt.z,2));
+			//ROS_INFO("sotred %f - %f - %f / %f", next_pt.x, next_pt.y, next_pt.z, next_pt.intensity);
+			if(fabs(next_pt.intensity - prev_pt.intensity) < 0.4) sorted.push_back(next_pt);
+			else break;
+		}
+			ROS_INFO("return %lu", sorted.points.size());
+
+		pcl::toROSMsg(sorted,cloud_msg);
+		cloud_msg.header.frame_id = "/base_footprint";
+		pub4.publish(cloud_msg);
+
+
+
+		//Crop points that should be finished
+		minPoint[0]=-100;//-.01;  // define minimum point x 
+		minPoint[1]=cropMinY;//-.01;  // define minimum point y 
+		minPoint[2]=0;//-0.01;  // define minimum point z 
+		maxPoint[0]=cropMaxX+0.5;//.0075;  // define max point x 
+		maxPoint[1]=cropMaxY;//.01;  // define max point y 
+		maxPoint[2]=10;//.014;  // define max point z 
+		cropFilter.setInputCloud (sorted.makeShared()); 
+		cropFilter.setMin(minPoint); 
+		cropFilter.setMax(maxPoint);
+		cropFilter.setNegative(true);
+		cropFilter.filter (*cloudOut); 
+
+		pcl::toROSMsg(*cloudOut,cloud_msg);
+		cloud_msg.header.frame_id = "/base_footprint";
+		pub5.publish(cloud_msg);
+
+		pcl::PointXYZI target_pt;	
+		target_pt.x = 0;	
+		target_pt.y = 0;	
+		target_pt.z = 1;
+
+			foundpt = QNode::find_and_delete_point(cloudOut, target_pt);
+
+	//pcl wants a cloud of points at which to calculate normals
+	pcl::PointCloud<pcl::PointXYZI> cloudB;
+	cloudB.push_back (foundpt);	
+	// Create the normal estimation class
+	pcl::NormalEstimation<pcl::PointXYZI, pcl::Normal> ne;
+	// set the input for our normal estimation cloud
+	pcl::PointCloud<pcl::PointXYZI>::Ptr cloudptr = cloudB.makeShared();
+	ne.setInputCloud (cloudptr);
+	// Pass the original data (before downsampling) as the search surface
+	ne.setSearchSurface (raw_pc_);
+	// Create an empty kdtree representation, and pass it to the normal estimation object.
+	// Its content will be filled inside the object, based on the given surface dataset.
+	pcl::search::KdTree<pcl::PointXYZI>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZI> ());
+	ne.setSearchMethod (tree);
+
+	// Output datasets
+	pcl::PointCloud<pcl::Normal>::Ptr cloud_normals (new pcl::PointCloud<pcl::Normal> ());
+
+	// Use all neighbors in a sphere of radius 5cm
+	ne.setRadiusSearch (0.1);
+	ne.setViewPoint (0, 0, 0); //Which direction to point the normal
+	// Compute the features
+	ne.compute (*cloud_normals);
+	//since we want the normal to point inwards, but we can set the viewpoint at infinity, flip the result
+	posept.x = foundpt.x-cloud_normals->points[0].normal[0];
+	posept.y = foundpt.y-cloud_normals->points[0].normal[1];
+	posept.z = foundpt.z-cloud_normals->points[0].normal[2];
+	move_base_msgs::MoveBaseGoal goal;
+	goal.target_pose.header.frame_id = "base_footprint";
+	goal.target_pose.header.stamp = ros::Time::now();
+
+	goal.target_pose.pose.position.x = foundpt.x+cloud_normals->points[0].normal[0]*POSE_OFFSET;
+	goal.target_pose.pose.position.y = foundpt.y+cloud_normals->points[0].normal[1]*POSE_OFFSET;
+	goal.target_pose.pose.position.z = 0;
+	quaternionTFToMsg(tf::createQuaternionFromRPY(0, 0,(1.57 + atan2(cloud_normals->points[0].normal[1],cloud_normals->points[0].normal[0]))), goal.target_pose.pose.orientation);
+	if(!marker){
+ MoveBaseClient.sendGoal(goal);
+ROS_INFO("Sending goal");
+raw_pc_.reset(new pcl::PointCloud<pcl::PointXYZI>());
+}
+	geometry_msgs::Pose ggoal;
+	goals.poses.clear();
+	ggoal.position = goal.target_pose.pose.position;
+	ggoal.orientation = goal.target_pose.pose.orientation;
+	goals.poses.push_back(ggoal);
+	ggoal.position.x = foundpt.x;
+	ggoal.position.y = foundpt.y;
+	ggoal.position.z = 0;
+	quaternionTFToMsg(tf::createQuaternionFromRPY(0, 0, 0), ggoal.orientation);
+
+	goals.poses.push_back(ggoal);
+	show_nav();
+	}
+}
+
+
+
+
+
+
+
 
 }
 };

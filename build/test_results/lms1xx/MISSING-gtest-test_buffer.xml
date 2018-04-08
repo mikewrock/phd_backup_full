@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite tests="1" failures="1" time="1" errors="0" name="gtest-test_buffer.xml">
+  <testcase name="test_ran" status="run" time="1" classname="Results">
+    <failure message="Unable to find test results for gtest-test_buffer.xml, test did not run.
+Expected results in /home/mike/catkin_ws/build/test_results/lms1xx/gtest-test_buffer.xml" type=""/>
+  </testcase>
+</testsuite>

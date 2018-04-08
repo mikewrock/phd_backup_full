@@ -36,14 +36,13 @@
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
 
     <param name="base_global_planner" value="$(arg base_global_planner)"/>
-<param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
-    <rosparam file="$(find phd)/cfg/planner.yaml" command="load"/>
+    <param name="base_local_planner" value="$(arg base_local_planner)"/>  
+    <rosparam file="$(find husky_navigation)/config/planner.yaml" command="load"/>
 
     <!-- observation sources located in costmap_common.yaml -->
-    <rosparam file="$(find phd)/cfg/costmap_common.yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find phd)/cfg/costmap_common.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find husky_navigation)/config/costmap_common.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find husky_navigation)/config/costmap_common.yaml" command="load" ns="local_costmap" />
 
-    <rosparam file="$(find phd)/cfg/base_local_planner_params.yaml" command="load"/>
     <!-- local costmap, needs size -->
     <rosparam file="$(find husky_navigation)/config/costmap_local.yaml" command="load" ns="local_costmap" />
     <param name="local_costmap/width" value="10.0"/>
@@ -56,8 +55,6 @@
     <rosparam file="$(find husky_navigation)/config/costmap_global_laser.yaml" command="load" ns="global_costmap" if="$(arg no_static_map)"/>
     <param name="global_costmap/width" value="100.0" if="$(arg no_static_map)"/>
     <param name="global_costmap/height" value="100.0" if="$(arg no_static_map)"/>
-
- <param name="controller_frequency" value="10.0" />
   </node>
 
 
@@ -77,7 +74,7 @@
   <!--- Run local laser assembler -->
   <node type="laser_scan_assembler" pkg="laser_assembler" name="my_assembler">
     <param name="max_scans" type="int" value="10000" />
-    <param name="fixed_frame" type="string" value="base_link" />
+    <param name="fixed_frame" type="string" value="base_footprint" />
     <param name="tf_cache_time_secs" type="double" value="30.0" />
     <remap from="scan" to="scan_filtered" />
   </node>
@@ -85,14 +82,12 @@
   <node name="cube_node" pkg="phd" type="cube_node" output="screen" />
   <!--- Run Joint State Fusion node-->
   <node name="joint_fusion_node" pkg="phd" type="joint_fusion_node" output="screen" />
-
-    <!--- Run static transform for laser-->
-  <node pkg="tf" type="static_transform_publisher" name="kinect_broadcaster" args="0 0 0 0 0 0 world map 100" />
  
 
 <!-- hector mapping -->
 <node pkg="hector_mapping" type="hector_mapping"     name="hector_mapping" output="screen">
 <param name="base_frame" type="string" value="base_footprint" />
+<remap from="scan" to="scan_filtered" />
   </node>
   <!--- Run rviz -->
     <node name="rviz" pkg="rviz" type="rviz" required="True" output="screen" args="-d $(find phd)/cfg/rviz_scan.rviz"> 

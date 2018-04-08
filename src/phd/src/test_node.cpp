@@ -67,6 +67,7 @@ int main(int argc, char** argv)
   ros::init(argc, argv, "cube_move");
 
     ros::NodeHandle nh;
+/*
 	marker_pub = nh.advertise<visualization_msgs::Marker>( "visualization_marker", 0 );
 	line_pub = nh.advertise<sensor_msgs::PointCloud2>( "line_points", 0 );
 	line_pub2 = nh.advertise<sensor_msgs::PointCloud2>( "line_points2", 0 );
@@ -96,7 +97,22 @@ return(0);
 
 	}
 
-	myfile.close();
+	myfile.close();*/
+
+tf::Quaternion q_orig, q_rot, q_new;
+double r=0, p=0, y=0;  // Rotate the previous pose by 180* about X
+if(argc > 2){
+r = atof(argv[1]);
+p = atof(argv[2]);
+y = atof(argv[3]);
+}
+q_rot = tf::createQuaternionFromRPY(r, p, y);
+
+tfScalar yaw, pitch, roll;
+tf::Matrix3x3 mat(q_rot);
+mat.getEulerZYX(yaw, pitch, roll);
+
+ROS_INFO("Z: %f Y: %f X: %f",yaw,pitch,roll);
 }
 
 

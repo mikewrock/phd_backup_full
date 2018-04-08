@@ -22,6 +22,8 @@
 #define DEBUG 1
 #define PTP 1
 #define CP 2
+#define T 6
+#define SPEED 7
 #define JOINT 3
 #define STRING 4
 #define SHUTDOWN 5
@@ -38,6 +40,7 @@ uint32_t hTask; //Task Handle
 uint32_t hErr; //Error Handle
 uint32_t jHandle; //Joint angle handle
 uint32_t pHandle; //Arm Pose handle
+uint32_t hSpd; //Speed Handle
 bool cp_flag = false;
 bool shutdown = false;
 
@@ -49,9 +52,12 @@ int n;
 	//fig represents the configuration (see denso manual setting-e pg 288), 5 is an elbow up pose
 //arm_cmd = *msg;
 //int n=sprintf(buffer,"@P P(%f,%f,%f,%f,%f,%f,%d)",arm_cmd.x,arm_cmd.y,arm_cmd.z,arm_cmd.rx,arm_cmd.ry,arm_cmd.rz,arm_cmd.fig); 	
+int fig;
 	switch(msg->motion_type){
 		case PTP: 
-			n=sprintf(buffer,"@P P(%f,%f,%f,%f,%f,%f,%d)",msg->x,msg->y,msg->z,msg->rx,msg->ry,msg->rz,msg->fig);
+			if(msg->x > 0) fig = 1;
+			else fig = 9;
+			n=sprintf(buffer,"@P P(%f,%f,%f,%f,%f,%f,%d)",msg->x,msg->y,msg->z,msg->rx,msg->ry,msg->rz,fig);
 			cp_flag = false;
 			if(DEBUG) ROS_INFO("Sending PTP %s",buffer);
 			break;
@@ -59,6 +65,11 @@ int n;
 			n=sprintf(buffer,"@P P(%f,%f,%f,%f,%f,%f,%d)",msg->x,msg->y,msg->z,msg->rx,msg->ry,msg->rz,msg->fig);
 			cp_flag = true;
 			if(DEBUG) ROS_INFO("Sending CP %s",buffer);
+			break;
+		case T: 
+			n=sprintf(buffer,"@P T(%f,%f,%f,%f,%f,%f,0,1,0,%d)",msg->x,msg->y,msg->z,msg->rx,msg->ry,msg->rz,msg->fig);
+			cp_flag = false;
+			if(DEBUG) ROS_INFO("Sending T %s",buffer);
 			break;
 		case JOINT:
 			n=sprintf(buffer,"@P J(%f,%f,%f,%f,%f,%f,0)",msg->j1,msg->j2,msg->j3,msg->j4,msg->j5,msg->j6);
@@ -75,6 +86,34 @@ int n;
 		}
 			
 	move_flag = true; //Tell the loop in main a new command has come in
+	if(msg->motion_type == SPEED){
+		HRESULT hr; //Result
+		BSTR bstrCommand;  //Command
+		VARIANT vSpd; //speed variants
+		double *pdArray; //Array for reading joint angles
+		//Set speed vlaue
+		vSpd.fltVal = 100;
+		bstrCommand = SysAllocString(L"EXTSPEED");
+		float dnt[3];
+		dnt[0] = msg->vel; //Velocity
+		dnt[1] = 100.0; //Acceleration
+		dnt[2] = 100.0; //Decceleration
+		VARIANT vntS; //Holds the desired speed values
+		vntS.vt = (VT_R4 | VT_ARRAY);
+		vntS.parray = SafeArrayCreateVector(VT_R4, 0, 1);
+		SafeArrayAccessData(vntS.parray, (void**)&pdArray);
+		memcpy(pdArray, dnt, sizeof(dnt));
+		SafeArrayUnaccessData(vntS.parray);
+		hr = bCap_RobotExecute(fd, hRobot, bstrCommand, vntS, &vSpd);
+		SysFreeString(bstrCommand);
+		VariantClear(&vntS);
+		VariantClear(&vSpd);
+		if FAILED(hr){
+		ROS_INFO("Ext Speed not set %x\n", hr);
+		}
+		else if(DEBUG) ROS_INFO("Ext Speed Set");
+
+		}
 }
 
 //Initialization function
@@ -282,7 +321,6 @@ HRESULT initArm(void){
   VARIANT vntParam;  //Command Parameters
   VARIANT vntResult;  //Variant to hold return values
   int32_t eStatus;  //Error code
-  uint32_t hSpd; //Speed Handle
   VARIANT vJnt, vSpd, vPos; //Joint, Position, and speed variants
   double *pdArray; //Array for reading joint angles
   /* Init socket */

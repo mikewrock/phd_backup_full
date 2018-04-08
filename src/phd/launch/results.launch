@@ -1,4 +1,4 @@
-<launch>
+ <launch>
 
   <!--- Run description  -->
   <include file="$(find wrock_husky_description)/launch/description.launch" />
@@ -18,6 +18,7 @@
         </rosparam>
     </node>
   <include file="$(find husky_control)/launch/control.launch" />
+  <include file="$(find husky_control)/launch/teleop.launch" />
 
   <!--- Run um6 -->
   <node pkg="um6" type="um6_driver" name="um6_driver">
@@ -27,7 +28,7 @@
 
   <!--- Run Move Base -->
 
-  <arg name="no_static_map" default="false"/>
+  <arg name="no_static_map" default="true"/>
 
   <arg name="base_global_planner" default="navfn/NavfnROS"/>
   <arg name="base_local_planner" default="dwa_local_planner/DWAPlannerROS"/>
@@ -47,7 +48,7 @@
     <rosparam file="$(find husky_navigation)/config/costmap_local.yaml" command="load" ns="local_costmap" />
     <param name="local_costmap/width" value="10.0"/>
     <param name="local_costmap/height" value="10.0"/>
-
+<!--<rosparam param="recovery_behaviors"> [ { name: "backup_recovery", type: "backup_recovery_dwa/BackupRecovery" } ] </rosparam>-->
     <!-- static global costmap, static map provides size -->
     <rosparam file="$(find husky_navigation)/config/costmap_global_static.yaml" command="load" ns="global_costmap" unless="$(arg no_static_map)"/>
     
@@ -57,6 +58,8 @@
     <param name="global_costmap/height" value="100.0" if="$(arg no_static_map)"/>
 
  <param name="controller_frequency" value="10.0" />
+<param name="recovery_behavior_enabled" value="false"/>
+<param name="clearing_rotation_allowed" value="false"/>
   </node>
 
 
@@ -71,6 +74,8 @@
   <node pkg="laser_filters" type="scan_to_scan_filter_chain"
       name="laser_filter" output = "screen">
     <rosparam command="load" file="$(find phd)/cfg/my_laser_config.yaml" />
+<remap from="scan" to="scan_unfiltered" />
+<remap from="scan_filtered" to="scan" />
   </node>
 
   <!--- Run local laser assembler -->
@@ -78,16 +83,11 @@
     <param name="max_scans" type="int" value="10000" />
     <param name="fixed_frame" type="string" value="base_footprint" />
     <param name="tf_cache_time_secs" type="double" value="30.0" />
-    <remap from="scan" to="scan_filtered" />
   </node>
   <!--- Run Powercube node-->
   <node name="cube_node" pkg="phd" type="cube_node" output="screen" />
   <!--- Run Joint State Fusion node-->
   <node name="joint_fusion_node" pkg="phd" type="joint_fusion_node" output="screen" />
-
-    <!--- Run static transform for laser-->
-  <node pkg="tf" type="static_transform_publisher" name="kinect_broadcaster" args="0 0 0 0 0 0 world map 100" />
-  <node pkg="tf" type="static_transform_publisher" name="global_broadcaster" args="0 0 0 0 0 0 global base_footprint 100" />
  
 
 <!-- hector mapping -->
@@ -103,8 +103,9 @@
   <!--- Run localization service -->
   <node type="cloud_localizer" pkg="phd" name="localization_service" output="screen">
   </node>
+
   <!--- Run trajectory service -->
-  <node type="trajectory_server" pkg="phd" name="trajectory_service" output="screen" required="True">
+  <node type="simple_trajectory_server" pkg="phd" name="trajectory_service" output="screen" required="True">
   </node>
 
   <!--- Run thickness service -->
@@ -119,7 +120,9 @@
   <node type="rqt_reconfigure" pkg="rqt_reconfigure" name="rqt_reconfigure" output="screen">
   </node>
 
+  <!--- Run Denso node-->
+  <node name="denso_node" pkg="phd" type="denso_node" output="screen" />
 
-
+<node pkg="tf" type="static_transform_publisher" name="world_map_broadcaster" args="0 0 0 0 0 0 1 world map 100" />
 
 </launch>

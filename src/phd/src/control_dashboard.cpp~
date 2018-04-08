@@ -23,6 +23,7 @@
 #define SPEED 10
 #define PTP 1
 #define CP 2
+#define T 6
 #define JOINT 3
 #define STRING 4
 #define SHUTDOWN 5
@@ -42,6 +43,7 @@ namespace control_panel
 		//move_base sub
 		move_base_sub_ = nh_.subscribe("move_base/result", 1, &ControlPanel::movebaseCB, this);
 		reset_map_pub_ = nh_.advertise<std_msgs::String> ("syscommand", 1);
+		reset_map_srv = nh_.serviceClient<phd::empty>("move_base/clear_costmaps");
 		QTimer* spin_timer = new QTimer( this );
 		//Initialize control panel
 		int ret = control_panel.init();
@@ -77,45 +79,13 @@ namespace control_panel
 
 
 		connect(spin_timer, SIGNAL(timeout()), this, SLOT(rosSpinner()));
-		/*connect(ui_.fwdButton, SIGNAL(pressed()), this, SLOT(fwd_vel()));
-		connect(ui_.revButton, SIGNAL(pressed()), this, SLOT(rev_vel()));
-		connect(ui_.turnLeft, SIGNAL(pressed()), this, SLOT(left_vel()));
-		connect(ui_.turnRight, SIGNAL(pressed()), this, SLOT(right_vel()));
-		connect(ui_.armFwd, SIGNAL(pressed()), this, SLOT(arm_fwd_vel()));
-		connect(ui_.armLeft, SIGNAL(pressed()), this, SLOT(arm_left_vel()));
-		connect(ui_.armRight, SIGNAL(pressed()), this, SLOT(arm_right_vel()));
-		connect(ui_.armRev, SIGNAL(pressed()), this, SLOT(arm_rev_vel()));
-		connect(ui_.armUp, SIGNAL(pressed()), this, SLOT(arm_up_vel()));
-		connect(ui_.armDown, SIGNAL(pressed()), this, SLOT(arm_down_vel()));
-		connect(ui_.roll_neg, SIGNAL(pressed()), this, SLOT(roll_vel_neg()));
-		connect(ui_.roll_pos, SIGNAL(pressed()), this, SLOT(roll_vel_pos()));
-		connect(ui_.pitch_neg, SIGNAL(pressed()), this, SLOT(pitch_vel_neg()));
-		connect(ui_.pitch_pos, SIGNAL(pressed()), this, SLOT(pitch_vel_pos()));
-		connect(ui_.yaw_neg, SIGNAL(pressed()), this, SLOT(yaw_vel_neg()));
-		connect(ui_.yaw_pos, SIGNAL(pressed()), this, SLOT(yaw_vel_pos()));
-		connect(ui_.fwdButton, SIGNAL(released()), this, SLOT(clear_vel()));
-		connect(ui_.revButton, SIGNAL(released()), this, SLOT(clear_vel()));
-		connect(ui_.turnLeft, SIGNAL(released()), this, SLOT(clear_vel()));
-		connect(ui_.turnRight, SIGNAL(released()), this, SLOT(clear_vel()));
-		connect(ui_.armFwd, SIGNAL(released()), this, SLOT(clear_vel()));
-		connect(ui_.armLeft, SIGNAL(released()), this, SLOT(clear_vel()));
-		connect(ui_.armRight, SIGNAL(released()), this, SLOT(clear_vel()));
-		connect(ui_.armRev, SIGNAL(released()), this, SLOT(clear_vel()));
-		connect(ui_.armUp, SIGNAL(released()), this, SLOT(clear_vel()));
-		connect(ui_.armDown, SIGNAL(released()), this, SLOT(clear_vel()));
-		connect(ui_.roll_neg, SIGNAL(released()), this, SLOT(clear_vel()));
-		connect(ui_.roll_pos, SIGNAL(released()), this, SLOT(clear_vel()));
-		connect(ui_.pitch_neg, SIGNAL(released()), this, SLOT(clear_vel()));
-		connect(ui_.pitch_pos, SIGNAL(released()), this, SLOT(clear_vel()));
-		connect(ui_.yaw_neg, SIGNAL(released()), this, SLOT(clear_vel()));
-		connect(ui_.yaw_pos, SIGNAL(released()), this, SLOT(clear_vel()));
-*/
 		  //connect(ui_.launch_node_button, SIGNAL(clicked()), this, SLOT(onLaunchNode()));
 		  connect(ui_.shutdown_button, SIGNAL(clicked()), this, SLOT(onShutdownCommand()));
 		  //connect(ui_.clear_error_button, SIGNAL(clicked()), this, SLOT(onClearErrorCommand()));
 		  connect(ui_.ptp_command_button, SIGNAL(clicked()), this, SLOT(onPTPCommand()));
 		  connect(ui_.cp_command_button, SIGNAL(clicked()), this, SLOT(onCPCommand()));
-		  //connect(ui_.speed_button, SIGNAL(clicked()), this, SLOT(onSpeedCommand()));
+		  connect(ui_.t_command_button, SIGNAL(clicked()), this, SLOT(onTCommand()));
+		  connect(ui_.speed_button, SIGNAL(clicked()), this, SLOT(onSpeedCommand()));
 		  connect(ui_.string_button, SIGNAL(clicked()), this, SLOT(onStringCommand()));
 		  connect(ui_.joint_command_button, SIGNAL(clicked()), this, SLOT(onJointCommand()));
 		//connect( output_timer, SIGNAL( timeout() ), this, SLOT( sendVel() ));
@@ -151,7 +121,12 @@ namespace control_panel
 
 		ROS_INFO("Goal Achieved :)");
 		//do trajectory
+		if(auto_pose){
+			
+			traj_size = control_panel.gen_trajectory(ui_.marker_name_box->text().toStdString());
+			ControlPanel::arm_loop();
 
+		}
 	}
 
 	void ControlPanel::rosSpinner(){
@@ -175,7 +150,9 @@ namespace control_panel
 		std::stringstream ss;
 		ss << "reset";
 		msg.data = ss.str();
-
+		
+		phd::empty srv;
+		reset_map_srv.call(srv);
 		reset_map_pub_.publish(msg);
 		  
 	}
@@ -183,6 +160,11 @@ namespace control_panel
 	void ControlPanel::show_nav(){
 
 		  control_panel.show_nav();
+	}
+	//
+	void ControlPanel::save_selection(){
+
+		  control_panel.save_selection();
 	}
 	//
 	void ControlPanel::set_clean(){
@@ -281,6 +263,12 @@ namespace control_panel
 
 		  control_panel.send_command(ui_.x_box->text().toFloat(),ui_.y_box->text().toFloat(),ui_.z_box->text().toFloat(),ui_.rx_box->text().toFloat(),ui_.ry_box->text().toFloat(),ui_.rz_box->text().toFloat(),ui_.fig_box->text().toFloat(), CP);
 	}
+
+
+	void ControlPanel::onTCommand(){
+
+		  control_panel.send_command(ui_.x_box->text().toFloat(),ui_.y_box->text().toFloat(),ui_.z_box->text().toFloat(),ui_.rx_box->text().toFloat(),ui_.ry_box->text().toFloat(),ui_.rz_box->text().toFloat(),ui_.fig_box->text().toFloat(), T);
+	}
 	void ControlPanel::onShutdownCommand(){
 
 		  control_panel.send_command(ui_.x_box->text().toFloat(),ui_.y_box->text().toFloat(),ui_.z_box->text().toFloat(),ui_.rx_box->text().toFloat(),ui_.ry_box->text().toFloat(),ui_.rz_box->text().toFloat(),ui_.fig_box->text().toFloat(), SHUTDOWN);
@@ -295,6 +283,11 @@ namespace control_panel
 	void ControlPanel::onStringCommand(){
 
 		control_panel.send_string(ui_.string_box->text().toStdString());
+
+	}
+	void ControlPanel::onSpeedCommand(){
+		float speed = ui_.speed_box->text().toFloat();
+		control_panel.set_speed(speed);
 
 	}
 	void ControlPanel::scan_360(){
@@ -316,18 +309,21 @@ namespace control_panel
 
 	}
 	void ControlPanel::pose_step(){
-
-		if(pose_ctr>=pose_size){
-			auto_pose = false;
-			pose_ctr = 0;
-			ROS_INFO("Pose Trajectory Complete");
-		}
-		else{
-			control_panel.pose_step(pose_ctr);
-			++pose_ctr;
-		}
-		ui_.pose_ctr->setText(QString::number(pose_ctr));
-
+		/*if(pose_size>0){
+			if(pose_ctr>=pose_size){
+				auto_pose = false;
+				pose_ctr = 0;
+				ROS_INFO("Pose Trajectory Complete");
+			}
+			else{
+				control_panel.pose_step(pose_ctr);
+				++pose_ctr;
+			}
+			ui_.pose_ctr->setText(QString::number(pose_ctr));
+		}else{*/
+			control_panel.find_and_move(ui_.step->isChecked());
+		//}
+	
 	}
 	void ControlPanel::arm_step(){
 
@@ -338,14 +334,14 @@ namespace control_panel
 			if(auto_pose) ControlPanel::pose_loop();
 		}
 		else{
-			arm_tgt = control_panel.step(traj_ctr,ui_.step->isChecked());
+			arm_tgt = control_panel.step(traj_ctr,ui_.step->isChecked(),ui_.fig_box->text().toFloat());
 			++traj_ctr;
 		}
 	}
 	void ControlPanel::pose_loop(){
 			
 		auto_pose = true;
-		ControlPanel::pose_step();
+		control_panel.find_and_move(ui_.step->isChecked());
 	}
 	void ControlPanel::arm_loop(){
 

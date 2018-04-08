@@ -505,7 +505,7 @@ bool localize(phd::localize_cloud::Request  &req,
 	}
 	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
 	cloud_msg.fields[3].name = "intensity";
-	cloud_msg.header.frame_id = "/world";
+	cloud_msg.header.frame_id = "/base_footprint";
 	cloud_msg.header.stamp = ros::Time::now();
 	res.cloud_out = cloud_msg;
   	return marker;

@@ -56,6 +56,7 @@ phd/CMakeFiles/phd_generate_messages_lisp: /home/mike/catkin_ws/devel/share/comm
 phd/CMakeFiles/phd_generate_messages_lisp: /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/trajectory_array.lisp
 phd/CMakeFiles/phd_generate_messages_lisp: /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/trajectory_msg.lisp
 phd/CMakeFiles/phd_generate_messages_lisp: /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/localize_cloud.lisp
+phd/CMakeFiles/phd_generate_messages_lisp: /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/empty.lisp
 phd/CMakeFiles/phd_generate_messages_lisp: /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/thickness_service.lisp
 phd/CMakeFiles/phd_generate_messages_lisp: /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/simple_trajectory_service.lisp
 phd/CMakeFiles/phd_generate_messages_lisp: /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/trajectory_service.lisp
@@ -115,12 +116,18 @@ phd/CMakeFiles/phd_generate_messages_lisp: /home/mike/catkin_ws/devel/share/comm
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Lisp code from phd/localize_cloud.srv"
 	cd /home/mike/catkin_ws/build/phd && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/mike/catkin_ws/src/phd/srv/localize_cloud.srv -Iphd:/home/mike/catkin_ws/src/phd/msg -Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/indigo/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg -p phd -o /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv
 
+/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/empty.lisp: /opt/ros/indigo/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py
+/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/empty.lisp: /home/mike/catkin_ws/src/phd/srv/empty.srv
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_9)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Lisp code from phd/empty.srv"
+	cd /home/mike/catkin_ws/build/phd && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/mike/catkin_ws/src/phd/srv/empty.srv -Iphd:/home/mike/catkin_ws/src/phd/msg -Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/indigo/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg -p phd -o /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv
+
 /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/thickness_service.lisp: /opt/ros/indigo/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py
 /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/thickness_service.lisp: /home/mike/catkin_ws/src/phd/srv/thickness_service.srv
 /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/thickness_service.lisp: /opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointField.msg
 /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/thickness_service.lisp: /opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg
 /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/thickness_service.lisp: /opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_9)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_10)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Lisp code from phd/thickness_service.srv"
 	cd /home/mike/catkin_ws/build/phd && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/mike/catkin_ws/src/phd/srv/thickness_service.srv -Iphd:/home/mike/catkin_ws/src/phd/msg -Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/indigo/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg -p phd -o /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv
 
@@ -131,7 +138,7 @@ phd/CMakeFiles/phd_generate_messages_lisp: /home/mike/catkin_ws/devel/share/comm
 /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/simple_trajectory_service.lisp: /home/mike/catkin_ws/src/phd/msg/trajectory_point.msg
 /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/simple_trajectory_service.lisp: /opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg
 /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/simple_trajectory_service.lisp: /home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_10)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_11)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Lisp code from phd/simple_trajectory_service.srv"
 	cd /home/mike/catkin_ws/build/phd && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/mike/catkin_ws/src/phd/srv/simple_trajectory_service.srv -Iphd:/home/mike/catkin_ws/src/phd/msg -Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/indigo/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg -p phd -o /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv
 
@@ -143,7 +150,7 @@ phd/CMakeFiles/phd_generate_messages_lisp: /home/mike/catkin_ws/devel/share/comm
 /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/trajectory_service.lisp: /opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg
 /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/trajectory_service.lisp: /opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg
 /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/trajectory_service.lisp: /home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_11)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_12)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Lisp code from phd/trajectory_service.srv"
 	cd /home/mike/catkin_ws/build/phd && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/mike/catkin_ws/src/phd/srv/trajectory_service.srv -Iphd:/home/mike/catkin_ws/src/phd/msg -Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/indigo/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg -p phd -o /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv
 
@@ -156,6 +163,7 @@ phd_generate_messages_lisp: /home/mike/catkin_ws/devel/share/common-lisp/ros/phd
 phd_generate_messages_lisp: /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/trajectory_array.lisp
 phd_generate_messages_lisp: /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/trajectory_msg.lisp
 phd_generate_messages_lisp: /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/localize_cloud.lisp
+phd_generate_messages_lisp: /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/empty.lisp
 phd_generate_messages_lisp: /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/thickness_service.lisp
 phd_generate_messages_lisp: /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/simple_trajectory_service.lisp
 phd_generate_messages_lisp: /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/trajectory_service.lisp

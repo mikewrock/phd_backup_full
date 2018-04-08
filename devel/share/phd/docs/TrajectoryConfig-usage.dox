@@ -4,8 +4,8 @@
   <param name="workspace" type="double" value="0.5" />
   <param name="height_step" type="double" value="0.25" />
   <param name="max_height" type="double" value="1.3" />
-  <param name="min_height" type="double" value="0.75" />
-  <param name="offset" type="double" value="0.65" />
+  <param name="mid_height" type="double" value="0.75" />
+  <param name="offset" type="double" value="0.3" />
   <param name="slice_thickness" type="double" value="0.03" />
   <param name="via_distance" type="double" value="0.2" />
   <param name="radial_steps" type="double" value="50.0" />
@@ -14,7 +14,7 @@
   <param name="rib_downsampling" type="double" value="0.05" />
   <param name="rib_spacing" type="double" value="0.05" />
   <param name="z_vert_limit" type="double" value="1.0" />
-  <param name="rib_tolerance" type="double" value="0.03" />
+  <param name="rib_tolerance" type="double" value="0.05" />
   <param name="max_rib_length" type="double" value="2.26" />
 </node>
 \endverbatim

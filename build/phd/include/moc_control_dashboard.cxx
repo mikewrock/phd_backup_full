@@ -22,7 +22,7 @@ static const uint qt_meta_data_control_panel__ControlPanel[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      36,   14, // methods
+      38,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -49,23 +49,25 @@ static const uint qt_meta_data_control_panel__ControlPanel[] = {
      234,   28,   28,   28, 0x09,
      249,   28,   28,   28, 0x09,
      263,   28,   28,   28, 0x09,
-     280,   28,   28,   28, 0x09,
-     298,   28,   28,   28, 0x09,
-     318,   28,   28,   28, 0x09,
-     329,   28,   28,   28, 0x09,
-     341,   28,   28,   28, 0x09,
-     354,   28,   28,   28, 0x09,
-     365,   28,   28,   28, 0x09,
-     377,   28,   28,   28, 0x09,
-     389,   28,   28,   28, 0x09,
-     401,   28,   28,   28, 0x09,
-     412,   28,   28,   28, 0x09,
-     424,   28,   28,   28, 0x09,
-     436,   28,   28,   28, 0x09,
-     450,   28,   28,   28, 0x09,
-     472,   28,   28,   28, 0x09,
-     490,   28,   28,   28, 0x09,
-     521,  513,  507,   28, 0x09,
+     276,   28,   28,   28, 0x09,
+     293,   28,   28,   28, 0x09,
+     311,   28,   28,   28, 0x09,
+     331,   28,   28,   28, 0x09,
+     348,   28,   28,   28, 0x09,
+     359,   28,   28,   28, 0x09,
+     371,   28,   28,   28, 0x09,
+     384,   28,   28,   28, 0x09,
+     395,   28,   28,   28, 0x09,
+     407,   28,   28,   28, 0x09,
+     419,   28,   28,   28, 0x09,
+     431,   28,   28,   28, 0x09,
+     442,   28,   28,   28, 0x09,
+     454,   28,   28,   28, 0x09,
+     466,   28,   28,   28, 0x09,
+     480,   28,   28,   28, 0x09,
+     502,   28,   28,   28, 0x09,
+     520,   28,   28,   28, 0x09,
+     551,  543,  537,   28, 0x09,
 
        0        // eod
 };
@@ -78,12 +80,12 @@ static const char qt_meta_stringdata_control_panel__ControlPanel[] = {
     "localization_scan_2()\0cluster_1()\0"
     "trajectory()\0cluster_2()\0cluster_3()\0"
     "gen_trajectory()\0onPTPCommand()\0"
-    "onCPCommand()\0onJointCommand()\0"
+    "onCPCommand()\0onTCommand()\0onJointCommand()\0"
     "onStringCommand()\0onShutdownCommand()\0"
-    "scan_360()\0load_traj()\0rosSpinner()\0"
-    "do_poses()\0soft_stop()\0pose_step()\0"
-    "pose_loop()\0arm_loop()\0reset_map()\0"
-    "set_clean()\0set_sprayed()\0"
+    "onSpeedCommand()\0scan_360()\0load_traj()\0"
+    "rosSpinner()\0do_poses()\0soft_stop()\0"
+    "pose_step()\0pose_loop()\0arm_loop()\0"
+    "reset_map()\0set_clean()\0set_sprayed()\0"
     "calculate_thickness()\0compare_results()\0"
     "save_selection()\0float\0arm,tgt\0"
     "tgt_distance(phd::arm_msg,phd::arm_msg)\0"
@@ -113,24 +115,26 @@ void control_panel::ControlPanel::qt_static_metacall(QObject *_o, QMetaObject::C
         case 15: _t->gen_trajectory(); break;
         case 16: _t->onPTPCommand(); break;
         case 17: _t->onCPCommand(); break;
-        case 18: _t->onJointCommand(); break;
-        case 19: _t->onStringCommand(); break;
-        case 20: _t->onShutdownCommand(); break;
-        case 21: _t->scan_360(); break;
-        case 22: _t->load_traj(); break;
-        case 23: _t->rosSpinner(); break;
-        case 24: _t->do_poses(); break;
-        case 25: _t->soft_stop(); break;
-        case 26: _t->pose_step(); break;
-        case 27: _t->pose_loop(); break;
-        case 28: _t->arm_loop(); break;
-        case 29: _t->reset_map(); break;
-        case 30: _t->set_clean(); break;
-        case 31: _t->set_sprayed(); break;
-        case 32: _t->calculate_thickness(); break;
-        case 33: _t->compare_results(); break;
-        case 34: _t->save_selection(); break;
-        case 35: { float _r = _t->tgt_distance((*reinterpret_cast< phd::arm_msg(*)>(_a[1])),(*reinterpret_cast< phd::arm_msg(*)>(_a[2])));
+        case 18: _t->onTCommand(); break;
+        case 19: _t->onJointCommand(); break;
+        case 20: _t->onStringCommand(); break;
+        case 21: _t->onShutdownCommand(); break;
+        case 22: _t->onSpeedCommand(); break;
+        case 23: _t->scan_360(); break;
+        case 24: _t->load_traj(); break;
+        case 25: _t->rosSpinner(); break;
+        case 26: _t->do_poses(); break;
+        case 27: _t->soft_stop(); break;
+        case 28: _t->pose_step(); break;
+        case 29: _t->pose_loop(); break;
+        case 30: _t->arm_loop(); break;
+        case 31: _t->reset_map(); break;
+        case 32: _t->set_clean(); break;
+        case 33: _t->set_sprayed(); break;
+        case 34: _t->calculate_thickness(); break;
+        case 35: _t->compare_results(); break;
+        case 36: _t->save_selection(); break;
+        case 37: { float _r = _t->tgt_distance((*reinterpret_cast< phd::arm_msg(*)>(_a[1])),(*reinterpret_cast< phd::arm_msg(*)>(_a[2])));
             if (_a[0]) *reinterpret_cast< float*>(_a[0]) = _r; }  break;
         default: ;
         }
@@ -171,9 +175,9 @@ int control_panel::ControlPanel::qt_metacall(QMetaObject::Call _c, int _id, void
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 36)
+        if (_id < 38)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 36;
+        _id -= 38;
     }
     return _id;
 }

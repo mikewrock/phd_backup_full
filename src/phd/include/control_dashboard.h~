@@ -49,9 +49,11 @@ void cluster_3();
 void gen_trajectory();	
 void onPTPCommand();
 void onCPCommand();
+void onTCommand();
 void onJointCommand();
 void onStringCommand();
 void onShutdownCommand();
+void onSpeedCommand();
 void scan_360();
 void load_traj();
 void rosSpinner();
@@ -65,6 +67,7 @@ void set_clean();
 void set_sprayed();
 void calculate_thickness();
 void compare_results();
+void save_selection();
 float tgt_distance(phd::arm_msg arm, phd::arm_msg tgt);
 Q_SIGNALS:
 
@@ -74,7 +77,7 @@ protected:
   ros::Subscriber pose_sub_;
   ros::Subscriber move_base_sub_;
   ros::Publisher reset_map_pub_;
-
+  ros::ServiceClient reset_map_srv;
 
 private:
 	//Create the control panel and manual operation nodes

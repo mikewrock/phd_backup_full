@@ -1,0 +1,4 @@
+_ctest_lms1xx_gtest_test_buffer 0 0
+_ctest_lms1xx_roslaunch-check_launch_LMS1xx.launch 1 2.24113
+---
+_ctest_lms1xx_gtest_test_buffer

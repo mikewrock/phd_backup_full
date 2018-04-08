@@ -5,6 +5,7 @@
 -I/usr/include/qt4/QtGui
 -I/usr/include/qt4/QtCore
 -DROS_BUILD_SHARED_LIBS=1
+-DQT_NO_DEBUG
 -DQT_GUI_LIB
 -DQT_CORE_LIB
 -o

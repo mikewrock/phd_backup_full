@@ -140,6 +140,7 @@ public:
     QLineEdit *z_box;
     QLabel *label_22;
     QLabel *label_20;
+    QPushButton *t_command_button;
     QWidget *tab_3;
     QLineEdit *save_name_box;
     QPushButton *clean_button;
@@ -150,7 +151,7 @@ public:
     {
         if (Control_Form->objectName().isEmpty())
             Control_Form->setObjectName(QString::fromUtf8("Control_Form"));
-        Control_Form->resize(283, 656);
+        Control_Form->resize(284, 656);
         tabWidget = new QTabWidget(Control_Form);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
         tabWidget->setGeometry(QRect(0, 0, 281, 661));
@@ -305,7 +306,7 @@ public:
         step->setObjectName(QString::fromUtf8("step"));
         step->setEnabled(true);
         step->setGeometry(QRect(10, 70, 111, 30));
-        step->setChecked(false);
+        step->setChecked(true);
         step_button = new QPushButton(tab);
         step_button->setObjectName(QString::fromUtf8("step_button"));
         step_button->setGeometry(QRect(10, 10, 91, 31));
@@ -362,7 +363,7 @@ public:
         label_8->setGeometry(QRect(90, 134, 21, 21));
         cp_command_button = new QPushButton(tab_2);
         cp_command_button->setObjectName(QString::fromUtf8("cp_command_button"));
-        cp_command_button->setGeometry(QRect(140, 44, 131, 31));
+        cp_command_button->setGeometry(QRect(100, 44, 91, 31));
         rz_browser = new QTextBrowser(tab_2);
         rz_browser->setObjectName(QString::fromUtf8("rz_browser"));
         rz_browser->setGeometry(QRect(200, 454, 71, 31));
@@ -488,7 +489,7 @@ public:
         j4_box->setGeometry(QRect(20, 340, 61, 31));
         ptp_command_button = new QPushButton(tab_2);
         ptp_command_button->setObjectName(QString::fromUtf8("ptp_command_button"));
-        ptp_command_button->setGeometry(QRect(0, 44, 131, 31));
+        ptp_command_button->setGeometry(QRect(0, 44, 91, 31));
         label_14 = new QLabel(tab_2);
         label_14->setObjectName(QString::fromUtf8("label_14"));
         label_14->setGeometry(QRect(180, 300, 21, 21));
@@ -513,6 +514,9 @@ public:
         label_20 = new QLabel(tab_2);
         label_20->setObjectName(QString::fromUtf8("label_20"));
         label_20->setGeometry(QRect(182, 542, 21, 21));
+        t_command_button = new QPushButton(tab_2);
+        t_command_button->setObjectName(QString::fromUtf8("t_command_button"));
+        t_command_button->setGeometry(QRect(200, 45, 71, 31));
         tabWidget->addTab(tab_2, QString());
         tab_3 = new QWidget();
         tab_3->setObjectName(QString::fromUtf8("tab_3"));
@@ -549,11 +553,11 @@ public:
         marker_info->setText(QApplication::translate("Control_Form", "Ready to cluster", 0, QApplication::UnicodeUTF8));
         cluster1->setText(QApplication::translate("Control_Form", "Cluster Pt.1", 0, QApplication::UnicodeUTF8));
         set_home->setText(QApplication::translate("Control_Form", "Set Home", 0, QApplication::UnicodeUTF8));
-        marker_name_box->setText(QApplication::translate("Control_Form", "/home/mike/results/saved/", 0, QApplication::UnicodeUTF8));
+        marker_name_box->setText(QApplication::translate("Control_Form", "/home/mike/saved/full", 0, QApplication::UnicodeUTF8));
         marker_info_9->setText(QApplication::translate("Control_Form", "Pointcloud Save Location:", 0, QApplication::UnicodeUTF8));
         exe_trajectory_3->setText(QApplication::translate("Control_Form", "Execute \n"
 "Trajectory", 0, QApplication::UnicodeUTF8));
-        filename_box_5->setText(QApplication::translate("Control_Form", "/home/mike/testing/s1trajectory.bag", 0, QApplication::UnicodeUTF8));
+        filename_box_5->setText(QApplication::translate("Control_Form", "/home/mike/testing/1trajectory.bag", 0, QApplication::UnicodeUTF8));
         marker_info_15->setText(QApplication::translate("Control_Form", "Trajectory Save Location:", 0, QApplication::UnicodeUTF8));
         exe_poses->setText(QApplication::translate("Control_Form", "Pose Step", 0, QApplication::UnicodeUTF8));
         after_box->setText(QApplication::translate("Control_Form", "/home/mike/results/saved/thickened.pcd", 0, QApplication::UnicodeUTF8));
@@ -580,7 +584,7 @@ public:
         marker_info_2->setText(QApplication::translate("Control_Form", "Testing/Research Functions", 0, QApplication::UnicodeUTF8));
         est_pos->setText(QApplication::translate("Control_Form", "Estimate Position", 0, QApplication::UnicodeUTF8));
         show_nav_button->setText(QApplication::translate("Control_Form", "Show Nav Goal", 0, QApplication::UnicodeUTF8));
-        filename_box->setText(QApplication::translate("Control_Form", "/home/mike/results/saved/localized big marker/pose1cleanlocalized.pcd", 0, QApplication::UnicodeUTF8));
+        filename_box->setText(QApplication::translate("Control_Form", "/home/mike/results/saved/unlocalized/pose1clean.pcd", 0, QApplication::UnicodeUTF8));
         scan_360->setText(QApplication::translate("Control_Form", "360 scan", 0, QApplication::UnicodeUTF8));
         f_traj->setText(QApplication::translate("Control_Form", "Load Traj", 0, QApplication::UnicodeUTF8));
         exe_trajectory->setText(QApplication::translate("Control_Form", "Execute Trajectory", 0, QApplication::UnicodeUTF8));
@@ -607,7 +611,7 @@ public:
         label_12->setText(QApplication::translate("Control_Form", "fig", 0, QApplication::UnicodeUTF8));
         label_15->setText(QApplication::translate("Control_Form", "J5", 0, QApplication::UnicodeUTF8));
         label_6->setText(QApplication::translate("Control_Form", "y", 0, QApplication::UnicodeUTF8));
-        ry_box->setText(QApplication::translate("Control_Form", "61.16", 0, QApplication::UnicodeUTF8));
+        ry_box->setText(QApplication::translate("Control_Form", "90", 0, QApplication::UnicodeUTF8));
         j3_box->setText(QApplication::translate("Control_Form", "90", 0, QApplication::UnicodeUTF8));
         label_9->setText(QApplication::translate("Control_Form", "rz", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("Control_Form", "J1", 0, QApplication::UnicodeUTF8));
@@ -629,7 +633,7 @@ public:
         string_box->setText(QApplication::translate("Control_Form", "@P P(x,y,z,rx,ry,rz,fig)", 0, QApplication::UnicodeUTF8));
         fig_box->setText(QApplication::translate("Control_Form", "1", 0, QApplication::UnicodeUTF8));
         speed_button->setText(QApplication::translate("Control_Form", "Set Speed", 0, QApplication::UnicodeUTF8));
-        rz_box->setText(QApplication::translate("Control_Form", "-167.28", 0, QApplication::UnicodeUTF8));
+        rz_box->setText(QApplication::translate("Control_Form", "-180", 0, QApplication::UnicodeUTF8));
         launch_node_button->setText(QApplication::translate("Control_Form", "Init", 0, QApplication::UnicodeUTF8));
         label_16->setText(QApplication::translate("Control_Form", "J6", 0, QApplication::UnicodeUTF8));
         label_17->setText(QApplication::translate("Control_Form", "J4", 0, QApplication::UnicodeUTF8));
@@ -642,6 +646,7 @@ public:
         z_box->setText(QApplication::translate("Control_Form", "415.64", 0, QApplication::UnicodeUTF8));
         label_22->setText(QApplication::translate("Control_Form", "rx", 0, QApplication::UnicodeUTF8));
         label_20->setText(QApplication::translate("Control_Form", "J6", 0, QApplication::UnicodeUTF8));
+        t_command_button->setText(QApplication::translate("Control_Form", "Send T", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("Control_Form", "Nav", 0, QApplication::UnicodeUTF8));
         save_name_box->setText(QApplication::translate("Control_Form", "/home/mike/results/", 0, QApplication::UnicodeUTF8));
         clean_button->setText(QApplication::translate("Control_Form", "Clean Cloud", 0, QApplication::UnicodeUTF8));

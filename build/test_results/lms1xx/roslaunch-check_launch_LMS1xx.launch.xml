@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite tests="1" failures="0" time="1" errors="0" name="roslaunch-check_launch_LMS1xx.launch.xml">
+  <testcase name="test_ran" status="run" time="1" classname="Results">
+  </testcase>
+</testsuite>

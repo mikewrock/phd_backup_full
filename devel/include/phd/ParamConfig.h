@@ -230,18 +230,8 @@ class DEFAULT
         if("cloud_number"==(*_i)->name){cloud_number = boost::any_cast<int>(val);}
         if("intensity_min"==(*_i)->name){intensity_min = boost::any_cast<int>(val);}
         if("intensity_max"==(*_i)->name){intensity_max = boost::any_cast<int>(val);}
-        if("auto_crop_max_x"==(*_i)->name){auto_crop_max_x = boost::any_cast<double>(val);}
-        if("auto_crop_min_x"==(*_i)->name){auto_crop_min_x = boost::any_cast<double>(val);}
-        if("auto_crop_max_y"==(*_i)->name){auto_crop_max_y = boost::any_cast<double>(val);}
-        if("auto_crop_min_y"==(*_i)->name){auto_crop_min_y = boost::any_cast<double>(val);}
-        if("auto_crop_max_z"==(*_i)->name){auto_crop_max_z = boost::any_cast<double>(val);}
-        if("auto_crop_min_z"==(*_i)->name){auto_crop_min_z = boost::any_cast<double>(val);}
-        if("auto_occlude_max_x"==(*_i)->name){auto_occlude_max_x = boost::any_cast<double>(val);}
-        if("auto_occlude_min_x"==(*_i)->name){auto_occlude_min_x = boost::any_cast<double>(val);}
-        if("auto_occlude_max_y"==(*_i)->name){auto_occlude_max_y = boost::any_cast<double>(val);}
-        if("auto_occlude_min_y"==(*_i)->name){auto_occlude_min_y = boost::any_cast<double>(val);}
-        if("auto_occlude_max_z"==(*_i)->name){auto_occlude_max_z = boost::any_cast<double>(val);}
-        if("auto_occlude_min_z"==(*_i)->name){auto_occlude_min_z = boost::any_cast<double>(val);}
+        if("pose_offset"==(*_i)->name){pose_offset = boost::any_cast<double>(val);}
+        if("init_clear"==(*_i)->name){init_clear = boost::any_cast<bool>(val);}
       }
     }
 
@@ -249,29 +239,19 @@ class DEFAULT
 int cloud_number;
 int intensity_min;
 int intensity_max;
-double auto_crop_max_x;
-double auto_crop_min_x;
-double auto_crop_max_y;
-double auto_crop_min_y;
-double auto_crop_max_z;
-double auto_crop_min_z;
-double auto_occlude_max_x;
-double auto_occlude_min_x;
-double auto_occlude_max_y;
-double auto_occlude_min_y;
-double auto_occlude_max_z;
-double auto_occlude_min_z;
+double pose_offset;
+bool init_clear;
 
     bool state;
     std::string name;
 
-    class GROUP_ONE
+    class KEEP
 {
   public:
-    GROUP_ONE()
+    KEEP()
     {
       state = true;
-      name = "Group_One";
+      name = "Keep";
     }
 
     void setParams(ParamConfig &config, const std::vector<AbstractParamDescriptionConstPtr> params)
@@ -281,11 +261,59 @@ double auto_occlude_min_z;
         boost::any val;
         (*_i)->getValue(config, val);
 
-        if("group1_int"==(*_i)->name){group1_int = boost::any_cast<int>(val);}
+        if("auto_crop_max_x"==(*_i)->name){auto_crop_max_x = boost::any_cast<double>(val);}
+        if("auto_crop_min_x"==(*_i)->name){auto_crop_min_x = boost::any_cast<double>(val);}
+        if("auto_crop_max_y"==(*_i)->name){auto_crop_max_y = boost::any_cast<double>(val);}
+        if("auto_crop_min_y"==(*_i)->name){auto_crop_min_y = boost::any_cast<double>(val);}
+        if("auto_crop_max_z"==(*_i)->name){auto_crop_max_z = boost::any_cast<double>(val);}
+        if("auto_crop_min_z"==(*_i)->name){auto_crop_min_z = boost::any_cast<double>(val);}
       }
     }
 
-    int group1_int;
+    double auto_crop_max_x;
+double auto_crop_min_x;
+double auto_crop_max_y;
+double auto_crop_min_y;
+double auto_crop_max_z;
+double auto_crop_min_z;
+
+    bool state;
+    std::string name;
+
+    
+}keep;
+
+class OCCLUDE
+{
+  public:
+    OCCLUDE()
+    {
+      state = true;
+      name = "Occlude";
+    }
+
+    void setParams(ParamConfig &config, const std::vector<AbstractParamDescriptionConstPtr> params)
+    {
+      for (std::vector<AbstractParamDescriptionConstPtr>::const_iterator _i = params.begin(); _i != params.end(); ++_i)
+      {
+        boost::any val;
+        (*_i)->getValue(config, val);
+
+        if("auto_occlude_max_x"==(*_i)->name){auto_occlude_max_x = boost::any_cast<double>(val);}
+        if("auto_occlude_min_x"==(*_i)->name){auto_occlude_min_x = boost::any_cast<double>(val);}
+        if("auto_occlude_max_y"==(*_i)->name){auto_occlude_max_y = boost::any_cast<double>(val);}
+        if("auto_occlude_min_y"==(*_i)->name){auto_occlude_min_y = boost::any_cast<double>(val);}
+        if("auto_occlude_max_z"==(*_i)->name){auto_occlude_max_z = boost::any_cast<double>(val);}
+        if("auto_occlude_min_z"==(*_i)->name){auto_occlude_min_z = boost::any_cast<double>(val);}
+      }
+    }
+
+    double auto_occlude_max_x;
+double auto_occlude_min_x;
+double auto_occlude_max_y;
+double auto_occlude_min_y;
+double auto_occlude_max_z;
+double auto_occlude_min_z;
 
     bool state;
     std::string name;
@@ -318,7 +346,7 @@ double auto_occlude_min_z;
     
 }group2;
 
-}group_one;
+}occlude;
 
 }groups;
 
@@ -333,32 +361,34 @@ double auto_occlude_min_z;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       int intensity_max;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      double pose_offset;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      bool init_clear;
+//#line 17 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       double auto_crop_max_x;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 18 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       double auto_crop_min_x;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 19 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       double auto_crop_max_y;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 20 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       double auto_crop_min_y;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 21 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       double auto_crop_max_z;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 22 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       double auto_crop_min_z;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 24 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       double auto_occlude_max_x;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 25 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       double auto_occlude_min_x;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 26 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       double auto_occlude_max_y;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 27 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       double auto_occlude_min_y;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      double auto_occlude_max_z;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      double auto_occlude_min_z;
 //#line 28 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
-      int group1_int;
-//#line 30 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      double auto_occlude_max_z;
+//#line 29 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      double auto_occlude_min_z;
+//#line 31 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       double group2_double;
 //#line 218 "/opt/ros/indigo/share/dynamic_reconfigure/cmake/../templates/ConfigType.h.template"
 
@@ -536,159 +566,176 @@ ParamConfig::GroupDescription<ParamConfig::DEFAULT, ParamConfig> Default("Defaul
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<int>("intensity_max", "int", 0, "Marker Intensiy Cutoff", "", &ParamConfig::intensity_max)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __min__.auto_crop_max_x = 0.0;
+      __min__.pose_offset = 0.0;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __max__.pose_offset = 10.0;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __default__.pose_offset = 1.0;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      Default.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("pose_offset", "double", 0, "Pose Offset", "", &ParamConfig::pose_offset)));
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("pose_offset", "double", 0, "Pose Offset", "", &ParamConfig::pose_offset)));
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __min__.init_clear = 0;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __max__.init_clear = 1;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __default__.init_clear = 1;
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      Default.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<bool>("init_clear", "bool", 0, "Clear Map on Init", "", &ParamConfig::init_clear)));
+//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<bool>("init_clear", "bool", 0, "Clear Map on Init", "", &ParamConfig::init_clear)));
+ParamConfig::GroupDescription<ParamConfig::DEFAULT::KEEP, ParamConfig::DEFAULT> Keep("Keep", "collapse", 0, 1, true, &ParamConfig::DEFAULT::keep);
+//#line 17 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __min__.auto_crop_max_x = -10.0;
+//#line 17 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __max__.auto_crop_max_x = 10.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.auto_crop_max_x = 5.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_crop_max_x", "double", 0, "Max X value when auto-cropping for trajectory generation", "", &ParamConfig::auto_crop_max_x)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_crop_max_x", "double", 0, "Max X value when auto-cropping for trajectory generation", "", &ParamConfig::auto_crop_max_x)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 17 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __default__.auto_crop_max_x = 1.0;
+//#line 17 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      Keep.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_crop_max_x", "double", 0, "Max X value when auto-cropping for trajectory group1eration", "", &ParamConfig::auto_crop_max_x)));
+//#line 17 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_crop_max_x", "double", 0, "Max X value when auto-cropping for trajectory group1eration", "", &ParamConfig::auto_crop_max_x)));
+//#line 18 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __min__.auto_crop_min_x = -10.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __max__.auto_crop_min_x = 0.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.auto_crop_min_x = -5.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_crop_min_x", "double", 0, "Min X value when auto-cropping for trajectory generation", "", &ParamConfig::auto_crop_min_x)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 18 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __max__.auto_crop_min_x = 10.0;
+//#line 18 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __default__.auto_crop_min_x = 0.0;
+//#line 18 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      Keep.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_crop_min_x", "double", 0, "Min X value when auto-cropping for trajectory generation", "", &ParamConfig::auto_crop_min_x)));
+//#line 18 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_crop_min_x", "double", 0, "Min X value when auto-cropping for trajectory generation", "", &ParamConfig::auto_crop_min_x)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __min__.auto_crop_max_y = 0.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 19 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __min__.auto_crop_max_y = -10.0;
+//#line 19 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __max__.auto_crop_max_y = 10.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.auto_crop_max_y = 0.5;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_crop_max_y", "double", 0, "Max Y value when auto-cropping for trajectory generation", "", &ParamConfig::auto_crop_max_y)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 19 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __default__.auto_crop_max_y = 2.0;
+//#line 19 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      Keep.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_crop_max_y", "double", 0, "Max Y value when auto-cropping for trajectory generation", "", &ParamConfig::auto_crop_max_y)));
+//#line 19 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_crop_max_y", "double", 0, "Max Y value when auto-cropping for trajectory generation", "", &ParamConfig::auto_crop_max_y)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 20 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __min__.auto_crop_min_y = -10.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __max__.auto_crop_min_y = 0.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 20 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __max__.auto_crop_min_y = 10.0;
+//#line 20 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __default__.auto_crop_min_y = -0.5;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_crop_min_y", "double", 0, "Min Y value when auto-cropping for trajectory generation", "", &ParamConfig::auto_crop_min_y)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 20 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      Keep.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_crop_min_y", "double", 0, "Min Y value when auto-cropping for trajectory generation", "", &ParamConfig::auto_crop_min_y)));
+//#line 20 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_crop_min_y", "double", 0, "Min Y value when auto-cropping for trajectory generation", "", &ParamConfig::auto_crop_min_y)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __min__.auto_crop_max_z = 0.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 21 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __min__.auto_crop_max_z = -10.0;
+//#line 21 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __max__.auto_crop_max_z = 10.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.auto_crop_max_z = 2.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_crop_max_z", "double", 0, "Max Z value when auto-cropping for trajectory generation", "", &ParamConfig::auto_crop_max_z)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 21 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __default__.auto_crop_max_z = 1.25;
+//#line 21 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      Keep.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_crop_max_z", "double", 0, "Max Z value when auto-cropping for trajectory generation", "", &ParamConfig::auto_crop_max_z)));
+//#line 21 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_crop_max_z", "double", 0, "Max Z value when auto-cropping for trajectory generation", "", &ParamConfig::auto_crop_max_z)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 22 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __min__.auto_crop_min_z = -10.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __max__.auto_crop_min_z = 0.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.auto_crop_min_z = 0.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_crop_min_z", "double", 0, "Min Z value when auto-cropping for trajectory generation", "", &ParamConfig::auto_crop_min_z)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 22 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __max__.auto_crop_min_z = 10.0;
+//#line 22 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __default__.auto_crop_min_z = 0.7;
+//#line 22 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      Keep.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_crop_min_z", "double", 0, "Min Z value when auto-cropping for trajectory generation", "", &ParamConfig::auto_crop_min_z)));
+//#line 22 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_crop_min_z", "double", 0, "Min Z value when auto-cropping for trajectory generation", "", &ParamConfig::auto_crop_min_z)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __min__.auto_occlude_max_x = 0.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __max__.auto_occlude_max_x = 1.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.auto_occlude_max_x = 0.0075;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_occlude_max_x", "double", 0, "Max X value when auto-cropping for nearby objects", "", &ParamConfig::auto_occlude_max_x)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 109 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      Keep.convertParams();
+//#line 109 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      Default.groups.push_back(ParamConfig::AbstractGroupDescriptionConstPtr(new ParamConfig::GroupDescription<ParamConfig::DEFAULT::KEEP, ParamConfig::DEFAULT>(Keep)));
+//#line 109 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+      __group_descriptions__.push_back(ParamConfig::AbstractGroupDescriptionConstPtr(new ParamConfig::GroupDescription<ParamConfig::DEFAULT::KEEP, ParamConfig::DEFAULT>(Keep)));
+ParamConfig::GroupDescription<ParamConfig::DEFAULT::OCCLUDE, ParamConfig::DEFAULT> Occlude("Occlude", "collapse", 0, 2, true, &ParamConfig::DEFAULT::occlude);
+//#line 24 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __min__.auto_occlude_max_x = -10.0;
+//#line 24 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __max__.auto_occlude_max_x = 10.0;
+//#line 24 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __default__.auto_occlude_max_x = 0.5;
+//#line 24 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      Occlude.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_occlude_max_x", "double", 0, "Max X value when auto-cropping for nearby objects", "", &ParamConfig::auto_occlude_max_x)));
+//#line 24 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_occlude_max_x", "double", 0, "Max X value when auto-cropping for nearby objects", "", &ParamConfig::auto_occlude_max_x)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __min__.auto_occlude_min_x = -2.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __max__.auto_occlude_min_x = 0.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.auto_occlude_min_x = -1.6;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_occlude_min_x", "double", 0, "Min X value when auto-cropping for nearby objects", "", &ParamConfig::auto_occlude_min_x)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 25 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __min__.auto_occlude_min_x = -10.0;
+//#line 25 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __max__.auto_occlude_min_x = 10.0;
+//#line 25 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __default__.auto_occlude_min_x = -2.0;
+//#line 25 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      Occlude.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_occlude_min_x", "double", 0, "Min X value when auto-cropping for nearby objects", "", &ParamConfig::auto_occlude_min_x)));
+//#line 25 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_occlude_min_x", "double", 0, "Min X value when auto-cropping for nearby objects", "", &ParamConfig::auto_occlude_min_x)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __min__.auto_occlude_max_y = 0.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __max__.auto_occlude_max_y = 1.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.auto_occlude_max_y = 0.4;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_occlude_max_y", "double", 0, "Max Y value when auto-cropping for nearby objects", "", &ParamConfig::auto_occlude_max_y)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 26 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __min__.auto_occlude_max_y = -10.0;
+//#line 26 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __max__.auto_occlude_max_y = 10.0;
+//#line 26 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __default__.auto_occlude_max_y = 0.5;
+//#line 26 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      Occlude.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_occlude_max_y", "double", 0, "Max Y value when auto-cropping for nearby objects", "", &ParamConfig::auto_occlude_max_y)));
+//#line 26 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_occlude_max_y", "double", 0, "Max Y value when auto-cropping for nearby objects", "", &ParamConfig::auto_occlude_max_y)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __min__.auto_occlude_min_y = -1.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __max__.auto_occlude_min_y = 0.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.auto_occlude_min_y = -0.4;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_occlude_min_y", "double", 0, "Min Y value when auto-cropping for nearby objects", "", &ParamConfig::auto_occlude_min_y)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 27 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __min__.auto_occlude_min_y = -10.0;
+//#line 27 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __max__.auto_occlude_min_y = 10.0;
+//#line 27 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __default__.auto_occlude_min_y = -0.5;
+//#line 27 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      Occlude.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_occlude_min_y", "double", 0, "Min Y value when auto-cropping for nearby objects", "", &ParamConfig::auto_occlude_min_y)));
+//#line 27 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_occlude_min_y", "double", 0, "Min Y value when auto-cropping for nearby objects", "", &ParamConfig::auto_occlude_min_y)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __min__.auto_occlude_max_z = 0.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __max__.auto_occlude_max_z = 2.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.auto_occlude_max_z = 1.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_occlude_max_z", "double", 0, "Max Z value when auto-cropping for nearby objects", "", &ParamConfig::auto_occlude_max_z)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 28 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __min__.auto_occlude_max_z = -10.0;
+//#line 28 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __max__.auto_occlude_max_z = 10.0;
+//#line 28 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __default__.auto_occlude_max_z = 1.2;
+//#line 28 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      Occlude.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_occlude_max_z", "double", 0, "Max Z value when auto-cropping for nearby objects", "", &ParamConfig::auto_occlude_max_z)));
+//#line 28 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_occlude_max_z", "double", 0, "Max Z value when auto-cropping for nearby objects", "", &ParamConfig::auto_occlude_max_z)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __min__.auto_occlude_min_z = -1.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __max__.auto_occlude_min_z = 0.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.auto_occlude_min_z = -0.01;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_occlude_min_z", "double", 0, "Min Z value when auto-cropping for nearby objects", "", &ParamConfig::auto_occlude_min_z)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+//#line 29 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __min__.auto_occlude_min_z = -10.0;
+//#line 29 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __max__.auto_occlude_min_z = 10.0;
+//#line 29 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      __default__.auto_occlude_min_z = 0.0;
+//#line 29 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+      Occlude.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_occlude_min_z", "double", 0, "Min Z value when auto-cropping for nearby objects", "", &ParamConfig::auto_occlude_min_z)));
+//#line 29 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_occlude_min_z", "double", 0, "Min Z value when auto-cropping for nearby objects", "", &ParamConfig::auto_occlude_min_z)));
-ParamConfig::GroupDescription<ParamConfig::DEFAULT::GROUP_ONE, ParamConfig::DEFAULT> Group_One("Group_One", "collapse", 0, 1, true, &ParamConfig::DEFAULT::group_one);
-//#line 28 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
-      __min__.group1_int = -2147483648;
-//#line 28 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
-      __max__.group1_int = 2147483647;
-//#line 28 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
-      __default__.group1_int = 2;
-//#line 28 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
-      Group_One.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<int>("group1_int", "int", 1, "A second level group parameter", "", &ParamConfig::group1_int)));
-//#line 28 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
-      __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<int>("group1_int", "int", 1, "A second level group parameter", "", &ParamConfig::group1_int)));
-ParamConfig::GroupDescription<ParamConfig::DEFAULT::GROUP_ONE::GROUP2, ParamConfig::DEFAULT::GROUP_ONE> GROUP2("GROUP2", "", 1, 2, true, &ParamConfig::DEFAULT::GROUP_ONE::group2);
-//#line 30 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+ParamConfig::GroupDescription<ParamConfig::DEFAULT::OCCLUDE::GROUP2, ParamConfig::DEFAULT::OCCLUDE> GROUP2("GROUP2", "", 2, 3, true, &ParamConfig::DEFAULT::OCCLUDE::group2);
+//#line 31 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __min__.group2_double = -std::numeric_limits<double>::infinity();
-//#line 30 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 31 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __max__.group2_double = std::numeric_limits<double>::infinity();
-//#line 30 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 31 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __default__.group2_double = 3.333;
-//#line 30 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 31 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       GROUP2.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("group2_double", "double", 0, "A third level group parameter", "", &ParamConfig::group2_double)));
-//#line 30 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
+//#line 31 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __param_descriptions__.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("group2_double", "double", 0, "A third level group parameter", "", &ParamConfig::group2_double)));
 //#line 109 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       GROUP2.convertParams();
 //#line 109 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Group_One.groups.push_back(ParamConfig::AbstractGroupDescriptionConstPtr(new ParamConfig::GroupDescription<ParamConfig::DEFAULT::GROUP_ONE::GROUP2, ParamConfig::DEFAULT::GROUP_ONE>(GROUP2)));
+      Occlude.groups.push_back(ParamConfig::AbstractGroupDescriptionConstPtr(new ParamConfig::GroupDescription<ParamConfig::DEFAULT::OCCLUDE::GROUP2, ParamConfig::DEFAULT::OCCLUDE>(GROUP2)));
 //#line 109 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __group_descriptions__.push_back(ParamConfig::AbstractGroupDescriptionConstPtr(new ParamConfig::GroupDescription<ParamConfig::DEFAULT::GROUP_ONE::GROUP2, ParamConfig::DEFAULT::GROUP_ONE>(GROUP2)));
+      __group_descriptions__.push_back(ParamConfig::AbstractGroupDescriptionConstPtr(new ParamConfig::GroupDescription<ParamConfig::DEFAULT::OCCLUDE::GROUP2, ParamConfig::DEFAULT::OCCLUDE>(GROUP2)));
 //#line 109 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Group_One.convertParams();
+      Occlude.convertParams();
 //#line 109 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.groups.push_back(ParamConfig::AbstractGroupDescriptionConstPtr(new ParamConfig::GroupDescription<ParamConfig::DEFAULT::GROUP_ONE, ParamConfig::DEFAULT>(Group_One)));
+      Default.groups.push_back(ParamConfig::AbstractGroupDescriptionConstPtr(new ParamConfig::GroupDescription<ParamConfig::DEFAULT::OCCLUDE, ParamConfig::DEFAULT>(Occlude)));
 //#line 109 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __group_descriptions__.push_back(ParamConfig::AbstractGroupDescriptionConstPtr(new ParamConfig::GroupDescription<ParamConfig::DEFAULT::GROUP_ONE, ParamConfig::DEFAULT>(Group_One)));
+      __group_descriptions__.push_back(ParamConfig::AbstractGroupDescriptionConstPtr(new ParamConfig::GroupDescription<ParamConfig::DEFAULT::OCCLUDE, ParamConfig::DEFAULT>(Occlude)));
 //#line 235 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.convertParams();
 //#line 235 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
