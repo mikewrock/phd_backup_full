@@ -129,7 +129,7 @@ void reconfig_callback(phd::ParamConfig &config, uint32_t level) {
 	POSE_OFFSET = config.pose_offset;
 	INIT_CLEAR = config.init_clear;
 	visualization_msgs::Marker crop_marker;
-	crop_marker.header.frame_id = "/base_footprint";
+	crop_marker.header.frame_id = "/world";
 	crop_marker.header.stamp = ros::Time::now();
 	crop_marker.ns = "basic_shapes";
 	crop_marker.id = 0;
@@ -341,6 +341,7 @@ bool QNode::init() {
 	arm_pub = nh_.advertise<phd::arm_msg>("arm_cmd", 100);
 	//Point cloud publisher
 	pub = nh_.advertise<sensor_msgs::PointCloud2> ("assembled_cloud", 1);
+	finished_scan_pub = nh_.advertise<std_msgs::String> ("finished_scan", 1);
 	rawpub = nh_.advertise<sensor_msgs::PointCloud2> ("raw_cloud", 1);
 	pub2 = nh_.advertise<sensor_msgs::PointCloud2> ("aligned_cloud", 1);
 	pub3 = nh_.advertise<sensor_msgs::PointCloud2> ("aligned_cloud3", 1);
@@ -422,10 +423,6 @@ bool QNode::init() {
 	ros::Duration(0.5).sleep();
 	ros::spinOnce();
 	pose_waiting = false;
-	while(joint1 > -1.56 && ros::ok() && INIT_CLEAR){
-		//ROS_INFO("Waiting to reset map");
-		ros::spinOnce();
-	}
 	ROS_INFO("Resetting Map");
 	std::stringstream ss;
 	ss << "reset";
@@ -1113,7 +1110,7 @@ void QNode::scan(std::string markername, bool localize){
 	phd::empty esrv;
 	reset_map_srv.call(esrv);
 	reset_map_pub.publish(RESET_MAP);
-
+	finished_scan_pub.publish(RESET_MAP);
 	transform.setOrigin( tf::Vector3(0, 0, 0) );
 	q.setRPY(0, 0, 0);
 	transform.setRotation(q);
@@ -1122,6 +1119,7 @@ void QNode::scan(std::string markername, bool localize){
 		ROS_INFO("Auto moving");
 		//Do trajectory first?
 		QNode::find_and_move(marker_only);
+		pose_waiting = false;
 	}
 
 }
@@ -2121,7 +2119,7 @@ ROS_INFO("Starting sort");
 			ROS_INFO("return %lu", sorted.points.size());
 
 		pcl::toROSMsg(sorted,cloud_msg);
-		cloud_msg.header.frame_id = "/base_footprint";
+		cloud_msg.header.frame_id = "/world";
 		pub4.publish(cloud_msg);
 
 
@@ -2133,23 +2131,24 @@ ROS_INFO("Starting sort");
 		maxPoint[0]=cropMaxX+0.5;//.0075;  // define max point x 
 		maxPoint[1]=cropMaxY;//.01;  // define max point y 
 		maxPoint[2]=10;//.014;  // define max point z 
-		cropFilter.setInputCloud (sorted.makeShared()); 
+		cropFilter.setInputCloud (unsorted.makeShared()); 
 		cropFilter.setMin(minPoint); 
 		cropFilter.setMax(maxPoint);
 		cropFilter.setNegative(true);
 		cropFilter.filter (*cloudOut); 
 
 		pcl::toROSMsg(*cloudOut,cloud_msg);
-		cloud_msg.header.frame_id = "/base_footprint";
+		cloud_msg.header.frame_id = "/world";
 		pub5.publish(cloud_msg);
 
 		pcl::PointXYZI target_pt;	
 		target_pt.x = 0;	
 		target_pt.y = 0;	
 		target_pt.z = 1;
-
+ROS_INFO("cloud size %lu",cloudOut->points.size());
+	if(cloudOut->points.size() > 0){
 			foundpt = QNode::find_and_delete_point(cloudOut, target_pt);
-
+ROS_INFO("Moving to pt %f - %f - %f",foundpt.x,foundpt.y,foundpt.z);
 	//pcl wants a cloud of points at which to calculate normals
 	pcl::PointCloud<pcl::PointXYZI> cloudB;
 	cloudB.push_back (foundpt);	
@@ -2203,6 +2202,8 @@ raw_pc_.reset(new pcl::PointCloud<pcl::PointXYZI>());
 	goals.poses.push_back(ggoal);
 	show_nav();
 	}
+
+}
 }
 
 

@@ -7,7 +7,7 @@
   <param name="intensity_max" type="int" value="3000" />
   <param name="pose_offset" type="double" value="1.0" />
   <param name="init_clear" type="bool" value="True" />
-  <param name="auto_crop_max_x" type="double" value="1.0" />
+  <param name="auto_crop_max_x" type="double" value="0.6" />
   <param name="auto_crop_min_x" type="double" value="0.0" />
   <param name="auto_crop_max_y" type="double" value="2.0" />
   <param name="auto_crop_min_y" type="double" value="-0.5" />

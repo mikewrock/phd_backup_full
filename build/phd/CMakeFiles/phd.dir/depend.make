@@ -181,6 +181,7 @@ phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/incl
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/include/sensor_msgs/JointState.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/include/sensor_msgs/PointCloud2.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/include/sensor_msgs/PointField.h
+phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/include/std_msgs/ColorRGBA.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/include/std_msgs/Header.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/include/std_msgs/String.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/include/tf/LinearMath/Matrix3x3.h
@@ -209,6 +210,7 @@ phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/incl
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/include/tf2_ros/buffer.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/include/tf2_ros/buffer_interface.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/include/tf2_ros/transform_broadcaster.h
+phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /opt/ros/indigo/include/visualization_msgs/Marker.h
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/eigen3/Eigen/Cholesky
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/eigen3/Eigen/Core
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: /usr/include/eigen3/Eigen/Eigen2Support
@@ -1833,6 +1835,7 @@ phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/rviz
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/sensor_msgs/JointState.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/sensor_msgs/PointCloud2.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/sensor_msgs/PointField.h
+phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/std_msgs/ColorRGBA.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/std_msgs/Header.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/std_msgs/String.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/tf/LinearMath/Matrix3x3.h
@@ -1861,6 +1864,7 @@ phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/tf2_
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/tf2_ros/buffer.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/tf2_ros/buffer_interface.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/tf2_ros/transform_broadcaster.h
+phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /opt/ros/indigo/include/visualization_msgs/Marker.h
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/eigen3/Eigen/Cholesky
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/eigen3/Eigen/Core
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/eigen3/Eigen/Eigen2Support

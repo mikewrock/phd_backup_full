@@ -207,7 +207,7 @@ pcl::PointXYZI vertical_step_vector(pcl::PointXYZI vectorA,pcl::PointXYZI vector
 //calculates a step vector from two points
 pcl::PointXYZI horizontal_step_vector(pcl::PointXYZI vectorA,pcl::PointXYZI vectorB, float step){
 	pcl::PointXYZI result;
-	//ROS_INFO("hStepping %f - %f - %f / %f - %f - %f", vectorA.x,vectorA.y,vectorA.z,vectorB.x,vectorB.y,vectorB.z);
+	ROS_INFO("hStepping %f - %f - %f / %f - %f - %f", vectorA.x,vectorA.y,vectorA.z,vectorB.x,vectorB.y,vectorB.z);
 	float d_total = vec_length(vectorA,vectorB);
 	result.x = vectorB.x + ((vectorB.x-vectorA.x)/d_total)*step;
 	result.y = vectorB.y + ((vectorB.y-vectorA.y)/d_total)*step;
@@ -251,7 +251,7 @@ pcl::PointXYZI find_pt(pcl::PointXYZI target_pt){
 		}else{ ROS_INFO("Could not find point");
 			return foundpt;
 		}
-	}else ROS_INFO("Bad Data");
+	}else ROS_INFO("Bad Data 3");
 		return target_pt;
 
 	}
@@ -270,7 +270,7 @@ bool delete_point(pcl::PointCloud<pcl::PointXYZI>::Ptr line, pcl::PointXYZI targ
 	if (octree.nearestKSearch (target_pt, K, pointIdxNKNSearch, pointNKNSquaredDistance) > 0){
 		if(pointNKNSquaredDistance[0] < spacing_radius){
 			line->points.erase(line->points.begin()+pointIdxNKNSearch[0]);
-				//ROS_INFO("eaten");
+			//ROS_INFO("eaten");
 			return true;
 		}else {
 			//ROS_INFO("Could not eat find point %f",pointNKNSquaredDistance[0]);	
@@ -284,7 +284,7 @@ bool delete_point(pcl::PointCloud<pcl::PointXYZI>::Ptr line, pcl::PointXYZI targ
 void eat_chunk(pcl::PointCloud<pcl::PointXYZI>::Ptr line, pcl::PointXYZI target_pt, float spacing_radius){
 
 	while(delete_point(line, target_pt, spacing_radius) && line->points.size() > 0);
-	}
+}
 float avg_dist_NN(pcl::PointXYZI point_holder,pcl::PointCloud<pcl::PointXYZI>::Ptr line){
 
 	int K = 4; //Number of points to find
@@ -360,20 +360,17 @@ bool find_and_delete_NN(pcl::PointXYZI point_holder,pcl::PointCloud<pcl::PointXY
 				*ret_pt = line->points[pointIdxNKNSearch[0]];
 				eat_chunk(line,*ret_pt,spacing_radius);
 				return true;	
-			}else{ //ROS_INFO("Could eat find point");
+			}else{ ROS_INFO("Could eat find point");
 				return false;
 			}
-		}else ROS_INFO("Bad Data");
-			return false;
+		}else ROS_INFO("Bad Data 1");
+		return false;
 		
 
 		//ROS_INFO("Dist %f - %f - %f - %f", pointNKNSquaredDistance[0], pointNKNSquaredDistance[1], pointNKNSquaredDistance[2], pointNKNSquaredDistance[3]);
 
-		}else return false;
-
-
-
-	}
+	}else return false;
+}
 
 //finds nearest point to given coords using defined cloud
 pcl::PointXYZI find_pt(pcl::PointCloud<pcl::PointXYZI>::Ptr l_cloud, pcl::PointXYZI target_pt){
@@ -396,7 +393,7 @@ pcl::PointXYZI find_pt(pcl::PointCloud<pcl::PointXYZI>::Ptr l_cloud, pcl::PointX
 		}else{ ROS_INFO("Could not find point");
 			return foundpt;
 		}
-	}else ROS_INFO("Bad Data");
+	}else ROS_INFO("Bad Data 2");
 		return target_pt;
 
 
@@ -519,7 +516,7 @@ void show_markers(phd::trajectory_msg t_msg){
 	visualization_msgs::Marker good_points;
 	visualization_msgs::Marker bad_points;
 	// Set the frame ID and timestamp.  See the TF tutorials for information on these.
-	marker.header.frame_id = "/base_footprint";
+	marker.header.frame_id = "/world";
 	marker.header.stamp = ros::Time::now();
 	marker.ns = "basic_shapes";
 	marker.id = 0;
@@ -542,7 +539,7 @@ void show_markers(phd::trajectory_msg t_msg){
 	marker.lifetime = ros::Duration();
 	
 	    // Set the frame ID and timestamp.  See the TF tutorials for information on these.
-	path.header.frame_id = "/base_footprint";
+	path.header.frame_id = "/world";
 	path.header.stamp = ros::Time::now();
 	// Set the namespace and id for this path.  This serves to create a unique ID
 	// Any path sent with the same namespace and id will overwrite the old one
@@ -569,7 +566,7 @@ void show_markers(phd::trajectory_msg t_msg){
 	path.color.a = 1.0;
 	path.lifetime = ros::Duration();	    
 	// Set the frame ID and timestamp.  See the TF tutorials for information on these.
-	surface_path.header.frame_id = "/base_footprint";
+	surface_path.header.frame_id = "/world";
 	surface_path.header.stamp = ros::Time::now();
 	// Set the namespace and id for this path.  This serves to create a unique ID
 	// Any path sent with the same namespace and id will overwrite the old one
@@ -596,7 +593,7 @@ void show_markers(phd::trajectory_msg t_msg){
 	surface_path.color.a = 1.0;
 	surface_path.lifetime = ros::Duration();
 
-	good_points.header.frame_id = "/base_footprint";
+	good_points.header.frame_id = "/world";
 	good_points.header.stamp = ros::Time::now();
 	good_points.ns = "basic_shapes";
 	good_points.id = 0;
@@ -618,7 +615,7 @@ void show_markers(phd::trajectory_msg t_msg){
 	good_points.color.a = 0.8;
 	good_points.lifetime = ros::Duration();
 
-	bad_points.header.frame_id = "/base_footprint";
+	bad_points.header.frame_id = "/world";
 	bad_points.header.stamp = ros::Time::now();
 	bad_points.ns = "basic_shapes";
 	bad_points.id = 0;
@@ -689,7 +686,7 @@ void show_marker(pcl::PointXYZI one,pcl::PointXYZI two,pcl::PointXYZI three, pcl
 	uint32_t shape = visualization_msgs::Marker::LINE_LIST;
 	visualization_msgs::Marker marker;
 	// Set the frame ID and timestamp.  See the TF tutorials for information on these.
-	marker.header.frame_id = "/base_footprint";
+	marker.header.frame_id = "/world";
 	marker.header.stamp = ros::Time::now();
 	marker.ns = "basic_shapes";
 	marker.id = nsid;
@@ -845,11 +842,17 @@ pcl::PointCloud<pcl::PointXYZI> sort_horizontal_line(pcl::PointCloud<pcl::PointX
 	prev_pt.intensity = 0;
 	sorted.push_back(prev_pt);
 	pcl::PassThrough<pcl::PointXYZI> pass;
+	ROS_INFO("Pt1 %f- %f - %f / %lu",prev_pt.x,prev_pt.y,prev_pt.z,line->points.size());
 	find_and_delete_NN(prev_pt,line, &next_pt, CHUNK_RADIUS);
+	ROS_INFO("P2 %f- %f - %f / %lu",next_pt.x,next_pt.y,next_pt.z,line->points.size());
 	find_and_delete_NN(prev_pt,line, &next_pt, CHUNK_RADIUS);
+	ROS_INFO("Pt3 %f- %f - %f / %lu",next_pt.x,next_pt.y,next_pt.z,line->points.size());
 	next_pt.intensity = sorted.points[0].intensity+sqrt(pow(next_pt.x-sorted.points[0].x,2)+pow(next_pt.y-sorted.points[0].y,2)+pow(next_pt.z-sorted.points[0].z,2));
 	sorted.push_back(next_pt);
-	find_and_delete_NN(horizontal_step_vector(prev_pt,sorted.points[0],0.01),line, &next_pt, CHUNK_RADIUS);
+	//find_and_delete_NN(horizontal_step_vector(prev_pt,sorted.points[1],0.01),line, &next_pt, CHUNK_RADIUS);
+
+	find_and_delete_NN(prev_pt,line, &next_pt, CHUNK_RADIUS);
+	ROS_INFO("Pt3");
 	next_pt.intensity = sorted.points[1].intensity+sqrt(pow(next_pt.x-sorted.points[1].x,2)+pow(next_pt.y-sorted.points[1].y,2)+pow(next_pt.z-sorted.points[1].z,2));
 	pcl::PointXYZI stepp;
 	sorted.push_back(next_pt);
@@ -859,10 +862,11 @@ pcl::PointCloud<pcl::PointXYZI> sort_horizontal_line(pcl::PointCloud<pcl::PointX
 		zeroPoint[1] = prev_pt.y;
 		zeroPoint[2] = prev_pt.z; 
 		pcl::getMaxDistance(*line, zeroPoint, farPoint);
+	//ROS_INFO("Pt3");
 		if(find_and_delete_NN(prev_pt,line, &next_pt, CHUNK_RADIUS)){
-			ROS_INFO("intensity");
+			//ROS_INFO("intensity");
 			next_pt.intensity = prev_pt.intensity + sqrt(pow(next_pt.x-prev_pt.x,2)+pow(next_pt.y-prev_pt.y,2)+pow(next_pt.z-prev_pt.z,2));
-			ROS_INFO("sotred");
+			//ROS_INFO("sotred %lu",line->points.size());
 			sorted.push_back(next_pt);
 			}else{
 				ROS_INFO("Couldnt find neighbour");
@@ -1031,7 +1035,7 @@ bool generate (phd::simple_trajectory_service::Request  &req,
 	ROS_INFO("hsorted");
 	sensor_msgs::PointCloud2 line_cloud3;
 	pcl::toROSMsg(*sorted_horizontal_line,line_cloud3);
-	line_cloud3.header.frame_id = "/base_footprint";
+	line_cloud3.header.frame_id = "/world";
 	line_cloud3.header.stamp = ros::Time::now();
 	line_pub2.publish(line_cloud3);
 	ros::spinOnce();
@@ -1117,7 +1121,7 @@ bool generate (phd::simple_trajectory_service::Request  &req,
 	*sorted_horizontal_line = sort_horizontal_line(horizontal_line,farPoint);
 	ROS_INFO("hsorted2");
 	pcl::toROSMsg(*sorted_horizontal_line,line_cloud3);
-	line_cloud3.header.frame_id = "/base_footprint";
+	line_cloud3.header.frame_id = "/world";
 	line_cloud3.header.stamp = ros::Time::now();
 	line_pub2.publish(line_cloud3);
 	ros::spinOnce();
@@ -1199,7 +1203,7 @@ bool generate (phd::simple_trajectory_service::Request  &req,
 	sensor_msgs::PointCloud2 line_cloud;
 	pcl::toROSMsg(vertical_lines,line_cloud);
 	//ROS_INFO("Publishing %d ptd", line_cloud.width);
-	line_cloud.header.frame_id = "/base_footprint";
+	line_cloud.header.frame_id = "/world";
 	line_cloud.header.stamp = ros::Time::now();
 	line_pub.publish(line_cloud);
 	ros::spinOnce();
@@ -1208,7 +1212,7 @@ bool generate (phd::simple_trajectory_service::Request  &req,
 	ROS_INFO("array size %lu, %f",vertical_line.size(),target_pt.intensity);
 	pcl::toROSMsg(vertical_lines,line_cloud3);
 	ROS_INFO("Publishing %d pts", line_cloud3.width);
-	line_cloud3.header.frame_id = "/base_footprint";
+	line_cloud3.header.frame_id = "/world";
 	line_cloud3.header.stamp = ros::Time::now();
 	line_pub3.publish(line_cloud3);
 	show_markers(t_msg);

@@ -591,7 +591,7 @@ ParamConfig::GroupDescription<ParamConfig::DEFAULT::KEEP, ParamConfig::DEFAULT> 
 //#line 17 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       __max__.auto_crop_max_x = 10.0;
 //#line 17 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
-      __default__.auto_crop_max_x = 1.0;
+      __default__.auto_crop_max_x = 0.6;
 //#line 17 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"
       Keep.abstract_parameters.push_back(ParamConfig::AbstractParamDescriptionConstPtr(new ParamConfig::ParamDescription<double>("auto_crop_max_x", "double", 0, "Max X value when auto-cropping for trajectory group1eration", "", &ParamConfig::auto_crop_max_x)));
 //#line 17 "/home/mike/catkin_ws/src/phd/cfg/param_config.cfg"

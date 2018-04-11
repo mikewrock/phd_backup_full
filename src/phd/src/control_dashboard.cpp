@@ -38,6 +38,10 @@ namespace control_panel
 	{
 		//Initial setup
 		ui_.setupUi(this);
+		//traj sub
+		traj_sub_ = nh_.subscribe("dir_marker", 1, &ControlPanel::trajCB, this);
+		//cloud sub
+		cloud_sub_ = nh_.subscribe("finished_scan", 1, &ControlPanel::cloudCB, this);
 		//pose sub
 		pose_sub_ = nh_.subscribe("arm_pose", 1, &ControlPanel::poseCB, this);
 		//move_base sub
@@ -96,6 +100,7 @@ namespace control_panel
 		traj_size = 0;
 		auto_arm = false;
 		auto_pose = false;
+		auto_traj = false;
 		spin_timer->start( 10 );
 	}
 
@@ -120,13 +125,30 @@ namespace control_panel
 	void ControlPanel::movebaseCB(const move_base_msgs::MoveBaseActionResult result){
 
 		ROS_INFO("Goal Achieved :)");
+		auto_traj = false;
 		//do trajectory
 		if(auto_pose){
-			
-			traj_size = control_panel.gen_trajectory(ui_.marker_name_box->text().toStdString());
-			ControlPanel::arm_loop();
+			auto_arm = true;
+			control_panel.scan(ui_.marker_name_box->text().toStdString(),ui_.set_home->isChecked());
 
 		}
+	}
+
+	void ControlPanel::cloudCB(const std_msgs::String msg){
+		ROS_INFO("Got a cloud - Dashboard");
+		if(auto_pose && auto_arm){
+			traj_size = control_panel.gen_trajectory(ui_.marker_name_box->text().toStdString());
+			auto_traj = true;
+			traj_ctr = 0;
+		}
+
+	}
+	void ControlPanel::trajCB(const visualization_msgs::Marker mark){
+		ROS_INFO("Got a traj - Dashboard");
+		if(auto_traj){
+			ControlPanel::arm_loop();
+		}
+
 	}
 
 	void ControlPanel::rosSpinner(){
@@ -361,6 +383,7 @@ namespace control_panel
 
 		auto_arm = false;
 		auto_pose = false;
+		auto_traj = false;
 		control_panel.soft_stop();
 
 	}

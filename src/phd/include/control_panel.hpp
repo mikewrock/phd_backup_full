@@ -139,6 +139,7 @@ private:
 	ros::Publisher path_pub;
 	ros::Publisher arm_pose_pub;
 	ros::Publisher reset_map_pub;
+	ros::Publisher finished_scan_pub;
 	ros::ServiceClient reset_map_srv;
 	ros::ServiceClient client;
 	ros::ServiceClient loc_client;

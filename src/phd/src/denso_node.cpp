@@ -83,6 +83,9 @@ int fig;
 			break;
 		case SHUTDOWN:
 			shutdown = true;
+			break;
+		case SPEED:
+			break;
 		}
 			
 	move_flag = true; //Tell the loop in main a new command has come in
@@ -95,6 +98,7 @@ int fig;
 		vSpd.fltVal = 100;
 		bstrCommand = SysAllocString(L"EXTSPEED");
 		float dnt[3];
+		ROS_INFO("Setting speed to %f",msg->vel);
 		dnt[0] = msg->vel; //Velocity
 		dnt[1] = 100.0; //Acceleration
 		dnt[2] = 100.0; //Decceleration

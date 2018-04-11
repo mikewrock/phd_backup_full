@@ -16,6 +16,7 @@
 #include <phd/arm_msg.h>
 #include "phd/empty.h"
 
+#include <visualization_msgs/Marker.h>
 namespace control_panel
 {
 
@@ -30,6 +31,8 @@ public:
 protected:
 void poseCB(const phd::arm_msg msg);
 void movebaseCB(const move_base_msgs::MoveBaseActionResult result);
+void cloudCB(const std_msgs::String msg);
+void trajCB(const visualization_msgs::Marker mark);
 protected Q_SLOTS:
 //All of these functions are explained in control_dashboard.cpp
 void do_nav();
@@ -76,6 +79,8 @@ protected:
   Ui::Control_Form ui_;
   ros::NodeHandle nh_;
   ros::Subscriber pose_sub_;
+  ros::Subscriber cloud_sub_;
+  ros::Subscriber traj_sub_;
   ros::Subscriber move_base_sub_;
   ros::Publisher reset_map_pub_;
   ros::ServiceClient reset_map_srv;
@@ -87,7 +92,7 @@ private:
 	int cluster_index;
 	int pose_ctr, pose_size, traj_ctr, traj_size;
 	phd::arm_msg arm_tgt;
-	bool auto_pose, auto_arm;
+	bool auto_pose, auto_arm, auto_traj;
 
 };
 }

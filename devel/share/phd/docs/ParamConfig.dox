@@ -8,7 +8,7 @@ Reads and maintains the following parameters on the ROS server
 - \b "~intensity_max" : \b [int] Marker Intensiy Cutoff min: 0, default: 3000, max: 3000
 - \b "~pose_offset" : \b [double] Pose Offset min: 0.0, default: 1.0, max: 10.0
 - \b "~init_clear" : \b [bool] Clear Map on Init min: False, default: True, max: True
-- \b "~auto_crop_max_x" : \b [double] Max X value when auto-cropping for trajectory group1eration min: -10.0, default: 1.0, max: 10.0
+- \b "~auto_crop_max_x" : \b [double] Max X value when auto-cropping for trajectory group1eration min: -10.0, default: 0.6, max: 10.0
 - \b "~auto_crop_min_x" : \b [double] Min X value when auto-cropping for trajectory generation min: -10.0, default: 0.0, max: 10.0
 - \b "~auto_crop_max_y" : \b [double] Max Y value when auto-cropping for trajectory generation min: -10.0, default: 2.0, max: 10.0
 - \b "~auto_crop_min_y" : \b [double] Min Y value when auto-cropping for trajectory generation min: -10.0, default: -0.5, max: 10.0
