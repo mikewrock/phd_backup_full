@@ -8,11 +8,10 @@ import struct
 import phd.msg
 
 class trajectory_msg(genpy.Message):
-  _md5sum = "c33e31d3a8a75a28c1738126c9223a5c"
+  _md5sum = "16652a37ee6a72906fc061ab07295735"
   _type = "phd/trajectory_msg"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """trajectory_point[] points
-trajectory_point start_pt
 
 ================================================================================
 MSG: phd/trajectory_point
@@ -23,11 +22,9 @@ float32 nx
 float32 ny
 float32 nz
 float32 d
-float32 d_abs
-
 """
-  __slots__ = ['points','start_pt']
-  _slot_types = ['phd/trajectory_point[]','phd/trajectory_point']
+  __slots__ = ['points']
+  _slot_types = ['phd/trajectory_point[]']
 
   def __init__(self, *args, **kwds):
     """
@@ -37,7 +34,7 @@ float32 d_abs
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       points,start_pt
+       points
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -48,11 +45,8 @@ float32 d_abs
       #message fields cannot be None, assign default values for those that are
       if self.points is None:
         self.points = []
-      if self.start_pt is None:
-        self.start_pt = phd.msg.trajectory_point()
     else:
       self.points = []
-      self.start_pt = phd.msg.trajectory_point()
 
   def _get_types(self):
     """
@@ -70,9 +64,7 @@ float32 d_abs
       buff.write(_struct_I.pack(length))
       for val1 in self.points:
         _x = val1
-        buff.write(_struct_8f.pack(_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs))
-      _x = self
-      buff.write(_struct_8f.pack(_x.start_pt.x, _x.start_pt.y, _x.start_pt.z, _x.start_pt.nx, _x.start_pt.ny, _x.start_pt.nz, _x.start_pt.d, _x.start_pt.d_abs))
+        buff.write(_struct_7f.pack(_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -84,8 +76,6 @@ float32 d_abs
     try:
       if self.points is None:
         self.points = None
-      if self.start_pt is None:
-        self.start_pt = phd.msg.trajectory_point()
       end = 0
       start = end
       end += 4
@@ -95,13 +85,9 @@ float32 d_abs
         val1 = phd.msg.trajectory_point()
         _x = val1
         start = end
-        end += 32
-        (_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs,) = _struct_8f.unpack(str[start:end])
+        end += 28
+        (_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d,) = _struct_7f.unpack(str[start:end])
         self.points.append(val1)
-      _x = self
-      start = end
-      end += 32
-      (_x.start_pt.x, _x.start_pt.y, _x.start_pt.z, _x.start_pt.nx, _x.start_pt.ny, _x.start_pt.nz, _x.start_pt.d, _x.start_pt.d_abs,) = _struct_8f.unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -118,9 +104,7 @@ float32 d_abs
       buff.write(_struct_I.pack(length))
       for val1 in self.points:
         _x = val1
-        buff.write(_struct_8f.pack(_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs))
-      _x = self
-      buff.write(_struct_8f.pack(_x.start_pt.x, _x.start_pt.y, _x.start_pt.z, _x.start_pt.nx, _x.start_pt.ny, _x.start_pt.nz, _x.start_pt.d, _x.start_pt.d_abs))
+        buff.write(_struct_7f.pack(_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -133,8 +117,6 @@ float32 d_abs
     try:
       if self.points is None:
         self.points = None
-      if self.start_pt is None:
-        self.start_pt = phd.msg.trajectory_point()
       end = 0
       start = end
       end += 4
@@ -144,16 +126,12 @@ float32 d_abs
         val1 = phd.msg.trajectory_point()
         _x = val1
         start = end
-        end += 32
-        (_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs,) = _struct_8f.unpack(str[start:end])
+        end += 28
+        (_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d,) = _struct_7f.unpack(str[start:end])
         self.points.append(val1)
-      _x = self
-      start = end
-      end += 32
-      (_x.start_pt.x, _x.start_pt.y, _x.start_pt.z, _x.start_pt.nx, _x.start_pt.ny, _x.start_pt.nz, _x.start_pt.d, _x.start_pt.d_abs,) = _struct_8f.unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
 
 _struct_I = genpy.struct_I
-_struct_8f = struct.Struct("<8f")
+_struct_7f = struct.Struct("<7f")

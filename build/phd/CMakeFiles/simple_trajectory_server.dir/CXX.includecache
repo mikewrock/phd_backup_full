@@ -70,24 +70,6 @@ ros/message_operations.h
 phd/trajectory_msg.h
 -
 
-/home/mike/catkin_ws/devel/include/phd/trajectory_array.h
-string
--
-vector
--
-map
--
-ros/types.h
--
-ros/serialization.h
--
-ros/builtin_message_traits.h
--
-ros/message_operations.h
--
-phd/trajectory_msg.h
--
-
 /home/mike/catkin_ws/devel/include/phd/trajectory_msg.h
 string
 -
@@ -102,8 +84,6 @@ ros/serialization.h
 ros/builtin_message_traits.h
 -
 ros/message_operations.h
--
-phd/trajectory_point.h
 -
 phd/trajectory_point.h
 -
@@ -122,28 +102,6 @@ ros/serialization.h
 ros/builtin_message_traits.h
 -
 ros/message_operations.h
--
-
-/home/mike/catkin_ws/devel/include/phd/trajectory_section.h
-string
--
-vector
--
-map
--
-ros/types.h
--
-ros/serialization.h
--
-ros/builtin_message_traits.h
--
-ros/message_operations.h
--
-phd/trajectory_point.h
--
-phd/trajectory_point.h
--
-phd/trajectory_point.h
 -
 
 /home/mike/catkin_ws/src/phd/src/simple_trajectory_service.cpp
@@ -225,10 +183,6 @@ boost/foreach.hpp
 -
 phd/simple_trajectory_service.h
 /home/mike/catkin_ws/src/phd/src/phd/simple_trajectory_service.h
-phd/trajectory_array.h
-/home/mike/catkin_ws/src/phd/src/phd/trajectory_array.h
-phd/trajectory_section.h
-/home/mike/catkin_ws/src/phd/src/phd/trajectory_section.h
 phd/TrajectoryConfig.h
 -
 

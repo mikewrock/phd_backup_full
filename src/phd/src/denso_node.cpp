@@ -55,14 +55,16 @@ int n;
 int fig;
 	switch(msg->motion_type){
 		case PTP: 
-			if(msg->x > 0) fig = 1;
-			else fig = 9;
+			if(msg->x < 0 && msg->y > 0) fig = 9;
+			else fig = 1;
 			n=sprintf(buffer,"@P P(%f,%f,%f,%f,%f,%f,%d)",msg->x,msg->y,msg->z,msg->rx,msg->ry,msg->rz,fig);
 			cp_flag = false;
 			if(DEBUG) ROS_INFO("Sending PTP %s",buffer);
 			break;
 		case CP: 
-			n=sprintf(buffer,"@P P(%f,%f,%f,%f,%f,%f,%d)",msg->x,msg->y,msg->z,msg->rx,msg->ry,msg->rz,msg->fig);
+			if(msg->x < 0 && msg->y > 0) fig = 9;
+			else fig = 1;
+			n=sprintf(buffer,"@P P(%f,%f,%f,%f,%f,%f,%d)",msg->x,msg->y,msg->z,msg->rx,msg->ry,msg->rz,fig);
 			cp_flag = true;
 			if(DEBUG) ROS_INFO("Sending CP %s",buffer);
 			break;
@@ -88,8 +90,9 @@ int fig;
 			break;
 		}
 			
-	move_flag = true; //Tell the loop in main a new command has come in
+	
 	if(msg->motion_type == SPEED){
+		ROS_INFO("Setting speed to %f",msg->vel);
 		HRESULT hr; //Result
 		BSTR bstrCommand;  //Command
 		VARIANT vSpd; //speed variants
@@ -98,7 +101,6 @@ int fig;
 		vSpd.fltVal = 100;
 		bstrCommand = SysAllocString(L"EXTSPEED");
 		float dnt[3];
-		ROS_INFO("Setting speed to %f",msg->vel);
 		dnt[0] = msg->vel; //Velocity
 		dnt[1] = 100.0; //Acceleration
 		dnt[2] = 100.0; //Decceleration
@@ -111,13 +113,12 @@ int fig;
 		hr = bCap_RobotExecute(fd, hRobot, bstrCommand, vntS, &vSpd);
 		SysFreeString(bstrCommand);
 		VariantClear(&vntS);
-		VariantClear(&vSpd);
 		if FAILED(hr){
 		ROS_INFO("Ext Speed not set %x\n", hr);
 		}
 		else if(DEBUG) ROS_INFO("Ext Speed Set");
 
-		}
+	}else move_flag = true; //Tell the loop in main a new command has come in
 }
 
 //Initialization function

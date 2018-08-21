@@ -112,10 +112,10 @@
   "9433ee31d0089d713563a722639bb582")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<cube_msg>)))
   "Returns full string definition for message of type '<cube_msg>"
-  (cl:format cl:nil "float32 j1~%float32 vel~%float32 acc~%bool pose~%~%~%~%"))
+  (cl:format cl:nil "float32 j1~%float32 vel~%float32 acc~%bool pose~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'cube_msg)))
   "Returns full string definition for message of type 'cube_msg"
-  (cl:format cl:nil "float32 j1~%float32 vel~%float32 acc~%bool pose~%~%~%~%"))
+  (cl:format cl:nil "float32 j1~%float32 vel~%float32 acc~%bool pose~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <cube_msg>))
   (cl:+ 0
      4

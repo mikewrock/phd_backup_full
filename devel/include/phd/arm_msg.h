@@ -240,7 +240,6 @@ int32 fig\n\
 bool pose\n\
 int32 motion_type\n\
 string user_string\n\
-\n\
 ";
   }
 

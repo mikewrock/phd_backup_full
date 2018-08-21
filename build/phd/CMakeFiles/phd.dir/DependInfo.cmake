@@ -20,12 +20,10 @@ SET(CMAKE_DEPENDS_CHECK_CXX
   "/home/mike/catkin_ws/build/phd/include/moc_control_dashboard.cxx" "/home/mike/catkin_ws/build/phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o"
   "/home/mike/catkin_ws/build/phd/include/moc_control_panel.cxx" "/home/mike/catkin_ws/build/phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o"
   "/home/mike/catkin_ws/build/phd/include/moc_marker_selector.cxx" "/home/mike/catkin_ws/build/phd/CMakeFiles/phd.dir/include/moc_marker_selector.cxx.o"
-  "/home/mike/catkin_ws/build/phd/include/moc_vel_control.cxx" "/home/mike/catkin_ws/build/phd/CMakeFiles/phd.dir/include/moc_vel_control.cxx.o"
   "/home/mike/catkin_ws/build/phd/qrc_ui_resource.cxx" "/home/mike/catkin_ws/build/phd/CMakeFiles/phd.dir/qrc_ui_resource.cxx.o"
   "/home/mike/catkin_ws/src/phd/src/control_dashboard.cpp" "/home/mike/catkin_ws/build/phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o"
   "/home/mike/catkin_ws/src/phd/src/control_panel.cpp" "/home/mike/catkin_ws/build/phd/CMakeFiles/phd.dir/src/control_panel.cpp.o"
   "/home/mike/catkin_ws/src/phd/src/marker_selector.cpp" "/home/mike/catkin_ws/build/phd/CMakeFiles/phd.dir/src/marker_selector.cpp.o"
-  "/home/mike/catkin_ws/src/phd/src/vel_control.cpp" "/home/mike/catkin_ws/build/phd/CMakeFiles/phd.dir/src/vel_control.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 

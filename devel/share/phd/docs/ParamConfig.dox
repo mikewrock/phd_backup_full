@@ -6,19 +6,18 @@ Reads and maintains the following parameters on the ROS server
 - \b "~cloud_number" : \b [int] Cloud Alignment Number min: 0, default: 1, max: 10
 - \b "~intensity_min" : \b [int] Marker Intensiy Cutoff min: 0, default: 900, max: 3000
 - \b "~intensity_max" : \b [int] Marker Intensiy Cutoff min: 0, default: 3000, max: 3000
-- \b "~pose_offset" : \b [double] Pose Offset min: 0.0, default: 1.0, max: 10.0
+- \b "~pose_offset" : \b [double] Offset From Wall for Robot Pose min: 0.0, default: 1.0, max: 10.0
 - \b "~init_clear" : \b [bool] Clear Map on Init min: False, default: True, max: True
 - \b "~auto_crop_max_x" : \b [double] Max X value when auto-cropping for trajectory group1eration min: -10.0, default: 0.6, max: 10.0
 - \b "~auto_crop_min_x" : \b [double] Min X value when auto-cropping for trajectory generation min: -10.0, default: 0.0, max: 10.0
 - \b "~auto_crop_max_y" : \b [double] Max Y value when auto-cropping for trajectory generation min: -10.0, default: 2.0, max: 10.0
 - \b "~auto_crop_min_y" : \b [double] Min Y value when auto-cropping for trajectory generation min: -10.0, default: -0.5, max: 10.0
-- \b "~auto_crop_max_z" : \b [double] Max Z value when auto-cropping for trajectory generation min: -10.0, default: 1.25, max: 10.0
+- \b "~auto_crop_max_z" : \b [double] Max Z value when auto-cropping for trajectory generation min: -10.0, default: 1.8, max: 10.0
 - \b "~auto_crop_min_z" : \b [double] Min Z value when auto-cropping for trajectory generation min: -10.0, default: 0.7, max: 10.0
 - \b "~auto_occlude_max_x" : \b [double] Max X value when auto-cropping for nearby objects min: -10.0, default: 0.5, max: 10.0
 - \b "~auto_occlude_min_x" : \b [double] Min X value when auto-cropping for nearby objects min: -10.0, default: -2.0, max: 10.0
 - \b "~auto_occlude_max_y" : \b [double] Max Y value when auto-cropping for nearby objects min: -10.0, default: 0.5, max: 10.0
 - \b "~auto_occlude_min_y" : \b [double] Min Y value when auto-cropping for nearby objects min: -10.0, default: -0.5, max: 10.0
-- \b "~auto_occlude_max_z" : \b [double] Max Z value when auto-cropping for nearby objects min: -10.0, default: 1.2, max: 10.0
+- \b "~auto_occlude_max_z" : \b [double] Max Z value when auto-cropping for nearby objects min: -10.0, default: 1.4, max: 10.0
 - \b "~auto_occlude_min_z" : \b [double] Min Z value when auto-cropping for nearby objects min: -10.0, default: 0.0, max: 10.0
-- \b "~group2_double" : \b [double] A third level group parameter min: -std::numeric_limits<double>::infinity(), default: 3.333, max: std::numeric_limits<double>::infinity()
 

@@ -57,23 +57,18 @@ phd/include/moc_control_panel.cxx: /home/mike/catkin_ws/src/phd/include/control_
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating include/moc_control_panel.cxx"
 	cd /home/mike/catkin_ws/build/phd/include && /usr/lib/x86_64-linux-gnu/qt4/bin/moc @/home/mike/catkin_ws/build/phd/include/moc_control_panel.cxx_parameters
 
-phd/include/moc_vel_control.cxx: /home/mike/catkin_ws/src/phd/include/vel_control.hpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_2)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating include/moc_vel_control.cxx"
-	cd /home/mike/catkin_ws/build/phd/include && /usr/lib/x86_64-linux-gnu/qt4/bin/moc @/home/mike/catkin_ws/build/phd/include/moc_vel_control.cxx_parameters
-
 phd/include/moc_control_dashboard.cxx: /home/mike/catkin_ws/src/phd/include/control_dashboard.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating include/moc_control_dashboard.cxx"
 	cd /home/mike/catkin_ws/build/phd/include && /usr/lib/x86_64-linux-gnu/qt4/bin/moc @/home/mike/catkin_ws/build/phd/include/moc_control_dashboard.cxx_parameters
 
 phd/include/moc_marker_selector.cxx: /home/mike/catkin_ws/src/phd/include/marker_selector.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating include/moc_marker_selector.cxx"
 	cd /home/mike/catkin_ws/build/phd/include && /usr/lib/x86_64-linux-gnu/qt4/bin/moc @/home/mike/catkin_ws/build/phd/include/moc_marker_selector.cxx_parameters
 
 phd/ui_control_panel.h: /home/mike/catkin_ws/src/phd/src/control_panel.ui
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ui_control_panel.h"
 	cd /home/mike/catkin_ws/build/phd && /usr/lib/x86_64-linux-gnu/qt4/bin/uic -o /home/mike/catkin_ws/build/phd/ui_control_panel.h /home/mike/catkin_ws/src/phd/src/control_panel.ui
 
@@ -87,13 +82,13 @@ phd/qrc_ui_resource.cxx: /home/mike/catkin_ws/src/phd/include/Rotate-Arrow-Botto
 phd/qrc_ui_resource.cxx: /home/mike/catkin_ws/src/phd/include/Rotate-Arrow-Bottom-to-Right.svg
 phd/qrc_ui_resource.cxx: phd/include/ui_resource.qrc.depends
 phd/qrc_ui_resource.cxx: /home/mike/catkin_ws/src/phd/include/ui_resource.qrc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_6)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating qrc_ui_resource.cxx"
 	cd /home/mike/catkin_ws/build/phd && /usr/lib/x86_64-linux-gnu/qt4/bin/rcc -name ui_resource -o /home/mike/catkin_ws/build/phd/qrc_ui_resource.cxx /home/mike/catkin_ws/src/phd/include/ui_resource.qrc
 
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: phd/CMakeFiles/phd.dir/flags.make
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/src/phd/src/control_panel.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_7)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object phd/CMakeFiles/phd.dir/src/control_panel.cpp.o"
 	cd /home/mike/catkin_ws/build/phd && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/phd.dir/src/control_panel.cpp.o -c /home/mike/catkin_ws/src/phd/src/control_panel.cpp
 
@@ -114,32 +109,9 @@ phd/CMakeFiles/phd.dir/src/control_panel.cpp.o.provides: phd/CMakeFiles/phd.dir/
 
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o.provides.build: phd/CMakeFiles/phd.dir/src/control_panel.cpp.o
 
-phd/CMakeFiles/phd.dir/src/vel_control.cpp.o: phd/CMakeFiles/phd.dir/flags.make
-phd/CMakeFiles/phd.dir/src/vel_control.cpp.o: /home/mike/catkin_ws/src/phd/src/vel_control.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_8)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object phd/CMakeFiles/phd.dir/src/vel_control.cpp.o"
-	cd /home/mike/catkin_ws/build/phd && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/phd.dir/src/vel_control.cpp.o -c /home/mike/catkin_ws/src/phd/src/vel_control.cpp
-
-phd/CMakeFiles/phd.dir/src/vel_control.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/phd.dir/src/vel_control.cpp.i"
-	cd /home/mike/catkin_ws/build/phd && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/mike/catkin_ws/src/phd/src/vel_control.cpp > CMakeFiles/phd.dir/src/vel_control.cpp.i
-
-phd/CMakeFiles/phd.dir/src/vel_control.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/phd.dir/src/vel_control.cpp.s"
-	cd /home/mike/catkin_ws/build/phd && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/mike/catkin_ws/src/phd/src/vel_control.cpp -o CMakeFiles/phd.dir/src/vel_control.cpp.s
-
-phd/CMakeFiles/phd.dir/src/vel_control.cpp.o.requires:
-.PHONY : phd/CMakeFiles/phd.dir/src/vel_control.cpp.o.requires
-
-phd/CMakeFiles/phd.dir/src/vel_control.cpp.o.provides: phd/CMakeFiles/phd.dir/src/vel_control.cpp.o.requires
-	$(MAKE) -f phd/CMakeFiles/phd.dir/build.make phd/CMakeFiles/phd.dir/src/vel_control.cpp.o.provides.build
-.PHONY : phd/CMakeFiles/phd.dir/src/vel_control.cpp.o.provides
-
-phd/CMakeFiles/phd.dir/src/vel_control.cpp.o.provides.build: phd/CMakeFiles/phd.dir/src/vel_control.cpp.o
-
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: phd/CMakeFiles/phd.dir/flags.make
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /home/mike/catkin_ws/src/phd/src/control_dashboard.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_9)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o"
 	cd /home/mike/catkin_ws/build/phd && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/phd.dir/src/control_dashboard.cpp.o -c /home/mike/catkin_ws/src/phd/src/control_dashboard.cpp
 
@@ -162,7 +134,7 @@ phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o.provides.build: phd/CMakeFile
 
 phd/CMakeFiles/phd.dir/src/marker_selector.cpp.o: phd/CMakeFiles/phd.dir/flags.make
 phd/CMakeFiles/phd.dir/src/marker_selector.cpp.o: /home/mike/catkin_ws/src/phd/src/marker_selector.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_10)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object phd/CMakeFiles/phd.dir/src/marker_selector.cpp.o"
 	cd /home/mike/catkin_ws/build/phd && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/phd.dir/src/marker_selector.cpp.o -c /home/mike/catkin_ws/src/phd/src/marker_selector.cpp
 
@@ -185,7 +157,7 @@ phd/CMakeFiles/phd.dir/src/marker_selector.cpp.o.provides.build: phd/CMakeFiles/
 
 phd/CMakeFiles/phd.dir/src/bcap_common.c.o: phd/CMakeFiles/phd.dir/flags.make
 phd/CMakeFiles/phd.dir/src/bcap_common.c.o: /home/mike/catkin_ws/src/phd/src/bcap_common.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_11)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_9)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object phd/CMakeFiles/phd.dir/src/bcap_common.c.o"
 	cd /home/mike/catkin_ws/build/phd && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/phd.dir/src/bcap_common.c.o   -c /home/mike/catkin_ws/src/phd/src/bcap_common.c
 
@@ -208,7 +180,7 @@ phd/CMakeFiles/phd.dir/src/bcap_common.c.o.provides.build: phd/CMakeFiles/phd.di
 
 phd/CMakeFiles/phd.dir/src/dn_com.c.o: phd/CMakeFiles/phd.dir/flags.make
 phd/CMakeFiles/phd.dir/src/dn_com.c.o: /home/mike/catkin_ws/src/phd/src/dn_com.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_12)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_10)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object phd/CMakeFiles/phd.dir/src/dn_com.c.o"
 	cd /home/mike/catkin_ws/build/phd && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/phd.dir/src/dn_com.c.o   -c /home/mike/catkin_ws/src/phd/src/dn_com.c
 
@@ -231,7 +203,7 @@ phd/CMakeFiles/phd.dir/src/dn_com.c.o.provides.build: phd/CMakeFiles/phd.dir/src
 
 phd/CMakeFiles/phd.dir/src/dn_common.c.o: phd/CMakeFiles/phd.dir/flags.make
 phd/CMakeFiles/phd.dir/src/dn_common.c.o: /home/mike/catkin_ws/src/phd/src/dn_common.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_13)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_11)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object phd/CMakeFiles/phd.dir/src/dn_common.c.o"
 	cd /home/mike/catkin_ws/build/phd && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/phd.dir/src/dn_common.c.o   -c /home/mike/catkin_ws/src/phd/src/dn_common.c
 
@@ -254,7 +226,7 @@ phd/CMakeFiles/phd.dir/src/dn_common.c.o.provides.build: phd/CMakeFiles/phd.dir/
 
 phd/CMakeFiles/phd.dir/src/dn_device.c.o: phd/CMakeFiles/phd.dir/flags.make
 phd/CMakeFiles/phd.dir/src/dn_device.c.o: /home/mike/catkin_ws/src/phd/src/dn_device.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_14)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_12)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object phd/CMakeFiles/phd.dir/src/dn_device.c.o"
 	cd /home/mike/catkin_ws/build/phd && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/phd.dir/src/dn_device.c.o   -c /home/mike/catkin_ws/src/phd/src/dn_device.c
 
@@ -277,7 +249,7 @@ phd/CMakeFiles/phd.dir/src/dn_device.c.o.provides.build: phd/CMakeFiles/phd.dir/
 
 phd/CMakeFiles/phd.dir/src/dn_socket.c.o: phd/CMakeFiles/phd.dir/flags.make
 phd/CMakeFiles/phd.dir/src/dn_socket.c.o: /home/mike/catkin_ws/src/phd/src/dn_socket.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_15)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_13)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object phd/CMakeFiles/phd.dir/src/dn_socket.c.o"
 	cd /home/mike/catkin_ws/build/phd && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/phd.dir/src/dn_socket.c.o   -c /home/mike/catkin_ws/src/phd/src/dn_socket.c
 
@@ -300,7 +272,7 @@ phd/CMakeFiles/phd.dir/src/dn_socket.c.o.provides.build: phd/CMakeFiles/phd.dir/
 
 phd/CMakeFiles/phd.dir/src/dn_tcp.c.o: phd/CMakeFiles/phd.dir/flags.make
 phd/CMakeFiles/phd.dir/src/dn_tcp.c.o: /home/mike/catkin_ws/src/phd/src/dn_tcp.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_16)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_14)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object phd/CMakeFiles/phd.dir/src/dn_tcp.c.o"
 	cd /home/mike/catkin_ws/build/phd && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/phd.dir/src/dn_tcp.c.o   -c /home/mike/catkin_ws/src/phd/src/dn_tcp.c
 
@@ -323,7 +295,7 @@ phd/CMakeFiles/phd.dir/src/dn_tcp.c.o.provides.build: phd/CMakeFiles/phd.dir/src
 
 phd/CMakeFiles/phd.dir/src/dn_thread.c.o: phd/CMakeFiles/phd.dir/flags.make
 phd/CMakeFiles/phd.dir/src/dn_thread.c.o: /home/mike/catkin_ws/src/phd/src/dn_thread.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_17)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_15)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object phd/CMakeFiles/phd.dir/src/dn_thread.c.o"
 	cd /home/mike/catkin_ws/build/phd && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/phd.dir/src/dn_thread.c.o   -c /home/mike/catkin_ws/src/phd/src/dn_thread.c
 
@@ -346,7 +318,7 @@ phd/CMakeFiles/phd.dir/src/dn_thread.c.o.provides.build: phd/CMakeFiles/phd.dir/
 
 phd/CMakeFiles/phd.dir/src/dn_udp.c.o: phd/CMakeFiles/phd.dir/flags.make
 phd/CMakeFiles/phd.dir/src/dn_udp.c.o: /home/mike/catkin_ws/src/phd/src/dn_udp.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_18)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_16)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object phd/CMakeFiles/phd.dir/src/dn_udp.c.o"
 	cd /home/mike/catkin_ws/build/phd && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/phd.dir/src/dn_udp.c.o   -c /home/mike/catkin_ws/src/phd/src/dn_udp.c
 
@@ -369,7 +341,7 @@ phd/CMakeFiles/phd.dir/src/dn_udp.c.o.provides.build: phd/CMakeFiles/phd.dir/src
 
 phd/CMakeFiles/phd.dir/src/bcap_client.c.o: phd/CMakeFiles/phd.dir/flags.make
 phd/CMakeFiles/phd.dir/src/bcap_client.c.o: /home/mike/catkin_ws/src/phd/src/bcap_client.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_19)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_17)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object phd/CMakeFiles/phd.dir/src/bcap_client.c.o"
 	cd /home/mike/catkin_ws/build/phd && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/phd.dir/src/bcap_client.c.o   -c /home/mike/catkin_ws/src/phd/src/bcap_client.c
 
@@ -392,7 +364,7 @@ phd/CMakeFiles/phd.dir/src/bcap_client.c.o.provides.build: phd/CMakeFiles/phd.di
 
 phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o: phd/CMakeFiles/phd.dir/flags.make
 phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o: phd/include/moc_control_panel.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_20)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_18)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o"
 	cd /home/mike/catkin_ws/build/phd && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/phd.dir/include/moc_control_panel.cxx.o -c /home/mike/catkin_ws/build/phd/include/moc_control_panel.cxx
 
@@ -413,32 +385,9 @@ phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o.provides: phd/CMakeFiles/
 
 phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o.provides.build: phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o
 
-phd/CMakeFiles/phd.dir/include/moc_vel_control.cxx.o: phd/CMakeFiles/phd.dir/flags.make
-phd/CMakeFiles/phd.dir/include/moc_vel_control.cxx.o: phd/include/moc_vel_control.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_21)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object phd/CMakeFiles/phd.dir/include/moc_vel_control.cxx.o"
-	cd /home/mike/catkin_ws/build/phd && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/phd.dir/include/moc_vel_control.cxx.o -c /home/mike/catkin_ws/build/phd/include/moc_vel_control.cxx
-
-phd/CMakeFiles/phd.dir/include/moc_vel_control.cxx.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/phd.dir/include/moc_vel_control.cxx.i"
-	cd /home/mike/catkin_ws/build/phd && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/mike/catkin_ws/build/phd/include/moc_vel_control.cxx > CMakeFiles/phd.dir/include/moc_vel_control.cxx.i
-
-phd/CMakeFiles/phd.dir/include/moc_vel_control.cxx.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/phd.dir/include/moc_vel_control.cxx.s"
-	cd /home/mike/catkin_ws/build/phd && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/mike/catkin_ws/build/phd/include/moc_vel_control.cxx -o CMakeFiles/phd.dir/include/moc_vel_control.cxx.s
-
-phd/CMakeFiles/phd.dir/include/moc_vel_control.cxx.o.requires:
-.PHONY : phd/CMakeFiles/phd.dir/include/moc_vel_control.cxx.o.requires
-
-phd/CMakeFiles/phd.dir/include/moc_vel_control.cxx.o.provides: phd/CMakeFiles/phd.dir/include/moc_vel_control.cxx.o.requires
-	$(MAKE) -f phd/CMakeFiles/phd.dir/build.make phd/CMakeFiles/phd.dir/include/moc_vel_control.cxx.o.provides.build
-.PHONY : phd/CMakeFiles/phd.dir/include/moc_vel_control.cxx.o.provides
-
-phd/CMakeFiles/phd.dir/include/moc_vel_control.cxx.o.provides.build: phd/CMakeFiles/phd.dir/include/moc_vel_control.cxx.o
-
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: phd/CMakeFiles/phd.dir/flags.make
 phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o: phd/include/moc_control_dashboard.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_22)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_19)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o"
 	cd /home/mike/catkin_ws/build/phd && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o -c /home/mike/catkin_ws/build/phd/include/moc_control_dashboard.cxx
 
@@ -461,7 +410,7 @@ phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o.provides.build: phd/C
 
 phd/CMakeFiles/phd.dir/include/moc_marker_selector.cxx.o: phd/CMakeFiles/phd.dir/flags.make
 phd/CMakeFiles/phd.dir/include/moc_marker_selector.cxx.o: phd/include/moc_marker_selector.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_23)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_20)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object phd/CMakeFiles/phd.dir/include/moc_marker_selector.cxx.o"
 	cd /home/mike/catkin_ws/build/phd && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/phd.dir/include/moc_marker_selector.cxx.o -c /home/mike/catkin_ws/build/phd/include/moc_marker_selector.cxx
 
@@ -484,7 +433,7 @@ phd/CMakeFiles/phd.dir/include/moc_marker_selector.cxx.o.provides.build: phd/CMa
 
 phd/CMakeFiles/phd.dir/qrc_ui_resource.cxx.o: phd/CMakeFiles/phd.dir/flags.make
 phd/CMakeFiles/phd.dir/qrc_ui_resource.cxx.o: phd/qrc_ui_resource.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_24)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/mike/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_21)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object phd/CMakeFiles/phd.dir/qrc_ui_resource.cxx.o"
 	cd /home/mike/catkin_ws/build/phd && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/phd.dir/qrc_ui_resource.cxx.o -c /home/mike/catkin_ws/build/phd/qrc_ui_resource.cxx
 
@@ -508,7 +457,6 @@ phd/CMakeFiles/phd.dir/qrc_ui_resource.cxx.o.provides.build: phd/CMakeFiles/phd.
 # Object files for target phd
 phd_OBJECTS = \
 "CMakeFiles/phd.dir/src/control_panel.cpp.o" \
-"CMakeFiles/phd.dir/src/vel_control.cpp.o" \
 "CMakeFiles/phd.dir/src/control_dashboard.cpp.o" \
 "CMakeFiles/phd.dir/src/marker_selector.cpp.o" \
 "CMakeFiles/phd.dir/src/bcap_common.c.o" \
@@ -521,7 +469,6 @@ phd_OBJECTS = \
 "CMakeFiles/phd.dir/src/dn_udp.c.o" \
 "CMakeFiles/phd.dir/src/bcap_client.c.o" \
 "CMakeFiles/phd.dir/include/moc_control_panel.cxx.o" \
-"CMakeFiles/phd.dir/include/moc_vel_control.cxx.o" \
 "CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o" \
 "CMakeFiles/phd.dir/include/moc_marker_selector.cxx.o" \
 "CMakeFiles/phd.dir/qrc_ui_resource.cxx.o"
@@ -530,7 +477,6 @@ phd_OBJECTS = \
 phd_EXTERNAL_OBJECTS =
 
 /home/mike/catkin_ws/devel/lib/libphd.so: phd/CMakeFiles/phd.dir/src/control_panel.cpp.o
-/home/mike/catkin_ws/devel/lib/libphd.so: phd/CMakeFiles/phd.dir/src/vel_control.cpp.o
 /home/mike/catkin_ws/devel/lib/libphd.so: phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o
 /home/mike/catkin_ws/devel/lib/libphd.so: phd/CMakeFiles/phd.dir/src/marker_selector.cpp.o
 /home/mike/catkin_ws/devel/lib/libphd.so: phd/CMakeFiles/phd.dir/src/bcap_common.c.o
@@ -543,7 +489,6 @@ phd_EXTERNAL_OBJECTS =
 /home/mike/catkin_ws/devel/lib/libphd.so: phd/CMakeFiles/phd.dir/src/dn_udp.c.o
 /home/mike/catkin_ws/devel/lib/libphd.so: phd/CMakeFiles/phd.dir/src/bcap_client.c.o
 /home/mike/catkin_ws/devel/lib/libphd.so: phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o
-/home/mike/catkin_ws/devel/lib/libphd.so: phd/CMakeFiles/phd.dir/include/moc_vel_control.cxx.o
 /home/mike/catkin_ws/devel/lib/libphd.so: phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o
 /home/mike/catkin_ws/devel/lib/libphd.so: phd/CMakeFiles/phd.dir/include/moc_marker_selector.cxx.o
 /home/mike/catkin_ws/devel/lib/libphd.so: phd/CMakeFiles/phd.dir/qrc_ui_resource.cxx.o
@@ -670,7 +615,6 @@ phd/CMakeFiles/phd.dir/build: /home/mike/catkin_ws/devel/lib/libphd.so
 .PHONY : phd/CMakeFiles/phd.dir/build
 
 phd/CMakeFiles/phd.dir/requires: phd/CMakeFiles/phd.dir/src/control_panel.cpp.o.requires
-phd/CMakeFiles/phd.dir/requires: phd/CMakeFiles/phd.dir/src/vel_control.cpp.o.requires
 phd/CMakeFiles/phd.dir/requires: phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o.requires
 phd/CMakeFiles/phd.dir/requires: phd/CMakeFiles/phd.dir/src/marker_selector.cpp.o.requires
 phd/CMakeFiles/phd.dir/requires: phd/CMakeFiles/phd.dir/src/bcap_common.c.o.requires
@@ -683,7 +627,6 @@ phd/CMakeFiles/phd.dir/requires: phd/CMakeFiles/phd.dir/src/dn_thread.c.o.requir
 phd/CMakeFiles/phd.dir/requires: phd/CMakeFiles/phd.dir/src/dn_udp.c.o.requires
 phd/CMakeFiles/phd.dir/requires: phd/CMakeFiles/phd.dir/src/bcap_client.c.o.requires
 phd/CMakeFiles/phd.dir/requires: phd/CMakeFiles/phd.dir/include/moc_control_panel.cxx.o.requires
-phd/CMakeFiles/phd.dir/requires: phd/CMakeFiles/phd.dir/include/moc_vel_control.cxx.o.requires
 phd/CMakeFiles/phd.dir/requires: phd/CMakeFiles/phd.dir/include/moc_control_dashboard.cxx.o.requires
 phd/CMakeFiles/phd.dir/requires: phd/CMakeFiles/phd.dir/include/moc_marker_selector.cxx.o.requires
 phd/CMakeFiles/phd.dir/requires: phd/CMakeFiles/phd.dir/qrc_ui_resource.cxx.o.requires
@@ -694,7 +637,6 @@ phd/CMakeFiles/phd.dir/clean:
 .PHONY : phd/CMakeFiles/phd.dir/clean
 
 phd/CMakeFiles/phd.dir/depend: phd/include/moc_control_panel.cxx
-phd/CMakeFiles/phd.dir/depend: phd/include/moc_vel_control.cxx
 phd/CMakeFiles/phd.dir/depend: phd/include/moc_control_dashboard.cxx
 phd/CMakeFiles/phd.dir/depend: phd/include/moc_marker_selector.cxx
 phd/CMakeFiles/phd.dir/depend: phd/ui_control_panel.h

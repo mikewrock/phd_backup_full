@@ -103,16 +103,16 @@
   "phd/trajectory_section")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<trajectory_section>)))
   "Returns md5sum for a message object of type '<trajectory_section>"
-  "79d9ff5c72f5660fbbe2563aa76fd1c1")
+  "4526fbf8ae96e832551bf5fbb900f1ab")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'trajectory_section)))
   "Returns md5sum for a message object of type 'trajectory_section"
-  "79d9ff5c72f5660fbbe2563aa76fd1c1")
+  "4526fbf8ae96e832551bf5fbb900f1ab")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<trajectory_section>)))
   "Returns full string definition for message of type '<trajectory_section>"
-  (cl:format cl:nil "trajectory_point[] points~%trajectory_point end_point~%trajectory_point start_point~%float32 z_height~%~%~%~%================================================================================~%MSG: phd/trajectory_point~%float32 x~%float32 y~%float32 z~%float32 nx~%float32 ny~%float32 nz~%float32 d~%float32 d_abs~%~%~%~%"))
+  (cl:format cl:nil "trajectory_point[] points~%trajectory_point end_point~%trajectory_point start_point~%float32 z_height~%~%~%~%================================================================================~%MSG: phd/trajectory_point~%float32 x~%float32 y~%float32 z~%float32 nx~%float32 ny~%float32 nz~%float32 d~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'trajectory_section)))
   "Returns full string definition for message of type 'trajectory_section"
-  (cl:format cl:nil "trajectory_point[] points~%trajectory_point end_point~%trajectory_point start_point~%float32 z_height~%~%~%~%================================================================================~%MSG: phd/trajectory_point~%float32 x~%float32 y~%float32 z~%float32 nx~%float32 ny~%float32 nz~%float32 d~%float32 d_abs~%~%~%~%"))
+  (cl:format cl:nil "trajectory_point[] points~%trajectory_point end_point~%trajectory_point start_point~%float32 z_height~%~%~%~%================================================================================~%MSG: phd/trajectory_point~%float32 x~%float32 y~%float32 z~%float32 nx~%float32 ny~%float32 nz~%float32 d~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <trajectory_section>))
   (cl:+ 0
      4 (cl:reduce #'cl:+ (cl:slot-value msg 'points) :key #'(cl:lambda (ele) (cl:declare (cl:ignorable ele)) (cl:+ (roslisp-msg-protocol:serialization-length ele))))

@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "phd: 7 messages, 5 services")
+message(STATUS "phd: 5 messages, 4 services")
 
 set(MSG_I_FLAGS "-Iphd:/home/mike/catkin_ws/src/phd/msg;-Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg;-Iactionlib_msgs:/opt/ros/indigo/share/actionlib_msgs/cmake/../msg;-Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg")
 
@@ -20,14 +20,9 @@ add_custom_target(_phd_generate_messages_check_deps_${_filename}
   COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "phd" "/home/mike/catkin_ws/src/phd/srv/localize_cloud.srv" "sensor_msgs/PointField:sensor_msgs/PointCloud2:std_msgs/Header"
 )
 
-get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/marker_val.msg" NAME_WE)
+get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/empty.srv" NAME_WE)
 add_custom_target(_phd_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "phd" "/home/mike/catkin_ws/src/phd/msg/marker_val.msg" ""
-)
-
-get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/trajectory_service.srv" NAME_WE)
-add_custom_target(_phd_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "phd" "/home/mike/catkin_ws/src/phd/srv/trajectory_service.srv" "phd/trajectory_point:sensor_msgs/PointField:phd/trajectory_array:sensor_msgs/PointCloud2:std_msgs/Header:phd/trajectory_msg"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "phd" "/home/mike/catkin_ws/src/phd/srv/empty.srv" ""
 )
 
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/arm_msg.msg" NAME_WE)
@@ -55,16 +50,6 @@ add_custom_target(_phd_generate_messages_check_deps_${_filename}
   COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "phd" "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg" ""
 )
 
-get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/trajectory_section.msg" NAME_WE)
-add_custom_target(_phd_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "phd" "/home/mike/catkin_ws/src/phd/msg/trajectory_section.msg" "phd/trajectory_point"
-)
-
-get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/empty.srv" NAME_WE)
-add_custom_target(_phd_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "phd" "/home/mike/catkin_ws/src/phd/srv/empty.srv" ""
-)
-
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/trajectory_array.msg" NAME_WE)
 add_custom_target(_phd_generate_messages_check_deps_${_filename}
   COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "phd" "/home/mike/catkin_ws/src/phd/msg/trajectory_array.msg" "phd/trajectory_point:phd/trajectory_msg"
@@ -82,9 +67,9 @@ add_custom_target(_phd_generate_messages_check_deps_${_filename}
 ### Section generating for lang: gencpp
 ### Generating Messages
 _generate_msg_cpp(phd
-  "/home/mike/catkin_ws/src/phd/msg/marker_val.msg"
+  "/home/mike/catkin_ws/src/phd/msg/trajectory_array.msg"
   "${MSG_I_FLAGS}"
-  ""
+  "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/phd
 )
 _generate_msg_cpp(phd
@@ -94,27 +79,15 @@ _generate_msg_cpp(phd
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/phd
 )
 _generate_msg_cpp(phd
+  "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/phd
+)
+_generate_msg_cpp(phd
   "/home/mike/catkin_ws/src/phd/msg/cube_msg.msg"
   "${MSG_I_FLAGS}"
   ""
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/phd
-)
-_generate_msg_cpp(phd
-  "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/phd
-)
-_generate_msg_cpp(phd
-  "/home/mike/catkin_ws/src/phd/msg/trajectory_section.msg"
-  "${MSG_I_FLAGS}"
-  "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/phd
-)
-_generate_msg_cpp(phd
-  "/home/mike/catkin_ws/src/phd/msg/trajectory_array.msg"
-  "${MSG_I_FLAGS}"
-  "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/phd
 )
 _generate_msg_cpp(phd
@@ -147,12 +120,6 @@ _generate_srv_cpp(phd
   "/home/mike/catkin_ws/src/phd/srv/simple_trajectory_service.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointField.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg;/opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/phd
-)
-_generate_srv_cpp(phd
-  "/home/mike/catkin_ws/src/phd/srv/trajectory_service.srv"
-  "${MSG_I_FLAGS}"
-  "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointField.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_array.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg;/opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/phd
 )
 
@@ -170,9 +137,7 @@ add_dependencies(phd_generate_messages phd_generate_messages_cpp)
 # add dependencies to all check dependencies targets
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/localize_cloud.srv" NAME_WE)
 add_dependencies(phd_generate_messages_cpp _phd_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/marker_val.msg" NAME_WE)
-add_dependencies(phd_generate_messages_cpp _phd_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/trajectory_service.srv" NAME_WE)
+get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/empty.srv" NAME_WE)
 add_dependencies(phd_generate_messages_cpp _phd_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/arm_msg.msg" NAME_WE)
 add_dependencies(phd_generate_messages_cpp _phd_generate_messages_check_deps_${_filename})
@@ -183,10 +148,6 @@ add_dependencies(phd_generate_messages_cpp _phd_generate_messages_check_deps_${_
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/simple_trajectory_service.srv" NAME_WE)
 add_dependencies(phd_generate_messages_cpp _phd_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg" NAME_WE)
-add_dependencies(phd_generate_messages_cpp _phd_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/trajectory_section.msg" NAME_WE)
-add_dependencies(phd_generate_messages_cpp _phd_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/empty.srv" NAME_WE)
 add_dependencies(phd_generate_messages_cpp _phd_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/trajectory_array.msg" NAME_WE)
 add_dependencies(phd_generate_messages_cpp _phd_generate_messages_check_deps_${_filename})
@@ -203,9 +164,9 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS phd_generate_messages_cpp)
 ### Section generating for lang: genlisp
 ### Generating Messages
 _generate_msg_lisp(phd
-  "/home/mike/catkin_ws/src/phd/msg/marker_val.msg"
+  "/home/mike/catkin_ws/src/phd/msg/trajectory_array.msg"
   "${MSG_I_FLAGS}"
-  ""
+  "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/phd
 )
 _generate_msg_lisp(phd
@@ -215,27 +176,15 @@ _generate_msg_lisp(phd
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/phd
 )
 _generate_msg_lisp(phd
+  "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/phd
+)
+_generate_msg_lisp(phd
   "/home/mike/catkin_ws/src/phd/msg/cube_msg.msg"
   "${MSG_I_FLAGS}"
   ""
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/phd
-)
-_generate_msg_lisp(phd
-  "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/phd
-)
-_generate_msg_lisp(phd
-  "/home/mike/catkin_ws/src/phd/msg/trajectory_section.msg"
-  "${MSG_I_FLAGS}"
-  "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/phd
-)
-_generate_msg_lisp(phd
-  "/home/mike/catkin_ws/src/phd/msg/trajectory_array.msg"
-  "${MSG_I_FLAGS}"
-  "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/phd
 )
 _generate_msg_lisp(phd
@@ -268,12 +217,6 @@ _generate_srv_lisp(phd
   "/home/mike/catkin_ws/src/phd/srv/simple_trajectory_service.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointField.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg;/opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/phd
-)
-_generate_srv_lisp(phd
-  "/home/mike/catkin_ws/src/phd/srv/trajectory_service.srv"
-  "${MSG_I_FLAGS}"
-  "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointField.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_array.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg;/opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/phd
 )
 
@@ -291,9 +234,7 @@ add_dependencies(phd_generate_messages phd_generate_messages_lisp)
 # add dependencies to all check dependencies targets
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/localize_cloud.srv" NAME_WE)
 add_dependencies(phd_generate_messages_lisp _phd_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/marker_val.msg" NAME_WE)
-add_dependencies(phd_generate_messages_lisp _phd_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/trajectory_service.srv" NAME_WE)
+get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/empty.srv" NAME_WE)
 add_dependencies(phd_generate_messages_lisp _phd_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/arm_msg.msg" NAME_WE)
 add_dependencies(phd_generate_messages_lisp _phd_generate_messages_check_deps_${_filename})
@@ -304,10 +245,6 @@ add_dependencies(phd_generate_messages_lisp _phd_generate_messages_check_deps_${
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/simple_trajectory_service.srv" NAME_WE)
 add_dependencies(phd_generate_messages_lisp _phd_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg" NAME_WE)
-add_dependencies(phd_generate_messages_lisp _phd_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/trajectory_section.msg" NAME_WE)
-add_dependencies(phd_generate_messages_lisp _phd_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/empty.srv" NAME_WE)
 add_dependencies(phd_generate_messages_lisp _phd_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/trajectory_array.msg" NAME_WE)
 add_dependencies(phd_generate_messages_lisp _phd_generate_messages_check_deps_${_filename})
@@ -324,9 +261,9 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS phd_generate_messages_lisp)
 ### Section generating for lang: genpy
 ### Generating Messages
 _generate_msg_py(phd
-  "/home/mike/catkin_ws/src/phd/msg/marker_val.msg"
+  "/home/mike/catkin_ws/src/phd/msg/trajectory_array.msg"
   "${MSG_I_FLAGS}"
-  ""
+  "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/phd
 )
 _generate_msg_py(phd
@@ -336,27 +273,15 @@ _generate_msg_py(phd
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/phd
 )
 _generate_msg_py(phd
+  "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/phd
+)
+_generate_msg_py(phd
   "/home/mike/catkin_ws/src/phd/msg/cube_msg.msg"
   "${MSG_I_FLAGS}"
   ""
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/phd
-)
-_generate_msg_py(phd
-  "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/phd
-)
-_generate_msg_py(phd
-  "/home/mike/catkin_ws/src/phd/msg/trajectory_section.msg"
-  "${MSG_I_FLAGS}"
-  "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/phd
-)
-_generate_msg_py(phd
-  "/home/mike/catkin_ws/src/phd/msg/trajectory_array.msg"
-  "${MSG_I_FLAGS}"
-  "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/phd
 )
 _generate_msg_py(phd
@@ -391,12 +316,6 @@ _generate_srv_py(phd
   "/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointField.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg;/opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/phd
 )
-_generate_srv_py(phd
-  "/home/mike/catkin_ws/src/phd/srv/trajectory_service.srv"
-  "${MSG_I_FLAGS}"
-  "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointField.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_array.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg;/opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/phd
-)
 
 ### Generating Module File
 _generate_module_py(phd
@@ -412,9 +331,7 @@ add_dependencies(phd_generate_messages phd_generate_messages_py)
 # add dependencies to all check dependencies targets
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/localize_cloud.srv" NAME_WE)
 add_dependencies(phd_generate_messages_py _phd_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/marker_val.msg" NAME_WE)
-add_dependencies(phd_generate_messages_py _phd_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/trajectory_service.srv" NAME_WE)
+get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/empty.srv" NAME_WE)
 add_dependencies(phd_generate_messages_py _phd_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/arm_msg.msg" NAME_WE)
 add_dependencies(phd_generate_messages_py _phd_generate_messages_check_deps_${_filename})
@@ -425,10 +342,6 @@ add_dependencies(phd_generate_messages_py _phd_generate_messages_check_deps_${_f
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/simple_trajectory_service.srv" NAME_WE)
 add_dependencies(phd_generate_messages_py _phd_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg" NAME_WE)
-add_dependencies(phd_generate_messages_py _phd_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/trajectory_section.msg" NAME_WE)
-add_dependencies(phd_generate_messages_py _phd_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/empty.srv" NAME_WE)
 add_dependencies(phd_generate_messages_py _phd_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/trajectory_array.msg" NAME_WE)
 add_dependencies(phd_generate_messages_py _phd_generate_messages_check_deps_${_filename})

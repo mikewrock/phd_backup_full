@@ -28,7 +28,6 @@ int32 fig
 bool pose
 int32 motion_type
 string user_string
-
 """
   __slots__ = ['j1','j2','j3','j4','j5','j6','x','y','z','rx','ry','rz','vel','acc','fig','pose','motion_type','user_string']
   _slot_types = ['float32','float32','float32','float32','float32','float32','float32','float32','float32','float32','float32','float32','float32','float32','int32','bool','int32','string']

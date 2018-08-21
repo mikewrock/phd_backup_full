@@ -131,12 +131,12 @@ struct MD5Sum< ::phd::trajectory_section_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "79d9ff5c72f5660fbbe2563aa76fd1c1";
+    return "4526fbf8ae96e832551bf5fbb900f1ab";
   }
 
   static const char* value(const ::phd::trajectory_section_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x79d9ff5c72f5660fULL;
-  static const uint64_t static_value2 = 0xbbe2563aa76fd1c1ULL;
+  static const uint64_t static_value1 = 0x4526fbf8ae96e832ULL;
+  static const uint64_t static_value2 = 0x551bf5fbb900f1abULL;
 };
 
 template<class ContainerAllocator>
@@ -171,8 +171,6 @@ float32 nx\n\
 float32 ny\n\
 float32 nz\n\
 float32 d\n\
-float32 d_abs\n\
-\n\
 ";
   }
 

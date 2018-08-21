@@ -32,7 +32,7 @@
   </node>
 
   <!--- Run rviz -->
-    <node name="rviz" pkg="rviz" type="rviz" required="True" output="screen" args="-d $(find phd)/cfg/rviz_scan.rviz"> 
+    <node name="rviz" pkg="rviz" type="rviz" required="True" output="screen" args="-d $(find phd)/cfg/rviz_scan.rviz" clear_params="true"> 
   </node>
 <node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0 0 0 0 0 0 1 base_footprint world 100" />
 

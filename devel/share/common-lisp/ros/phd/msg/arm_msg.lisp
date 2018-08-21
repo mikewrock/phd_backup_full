@@ -411,10 +411,10 @@
   "60ecd3f39bc022e6e6d98a74d7b832ac")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<arm_msg>)))
   "Returns full string definition for message of type '<arm_msg>"
-  (cl:format cl:nil "float32 j1~%float32 j2~%float32 j3~%float32 j4~%float32 j5~%float32 j6~%float32 x~%float32 y~%float32 z~%float32 rx~%float32 ry~%float32 rz~%float32 vel~%float32 acc~%int32 fig~%bool pose~%int32 motion_type~%string user_string~%~%~%~%"))
+  (cl:format cl:nil "float32 j1~%float32 j2~%float32 j3~%float32 j4~%float32 j5~%float32 j6~%float32 x~%float32 y~%float32 z~%float32 rx~%float32 ry~%float32 rz~%float32 vel~%float32 acc~%int32 fig~%bool pose~%int32 motion_type~%string user_string~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'arm_msg)))
   "Returns full string definition for message of type 'arm_msg"
-  (cl:format cl:nil "float32 j1~%float32 j2~%float32 j3~%float32 j4~%float32 j5~%float32 j6~%float32 x~%float32 y~%float32 z~%float32 rx~%float32 ry~%float32 rz~%float32 vel~%float32 acc~%int32 fig~%bool pose~%int32 motion_type~%string user_string~%~%~%~%"))
+  (cl:format cl:nil "float32 j1~%float32 j2~%float32 j3~%float32 j4~%float32 j5~%float32 j6~%float32 x~%float32 y~%float32 z~%float32 rx~%float32 ry~%float32 rz~%float32 vel~%float32 acc~%int32 fig~%bool pose~%int32 motion_type~%string user_string~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <arm_msg>))
   (cl:+ 0
      4

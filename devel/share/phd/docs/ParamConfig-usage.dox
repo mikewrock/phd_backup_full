@@ -11,15 +11,14 @@
   <param name="auto_crop_min_x" type="double" value="0.0" />
   <param name="auto_crop_max_y" type="double" value="2.0" />
   <param name="auto_crop_min_y" type="double" value="-0.5" />
-  <param name="auto_crop_max_z" type="double" value="1.25" />
+  <param name="auto_crop_max_z" type="double" value="1.8" />
   <param name="auto_crop_min_z" type="double" value="0.7" />
   <param name="auto_occlude_max_x" type="double" value="0.5" />
   <param name="auto_occlude_min_x" type="double" value="-2.0" />
   <param name="auto_occlude_max_y" type="double" value="0.5" />
   <param name="auto_occlude_min_y" type="double" value="-0.5" />
-  <param name="auto_occlude_max_z" type="double" value="1.2" />
+  <param name="auto_occlude_max_z" type="double" value="1.4" />
   <param name="auto_occlude_min_z" type="double" value="0.0" />
-  <param name="group2_double" type="double" value="3.333" />
 </node>
 \endverbatim
 

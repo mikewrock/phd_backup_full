@@ -7,7 +7,7 @@ import struct
 
 
 class trajectory_point(genpy.Message):
-  _md5sum = "fa2a935c0849c33dde0d2d520826cfdb"
+  _md5sum = "a8f5392abe73cf46e23084bf4c802525"
   _type = "phd/trajectory_point"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """float32 x
@@ -17,11 +17,9 @@ float32 nx
 float32 ny
 float32 nz
 float32 d
-float32 d_abs
-
 """
-  __slots__ = ['x','y','z','nx','ny','nz','d','d_abs']
-  _slot_types = ['float32','float32','float32','float32','float32','float32','float32','float32']
+  __slots__ = ['x','y','z','nx','ny','nz','d']
+  _slot_types = ['float32','float32','float32','float32','float32','float32','float32']
 
   def __init__(self, *args, **kwds):
     """
@@ -31,7 +29,7 @@ float32 d_abs
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       x,y,z,nx,ny,nz,d,d_abs
+       x,y,z,nx,ny,nz,d
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -54,8 +52,6 @@ float32 d_abs
         self.nz = 0.
       if self.d is None:
         self.d = 0.
-      if self.d_abs is None:
-        self.d_abs = 0.
     else:
       self.x = 0.
       self.y = 0.
@@ -64,7 +60,6 @@ float32 d_abs
       self.ny = 0.
       self.nz = 0.
       self.d = 0.
-      self.d_abs = 0.
 
   def _get_types(self):
     """
@@ -79,7 +74,7 @@ float32 d_abs
     """
     try:
       _x = self
-      buff.write(_struct_8f.pack(_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs))
+      buff.write(_struct_7f.pack(_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -92,8 +87,8 @@ float32 d_abs
       end = 0
       _x = self
       start = end
-      end += 32
-      (_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs,) = _struct_8f.unpack(str[start:end])
+      end += 28
+      (_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d,) = _struct_7f.unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -107,7 +102,7 @@ float32 d_abs
     """
     try:
       _x = self
-      buff.write(_struct_8f.pack(_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs))
+      buff.write(_struct_7f.pack(_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -121,11 +116,11 @@ float32 d_abs
       end = 0
       _x = self
       start = end
-      end += 32
-      (_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs,) = _struct_8f.unpack(str[start:end])
+      end += 28
+      (_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d,) = _struct_7f.unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
 
 _struct_I = genpy.struct_I
-_struct_8f = struct.Struct("<8f")
+_struct_7f = struct.Struct("<7f")

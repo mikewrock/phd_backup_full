@@ -41,11 +41,6 @@
     :reader d
     :initarg :d
     :type cl:float
-    :initform 0.0)
-   (d_abs
-    :reader d_abs
-    :initarg :d_abs
-    :type cl:float
     :initform 0.0))
 )
 
@@ -91,11 +86,6 @@
 (cl:defmethod d-val ((m <trajectory_point>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader phd-msg:d-val is deprecated.  Use phd-msg:d instead.")
   (d m))
-
-(cl:ensure-generic-function 'd_abs-val :lambda-list '(m))
-(cl:defmethod d_abs-val ((m <trajectory_point>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader phd-msg:d_abs-val is deprecated.  Use phd-msg:d_abs instead.")
-  (d_abs m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <trajectory_point>) ostream)
   "Serializes a message object of type '<trajectory_point>"
   (cl:let ((bits (roslisp-utils:encode-single-float-bits (cl:slot-value msg 'x))))
@@ -129,11 +119,6 @@
     (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream))
   (cl:let ((bits (roslisp-utils:encode-single-float-bits (cl:slot-value msg 'd))))
-    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream))
-  (cl:let ((bits (roslisp-utils:encode-single-float-bits (cl:slot-value msg 'd_abs))))
     (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
@@ -183,12 +168,6 @@
       (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
     (cl:setf (cl:slot-value msg 'd) (roslisp-utils:decode-single-float-bits bits)))
-    (cl:let ((bits 0))
-      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
-    (cl:setf (cl:slot-value msg 'd_abs) (roslisp-utils:decode-single-float-bits bits)))
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<trajectory_point>)))
@@ -199,19 +178,18 @@
   "phd/trajectory_point")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<trajectory_point>)))
   "Returns md5sum for a message object of type '<trajectory_point>"
-  "fa2a935c0849c33dde0d2d520826cfdb")
+  "a8f5392abe73cf46e23084bf4c802525")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'trajectory_point)))
   "Returns md5sum for a message object of type 'trajectory_point"
-  "fa2a935c0849c33dde0d2d520826cfdb")
+  "a8f5392abe73cf46e23084bf4c802525")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<trajectory_point>)))
   "Returns full string definition for message of type '<trajectory_point>"
-  (cl:format cl:nil "float32 x~%float32 y~%float32 z~%float32 nx~%float32 ny~%float32 nz~%float32 d~%float32 d_abs~%~%~%~%"))
+  (cl:format cl:nil "float32 x~%float32 y~%float32 z~%float32 nx~%float32 ny~%float32 nz~%float32 d~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'trajectory_point)))
   "Returns full string definition for message of type 'trajectory_point"
-  (cl:format cl:nil "float32 x~%float32 y~%float32 z~%float32 nx~%float32 ny~%float32 nz~%float32 d~%float32 d_abs~%~%~%~%"))
+  (cl:format cl:nil "float32 x~%float32 y~%float32 z~%float32 nx~%float32 ny~%float32 nz~%float32 d~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <trajectory_point>))
   (cl:+ 0
-     4
      4
      4
      4
@@ -230,5 +208,4 @@
     (cl:cons ':ny (ny msg))
     (cl:cons ':nz (nz msg))
     (cl:cons ':d (d msg))
-    (cl:cons ':d_abs (d_abs msg))
 ))

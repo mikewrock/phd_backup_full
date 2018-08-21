@@ -209,20 +209,6 @@ _phd_generate_messages_check_deps_localize_cloud/fast:
 .PHONY : _phd_generate_messages_check_deps_localize_cloud/fast
 
 # Convenience name for target.
-phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir/rule:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir/rule
-.PHONY : phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir/rule
-
-# Convenience name for target.
-_phd_generate_messages_check_deps_marker_val: phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir/rule
-.PHONY : _phd_generate_messages_check_deps_marker_val
-
-# fast build rule for target.
-_phd_generate_messages_check_deps_marker_val/fast:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir/build.make phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir/build
-.PHONY : _phd_generate_messages_check_deps_marker_val/fast
-
-# Convenience name for target.
 phd/CMakeFiles/_phd_generate_messages_check_deps_simple_trajectory_service.dir/rule:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/_phd_generate_messages_check_deps_simple_trajectory_service.dir/rule
 .PHONY : phd/CMakeFiles/_phd_generate_messages_check_deps_simple_trajectory_service.dir/rule
@@ -293,34 +279,6 @@ _phd_generate_messages_check_deps_trajectory_point/fast:
 .PHONY : _phd_generate_messages_check_deps_trajectory_point/fast
 
 # Convenience name for target.
-phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_section.dir/rule:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_section.dir/rule
-.PHONY : phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_section.dir/rule
-
-# Convenience name for target.
-_phd_generate_messages_check_deps_trajectory_section: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_section.dir/rule
-.PHONY : _phd_generate_messages_check_deps_trajectory_section
-
-# fast build rule for target.
-_phd_generate_messages_check_deps_trajectory_section/fast:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_section.dir/build.make phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_section.dir/build
-.PHONY : _phd_generate_messages_check_deps_trajectory_section/fast
-
-# Convenience name for target.
-phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_service.dir/rule:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_service.dir/rule
-.PHONY : phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_service.dir/rule
-
-# Convenience name for target.
-_phd_generate_messages_check_deps_trajectory_service: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_service.dir/rule
-.PHONY : _phd_generate_messages_check_deps_trajectory_service
-
-# fast build rule for target.
-_phd_generate_messages_check_deps_trajectory_service/fast:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_service.dir/build.make phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_service.dir/build
-.PHONY : _phd_generate_messages_check_deps_trajectory_service/fast
-
-# Convenience name for target.
 phd/CMakeFiles/bcap_client.dir/rule:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/bcap_client.dir/rule
 .PHONY : phd/CMakeFiles/bcap_client.dir/rule
@@ -375,20 +333,6 @@ brics_actuator_generate_messages_py: phd/CMakeFiles/brics_actuator_generate_mess
 brics_actuator_generate_messages_py/fast:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/brics_actuator_generate_messages_py.dir/build.make phd/CMakeFiles/brics_actuator_generate_messages_py.dir/build
 .PHONY : brics_actuator_generate_messages_py/fast
-
-# Convenience name for target.
-phd/CMakeFiles/calibration_node.dir/rule:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/calibration_node.dir/rule
-.PHONY : phd/CMakeFiles/calibration_node.dir/rule
-
-# Convenience name for target.
-calibration_node: phd/CMakeFiles/calibration_node.dir/rule
-.PHONY : calibration_node
-
-# fast build rule for target.
-calibration_node/fast:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/calibration_node.dir/build.make phd/CMakeFiles/calibration_node.dir/build
-.PHONY : calibration_node/fast
 
 # Convenience name for target.
 phd/CMakeFiles/cloud_localizer.dir/rule:
@@ -615,20 +559,6 @@ laser_assembler_generate_messages_py/fast:
 .PHONY : laser_assembler_generate_messages_py/fast
 
 # Convenience name for target.
-phd/CMakeFiles/parse_node.dir/rule:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/parse_node.dir/rule
-.PHONY : phd/CMakeFiles/parse_node.dir/rule
-
-# Convenience name for target.
-parse_node: phd/CMakeFiles/parse_node.dir/rule
-.PHONY : parse_node
-
-# fast build rule for target.
-parse_node/fast:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/parse_node.dir/build.make phd/CMakeFiles/parse_node.dir/build
-.PHONY : parse_node/fast
-
-# Convenience name for target.
 phd/CMakeFiles/phd.dir/rule:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/phd.dir/rule
 .PHONY : phd/CMakeFiles/phd.dir/rule
@@ -783,20 +713,6 @@ simple_trajectory_server/fast:
 .PHONY : simple_trajectory_server/fast
 
 # Convenience name for target.
-phd/CMakeFiles/test_node.dir/rule:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/test_node.dir/rule
-.PHONY : phd/CMakeFiles/test_node.dir/rule
-
-# Convenience name for target.
-test_node: phd/CMakeFiles/test_node.dir/rule
-.PHONY : test_node
-
-# fast build rule for target.
-test_node/fast:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/test_node.dir/build.make phd/CMakeFiles/test_node.dir/build
-.PHONY : test_node/fast
-
-# Convenience name for target.
 phd/CMakeFiles/thickness_server.dir/rule:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/thickness_server.dir/rule
 .PHONY : phd/CMakeFiles/thickness_server.dir/rule
@@ -851,20 +767,6 @@ trajectory_msgs_generate_messages_py: phd/CMakeFiles/trajectory_msgs_generate_me
 trajectory_msgs_generate_messages_py/fast:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/trajectory_msgs_generate_messages_py.dir/build.make phd/CMakeFiles/trajectory_msgs_generate_messages_py.dir/build
 .PHONY : trajectory_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-phd/CMakeFiles/trajectory_server.dir/rule:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/trajectory_server.dir/rule
-.PHONY : phd/CMakeFiles/trajectory_server.dir/rule
-
-# Convenience name for target.
-trajectory_server: phd/CMakeFiles/trajectory_server.dir/rule
-.PHONY : trajectory_server
-
-# fast build rule for target.
-trajectory_server/fast:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/trajectory_server.dir/build.make phd/CMakeFiles/trajectory_server.dir/build
-.PHONY : trajectory_server/fast
 
 include/moc_control_dashboard.o: include/moc_control_dashboard.cxx.o
 .PHONY : include/moc_control_dashboard.o
@@ -937,30 +839,6 @@ include/moc_marker_selector.s: include/moc_marker_selector.cxx.s
 include/moc_marker_selector.cxx.s:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/phd.dir/build.make phd/CMakeFiles/phd.dir/include/moc_marker_selector.cxx.s
 .PHONY : include/moc_marker_selector.cxx.s
-
-include/moc_vel_control.o: include/moc_vel_control.cxx.o
-.PHONY : include/moc_vel_control.o
-
-# target to build an object file
-include/moc_vel_control.cxx.o:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/phd.dir/build.make phd/CMakeFiles/phd.dir/include/moc_vel_control.cxx.o
-.PHONY : include/moc_vel_control.cxx.o
-
-include/moc_vel_control.i: include/moc_vel_control.cxx.i
-.PHONY : include/moc_vel_control.i
-
-# target to preprocess a source file
-include/moc_vel_control.cxx.i:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/phd.dir/build.make phd/CMakeFiles/phd.dir/include/moc_vel_control.cxx.i
-.PHONY : include/moc_vel_control.cxx.i
-
-include/moc_vel_control.s: include/moc_vel_control.cxx.s
-.PHONY : include/moc_vel_control.s
-
-# target to generate assembly for a file
-include/moc_vel_control.cxx.s:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/phd.dir/build.make phd/CMakeFiles/phd.dir/include/moc_vel_control.cxx.s
-.PHONY : include/moc_vel_control.cxx.s
 
 qrc_ui_resource.o: qrc_ui_resource.cxx.o
 .PHONY : qrc_ui_resource.o
@@ -1039,30 +917,6 @@ src/bcap_common.c.s:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/bcap_client.dir/build.make phd/CMakeFiles/bcap_client.dir/src/bcap_common.c.s
 	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/phd.dir/build.make phd/CMakeFiles/phd.dir/src/bcap_common.c.s
 .PHONY : src/bcap_common.c.s
-
-src/calibration.o: src/calibration.cpp.o
-.PHONY : src/calibration.o
-
-# target to build an object file
-src/calibration.cpp.o:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/calibration_node.dir/build.make phd/CMakeFiles/calibration_node.dir/src/calibration.cpp.o
-.PHONY : src/calibration.cpp.o
-
-src/calibration.i: src/calibration.cpp.i
-.PHONY : src/calibration.i
-
-# target to preprocess a source file
-src/calibration.cpp.i:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/calibration_node.dir/build.make phd/CMakeFiles/calibration_node.dir/src/calibration.cpp.i
-.PHONY : src/calibration.cpp.i
-
-src/calibration.s: src/calibration.cpp.s
-.PHONY : src/calibration.s
-
-# target to generate assembly for a file
-src/calibration.cpp.s:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/calibration_node.dir/build.make phd/CMakeFiles/calibration_node.dir/src/calibration.cpp.s
-.PHONY : src/calibration.cpp.s
 
 src/control_dashboard.o: src/control_dashboard.cpp.o
 .PHONY : src/control_dashboard.o
@@ -1397,30 +1251,6 @@ src/marker_selector.cpp.s:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/phd.dir/build.make phd/CMakeFiles/phd.dir/src/marker_selector.cpp.s
 .PHONY : src/marker_selector.cpp.s
 
-src/parse_file.o: src/parse_file.cpp.o
-.PHONY : src/parse_file.o
-
-# target to build an object file
-src/parse_file.cpp.o:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/parse_node.dir/build.make phd/CMakeFiles/parse_node.dir/src/parse_file.cpp.o
-.PHONY : src/parse_file.cpp.o
-
-src/parse_file.i: src/parse_file.cpp.i
-.PHONY : src/parse_file.i
-
-# target to preprocess a source file
-src/parse_file.cpp.i:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/parse_node.dir/build.make phd/CMakeFiles/parse_node.dir/src/parse_file.cpp.i
-.PHONY : src/parse_file.cpp.i
-
-src/parse_file.s: src/parse_file.cpp.s
-.PHONY : src/parse_file.s
-
-# target to generate assembly for a file
-src/parse_file.cpp.s:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/parse_node.dir/build.make phd/CMakeFiles/parse_node.dir/src/parse_file.cpp.s
-.PHONY : src/parse_file.cpp.s
-
 src/pointcloud_localization_service.o: src/pointcloud_localization_service.cpp.o
 .PHONY : src/pointcloud_localization_service.o
 
@@ -1493,30 +1323,6 @@ src/simple_trajectory_service.cpp.s:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/simple_trajectory_server.dir/build.make phd/CMakeFiles/simple_trajectory_server.dir/src/simple_trajectory_service.cpp.s
 .PHONY : src/simple_trajectory_service.cpp.s
 
-src/test_node.o: src/test_node.cpp.o
-.PHONY : src/test_node.o
-
-# target to build an object file
-src/test_node.cpp.o:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/test_node.dir/build.make phd/CMakeFiles/test_node.dir/src/test_node.cpp.o
-.PHONY : src/test_node.cpp.o
-
-src/test_node.i: src/test_node.cpp.i
-.PHONY : src/test_node.i
-
-# target to preprocess a source file
-src/test_node.cpp.i:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/test_node.dir/build.make phd/CMakeFiles/test_node.dir/src/test_node.cpp.i
-.PHONY : src/test_node.cpp.i
-
-src/test_node.s: src/test_node.cpp.s
-.PHONY : src/test_node.s
-
-# target to generate assembly for a file
-src/test_node.cpp.s:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/test_node.dir/build.make phd/CMakeFiles/test_node.dir/src/test_node.cpp.s
-.PHONY : src/test_node.cpp.s
-
 src/thickness_service.o: src/thickness_service.cpp.o
 .PHONY : src/thickness_service.o
 
@@ -1541,54 +1347,6 @@ src/thickness_service.cpp.s:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/thickness_server.dir/build.make phd/CMakeFiles/thickness_server.dir/src/thickness_service.cpp.s
 .PHONY : src/thickness_service.cpp.s
 
-src/trajectory_service.o: src/trajectory_service.cpp.o
-.PHONY : src/trajectory_service.o
-
-# target to build an object file
-src/trajectory_service.cpp.o:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/trajectory_server.dir/build.make phd/CMakeFiles/trajectory_server.dir/src/trajectory_service.cpp.o
-.PHONY : src/trajectory_service.cpp.o
-
-src/trajectory_service.i: src/trajectory_service.cpp.i
-.PHONY : src/trajectory_service.i
-
-# target to preprocess a source file
-src/trajectory_service.cpp.i:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/trajectory_server.dir/build.make phd/CMakeFiles/trajectory_server.dir/src/trajectory_service.cpp.i
-.PHONY : src/trajectory_service.cpp.i
-
-src/trajectory_service.s: src/trajectory_service.cpp.s
-.PHONY : src/trajectory_service.s
-
-# target to generate assembly for a file
-src/trajectory_service.cpp.s:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/trajectory_server.dir/build.make phd/CMakeFiles/trajectory_server.dir/src/trajectory_service.cpp.s
-.PHONY : src/trajectory_service.cpp.s
-
-src/vel_control.o: src/vel_control.cpp.o
-.PHONY : src/vel_control.o
-
-# target to build an object file
-src/vel_control.cpp.o:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/phd.dir/build.make phd/CMakeFiles/phd.dir/src/vel_control.cpp.o
-.PHONY : src/vel_control.cpp.o
-
-src/vel_control.i: src/vel_control.cpp.i
-.PHONY : src/vel_control.i
-
-# target to preprocess a source file
-src/vel_control.cpp.i:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/phd.dir/build.make phd/CMakeFiles/phd.dir/src/vel_control.cpp.i
-.PHONY : src/vel_control.cpp.i
-
-src/vel_control.s: src/vel_control.cpp.s
-.PHONY : src/vel_control.s
-
-# target to generate assembly for a file
-src/vel_control.cpp.s:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/phd.dir/build.make phd/CMakeFiles/phd.dir/src/vel_control.cpp.s
-.PHONY : src/vel_control.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1599,19 +1357,15 @@ help:
 	@echo "... _phd_generate_messages_check_deps_cube_msg"
 	@echo "... _phd_generate_messages_check_deps_empty"
 	@echo "... _phd_generate_messages_check_deps_localize_cloud"
-	@echo "... _phd_generate_messages_check_deps_marker_val"
 	@echo "... _phd_generate_messages_check_deps_simple_trajectory_service"
 	@echo "... _phd_generate_messages_check_deps_thickness_service"
 	@echo "... _phd_generate_messages_check_deps_trajectory_array"
 	@echo "... _phd_generate_messages_check_deps_trajectory_msg"
 	@echo "... _phd_generate_messages_check_deps_trajectory_point"
-	@echo "... _phd_generate_messages_check_deps_trajectory_section"
-	@echo "... _phd_generate_messages_check_deps_trajectory_service"
 	@echo "... bcap_client"
 	@echo "... brics_actuator_generate_messages_cpp"
 	@echo "... brics_actuator_generate_messages_lisp"
 	@echo "... brics_actuator_generate_messages_py"
-	@echo "... calibration_node"
 	@echo "... cloud_localizer"
 	@echo "... cob_srvs_generate_messages_cpp"
 	@echo "... cob_srvs_generate_messages_lisp"
@@ -1633,7 +1387,6 @@ help:
 	@echo "... laser_assembler_generate_messages_lisp"
 	@echo "... laser_assembler_generate_messages_py"
 	@echo "... list_install_components"
-	@echo "... parse_node"
 	@echo "... phd"
 	@echo "... phd_gencfg"
 	@echo "... phd_gencpp"
@@ -1647,12 +1400,10 @@ help:
 	@echo "... saveselection"
 	@echo "... simple_trajectory_server"
 	@echo "... test"
-	@echo "... test_node"
 	@echo "... thickness_server"
 	@echo "... trajectory_msgs_generate_messages_cpp"
 	@echo "... trajectory_msgs_generate_messages_lisp"
 	@echo "... trajectory_msgs_generate_messages_py"
-	@echo "... trajectory_server"
 	@echo "... include/moc_control_dashboard.o"
 	@echo "... include/moc_control_dashboard.i"
 	@echo "... include/moc_control_dashboard.s"
@@ -1662,9 +1413,6 @@ help:
 	@echo "... include/moc_marker_selector.o"
 	@echo "... include/moc_marker_selector.i"
 	@echo "... include/moc_marker_selector.s"
-	@echo "... include/moc_vel_control.o"
-	@echo "... include/moc_vel_control.i"
-	@echo "... include/moc_vel_control.s"
 	@echo "... qrc_ui_resource.o"
 	@echo "... qrc_ui_resource.i"
 	@echo "... qrc_ui_resource.s"
@@ -1674,9 +1422,6 @@ help:
 	@echo "... src/bcap_common.o"
 	@echo "... src/bcap_common.i"
 	@echo "... src/bcap_common.s"
-	@echo "... src/calibration.o"
-	@echo "... src/calibration.i"
-	@echo "... src/calibration.s"
 	@echo "... src/control_dashboard.o"
 	@echo "... src/control_dashboard.i"
 	@echo "... src/control_dashboard.s"
@@ -1716,9 +1461,6 @@ help:
 	@echo "... src/marker_selector.o"
 	@echo "... src/marker_selector.i"
 	@echo "... src/marker_selector.s"
-	@echo "... src/parse_file.o"
-	@echo "... src/parse_file.i"
-	@echo "... src/parse_file.s"
 	@echo "... src/pointcloud_localization_service.o"
 	@echo "... src/pointcloud_localization_service.i"
 	@echo "... src/pointcloud_localization_service.s"
@@ -1728,18 +1470,9 @@ help:
 	@echo "... src/simple_trajectory_service.o"
 	@echo "... src/simple_trajectory_service.i"
 	@echo "... src/simple_trajectory_service.s"
-	@echo "... src/test_node.o"
-	@echo "... src/test_node.i"
-	@echo "... src/test_node.s"
 	@echo "... src/thickness_service.o"
 	@echo "... src/thickness_service.i"
 	@echo "... src/thickness_service.s"
-	@echo "... src/trajectory_service.o"
-	@echo "... src/trajectory_service.i"
-	@echo "... src/trajectory_service.s"
-	@echo "... src/vel_control.o"
-	@echo "... src/vel_control.i"
-	@echo "... src/vel_control.s"
 .PHONY : help
 
 

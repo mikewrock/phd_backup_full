@@ -2324,19 +2324,6 @@ _phd_generate_messages_check_deps_localize_cloud/fast:
 .PHONY : _phd_generate_messages_check_deps_localize_cloud/fast
 
 #=============================================================================
-# Target rules for targets named _phd_generate_messages_check_deps_marker_val
-
-# Build rule for target.
-_phd_generate_messages_check_deps_marker_val: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 _phd_generate_messages_check_deps_marker_val
-.PHONY : _phd_generate_messages_check_deps_marker_val
-
-# fast build rule for target.
-_phd_generate_messages_check_deps_marker_val/fast:
-	$(MAKE) -f phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir/build.make phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir/build
-.PHONY : _phd_generate_messages_check_deps_marker_val/fast
-
-#=============================================================================
 # Target rules for targets named _phd_generate_messages_check_deps_simple_trajectory_service
 
 # Build rule for target.
@@ -2402,32 +2389,6 @@ _phd_generate_messages_check_deps_trajectory_point/fast:
 .PHONY : _phd_generate_messages_check_deps_trajectory_point/fast
 
 #=============================================================================
-# Target rules for targets named _phd_generate_messages_check_deps_trajectory_section
-
-# Build rule for target.
-_phd_generate_messages_check_deps_trajectory_section: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 _phd_generate_messages_check_deps_trajectory_section
-.PHONY : _phd_generate_messages_check_deps_trajectory_section
-
-# fast build rule for target.
-_phd_generate_messages_check_deps_trajectory_section/fast:
-	$(MAKE) -f phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_section.dir/build.make phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_section.dir/build
-.PHONY : _phd_generate_messages_check_deps_trajectory_section/fast
-
-#=============================================================================
-# Target rules for targets named _phd_generate_messages_check_deps_trajectory_service
-
-# Build rule for target.
-_phd_generate_messages_check_deps_trajectory_service: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 _phd_generate_messages_check_deps_trajectory_service
-.PHONY : _phd_generate_messages_check_deps_trajectory_service
-
-# fast build rule for target.
-_phd_generate_messages_check_deps_trajectory_service/fast:
-	$(MAKE) -f phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_service.dir/build.make phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_service.dir/build
-.PHONY : _phd_generate_messages_check_deps_trajectory_service/fast
-
-#=============================================================================
 # Target rules for targets named bcap_client
 
 # Build rule for target.
@@ -2478,19 +2439,6 @@ brics_actuator_generate_messages_py: cmake_check_build_system
 brics_actuator_generate_messages_py/fast:
 	$(MAKE) -f phd/CMakeFiles/brics_actuator_generate_messages_py.dir/build.make phd/CMakeFiles/brics_actuator_generate_messages_py.dir/build
 .PHONY : brics_actuator_generate_messages_py/fast
-
-#=============================================================================
-# Target rules for targets named calibration_node
-
-# Build rule for target.
-calibration_node: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 calibration_node
-.PHONY : calibration_node
-
-# fast build rule for target.
-calibration_node/fast:
-	$(MAKE) -f phd/CMakeFiles/calibration_node.dir/build.make phd/CMakeFiles/calibration_node.dir/build
-.PHONY : calibration_node/fast
 
 #=============================================================================
 # Target rules for targets named cloud_localizer
@@ -2701,19 +2649,6 @@ laser_assembler_generate_messages_py/fast:
 .PHONY : laser_assembler_generate_messages_py/fast
 
 #=============================================================================
-# Target rules for targets named parse_node
-
-# Build rule for target.
-parse_node: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 parse_node
-.PHONY : parse_node
-
-# fast build rule for target.
-parse_node/fast:
-	$(MAKE) -f phd/CMakeFiles/parse_node.dir/build.make phd/CMakeFiles/parse_node.dir/build
-.PHONY : parse_node/fast
-
-#=============================================================================
 # Target rules for targets named phd
 
 # Build rule for target.
@@ -2857,19 +2792,6 @@ simple_trajectory_server/fast:
 .PHONY : simple_trajectory_server/fast
 
 #=============================================================================
-# Target rules for targets named test_node
-
-# Build rule for target.
-test_node: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 test_node
-.PHONY : test_node
-
-# fast build rule for target.
-test_node/fast:
-	$(MAKE) -f phd/CMakeFiles/test_node.dir/build.make phd/CMakeFiles/test_node.dir/build
-.PHONY : test_node/fast
-
-#=============================================================================
 # Target rules for targets named thickness_server
 
 # Build rule for target.
@@ -2920,19 +2842,6 @@ trajectory_msgs_generate_messages_py: cmake_check_build_system
 trajectory_msgs_generate_messages_py/fast:
 	$(MAKE) -f phd/CMakeFiles/trajectory_msgs_generate_messages_py.dir/build.make phd/CMakeFiles/trajectory_msgs_generate_messages_py.dir/build
 .PHONY : trajectory_msgs_generate_messages_py/fast
-
-#=============================================================================
-# Target rules for targets named trajectory_server
-
-# Build rule for target.
-trajectory_server: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 trajectory_server
-.PHONY : trajectory_server
-
-# fast build rule for target.
-trajectory_server/fast:
-	$(MAKE) -f phd/CMakeFiles/trajectory_server.dir/build.make phd/CMakeFiles/trajectory_server.dir/build
-.PHONY : trajectory_server/fast
 
 #=============================================================================
 # Target rules for targets named _wrock_generate_messages_check_deps_arm_msg
@@ -3595,19 +3504,15 @@ help:
 	@echo "... _phd_generate_messages_check_deps_cube_msg"
 	@echo "... _phd_generate_messages_check_deps_empty"
 	@echo "... _phd_generate_messages_check_deps_localize_cloud"
-	@echo "... _phd_generate_messages_check_deps_marker_val"
 	@echo "... _phd_generate_messages_check_deps_simple_trajectory_service"
 	@echo "... _phd_generate_messages_check_deps_thickness_service"
 	@echo "... _phd_generate_messages_check_deps_trajectory_array"
 	@echo "... _phd_generate_messages_check_deps_trajectory_msg"
 	@echo "... _phd_generate_messages_check_deps_trajectory_point"
-	@echo "... _phd_generate_messages_check_deps_trajectory_section"
-	@echo "... _phd_generate_messages_check_deps_trajectory_service"
 	@echo "... bcap_client"
 	@echo "... brics_actuator_generate_messages_cpp"
 	@echo "... brics_actuator_generate_messages_lisp"
 	@echo "... brics_actuator_generate_messages_py"
-	@echo "... calibration_node"
 	@echo "... cloud_localizer"
 	@echo "... cob_srvs_generate_messages_cpp"
 	@echo "... cob_srvs_generate_messages_lisp"
@@ -3624,7 +3529,6 @@ help:
 	@echo "... laser_assembler_generate_messages_cpp"
 	@echo "... laser_assembler_generate_messages_lisp"
 	@echo "... laser_assembler_generate_messages_py"
-	@echo "... parse_node"
 	@echo "... phd"
 	@echo "... phd_gencfg"
 	@echo "... phd_gencpp"
@@ -3636,12 +3540,10 @@ help:
 	@echo "... phd_genpy"
 	@echo "... saveselection"
 	@echo "... simple_trajectory_server"
-	@echo "... test_node"
 	@echo "... thickness_server"
 	@echo "... trajectory_msgs_generate_messages_cpp"
 	@echo "... trajectory_msgs_generate_messages_lisp"
 	@echo "... trajectory_msgs_generate_messages_py"
-	@echo "... trajectory_server"
 	@echo "... _wrock_generate_messages_check_deps_arm_msg"
 	@echo "... _wrock_generate_messages_check_deps_cube_kin"
 	@echo "... _wrock_generate_messages_check_deps_cube_msg"

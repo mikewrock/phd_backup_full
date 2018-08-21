@@ -275,8 +275,6 @@ ros/message_operations.h
 -
 phd/trajectory_point.h
 -
-phd/trajectory_point.h
--
 
 /home/mike/catkin_ws/devel/include/phd/trajectory_point.h
 string

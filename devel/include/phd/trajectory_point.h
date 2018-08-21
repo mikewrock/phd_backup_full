@@ -30,8 +30,7 @@ struct trajectory_point_
     , nx(0.0)
     , ny(0.0)
     , nz(0.0)
-    , d(0.0)
-    , d_abs(0.0)  {
+    , d(0.0)  {
     }
   trajectory_point_(const ContainerAllocator& _alloc)
     : x(0.0)
@@ -40,8 +39,7 @@ struct trajectory_point_
     , nx(0.0)
     , ny(0.0)
     , nz(0.0)
-    , d(0.0)
-    , d_abs(0.0)  {
+    , d(0.0)  {
   (void)_alloc;
     }
 
@@ -67,9 +65,6 @@ struct trajectory_point_
 
    typedef float _d_type;
   _d_type d;
-
-   typedef float _d_abs_type;
-  _d_abs_type d_abs;
 
 
 
@@ -148,12 +143,12 @@ struct MD5Sum< ::phd::trajectory_point_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "fa2a935c0849c33dde0d2d520826cfdb";
+    return "a8f5392abe73cf46e23084bf4c802525";
   }
 
   static const char* value(const ::phd::trajectory_point_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xfa2a935c0849c33dULL;
-  static const uint64_t static_value2 = 0xde0d2d520826cfdbULL;
+  static const uint64_t static_value1 = 0xa8f5392abe73cf46ULL;
+  static const uint64_t static_value2 = 0xe23084bf4c802525ULL;
 };
 
 template<class ContainerAllocator>
@@ -179,8 +174,6 @@ float32 nx\n\
 float32 ny\n\
 float32 nz\n\
 float32 d\n\
-float32 d_abs\n\
-\n\
 ";
   }
 
@@ -206,7 +199,6 @@ namespace serialization
       stream.next(m.ny);
       stream.next(m.nz);
       stream.next(m.d);
-      stream.next(m.d_abs);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -239,8 +231,6 @@ struct Printer< ::phd::trajectory_point_<ContainerAllocator> >
     Printer<float>::stream(s, indent + "  ", v.nz);
     s << indent << "d: ";
     Printer<float>::stream(s, indent + "  ", v.d);
-    s << indent << "d_abs: ";
-    Printer<float>::stream(s, indent + "  ", v.d_abs);
   }
 };
 

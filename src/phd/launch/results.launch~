@@ -28,7 +28,7 @@
 
  <!--- Run Move Base -->
 
-  <arg name="no_static_map" default="true"/>
+  <arg name="no_static_map" default="false"/>
 
   <arg name="base_global_planner" default="navfn/NavfnROS"/>
   <arg name="base_local_planner" default="dwa_local_planner/DWAPlannerROS"/>
@@ -102,7 +102,7 @@
   </node>
 
   <!--- Run trajectory service -->
-  <node type="simple_trajectory_server" pkg="phd" name="trajectory_service" output="screen" required="True">
+  <node type="simple_trajectory_server" pkg="phd" name="trajectory_service" output="screen" >
   </node>
 
   <!--- Run thickness service -->

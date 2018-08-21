@@ -26,13 +26,13 @@ struct localize_cloudRequest_
 
   localize_cloudRequest_()
     : cloud_in()
-    , homing(false)
-    , marker_file()  {
+    , marker_file()
+    , homing(false)  {
     }
   localize_cloudRequest_(const ContainerAllocator& _alloc)
     : cloud_in(_alloc)
-    , homing(false)
-    , marker_file(_alloc)  {
+    , marker_file(_alloc)
+    , homing(false)  {
   (void)_alloc;
     }
 
@@ -41,11 +41,11 @@ struct localize_cloudRequest_
    typedef  ::sensor_msgs::PointCloud2_<ContainerAllocator>  _cloud_in_type;
   _cloud_in_type cloud_in;
 
-   typedef uint8_t _homing_type;
-  _homing_type homing;
-
    typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _marker_file_type;
   _marker_file_type marker_file;
+
+   typedef uint8_t _homing_type;
+  _homing_type homing;
 
 
 
@@ -124,12 +124,12 @@ struct MD5Sum< ::phd::localize_cloudRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "524cc1243157e15c3d10a9bf090e01f0";
+    return "4177966bfe648dd616186ef1a0d7924a";
   }
 
   static const char* value(const ::phd::localize_cloudRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x524cc1243157e15cULL;
-  static const uint64_t static_value2 = 0x3d10a9bf090e01f0ULL;
+  static const uint64_t static_value1 = 0x4177966bfe648dd6ULL;
+  static const uint64_t static_value2 = 0x16186ef1a0d7924aULL;
 };
 
 template<class ContainerAllocator>
@@ -149,8 +149,8 @@ struct Definition< ::phd::localize_cloudRequest_<ContainerAllocator> >
   static const char* value()
   {
     return "sensor_msgs/PointCloud2 cloud_in\n\
-bool homing\n\
 string marker_file\n\
+bool homing\n\
 \n\
 ================================================================================\n\
 MSG: sensor_msgs/PointCloud2\n\
@@ -236,8 +236,8 @@ namespace serialization
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
       stream.next(m.cloud_in);
-      stream.next(m.homing);
       stream.next(m.marker_file);
+      stream.next(m.homing);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -259,10 +259,10 @@ struct Printer< ::phd::localize_cloudRequest_<ContainerAllocator> >
     s << indent << "cloud_in: ";
     s << std::endl;
     Printer< ::sensor_msgs::PointCloud2_<ContainerAllocator> >::stream(s, indent + "  ", v.cloud_in);
-    s << indent << "homing: ";
-    Printer<uint8_t>::stream(s, indent + "  ", v.homing);
     s << indent << "marker_file: ";
     Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.marker_file);
+    s << indent << "homing: ";
+    Printer<uint8_t>::stream(s, indent + "  ", v.homing);
   }
 };
 

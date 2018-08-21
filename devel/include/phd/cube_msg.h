@@ -156,7 +156,6 @@ struct Definition< ::phd::cube_msg_<ContainerAllocator> >
 float32 vel\n\
 float32 acc\n\
 bool pose\n\
-\n\
 ";
   }
 

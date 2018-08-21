@@ -8,7 +8,7 @@ import struct
 import phd.msg
 
 class trajectory_array(genpy.Message):
-  _md5sum = "a2dbeff104317944dceb55b36edff5f0"
+  _md5sum = "0fbe4e77bbe21c47193fc07d6eb5f875"
   _type = "phd/trajectory_array"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """trajectory_msg[] sections
@@ -17,7 +17,6 @@ class trajectory_array(genpy.Message):
 ================================================================================
 MSG: phd/trajectory_msg
 trajectory_point[] points
-trajectory_point start_pt
 
 ================================================================================
 MSG: phd/trajectory_point
@@ -28,8 +27,6 @@ float32 nx
 float32 ny
 float32 nz
 float32 d
-float32 d_abs
-
 """
   __slots__ = ['sections']
   _slot_types = ['phd/trajectory_msg[]']
@@ -75,10 +72,7 @@ float32 d_abs
         buff.write(_struct_I.pack(length))
         for val2 in val1.points:
           _x = val2
-          buff.write(_struct_8f.pack(_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs))
-        _v1 = val1.start_pt
-        _x = _v1
-        buff.write(_struct_8f.pack(_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs))
+          buff.write(_struct_7f.pack(_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -105,14 +99,9 @@ float32 d_abs
           val2 = phd.msg.trajectory_point()
           _x = val2
           start = end
-          end += 32
-          (_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs,) = _struct_8f.unpack(str[start:end])
+          end += 28
+          (_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d,) = _struct_7f.unpack(str[start:end])
           val1.points.append(val2)
-        _v2 = val1.start_pt
-        _x = _v2
-        start = end
-        end += 32
-        (_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs,) = _struct_8f.unpack(str[start:end])
         self.sections.append(val1)
       return self
     except struct.error as e:
@@ -133,10 +122,7 @@ float32 d_abs
         buff.write(_struct_I.pack(length))
         for val2 in val1.points:
           _x = val2
-          buff.write(_struct_8f.pack(_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs))
-        _v3 = val1.start_pt
-        _x = _v3
-        buff.write(_struct_8f.pack(_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs))
+          buff.write(_struct_7f.pack(_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -164,18 +150,13 @@ float32 d_abs
           val2 = phd.msg.trajectory_point()
           _x = val2
           start = end
-          end += 32
-          (_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs,) = _struct_8f.unpack(str[start:end])
+          end += 28
+          (_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d,) = _struct_7f.unpack(str[start:end])
           val1.points.append(val2)
-        _v4 = val1.start_pt
-        _x = _v4
-        start = end
-        end += 32
-        (_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs,) = _struct_8f.unpack(str[start:end])
         self.sections.append(val1)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
 
 _struct_I = genpy.struct_I
-_struct_8f = struct.Struct("<8f")
+_struct_7f = struct.Struct("<7f")

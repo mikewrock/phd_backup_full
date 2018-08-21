@@ -15,7 +15,7 @@
 #include <ros/builtin_message_traits.h>
 #include <ros/message_operations.h>
 
-#include <phd/trajectory_array.h>
+#include <phd/trajectory_msg.h>
 
 namespace phd
 {
@@ -34,7 +34,7 @@ struct trajectory_serviceResponse_
 
 
 
-   typedef  ::phd::trajectory_array_<ContainerAllocator>  _trajectory_type;
+   typedef  ::phd::trajectory_msg_<ContainerAllocator>  _trajectory_type;
   _trajectory_type trajectory;
 
 
@@ -114,12 +114,12 @@ struct MD5Sum< ::phd::trajectory_serviceResponse_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "266cd0f9b90ca31de53ed82f12949df4";
+    return "c039e6210001355343e0838d1d4d06a2";
   }
 
   static const char* value(const ::phd::trajectory_serviceResponse_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x266cd0f9b90ca31dULL;
-  static const uint64_t static_value2 = 0xe53ed82f12949df4ULL;
+  static const uint64_t static_value1 = 0xc039e62100013553ULL;
+  static const uint64_t static_value2 = 0x43e0838d1d4d06a2ULL;
 };
 
 template<class ContainerAllocator>
@@ -138,18 +138,12 @@ struct Definition< ::phd::trajectory_serviceResponse_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "trajectory_array trajectory\n\
-\n\
-\n\
-================================================================================\n\
-MSG: phd/trajectory_array\n\
-trajectory_msg[] sections\n\
+    return "trajectory_msg trajectory\n\
 \n\
 \n\
 ================================================================================\n\
 MSG: phd/trajectory_msg\n\
 trajectory_point[] points\n\
-trajectory_point start_pt\n\
 \n\
 ================================================================================\n\
 MSG: phd/trajectory_point\n\
@@ -160,8 +154,6 @@ float32 nx\n\
 float32 ny\n\
 float32 nz\n\
 float32 d\n\
-float32 d_abs\n\
-\n\
 ";
   }
 
@@ -201,7 +193,7 @@ struct Printer< ::phd::trajectory_serviceResponse_<ContainerAllocator> >
   {
     s << indent << "trajectory: ";
     s << std::endl;
-    Printer< ::phd::trajectory_array_<ContainerAllocator> >::stream(s, indent + "  ", v.trajectory);
+    Printer< ::phd::trajectory_msg_<ContainerAllocator> >::stream(s, indent + "  ", v.trajectory);
   }
 };
 

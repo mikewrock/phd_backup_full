@@ -13,6 +13,4 @@
           NZ
           D-VAL
           D
-          D_ABS-VAL
-          D_ABS
 ))

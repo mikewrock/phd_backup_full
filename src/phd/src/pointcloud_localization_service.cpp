@@ -62,19 +62,16 @@
 #include <dynamic_reconfigure/server.h>
 #include <phd/seg_configConfig.h>
 
-//#define VACC 0.01
-//#define VINT 650
 #define DEBUG 1
 #define foreach BOOST_FOREACH
 
 float VAL1, VAL2, VAL3, VAL4, CROP;
 float VACC, CLUSTER_SIZE;
 int VINT_MIN, VINT_MAX;
-ros::Publisher tpub;
 ros::Publisher vis_pub;
 visualization_msgs::Marker point_list;
 
-//this callback is for dynamic reconfigure, it sets the global variables
+//This callback is for dynamic reconfigure, it sets the global variables
 void reconfig_callback(phd::LocalizeConfig &config, uint32_t level) {
 
 	VACC = config.accuracy;
@@ -82,14 +79,15 @@ void reconfig_callback(phd::LocalizeConfig &config, uint32_t level) {
 	VINT_MIN = config.intensity_min;
 	VINT_MAX = config.intensity_max;
 	CROP = config.crop_height;
-	ROS_INFO("LCallback");
 
 
 }
+//Helper function for performing dot products
 float dot_product(Eigen::Vector3f first,Eigen::Vector3f second){
 	return first(0)*second(0) + first(1)*second(1) + first(2)*second(2);
 }
 
+//Helper function for performing dot products
 Eigen::Vector3f cross_product(Eigen::Vector3f first,Eigen::Vector3f second){
 	Eigen::Vector3f ret;
 	ret(0) = first(1)*second(2)-first(2)*second(1);
@@ -97,11 +95,10 @@ Eigen::Vector3f cross_product(Eigen::Vector3f first,Eigen::Vector3f second){
 	ret(2) = first(0)*second(1)-first(1)*second(0);
 	return ret;
 }
+
+//Helper function for performing dot products
 Eigen::Vector3f normalized_cross_product(Eigen::Vector3f first,Eigen::Vector3f second){
-	Eigen::Vector3f ret;
-	ret(0) = first(1)*second(2)-first(2)*second(1);
-	ret(1) = first(2)*second(0)-first(0)*second(2);
-	ret(2) = first(0)*second(1)-first(1)*second(0);
+	Eigen::Vector3f ret = cross_product(first,second);
 	float m = sqrt(pow(ret(0),2)+pow(ret(1),2)+pow(ret(2),2));
 	ret(0) = ret(0)/m;
 	ret(1) = ret(1)/m;
@@ -109,15 +106,13 @@ Eigen::Vector3f normalized_cross_product(Eigen::Vector3f first,Eigen::Vector3f s
 	return ret;
 }
 
-std::vector<pcl::PointXYZI> cluster_points(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_in){
-
 //cluster points
-
-	if(DEBUG) ROS_INFO("Clustering");
-
+std::vector<pcl::PointXYZI> cluster_points(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_in){
+	//Make a Header stamp for the visualization marker
 	point_list.header.stamp = ros::Time::now();
-
+	//This vector holds all the keypoint candidates
 	std::vector<pcl::PointXYZI> Pts;
+	
 	for(int i = 0; i < (cloud_in->width * cloud_in->height) - 1 ; ++i){
 		if(cloud_in->points[i].intensity != 0){
 			std::vector<pcl::PointXYZI> cluster;
@@ -192,7 +187,7 @@ bool locate_marker(std::vector<pcl::PointXYZI> Pts, Eigen::Matrix3f &marker_loca
 	for(i = 0; i < Pts.size(); ++i){
 		for(j = 0; j < Pts.size(); ++j){
 			for(k = 0; k < Pts.size(); ++k){
-				if(i != j && i != k && j != k && Pts[i].intensity > VINT_MIN && Pts[j].intensity > VINT_MIN && Pts[k].intensity > VINT_MIN){
+				if(i != j && i != k && j != k){
 					val1 = sqrt(pow(Pts[i].x - Pts[j].x,2)+pow(Pts[i].y - Pts[j].y,2)+pow(Pts[i].z - Pts[j].z,2));
 					val3 = sqrt(pow(Pts[i].x - Pts[k].x,2)+pow(Pts[i].y - Pts[k].y,2)+pow(Pts[i].z - Pts[k].z,2));
 					val2 = sqrt(pow(Pts[k].x - Pts[j].x,2)+pow(Pts[k].y - Pts[j].y,2)+pow(Pts[k].z - Pts[j].z,2));
@@ -383,54 +378,49 @@ bool locate_marker(std::vector<pcl::PointXYZI> Pts, Eigen::Matrix3f &marker_loca
 }
 
 
-bool localize(phd::localize_cloud::Request  &req,
-         phd::localize_cloud::Response &res)
-{	
-	bool marker = true;
-	rosbag::Bag bag;
-	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_world(new pcl::PointCloud<pcl::PointXYZI> );
-	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_output (new pcl::PointCloud<pcl::PointXYZI>);
-	sensor_msgs::PointCloud2 cloud_msg;
-	sensor_msgs::PointCloud2 cloud_req = req.cloud_in;
+bool localize(phd::localize_cloud::Request  &req, phd::localize_cloud::Response &res){
+	
+	bool marker; //indicates if marker was found
+	rosbag::Bag bag; //bag file for recording marker to disk
+	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_world(new pcl::PointCloud<pcl::PointXYZI> ); //PCL formatted input cloud
+	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_output (new pcl::PointCloud<pcl::PointXYZI>); //PCL container for response
+	sensor_msgs::PointCloud2 cloud_msg; //ROS container for response
+	sensor_msgs::PointCloud2 cloud_req = req.cloud_in; //copy the cloud request so we can modify its contents
 	cloud_req.fields[3].name = "intensity";
-	pcl::fromROSMsg(cloud_req,*cloud_world);
-	//Create containers for filtered clouds
+	pcl::fromROSMsg(cloud_req,*cloud_world); //copy cloud request to PCL format
+	//create containers for filtered clouds
 	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_intensity_filtered (new pcl::PointCloud<pcl::PointXYZI>);
 	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_height_filtered (new pcl::PointCloud<pcl::PointXYZI>);
-	// Create the filtering object
+	//create the filtering object
 	pcl::PassThrough<pcl::PointXYZI> pass (true);
-	//filter the data
+	//filter the data for Z values from -100 to CROP (set using rqt_reconfigure)
+	//this feature is only really necessary because there is a small hole in the mock mine that the scanner can see through and
+	//it often detect potential kepoints in that area
 	pass.setInputCloud (cloud_world);
 	pass.setFilterFieldName ("z");
 	pass.setFilterLimits (-100,CROP);
 	pass.filter (*cloud_height_filtered);
 	pass.setInputCloud (cloud_height_filtered);
+	//filter the intensity values between VINT_MIN and VINT_MAX (set using rqt_reconfigure)
 	pass.setFilterFieldName ("intensity");
 	pass.setFilterLimits (VINT_MIN,VINT_MAX);
-	pass.filter (*cloud_intensity_filtered);
-	ROS_INFO("Points after filtering: %d",cloud_intensity_filtered->width);
-	sensor_msgs::PointCloud2 cloud_debug;
-	pcl::toROSMsg(*cloud_intensity_filtered,cloud_debug);
-	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
-	cloud_debug.fields[3].name = "intensity";
-	cloud_debug.header.frame_id = "/base_footprint";
-	cloud_debug.header.stamp = ros::Time::now();
-	if(DEBUG) tpub.publish(cloud_req);
-
-	//if(DEBUG) ROS_INFO("Using VALS: %f - %f - %f - %f\n from pts %f - %f - %f\n%f - %f - %f\n%f - %f - %f\n", VAL1, VAL2, VAL3, VAL4, p1.x,p1.y,p1.z,p2.x,p2.y,p2.z,p3.x,p3.y,p3.z);
-	
+	pass.filter (*cloud_intensity_filtered);	
+	if(DEBUG) ROS_INFO("Points after filtering: %d",cloud_intensity_filtered->width);
+	//if the homing boolean is set, we dont need to localize the cloud since the scan is taken from the world origin
 	if(req.homing){
 		if(DEBUG) ROS_INFO("Homing scan, returning assembled_cloud");
-		//std::cout << "Transform Mat" << transform_mat << std::endl;
-		cloud_msg = cloud_req;
-		//publish a map correction here
+		cloud_msg = cloud_req; //return the cloud sent to us unchanged
 	}else{
 		
 		if(DEBUG) ROS_INFO("Localizing scan");
+		//containers for the three marker keypoints
 		geometry_msgs::Point p1, p2, p3;
+		//container for the vectors from keypoints 2->1 and 2->3
 		Eigen::Vector3f vec1, vec2;
+		//container for marker filename
 		std::stringstream fs;
 		fs << req.marker_file << "marker.dat";
+		//open the marker.dat file
 		ifstream marker_file( fs.str().c_str());
 		marker_file >> p1.x;
 		marker_file >> p1.y;
@@ -451,12 +441,16 @@ bool localize(phd::localize_cloud::Request  &req,
 		marker_file >> vec2[0];
 		marker_file >> vec2[1];
 		marker_file >> vec2[2];
+		//container for unknown number of keypoint candidates
 		std::vector<pcl::PointXYZI> Pts;
+		//cluster points together
 		Pts = cluster_points(cloud_intensity_filtered);
 		if(DEBUG) ROS_INFO("Clustered Points: %lu", Pts.size());
 		Eigen::Matrix3f marker_loc;
 		Eigen::Matrix4f transform_mat;
+		//pick most likely keypoint candidtaes to use as marker
 		marker = locate_marker(Pts, marker_loc, transform_mat);
+		//Open the marker.bag file 
 		std::stringstream fs2;
 		fs2 << req.marker_file << "marker.bag";
 		ROS_INFO("Using marker file %s",fs2.str().c_str());
@@ -465,6 +459,7 @@ bool localize(phd::localize_cloud::Request  &req,
 		rosbag::View view(bag, rosbag::TopicQuery("fiducial"));
 		int fctr = 0;
 		int fctr2 = 0;
+		//input data from marker.bag
 		foreach(rosbag::MessageInstance const m, view){
 
 			std_msgs::Float64::ConstPtr i = m.instantiate<std_msgs::Float64>();
@@ -476,12 +471,12 @@ bool localize(phd::localize_cloud::Request  &req,
 			}
 		}
 		bag.close();	
-
-		std::cout << "Transform Mat" << transform_mat << std::endl;
-		std::cout << "Transform A" << transformA << std::endl;
+		if(DEBUG) std::cout << "Transform Mat" << transform_mat << std::endl;
+		if(DEBUG) std::cout << "Transform A" << transformA << std::endl;
 		pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_int (new pcl::PointCloud<pcl::PointXYZI>);
 		Eigen::Matrix4f transformAB = transform_mat.inverse();
-		std::cout << "Transform AB" << transformAB << std::endl;
+		if(DEBUG) std::cout << "Transform AB" << transformAB << std::endl;
+		//form transformation matrix from marker.bag file information
 		res.transform_mat[0] = transformAB(0,0);
 		res.transform_mat[1] = transformAB(0,1);
 		res.transform_mat[2] = transformAB(0,2);
@@ -498,9 +493,11 @@ bool localize(phd::localize_cloud::Request  &req,
 		res.transform_mat[13] = transformAB(3,1);
 		res.transform_mat[14] = transformAB(3,2);
 		res.transform_mat[15] = transformAB(3,3);
-		//Eigen::Matrix4f transformBB = transformA.inverse();
+		//first transform the unlocalized pointcloud to its marker's coordinate frame
 		pcl::transformPointCloud (*cloud_world, *cloud_int, transformAB);
+		//next transform the pointcloud from the marker coordinate frame to the world coordinate frame
 		pcl::transformPointCloud (*cloud_int, *cloud_output, transformA);
+		//convert the PCL cloud to a ROS cloud
 		pcl::toROSMsg(*cloud_output,cloud_msg);
 	}
 	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
@@ -511,20 +508,18 @@ bool localize(phd::localize_cloud::Request  &req,
   	return marker;
 }
 
-int
-main (int argc, char** argv)
-{
+int main (int argc, char** argv){
 	// Initialize ROS
 	ros::init (argc, argv, "pcd_localization_service");
 	ros::NodeHandle nh;
 	ros::ServiceServer service = nh.advertiseService("localize_pcd", localize); 
-	tpub = nh.advertise<sensor_msgs::PointCloud2> ("unaligned_cloud", 1);
 	vis_pub = nh.advertise<visualization_msgs::Marker>( "visualization_marker", 0 );
 	//Dynamic Reconfigure
 	dynamic_reconfigure::Server<phd::LocalizeConfig> server;
 	dynamic_reconfigure::Server<phd::LocalizeConfig>::CallbackType callback_type;
 	callback_type = boost::bind(&reconfig_callback, _1, _2);
 	server.setCallback(callback_type);
+	//Visualization marker for possible marker points
 	point_list.header.frame_id = "/base_footprint";
 	point_list.header.stamp = ros::Time::now();
 	point_list.ns = "points_and_lines";
@@ -534,11 +529,9 @@ main (int argc, char** argv)
 	point_list.type = visualization_msgs::Marker::POINTS;
 	point_list.scale.x = 0.05;
 	point_list.scale.y = 0.05;
-	// Line list is red
+	// Point list is red
 	point_list.color.r = 1.0;
 	point_list.color.b = 0.0;
 	point_list.color.a = 0.5;
 	ros::spin();
-
-
 }

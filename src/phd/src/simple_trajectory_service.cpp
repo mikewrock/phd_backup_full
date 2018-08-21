@@ -38,8 +38,6 @@
 #include <boost/foreach.hpp>
 //User defined messages
 #include "phd/simple_trajectory_service.h"
-#include "phd/trajectory_array.h"
-#include "phd/trajectory_section.h"
 #include <phd/TrajectoryConfig.h>
 #define DEBUG 1 //For displaying debug info
 #define PI 3.1415925
@@ -53,9 +51,6 @@ float MID_HEIGHT;//Minimum reachable height
 float OFFSET; //Optimal distance from wall to end effector
 float Z_HEIGHT;  //Thickness of line slice
 float VIA_DISTANCE;  //Distance between via points
-float RADIAL_STEPS; 
-float START_ANGLE; 
-float END_ANGLE; 
 float CHUNK_RADIUS;
 float DOWNSAMPLE_RADIUS;
 float CONNECTING_TOLERANCE;
@@ -79,16 +74,9 @@ ros::Publisher dir_pub; //Path along the surface
 ros::Publisher gp_pub; //Points within robot workspace
 ros::Publisher bp_pub; //Points outside robot workspace
 ros::Publisher path_pub; //End effector path
-ros::Publisher line_pub; //For debugging, publishes the cropped line that the via points are calculated on
-ros::Publisher line_pub2; //For debugging, publishes the cropped line that the via points are calculated on
-ros::Publisher line_pub3; //For debugging, publishes the cropped line that the via points are calculated on
-int nsid;
-pcl::PointCloud<pcl::PointXYZI> lines;
-pcl::PointCloud<pcl::PointXYZI> flines;
-//Functions for sorting point lines
-bool forward_sort (phd::trajectory_point i,phd::trajectory_point j) { return (i.d<j.d); }
-bool forward_pcl_sort (pcl::PointXYZI i,pcl::PointXYZI j) { return (i.intensity<j.intensity); }
-bool reverse_sort (phd::trajectory_point i,phd::trajectory_point j) { return (i.d>j.d); }
+ros::Publisher line_pub; //For debugging, publishes the ribs
+ros::Publisher guide_pub; //For debugging, publishes the cropped line that the via points are calculated on
+pcl::PointCloud<pcl::PointXYZI> lines,guides;
 //this callback is for dynamic reconfigure, it sets the global variables
 void reconfig_callback(phd::TrajectoryConfig &config, uint32_t level) {
 
@@ -99,14 +87,11 @@ void reconfig_callback(phd::TrajectoryConfig &config, uint32_t level) {
 	OFFSET=config.offset; //Optimal distance from wall to end effector
 	Z_HEIGHT=config.slice_thickness;  //Thickness of line slice
 	VIA_DISTANCE=config.via_distance;  //Distance between via points
-	RADIAL_STEPS=config.radial_steps; 
-	START_ANGLE=config.start_angle; 
-	END_ANGLE=config.end_angle; 
 	CHUNK_RADIUS=config.rib_spacing;
 	DOWNSAMPLE_RADIUS=config.rib_downsampling*config.rib_downsampling;
 	CONNECTING_TOLERANCE=config.rib_tolerance;
 	D_MAX=config.max_rib_length;
-	Z_VERTICAL_LIMIT=config.z_vert_limit;
+	Z_VERTICAL_LIMIT=config.approx_roof_height;
 	WALL_HEIGHT = 1.3;
 	MAX_LEAP = .25;
 	ros::param::set("/global_offset", OFFSET);
@@ -116,8 +101,8 @@ void reconfig_callback(phd::TrajectoryConfig &config, uint32_t level) {
 float find_min(float i, float j){
 	if(i<j) return i;
 	else return j;
-	}	
-
+}	
+//Find minimum distance value from all points in all lines passed (distance values in intensity parameter)
 pcl::PointXYZI find_min(std::vector<pcl::PointCloud<pcl::PointXYZI> > vertical_line){	
 
 	pcl::PointXYZI ret = 0;
@@ -128,23 +113,19 @@ pcl::PointXYZI find_min(std::vector<pcl::PointCloud<pcl::PointXYZI> > vertical_l
 	}
 	return ret;
 
-	}
+}
 float find_max(float i, float j){
 	if(i<j) return j;
 	else return i;
 	}
 //calculates the distance between two points
 float vec_length(pcl::PointXYZI pointA,pcl::PointXYZI pointB){
-
 	return sqrt(pow(pointB.x-pointA.x,2)+pow(pointB.y-pointA.y,2)+pow(pointB.z-pointA.z,2));
-
-	}//calculates the magnitude of a vector
+}
+//calculates the magnitude of a vector
 float vec_length(pcl::PointXYZI pointA){
-
 	return sqrt(pow(pointA.x,2)+pow(pointA.y,2)+pow(pointA.z,2));
-
-	}
-
+}
 //Functions for copying points
 pcl::PointXYZI pt_copy(phd::trajectory_point in){
 	pcl::PointXYZI out;
@@ -161,7 +142,6 @@ phd::trajectory_point pt_copy(pcl::PointXYZI in){
 	out.d = in.intensity;
 	return out;
 	}
-
 //calculates a unit vector from the cross product
 pcl::PointXYZI unit_cross(pcl::PointXYZI vectorA,pcl::PointXYZI vectorB){
 	pcl::PointXYZI result;
@@ -181,7 +161,6 @@ pcl::PointXYZI unit_cross(pcl::PointXYZI vectorA,pcl::PointXYZI vectorB){
 		result.z *= -1;
 	}
 	return result;
-
 	}
 //calculates a unit vector from two points
 pcl::PointXYZI unit_vector(pcl::PointXYZI vectorA,pcl::PointXYZI vectorB){
@@ -196,24 +175,20 @@ pcl::PointXYZI unit_vector(pcl::PointXYZI vectorA,pcl::PointXYZI vectorB){
 //calculates a step vector from two points
 pcl::PointXYZI vertical_step_vector(pcl::PointXYZI vectorA,pcl::PointXYZI vectorB, float step){
 	pcl::PointXYZI result;
-	//ROS_INFO("vStepping %f - %f - %f / %f - %f - %f", vectorA.x,vectorA.y,vectorA.z,vectorB.x,vectorB.y,vectorB.z);
 	float d_total = vec_length(vectorA,vectorB);
 	result.x = vectorB.x + ((vectorB.x-vectorA.x)/d_total)*step;
 	result.y = vectorB.y + ((vectorB.y-vectorA.y)/d_total)*step;
 	result.z = vectorB.z + ((vectorB.z-vectorA.z)/d_total)*step;
 	return result;
-
 }
 //calculates a step vector from two points
 pcl::PointXYZI horizontal_step_vector(pcl::PointXYZI vectorA,pcl::PointXYZI vectorB, float step){
 	pcl::PointXYZI result;
-	ROS_INFO("hStepping %f - %f - %f / %f - %f - %f", vectorA.x,vectorA.y,vectorA.z,vectorB.x,vectorB.y,vectorB.z);
 	float d_total = vec_length(vectorA,vectorB);
 	result.x = vectorB.x + ((vectorB.x-vectorA.x)/d_total)*step;
 	result.y = vectorB.y + ((vectorB.y-vectorA.y)/d_total)*step;
 	result.z = vectorB.z;
 	return result;
-
 	}
 //Converts a point to a unit vector
 pcl::PointXYZI unit_vector(pcl::PointXYZI vectorA){
@@ -223,14 +198,11 @@ pcl::PointXYZI unit_vector(pcl::PointXYZI vectorA){
 	result.y = (vectorA.y)/d_total;
 	result.z = (vectorA.z)/d_total;
 	return result;
-
-	}
-
+}
 //dot product function for 2 phd::trajectory_points
 float dot_product(phd::trajectory_point i, phd::trajectory_point j){
 	return fabs(i.nx*j.nx+i.ny*j.ny+i.nz*j.nz)/(sqrt(pow(i.nx,2)+pow(i.ny,2)+pow(i.nz,2))*sqrt(pow(j.nx,2)+pow(j.ny,2)+pow(j.nz,2)));
 }
-
 //finds nearest point to given coords
 pcl::PointXYZI find_pt(pcl::PointXYZI target_pt){	
 	int K = 1; //Number of points to find
@@ -255,18 +227,15 @@ pcl::PointXYZI find_pt(pcl::PointXYZI target_pt){
 		return target_pt;
 
 	}
-
-
+//Delete nearest point to target_pt within spacing_radius
 bool delete_point(pcl::PointCloud<pcl::PointXYZI>::Ptr line, pcl::PointXYZI target_pt, float spacing_radius){
 	float resolution = 128.0f; //Octree resolution
 	pcl::octree::OctreePointCloudSearch<pcl::PointXYZI> octree (resolution);
 	int K = 1; //Number of points to find
 	std::vector<int> pointIdxNKNSearch; //vector to hold points (used by pcl)
 	std::vector<float> pointNKNSquaredDistance; //vector to hold distance of points (used by pcl)
-		octree.setInputCloud (line);
-		octree.addPointsFromInputCloud ();
-
-		
+	octree.setInputCloud (line);
+	octree.addPointsFromInputCloud ();
 	if (octree.nearestKSearch (target_pt, K, pointIdxNKNSearch, pointNKNSquaredDistance) > 0){
 		if(pointNKNSquaredDistance[0] < spacing_radius){
 			line->points.erase(line->points.begin()+pointIdxNKNSearch[0]);
@@ -280,34 +249,16 @@ bool delete_point(pcl::PointCloud<pcl::PointXYZI>::Ptr line, pcl::PointXYZI targ
 		return false;
 		ROS_INFO("octree");
 	}
-	}
-void eat_chunk(pcl::PointCloud<pcl::PointXYZI>::Ptr line, pcl::PointXYZI target_pt, float spacing_radius){
+}
+//Delete all points within spacing_radius of target_pt
+bool eat_chunk(pcl::PointCloud<pcl::PointXYZI>::Ptr line, pcl::PointXYZI target_pt, float spacing_radius){
 
 	while(delete_point(line, target_pt, spacing_radius) && line->points.size() > 0);
+	if(line->points.size() == 0){ //ROS_INFO("Ate the whole line");
+				 return false;
+	}else return true;
 }
-float avg_dist_NN(pcl::PointXYZI point_holder,pcl::PointCloud<pcl::PointXYZI>::Ptr line){
-
-	int K = 4; //Number of points to find
-	std::vector<int> pointIdxNKNSearch; //vector to hold points (used by pcl)
-	std::vector<float> pointNKNSquaredDistance; //vector to hold distance of points (used by pcl)
-	pcl::PointXYZI searchPoint; //Location of where to search
-	float resolution = 128.0f; //Octree resolution
-	float distances;
-	//Create the octree object
-	pcl::octree::OctreePointCloudSearch<pcl::PointXYZI> octree (resolution);
-	//Set the octree input cloud, then add the points
-	octree.setInputCloud (line);
-	octree.addPointsFromInputCloud ();
-	//Search for the nearest 1 neighbour
-	//ROS_INFO("line size %lu",line->points.size());
-	if (octree.nearestKSearch (point_holder, K, pointIdxNKNSearch, pointNKNSquaredDistance) > 0){
-		distances = pow((pointNKNSquaredDistance[0] + pointNKNSquaredDistance[1] + pointNKNSquaredDistance[2] + pointNKNSquaredDistance[3])/4,0.5);
-	}else ROS_INFO("Could not find point");
-	//ROS_INFO("Dist %f - %f - %f - %f", pointNKNSquaredDistance[0], pointNKNSquaredDistance[1], pointNKNSquaredDistance[2], pointNKNSquaredDistance[3]);
-	return distances;
-
-	}
-
+//Find nearest neighbour
 bool find_NN(pcl::PointXYZI point_holder,pcl::PointCloud<pcl::PointXYZI>::Ptr line, pcl::PointXYZI* ret_pt){
 
 	int K = 1; //Number of points to find
@@ -315,39 +266,30 @@ bool find_NN(pcl::PointXYZI point_holder,pcl::PointCloud<pcl::PointXYZI>::Ptr li
 	std::vector<float> pointNKNSquaredDistance; //vector to hold distance of points (used by pcl)
 	pcl::PointXYZI searchPoint; //Location of where to search
 	float resolution = 128.0f; //Octree resolution
-
-	//ROS_INFO("Looking %f - %f - %f",point_holder.x,point_holder.y,point_holder.z);
-	//ROS_INFO("line size %lu",line->points.size());
 	if(line->points.size() > 0){
 	//Create the octree object
 	pcl::octree::OctreePointCloudSearch<pcl::PointXYZI> octree (resolution);
 	//Set the octree input cloud, then add the points
 	octree.setInputCloud (line);
 	octree.addPointsFromInputCloud ();
-		//Search for the nearest 1 neighbour
-		if (octree.nearestKSearch (point_holder, K, pointIdxNKNSearch, pointNKNSquaredDistance) > 0){
-		}else{
-			ROS_INFO("Could not find point");
-			return false;
+	//Search for the nearest 1 neighbour
+	if (octree.nearestKSearch (point_holder, K, pointIdxNKNSearch, pointNKNSquaredDistance) > 0){
+	}else{
+		ROS_INFO("Could not find point");
+		return false;
 		}
-	//ROS_INFO("Dist %f - %f - %f - %f", pointNKNSquaredDistance[0], pointNKNSquaredDistance[1], pointNKNSquaredDistance[2], pointNKNSquaredDistance[3]);
 	*ret_pt = line->points[pointIdxNKNSearch[0]];
 	return true;	
 	}else return false;
-
-
-
 	}
-bool find_and_delete_NN(pcl::PointXYZI point_holder,pcl::PointCloud<pcl::PointXYZI>::Ptr line, pcl::PointXYZI* ret_pt, float spacing_radius){
+//Find and delete nearest neighbours withing spacing_radius (returns 1 on success, 0 on failure, and 2 if eat_chunk failed)
+int find_and_delete_NN(pcl::PointXYZI point_holder,pcl::PointCloud<pcl::PointXYZI>::Ptr line, pcl::PointXYZI* ret_pt, float spacing_radius){
 
 	int K = 1; //Number of points to find
 	std::vector<int> pointIdxNKNSearch; //vector to hold points (used by pcl)
 	std::vector<float> pointNKNSquaredDistance; //vector to hold distance of points (used by pcl)
 	pcl::PointXYZI searchPoint; //Location of where to search
 	float resolution = 128.0f; //Octree resolution
-
-	//ROS_INFO("Looking %f - %f - %f",point_holder.x,point_holder.y,point_holder.z);
-	//ROS_INFO("line size %lu",line->points.size());
 	if(line->points.size() > 0){
 		//Create the octree object
 		pcl::octree::OctreePointCloudSearch<pcl::PointXYZI> octree (resolution);
@@ -355,23 +297,18 @@ bool find_and_delete_NN(pcl::PointXYZI point_holder,pcl::PointCloud<pcl::PointXY
 		octree.setInputCloud (line);
 		octree.addPointsFromInputCloud ();
 			//Search for the nearest 1 neighbour
-		if(std::isfinite(point_holder.x) && std::isfinite(point_holder.x) && std::isfinite(point_holder.x)){
+		if(std::isfinite(point_holder.x) && std::isfinite(point_holder.y) && std::isfinite(point_holder.z)){
 			if (octree.nearestKSearch (point_holder, K, pointIdxNKNSearch, pointNKNSquaredDistance) > 0){
 				*ret_pt = line->points[pointIdxNKNSearch[0]];
-				eat_chunk(line,*ret_pt,spacing_radius);
-				return true;	
-			}else{ ROS_INFO("Could eat find point");
-				return false;
+				if(eat_chunk(line,*ret_pt,spacing_radius)) return 1;
+				else return 2;	
+			}else{ ROS_INFO("Could not eat point");
+				return 0;
 			}
-		}else ROS_INFO("Bad Data 1");
-		return false;
-		
-
-		//ROS_INFO("Dist %f - %f - %f - %f", pointNKNSquaredDistance[0], pointNKNSquaredDistance[1], pointNKNSquaredDistance[2], pointNKNSquaredDistance[3]);
-
-	}else return false;
+		}else ROS_INFO("Bad Data");
+		return 0;
+	}else return 0;
 }
-
 //finds nearest point to given coords using defined cloud
 pcl::PointXYZI find_pt(pcl::PointCloud<pcl::PointXYZI>::Ptr l_cloud, pcl::PointXYZI target_pt){
 	int K = 1; //Number of points to find
@@ -380,7 +317,6 @@ pcl::PointXYZI find_pt(pcl::PointCloud<pcl::PointXYZI>::Ptr l_cloud, pcl::PointX
 	pcl::PointXYZI searchPoint; //Location of where to search
 	float resolution = 128.0f; //Octree resolution
 	pcl::PointXYZI foundpt; //Container for found point (to return)
-
 	//Create the octree object
 	pcl::octree::OctreePointCloudSearch<pcl::PointXYZI> octree (resolution);
 	//Set the octree input cloud, then add the points
@@ -393,12 +329,10 @@ pcl::PointXYZI find_pt(pcl::PointCloud<pcl::PointXYZI>::Ptr l_cloud, pcl::PointX
 		}else{ ROS_INFO("Could not find point");
 			return foundpt;
 		}
-	}else ROS_INFO("Bad Data 2");
+	}else ROS_INFO("Bad Data");
 		return target_pt;
-
-
 	}
-
+//Find point in vertical_line with the closest intensity to target_pt
 pcl::PointXYZI find_pt_i(pcl::PointCloud<pcl::PointXYZI>::Ptr vertical_line, pcl::PointXYZI target_pt){
 	pcl::PointXYZI ret;
 	float min = 100;
@@ -411,7 +345,6 @@ pcl::PointXYZI find_pt_i(pcl::PointCloud<pcl::PointXYZI>::Ptr vertical_line, pcl
 	return ret;
 
 	}
-
 //find normal at given location
 pcl::PointXYZI find_normal(float x, float y, float z){
 	//The search method requires a pcl point	
@@ -435,10 +368,8 @@ pcl::PointXYZI find_normal(float x, float y, float z){
 	// Its content will be filled inside the object, based on the given surface dataset.
 	pcl::search::KdTree<pcl::PointXYZI>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZI> ());
 	ne.setSearchMethod (tree);
-
 	// Output datasets
 	pcl::PointCloud<pcl::Normal>::Ptr cloud_normals (new pcl::PointCloud<pcl::Normal> ());
-
 	// Use all neighbors in a sphere of radius 5cm
 	ne.setRadiusSearch (0.1);
 	ne.setViewPoint (0, 0, 0); //Which direction to point the notmal
@@ -450,10 +381,8 @@ pcl::PointXYZI find_normal(float x, float y, float z){
 	foundpt.z = -cloud_normals->points[0].normal[2];
 	//ROS_INFO("Normal %f %f %f",foundpt.x,foundpt.y,foundpt.z);
 	return foundpt;
-
 	}
-
-
+//Copy point and normal
 phd::trajectory_point pt_copy_normal(pcl::PointXYZI in){
 	phd::trajectory_point out;
 	pcl::PointXYZI normal = find_normal(in.x,in.y,in.z);
@@ -466,9 +395,8 @@ phd::trajectory_point pt_copy_normal(pcl::PointXYZI in){
 	out.nz = normal.z;
 	return out;
 	}
+//Crop cloud_surface using horizontal plane pitched up to the vector from robot base to "point"
 pcl::PointCloud<pcl::PointXYZI> crop_plane(pcl::PointXYZI point){
-  
-
 	Eigen::Vector4f minPoint; 
 	minPoint[0]=-10;  // define minimum point x 
 	minPoint[1]=-10;  // define minimum point y 
@@ -477,7 +405,6 @@ pcl::PointCloud<pcl::PointXYZI> crop_plane(pcl::PointXYZI point){
 	maxPoint[0]=10;  // define max point x 
 	maxPoint[1]=10;  // define max point y 
 	maxPoint[2]=0.01;  // define max point z 
-
 	Eigen::Vector3f boxTranslatation; 
 	boxTranslatation[0]=0;   
 	boxTranslatation[1]=0;   
@@ -486,27 +413,24 @@ pcl::PointCloud<pcl::PointXYZI> crop_plane(pcl::PointXYZI point){
 	boxRotation[0]=0;  // rotation around x-axis 
 	boxRotation[1]=-asin(point.z/vec_length(point));  // rotation around y-axis 
 	boxRotation[2]=0;  //in radians rotation around z-axis. this rotates your cube 45deg around z-axis. 
-	ROS_INFO("Croped plane %lu -- %lu", cloud_surface->size(),cloud_surface_full->size());
+	ROS_INFO("Cropped plane %lu -- %lu", cloud_surface->size(),cloud_surface_full->size());
 	pcl::PointCloud<pcl::PointXYZI>::Ptr cloudOut (new pcl::PointCloud<pcl::PointXYZI>); 
-
 	pcl::CropBox<pcl::PointXYZI> cropFilter; 
 	cropFilter.setInputCloud (cloud_surface); 
 	cropFilter.setMin(minPoint); 
 	cropFilter.setMax(maxPoint); 
 	cropFilter.setTranslation(boxTranslatation); 
 	cropFilter.setRotation(boxRotation); 
-
 	cropFilter.filter (*cloudOut); 
-
 	return *cloudOut;
-
-
-	}
+}
+//Find a point in a pointcloud and return as phd::trajectory_point
 phd::trajectory_point find_phd_pt(pcl::PointCloud<pcl::PointXYZI>::Ptr vertical_line,pcl::PointXYZI target_pt ){
 
 	return pt_copy_normal(find_pt_i(vertical_line,target_pt));
 
 }
+//Show visualization markers
 void show_markers(phd::trajectory_msg t_msg){
 
 	uint32_t shape = visualization_msgs::Marker::LINE_LIST;
@@ -537,8 +461,7 @@ void show_markers(phd::trajectory_msg t_msg){
 	marker.color.b = 1.0f;
 	marker.color.a = 0.8;
 	marker.lifetime = ros::Duration();
-	
-	    // Set the frame ID and timestamp.  See the TF tutorials for information on these.
+	// Set the frame ID and timestamp.  See the TF tutorials for information on these.
 	path.header.frame_id = "/world";
 	path.header.stamp = ros::Time::now();
 	// Set the namespace and id for this path.  This serves to create a unique ID
@@ -592,7 +515,6 @@ void show_markers(phd::trajectory_msg t_msg){
 	surface_path.color.b = 0.0f;
 	surface_path.color.a = 1.0;
 	surface_path.lifetime = ros::Duration();
-
 	good_points.header.frame_id = "/world";
 	good_points.header.stamp = ros::Time::now();
 	good_points.ns = "basic_shapes";
@@ -614,7 +536,6 @@ void show_markers(phd::trajectory_msg t_msg){
 	good_points.color.b = 0.0f;
 	good_points.color.a = 0.8;
 	good_points.lifetime = ros::Duration();
-
 	bad_points.header.frame_id = "/world";
 	bad_points.header.stamp = ros::Time::now();
 	bad_points.ns = "basic_shapes";
@@ -636,127 +557,43 @@ void show_markers(phd::trajectory_msg t_msg){
 	bad_points.color.b = 0.0f;
 	bad_points.color.a = 0.8;
 	bad_points.lifetime = ros::Duration();
+	int num_pts = t_msg.points.size();
+	path.points.resize(num_pts);
+	surface_path.points.resize(num_pts);
+	marker.points.resize(2*num_pts);
+	for(int i = 0; i < num_pts; ++i){
+		path.points[i].x = t_msg.points[i].x-(OFFSET*t_msg.points[i].nx);
+		path.points[i].y = t_msg.points[i].y-(OFFSET*t_msg.points[i].ny);
+		path.points[i].z = t_msg.points[i].z-(OFFSET*t_msg.points[i].nz);
+		surface_path.points[i].x = t_msg.points[i].x;
+		surface_path.points[i].y = t_msg.points[i].y;
+		surface_path.points[i].z = t_msg.points[i].z;
 
+		float abs_pose = sqrt(pow(path.points[i].x-X_BASE_TO_ARM,2)+pow(path.points[i].y- Y_BASE_TO_ARM,2)+pow(path.points[i].z- (Z_BASE_TO_ARM+.28),2));
+		if(abs_pose < .432)	good_points.points.push_back(path.points[i]);
+		else bad_points.points.push_back(path.points[i]);
 
-		int num_pts = t_msg.points.size();
-		path.points.resize(num_pts);
-		surface_path.points.resize(num_pts);
-		marker.points.resize(2*num_pts);
-		for(int i = 0; i < num_pts; ++i){
-		
-			//ROS_INFO("SPoint %d: %f- %f- %f",i,t_msg.points[i].x,t_msg.points[i].y,t_msg.points[i].z);
-			//ROS_INFO("Normal %d: %f- %f- %f",i,t_msg.points[i].nx,t_msg.points[i].ny,t_msg.points[i].nz);
-			path.points[i].x = t_msg.points[i].x-(OFFSET*t_msg.points[i].nx);
-			path.points[i].y = t_msg.points[i].y-(OFFSET*t_msg.points[i].ny);
-			path.points[i].z = t_msg.points[i].z-(OFFSET*t_msg.points[i].nz);
-			surface_path.points[i].x = t_msg.points[i].x;
-			surface_path.points[i].y = t_msg.points[i].y;
-			surface_path.points[i].z = t_msg.points[i].z;
-
-			float abs_pose = sqrt(pow(path.points[i].x-X_BASE_TO_ARM,2)+pow(path.points[i].y- Y_BASE_TO_ARM,2)+pow(path.points[i].z- (Z_BASE_TO_ARM+.28),2));
-			if(abs_pose < .432)	good_points.points.push_back(path.points[i]);
-			else bad_points.points.push_back(path.points[i]);
-
-			//ROS_INFO("Point %d: %f- %f- %f",i,path.points[i].x,path.points[i].y,path.points[i].z);
-			marker.points[i*2].x = t_msg.points[i].x-(OFFSET*t_msg.points[i].nx);
-			marker.points[i*2].y = t_msg.points[i].y-(OFFSET*t_msg.points[i].ny);
-			marker.points[i*2].z = t_msg.points[i].z-(OFFSET*t_msg.points[i].nz);
-			marker.points[(i*2)+1].x = t_msg.points[i].x;
-			marker.points[(i*2)+1].y = t_msg.points[i].y;
-			marker.points[(i*2)+1].z = t_msg.points[i].z;
-		}
-
-		dir_pub.publish(surface_path);
-		ros::Duration(0.5).sleep();
-		path_pub.publish(path);
-		ros::Duration(0.5).sleep();
-		marker_pub.publish(marker);
-		ros::Duration(0.5).sleep();
-		gp_pub.publish(good_points);
-		ros::Duration(0.5).sleep();
-		bp_pub.publish(bad_points);
-		ros::Duration(0.5).sleep();
-
-	
-
+		//ROS_INFO("Point %d: %f- %f- %f",i,path.points[i].x,path.points[i].y,path.points[i].z);
+		marker.points[i*2].x = t_msg.points[i].x-(OFFSET*t_msg.points[i].nx);
+		marker.points[i*2].y = t_msg.points[i].y-(OFFSET*t_msg.points[i].ny);
+		marker.points[i*2].z = t_msg.points[i].z-(OFFSET*t_msg.points[i].nz);
+		marker.points[(i*2)+1].x = t_msg.points[i].x;
+		marker.points[(i*2)+1].y = t_msg.points[i].y;
+		marker.points[(i*2)+1].z = t_msg.points[i].z;
 	}
 
-void show_marker(pcl::PointXYZI one,pcl::PointXYZI two,pcl::PointXYZI three, pcl::PointXYZI four){
-
-	uint32_t shape = visualization_msgs::Marker::LINE_LIST;
-	visualization_msgs::Marker marker;
-	// Set the frame ID and timestamp.  See the TF tutorials for information on these.
-	marker.header.frame_id = "/world";
-	marker.header.stamp = ros::Time::now();
-	marker.ns = "basic_shapes";
-	marker.id = nsid;
-	marker.type = visualization_msgs::Marker::LINE_LIST;
-	marker.action = visualization_msgs::Marker::ADD;
-	marker.pose.position.x = 0;
-	marker.pose.position.y = 0;
-	marker.pose.position.z = 0;
-	marker.pose.orientation.x = 0.0;
-	marker.pose.orientation.y = 0.0;
-	marker.pose.orientation.z = 0.0;
-	marker.pose.orientation.w = 1.0;
-	marker.scale.x = 0.01;
-	marker.scale.y = 0.01;
-	marker.scale.z = 0.015;
-	marker.color.r = 0.0f;
-	marker.color.g = 0.0f;
-	marker.color.b = 1.0f;
-	marker.color.a = 0.8;
-	marker.lifetime = ros::Duration();
-	
-
-		marker.id = nsid;
-		marker.points.resize(2);
-
-			//ROS_INFO("Point %d: %f- %f- %f",i,path.points[i].x,path.points[i].y,path.points[i].z);
-			marker.points[0].x = one.x;
-			marker.points[0].y = one.y;
-			marker.points[0].z = one.z;
-			marker.points[1].x = two.x;
-			marker.points[1].y = two.y;
-			marker.points[1].z = two.z;//ROS_INFO("Point %d: %f- %f- %f",i,path.points[i].x,path.points[i].y,path.points[i].z);
-		marker_pub.publish(marker);
-		ros::Duration(0.5).sleep();
-
-		marker.id = nsid+1;
-		marker.points.resize(2);
-	marker.color.r = 0.0f;
-	marker.color.g = 1.0f;
-	marker.color.b = 0.0f;
-			marker.points[0].x = one.x;
-			marker.points[0].y = one.y;
-			marker.points[0].z = one.z;
-			marker.points[1].x = three.x;
-			marker.points[1].y = three.y;
-			marker.points[1].z = three.z;
-
-		marker_pub.publish(marker);
-		ros::Duration(0.5).sleep();
-
-		marker.id = nsid+2;
-		marker.points.resize(2);
-	marker.color.r = 1.0f;
-	marker.color.g = 0.0f;
-	marker.color.b = 0.0f;
-	marker.points[0].x = one.x;
-			marker.points[0].y = one.y;
-			marker.points[0].z = one.z;
-			marker.points[1].x = four.x;
-			marker.points[1].y = four.y;
-			marker.points[1].z = four.z;
-
-	
-		marker_pub.publish(marker);
-		ros::Duration(0.5).sleep();
-	nsid += 3;
-
-	}
-
-////////////////////////////
+	dir_pub.publish(surface_path);
+	ros::Duration(0.5).sleep();
+	path_pub.publish(path);
+	ros::Duration(0.5).sleep();
+	marker_pub.publish(marker);
+	ros::Duration(0.5).sleep();
+	gp_pub.publish(good_points);
+	ros::Duration(0.5).sleep();
+	bp_pub.publish(bad_points);
+	ros::Duration(0.5).sleep();
+}
+//Sort a vertical line, either upwards or downwards
 pcl::PointCloud<pcl::PointXYZI> sort_vertical_line(pcl::PointCloud<pcl::PointXYZI>::Ptr line, int style){
 
 	pcl::PointCloud<pcl::PointXYZI> sorted;
@@ -765,16 +602,6 @@ pcl::PointCloud<pcl::PointXYZI> sort_vertical_line(pcl::PointCloud<pcl::PointXYZ
 	pcl::PointXYZI start_pt, found_pt, prev_pt, next_pt;
 	pcl::PointCloud<pcl::PointXYZI>::iterator start_it, next_it;
 	float c_val;
-
-	flines = flines + *line;
-	/*for(pcl::PointCloud<pcl::PointXYZI>::iterator ctr = line.begin(); ctr < line.end(); ++ctr){
-		cval = sqrt(pow(ctr->x,2)+pow(ctr->z,2));
-		if(cval < zmin){
-			start_it = ctr;
-			zmin = cval;
-		}
-
-	}*/
 	pcl::PointXYZI dir, search_pt, d_pt, ctr_pt, ctr_pt2;
 	float calc_d, d_total;
 	float dir_val, old_d;	
@@ -784,47 +611,34 @@ pcl::PointCloud<pcl::PointXYZI> sort_vertical_line(pcl::PointCloud<pcl::PointXYZ
 		prev_pt.y = 0;
 		prev_pt.z = -100;
 	}else{
-		prev_pt.y = -100;
-		prev_pt.z = 0;
+		prev_pt.y = 100;
+		prev_pt.z = 100;
 	}	
 	prev_pt.intensity = 0;
 	pcl::PassThrough<pcl::PointXYZI> pass;
 	find_and_delete_NN(prev_pt,line, &next_pt, DOWNSAMPLE_RADIUS);
 	next_pt.intensity = 0;
+	float start_pt_Z = next_pt.z;
 	sorted.push_back(next_pt);
-	ROS_INFO("first pt %f - %f - %f",next_pt.x,next_pt.y,next_pt.z);
-	//while(next_pt.x == sorted.points[0].x && next_pt.y == sorted.points[0].y && next_pt.z == sorted.points[0].z && V_STEP_SIZE < 1){
 	find_and_delete_NN(vertical_step_vector(prev_pt,sorted.points[0],0.01),line, &next_pt, DOWNSAMPLE_RADIUS);
-		//V_STEP_SIZE += 0.01;
-	//}
-	//if(next_pt.z<Z_VERTICAL_LIMIT) next_pt.intensity = next_pt.z - sorted.points[0].z;
-	//else	
-	next_pt.intensity = sorted.points[0].intensity+sqrt(pow(next_pt.x-sorted.points[0].x,2)+pow(next_pt.y-sorted.points[0].y,2)+pow(next_pt.z-sorted.points[0].z,2));
-	//sorted.push_back(next_pt);
-	ROS_INFO("Starting loop %lu", line->points.size());
+	next_pt.intensity = next_pt.z - start_pt_Z;//sorted.points[0].intensity+sqrt(pow(next_pt.x-sorted.points[0].x,2)+pow(next_pt.y-sorted.points[0].y,2)+pow(next_pt.z-sorted.points[0].z,2));
 	pcl::PointXYZI stepp;
-	//ROS_INFO("size %lu",sorted.points.size());
 	sorted.push_back(next_pt);
 	do{	
 		prev_pt = next_pt;	
-		//stepp = vertical_step_vector(sorted.points[sorted.points.size()-2],sorted.points[sorted.points.size()-1],V_STEP_SIZE);
-			//ROS_INFO("Step %f - %f - %f / %f",stepp.x, stepp.y, stepp.z, V_STEP_SIZE);
-			//if(sorted.points[sorted.points.size()-2].x != sorted.points[sorted.points.size()-1].x && sorted.points[sorted.points.size()-2].y != sorted.points[sorted.points.size()-1].y && sorted.points[sorted.points.size()-2].z != sorted.points[sorted.points.size()-1].z)
-		if(find_and_delete_NN(prev_pt,line, &next_pt, DOWNSAMPLE_RADIUS)){
-			next_pt.intensity = prev_pt.intensity + sqrt(pow(next_pt.x-prev_pt.x,2)+pow(next_pt.y-prev_pt.y,2)+pow(next_pt.z-prev_pt.z,2));
+		if(find_and_delete_NN(prev_pt,line, &next_pt, DOWNSAMPLE_RADIUS)!=0){
+			next_pt.intensity = next_pt.z - start_pt_Z;//prev_pt.intensity + sqrt(pow(next_pt.x-prev_pt.x,2)+pow(next_pt.y-prev_pt.y,2)+pow(next_pt.z-prev_pt.z,2));
 			if(next_pt.intensity - prev_pt.intensity < MAX_LEAP)	sorted.push_back(next_pt);
 			}else{
 				ROS_INFO("Couldnt find neighbour");
 				break;
 			} 
 		}while(line->points.size()>0);
-	//ROS_INFO("int %f", prev_pt.intensity);
-	//std::sort (sorted.points.begin(), sorted.points.end(), forward_pcl_sort);
 	return sorted;
+}
 
-	}
-////////////////////////////
-pcl::PointCloud<pcl::PointXYZI> sort_horizontal_line(pcl::PointCloud<pcl::PointXYZI>::Ptr line, Eigen::Vector4f start){
+//Sorth line by NN
+pcl::PointCloud<pcl::PointXYZI> sort_NN_line(pcl::PointCloud<pcl::PointXYZI>::Ptr line, Eigen::Vector4f start, float spacing){
 
 	pcl::PointCloud<pcl::PointXYZI> sorted;
 	pcl::PointXYZI point_holder;
@@ -835,147 +649,56 @@ pcl::PointCloud<pcl::PointXYZI> sort_horizontal_line(pcl::PointCloud<pcl::PointX
 	float calc_d, d_total;
 	float dir_val, old_d;	
 	bool broken = false;
-	Eigen::Vector4f zeroPoint, farPoint; 
+	//Eigen::Vector4f farPoint; 
+	//pcl::getMaxDistance(*line, start, farPoint);
 	prev_pt.x = start[0];
 	prev_pt.y = start[1];
 	prev_pt.z = start[2];
 	prev_pt.intensity = 0;
-	sorted.push_back(prev_pt);
+	//sorted.push_back(prev_pt);
 	pcl::PassThrough<pcl::PointXYZI> pass;
-	ROS_INFO("Pt1 %f- %f - %f / %lu",prev_pt.x,prev_pt.y,prev_pt.z,line->points.size());
-	find_and_delete_NN(prev_pt,line, &next_pt, CHUNK_RADIUS);
-	ROS_INFO("P2 %f- %f - %f / %lu",next_pt.x,next_pt.y,next_pt.z,line->points.size());
-	find_and_delete_NN(prev_pt,line, &next_pt, CHUNK_RADIUS);
-	ROS_INFO("Pt3 %f- %f - %f / %lu",next_pt.x,next_pt.y,next_pt.z,line->points.size());
+	//find_and_delete_NN(prev_pt,line, &next_pt, spacing);
+	if(find_and_delete_NN(prev_pt,line, &next_pt, spacing)!=0){
+	next_pt.intensity = 0;//sorted.points[0].intensity+sqrt(pow(next_pt.x-sorted.points[0].x,2)+pow(next_pt.y-sorted.points[0].y,2)+pow(next_pt.z-sorted.points[0].z,2));
+	sorted.push_back(next_pt);
+	}else ROS_INFO("Line Ended");
+	int ret = find_and_delete_NN(prev_pt,line, &next_pt, spacing);
 	next_pt.intensity = sorted.points[0].intensity+sqrt(pow(next_pt.x-sorted.points[0].x,2)+pow(next_pt.y-sorted.points[0].y,2)+pow(next_pt.z-sorted.points[0].z,2));
 	sorted.push_back(next_pt);
-	//find_and_delete_NN(horizontal_step_vector(prev_pt,sorted.points[1],0.01),line, &next_pt, CHUNK_RADIUS);
-
-	find_and_delete_NN(prev_pt,line, &next_pt, CHUNK_RADIUS);
-	ROS_INFO("Pt3");
-	next_pt.intensity = sorted.points[1].intensity+sqrt(pow(next_pt.x-sorted.points[1].x,2)+pow(next_pt.y-sorted.points[1].y,2)+pow(next_pt.z-sorted.points[1].z,2));
-	pcl::PointXYZI stepp;
-	sorted.push_back(next_pt);
+	if(ret==1){	
+	pcl::PointXYZI stepp;	
+	float max_jump = sqrt(spacing)*10;
 	while(line->points.size()>0){	
 		prev_pt = next_pt;
-		zeroPoint[0] = prev_pt.x;
-		zeroPoint[1] = prev_pt.y;
-		zeroPoint[2] = prev_pt.z; 
-		pcl::getMaxDistance(*line, zeroPoint, farPoint);
-	//ROS_INFO("Pt3");
-		if(find_and_delete_NN(prev_pt,line, &next_pt, CHUNK_RADIUS)){
-			//ROS_INFO("intensity");
-			next_pt.intensity = prev_pt.intensity + sqrt(pow(next_pt.x-prev_pt.x,2)+pow(next_pt.y-prev_pt.y,2)+pow(next_pt.z-prev_pt.z,2));
-			//ROS_INFO("sotred %lu",line->points.size());
-			sorted.push_back(next_pt);
+		if(find_and_delete_NN(prev_pt,line, &next_pt, spacing)!= 0){
+			float jump_d = sqrt(pow(next_pt.x-prev_pt.x,2)+pow(next_pt.y-prev_pt.y,2)+pow(next_pt.z-prev_pt.z,2));
+			if(DEBUG) ROS_INFO("Jumping %f to point",jump_d);
+			next_pt.intensity = prev_pt.intensity + jump_d;
+			if(jump_d<max_jump) sorted.push_back(next_pt);
+			else{
+				ROS_INFO("Too big of a jump: %f/%f (spacing %f)", jump_d,max_jump, spacing);
+				break;
+			}
 			}else{
 				ROS_INFO("Couldnt find neighbour");
 				break;
 			} 
-		}
-	last_pt.x = farPoint[0];
+	}
+	}
+	/*last_pt.x = farPoint[0];
 	last_pt.y = farPoint[1];
 	last_pt.z = farPoint[2];
-	last_pt.intensity = next_pt.intensity + sqrt(pow(next_pt.x-last_pt.x,2)+pow(next_pt.y-last_pt.y,2)+pow(next_pt.z-last_pt.z,2));
-	sorted.push_back(last_pt);
-			ROS_INFO("return %lu", sorted.points.size());
+	float final_d = sqrt(pow(next_pt.x-last_pt.x,2)+pow(next_pt.y-last_pt.y,2)+pow(next_pt.z-last_pt.z,2));
+	last_pt.intensity = next_pt.intensity + final_d;
+	if(final_d > 0.1) sorted.push_back(last_pt);*/
+	ROS_INFO("Returning %lu points", sorted.points.size());
+	for(int ctr = 0; ctr < sorted.points.size(); ++ctr) ROS_INFO("Point %f/%f/%f-%f", sorted.points[ctr].x, sorted.points[ctr].y, sorted.points[ctr].z, sorted.points[ctr].intensity);
 	return sorted;
 
 	}
 
-pcl::PointXYZI find_plane(pcl::PointXYZI pt_location){
 
-	pcl::PointXYZI norm = unit_vector(find_normal(pt_location.x, pt_location.y, pt_location.z));
-	pcl::PointXYZI up, alt;
-	up.z = 1;
-	alt.x = 0;
-	alt.y = 1;
-	alt.z = 0;
-	pcl::PointXYZI side;
-	//if(norm.z > .3) 
-	//side = unit_cross(norm,alt);
-	//else side = unit_cross(norm,up);
-	pcl::PointXYZI plane = unit_cross(norm, alt);
-	//plane.x = plane.x - pt_location.x;
-	//plane.y = plane.y - pt_location.y;
-	//plane.z = plane.z - pt_location.z;
-	pcl::PointXYZI marker1, marker2, marker3;
-	marker1.x = pt_location.x + norm.x;
-	marker1.y = pt_location.y + norm.y;
-	marker1.z = pt_location.z + norm.z;
-	marker2.x = pt_location.x + alt.x;
-	marker2.y = pt_location.y + alt.y;
-	marker2.z = pt_location.z + alt.z;
-	marker3.x = pt_location.x + plane.x;
-	marker3.y = pt_location.y + plane.y;
-	marker3.z = pt_location.z + plane.z;
-	show_marker(pt_location,marker3,marker2,marker1);
-	return plane;
 
-	}
-
-pcl::PointCloud<pcl::PointXYZI> sort_horizontal(pcl::PointCloud<pcl::PointXYZI>::Ptr input){
-	pcl::PointCloud<pcl::PointXYZI> output;
-	pcl::PointXYZI start_pt, search_pt, prev_pt;
-	start_pt.x = 0;
-	start_pt.y = 10;
-	start_pt.z = 0;
-	find_NN(start_pt, input, &search_pt);
-	ROS_INFO("Starting size %lu",input->size());
-	for(pcl::PointCloud<pcl::PointXYZI>::iterator ctr = input->begin(); ctr < input->end(); ++ctr){
-		if(ctr->x == search_pt.x && ctr->y == search_pt.y && ctr->z == search_pt.z){
-			input->erase(ctr);
-			break;
-		}
-	}
-	search_pt.intensity = 0;
-	while(input->size() > 0){
-		prev_pt = search_pt;
-		find_NN(start_pt, input, &search_pt);
-		for(pcl::PointCloud<pcl::PointXYZI>::iterator ctr = input->begin(); ctr < input->end(); ++ctr){
-			if(ctr->x == search_pt.x && ctr->y == search_pt.y && ctr->z == search_pt.z){
-				input->erase(ctr);
-				break;
-			}
-		}
-		search_pt.intensity = prev_pt.intensity + sqrt(pow(search_pt.x-prev_pt.x,2)+pow(search_pt.y-prev_pt.y,2));
-		output.push_back(search_pt);
-
-	ROS_INFO("Remaining size %lu",input->size());
-	}	
-	return output;
-	}
-
-void calc_points(phd::trajectory_msg* trajectory, pcl::PointXYZI point, int dir){
-	phd::trajectory_point tPoint;
-	pcl::PointCloud<pcl::PointXYZI> horizontal_line = crop_plane(point);
-	horizontal_line = sort_horizontal(horizontal_line.makeShared());
-	//lines = lines+horizontal_line;
-	pcl::PointXYZI prev_pt, next_pt;
-	pcl::PointCloud<pcl::PointXYZI> sorted;
-	int ctr = 0;
-	sorted.push_back(horizontal_line.points[0]);
-	prev_pt = horizontal_line.points[0];
-	for(int pctr = 1; pctr < horizontal_line.size(); ++pctr){	
-		if(vec_length(prev_pt,horizontal_line.points[pctr])>VIA_DISTANCE){
-			sorted.push_back(horizontal_line.points[pctr]);
-			prev_pt = horizontal_line.points[pctr];
-		}
-	}
-
-		ROS_INFO("Tpoints %lu",sorted.size());
-	if(dir > 0){
-		for(ctr = 0; ctr < sorted.size(); ++ctr){
-			tPoint = pt_copy_normal(sorted.points[ctr]);
-			trajectory->points.push_back(tPoint);
-		}
-	}else{
-		for(ctr = sorted.size()-1; ctr >= 0; --ctr){
-			tPoint = pt_copy_normal(sorted.points[ctr]);
-			trajectory->points.push_back(tPoint);
-		}
-	}
-	}
 
 bool generate (phd::simple_trajectory_service::Request  &req,
          phd::simple_trajectory_service::Response &res)
@@ -991,25 +714,14 @@ bool generate (phd::simple_trajectory_service::Request  &req,
 	cloud_msg2.fields[3].name = "intensity";
 	pcl::fromROSMsg(cloud_msg2,*cloud_surface);
 	phd::trajectory_msg t_msg_full, t_msg, t_remainder, t_second_remainder;
-	phd::trajectory_array t_array, t_msg_array;
-	std::vector<phd::trajectory_array> t_msg_array_vect;
 	t_msg_full.points.clear();
 	t_remainder.points.clear();
 	pcl::PointCloud<pcl::PointXYZI>::Ptr line (new pcl::PointCloud<pcl::PointXYZI>);
 	pcl::PointCloud<pcl::PointXYZI>::Ptr horizontal_line (new pcl::PointCloud<pcl::PointXYZI>);
 	pcl::PointCloud<pcl::PointXYZI>::Ptr sorted_horizontal_line (new pcl::PointCloud<pcl::PointXYZI>);
 	pcl::PassThrough<pcl::PointXYZI> pass;
-	/*pass.setInputCloud (cloud_surface);
-	pass.setFilterFieldName ("y");
-	pass.setFilterLimits (-Z_HEIGHT, Z_HEIGHT);
-	pass.filter (*line);
-	pass.setInputCloud (line);
-	pass.setFilterFieldName ("z");
-	pass.setFilterLimits (0, 1.5);
-	pass.filter (*line);
-*/
-	
-	//HORZONTAL LINE
+	/////////////WALL SECTION//////////////
+	//HORZONTAL LINES
 	Eigen::Vector4f minPoint; 
 	minPoint[0]=-100;  // define minimum point x 
 	minPoint[1]=-100;  // define minimum point y 
@@ -1027,77 +739,74 @@ bool generate (phd::simple_trajectory_service::Request  &req,
 	cropFilter.setTranslation(boxTranslatation); 
 	cropFilter.setRotation(boxRotation); 
 	cropFilter.filter (*horizontal_line); 
+	bool ret = false;
 	Eigen::Vector4f zeroPoint = Eigen::ArrayXf::Zero(4); 
-	Eigen::Vector4f farPoint; 
-	pcl::getMaxDistance(*horizontal_line, zeroPoint, farPoint);
-	ROS_INFO("Furthest point %f - %f - %f", farPoint[0], farPoint[1], farPoint[2]);
-	*sorted_horizontal_line = sort_horizontal_line(horizontal_line,farPoint);
-	ROS_INFO("hsorted");
-	sensor_msgs::PointCloud2 line_cloud3;
-	pcl::toROSMsg(*sorted_horizontal_line,line_cloud3);
-	line_cloud3.header.frame_id = "/world";
-	line_cloud3.header.stamp = ros::Time::now();
-	line_pub2.publish(line_cloud3);
-	ros::spinOnce();
+	Eigen::Vector4f roofPoint = Eigen::ArrayXf::Zero(4); 
+	Eigen::Vector4f farPoint, closePoint; 
+		std::vector<pcl::PointCloud<pcl::PointXYZI> > vertical_line;
+		pcl::PointCloud<pcl::PointXYZI> vertical_lines;
+		phd::trajectory_point found_pt;
 
+		sensor_msgs::PointCloud2 line_cloud3;
+pcl::PointXYZI target_pt;
+	if(horizontal_line->points.size()>0){
+		pcl::getMaxDistance(*horizontal_line, zeroPoint, farPoint);
+		pcl::getMaxDistance(*horizontal_line, farPoint, closePoint);
+		*sorted_horizontal_line = sort_NN_line(horizontal_line,closePoint,CHUNK_RADIUS);
+		guides = *sorted_horizontal_line;
 	
-	//Vertical Rib Size
-	minPoint[0]=-10000;  // define minimum point x 
-	minPoint[1]=-.010;  // define minimum point y 
-	minPoint[2]=-10000;  // define minimum point z 
-	maxPoint[0]=10000;  // define max point x 
-	maxPoint[1]=.010;  // define max point y 
-	maxPoint[2]=WALL_HEIGHT;  // define max point z
-	boxTranslatation[0]=0;   
-	boxTranslatation[1]=0;   
-	boxTranslatation[2]=0;  
-	cropFilter.setInputCloud (cloud_surface); 
-	cropFilter.setMin(minPoint); 
-	cropFilter.setMax(maxPoint); 
-	cropFilter.setTranslation(boxTranslatation); 
-	std::vector<pcl::PointCloud<pcl::PointXYZI> > vertical_line;
-	pcl::PointCloud<pcl::PointXYZI> vertical_lines;
-	lines.clear();
+		//Vertical Rib Size
+		minPoint[0]=-10000;  // define minimum point x 
+		minPoint[1]=-.010;  // define minimum point y 
+		minPoint[2]=-10000;  // define minimum point z 
+		maxPoint[0]=10000;  // define max point x 
+		maxPoint[1]=.010;  // define max point y 
+		maxPoint[2]=WALL_HEIGHT;  // define max point z
+		boxTranslatation[0]=0;   
+		boxTranslatation[1]=0;   
+		boxTranslatation[2]=0;  
+		cropFilter.setInputCloud (cloud_surface); 
+		cropFilter.setMin(minPoint); 
+		cropFilter.setMax(maxPoint); 
+		cropFilter.setTranslation(boxTranslatation); 
+		//lines.clear();
+		//guides.clear();
 
-	//Vertical Section
-	for(int ctr = 0; ctr < sorted_horizontal_line->points.size(); ++ctr){
-	//while(sorted_horizontal_line->points.size() > 0){
-		boxRotation[2]=std::atan2(sorted_horizontal_line->points[ctr].y,sorted_horizontal_line->points[ctr].x);  //in radians rotation around z-axis 
-		cropFilter.setRotation(boxRotation); 
-		cropFilter.filter (*line); 
-		lines = lines + *line;
-		ROS_INFO("hline, sorting %lu angle %f",sorted_horizontal_line->points.size(),boxRotation[2]);
-		if(line->points.size() > 0){
-			vertical_line.push_back(sort_vertical_line(line,0));
-			vertical_lines = vertical_lines+vertical_line[vertical_line.size()-1];
+		//Vertical ribs
+		for(int ctr = 0; ctr < sorted_horizontal_line->points.size(); ++ctr){
+			boxRotation[2]=std::atan2(sorted_horizontal_line->points[ctr].y,sorted_horizontal_line->points[ctr].x);  //in radians rotation around z-axis 
+			cropFilter.setRotation(boxRotation); 
+			cropFilter.filter (*line); 
+			lines = lines + *line;
+			if(line->points.size() > 0){
+				vertical_line.push_back(sort_vertical_line(line,0));
+				vertical_lines = vertical_lines+vertical_line[vertical_line.size()-1];
+				ROS_INFO("Vertical rib %lu done", vertical_line.size());
+			}
 		}
-		//eat_chunk(sorted_horizontal_line, sorted_horizontal_line->points[0], CHUNK_RADIUS);
-	}
-	pcl::PointXYZI target_pt = find_min(vertical_line);
-	phd::trajectory_point found_pt;
-	while(target_pt.intensity < D_MAX){
-		//ROS_INFO("while %lu",vertical_line.size());
-		for(int ctr = 0; ctr<vertical_line.size();++ctr){
-			found_pt = find_phd_pt(vertical_line[ctr].makeShared(),target_pt);
-			ROS_INFO("pushing point %f - %f - %f - %f", found_pt.x,found_pt.y,found_pt.z,found_pt.d);
-			if(fabs(found_pt.d-target_pt.intensity)<CONNECTING_TOLERANCE)	t_msg.points.push_back(found_pt);
+		target_pt = find_min(vertical_line);
+		//Parse down to trajectory points
+		while(target_pt.intensity < D_MAX){
+			for(int ctr = 0; ctr<vertical_line.size();++ctr){
+				found_pt = find_phd_pt(vertical_line[ctr].makeShared(),target_pt);
+				if(fabs(found_pt.d-target_pt.intensity)<CONNECTING_TOLERANCE)	t_msg.points.push_back(found_pt);
+			}
+			target_pt.intensity += HEIGHT_STEP;
+			if(target_pt.intensity > D_MAX) break;
+			for(int ctr = vertical_line.size(); ctr>0;--ctr){
+				found_pt = find_phd_pt(vertical_line[ctr-1].makeShared(),target_pt);
+				if(fabs(found_pt.d-target_pt.intensity)<CONNECTING_TOLERANCE)	t_msg.points.push_back(found_pt);
+			}
+			target_pt.intensity += HEIGHT_STEP;
 		}
-		//add final point in line?
-		//ROS_INFO("while %lu",vertical_line.size());
-		target_pt.intensity += HEIGHT_STEP;
-		if(target_pt.intensity > D_MAX) break;
-		for(int ctr = vertical_line.size(); ctr>0;--ctr){
-
-			found_pt = find_phd_pt(vertical_line[ctr-1].makeShared(),target_pt);
-			ROS_INFO("pushing pointx %f - %f - %f - %f", found_pt.x,found_pt.y,found_pt.z,found_pt.d);
-			if(fabs(found_pt.d-target_pt.intensity)<CONNECTING_TOLERANCE)	t_msg.points.push_back(found_pt);
-		}
-		//add final point in line?
-		target_pt.intensity += HEIGHT_STEP;
-	}
-
-	//ROOF SECTION/////////////////
-	//VERTICAL LINE
+		roofPoint[0] = found_pt.x;
+		roofPoint[1] = found_pt.y;
+		roofPoint[2] = found_pt.z;
+		ret = true;
+		ROS_INFO("Wall done, starting roof");
+	}else ROS_INFO("No Wall");
+	////////////ROOF SECTION/////////////////
+	//VERTICAL GUIDE LINE
 	minPoint[0]=-100;  // define minimum point x 
 	minPoint[1]=- Z_HEIGHT/2;  // define minimum point y 
 	minPoint[2]=WALL_HEIGHT;  // define minimum point z 
@@ -1116,109 +825,112 @@ bool generate (phd::simple_trajectory_service::Request  &req,
 	boxRotation[2]=0;  
 	cropFilter.setRotation(boxRotation); 
 	cropFilter.filter (*horizontal_line); 
-	pcl::getMaxDistance(*horizontal_line, zeroPoint, farPoint);
-	ROS_INFO("Furthest point %f - %f - %f", farPoint[0], farPoint[1], farPoint[2]);
-	*sorted_horizontal_line = sort_horizontal_line(horizontal_line,farPoint);
-	ROS_INFO("hsorted2");
-	pcl::toROSMsg(*sorted_horizontal_line,line_cloud3);
-	line_cloud3.header.frame_id = "/world";
-	line_cloud3.header.stamp = ros::Time::now();
-	line_pub2.publish(line_cloud3);
-	ros::spinOnce();
-
-	
-	//Horizontal Rib Size
-	minPoint[0]=-10000;  // define minimum point x 
-	minPoint[1]=-10000;  // define minimum point y 
-	minPoint[2]=-.010000;  // define minimum point z 
-	maxPoint[0]=10000;  // define max point x 
-	maxPoint[1]=10000;  // define max point y 
-	maxPoint[2]=.010000;  // define max point z
-	cropFilter.setInputCloud (cloud_surface); 
-	cropFilter.setMin(minPoint); 
-	cropFilter.setMax(maxPoint); 
-	cropFilter.setTranslation(boxTranslatation); 
-	vertical_line.clear();
-
-
-
-	//Crop completed vertical section
-	Eigen::Vector4f minPointCrop; 
-	minPointCrop[0]=-100;  // define minimum point x 
-	minPointCrop[1]=-100;  // define minimum point y 
-	minPointCrop[2]=WALL_HEIGHT;  // define minimum point z 
-	Eigen::Vector4f maxPointCrop; 
-	maxPointCrop[0]=100;  // define max point x 
-	maxPointCrop[1]=100;  // define max point y 
-	maxPointCrop[2]=100;  // define max point z 	
-	Eigen::Vector3f cropTranslatation = Eigen::ArrayXf::Zero(3); 
-	Eigen::Vector3f cropRotation = Eigen::ArrayXf::Zero(3); 
-	pcl::CropBox<pcl::PointXYZI> heightFilter; 
-	heightFilter.setMin(minPointCrop); 
-	heightFilter.setMax(maxPointCrop); 
-	heightFilter.setTranslation(cropTranslatation); 
-	heightFilter.setRotation(cropRotation); 
-	//Horizontal Section
-	for(int ctr = 0; ctr < sorted_horizontal_line->points.size(); ++ctr){
-	//while(sorted_horizontal_line->points.size() > 0){
-		boxRotation[1]=-std::atan2(sorted_horizontal_line->points[ctr].z,sorted_horizontal_line->points[ctr].x);  //in radians rotation around z-axis 
-		cropFilter.setRotation(boxRotation); 
-		cropFilter.filter (*line); 
-		heightFilter.setInputCloud (line); 
-		heightFilter.filter (*line); 
-		lines = lines + *line;
-		ROS_INFO("hline, sorting %lu angle %f",sorted_horizontal_line->points.size(),boxRotation[1]);
-		if(line->points.size() > 0){
-			vertical_line.push_back(sort_vertical_line(line,1));
-			vertical_lines = vertical_lines+vertical_line[vertical_line.size()-1];
-		}
-		//eat_chunk(sorted_horizontal_line, sorted_horizontal_line->points[0], CHUNK_RADIUS);
-	}
-	target_pt = find_min(vertical_line);
-	while(target_pt.intensity < D_MAX){
-		//ROS_INFO("while %lu",vertical_line.size());
-		for(int ctr = 0; ctr<vertical_line.size();++ctr){
-			found_pt = find_phd_pt(vertical_line[ctr].makeShared(),target_pt);
-			ROS_INFO("pushing point %f - %f - %f - %f", found_pt.x,found_pt.y,found_pt.z,found_pt.d);
-			if(fabs(found_pt.d-target_pt.intensity)<CONNECTING_TOLERANCE && found_pt.d != target_pt.intensity)	t_msg.points.push_back(found_pt);
-		}
-		//add final point in line?
-		//ROS_INFO("while %lu",vertical_line.size());
-		target_pt.intensity += HEIGHT_STEP;
-		if(target_pt.intensity > D_MAX) break;
-		for(int ctr = vertical_line.size(); ctr>0;--ctr){
-			found_pt = find_phd_pt(vertical_line[ctr-1].makeShared(),target_pt);
-			ROS_INFO("pushing pointx %f - %f - %f - %f", found_pt.x,found_pt.y,found_pt.z,found_pt.d);
-			if(fabs(found_pt.d-target_pt.intensity)<CONNECTING_TOLERANCE && found_pt.d != target_pt.intensity)	t_msg.points.push_back(found_pt);
-		}
-		//add final point in line?
-		target_pt.intensity += HEIGHT_STEP;
+	bool flip_flag = false;
+	if(horizontal_line->points.size() == 0){
+		minPoint[1]=-100;  // define minimum point y 
+		minPoint[0]=- Z_HEIGHT/2;  // define minimum point x 
+		minPoint[2]=WALL_HEIGHT;  // define minimum point z 
+		maxPoint[1]=100;  // define max point y 
+		maxPoint[0]=Z_HEIGHT/2;  // define max point x 
+		maxPoint[2]=100;  // define max point z 
+		cropFilter.setMin(minPoint); 
+		cropFilter.setMax(maxPoint); 
+		cropFilter.filter (*horizontal_line); 
+		flip_flag = true;
 	}
 
+	if(horizontal_line->points.size()>0){
+		//pcl::getMaxDistance(*horizontal_line, farPoint, roofPoint);
+		//ROS_INFO("Roof far point %f - %f - %f", roofPoint[0], roofPoint[1], roofPoint[2]);
+		*sorted_horizontal_line = sort_NN_line(horizontal_line,roofPoint,CHUNK_RADIUS);
+		guides = guides + *sorted_horizontal_line;
+		pcl::toROSMsg(guides,line_cloud3);
+		line_cloud3.header.frame_id = "/world";
+		line_cloud3.header.stamp = ros::Time::now();
+		guide_pub.publish(line_cloud3);
+		ros::spinOnce();
 
-	//SHOW MARKERS//////////
+		//Horizontal Rib Plane
+		minPoint[0]=-10000;  // define minimum point x 
+		minPoint[1]=-10000;  // define minimum point y 
+		minPoint[2]=-.010000;  // define minimum point z 
+		maxPoint[0]=10000;  // define max point x 
+		maxPoint[1]=10000;  // define max point y 
+		maxPoint[2]=.010000;  // define max point z
+		cropFilter.setInputCloud (cloud_surface); 
+		cropFilter.setMin(minPoint); 
+		cropFilter.setMax(maxPoint); 
+		cropFilter.setTranslation(boxTranslatation); 
+		vertical_line.clear();
 
-	ROS_INFO("T-MSG size %lu", t_msg.points.size());
+		//Crop completed vertical section
+		Eigen::Vector4f minPointCrop; 
+		minPointCrop[0]=-100;  // define minimum point x 
+		minPointCrop[1]=-100;  // define minimum point y 
+		minPointCrop[2]=WALL_HEIGHT;  // define minimum point z 
+		Eigen::Vector4f maxPointCrop; 
+		maxPointCrop[0]=100;  // define max point x 
+		maxPointCrop[1]=100;  // define max point y 
+		maxPointCrop[2]=100;  // define max point z 	
+		Eigen::Vector3f cropTranslatation = Eigen::ArrayXf::Zero(3); 
+		Eigen::Vector3f cropRotation = Eigen::ArrayXf::Zero(3); 
+		pcl::CropBox<pcl::PointXYZI> heightFilter; 
+		heightFilter.setMin(minPointCrop); 
+		heightFilter.setMax(maxPointCrop); 
+		heightFilter.setTranslation(cropTranslatation); 
+		heightFilter.setRotation(cropRotation); 
+		//Horizontal Ribs
+		for(int ctr = sorted_horizontal_line->points.size() - 1; ctr >= 0; --ctr){
+			if(flip_flag) boxRotation[0]=-std::atan2(sorted_horizontal_line->points[ctr].z,sorted_horizontal_line->points[ctr].y);  //in radians rotation around z-axis 
+			else boxRotation[1]=-std::atan2(sorted_horizontal_line->points[ctr].z,sorted_horizontal_line->points[ctr].x);  //in radians rotation around z-axis 
+			cropFilter.setRotation(boxRotation); 
+			cropFilter.filter (*line); 
+			heightFilter.setInputCloud (line); 
+			heightFilter.filter (*line); 
+			lines = lines + *line;
+			if(line->points.size() > 0){
+				vertical_line.push_back(sort_NN_line(line,roofPoint,DOWNSAMPLE_RADIUS));
+				vertical_lines = vertical_lines+vertical_line[vertical_line.size()-1];
+			}
+		}
+		target_pt.intensity = -0.001;
+		while(target_pt.intensity < D_MAX){
+			for(int ctr = 0; ctr<vertical_line.size();++ctr){
+				found_pt = find_phd_pt(vertical_line[ctr].makeShared(),target_pt);
+				if(fabs(found_pt.d-target_pt.intensity)<CONNECTING_TOLERANCE && found_pt.d != target_pt.intensity)	t_msg.points.push_back(found_pt);
+			}
+			target_pt.intensity += HEIGHT_STEP;
+			if(target_pt.intensity > D_MAX) break;
+			for(int ctr = vertical_line.size(); ctr>0;--ctr){
+				found_pt = find_phd_pt(vertical_line[ctr-1].makeShared(),target_pt);
+				if(fabs(found_pt.d-target_pt.intensity)<CONNECTING_TOLERANCE && found_pt.d != target_pt.intensity)	t_msg.points.push_back(found_pt);
+			}
+			target_pt.intensity += HEIGHT_STEP;
+		}
 
-	sensor_msgs::PointCloud2 line_cloud;
-	pcl::toROSMsg(vertical_lines,line_cloud);
-	//ROS_INFO("Publishing %d ptd", line_cloud.width);
-	line_cloud.header.frame_id = "/world";
-	line_cloud.header.stamp = ros::Time::now();
-	line_pub.publish(line_cloud);
-	ros::spinOnce();
-	int ctr = 1;
-	float height_ctr = 0;
-	ROS_INFO("array size %lu, %f",vertical_line.size(),target_pt.intensity);
-	pcl::toROSMsg(vertical_lines,line_cloud3);
-	ROS_INFO("Publishing %d pts", line_cloud3.width);
-	line_cloud3.header.frame_id = "/world";
-	line_cloud3.header.stamp = ros::Time::now();
-	line_pub3.publish(line_cloud3);
-	show_markers(t_msg);
-	ros::spinOnce();
-	res.trajectory = t_msg;
-	bool ret = true;
+
+
+		ret = true;
+	}else{
+		ROS_INFO("No Roof");
+	}		//SHOW MARKERS//////////
+		sensor_msgs::PointCloud2 line_cloud;
+		pcl::toROSMsg(vertical_lines,line_cloud);
+		line_cloud.header.frame_id = "/world";
+		line_cloud.header.stamp = ros::Time::now();
+		line_pub.publish(line_cloud);
+		ros::spinOnce();
+		int ctr = 1;
+		float height_ctr = 0;
+		ROS_INFO("array size %lu, %f",vertical_line.size(),target_pt.intensity);
+		//pcl::toROSMsg(vertical_lines,line_cloud3);
+		ROS_INFO("Publishing %d pts", line_cloud3.width);
+		//line_cloud3.header.frame_id = "/world";
+		//line_cloud3.header.stamp = ros::Time::now();
+		//line_pub3.publish(line_cloud3);
+		show_markers(t_msg);
+		ros::spinOnce();
+		res.trajectory = t_msg;
 	return ret;
 }
 
@@ -1233,8 +945,7 @@ main (int argc, char** argv)
 	ros::ServiceServer service = nh.advertiseService("trajectory_gen", generate); 
 	marker_pub = nh.advertise<visualization_msgs::Marker>( "visualization_marker", 0 );
 	line_pub = nh.advertise<sensor_msgs::PointCloud2>( "line_points", 0 );
-	line_pub2 = nh.advertise<sensor_msgs::PointCloud2>( "line_points2", 0 );
-	line_pub3 = nh.advertise<sensor_msgs::PointCloud2>( "line_points3", 0 );
+	guide_pub = nh.advertise<sensor_msgs::PointCloud2>( "guide_points", 0 );
 	path_pub = nh.advertise<visualization_msgs::Marker>( "path_marker", 0 );
 	dir_pub = nh.advertise<visualization_msgs::Marker>( "dir_marker", 0 );
 	gp_pub = nh.advertise<visualization_msgs::Marker>( "good_points_marker", 0 );
@@ -1244,9 +955,5 @@ main (int argc, char** argv)
 	callback_type = boost::bind(&reconfig_callback, _1, _2);
 	server.setCallback(callback_type);
 	ROS_INFO("Trajectory Generator online");
-	nsid = 0;
-
-
-
 	ros::spin();  
 }

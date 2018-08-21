@@ -9,12 +9,12 @@ import std_msgs.msg
 import sensor_msgs.msg
 
 class localize_cloudRequest(genpy.Message):
-  _md5sum = "524cc1243157e15c3d10a9bf090e01f0"
+  _md5sum = "4177966bfe648dd616186ef1a0d7924a"
   _type = "phd/localize_cloudRequest"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """sensor_msgs/PointCloud2 cloud_in
-bool homing
 string marker_file
+bool homing
 
 ================================================================================
 MSG: sensor_msgs/PointCloud2
@@ -82,8 +82,8 @@ uint32 offset    # Offset from start of point struct
 uint8  datatype  # Datatype enumeration, see above
 uint32 count     # How many elements in the field
 """
-  __slots__ = ['cloud_in','homing','marker_file']
-  _slot_types = ['sensor_msgs/PointCloud2','bool','string']
+  __slots__ = ['cloud_in','marker_file','homing']
+  _slot_types = ['sensor_msgs/PointCloud2','string','bool']
 
   def __init__(self, *args, **kwds):
     """
@@ -93,7 +93,7 @@ uint32 count     # How many elements in the field
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       cloud_in,homing,marker_file
+       cloud_in,marker_file,homing
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -104,14 +104,14 @@ uint32 count     # How many elements in the field
       #message fields cannot be None, assign default values for those that are
       if self.cloud_in is None:
         self.cloud_in = sensor_msgs.msg.PointCloud2()
-      if self.homing is None:
-        self.homing = False
       if self.marker_file is None:
         self.marker_file = ''
+      if self.homing is None:
+        self.homing = False
     else:
       self.cloud_in = sensor_msgs.msg.PointCloud2()
-      self.homing = False
       self.marker_file = ''
+      self.homing = False
 
   def _get_types(self):
     """
@@ -161,8 +161,7 @@ uint32 count     # How many elements in the field
         buff.write(struct.pack('<I%sB'%length, length, *_x))
       else:
         buff.write(struct.pack('<I%ss'%length, length, _x))
-      _x = self
-      buff.write(_struct_2B.pack(_x.cloud_in.is_dense, _x.homing))
+      buff.write(_struct_B.pack(self.cloud_in.is_dense))
       _x = self.marker_file
       length = len(_x)
       if python3 or type(_x) == unicode:
@@ -172,6 +171,7 @@ uint32 count     # How many elements in the field
         buff.write(struct.pack('<I%sB'%length, length, *_x))
       else:
         buff.write(struct.pack('<I%ss'%length, length, _x))
+      buff.write(_struct_B.pack(self.homing))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -232,12 +232,10 @@ uint32 count     # How many elements in the field
       start = end
       end += length
       self.cloud_in.data = str[start:end]
-      _x = self
       start = end
-      end += 2
-      (_x.cloud_in.is_dense, _x.homing,) = _struct_2B.unpack(str[start:end])
+      end += 1
+      (self.cloud_in.is_dense,) = _struct_B.unpack(str[start:end])
       self.cloud_in.is_dense = bool(self.cloud_in.is_dense)
-      self.homing = bool(self.homing)
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
@@ -247,6 +245,10 @@ uint32 count     # How many elements in the field
         self.marker_file = str[start:end].decode('utf-8')
       else:
         self.marker_file = str[start:end]
+      start = end
+      end += 1
+      (self.homing,) = _struct_B.unpack(str[start:end])
+      self.homing = bool(self.homing)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -295,8 +297,7 @@ uint32 count     # How many elements in the field
         buff.write(struct.pack('<I%sB'%length, length, *_x))
       else:
         buff.write(struct.pack('<I%ss'%length, length, _x))
-      _x = self
-      buff.write(_struct_2B.pack(_x.cloud_in.is_dense, _x.homing))
+      buff.write(_struct_B.pack(self.cloud_in.is_dense))
       _x = self.marker_file
       length = len(_x)
       if python3 or type(_x) == unicode:
@@ -306,6 +307,7 @@ uint32 count     # How many elements in the field
         buff.write(struct.pack('<I%sB'%length, length, *_x))
       else:
         buff.write(struct.pack('<I%ss'%length, length, _x))
+      buff.write(_struct_B.pack(self.homing))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -367,12 +369,10 @@ uint32 count     # How many elements in the field
       start = end
       end += length
       self.cloud_in.data = str[start:end]
-      _x = self
       start = end
-      end += 2
-      (_x.cloud_in.is_dense, _x.homing,) = _struct_2B.unpack(str[start:end])
+      end += 1
+      (self.cloud_in.is_dense,) = _struct_B.unpack(str[start:end])
       self.cloud_in.is_dense = bool(self.cloud_in.is_dense)
-      self.homing = bool(self.homing)
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
@@ -382,6 +382,10 @@ uint32 count     # How many elements in the field
         self.marker_file = str[start:end].decode('utf-8')
       else:
         self.marker_file = str[start:end]
+      start = end
+      end += 1
+      (self.homing,) = _struct_B.unpack(str[start:end])
+      self.homing = bool(self.homing)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -389,7 +393,7 @@ uint32 count     # How many elements in the field
 _struct_I = genpy.struct_I
 _struct_IBI = struct.Struct("<IBI")
 _struct_3I = struct.Struct("<3I")
-_struct_2B = struct.Struct("<2B")
+_struct_B = struct.Struct("<B")
 _struct_2I = struct.Struct("<2I")
 _struct_B2I = struct.Struct("<B2I")
 # This Python file uses the following encoding: utf-8
@@ -752,6 +756,6 @@ _struct_B2I = struct.Struct("<B2I")
 _struct_2I = struct.Struct("<2I")
 class localize_cloud(object):
   _type          = 'phd/localize_cloud'
-  _md5sum = 'ac290a1d3e7c04a531c73417183bc52a'
+  _md5sum = 'e94e341fd35037c227d8abedb9ee2c51'
   _request_class  = localize_cloudRequest
   _response_class = localize_cloudResponse

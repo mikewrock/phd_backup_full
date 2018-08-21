@@ -6,10 +6,8 @@ phd/CMakeFiles/simple_trajectory_server.dir/src/simple_trajectory_service.cpp.o
  /home/mike/catkin_ws/devel/include/phd/simple_trajectory_service.h
  /home/mike/catkin_ws/devel/include/phd/simple_trajectory_serviceRequest.h
  /home/mike/catkin_ws/devel/include/phd/simple_trajectory_serviceResponse.h
- /home/mike/catkin_ws/devel/include/phd/trajectory_array.h
  /home/mike/catkin_ws/devel/include/phd/trajectory_msg.h
  /home/mike/catkin_ws/devel/include/phd/trajectory_point.h
- /home/mike/catkin_ws/devel/include/phd/trajectory_section.h
  /home/mike/catkin_ws/src/phd/src/simple_trajectory_service.cpp
  /opt/ros/indigo/include/XmlRpcDecl.h
  /opt/ros/indigo/include/XmlRpcValue.h

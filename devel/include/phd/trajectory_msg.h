@@ -16,7 +16,6 @@
 #include <ros/message_operations.h>
 
 #include <phd/trajectory_point.h>
-#include <phd/trajectory_point.h>
 
 namespace phd
 {
@@ -26,12 +25,10 @@ struct trajectory_msg_
   typedef trajectory_msg_<ContainerAllocator> Type;
 
   trajectory_msg_()
-    : points()
-    , start_pt()  {
+    : points()  {
     }
   trajectory_msg_(const ContainerAllocator& _alloc)
-    : points(_alloc)
-    , start_pt(_alloc)  {
+    : points(_alloc)  {
   (void)_alloc;
     }
 
@@ -39,9 +36,6 @@ struct trajectory_msg_
 
    typedef std::vector< ::phd::trajectory_point_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::phd::trajectory_point_<ContainerAllocator> >::other >  _points_type;
   _points_type points;
-
-   typedef  ::phd::trajectory_point_<ContainerAllocator>  _start_pt_type;
-  _start_pt_type start_pt;
 
 
 
@@ -120,12 +114,12 @@ struct MD5Sum< ::phd::trajectory_msg_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "c33e31d3a8a75a28c1738126c9223a5c";
+    return "16652a37ee6a72906fc061ab07295735";
   }
 
   static const char* value(const ::phd::trajectory_msg_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xc33e31d3a8a75a28ULL;
-  static const uint64_t static_value2 = 0xc1738126c9223a5cULL;
+  static const uint64_t static_value1 = 0x16652a37ee6a7290ULL;
+  static const uint64_t static_value2 = 0x6fc061ab07295735ULL;
 };
 
 template<class ContainerAllocator>
@@ -145,7 +139,6 @@ struct Definition< ::phd::trajectory_msg_<ContainerAllocator> >
   static const char* value()
   {
     return "trajectory_point[] points\n\
-trajectory_point start_pt\n\
 \n\
 ================================================================================\n\
 MSG: phd/trajectory_point\n\
@@ -156,8 +149,6 @@ float32 nx\n\
 float32 ny\n\
 float32 nz\n\
 float32 d\n\
-float32 d_abs\n\
-\n\
 ";
   }
 
@@ -177,7 +168,6 @@ namespace serialization
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
       stream.next(m.points);
-      stream.next(m.start_pt);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -204,9 +194,6 @@ struct Printer< ::phd::trajectory_msg_<ContainerAllocator> >
       s << indent;
       Printer< ::phd::trajectory_point_<ContainerAllocator> >::stream(s, indent + "    ", v.points[i]);
     }
-    s << indent << "start_pt: ";
-    s << std::endl;
-    Printer< ::phd::trajectory_point_<ContainerAllocator> >::stream(s, indent + "  ", v.start_pt);
   }
 };
 

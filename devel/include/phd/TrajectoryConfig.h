@@ -233,12 +233,9 @@ class DEFAULT
         if("offset"==(*_i)->name){offset = boost::any_cast<double>(val);}
         if("slice_thickness"==(*_i)->name){slice_thickness = boost::any_cast<double>(val);}
         if("via_distance"==(*_i)->name){via_distance = boost::any_cast<double>(val);}
-        if("radial_steps"==(*_i)->name){radial_steps = boost::any_cast<double>(val);}
-        if("start_angle"==(*_i)->name){start_angle = boost::any_cast<double>(val);}
-        if("end_angle"==(*_i)->name){end_angle = boost::any_cast<double>(val);}
         if("rib_downsampling"==(*_i)->name){rib_downsampling = boost::any_cast<double>(val);}
         if("rib_spacing"==(*_i)->name){rib_spacing = boost::any_cast<double>(val);}
-        if("z_vert_limit"==(*_i)->name){z_vert_limit = boost::any_cast<double>(val);}
+        if("approx_roof_height"==(*_i)->name){approx_roof_height = boost::any_cast<double>(val);}
         if("rib_tolerance"==(*_i)->name){rib_tolerance = boost::any_cast<double>(val);}
         if("max_rib_length"==(*_i)->name){max_rib_length = boost::any_cast<double>(val);}
       }
@@ -251,12 +248,9 @@ double mid_height;
 double offset;
 double slice_thickness;
 double via_distance;
-double radial_steps;
-double start_angle;
-double end_angle;
 double rib_downsampling;
 double rib_spacing;
-double z_vert_limit;
+double approx_roof_height;
 double rib_tolerance;
 double max_rib_length;
 
@@ -283,17 +277,11 @@ double max_rib_length;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       double via_distance;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      double radial_steps;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      double start_angle;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      double end_angle;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       double rib_downsampling;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       double rib_spacing;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      double z_vert_limit;
+      double approx_roof_height;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       double rib_tolerance;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
@@ -440,9 +428,9 @@ TrajectoryConfig::GroupDescription<TrajectoryConfig::DEFAULT, TrajectoryConfig> 
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __default__.workspace = 0.5;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.abstract_parameters.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("workspace", "double", 0, "Workspace Width", "", &TrajectoryConfig::workspace)));
+      Default.abstract_parameters.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("workspace", "double", 0, "Workspace width", "", &TrajectoryConfig::workspace)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __param_descriptions__.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("workspace", "double", 0, "Workspace Width", "", &TrajectoryConfig::workspace)));
+      __param_descriptions__.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("workspace", "double", 0, "Workspace width", "", &TrajectoryConfig::workspace)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __min__.height_step = 0.0;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
@@ -480,9 +468,9 @@ TrajectoryConfig::GroupDescription<TrajectoryConfig::DEFAULT, TrajectoryConfig> 
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __default__.offset = 0.3;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.abstract_parameters.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("offset", "double", 0, "distance from wall to end effector", "", &TrajectoryConfig::offset)));
+      Default.abstract_parameters.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("offset", "double", 0, "Distance from wall to end effector", "", &TrajectoryConfig::offset)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __param_descriptions__.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("offset", "double", 0, "distance from wall to end effector", "", &TrajectoryConfig::offset)));
+      __param_descriptions__.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("offset", "double", 0, "Distance from wall to end effector", "", &TrajectoryConfig::offset)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __min__.slice_thickness = 0.0;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
@@ -490,9 +478,9 @@ TrajectoryConfig::GroupDescription<TrajectoryConfig::DEFAULT, TrajectoryConfig> 
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __default__.slice_thickness = 0.03;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.abstract_parameters.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("slice_thickness", "double", 0, "Thickness ofribs", "", &TrajectoryConfig::slice_thickness)));
+      Default.abstract_parameters.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("slice_thickness", "double", 0, "Thickness of ribs", "", &TrajectoryConfig::slice_thickness)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __param_descriptions__.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("slice_thickness", "double", 0, "Thickness ofribs", "", &TrajectoryConfig::slice_thickness)));
+      __param_descriptions__.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("slice_thickness", "double", 0, "Thickness of ribs", "", &TrajectoryConfig::slice_thickness)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __min__.via_distance = 0.0;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
@@ -504,45 +492,15 @@ TrajectoryConfig::GroupDescription<TrajectoryConfig::DEFAULT, TrajectoryConfig> 
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __param_descriptions__.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("via_distance", "double", 0, "Distance between via points", "", &TrajectoryConfig::via_distance)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __min__.radial_steps = 0.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __max__.radial_steps = 100.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.radial_steps = 50.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.abstract_parameters.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("radial_steps", "double", 0, "number of ribs to make", "", &TrajectoryConfig::radial_steps)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __param_descriptions__.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("radial_steps", "double", 0, "number of ribs to make", "", &TrajectoryConfig::radial_steps)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __min__.start_angle = -10.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __max__.start_angle = 10.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.start_angle = -1.4;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.abstract_parameters.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("start_angle", "double", 0, "starting angle for ribs", "", &TrajectoryConfig::start_angle)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __param_descriptions__.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("start_angle", "double", 0, "starting angle for ribs", "", &TrajectoryConfig::start_angle)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __min__.end_angle = -10.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __max__.end_angle = 10.0;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.end_angle = 1.3;
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.abstract_parameters.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("end_angle", "double", 0, "ending angle for ribs", "", &TrajectoryConfig::end_angle)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __param_descriptions__.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("end_angle", "double", 0, "ending angle for ribs", "", &TrajectoryConfig::end_angle)));
-//#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __min__.rib_downsampling = 0.0;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.rib_downsampling = 10.0;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __default__.rib_downsampling = 0.05;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.abstract_parameters.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("rib_downsampling", "double", 0, "distance between rib points", "", &TrajectoryConfig::rib_downsampling)));
+      Default.abstract_parameters.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("rib_downsampling", "double", 0, "Distance between rib points", "", &TrajectoryConfig::rib_downsampling)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __param_descriptions__.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("rib_downsampling", "double", 0, "distance between rib points", "", &TrajectoryConfig::rib_downsampling)));
+      __param_descriptions__.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("rib_downsampling", "double", 0, "Distance between rib points", "", &TrajectoryConfig::rib_downsampling)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __min__.rib_spacing = 0.0;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
@@ -550,19 +508,19 @@ TrajectoryConfig::GroupDescription<TrajectoryConfig::DEFAULT, TrajectoryConfig> 
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __default__.rib_spacing = 0.05;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.abstract_parameters.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("rib_spacing", "double", 0, "distance between ribs", "", &TrajectoryConfig::rib_spacing)));
+      Default.abstract_parameters.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("rib_spacing", "double", 0, "Distance between ribs", "", &TrajectoryConfig::rib_spacing)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __param_descriptions__.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("rib_spacing", "double", 0, "distance between ribs", "", &TrajectoryConfig::rib_spacing)));
+      __param_descriptions__.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("rib_spacing", "double", 0, "Distance between ribs", "", &TrajectoryConfig::rib_spacing)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __min__.z_vert_limit = 0.0;
+      __min__.approx_roof_height = 0.0;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __max__.z_vert_limit = 10.0;
+      __max__.approx_roof_height = 10.0;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.z_vert_limit = 1.0;
+      __default__.approx_roof_height = 1.0;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      Default.abstract_parameters.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("z_vert_limit", "double", 0, "limit for z value to only use Z for distance", "", &TrajectoryConfig::z_vert_limit)));
+      Default.abstract_parameters.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("approx_roof_height", "double", 0, "Limit for Z value to only use Z for distance", "", &TrajectoryConfig::approx_roof_height)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __param_descriptions__.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("z_vert_limit", "double", 0, "limit for z value to only use Z for distance", "", &TrajectoryConfig::z_vert_limit)));
+      __param_descriptions__.push_back(TrajectoryConfig::AbstractParamDescriptionConstPtr(new TrajectoryConfig::ParamDescription<double>("approx_roof_height", "double", 0, "Limit for Z value to only use Z for distance", "", &TrajectoryConfig::approx_roof_height)));
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __min__.rib_tolerance = 0.0;
 //#line 280 "/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"

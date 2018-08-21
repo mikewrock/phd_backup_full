@@ -14,7 +14,6 @@ class cube_msg(genpy.Message):
 float32 vel
 float32 acc
 bool pose
-
 """
   __slots__ = ['j1','vel','acc','pose']
   _slot_types = ['float32','float32','float32','bool']

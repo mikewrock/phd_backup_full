@@ -9,13 +9,10 @@ import std_msgs.msg
 import sensor_msgs.msg
 
 class trajectory_serviceRequest(genpy.Message):
-  _md5sum = "0d256f445a7f93631d0c7004c61e0c8d"
+  _md5sum = "f97060d711283f6369cb8c6aa53028f1"
   _type = "phd/trajectory_serviceRequest"
   _has_header = False #flag to mark the presence of a Header object
-  _full_text = """float32 P1x
-float32 P1y
-float32 P1z
-sensor_msgs/PointCloud2 cloud_in
+  _full_text = """sensor_msgs/PointCloud2 cloud_in
 sensor_msgs/PointCloud2 cloud_surface
 
 ================================================================================
@@ -84,8 +81,8 @@ uint32 offset    # Offset from start of point struct
 uint8  datatype  # Datatype enumeration, see above
 uint32 count     # How many elements in the field
 """
-  __slots__ = ['P1x','P1y','P1z','cloud_in','cloud_surface']
-  _slot_types = ['float32','float32','float32','sensor_msgs/PointCloud2','sensor_msgs/PointCloud2']
+  __slots__ = ['cloud_in','cloud_surface']
+  _slot_types = ['sensor_msgs/PointCloud2','sensor_msgs/PointCloud2']
 
   def __init__(self, *args, **kwds):
     """
@@ -95,7 +92,7 @@ uint32 count     # How many elements in the field
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       P1x,P1y,P1z,cloud_in,cloud_surface
+       cloud_in,cloud_surface
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -104,20 +101,11 @@ uint32 count     # How many elements in the field
     if args or kwds:
       super(trajectory_serviceRequest, self).__init__(*args, **kwds)
       #message fields cannot be None, assign default values for those that are
-      if self.P1x is None:
-        self.P1x = 0.
-      if self.P1y is None:
-        self.P1y = 0.
-      if self.P1z is None:
-        self.P1z = 0.
       if self.cloud_in is None:
         self.cloud_in = sensor_msgs.msg.PointCloud2()
       if self.cloud_surface is None:
         self.cloud_surface = sensor_msgs.msg.PointCloud2()
     else:
-      self.P1x = 0.
-      self.P1y = 0.
-      self.P1z = 0.
       self.cloud_in = sensor_msgs.msg.PointCloud2()
       self.cloud_surface = sensor_msgs.msg.PointCloud2()
 
@@ -134,7 +122,7 @@ uint32 count     # How many elements in the field
     """
     try:
       _x = self
-      buff.write(_struct_3f3I.pack(_x.P1x, _x.P1y, _x.P1z, _x.cloud_in.header.seq, _x.cloud_in.header.stamp.secs, _x.cloud_in.header.stamp.nsecs))
+      buff.write(_struct_3I.pack(_x.cloud_in.header.seq, _x.cloud_in.header.stamp.secs, _x.cloud_in.header.stamp.nsecs))
       _x = self.cloud_in.header.frame_id
       length = len(_x)
       if python3 or type(_x) == unicode:
@@ -222,8 +210,8 @@ uint32 count     # How many elements in the field
       end = 0
       _x = self
       start = end
-      end += 24
-      (_x.P1x, _x.P1y, _x.P1z, _x.cloud_in.header.seq, _x.cloud_in.header.stamp.secs, _x.cloud_in.header.stamp.nsecs,) = _struct_3f3I.unpack(str[start:end])
+      end += 12
+      (_x.cloud_in.header.seq, _x.cloud_in.header.stamp.secs, _x.cloud_in.header.stamp.nsecs,) = _struct_3I.unpack(str[start:end])
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
@@ -334,7 +322,7 @@ uint32 count     # How many elements in the field
     """
     try:
       _x = self
-      buff.write(_struct_3f3I.pack(_x.P1x, _x.P1y, _x.P1z, _x.cloud_in.header.seq, _x.cloud_in.header.stamp.secs, _x.cloud_in.header.stamp.nsecs))
+      buff.write(_struct_3I.pack(_x.cloud_in.header.seq, _x.cloud_in.header.stamp.secs, _x.cloud_in.header.stamp.nsecs))
       _x = self.cloud_in.header.frame_id
       length = len(_x)
       if python3 or type(_x) == unicode:
@@ -423,8 +411,8 @@ uint32 count     # How many elements in the field
       end = 0
       _x = self
       start = end
-      end += 24
-      (_x.P1x, _x.P1y, _x.P1z, _x.cloud_in.header.seq, _x.cloud_in.header.stamp.secs, _x.cloud_in.header.stamp.nsecs,) = _struct_3f3I.unpack(str[start:end])
+      end += 12
+      (_x.cloud_in.header.seq, _x.cloud_in.header.stamp.secs, _x.cloud_in.header.stamp.nsecs,) = _struct_3I.unpack(str[start:end])
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
@@ -529,7 +517,7 @@ uint32 count     # How many elements in the field
 _struct_I = genpy.struct_I
 _struct_IBI = struct.Struct("<IBI")
 _struct_B = struct.Struct("<B")
-_struct_3f3I = struct.Struct("<3f3I")
+_struct_3I = struct.Struct("<3I")
 _struct_B3I = struct.Struct("<B3I")
 _struct_B2I = struct.Struct("<B2I")
 _struct_2I = struct.Struct("<2I")
@@ -543,21 +531,15 @@ import struct
 import phd.msg
 
 class trajectory_serviceResponse(genpy.Message):
-  _md5sum = "266cd0f9b90ca31de53ed82f12949df4"
+  _md5sum = "c039e6210001355343e0838d1d4d06a2"
   _type = "phd/trajectory_serviceResponse"
   _has_header = False #flag to mark the presence of a Header object
-  _full_text = """trajectory_array trajectory
-
-
-================================================================================
-MSG: phd/trajectory_array
-trajectory_msg[] sections
+  _full_text = """trajectory_msg trajectory
 
 
 ================================================================================
 MSG: phd/trajectory_msg
 trajectory_point[] points
-trajectory_point start_pt
 
 ================================================================================
 MSG: phd/trajectory_point
@@ -568,11 +550,9 @@ float32 nx
 float32 ny
 float32 nz
 float32 d
-float32 d_abs
-
 """
   __slots__ = ['trajectory']
-  _slot_types = ['phd/trajectory_array']
+  _slot_types = ['phd/trajectory_msg']
 
   def __init__(self, *args, **kwds):
     """
@@ -592,9 +572,9 @@ float32 d_abs
       super(trajectory_serviceResponse, self).__init__(*args, **kwds)
       #message fields cannot be None, assign default values for those that are
       if self.trajectory is None:
-        self.trajectory = phd.msg.trajectory_array()
+        self.trajectory = phd.msg.trajectory_msg()
     else:
-      self.trajectory = phd.msg.trajectory_array()
+      self.trajectory = phd.msg.trajectory_msg()
 
   def _get_types(self):
     """
@@ -608,17 +588,11 @@ float32 d_abs
     :param buff: buffer, ``StringIO``
     """
     try:
-      length = len(self.trajectory.sections)
+      length = len(self.trajectory.points)
       buff.write(_struct_I.pack(length))
-      for val1 in self.trajectory.sections:
-        length = len(val1.points)
-        buff.write(_struct_I.pack(length))
-        for val2 in val1.points:
-          _x = val2
-          buff.write(_struct_8f.pack(_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs))
-        _v1 = val1.start_pt
-        _x = _v1
-        buff.write(_struct_8f.pack(_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs))
+      for val1 in self.trajectory.points:
+        _x = val1
+        buff.write(_struct_7f.pack(_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -629,31 +603,19 @@ float32 d_abs
     """
     try:
       if self.trajectory is None:
-        self.trajectory = phd.msg.trajectory_array()
+        self.trajectory = phd.msg.trajectory_msg()
       end = 0
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
-      self.trajectory.sections = []
+      self.trajectory.points = []
       for i in range(0, length):
-        val1 = phd.msg.trajectory_msg()
+        val1 = phd.msg.trajectory_point()
+        _x = val1
         start = end
-        end += 4
-        (length,) = _struct_I.unpack(str[start:end])
-        val1.points = []
-        for i in range(0, length):
-          val2 = phd.msg.trajectory_point()
-          _x = val2
-          start = end
-          end += 32
-          (_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs,) = _struct_8f.unpack(str[start:end])
-          val1.points.append(val2)
-        _v2 = val1.start_pt
-        _x = _v2
-        start = end
-        end += 32
-        (_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs,) = _struct_8f.unpack(str[start:end])
-        self.trajectory.sections.append(val1)
+        end += 28
+        (_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d,) = _struct_7f.unpack(str[start:end])
+        self.trajectory.points.append(val1)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -666,17 +628,11 @@ float32 d_abs
     :param numpy: numpy python module
     """
     try:
-      length = len(self.trajectory.sections)
+      length = len(self.trajectory.points)
       buff.write(_struct_I.pack(length))
-      for val1 in self.trajectory.sections:
-        length = len(val1.points)
-        buff.write(_struct_I.pack(length))
-        for val2 in val1.points:
-          _x = val2
-          buff.write(_struct_8f.pack(_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs))
-        _v3 = val1.start_pt
-        _x = _v3
-        buff.write(_struct_8f.pack(_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs))
+      for val1 in self.trajectory.points:
+        _x = val1
+        buff.write(_struct_7f.pack(_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -688,39 +644,27 @@ float32 d_abs
     """
     try:
       if self.trajectory is None:
-        self.trajectory = phd.msg.trajectory_array()
+        self.trajectory = phd.msg.trajectory_msg()
       end = 0
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
-      self.trajectory.sections = []
+      self.trajectory.points = []
       for i in range(0, length):
-        val1 = phd.msg.trajectory_msg()
+        val1 = phd.msg.trajectory_point()
+        _x = val1
         start = end
-        end += 4
-        (length,) = _struct_I.unpack(str[start:end])
-        val1.points = []
-        for i in range(0, length):
-          val2 = phd.msg.trajectory_point()
-          _x = val2
-          start = end
-          end += 32
-          (_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs,) = _struct_8f.unpack(str[start:end])
-          val1.points.append(val2)
-        _v4 = val1.start_pt
-        _x = _v4
-        start = end
-        end += 32
-        (_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d, _x.d_abs,) = _struct_8f.unpack(str[start:end])
-        self.trajectory.sections.append(val1)
+        end += 28
+        (_x.x, _x.y, _x.z, _x.nx, _x.ny, _x.nz, _x.d,) = _struct_7f.unpack(str[start:end])
+        self.trajectory.points.append(val1)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
 
 _struct_I = genpy.struct_I
-_struct_8f = struct.Struct("<8f")
+_struct_7f = struct.Struct("<7f")
 class trajectory_service(object):
   _type          = 'phd/trajectory_service'
-  _md5sum = 'b12fe4ac2ddc8056831ecc5b5fa20da1'
+  _md5sum = 'bcd724d6fd6ce0a58d3ea952c3e0675e'
   _request_class  = trajectory_serviceRequest
   _response_class = trajectory_serviceResponse
