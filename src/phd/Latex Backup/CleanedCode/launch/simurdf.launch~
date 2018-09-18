@@ -1,0 +1,18 @@
+<launch>
+	<arg name="gui" default="True" />
+	<param name="use_gui" value="$(arg gui)"/>v
+
+
+  <!--- Run description -->
+  <include file="$(find husky_description)/launch/description.launch" />
+  
+ 
+
+<!--- Run demo visualization -->
+<node name="arm_pub" pkg="wrock" type="arm_pub" output="screen" />
+
+  <!--- Run rviz -->
+<node name="rviz" pkg="rviz" type="rviz" args="-d $(find urdf_tutorial)/urdf.rviz" required="true" />
+
+
+</launch>

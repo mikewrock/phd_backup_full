@@ -1,0 +1,20 @@
+<launch>
+
+
+
+  <!--- Run description -->
+  <include file="$(find husky_description)/launch/description.launch" />
+  
+<!--- Run demo visualization -->
+<node name="cube_state_publisher" pkg="cube_testing" type="cube_testing" />
+
+
+  <!--- Run rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" > 
+</node>
+
+
+  <!--- Run static transform for kinect -->
+  <!---node pkg="tf" type="static_transform_publisher" name="kinect_broadcaster" args="0 -.05 0 0 0 0 base_footprint_front_bumper_part camera_link 100" /-->
+
+</launch>

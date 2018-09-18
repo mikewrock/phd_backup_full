@@ -61,7 +61,7 @@ namespace control_panel
 		connect(ui_.pose_step, SIGNAL(clicked()), this, SLOT(pose_step()));
 		connect(ui_.pose_loop_button, SIGNAL(clicked()), this, SLOT(pose_loop()));
 		connect(ui_.arm_loop_button, SIGNAL(clicked()), this, SLOT(arm_loop()));
-		connect(ui_.step_button, SIGNAL(clicked()), this, SLOT(arm_step()));
+		connect(ui_.step_button, SIGNAL(clicked()), this, SLOT(arm_step_man()));
 		connect(ui_.soft_stop, SIGNAL(clicked()), this, SLOT(soft_stop()));
 		connect(ui_.soft_stop_2, SIGNAL(clicked()), this, SLOT(soft_stop()));
 		connect(ui_.reset_map_button, SIGNAL(clicked()), this, SLOT(reset_map()));
@@ -121,6 +121,7 @@ namespace control_panel
 		ui_.j6_browser->setText(QString::number(msg.j6));
 		//Check to see if arm is executing a trajectory and reached its goal
 		float dis = tgt_distance(msg,arm_tgt);
+		//ROS_INFO("New pose %d -- %f / %f -%f",state,dis, msg.x, arm_tgt.x);
 		if((state == SPRAYING || state == MOVE_AND_SPRAY) && tgt_distance(msg,arm_tgt)<TARGET_TOLERANCE){
 			//Call the arm_step function to continue executing trajectory points
 			ROS_INFO("Via pt complete %f", dis);
@@ -149,7 +150,7 @@ namespace control_panel
 		if(auto_pose && msg.data==CLOUD.data){
 			//Generate a new trajectory
 			traj_size = control_panel.gen_trajectory(ui_.marker_name_box->text().toStdString());
-			auto_traj = true;
+			
 		}
 		//Control_panel got a new trajectory
 		if((state == SPRAYING || state == MOVE_AND_SPRAY) && msg.data == TRAJ.data){
@@ -345,7 +346,25 @@ namespace control_panel
 		}
 		//If the trajectory is not complete tell control_panel to move the arm to the point
 		else{
-			next_tgt = control_panel.step(traj_ctr,ui_.step->isChecked(),ui_.fig_box->text().toFloat());
+			arm_tgt = control_panel.step(traj_ctr,ui_.step->isChecked(),ui_.fig_box->text().toFloat());
+		}
+	}
+	//Manually move the arm to the next point in the trajectory array
+	void ControlPanel::arm_step_man(){
+
+		if(DEBUG) ROS_INFO("ctr %d, size %d", traj_ctr,traj_size);
+		++traj_ctr;
+		//If the trajectory is complete
+		if(traj_ctr>=traj_size){
+			if(DEBUG) ROS_INFO("Arm Trajectory Complete");
+			traj_ctr = 0;
+			//If the robot is in autonomous mode, move to the next location for shotcrete
+			if(state == MOVE_AND_SPRAY) control_panel.find_and_move(ui_.step->isChecked());
+			else state == HALT;
+		}
+		//If the trajectory is not complete tell control_panel to move the arm to the point
+		else{
+			arm_tgt = control_panel.step(traj_ctr,ui_.step->isChecked(),ui_.fig_box->text().toFloat());
 		}
 	}
 	/*If the user initiates autonomous mode, we set auto_pose to be true then move to the first shotcreting loction. 

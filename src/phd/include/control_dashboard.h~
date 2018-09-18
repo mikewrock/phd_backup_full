@@ -57,7 +57,7 @@ void set_sprayed();
 void calculate_thickness();
 void thickness_from_file();
 void save_selection();
-float tgt_distance(phd::arm_msg arm, phd::arm_msg tgt);
+float tgt_distance(phd::arm_msg arm, phd::trajectory_point tgt);
 Q_SIGNALS:
 
 protected:

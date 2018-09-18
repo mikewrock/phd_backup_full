@@ -1,0 +1,391 @@
+\chapter{Detailed Discussion of Software}
+\label{chap:code}
+\section{Chapter Summary}
+This chapter discussed the entire ROS package created and presents the algorithms used in the MASSS source code. Much of the code simply facilitates the handling and communication of data across the various nodes as well as inputting and parsing commands from the user. Since the system was primarily designed to be a research platform many of the testing, debugging, and experimentation portions of the code have been included in the final version for future work. The ROS package contains typical elements such as \node{CMakeLists.txt}, \node{package.xml}, messages, services, configuration and launch files, URDF descriptions, source code, and headers. The following sections discuss the package framework and core functionality using pseudo code algorithms. The complete code can be found in Appendix \ref{app:code}. The following sections will begin with a discussion of the ROS framework, and conclude with a presentation of the novel algorithms developed for this work.\\
+\section{Package Files}
+
+\subsection{CMakeLists.txt}
+The \node{CMakeLists.txt} file is the first file ROS needs when compiling the package. Within this file all the nodes, messages, services, configuration files, and dependencies are declared which can be found listed in Table \ref{tab:cmakelists}. The file can be found in \ref{app:cmake}.\\
+\begin{table}[h!]
+\begin{adjustwidth}{-.5in}{-.5in}  
+\begin{tabular}{|c|c|c|c|}
+\hline
+Nodes & Messages & Services & Configuration Files \\ \hline
+\parbox[t]{4cm}{
+\tabitem cube\_node \\
+\tabitem denso\_node \\
+\tabitem joint\_fusion\_node \\
+\tabitem cloud\_localizer \\
+\tabitem thickness\_server \\
+\tabitem trajectory\_server \\
+\tabitem save\_selection} & \parbox[t]{4cm}{
+\tabitem cube\_msg \\
+\tabitem arm\_msg \\
+\tabitem trajectory\_point \\
+\tabitem trajectory\_msg \\
+\tabitem trajectory\_array \\} & \parbox[t]{4cm}{
+\tabitem localize\_cloud \\
+\tabitem thickness\_service \\
+\tabitem trajectory\_service \\
+\tabitem empty \\} & \parbox[t]{4cm}{
+\tabitem param\_config \\
+\tabitem localize\_config \\
+\tabitem trajectory\_config \\}\\ \hline
+\end{tabular}
+\caption{Contents of CMakeLists file}
+\label{tab:cmakelists}
+\end{adjustwidth}
+\end{table}
+\subsection{package.xml}
+The file \node{package.xml} contains the package name, version number, description, maintainer, and license. As well, it contains a list of all the other packages necessary to build and run the package. It contains a reference to \node{plugin_description.xml} so the compiler is aware there are custom plugins for this package and what file to look for them in.\\
+\subsection{plugin\_description.xml}
+This package uses a custom plugin and tool for RVIZ. The plugin, called ``Control Panel'' is a ``ControlPanel'' object in the ``control\_panel'' namespace and extends the ``rviz::Panel'' class. The ``Marker Selector'' tool is a fork of the ``SelectionTool'' class called ``marker\_selector'' and extends the ``rviz::Tool'' class.\\
+\section{Launch Files}
+Two launch files are provided for use, \node{main.launch} and \node{simulation.launch}. The main and simulation launch files appear in their entirety in \ref{app:launch}. They are explained as follows: 
+
+\subsection{main.launch}
+
+The \node{main.launch} file performs the following actions (using the syntax ``\node{package_name} : \node{node_name}):
+\begin{itemize}
+
+\item Include other launch files
+
+\begin{itemize}
+
+\item \node{wrock_husky_description} : \node{description.launch}
+\item \node{husky_control} : \node{control.launch}
+\item \node{husky_control} : \node{teleop.launch}
+
+\end{itemize}
+
+\item Launch nodes
+\begin{itemize}
+
+\item \node{phd} : \node{cube_node}
+\item \node{phd} : \node{denso_node}
+\item \node{phd} : \node{joint_fusion_node}
+\item \node{um6} : \node{um6_driver}
+\item \node{move_base} : \node{move_base}
+\item \node{lms1xx} : \node{LMS1xx_node}
+\item \node{laser_filters} : \node{scan_to_scan_filter_chain}
+\item \node{laser_assembler} : \node{laser_scan_assembler}
+\item \node{hector_mapping} : \node{hector_mapping}
+\item \node{rviz} : \node{rviz}
+\item \node{rqt_reconfigure} : \node{rqt_reconfigure}
+\item \node{tf} : \node{static_transform_publisher}
+
+\end{itemize}
+
+\item Launch services
+
+\begin{itemize}
+
+\item \node{phd} : \node{cloud_localizer}
+\item \node{phd} : \node{trajectory_server}
+\item \node{phd} : \node{thickness_server}
+
+\end{itemize}
+
+\item Load configuration files
+
+\begin{itemize}
+
+\item \node{phd} : \node{rviz_main.rviz}
+\item \node{phd} : \node{my_laser_config.yaml}
+\item \node{husky_navigation} : \node{planner.yaml}
+\item \node{husky_navigation} : \node{costmap_common.yaml}
+\item \node{husky_navigation} : \node{costmap_local.yaml}
+\item \node{husky_navigation} : \node{costmap_global_laser.yaml}
+\end{itemize}
+
+\end{itemize}
+
+Since the MASSS is a modified Husky UGV, the URDF description has been modified accordingly. A separate package for the modified URDF description called \node{wrock_husky_description} was made and the launch file containing the URDF description is included. Including a launch file within another launch file effectively copies all the code from the included launch file in to the main launch file, but keeping them separate allows the user to keep the package modular and makes the launch file more readable.\\
+
+Following the inclusion of the URDF launch file the Husky specific nodes are launched. The node responsible for communication between ROS and the Husky is called \node{husky_node}. When launched the parameters indicating which USB port it is connected to, the controller and diagnostic frequencies, wheel diameter, and speed and acceleration limits are set. Launch files from the \node{husky_control} package are included to instruct the controller how to properly handle \node{move_base} velocity and joystick commands, perform EKF localization, and display the Husky's movements in RVIZ. As well, the driver for the IMU on board the Husky is launched.\\
+
+When the \node{move_base} node is launched the local and global planner configurations are loaded from a file, as well as stated explicitly. Parameters like the Husky footprint size and recovery behaviours are not intended to be modified frequently, so they are stored in a file. The user may want to change other parameters like maximum velocity and the safety buffer from obstacles, or have multiple launch files with different settings so they are able to set or overwrite the parameters explicitly in the launch file. Whether the parameters are set using a configuration file or from the launch file the effect is the same however the launch file takes priority so if the same parameter is set using both methods, the values in the launch file will be used.\\
+
+When the \node{scan_to_scan_filter} node is launched it loads the configuration file that sets the distance, intensity, and angular range to be used. As well, the LIDAR driver and \node{laser_scan_assembler} node is launched.\\
+
+The Powercube, DENSO, and \node{joint_fusion_node} nodes are launched and publish the joint states of the robot. The \node{joint_fusion_node} node combines the individual joint states from the other two nodes and publishes them as a single joint state message. The node \node{robot_state_publisher} uses the joint state message and the URDF file to publish the tf tree of the robot. The tf tree is used by ROS to calculate the coordinate frame transformation between any two frames present, and is used by RVIZ along with the URDF to display the current pose of the MASSS and its manipulator.\\
+
+The node \node{hector_mapping} performs SLAM while the robot is operating. When launched the parameter for ``base\_frame'' is set so it has a point of reference for it's local coordinate frame.\\
+
+When RVIZ is launched ``rviz\_MASSS.rviz'' is loaded to configure the RVIZ environment optimally for use with the MASSS. Different ``.rviz'' files can be loaded for different scenarios, for example the ``rviz\_debug.rviz'' configuration is loaded when debugging because it displays many of the pointclouds and markers that are helpful in debugging but unnecessary during normal operation.\\
+
+The final section of the launch file launches the trajectory generation, localization, and thickness estimation services, the \node{rqt_reconfigure} GUI, and a \node{static_transform_publisher} that aligns the map to the world coordinate frame.\\
+
+\subsection{simulation.launch}
+
+For demonstration, experimentation, or debugging purposes the user may want to launch an environment where they can use the MASSS control panel in RVIZ with the localization, trajectory generation, and thickness estimation services without connecting to the physical robot. The \node{simulation.launch} file allows the user to do so by launching the following nodes and files:
+
+\begin{itemize}
+
+\item \node{wrock_husky_description} : \node{description.launch}
+\item \node{phd} : \node{joint_fusion_node}
+\item \node{phd} : \node{cloud_localizer}
+\item \node{phd} : \node{trajectory_server}
+\item \node{phd} : \node{thickness_server}
+\item \node{rviz} : \node{rviz}
+\item \node{phd} : \node{rviz_debug.rviz}
+\item \node{rqt_reconfigure} : \node{rqt_reconfigure}
+\item \node{tf} : \node{static_transform_publisher}
+\end{itemize}
+
+\section{Messages}
+
+Messages are a convenient way of grouping together variables in to a single class. In this work, messages are used to send commands from \node{control_panel} to \node{denso_node} and \node{cube_node}. As well, custom messages were generated for use in determining the fiducial marker location and transmitting arm trajectories between nodes.\\
+
+\subsection{trajectory\_point.msg}
+\includecode{CleanedCode/msg/trajectory_point.msg}{trajectory\_point.msg}
+Each point in the trajectory requires the position and surface normal at that position. The ``trajectory\_point'' message contains that information as well as a ``d'' parameter. The ``d'' parameter is used when sorting lines of points to keep track of the approximate total distance along the surface something must travel to reach the current point from the starting point (see Section \ref{sec:sortlines}).\\
+\subsection{trajectory\_msg.msg}
+\label{sec:trajmsg}
+\includecode{CleanedCode/msg/trajectory_msg.msg}{trajectory\_msg.msg}
+Messages in ROS can contain a limited variety of datatypes, but among them is the ability to include other messages or arrays of messages (see \url{http://wiki.ros.org/msg}). For a the manipulator trajectories in this work, and array of ``trajectory\_point'' messages is used.\\
+
+\subsection{arm\_msg.msg}
+\includecode{CleanedCode/msg/arm_msg.msg}{arm\_msg.msg}
+The \node{arm_msg} message was designed to make it easy to send commands to the DENSO manipulator. The message contains 32-bit floats that can hold joint positions, XYZ positions (and the roll around each axis), velocity, and acceleration. The ``fig'' integer allows the user to command the desired shoulder, elbow, and wrist configuration (Figure table can be found in Appendix \ref{sec:fig}). The ``pose'' boolean is used to tell \node{denso_node} whether the XYZ values are positions or velocities. Since the DENSO manipulator can perform continuous path motion as well as point-to-point, the ``motion\_type" variable holds the desired motion behaviour. For testing and debugging purposes it may become necessary to manually generate a command string to send to the DENSO controller, so the string ``user\_string'' was added to incorporate that functionality.\\
+
+\subsection{cube\_msg.msg}
+\includecode{CleanedCode/msg/cube_msg.msg}{cube\_msg.msg}
+Originally the \node{cube_node} was designed to handle multiple Powercubes at once, but as research continued the Powercube manipulator was replaced with the DENSO manipulator. Additional joint variables can easily be added should a user want to control multiple Powercubes, however control of a single Powercube is all that is required within this work. The variables in the \node{cube_msg} message contain the desired position or velocity (depending on the value of ``pose''), the maximum velocity (used only in position commands), and acceleration allowed to reach the position (or velocity) goal.\\
+
+\subsection{marker\_val.msg}
+\includecode{CleanedCode/msg/marker_val.msg}{marker\_val.msg}
+When the localization algorithm attempts to detect the markers, it is possible there may be many potential keypoints to choose from. The ``marker\_val'' message is used to sort through them and find the closest match to the marker file. The i, j, and k variables hold the position of the first, second, and third keypoint within the array of keypoint candidates. The ``val'' variable holds a value representing how accurately the kepoints at element i, j, and k of the keypoint candidate array match the recorded keypoints in the marker file.\\
+
+\section{Services}
+In ROS services are able to receive and return variables and messages. In order to function, a ``.srv'' file is required to explicitly declare what variables or messages a service is expecting, and what variables or messages it will return. The division between incoming and outgoing data is marked by a line containing ``\texttt{----}''.\\
+\subsection{Cloud Localization Service}
+\includecode{CleanedCode/srv/localize_cloud.srv}{localize\_cloud.srv}
+The localization service expects the pointcloud to be localized, a string to indicate the location of the marker file, and a boolean it determine whether the scan is to set the world coordinate frame or localize within it. In response the service returns the localized cloud, and a transformation matrix from the robot's frame of reference to the marker's frame.\\
+
+\lstinputlisting[
+style=C++style,
+caption={[pointcloud\_localization\_service.cpp (lines 86, 91, and 100)] pointcloud\_localization\_service.cpp (lines 86, 91, and 100)},
+linerange={86-86,91-91,100-100},]{CleanedCode/src/pointcloud_localization_service.cpp}
+  
+Three helper functions are used to simplify the main portions of the code. They perform dot products, cross products, and normalized cross products as implied by their names. The main function initializes the node, advertises its service on the \node{\localize_pcd} topic, and configures the visualization to show the possible marker keypoint locations on topic \node{\visualization_marker}. The \node{rqt_reconfigure} callbacks are set and the visualization marker style is set. The node then ``spins'', meaning it will wait until a message is received and execute the appropriate callback. A callback is a function ROS executes when it receives a message.\\
+
+The callback function to localize the cloud uses the following algorithm:
+\begin{algorithm}[H]
+\caption{Localization Algorithm}
+\label{alg:localize}
+\begin{algorithmic}[1]
+\begin{raggedright}
+\Function{localize}{Input cloud, Marker filename, Homing boolean}
+\State Filter incoming pointcloud based on user-defined maximum and minimum intensity values
+\If {User requests homing scan}
+\State Return unaltered pointcloud
+\Else
+\State Open marker.dat file to retrieve keypoint relative positions
+\State Cluster pointcloud points to generate list of keypoint candidates
+\State Determine which keypoint candidates are most likely marker keypoints
+\State Open marker.bag file to retrieve transformation matrix from marker to world coordinate frame
+\State Transform input pointcloud to marker coordinate frame
+\State Transform pointcloud from marker coordinate frame to world coordinate frame \EndIf
+\EndFunction\\
+\Return Localized pointcloud
+\end{raggedright}
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Clustering Points}
+Since the LIDAR scanner's resolution is smaller than the size of the marker keypoint, it will typically detect multiple data points per marker keypoint. The keypoint candidates are determined by taking the mean location of all data points within a certain radius and with sufficiently high reflected intensity. The algorithm to cluster data points in to keypoint candidates is as follows (note, the data has already been filtered for intensity so all data points remaining are possible marker keypoints):
+
+\begin{algorithm}[H]
+\caption{Clustering Algorithm}
+\label{alg:cluster}
+\begin{algorithmic}[1]
+\begin{raggedright}
+\Function{cluster}{Intensity filtered input cloud}
+\ForAll{Points in input cloud}
+\If{Intensity $>0$}
+\State Add point to clustering array
+\ForAll{Remaining points in input cloud}
+\If{Distance between points is less than CLUSTER\_DISTANCE \textbf{AND} Intensity $>0$}\\
+\Comment{CLUSTER\_DISTANCE set by user using rqt\_reconfigure}
+\State Add point to clustering array
+\State Set point intensity to 0 (so it doesn't get added to another cluster)
+\EndIf
+\EndFor
+\State Average all points in clustering array
+\State Add averaged point to array of keypoint candidates
+\State Clear clustering array
+\EndIf
+\EndFor
+\EndFunction\\
+\Return Array of keypoint candidates
+\end{raggedright}
+\end{algorithmic}
+\end{algorithm}
+\subsubsection{Determining Marker Keypoints}
+After the clustering algorithm, an array of keypoint candidates is produced. If there are less than three points the marker has not been detected and the service reports a failure. If there are three or more keypoint candidates, they must be checked to ensure they fit the marker model. If there are multiple groups of keypoint candidates that fit the marker model, the best fit is chosen. If none of the keypoints fit the marker model, the service reports it could not detect the marker. Once the marker is located a $3\times3$ matrix holding the position of the marker keypoints and a $4\times4$ transformation matrix of its position is stored in the matrices indicated by the pointers passed to the function. The algorithm for fitting keypoint candidates and selecting the best three is as follows:
+\begin{spacing}{0.8}
+\begin{algorithm}[H]
+\caption{Keypoint Selection Algorithm}
+\label{alg:keypoint}
+\begin{algorithmic}[1]
+\algnotext{EndFor}
+\begin{raggedright}
+\Function{locate\_marker}{Array of keypoint candidates, Pointer for marker location, Pointer for transformation matrix}
+\State Clear marker\_found boolean
+\For{$ i:=1 $ \textbf{to} Size of candidate array}
+\For{$ j:=1 $ \textbf{to} Size of candidate array}
+\For{$ k:=1 $ \textbf{to} Size of candidate array}
+\If{$i\neq j\neq k$}
+\State Calculate distances between $i$, $j$, and $k$
+\State Calculate dot product between vector $\mathbf{ji}$ and $\mathbf{jk}$
+\State Calculate accuracy by comparing distances and dot product to marker file
+\State Store $i$, $j$, and $k$ and accuracy in array of marker candidates
+\If{Marker candidate is within user defined accuracy limits}
+\State Set marker candidate as valid
+\If{Valid marker candidate already exists}
+\State Set optimization flag
+\EndIf
+\EndIf
+\EndIf
+\EndFor
+\EndFor
+\EndFor
+\If{One or more marker candidates are found}
+\State Set marker\_found boolean
+\State Remove less accurate candidates
+\State Store marker keypoints using marker location pointer 
+\State Calculate and store transformation matrix using transformation matrix pointer \
+\EndIf
+\EndFunction\\
+\Return Boolean indicating if marker was located
+\end{raggedright}
+\end{algorithmic}
+\end{algorithm}
+\end{spacing}
+The code for calculating the transformation matrix (where P1, P2, and P3 correspond to $i$, $j$, and $k$ from algorithm \ref{alg:keypoint}) can be found in Appendix \ref{app:tmat}.\\
+
+\subsection{Trajectory Generation  Service}
+\includecode{CleanedCode/srv/trajectory_service.srv}{trajectory\_service.srv}
+The trajectory service expects two pointclouds and returns a \var{trajectory_msg} formatted trajectory (see Section \ref{sec:trajmsg}). The first pointcloud called \var{cloud_in} is the area to generate a trajectory for. The second pointcloud, \var{cloud_surface} is the entire scan. The full surface scan is required for calculating surface normals at the edge of the selected area, since without it only a portion of the surrounding data points would be used to calculate the surface normal.\\
+
+When the service launches it advertises itself on the ``/trajectory\_gen'' topic. It then configures the publishers responsible for displaying the markers that show the end-effector path, surface path, surface normals, via points within the workspace, and via points outside the workspace. Finally it configures the callback for \node{rqt_reconfigure}. Once initialized, the service waits to be called upon.\\
+
+When the service is called, it executes the ``generate()'' function. The trajectory is generated in two stages, the first is for vertical sections and the second is for horizontal (overhead) sections. The algorithms are as follows:
+\begin{algorithm}[H]
+\caption{Trajectory Generation Algorithm (Vertical Sections)}
+\label{alg:trajv}
+\begin{algorithmic}[1]
+\algnotext{EndFor}
+\begin{raggedright}
+\Function{generate}{\var{cloud_in}, \var{cloud_surface}}
+\State Extract intersection between horizontal plane (at \var{mid_height}) and \var{cloud_in}
+\State Sort extracted line (at \var{chunk_radius} downsampling)
+\For{$ ctr:=1 $ \textbf{to} Size of sorted line}
+\State Extract intersection between vertical plane (passing through robot centre and \var{ctr} point of sorted line) and \var{cloud_in}
+\State Sort extracted line (at \var{downsample_radius} downsampling)
+\State Add extracted line to \var{rib_array}
+\EndFor
+\State \var{height} = 0
+\While{\var{height} < (\var{wall_height} \textbf{and} max height of \var{cloud_in})}
+\For{$ ctr:=1 $ \textbf{to} Size of \var{rib_array}}
+\State Select point at \var{height} in rib \var{ctr} of \var{rib_array}
+\State Calculate point normal, apply offset, and add point to \var{arm_trajectory}
+\EndFor
+\State Increment \var{height} by \var{height_step}
+\If{\var{height} > (\var{wall_height} \textbf{or} max height of \var{cloud_in})}
+\State Break while loop
+\EndIf
+\For{$ ctr:=$ Size of \var{rib_array} \textbf{to} $1$}
+\State Select point at \var{height} in rib \var{ctr} of \var{rib_array}
+\State Calculate point normal, apply offset, and add point to \var{arm_trajectory}
+\EndFor
+\State Increment \var{height} by \var{height_step}
+\EndWhile
+\EndFunction\\
+\Return \var{arm_trajectory}
+\end{raggedright}
+\end{algorithmic}
+\end{algorithm}
+\begin{spacing}{0.8}
+\begin{algorithm}[H]
+\caption{Trajectory Generation Algorithm (Horizontal Sections)}
+\label{alg:trajh}
+\begin{algorithmic}[1]
+\algnotext{EndFor}
+\begin{raggedright}
+\Function{generate}{\var{cloud_in}, \var{cloud_surface}}
+\State Extract intersection between vertical plane (through robot's X-axis) and \var{cloud_in}
+\If{No intersection exists}
+\State Extract intersection between vertical plane (through robot's Y-axis) and \var{cloud_in}
+\EndIf
+\If{No intersection exists}
+\State Extract intersection between vertical plane (parallel with robot's X-axis, but intersecting
+\EndIf nearest point in \var{cloud_in}) and \var{cloud_in}
+\State Sort extracted line (at \var{chunk_radius} downsampling)
+\For{$ ctr:=1 $ \textbf{to} Size of sorted line}
+\State Rotate a horizontal plane around robot's Y-axis (or X-axis) to intersect with point \var{ctr} of sorted line
+\State Extract intersection between rotated plane and \var{cloud_in}
+\State Sort extracted line (at \var{downsample_radius} downsampling)
+\State Add extracted line to \var{rib_array}
+\EndFor
+\State \var{height} = \var{wall_height}
+\While{\var{height} < max height of \var{cloud_in} (measured along the surface)}
+\For{$ ctr:=1 $ \textbf{to} Size of \var{rib_array}}
+\State Select point at \var{height} in rib \var{ctr} of \var{rib_array}
+\State Calculate point normal, apply offset, and add point to \var{arm_trajectory}
+\EndFor
+\State Increment \var{height} by \var{height_step}
+\If{\var{height} > max height of \var{cloud_in} (measured along the surface)}
+\State Break while loop
+\EndIf
+\For{$ ctr:=$ Size of \var{rib_array} \textbf{to} $1$}
+\State Select point at \var{height} in rib \var{ctr} of \var{rib_array}
+\State Calculate point normal, apply offset, and add point to \var{arm_trajectory}
+\EndFor
+\State Increment \var{height} by \var{height_step}
+\EndWhile
+\EndFunction\\
+\Return \var{arm_trajectory}
+\end{raggedright}
+\end{algorithmic}
+\end{algorithm}
+\end{spacing}
+\subsection{Thickness Estimation Service}
+
+The thickness estimation service is fairly simple and straightforward. For each point in the source cloud the nearest neighbour is found in the target cloud. The intensity value of that data point is replaced with the value of the distance to the nearest neighbour. The service automatically saves the calculated pointcloud to a file. For the most accurate results, its best to choose the pointcloud with the highest point density as the target cloud.\\
+
+The algorithm for calculating shotcrete thickness is:
+
+\begin{algorithm}[H]
+\caption{Thickness Estimation Algorithm}
+\label{alg:thick}
+\begin{algorithmic}[1]
+\algnotext{EndFor}
+\begin{raggedright}
+\Function{calculate}{\var{cloud_source}, \var{cloud_target}}
+\ForAll{Points in \var{cloud_source}}
+\State Find nearest point in \var{cloud_target}
+\State Calculate distance between points
+\State Replace point's intensity value with absolute distance measured
+\EndFor
+\State Save pointcloud to disk
+\EndFunction\\
+\Return Pointcloud with thickness values
+\end{raggedright}
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Map Reset Service}
+\includecode{CleanedCode/srv/empty.srv}{empty.srv}
+The Hector SLAM package does not have the functionality to halt the mapping process. It also does not support 3D mapping so it will not take in to account the position of the LIDAR's nodding head. This means that when the nodding head moves to generate a pointcloud, the SLAM algorithm will attempt to interpret the new laser scan data as robot motion, most often ending up distorting the map and losing it's position. For this reason, the map must be reset after every pointcloud scan. The Hector SLAM package can reset the map upon receiving an empty service call on the ``move\_base\/clear\_costmaps'' topic, so ``empty.srv'' was generated to perform such actions.\\
+
+
+\section{Configuration Files}
+\section{URDF}
+\section{Header Files}
+\section{Source Files}
+\label{sec:meat}
+\section{External Packages and Libraries}
+\label{sec:extpkg}
+\includecodelines[pythonstyle]{CleanedCode/CMakeLists.txt}{CMakeLists.txt}{7-36}

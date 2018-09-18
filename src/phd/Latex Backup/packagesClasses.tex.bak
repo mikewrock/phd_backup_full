@@ -1,0 +1,84 @@
+\documentclass[12pt]{uoitthesis}
+\usepackage{setspace}
+\usepackage{texshade}
+\usepackage[chapter]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{notoccite}
+\usepackage{cite}
+\usepackage{array}
+\usepackage{keyval}
+\usepackage{chngpage}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{footmisc}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{subfigure}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{nomencl}
+\usepackage{setspace}
+\usepackage{pdfpages}
+\usepackage{rotating}
+\usepackage{bigstrut}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{pdflscape} % Needed to change some pages to landscape
+\usepackage[T1]{fontenc}
+\usepackage{textcomp} % Needed to get some symbols
+\usepackage{eqnarray} % Needed to organize equations
+\usepackage{tabularx} % See if that fixes tables
+\usepackage[hidelinks]{hyperref}
+\usepackage{siunitx}
+\sisetup{group-digits = true}
+\sisetup{group-minimum-digits = 4}
+\sisetup{group-separator = {,}}
+
+\usepackage{acronym} % Loads chemical equation module... use \ce{UO2} in text
+\usepackage[version=3]{mhchem} % Handle abbreviations
+\usepackage{url} % Needed for url field
+\usepackage{sidecap} % Needed for SCfigures - side captions
+\usepackage{wrapfig} % Needed for wrapped text figures
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor} % Needed for coloured text
+\usepackage{enumitem} % for lists with no spacing
+\usepackage{longtable} % Needed for tables spanning more than one page
+\usepackage{ltablex}
+\usepackage{gensymb}
+%\usepackage{colortbl} % coloured cells in tables
+% LongTable PDF Package Documentation: ftp://ftp.tex.ac.uk/tex-archive/macros/latex/required/tools/longtable.pdf 
+% Tutorial with examples can be found here: http://users.sdsc.edu/~ssmallen/latex/longtable.html
+\usepackage{courier} % Used for inline code font
+
+
+\setlength{\LTcapwidth}{6in}
+
+
+   \makeatletter
+    \def\thebibliography#1{\chapter*{References\@mkboth
+      {REFERENCES}{REFERENCES}}\list
+      {[\arabic{enumi}]}{\settowidth\labelwidth{[#1]}\leftmargin\labelwidth
+	\advance\leftmargin\labelsep
+	\usecounter{enumi}}
+	\def\newblock{\hskip .11em plus .33em minus .07em}
+	\sloppy\clubpenalty4000\widowpenalty4000
+	\sfcode`\.=1000\relax}
+	\def\lst@MSkipToFirst{%
+    \global\advance\lst@lineno\@ne
+    \ifnum \lst@lineno=\lst@firstline
+        \def\lst@next{\lst@LeaveMode \global\lst@newlines\z@
+        \lst@OnceAtEOL \global\let\lst@OnceAtEOL\@empty
+        \ifnum \c@lstnumber>0
+            \vspace{2 mm}
+        \fi
+        \lst@InitLstNumber % Added to work with modified \lsthk@PreInit.
+        \lsthk@InitVarsBOL
+        \c@lstnumber=\numexpr-1+\lst@lineno % this enforces the displayed line numbers to always be the input line numbers
+        \lst@BOLGobble}%
+        \expandafter\lst@next
+    \fi}
+    \makeatother
+    
+    

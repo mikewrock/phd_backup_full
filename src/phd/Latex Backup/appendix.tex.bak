@@ -1,0 +1,25 @@
+\appendix
+
+\chapter{Complete Source Code}
+\label{app:code}
+\section{Cmakelists}
+\label{app:cmake}
+\section{Code Snippets}
+\label{app:snips}
+\subsection{Transformation Matrix Calculation}
+\label{app:tmat}
+
+\includecodelines{CleanedCode/src/pointcloud_localization_service.cpp}{pointcloud\_localization\_service.cpp}{342-367}
+\section{Nodes}
+\includecode{/home/mike/catkin_ws/src/phd/src/control_panel.cpp}{control\_panel.cpp}
+\section{Services}
+\includecode{/home/mike/catkin_ws/src/phd/src/pointcloud_localization_service.cpp}{pointcloud\_localization\_service.cpp}
+\includecode{/home/mike/catkin_ws/src/phd/src/simple_trajectory_service.cpp}{simple\_trajectory\_service.cpp}
+\includecode{/home/mike/catkin_ws/src/phd/src/thickness_service.cpp}{thickness\_service.cpp}
+\section{Launch Files}
+\label{app:launch}
+\includecode[xmlstyle]{CleanedCode/launch/main.launch}{main.launch}
+\chapter{DENSO Documentation}
+\section{Table of Shoulder, Elbow, and Wrist Figures}
+\label{sec:fig}
+\includepdf[pages=288]{Appendix/setting-e.pdf}

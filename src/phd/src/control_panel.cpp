@@ -647,9 +647,10 @@ phd::arm_msg move_to_workspace(phd::trajectory_point t_point){
 	return msg;
 }
 //Function used to step through the trajectory points, traj_ctr tells the arm which trajectory point to go to and sim says whether to simulate movement or actually move the arm
-phd::arm_msg QNode::step(int traj_ctr,bool sim, float fig){
+phd::trajectory_point QNode::step(int traj_ctr,bool sim, float fig){
 	//Generate and arm_msg and populate it with the current point in the trajectory array
 	phd::arm_msg msg;
+	phd::trajectory_point t_msg;
 	geometry_msgs::Point p;	
 	float P_OFFSET;
 	ros::param::get("/global_offset", P_OFFSET);
@@ -700,7 +701,10 @@ phd::arm_msg QNode::step(int traj_ctr,bool sim, float fig){
 	msg.rx =  (msg.rx* (180.0/3.141592653589793238463));
 	msg.ry =  (msg.ry* (180.0/3.141592653589793238463));
 	msg.rz = (msg.rz* (180.0/3.141592653589793238463));
-	ROS_INFO("ARM POSE %f %f %f",msg.rx,msg.ry,msg.rz);
+	ROS_INFO("ARM POSE %f %f %f %f %f %f",msg.x,msg.y,msg.z,msg.rx,msg.ry,msg.rz);
+	t_msg.x = msg.x;
+	t_msg.y = msg.y;
+	t_msg.z = msg.z;
 	//only send the arm command if sim is not true
 	if(!sim){
 		//Send the command to the arm
@@ -732,7 +736,7 @@ phd::arm_msg QNode::step(int traj_ctr,bool sim, float fig){
 	arm_pose_pub.publish(armpoint_list);
 	ros::spinOnce();
 
-	return msg;
+	return t_msg;
 }
 //Calculates the thickness between the two clouds previously set, saving the result to "filename"
 void QNode::calculate_thickness(std::string filename){
@@ -1607,7 +1611,7 @@ void  QNode::find_and_move(bool marker){
 	minPoint[0]=-100;//-.01;  // define minimum point x 
 	minPoint[1]=cropMinY;//-.01;  // define minimum point y 
 	minPoint[2]=0;//-0.01;  // define minimum point z 
-	maxPoint[0]=cropMaxX+0.5;//.0075;  // define max point x 
+	maxPoint[0]=cropMaxX+1.5;//.0075;  // define max point x 
 	maxPoint[1]=cropMaxY;//.01;  // define max point y 
 	maxPoint[2]=10;//.014;  // define max point z 
 	cropFilter.setInputCloud (unsorted.makeShared()); 

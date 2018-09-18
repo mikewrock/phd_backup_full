@@ -104,22 +104,15 @@ int fig;
 		dnt[0] = msg->vel; //Velocity
 		dnt[1] = 100.0; //Acceleration
 		dnt[2] = 100.0; //Decceleration
-		ROS_INFO("Setting speed to %f",msg->vel);
 		VARIANT vntS; //Holds the desired speed values
 		vntS.vt = (VT_R4 | VT_ARRAY);
 		vntS.parray = SafeArrayCreateVector(VT_R4, 0, 1);
 		SafeArrayAccessData(vntS.parray, (void**)&pdArray);
 		memcpy(pdArray, dnt, sizeof(dnt));
 		SafeArrayUnaccessData(vntS.parray);
-		ROS_INFO("Setting speed to %f",msg->vel);
 		hr = bCap_RobotExecute(fd, hRobot, bstrCommand, vntS, &vSpd);
-		ROS_INFO("Setting speed to %f",msg->vel);
 		SysFreeString(bstrCommand);
-		ROS_INFO("Setting speed to %f",msg->vel);
 		VariantClear(&vntS);
-		ROS_INFO("Setting speed to %f",msg->vel);
-		VariantClear(&vSpd);
-		ROS_INFO("Setting speed to %f",msg->vel);
 		if FAILED(hr){
 		ROS_INFO("Ext Speed not set %x\n", hr);
 		}
@@ -217,7 +210,7 @@ int main(int argc, char **argv)
 		ros::spinOnce();
 		//If a command is received
 		if(move_flag){      
-
+			ROS_INFO("Move cmd %s", buffer);
 			move_flag = false; //Reset move flag
 			//if(DEBUG) ROS_INFO("Moving to: %s",buffer);
 			//Copy contents of buffer to our wide char array for the variant to hold
@@ -234,7 +227,7 @@ int main(int argc, char **argv)
 			SysFreeString(bstrCommand); //free the bstring from memory
 			VariantClear(&vntParam); //clear the variant
 			if (FAILED(hr)){
-				ROS_ERROR("Move command failed %x",hr);
+				ROS_ERROR("Move command failed %x, %s",hr, buffer);
 				  	hr = bCap_VariableGetValue(fd, hErr, &vntErr);
 				  	if(DEBUG) ROS_INFO("Errors %x", vntErr.lVal);
 				  	int eStatus = vntErr.lVal;

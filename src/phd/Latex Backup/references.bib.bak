@@ -1,0 +1,175 @@
+@article{spraypat,
+abstract = {Impact kinetic energy is well known to play a central and key role on rebound and consolidation mechanisms controlling the shotcrete placement process. While the impact velocity of the traveling particles at their exit of the nozzle has received some attention recently, the mass flow distribution of the sprayed material as it impacts the receiving surface remains unexplored despite its obvious importance on rebound. In this context, a novel apparatus that collects the sprayed material traveling out of the nozzle was developed; material spatial distribution and composition are brought forward. The incident mass flow of material was found to be denser in the central region around the spray axis and decrease toward the peripheral regions following a Gaussian-type function. Additionally, a cement-rich layer formed in the spray's peripheral zones is also revealed and its origins are discussed. In light of this work, an innovative and unique analytical characterization tool is proposed to further investigate the spraying process and to improve the understanding of shotcrete, and especially material losses through rebound.},
+author = {Ginouse, Nicolas and Jolin, Marc},
+doi = {10.1016/j.conbuildmat.2015.05.061},
+file = {:home/mike/Desktop/paper/unread/round2/Investigation of spray pattern in shotcrete applications.pdf:pdf},
+isbn = {0950-0618},
+issn = {09500618},
+journal = {Construction and Building Materials},
+keywords = {Nozzle,Pumping,Rebound,Shotcrete,Spray distribution,Sprayed concrete,Spraying process},
+pages = {966--972},
+publisher = {Elsevier Ltd},
+title = {{Investigation of spray pattern in shotcrete applications}},
+url = {http://dx.doi.org/10.1016/j.conbuildmat.2015.05.061},
+volume = {93},
+year = {2015}
+}
+
+@article{wwarp,
+abstract = {This paper presents a novel approach - WireWarping for computing a flattened planar piece with length-preserved feature curves from a 3D piecewise linear surface patch. The property of length-preservation on feature curves is very important to industrial applications for controlling the shape and dimension of products fabricated from planar pieces. WireWarping simulates warping a given 3D surface patch onto plane with the feature curves as tendon wires to preserve the length of their edges. During warping, the surface-angle variations between edges on wires are minimized so that the shape of a planar piece is similar to its corresponding 3D patch. Two schemes - the progressive warping and the global warping schemes are developed, where the progressive scheme is flexible for local shape control and the global scheme gives good performance on highly distorted patches. Experimental results show that WireWarping can successfully flatten surface patches into planar pieces while preserving the length of edges on feature curves. {\textcopyright} 2007 Elsevier Ltd. All rights reserved.},
+author = {Wang, Charlie C.L.},
+doi = {10.1016/j.cad.2007.11.011},
+file = {:home/mike/Desktop/paper/unread/round2/WireWarping$\backslash$: a Fast Surface Flattening Approach with.pdf:pdf},
+isbn = {0010-4485},
+issn = {00104485},
+journal = {CAD Computer Aided Design},
+keywords = {Feature curves,Freeform mesh surfaces,Length preserved,Sheet manufacturing industry,Surface flattening},
+number = {3},
+pages = {381--395},
+title = {{WireWarping: A fast surface flattening approach with length-preserved feature curves}},
+volume = {40},
+year = {2008}
+}
+@article{wwarpp,
+abstract = {Surface flattening has numerous applications in sheet manufacturing industries, such as garment industry, shoe industry, toy industry, furniture industry and ship industry. Motivated by the requirements of those industries,WireWarping approach presented in [1] is exploited to generate 2D patterns with invariant length of feature and boundary curves. However, strict length constraints on all feature curves sometimes cause large distortions on 2D patterns, especially for those 3D surfaces which are highly non-developable. In this paper, we present a flexible and robust extension of WireWarping by introducing a new type of feature curves named elastic feature, which brings flexibility to shape control of the resultant 2D patterns. On these new feature curves, instead of strictly preserving the exact lengths, only the ranges of their lengths are controlled. To achieve this function, a multi-loop shape control optimization framework is proposed to find the optimized 2D shape among all possible flattening results with different length variations on those elastic feature curves, while the lengths of other feature curves are kept unchanged. Besides, we also present a topology processing algorithm on the network of feature curves to eliminate cases that lead to numerical singularity. Experimental results show that the WireWarping++ can successfully flatten surface patches into 2D patterns with more flexible shape control and more robust numerical performance.},
+author = {Zhang, Yunbo and Wang, C. C L},
+doi = {10.1109/TASE.2010.2051665},
+file = {:home/mike/Desktop/paper/unread/round2/WireWarping++$\backslash$: robust and flexible surface flattening with length control.pdf:pdf},
+issn = {15455955},
+journal = {IEEE Transactions on Automation Science and Engineering},
+keywords = {feature curves,length control,multiloop optimization,shape optimization,surface flattening},
+number = {1},
+pages = {205--215},
+title = {{WireWarping++: Robust and flexible surface flattening with length control}},
+volume = {8},
+year = {2011}
+}
+@article{toward,
+abstract = {In many industries, products are constructed by assembled surface patches in ℜ3, where each patch is expected to have an isometric map to a corresponding region in ℜ2. The widely investigated developable surfaces in differential geometry show this property. However, the method to model a piecewise-linear surface with this characteristic is still under research. To distinguish from the continuous developable surface, we name them as flattenable mesh surfaces since a polygonal mesh has the isometric mapping property if it can be flattened into a two-dimensional sheet without stretching. In this paper, a novel flattenable mesh surface (Flattenable Laplacian mesh) is introduced and the relevant modelling tool is formulated. Moreover, for a given triangular mesh which is almost flattenable, a local perturbation approach is developed to improve its flattenability. The interference between the meshes under process and their nearby objects has been prevented in this local flattenable perturbation. Both the computations of Flattenable Laplacian meshes and the flattenable perturbation are based on the constrained optimization technology. {\textcopyright} 2007 Elsevier Ltd. All rights reserved.},
+author = {Wang, Charlie C L},
+doi = {10.1016/j.cad.2007.06.001},
+file = {:home/mike/Desktop/paper/unread/round2/Towards flattenable mesh surfaces.pdf:pdf},
+isbn = {00104485},
+issn = {00104485},
+journal = {CAD Computer Aided Design},
+keywords = {Constrained optimization,Flattenable,Freeform mesh surfaces,Geometry processing,Nonlinear subdivision},
+number = {1},
+pages = {109--122},
+title = {{Towards flattenable mesh surfaces}},
+volume = {40},
+year = {2008}
+}
+
+@article{parameet,
+abstract = {Parameterization of triangulated surface meshes is a crucial problem in computer graphics, computer aided geometric design and digital geometric processing. This paper addresses the problem of planar parameterization, i.e., mapping a given triangulated surface onto a planar domain. We construct an optimized algorithm for parameterization of genus-zero meshes and aim to minimize the distortion of the parameterization. An energy functional is proposed in the paper, that quantities angle and area distortions simultaneously, while the relative importance between angle and area preservation can be controlled by the user through a parameter. The method is based on an iterative procedure that incrementally flattens mesh by growing region to obtain a parameterization result with free boundary. The result is then converted to a parameterization with regular boundary by conformal mapping. Application of the method to texture mapping is presented. Experiments show that the proposed method can obtain better results than some common parameterization methods.},
+author = {Xue, Junxiao and Li, Qingbin and Liu, Chengming and Xu, Mingliang},
+doi = {10.1016/j.jvlc.2018.01.002},
+file = {:home/mike/Desktop/paper/unread/round2/Parameterization of triangulated surface meshes based on constraints of distortion energy optimization.pdf:pdf},
+issn = {1045926X},
+journal = {Journal of Visual Languages and Computing},
+keywords = {Conformal mapping,Parameterization,Triangular mesh},
+pages = {53--62},
+publisher = {Elsevier Ltd},
+title = {{Parameterization of triangulated surface meshes based on constraints of distortion energy optimization}},
+url = {https://doi.org/10.1016/j.jvlc.2018.01.002},
+volume = {46},
+year = {2018}
+}
+
+@article{overflat,
+author = {Li, Shengpeng},
+doi = {10.12733/jics20103843},
+file = {:home/mike/Desktop/paper/unread/round2/An Overview of Flattening Methods for Complex Surface.pdf:pdf},
+issn = {15487741},
+journal = {Journal of Information and Computational Science},
+keywords = {flattening,geometry,geometry flattening,measurement of accuracy,mechanics flattening,mechanics revision,surface flattening},
+number = {1},
+pages = {323--333},
+title = {{An Overview of Flattening Methods for Complex Surface}},
+url = {http://www.joics.com/publishedpapers/2014{\_}11{\_}1{\_}323{\_}333.pdf},
+volume = {11},
+year = {2014}
+}
+
+@article{steal,
+abstract = {This paper summarizes the development of the technologies used to produce high quality sprayed concrete layers by robotizing a commercial shotcreting machine and automating the process used in the tunnelling construction industry. The proposed method provides the control system with the information of the properties of the pumping process, controlling the quality of the concrete layer by adjusting in real-Time the trajectory of the shotcreting machine. Given the unstructured nature of the tunnelling construction method there is an inherent difficulty in the automation of the shotcreting process. A complete description of the implemented control architecture of the shotcreting machine, the automated shotcreting process, the real-Time quality layer prediction and the analysis of the tests made in real sites are shown in this paper.},
+author = {Nabulsi, Samir and Salas, Margarita and Madrid, Legan{\'{e}}s},
+file = {:home/mike/Desktop/paper/unread/round2/Robotic machine for high-quality shotcreting process.pdf:pdf},
+isbn = {9783800732739},
+pages = {1137--1144},
+title = {{Robotic Machine for High-Quality Shotcreting Process}},
+year = {2010}
+}
+
+@misc{artd,
+author = {Rodrigez, Angel J. and Rio, Olga},
+booktitle = {ECCOMAS Thematic Conference on Computational Methods in Tunnelling},
+file = {:home/mike/Desktop/paper/unread/round2/Analysis of real time techincal data obtained while shotcreting an approach towards automation.pdf.pdf:pdf},
+title = {{Analysis of real time techincal data obtained while shotcreting an approach towards automation}},
+year = {2007}
+}
+
+@article{woven,
+annote = {Special Issue: Mathematical methods for CAD},
+author = {Aono, M and Breen, D E and Wozny, M J},
+doi = {https://doi.org/10.1016/0010-4485(94)90074-4},
+issn = {0010-4485},
+journal = {Computer-Aided Design},
+keywords = { composites, mapping,cloth modelling},
+number = {4},
+pages = {278--292},
+title = {{Fitting a woven-cloth model to a curved surface: mapping algorithms}},
+url = {http://www.sciencedirect.com/science/article/pii/0010448594900744},
+volume = {26},
+year = {1994}
+}
+
+@article{freef,
+abstract = {This paper presents a robust and efficient surface flattening approach based on fitting a woven-like mesh model on a 3D freeform surface. The fitting algorithm is based on tendon node mapping (TNM) and diagonal node mapping (DNM), where TNM determines the position of a new node on the surface along the warp or weft direction and DNM locates a node along the diagonal direction. During the 3D fitting process, strain energy of the woven model is released by a diffusion process that minimizes the deformation between the resultant 2D pattern and the given surface. Nodes mapping and movement in the proposed approach are based on the discrete geodesic curve generation algorithm, so no parametric surface or pre-parameterization is required. After fitting the woven model onto the given surface, a continuous planar coordinate mapping is established between the 3D surface and its counterpart in the plane, based on the idea of geodesic interpolation of the mappings of the nodes in the woven model. The proposed approach accommodates surfaces with darts, which are commonly utilized in clothing industry to reduce the stretch of surface forming and flattening. Both isotropic and anisotropic materials are supported. {\textcopyright} 2005 Elsevier Ltd. All rights reserved.},
+author = {Wang, Charlie C.L. and Tang, Kai and Yeung, Benjamin M.L.},
+doi = {10.1016/j.cad.2004.09.009},
+file = {:home/mike/Desktop/paper/unread/round2/Freeform surface flattening based on fitting a woven mesh model.pdf:pdf},
+isbn = {00104485},
+issn = {00104485},
+journal = {CAD Computer Aided Design},
+keywords = {3D fitting,Freeform surface,Strain energy,Surface flattening,Woven material},
+number = {8},
+pages = {799--814},
+title = {{Freeform surface flattening based on fitting a woven mesh model}},
+volume = {37},
+year = {2005}
+}
+
+@article{fully,
+abstract = {Optimized shotcrete application techniques are required in particular tunneling projects. Today, any spraying can be done by hand or by manipulator. With the development in the material technologies, the range of possible operation was enlarged. With automation of the application, an important contribution to improve performance and quality and to reduce rebound may be achieved. At the Swiss Federal Institute of Technology, Zurich, systematic research is done to develop the fully automated process control, focusing on the wet shotcrete method. With the development of the fully automated shotcrete robot, the user will have a very effective tool at his or her disposal to spray concrete shells (fully automated). With the new robot, the user may choose from three different modes: manual, semiautomated, and fully automated spraying. Especially the fully automated mode facilitates higher performance with less danger to the worker's health. Quality control is inherent in the application process in regard to layer thickness, compaction, and homogeneity.},
+author = {Girmscheid, G. and Moser, S.},
+doi = {10.1111/0885-9507.00226},
+file = {:home/mike/Desktop/paper/unread/Fully automated shotcrete robot.pdf:pdf},
+isbn = {1467-8667},
+issn = {10939687},
+journal = {Computer-Aided Civil and Infrastructure Engineering},
+number = {3},
+pages = {200--215},
+title = {{Fully automated shotcrete robot for rock support}},
+volume = {16},
+year = {2001}
+}
+
+@inproceedings{rosfirst,
+  title={ROS: an open-source Robot Operating System},
+  author={Quigley, Morgan and Faust, Josh and Foote, Tully and Leibs, Jeremy}
+}
+@online{rosmovebase,
+  author = {ROS.org},
+  title = {ROS Move Base Wiki Page},
+  year = 2018,
+  url = {http://wiki.ros.org/move_base},
+  urldate = {2018-07-16}
+}
+@online{spraypaint,
+  author = {Albedo100},
+  title = {Albedo100 Light Metallic Reflective Spray},
+  year = 2018,
+  url = {http://www.albedo100.co.uk/albedo100-reflective-spray-light-metallic/},
+  urldate = {2018-06-19}
+}

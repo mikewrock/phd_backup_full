@@ -1,0 +1,133 @@
+\include{packagesClasses}
+\include{studentInfo}
+
+%% Helps generate the nomenclature
+\newcommand*{\glossaryname}{Glossary}
+\usepackage[nonumberlist,toc]{glossaries}
+\input{nomenclature.tex}
+\makeglossaries
+
+%% make dots on all table of contents
+%\usepackage{tocloft}
+%\renewcommand{\cftpartleader}{\cftdontfill{\cftdotsep}} % for parts
+%\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}} % for chapters
+
+%  \newcommand{name}[num][default]{definition}
+
+ % \newcommand{\node}[1]{\texttt{\detokenize{#1}}}
+  \newcommand{\node}[1]{
+   \path{#1}
+  }
+  \newcommand{\var}[1]{
+   \textit{\detokenize{#1}}
+  }
+  \newcommand{\cpnode}{\node{control\_panel}}
+  \lstdefinestyle{mystyle}{
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=true,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=t,                    % sets the caption-position to bottom
+  commentstyle=\color{Mahogany},    % comment style
+  frame=single,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style  % the language of the code
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{black!50}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{JungleGreen},     % string literal style
+  tabsize=2,	                         % show the filename of files included with \lstinputlisting; also try caption instead of title
+  upquote=true,                 % the language of the code
+  morekeywords={*,Header,Eigen,Vector3f,uint32,float64,int32,float32,uint16,bool,find_package,generate_dynamic_reconfigure_options,
+  add_message_files,add_service_files,add_executable,target_link_libraries,set_target_properties,
+  add_dependencies,find_package,string},  
+  backgroundcolor=\color{black!5}
+  }
+  \lstdefinestyle{C++style}{
+  language = C++,
+  style = mystyle
+  }
+  \lstdefinestyle{xmlstyle}{
+  language = XML,
+  style = mystyle
+  }
+  \lstdefinestyle{pythonstyle}{
+  language = python,
+  style = mystyle
+  }
+  \newcommand{\includecode}[3][C++style]{\lstinputlisting[
+  style=#1,
+  caption=#3,
+  ]{#2}}
+  \newcommand{\includecodelines}[4][C++style]{\lstinputlisting[
+  style=#1,
+  caption=#3 (lines {#4}),
+  linerange={#4},
+  ]{#2}}
+  
+\newcommand{\tabitem}{\textbullet~~}
+  %\lstset{rangeprefix=@@@,rangesuffix=@@@,includerangemarker=false}
+  \renewcommand{\lstlistingname}{ROS File}% Listing -> Algorithm
+\renewcommand{\lstlistlistingname}{List of \lstlistingname s}% List of Listings -> List of Algorithms
+\begin{document}
+
+  \uoittitlepage
+
+  \setcounter{secnumdepth}{3} \setcounter{tocdepth}{3}
+  \pagenumbering{roman} \setcounter{page}{1}
+  \doublespacing
+
+  \include{abstract}
+  \include{acknowledgements}
+
+  %%-----------Table of Contents----------------------
+  \renewcommand{\contentsname}{Table of Contents}
+  \tableofcontents{}
+  \addcontentsline{toc}{chapter}{Table of Contents}
+  %%------------List of Tables------------------------
+  \listoftables{}
+  \addcontentsline{toc}{chapter}{List of Tables}
+  %%------------List of Figures-----------------------
+  \listoffigures{}
+  \addcontentsline{toc}{chapter}{List of Figures}
+  \printglossary[style=list]
+  \glsaddall
+  
+  %%------------List of CODE-----------------------
+  \lstlistoflistings
+  \addcontentsline{toc}{chapter}{List of ROS Files}
+  %%------------List of Algorithms-----------------------
+  \listofalgorithms
+  \addcontentsline{toc}{chapter}{List of Algorithms}
+  %%------------Dedication----------------------------
+  \include{dedication}
+
+  %%-------------Change single space to double space--
+  \newpage
+  \doublespacing
+  \pagenumbering{arabic} \setcounter{page}{1}
+
+  %%-------------Include your chapters----------------
+  %% You can rename the files.
+  \include{introduction}
+  \include{background}
+  \include{localization}
+  \include{trajectory}
+  \include{thickness}
+  \include{overview}
+  \include{code}
+  \include{testing}
+  \include{results}
+  \include{conclusions}
+
+  \bibliographystyle{IEEEtran}
+  \bibliography{references}
+
+  \include{appendix}
+  
+ 
+\end{document}

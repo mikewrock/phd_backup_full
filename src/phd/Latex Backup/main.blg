@@ -1,0 +1,78 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: main.aux
+A level-1 auxiliary file: abstract.aux
+A level-1 auxiliary file: acknowledgements.aux
+A level-1 auxiliary file: dedication.aux
+A level-1 auxiliary file: introduction.aux
+A level-1 auxiliary file: background.aux
+A level-1 auxiliary file: localization.aux
+A level-1 auxiliary file: trajectory.aux
+A level-1 auxiliary file: thickness.aux
+A level-1 auxiliary file: overview.aux
+A level-1 auxiliary file: code.aux
+A level-1 auxiliary file: testing.aux
+A level-1 auxiliary file: results.aux
+A level-1 auxiliary file: conclusions.aux
+The style file: IEEEtran.bst
+A level-1 auxiliary file: appendix.aux
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: references.bib
+Warning--I didn't find a database entry for "http://download.ros.org/downloads/metrics/metrics-report-2017-07.pdf"
+Warning--I didn't find a database entry for "checkthebookmarsbar"
+Warning--I didn't find a database entry for "bookbaredge"
+Warning--I didn't find a database entry for "theotherone"
+-- IEEEtran.bst version 1.13 (2008/09/30) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+Warning--empty booktitle in rosfirst
+Warning--empty year in rosfirst
+Warning--empty journal in steal
+
+Done.
+You've used 14 entries,
+            4039 wiz_defined-function locations,
+            912 strings with 9746 characters,
+and the built_in function-call counts, 10563 in all, are:
+= -- 903
+> -- 209
+< -- 106
++ -- 120
+- -- 30
+* -- 512
+:= -- 1651
+add.period$ -- 28
+call.type$ -- 14
+change.case$ -- 14
+chr.to.int$ -- 240
+cite$ -- 17
+duplicate$ -- 731
+empty$ -- 771
+format.name$ -- 39
+if$ -- 2385
+int.to.chr$ -- 0
+int.to.str$ -- 14
+missing$ -- 117
+newline$ -- 77
+num.names$ -- 14
+pop$ -- 252
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 2
+skip$ -- 824
+stack$ -- 0
+substring$ -- 572
+swap$ -- 630
+text.length$ -- 26
+text.prefix$ -- 0
+top$ -- 5
+type$ -- 14
+warning$ -- 3
+while$ -- 54
+width$ -- 16
+write$ -- 172
+(There were 7 warnings)

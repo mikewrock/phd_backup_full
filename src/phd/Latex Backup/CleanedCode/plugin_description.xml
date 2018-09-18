@@ -1,0 +1,18 @@
+<library path="lib/libphd">
+  <class name="control_panel/Control Panel"
+         type="control_panel::ControlPanel"
+         base_class_type="rviz::Panel">
+    <description>
+      The user interface for the wrock PhD package
+    </description>
+  </class>
+  <class name="rviz_plugin_marker_selector/Selection Tool"
+         type="rviz_plugin_marker_selector::marker_selector"
+         base_class_type="rviz::Tool">
+    <description>
+      Fork of the rviz::SelectionTool:
+      Drag with the left button to select objects in the 3D scene.
+      Hold the Alt key to change viewpoint as in the Move tool.
+    </description>
+  </class>
+</library>

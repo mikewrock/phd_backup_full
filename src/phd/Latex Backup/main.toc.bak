@@ -1,0 +1,126 @@
+\contentsline {chapter}{Abstract}{ii}{Doc-Start}
+\contentsline {chapter}{Acknowledgements}{iii}{chapter*.1}
+\contentsline {chapter}{Table of Contents}{viii}{chapter*.2}
+\contentsline {chapter}{List of Tables}{ix}{chapter*.3}
+\contentsline {chapter}{List of Figures}{xi}{chapter*.4}
+\contentsline {chapter}{List of ROS Files}{xiii}{chapter*.5}
+\contentsline {chapter}{List of Algorithms}{xiv}{chapter*.6}
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Underground Uranium Mining}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Problem Statement}{1}{section.1.2}
+\contentsline {section}{\numberline {1.3}Scope}{1}{section.1.3}
+\contentsline {section}{\numberline {1.4}Summary of Contributions}{1}{section.1.4}
+\contentsline {section}{\numberline {1.5}Thesis Outline}{1}{section.1.5}
+\contentsline {chapter}{\numberline {2}Background}{2}{chapter.2}
+\contentsline {section}{\numberline {2.1}Literature Review}{2}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Robot Localization}{2}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Trajectory Generation}{2}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}Thickness Estimation}{2}{subsection.2.1.3}
+\contentsline {section}{\numberline {2.2}ROS: The Robot Operating System}{2}{section.2.2}
+\contentsline {chapter}{\numberline {3}Robot Localization}{7}{chapter.3}
+\contentsline {section}{\numberline {3.1}Chapter Overview}{7}{section.3.1}
+\contentsline {section}{\numberline {3.2}Introduction}{7}{section.3.2}
+\contentsline {section}{\numberline {3.3}Localizing the MASSS}{12}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Fiducial Markers}{13}{subsection.3.3.1}
+\contentsline {subsubsection}{\numberline {3.3.1.1}Perceiving the fiducial markers}{14}{subsubsection.3.3.1.1}
+\contentsline {subsubsection}{\numberline {3.3.1.2}Placing the fiducial marker}{14}{subsubsection.3.3.1.2}
+\contentsline {subsubsection}{\numberline {3.3.1.3}Detecting the fiducial marker}{16}{subsubsection.3.3.1.3}
+\contentsline {subsubsection}{\numberline {3.3.1.4}Determining the location of the fiducial marker}{18}{subsubsection.3.3.1.4}
+\contentsline {subsection}{\numberline {3.3.2}Coordinate Frames}{19}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Using multiple markers}{21}{subsection.3.3.3}
+\contentsline {section}{\numberline {3.4}Chapter Summary}{21}{section.3.4}
+\contentsline {chapter}{\numberline {4}Trajectory Generation}{23}{chapter.4}
+\contentsline {section}{\numberline {4.1}Chapter Overview}{23}{section.4.1}
+\contentsline {section}{\numberline {4.2}Requirements of the Trajectory}{23}{section.4.2}
+\contentsline {section}{\numberline {4.3}Techniques for Generating Trajectories}{28}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Flattening}{29}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Microscopic Approach}{29}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Plane Intersections}{30}{subsection.4.3.3}
+\contentsline {subsubsection}{\numberline {4.3.3.1}Measuring Distance Along the Surface}{35}{subsubsection.4.3.3.1}
+\contentsline {section}{\numberline {4.4}Algorithm Used for Trajectory Generation}{39}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Extracting Plane Intersections}{40}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}Sorting Vertical and Horizontal Ribs}{41}{subsection.4.4.2}
+\contentsline {subsection}{\numberline {4.4.3}Selecting Trajectory Points}{43}{subsection.4.4.3}
+\contentsline {chapter}{\numberline {5}Thickness Estimation}{45}{chapter.5}
+\contentsline {section}{\numberline {5.1}Chapter Overview}{45}{section.5.1}
+\contentsline {section}{\numberline {5.2}Requirements of the Estimate}{45}{section.5.2}
+\contentsline {section}{\numberline {5.3}Techniques for Estimating Thickness}{47}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Flattening}{47}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Point-to-Point}{47}{subsection.5.3.2}
+\contentsline {subsection}{\numberline {5.3.3}Point-to-Mesh}{47}{subsection.5.3.3}
+\contentsline {subsection}{\numberline {5.3.4}Mesh-to-Mesh}{47}{subsection.5.3.4}
+\contentsline {section}{\numberline {5.4}Methods Used for Estimating Thickness}{47}{section.5.4}
+\contentsline {chapter}{\numberline {6}Mobile Autonomous Shotcrete and Scanning System Overview}{48}{chapter.6}
+\contentsline {section}{\numberline {6.1}Chapter Overview}{49}{section.6.1}
+\contentsline {section}{\numberline {6.2}Design Process}{49}{section.6.2}
+\contentsline {section}{\numberline {6.3}Hardware}{49}{section.6.3}
+\contentsline {subsection}{\numberline {6.3.1}Husky}{49}{subsection.6.3.1}
+\contentsline {subsection}{\numberline {6.3.2}Husky Peripherals}{49}{subsection.6.3.2}
+\contentsline {subsection}{\numberline {6.3.3}LMS100}{49}{subsection.6.3.3}
+\contentsline {subsection}{\numberline {6.3.4}DENSO}{49}{subsection.6.3.4}
+\contentsline {subsection}{\numberline {6.3.5}Powercube}{49}{subsection.6.3.5}
+\contentsline {section}{\numberline {6.4}Software}{49}{section.6.4}
+\contentsline {subsection}{\numberline {6.4.1}Overview of the Existing ROS Packages used}{49}{subsection.6.4.1}
+\contentsline {subsubsection}{\numberline {6.4.1.1}RVIZ}{49}{subsubsection.6.4.1.1}
+\contentsline {subsubsection}{\numberline {6.4.1.2}Husky}{51}{subsubsection.6.4.1.2}
+\contentsline {paragraph}{husky\_base}{51}{section*.7}
+\contentsline {paragraph}{husky\_bringup}{52}{section*.8}
+\contentsline {paragraph}{husky\_gazebo}{52}{section*.9}
+\contentsline {paragraph}{husky\_viz}{52}{section*.10}
+\contentsline {paragraph}{husky\_control}{52}{section*.11}
+\contentsline {paragraph}{husky\_description}{53}{section*.12}
+\contentsline {paragraph}{husky\_msgs}{53}{section*.13}
+\contentsline {paragraph}{husky\_navigation}{54}{section*.14}
+\contentsline {subsubsection}{\numberline {6.4.1.3}Move Base}{56}{subsubsection.6.4.1.3}
+\contentsline {subsubsection}{\numberline {6.4.1.4}Laser Assembler}{58}{subsubsection.6.4.1.4}
+\contentsline {subsubsection}{\numberline {6.4.1.5}Hector SLAM}{58}{subsubsection.6.4.1.5}
+\contentsline {subsubsection}{\numberline {6.4.1.6}RQT Reconfigure}{59}{subsubsection.6.4.1.6}
+\contentsline {subsection}{\numberline {6.4.2}Overview of the MASSS ROS Package}{60}{subsection.6.4.2}
+\contentsline {chapter}{\numberline {7}Detailed Discussion of Software}{62}{chapter.7}
+\contentsline {section}{\numberline {7.1}Chapter Summary}{62}{section.7.1}
+\contentsline {section}{\numberline {7.2}Package Files}{63}{section.7.2}
+\contentsline {subsection}{\numberline {7.2.1}CMakeLists.txt}{63}{subsection.7.2.1}
+\contentsline {subsection}{\numberline {7.2.2}package.xml}{66}{subsection.7.2.2}
+\contentsline {subsection}{\numberline {7.2.3}plugin\_description.xml}{66}{subsection.7.2.3}
+\contentsline {section}{\numberline {7.3}Launch Files}{67}{section.7.3}
+\contentsline {section}{\numberline {7.4}Messages}{74}{section.7.4}
+\contentsline {subsection}{\numberline {7.4.1}trajectory\_point.msg}{74}{subsection.7.4.1}
+\contentsline {subsection}{\numberline {7.4.2}trajectory\_msg.msg}{75}{subsection.7.4.2}
+\contentsline {subsection}{\numberline {7.4.3}arm\_msg.msg}{75}{subsection.7.4.3}
+\contentsline {subsection}{\numberline {7.4.4}cube\_msg.msg}{76}{subsection.7.4.4}
+\contentsline {subsection}{\numberline {7.4.5}marker\_val.msg}{77}{subsection.7.4.5}
+\contentsline {section}{\numberline {7.5}Services}{77}{section.7.5}
+\contentsline {subsection}{\numberline {7.5.1}Cloud Localization Service}{77}{subsection.7.5.1}
+\contentsline {subsubsection}{\numberline {7.5.1.1}Clustering Points}{79}{subsubsection.7.5.1.1}
+\contentsline {subsubsection}{\numberline {7.5.1.2}Determining Marker Keypoints}{80}{subsubsection.7.5.1.2}
+\contentsline {subsection}{\numberline {7.5.2}Trajectory Generation Service}{82}{subsection.7.5.2}
+\contentsline {subsection}{\numberline {7.5.3}Thickness Estimation Service}{83}{subsection.7.5.3}
+\contentsline {subsection}{\numberline {7.5.4}Map Reset Service}{83}{subsection.7.5.4}
+\contentsline {section}{\numberline {7.6}Configuration Files}{84}{section.7.6}
+\contentsline {section}{\numberline {7.7}URDF}{84}{section.7.7}
+\contentsline {section}{\numberline {7.8}Header Files}{84}{section.7.8}
+\contentsline {section}{\numberline {7.9}Source Files}{84}{section.7.9}
+\contentsline {section}{\numberline {7.10}External Packages and Libraries}{84}{section.7.10}
+\contentsline {chapter}{\numberline {8}Testing}{86}{chapter.8}
+\contentsline {section}{\numberline {8.1}Mock Mine}{86}{section.8.1}
+\contentsline {section}{\numberline {8.2}Test Scenarios}{88}{section.8.2}
+\contentsline {subsection}{\numberline {8.2.1}Localization}{88}{subsection.8.2.1}
+\contentsline {subsubsection}{\numberline {8.2.1.1}Localization Test}{95}{subsubsection.8.2.1.1}
+\contentsline {subsubsection}{\numberline {8.2.1.2}Localization Sources of Error}{97}{subsubsection.8.2.1.2}
+\contentsline {subsection}{\numberline {8.2.2}Trajectory Generation}{101}{subsection.8.2.2}
+\contentsline {subsubsection}{\numberline {8.2.2.1}No trajectory generated}{103}{subsubsection.8.2.2.1}
+\contentsline {subsubsection}{\numberline {8.2.2.2}Trajectory Point Outside Robot Workspace}{104}{subsubsection.8.2.2.2}
+\contentsline {subsubsection}{\numberline {8.2.2.3}Trajectory Does Not Maintain Optimal Distance From Surface}{105}{subsubsection.8.2.2.3}
+\contentsline {subsubsection}{\numberline {8.2.2.4}Trajectory Does Cover The Entire Selected Surface}{106}{subsubsection.8.2.2.4}
+\contentsline {subsubsection}{\numberline {8.2.2.5}Trajectory Path Has Undesirable Overlap}{106}{subsubsection.8.2.2.5}
+\contentsline {subsection}{\numberline {8.2.3}Thickness Estimation}{107}{subsection.8.2.3}
+\contentsline {subsubsection}{\numberline {8.2.3.1}Thickness Estimation Sources of Error}{109}{subsubsection.8.2.3.1}
+\contentsline {chapter}{\numberline {9}Discussion of Results}{111}{chapter.9}
+\contentsline {subsubsection}{\numberline {9.0.3.2}Repeatability of LIDAR}{111}{subsubsection.9.0.3.2}
+\contentsline {chapter}{\numberline {10}Conclusions and Recommendations for Future Work}{112}{chapter.10}
+\contentsline {chapter}{\numberline {A}Complete Source Code}{114}{appendix.A}
+\contentsline {section}{\numberline {A.1}Nodes}{114}{section.A.1}
+\contentsline {section}{\numberline {A.2}Services}{191}{section.A.2}
+\contentsline {section}{\numberline {A.3}Launch Files}{257}{section.A.3}
+\contentsline {chapter}{\numberline {B}DENSO Documentation}{263}{appendix.B}
+\contentsline {section}{\numberline {B.1}Table of Shoulder, Elbow, and Wrist Figures}{263}{section.B.1}

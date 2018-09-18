@@ -1,0 +1,29 @@
+#!/usr/bin/env python
+PACKAGE = "registration_localization"
+
+from dynamic_reconfigure.parameter_generator_catkin import *
+
+gen = ParameterGenerator()
+
+gen.add("k_search",    int_t,    0, "An Integer parameter", 30)
+gen.add("max_iterations",    int_t,    0, "An Integer parameter",1000 )
+gen.add("radius_search", double_t, 0, "A double parameter",  0  )
+gen.add("distance_threshold", double_t, 0, "A double parameter",  .15  )
+gen.add("normal_distance_weight", double_t, 0, "A double parameter",  1  )
+gen.add("eps_angle", double_t, 0, "A double parameter",  0.2  )
+gen.add("leaf_size", double_t, 0, "A double parameter",  .02  )
+gen.add("optimize_coefficients",   bool_t,   0, "A Boolean parameter",  False)
+gen.add("skip_downsample",   bool_t,   0, "A Boolean parameter",  False)
+
+gen.add("distance_threshold2", double_t, 0, "A double parameter",  .02  )
+gen.add("normal_distance_weight2", double_t, 0, "A double parameter",  0  )
+gen.add("optimize_coefficients2",   bool_t,   0, "A Boolean parameter",  False)
+
+
+gen.add("dot_product", double_t, 0, "A double parameter",  .439  )
+gen.add("dot_product_accuracy", double_t, 0, "A double parameter",  0.04  )
+gen.add("purpendicularity_accuracy", double_t, 0, "A double parameter",  .15  )
+exit(gen.generate(PACKAGE, "dynamic_tutorials", "SEG"))
+
+
+

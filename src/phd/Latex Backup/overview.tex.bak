@@ -1,0 +1,138 @@
+\chapter{Mobile Autonomous Shotcrete and Scanning System Overview}
+\label{chap:overview}
+\section{Chapter Overview}
+\section{Design Process}
+\label{sec:design}
+\section{Hardware}
+\subsection{Husky}
+\subsection{Husky Peripherals}
+\subsection{LMS100}
+\subsection{DENSO}
+\subsection{Powercube}
+\section{Software}
+\label{sec:software}
+\subsection{Overview of the Existing ROS Packages used}
+\subsubsection{RVIZ}
+\label{sec:rviz}
+
+Documentation on RVIZ can be found at \url{http://wiki.ros.org/rviz}\\
+
+RVIZ is a powerful visualization tool developed for use with ROS. There is a large quantity of information that can be generated using ROS that is not easily interpreted without the use of an interactive graphical user interface. RVIZ allows users to view, interact with, interpret, and modify the data handled within ROS. RVIZ is an invaluable tool in mobile robotics; it can display a model of the robot, a map the robot has generated of its environment, the path it intends to follow, and display sensor data the robot acquires. The user can interact with RVIZ and send commands to the robot like position goals, movement commands, status changes, or selecting parts of the sensor data to be used in other software controls algorithms.\\
+
+RVIZ is designed to be adaptable for whatever the operator needs. Custom tools and plugins are easily developed to make RVIZ helpful in the context it is used. In this work, a custom tool was implemented for selecting sections of the mine surface to be scanned or shotcreted. A custom plugin called the control panel was created to provide the user with a user-friendly interface to command and control all relevant aspects of the MASSS.\\
+
+RVIZ configurations can be saved to a file and loaded at launch when the robot control system is brought online. The configuration file for this work sets the RVIZ environment in a way that is functional for the operator, but includes options to reveal information important for debugging and research. For example, under most circumstances the pointcloud representation of the mine surface should be shown but the individual laser scans are hidden. If the operator wanted to see the instantaneous view of the robot's environment represented as a laser scan, the topic's checkbox simply needs to be checked. Similarly, pointclouds are cropped to remove sections of the robot detected be the scanner but can be visualized by enabling the appropriate display. When generating trajectories the surface path, surface normals, and end-effector path is shown, however the operator may only want some or none of the information displayed so they are all easily hidden or shown.\\
+
+\subsubsection{Husky}
+
+Documentation of the Husky package can be found at \url{http://wiki.ros.org/Robots/Husky}\\
+
+The Husky package is made by Clearpath Robotics to provide ROS functionality to their Husky Unmanned Ground Vehicle (UGV). The package consists of the following subpackages:
+
+\begin{itemize}
+    \item husky\_base
+    \item husky\_bringup
+    \item husky\_gazebo
+    \item husky\_viz
+    \item husky\_control
+    \item husky\_description
+    \item husky\_msgs
+    \item husky\_navigation
+\end{itemize}
+
+\paragraph{husky\_base}
+
+The husky\_base package provides the low level communication between ROS and the robot. It contains all the necessary drivers to allow the robot to operate under ROS control.\\
+
+\paragraph{husky\_bringup}
+
+The husky\_bringup package contains a number of scripts to that launch all the necessary packages (like husky\_base) for the robot to function. Many applications for the Husky robot are intended to be turnkey, so the bringup package allows the designer to set what packages to launch when the robot boots up. Using the bringup package the robot can be configured to commence its control system as soon as it is powered on.\\
+
+\paragraph{husky\_gazebo}
+
+Gazebo is a simulation tool used in ROS. With a fully defined robot model, Gazebo can simulate the robot in a user defined environment. If an operator intends to test their algorithms on a Husky robot, but does not have access to a physical robot they can test their software our on a simulated version of the Husky. Similarly, if the operator wants to test their robot in a scenario that may cause damage to the robot, or in an environment they are unable to create, they can use Gazebo to test their algorithms in simulation.\\
+
+\paragraph{husky\_viz}
+
+As mentioned in \ref{sec:rviz}, RVIZ configurations can be saved and loaded by ROS. The husky\_viz package contains various configurations for RVIZ that optimize its configuration for use with the Husky.\\
+
+\paragraph{husky\_control}
+
+husky\_control turns motion goals in to actual robot motion. The motion goals are published using ROS topics, and the husky\_control package subscribes to these topics and moves the robot accordingly. The motion goals can be provided directly from the operator using an input device such as a joystick, or generated from autonomous navigation packages acting on a goal location provided by the operator. The source of the motion commands does not affect how the package functions, so it is able to receive motion command from a wide variety of sources as long as the commands are formatted using the appropriate ROS message type.\\ 
+
+\paragraph{husky\_description}
+
+In order to visualize the robot in the RVIZ environment, the robot requires a description. The robot description contains all the relevant information about the robot parts, which way they can move, what colour they are, and how to visually represent them. The description also contains the relevant physical characteristics to simulate the robot in Gazebo. The husky\_description package uses the Unified Robot Description Format (URDF) to describe the model for the Husky UGV.\\
+
+\paragraph{husky\_msgs}
+
+To communicate with other packages, or within the Husky packages, custom messages for the Husky robot are used. The husky\_msgs package contains these custom messages. For example, the HuskyStatus message appears as follows:
+
+\includecode[pythonstyle]{Code/HuskyStatus.msg}{HuskyStatus.msg}
+
+\paragraph{husky\_navigation}
+
+The husky\_navigation package provides configurations and examples for using varous navigation packages with the Husky. It contains all the relevant information a navigation package requires to successfuly apply the navigation algorithm on the Husky. Things like the robot's footprint size, how far away to stay from obstacles, what sort of behaviours to exhibit when encountering obstacles, and what sensor information is available are contained within the configuration files. Navigation packages require the configurations for their global and local planners that is contaoned within the husky\_navigation package. The configuration file for producing costmaps for use in navigation is shown to provide an example of what the configuration files look like.\\
+
+\includecode[pythonstyle]{Code/costmap_common.yaml}{Husky Costmap Configuration File (costmap\_common.yaml)}
+
+The package contains launch files to use various navigation packages with the Husky robot as well as demos that will launch the required accompanying packages as well. Launch files for AMCL, Gmapping, Frontier Exploration, and Move Base packages are included, as well as an empty map for use when the robot is being simulated in Gazebo.\\ 
+
+\subsubsection{Move Base}
+
+Documentation of the Move Base package can be found at \url{http://wiki.ros.org/move_base}\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Pics/overview_tf.png}
+    \caption{Overview of the Move Base Package \cite{rosmovebase}}
+    \label{fig:movebaseoverview}
+\end{figure}
+
+The move\_base package takes high level commands like a location goal and performs the necessary actions to drive the robot to that location, a graphical overview of the package is shown in figure \ref{fig:movebaseoverview}. It divides the task among two planners, the global planner and the local planner. The global planner is responsible for creating the overall plan for the robot path. It uses a global costmap generated by the map server, which holds the map generated by the SLAM algorithm or loaded from file. The global costmap includes things like the inflation layer, which acts as a safety buffer by creating a region surrounding any obstacles within the map that the robot cannot enter. The local costmap is generated based on what the robot's sensors currently detect. If a person were to walk in front of the robot, they would appear in the local costmap and the local planner would generate a path around the obstacle attempting to continue along the path generated by the global planner. If, for example, a person or object is placed close enough to the robot that it ends up occupying the space created by the inflation layer of the obstacle it becomes stuck. Once stuck, the robot must execute recovery behaviours to become unstuck. Figure \ref{fig:recovery} shows what recovery behaviours move\_base attempts to free itself. First the robot deletes obstacles from the map that are further away than a user specified distance. If the robot is then free to move, it will continue its navigation. If the robot is still stuck, it will rotate on the spot to get an updated view of its surroundings. If it still cannot move it will clear the map of all obstacles that are not within the area it needs to rotate in place, and if still stuck will rotate once more to scan its environment for obstacles. Once the second clearing rotation is complete if it is still unable to move it will abort its current goal and release a message notifying the system it was unable to reach its target location.\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Pics/recovery_behaviors.png}
+    \caption{Move Base Recovery Behaviours \cite{rosmovebase}}
+    \label{fig:recovery}
+\end{figure}
+
+\subsubsection{Laser Assembler}
+
+
+Documentation of the Laser Assembler package can be found at \url{http://wiki.ros.org/laser_assembler}\\
+
+The laser\_assembler package converts the stream of laserscan data to a pointcloud. When the system creates a pointcloud representation of it's surroundings, it tells the laser\_assembler package when to start and stop recording the laser scans generated by the LMS100 LIDAR scanner. The assembler will store all of the laserscans, along with the coordinate frame transformation from a fixed frame to the LIDAR frame at that moment. When the pointcloud scan is complete, the laser\_assembler is notified and produces a pointcloud in the coordinate frame requested by the user. Discussed further in Section \ref{sec:locsourceerror}, the parameter ``ignore\_laser\_skew'' is set to false so that each point in the laser scan is transformed using the current pose of the LIDAR rather than the whole scan at once.\\
+
+\subsubsection{Hector SLAM}
+
+Documentation of the Hector SLAM package can be found at \url{http://wiki.ros.org/hector_slam}\\
+
+The hector\_slam package contains the hector\_mapping package used by the MASSS to perform SLAM. The two main SLAM packages available for use with ROS are Gmapping and Hector SLAM. Gmapping is a more popular algorithm, but requires odometry from the robot. Hector SLAM can perform SLAM without the need for odometry. While the MASSS does measure its odometry, it is intended for use on uneven rocky ground and odometry may not be reliable. For that reason, Hector SLAM was chosen as the SLAM algorithm for use on the MASSS. However, thanks to the modularity that ROS offers it is a simple task to utilize other SLAM algorithms like Gmapping on the MASSS.\\
+
+\subsubsection{RQT Reconfigure}
+
+Documentation of the RQT Reconfigure package can be found at \url{http://wiki.ros.org/rqt_reconfigure}\\
+
+If a node has been configured with parameters that can change at runtime, \node{rqt_reconfigure} can be used to modify them. When the user launches the GUI, it will poll the ROS parameter server to determine which nodes have dynamically reconfigurable variables and what their values and acceptable ranges are. I then presents the user with a window that shows a list of nodes on the left. When a node is selected the configurable parameters are shown on the right, most often in the form of a slider bar. An example rqt\_reconfigure GUI window can be seen in figure \ref{fig:dyngui2}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Pics/dyngui.png}
+    \caption{\texttt{rqt\_reconfigure} GUI}
+    \label{fig:dyngui2}
+\end{figure}
+
+\subsection{Overview of the MASSS ROS Package}
+\label{sub:software}
+
+A thorough discussion of the source code is provided in Chapter \ref{chap:code}, however an overview of the MASSS would be incomplete without mentioning the ROS package that provides its functionality. The complete code can be found in Appendix \ref{app:code}.\\ 
+
+The main interface between the user and the control system occurs within an RVIZ window. Along with the regular features of RVIZ, this software adds a panel and a tool to the RVIZ interface. The additional features can be seen in Figure \ref{fig:panel}. The code for the control panel is split between two files. For the system's current purpose it would be far less functional to have a standalone Graphical User Interface (GUI) and not use RVIZ for visualization therefore \node{control_dashboard} was designed as a plugin for RVIZ. As future work on this project continues, the need for RVIZ visualization may diminish, so the node was designed to make converting it to run without RVIZ a trivial task. Eventually, when this system is implemented in a mine, no graphical interface at all will be required on the machine itself. For that reason, the core functionality of the system lies in the \node{control_panel} node. The \node{control_dashboard} node simply relays the actions in the user interface to the \node{control_panel} node.\\
+
+The \node{control_panel} node is the heart of the control system. It is responsible for calling the localization, trajectory generation, and thickness estimation services, as well as communication with the DENSO arm, PowerCube servo, and Husky UGV. Other tasks specific to the MASSS requirements such as modifying trajectory points to fit within the DENSO arm's workspace are performef be \node{control_panel}. As well, the parts of the robot visible to the laser scanner that may be interpreted as part of the environment are cropped.\\
+
+The main contribution to the ROS community are the localization, trajectory generation, and thickness estimation services. These three services are intended to be as portable as possible so they can be useful in any robotics project, regardless of the system configuration. Should other researchers have a need for a service they can provide, one simply needs to install the package and will be able to launch the desired service from the terminal or their own launch file. Unfortunately, due to this document's confidentiality the source code will not be made available, so the functionality of the compiled binaries are provided as-is.\\
+
+

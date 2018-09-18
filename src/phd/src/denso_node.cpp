@@ -210,7 +210,6 @@ int main(int argc, char **argv)
 		ros::spinOnce();
 		//If a command is received
 		if(move_flag){      
-
 			move_flag = false; //Reset move flag
 			//if(DEBUG) ROS_INFO("Moving to: %s",buffer);
 			//Copy contents of buffer to our wide char array for the variant to hold
@@ -227,7 +226,7 @@ int main(int argc, char **argv)
 			SysFreeString(bstrCommand); //free the bstring from memory
 			VariantClear(&vntParam); //clear the variant
 			if (FAILED(hr)){
-				ROS_ERROR("Move command failed %x",hr);
+				ROS_ERROR("Move command failed %x, %s",hr, buffer);
 				  	hr = bCap_VariableGetValue(fd, hErr, &vntErr);
 				  	if(DEBUG) ROS_INFO("Errors %x", vntErr.lVal);
 				  	int eStatus = vntErr.lVal;

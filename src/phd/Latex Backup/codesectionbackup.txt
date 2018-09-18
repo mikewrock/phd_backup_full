@@ -1,0 +1,211 @@
+\chapter{Detailed Discussion of Software}
+\label{chap:code}
+\section{Chapter Summary}
+This chapter discussed the entire ROS package created and presents select portions of the MASSS source code. Much of the code simply facilitates the handling and communication of data across the various nodes as well as inputting and parsing commands from the user. Since the system was primarily designed to be a research platform many of the testing, debugging, and experimentation portions of the code have been included in the final version for future work. The ROS package contains typical elements such as \node{CMakeLists.txt}, \node{package.xml}, messages, services, configuration and launch files, URDF descriptions, source code, and headers. The following sections discuss the package framework and core functionality, but portions of the code that have been omitted in the interest of brevity can be found in the complete code included in Appendix \ref{app:code}. For those only interested in the implementation of the algorithms and have no interest in understanding the workings of ROS, skip to Section \ref{sec:meat}.\\
+\section{Package Files}
+
+\subsection{CMakeLists.txt}
+The \node{CMakeLists.txt} file is the first file ROS needs when compiling the package. Within this file all the nodes, messages, services, configuration files, and dependencies are declared. Lines 7-36 (shown in section \ref{sec:extpkg}) instruct ROS to ensure the necessary external packages and libraries are installed, and lines 124-147 include them in the package. Lines 82-104 include the configuration, message, and service files as shown below:
+\includecodelines[pythonstyle]{CleanedCode/CMakeLists.txt}{CMakeLists.txt}{82-104}
+Finally, lines 163-196 add the source code files and gives the nodes names then lines 219-235 add the necessary dependencies to each node and links them to the necessary libraries.\\
+\includecodelines[pythonstyle]{CleanedCode/CMakeLists.txt}{CMakeLists.txt}{163-196, 219-235}
+\subsection{package.xml}
+The file \node{package.xml} contains the package name, version number, description, maintainer, and license. As well, it contains a list of all the other packages necessary to build and run the package. It contains a reference to \node{plugin_description.xml} so the compiler is aware there are custom plugins for this package and what file to look for them in.\\
+\subsection{plugin\_description.xml}
+\includecode{CleanedCode/plugin_description.xml}{plugin\_description.xml}
+This package uses a custom plugin and tool for RVIZ. The plugin, called ``Control Panel'' is a ``ControlPanel'' object in the ``control\_panel'' namespace. It extends the ``rviz::Panel'' class. The ``Marker Selector'' tool is a fork of ``SelectionTool'' class called ``marker\_selector'' and extends the ``rviz::Tool'' class.\\
+\section{Launch Files}
+Two launch files are provided for use, \node{main.launch} and \node{simulation.launch}. The main and simulation launch files appear in their entirety in \ref{app:launch}. The following are snippets of the launch files presented for further discussion.\\
+
+\includecodelines[xmlstyle]{CleanedCode/launch/main.launch}{main.launch}{3-4}
+Since the MASSS is a modified Husky UGV, the URDF description has been modified accordingly. A separate package for the modified URDF description called \node{wrock_husky_description} was made and the launch file containing the URDF description is included.\\
+
+\includecodelines[xmlstyle]{CleanedCode/launch/main.launch}{main.launch}{6-28}
+Lines 6-28 launch the required nodes for the Husky to operate. The node responsible for communication between ROS and the Husky is called \node{husky_node} and when launched the parameters that define the USB port it is connected to, its controller and diagnostic frequencies, wheel diameter, and speed and acceleration limits are set. Launch files from the \node{husky_control} package are included to allow the controller to properly handle velocity commands as well as joystick teleoperation, perform EKF localization, and display the Husky's movements in RVIZ. As well, the driver for the IMU on board the Husky is launched.\\
+
+\includecodelines[xmlstyle]{CleanedCode/launch/main.launch}{main.launch}{30-61}
+Lines 30-61 launch the \node{move_base} node and configure the local and global planner both by loading configurations from a file and stating others explicitly.\\
+
+\includecodelines[xmlstyle]{CleanedCode/launch/main.launch}{main.launch}{64-86}
+Lines 64-69 launch the LIDAR driver, 71-78 filter the laser scans to set limits on distance, sweep angle, and intensity, and lines 80-86 launch the \node{laser_scan_assembler} node.\\
+
+\includecodelines[xmlstyle]{CleanedCode/launch/main.launch}{main.launch}{88-98}
+Lines 88-98 launch the Powercube and DENSO nodes, as well as the \node{joint_fusion_node} which fuses the Powercube and DENSO node's joint state messages in to a single joint state message for the \node{robot_state_publisher} node to properly display the MASSS pose in RVIZ.\\
+
+\includecodelines[xmlstyle]{CleanedCode/launch/main.launch}{main.launch}{100-104}
+The node \node{hector_mapping} is launched and the parameter for ``base\_frame'' is provided.\\
+
+\includecodelines[xmlstyle]{CleanedCode/launch/main.launch}{main.launch}{106-109}
+When RVIZ is launched ``rviz\_scan.rviz'' is loaded to configure the RVIZ environment optimally for use with the MASSS.\\
+
+\includecodelines[xmlstyle]{CleanedCode/launch/main.launch}{main.launch}{111-134}
+The remainder of the launch file launches the trajectory generation, localization, and thickness estimation services, the \node{rqt_reconfigure} GUI, and a \node{static_transform_publisher} that aligns the map to the world coordinate frame.\\
+
+\section{Messages}
+
+Messages are a convenient way of grouping together variables in to a single class. In this work, messages are used to send commands from \node{control_panel} to \node{denso_node} and \node{cube_node}. As well, custom messages were generated for use in determining the fiducial marker location and transmitting arm trajectories between nodes.\\
+
+\subsection{trajectory\_point.msg}
+\includecode{CleanedCode/msg/trajectory_point.msg}{trajectory\_point.msg}
+Each point in the trajectory requires the position and surface normal at that position. The ``trajectory\_point'' message contains that information as well as a ``d'' parameter. The ``d'' parameter is used when sorting lines of points to keep track of the approximate total distance along the surface something must travel to reach the current point from the starting point (see Section \ref{sec:sortlines}).\\
+\subsection{trajectory\_msg.msg}
+\label{sec:trajmsg}
+\includecode{CleanedCode/msg/trajectory_msg.msg}{trajectory\_msg.msg}
+Messages in ROS can contain a limited variety of datatypes, but among them is the ability to include other messages or arrays of messages (see \url{http://wiki.ros.org/msg}). For a the manipulator trajectories in this work, and array of ``trajectory\_point'' messages is used.\\
+
+\subsection{arm\_msg.msg}
+\includecode{CleanedCode/msg/arm_msg.msg}{arm\_msg.msg}
+The \node{arm_msg} message was designed to make it easy to send commands to the DENSO manipulator. The message contains 32-bit floats that can hold joint positions, XYZ positions (and the roll around each axis), velocity, and acceleration. The ``fig'' integer allows the user to command the desired shoulder, elbow, and wrist configuration (Figure table can be found in Appendix \ref{sec:fig}). The ``pose'' boolean is used to tell \node{denso_node} whether the XYZ values are positions or velocities. Since the DENSO manipulator can perform continuous path motion as well as point-to-point, the ``motion\_type" variable holds the desired motion behaviour. For testing and debugging purposes it may become necessary to manually generate a command string to send to the DENSO controller, so the string ``user\_string'' was added to incorporate that functionality.\\
+
+\subsection{cube\_msg.msg}
+\includecode{CleanedCode/msg/cube_msg.msg}{cube\_msg.msg}
+Originally the \node{cube_node} was designed to handle multiple Powercubes at once, but as research continued the Powercube manipulator was replaced with the DENSO manipulator. Additional joint variables can easily be added should a user want to control multiple Powercubes, however control of a single Powercube is all that is required within this work. The variables in the \node{cube_msg} message contain the desired position or velocity (depending on the value of ``pose'') and the maximum velocity (used only in position commands) and acceleration allowed to reach the position (or velocity) goal.\\
+
+\subsection{marker\_val.msg}
+\includecode{CleanedCode/msg/marker_val.msg}{marker\_val.msg}
+When the localization algorithm attempts to detect the markers, it is possible there may be many potential keypoints to choose from. The ``marker\_val'' message is used to sort through them and find the closest match to the marker file. The i, j, and k variables hold the position of the first, second, and third keypoint within the array of keypoint candidates. The ``val'' variable holds a value representing how accurately the kepoints at element i, j, and k of the keypoint candidate array match the recorded keypoints in the marker file.\\
+
+\section{Services}
+In ROS services are able to receive and return variables and messages. In order to function, a ``.srv'' is required to explicitly declare what variables or messages a service is expecting, and what variables or messages it will return. The division between incoming and outgoing data is marked by a line containing ``\texttt{----}''.\\
+\subsection{Cloud Localization Service}
+\includecode{CleanedCode/srv/localize_cloud.srv}{localize\_cloud.srv}
+The localization service expects the pointcloud to be localized, a string to indicate the location of the marker file, and a boolean it determine whether the scan is to set the world coordinate frame or localize within it. In response the service returns the localized cloud, and a transformation matrix from the robot's frame of reference to the marker's frame.\\
+
+\lstinputlisting[
+style=C++style,
+caption={[pointcloud\_localization\_service.cpp (lines 86, 91, and 100)] pointcloud\_localization\_service.cpp (lines 86, 91, and 100)},
+linerange={86-86,91-91,100-100},]{CleanedCode/src/pointcloud_localization_service.cpp}
+  
+Three helper functions are used to simplify the main portions of the code. They perform dot products, cross products, and normalized cross products as implied by their names. The main function initializes the node, advertises its service on the \node{\localize_pcd} topic, and configures the visualization to show the possible marker keypoint locations on topic \node{\visualization_marker}. The \node{rqt_reconfigure} callbacks are set and the visualization marker style is set. The node then ``spins'', meaning it will wait until a message is received and execute the appropriate callback.\\
+
+The callback function to localize the cloud uses the following algorithm:
+\begin{algorithm}[H]
+\caption{Localization Algorithm}
+\label{alg:localize}
+\begin{algorithmic}[1]
+\begin{raggedright}
+\Function{localize}{Input cloud, Marker filename, Homing boolean}
+\State Filter incoming pointcloud based on user-defined maximum and minimum intensity values
+\If {User requests homing scan}
+\State Return unaltered pointcloud
+\Else
+\State Open marker.dat file to retrieve keypoint relative positions
+\State Cluster pointcloud points to generate list of keypoint candidates
+\State Determine which keypoint candidates are most likely marker keypoints
+\State Open marker.bag file to retrieve transformation matrix from marker to world coordinate frame
+\State Transform input pointcloud to marker coordinate frame
+\State Transform previous pointcloud from marker coordinate frame to world coordinate frame \EndIf
+\EndFunction\\
+\Return Localized pointcloud
+\end{raggedright}
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Clustering Points}
+Since the LIDAR scanner's resolution is smaller than the size of the marker keypoint, it will typically detect multiple data points per marker keypoint. The keypoint candidates are determined by taking the mean location of all data points within a certain radius and with sufficiently high reflected intensity. The algorithm to cluster data points in to keypoint candidates is as follows (note, the data has already been filtered for intensity so all data points remaining are possible marker keypoints):
+
+\begin{algorithm}[H]
+\caption{Clustering Algorithm}
+\label{alg:cluster}
+\begin{algorithmic}[1]
+\begin{raggedright}
+\Function{cluster}{Intensity filtered input cloud}
+\ForAll{Points in input cloud}
+\If{Intensity $>0$}
+\State Add point to clustering array
+\ForAll{Remaining points in input cloud}
+\If{Distance between points is less than CLUSTER\_DISTANCE \textbf{AND} Intensity $>0$}\\
+\Comment{CLUSTER\_DISTANCE set by user using rqt\_reconfigure}
+\State Add point to clustering array
+\State Set point intensity to 0 (so it doesn't get added to another cluster)
+\EndIf
+\EndFor
+\State Average all points in clustering array
+\State Add averaged point to array of keypoint candidates
+\State Clear clustering array
+\EndIf
+\EndFor
+\EndFunction\\
+\Return Array of keypoint candidates
+\end{raggedright}
+\end{algorithmic}
+\end{algorithm}
+\subsubsection{Determining Marker Keypoints}
+After the clustering algorithm, an array of keypoint candidates are produced. If there are less than three points the marker has not detected and the service reports a failure. If there are three or more keypoint candidates, they must be checked to ensure they fit the marker model. If there are multiple groups of keypoint candidates that fit the marker model, the best fit is chosen. If none of the keypoints fit the marker model, the service reports it could not detect the marker. Once the marker is located a $3\times3$ matrix holding the position of the marker keypoints and a $4\times4$ transformation matrix of its position is stored in the matrices indicated by the pointers passed to the function. The algorithm for fitting keypoint candidates and selecting the best three is as follows:
+\begin{spacing}{0.8}
+\begin{algorithm}[H]
+\caption{Keypoint Selection Algorithm}
+\label{alg:keypoint}
+\begin{algorithmic}[1]
+\algnotext{EndFor}
+\begin{raggedright}
+\Function{locate\_marker}{Array of keypoint candidates, Pointer for marker location, Pointer for transformation matrix}
+\State Clear marker\_found boolean
+\For{$ i:=1 $ \textbf{to} Size of candidate array}
+\For{$ j:=1 $ \textbf{to} Size of candidate array}
+\For{$ k:=1 $ \textbf{to} Size of candidate array}
+\If{$i\neq j\neq k$}
+\State Calculate distances between $i$, $j$, and $k$
+\State Calculate dot product between vector $\mathbf{ji}$ and $\mathbf{jk}$
+\State Calculate accuracy by comparing distances and dot product to marker file
+\State Store $i$, $j$, and $k$ and accuracy in array of marker candidates
+\If{Marker candidate is within user defined accuracy limits}
+\State Set marker candidate as valid
+\If{Valid marker candidate already exists}
+\State Set optimization flag
+\EndIf
+\EndIf
+\EndIf
+\EndFor
+\EndFor
+\EndFor
+\If{One or more marker candidates are found}
+\State Set marker\_found boolean
+\State Remove less accurate candidates
+\State Store marker keypoints using marker location pointer 
+\State Calculate and store transformation matrix using transformation matrix pointer \
+\EndIf
+\EndFunction\\
+\Return Boolean indicating if marker was located
+\end{raggedright}
+\end{algorithmic}
+\end{algorithm}
+\end{spacing}
+The code for calculating the transformation matrix (where P1, P2, and P3 correspond to $i$, $j$, and $k$ from algorithm \ref{alg:keypoint}) to the marker location is:
+
+\includecodelines{CleanedCode/src/pointcloud_localization_service.cpp}{pointcloud\_localization\_service.cpp}{342-367}
+\subsection{Trajectory Generation  Service}
+\includecode{CleanedCode/srv/trajectory_service.srv}{trajectory\_service.srv}
+The trajectory service expects two pointclouds and returns a ``trajectory\_msg'' formatted trajectory (see Section \ref{sec:trajmsg}). The first pointcloud called ``cloud\_in'' the area to generate a trajectory for. The second pointcloud, ``cloud\_surface'' is the entire scan. The full surface scan is required for calculating surface normals at the edge of the selected area, since without it only a portion of the surrounding data points would be used to calculate the surface normal.\\
+
+When the service launches it advertises itself on the ``/trajectory\_gen'' topic. It then configures the publishers responsible for displaying the markers that show the end-effector path, surface path, surface normals, via points within the workspace, and via points outside the workspace. Finally it configures the callback for \node{rqt_reconfigure}. Once initialized, the service waits to be called upon.\\
+
+When the service is called, it executes the ``generate()'' function. The algorithm for this function is as follows:
+\begin{algorithm}[H]
+\caption{Keypoint Selection Algorithm}
+\label{alg:traj}
+\begin{algorithmic}[1]
+\algnotext{EndFor}
+\begin{raggedright}
+\Function{generate}{Trajectory cloud, Surface cloud}
+
+\EndFunction\\
+\Return Arm trajectory
+\end{raggedright}
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Thickness Estimation Service}
+\subsection{Map Reset Service}
+\includecode{CleanedCode/srv/empty.srv}{empty.srv}
+The Hector SLAM package does not have the functionality to halt the mapping process. It also does not support 3D mapping so it will not take in to account the position of the LIDAR's nodding head. This means that when the nodding head moves to generate a pointcloud, the SLAM algorithm will attempt to interpret the new laser scan data as robot motion, most often ending up distorting the map and losing it's position. For this reason, the map must be reset after every pointcloud scan. The Hector SLAM package can reset the map upon receiving an empty service call on the ``move\_base\/clear\_costmaps'' topic, so ``empty.srv'' was generated to perform such actions.\\
+
+
+\section{Configuration Files}
+\section{URDF}
+\section{Header Files}
+\section{Source Files}
+\label{sec:meat}
+\section{External Packages and Libraries}
+\label{sec:extpkg}
+\includecodelines[pythonstyle]{CleanedCode/CMakeLists.txt}{CMakeLists.txt}{7-36}

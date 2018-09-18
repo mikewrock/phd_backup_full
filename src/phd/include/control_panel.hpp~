@@ -87,6 +87,8 @@ public:
 	//Variables for holding the first two points of the marker, when the third one comes in they all get saved to file
 	float P1x, P1y, P1z, P2x, P2y, P2z;
 	pcl::PointCloud<pcl::PointXYZI>::Ptr raw_pc_;
+	//Holds the entire arm trajectory
+	phd::trajectory_msg traj;
 
 
 Q_SIGNALS:
@@ -125,8 +127,6 @@ private:
 	//Holds the entire pointcloud from laser_scan_assembler, used for calculating normals (useful at the edges of current_pc_)
 	sensor_msgs::PointCloud2 cloud_surface_raw;
 	sensor_msgs::PointCloud2 cloud_surface_world;
-	//Holds the entire arm trajectory
-	phd::trajectory_msg traj;
 	int cloud_ctr;
 	int tctr;
 	tf::TransformBroadcaster br;

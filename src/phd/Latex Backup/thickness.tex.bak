@@ -1,0 +1,16 @@
+\chapter{Thickness Estimation}
+\label{chap:thick}
+\section{Chapter Overview}
+This chapter presents the techniques explored and the method chosen for determining the thickness of an applied shotcrete layer. The requirements of a thickness estimate is discussed followed by a summary of the approaches one can take to measure shotcrete thickness using the data provided by the MASSS. Ultimately two methods were implemented and tested, the point-to-point (P2P) and point-to-mesh (P2M). It was found the difference in accuracy was minimal, so the P2P method was chosen due to its reduced situation dependant tuning parameters.\\
+\section{Requirements of the Estimate}
+Currently at the MacArthur River mine sufficient shotcrete thickness is ensured using the operator's visual inspection. This is a single point of failure and requires a highly trained and experienced operator to be able to visually identify whether the shotcrete is thick enough with thickness verification rarely done once operator training is completed. Providing a comprehensive and accurate thickness estimate will not only ensure safety while reducing material usage, but will reduce training time as well due to the rapid production of graphically represented thickness estimates covering the entire shotcrete surface.\\
+
+Since the current method of thickness estimation has such low accuracy, the requirements are fairly simple. Even the lowest accuracy method of thickness estimation is significantly more accurate than the current technique. Though it is fairly simple to produce more accurate estimates than are currently available, it is the goal of this work to produce the most accurate estimates with the least amount of site specific tuning required. At the very least, each data point measured by the LIDAR scanner should be converted to a thickness estimate. Interpolating between data points is not only computationally intensive, but generates thickness estimates at a resolution much higher than necessary. The methods discussed all provide significantly improved accuracy, but some require more tuning than others. Many of the thickness estimation techniques require the use of surface normals. Surface normals are calculated using the surrounding data points, so tuning involves choosing how large a potion of the surface to use when determining the surface normal. An appropriate radius for determining surface normals is based on the surface roughness and feature sizes. As well, using too many data points can lead to unnecessarily demanding computational needs so downsampling the pointclouds may be necessary depending on the computing hardware used and the response time required to produce the estimate.\\
+
+\section{Techniques for Estimating Thickness}
+\subsection{Flattening}
+\subsection{Point-to-Point}
+\subsection{Point-to-Mesh}
+\subsection{Mesh-to-Mesh}
+
+\section{Methods Used for Estimating Thickness}

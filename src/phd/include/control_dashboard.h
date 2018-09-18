@@ -32,6 +32,7 @@ protected Q_SLOTS:
 void do_nav();
 void show_nav();
 void arm_step();
+void arm_step_man();
 void arm_loop();
 void fake_scan();
 void fake_scan2();

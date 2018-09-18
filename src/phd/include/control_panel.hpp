@@ -60,7 +60,7 @@ public:
 	QNode(){}
 	virtual ~QNode();
 	void scan(std::string, bool localize);
-	phd::arm_msg step(int traj_ctr, bool arm, float fig);
+	phd::trajectory_point step(int traj_ctr, bool arm, float fig);
 	void show_nav();
 	void thickness_from_file(std::string,std::string);
 	void nav_mode(float pos);

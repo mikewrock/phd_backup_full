@@ -1,0 +1,60 @@
+\BOOKMARK [0][-]{Doc-Start}{Abstract}{}% 1
+\BOOKMARK [0][-]{chapter*.1}{Acknowledgements}{}% 2
+\BOOKMARK [0][-]{chapter*.2}{Table of Contents}{}% 3
+\BOOKMARK [0][-]{chapter*.3}{List of Tables}{}% 4
+\BOOKMARK [0][-]{chapter*.4}{List of Figures}{}% 5
+\BOOKMARK [0][-]{chapter*.5}{List of ROS Files}{}% 6
+\BOOKMARK [0][-]{chapter*.6}{List of Algorithms}{}% 7
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 8
+\BOOKMARK [1][-]{section.1.1}{Underground Uranium Mining}{chapter.1}% 9
+\BOOKMARK [1][-]{section.1.2}{Problem Statement}{chapter.1}% 10
+\BOOKMARK [1][-]{section.1.3}{Scope}{chapter.1}% 11
+\BOOKMARK [1][-]{section.1.4}{Summary of Contributions}{chapter.1}% 12
+\BOOKMARK [1][-]{section.1.5}{Thesis Outline}{chapter.1}% 13
+\BOOKMARK [0][-]{chapter.2}{Background}{}% 14
+\BOOKMARK [1][-]{section.2.1}{Literature Review}{chapter.2}% 15
+\BOOKMARK [2][-]{subsection.2.1.1}{Robot Localization}{section.2.1}% 16
+\BOOKMARK [2][-]{subsection.2.1.2}{Trajectory Generation}{section.2.1}% 17
+\BOOKMARK [2][-]{subsection.2.1.3}{Thickness Estimation}{section.2.1}% 18
+\BOOKMARK [1][-]{section.2.2}{ROS: The Robot Operating System}{chapter.2}% 19
+\BOOKMARK [0][-]{chapter.3}{Robot Localization}{}% 20
+\BOOKMARK [1][-]{section.3.1}{Chapter Overview}{chapter.3}% 21
+\BOOKMARK [1][-]{section.3.2}{Introduction}{chapter.3}% 22
+\BOOKMARK [1][-]{section.3.3}{Localizing the MASSS}{chapter.3}% 23
+\BOOKMARK [2][-]{subsection.3.3.1}{Fiducial Markers}{section.3.3}% 24
+\BOOKMARK [3][-]{subsubsection.3.3.1.1}{Perceiving the fiducial markers}{subsection.3.3.1}% 25
+\BOOKMARK [3][-]{subsubsection.3.3.1.2}{Placing the fiducial marker}{subsection.3.3.1}% 26
+\BOOKMARK [3][-]{subsubsection.3.3.1.3}{Detecting the fiducial marker}{subsection.3.3.1}% 27
+\BOOKMARK [3][-]{subsubsection.3.3.1.4}{Determining the location of the fiducial marker}{subsection.3.3.1}% 28
+\BOOKMARK [2][-]{subsection.3.3.2}{Coordinate Frames}{section.3.3}% 29
+\BOOKMARK [2][-]{subsection.3.3.3}{Using multiple markers}{section.3.3}% 30
+\BOOKMARK [1][-]{section.3.4}{Chapter Summary}{chapter.3}% 31
+\BOOKMARK [0][-]{chapter.4}{Trajectory Generation}{}% 32
+\BOOKMARK [1][-]{section.4.1}{Chapter Overview}{chapter.4}% 33
+\BOOKMARK [1][-]{section.4.2}{Requirements of the Trajectory}{chapter.4}% 34
+\BOOKMARK [1][-]{section.4.3}{Techniques for Generating Trajectories}{chapter.4}% 35
+\BOOKMARK [2][-]{subsection.4.3.1}{Flattening}{section.4.3}% 36
+\BOOKMARK [2][-]{subsection.4.3.2}{Microscopic Approach}{section.4.3}% 37
+\BOOKMARK [2][-]{subsection.4.3.3}{Plane Intersections}{section.4.3}% 38
+\BOOKMARK [3][-]{subsubsection.4.3.3.1}{Measuring Distance Along the Surface}{subsection.4.3.3}% 39
+\BOOKMARK [1][-]{section.4.4}{Algorithm Used for Trajectory Generation}{chapter.4}% 40
+\BOOKMARK [2][-]{subsection.4.4.1}{Extracting Plane Intersections}{section.4.4}% 41
+\BOOKMARK [2][-]{subsection.4.4.2}{Sorting Vertical and Horizontal Ribs}{section.4.4}% 42
+\BOOKMARK [2][-]{subsection.4.4.3}{Selecting Trajectory Points}{section.4.4}% 43
+\BOOKMARK [0][-]{chapter.5}{Thickness Estimation}{}% 44
+\BOOKMARK [1][-]{section.5.1}{Chapter Overview}{chapter.5}% 45
+\BOOKMARK [1][-]{section.5.2}{Requirements of the Estimate}{chapter.5}% 46
+\BOOKMARK [1][-]{section.5.3}{Techniques for Estimating Thickness}{chapter.5}% 47
+\BOOKMARK [2][-]{subsection.5.3.1}{Flattening}{section.5.3}% 48
+\BOOKMARK [2][-]{subsection.5.3.2}{Point-to-Point}{section.5.3}% 49
+\BOOKMARK [2][-]{subsection.5.3.3}{Point-to-Mesh}{section.5.3}% 50
+\BOOKMARK [2][-]{subsection.5.3.4}{Mesh-to-Mesh}{section.5.3}% 51
+\BOOKMARK [1][-]{section.5.4}{Methods Used for Estimating Thickness}{chapter.5}% 52
+\BOOKMARK [0][-]{chapter.6}{Mobile Autonomous Shotcrete and Scanning System Overview}{}% 53
+\BOOKMARK [1][-]{section.6.1}{Chapter Overview}{chapter.6}% 54
+\BOOKMARK [1][-]{section.6.2}{Design Process}{chapter.6}% 55
+\BOOKMARK [1][-]{section.6.3}{Hardware}{chapter.6}% 56
+\BOOKMARK [2][-]{subsection.6.3.1}{Husky}{section.6.3}% 57
+\BOOKMARK [2][-]{subsection.6.3.2}{Husky Peripherals}{section.6.3}% 58
+\BOOKMARK [2][-]{subsection.6.3.3}{LMS100}{section.6.3}% 59
+\BOOKMARK [2][-]{subsection.6.3

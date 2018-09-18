@@ -1,0 +1,34 @@
+#!/usr/bin/env python
+PACKAGE = "phd"
+
+from dynamic_reconfigure.parameter_generator_catkin import *
+
+gen = ParameterGenerator()
+
+gen.add("cloud_name",    str_t,    0, "Cloud Save Filename", "cloud")
+gen.add("cloud_number",    int_t,    0, "Cloud Alignment Number", 1, 0, 10)
+
+gen.add("intensity_min",    int_t,    0, "Marker Intensiy Cutoff", 900, 0, 3000)
+gen.add("intensity_max",    int_t,    0, "Marker Intensiy Cutoff", 3000, 0, 3000)
+gen.add("pose_offset",    double_t,    0, "Pose Offset", 1, 0, 10)
+gen.add("init_clear",   bool_t,   0, "Clear Map on Init",  True)
+
+group1 = gen.add_group("Keep",type="collapse",  state = True)
+group1.add("auto_crop_max_x",    double_t,    0, "Max X value when auto-cropping for trajectory group1eration", .6, -10, 10)
+group1.add("auto_crop_min_x",    double_t,    0, "Min X value when auto-cropping for trajectory generation", 0, -10, 10)
+group1.add("auto_crop_max_y",    double_t,    0, "Max Y value when auto-cropping for trajectory generation", 2, -10, 10)
+group1.add("auto_crop_min_y",    double_t,    0, "Min Y value when auto-cropping for trajectory generation", -.5, -10, 10)
+group1.add("auto_crop_max_z",    double_t,    0, "Max Z value when auto-cropping for trajectory generation", 1.6, -10, 10)
+group1.add("auto_crop_min_z",    double_t,    0, "Min Z value when auto-cropping for trajectory generation", .7, -10, 10)
+group3 = gen.add_group("Occlude",type="collapse",  state = True)
+group3.add("auto_occlude_max_x",    double_t,    0, "Max X value when auto-cropping for nearby objects", .5, -10, 10)
+group3.add("auto_occlude_min_x",    double_t,    0, "Min X value when auto-cropping for nearby objects", -2, -10, 10)
+group3.add("auto_occlude_max_y",    double_t,    0, "Max Y value when auto-cropping for nearby objects", .5, -10, 10)
+group3.add("auto_occlude_min_y",    double_t,    0, "Min Y value when auto-cropping for nearby objects", -.5, -10, 10)
+group3.add("auto_occlude_max_z",    double_t,    0, "Max Z value when auto-cropping for nearby objects", 1.5, -10, 10)
+group3.add("auto_occlude_min_z",    double_t,    0, "Min Z value when auto-cropping for nearby objects", 0, -10, 10)
+
+exit(gen.generate(PACKAGE, "control_panel", "Param"))
+
+
+
