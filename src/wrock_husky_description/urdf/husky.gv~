@@ -1,0 +1,98 @@
+digraph G {
+graph [nodesep="1"];
+rankdir=DT;
+
+subgraph cluster_arm {
+{rank = same;
+"BASE";
+"J1" ;
+"J2" ;
+"J3";
+"J4";
+"J5";
+
+node [shape=ellipse, color=blue, fontcolor=blue, group=1];
+"Arm_Mount" -> "BASE"
+"BASE" -> "j1";
+"j1" -> "J1"
+"J1" -> "j2" ;
+"j2" -> "J2"
+"J2" -> "j3" ;
+"j3" -> "J3"
+"J3" -> "j4";
+"j4" -> "J4"
+"J4" -> "j5";
+"j5" -> "J5"
+}
+node [shape=box, group=0];
+label = "Manipulator"
+color=red
+}
+subgraph cluster_lidar {
+{rank = same;
+"angle_connector";
+"fixed_cube_5";
+"cube_5";
+"laser";
+node [shape=ellipse, color=blue, fontcolor=blue];
+"base_cube_joint" -> "angle_connector"
+"angle_connector" -> "fixed_cube_5_joint" ;
+"fixed_cube_5_joint" -> "fixed_cube_5"
+"fixed_cube_5" -> "cube_joint";
+"cube_joint" -> "cube_5"
+"cube_5" -> "laser_mount_joint";
+"laser_mount_joint" -> "laser"
+}
+node [shape=box];
+label = "Nodding Head LIDAR"
+color=red
+}
+node [shape=box];
+"base_link" ;
+"base_footprint" ;
+
+"front_bumper_link" ;
+"front_left_wheel_link" ;
+"front_right_wheel_link" ;
+"imu_link" ;
+"inertial_link";
+"rear_bumper_link" ;
+"rear_left_wheel_link" ;
+"rear_right_wheel_link" ;
+"top_chassis_link";
+"top_plate_link" ;
+"user_rail_link" ;
+node [shape=ellipse, color=blue, fontcolor=blue];
+"base_link" -> "base_footprint_joint" ;
+"base_footprint_joint" -> "base_footprint"
+"base_footprint" -> "Arm_Mount" ;
+"dummy" [style=invis];
+"dummy2" [style=invis];
+"dummy" -> "dummy2"[style=invis];
+"dummy2" -> "Arm_Mount"[style=invis];
+"base_footprint" -> "dummy"[style=invis];
+"dummy" -> "base_cube_joint"[style=invis];
+"base_footprint" ->  "base_cube_joint"
+"base_link" -> "front_bumper" ;
+"front_bumper" -> "front_bumper_link"
+"base_link" -> "front_left_wheel" ;
+"front_left_wheel" -> "front_left_wheel_link"
+"base_link" -> "front_right_wheel" ;
+"front_right_wheel" -> "front_right_wheel_link"
+"base_link" -> "imu_joint" ;
+"imu_joint" -> "imu_link"
+"base_link" -> "inertial_joint";
+"inertial_joint" -> "inertial_link"
+"base_link" -> "rear_bumper" ;
+"rear_bumper" -> "rear_bumper_link"
+"base_link" -> "rear_left_wheel" ;
+"rear_left_wheel" -> "rear_left_wheel_link"
+"base_link" -> "rear_right_wheel" ;
+"rear_right_wheel" -> "rear_right_wheel_link"
+"base_link" -> "top_chassis_joint";
+"top_chassis_joint" -> "top_chassis_link"
+"base_link" -> "top_plate_joint" ;
+"top_plate_joint" -> "top_plate_link"
+"base_link" -> "user_rail" ;
+"user_rail" -> "user_rail_link"
+}

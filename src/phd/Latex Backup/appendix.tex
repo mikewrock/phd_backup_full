@@ -4,21 +4,46 @@
 \label{app:code}
 \section{Cmakelists}
 \label{app:cmake}
-\section{Code Snippets}
-\label{app:snips}
-\subsection{Transformation Matrix Calculation}
-\label{app:tmat}
-
-\includecodelines{CleanedCode/src/pointcloud_localization_service.cpp}{pointcloud\_localization\_service.cpp}{342-367}
-\section{Nodes}
-\includecode{/home/mike/catkin_ws/src/phd/src/control_panel.cpp}{control\_panel.cpp}
-\section{Services}
-\includecode{/home/mike/catkin_ws/src/phd/src/pointcloud_localization_service.cpp}{pointcloud\_localization\_service.cpp}
-\includecode{/home/mike/catkin_ws/src/phd/src/simple_trajectory_service.cpp}{simple\_trajectory\_service.cpp}
-\includecode{/home/mike/catkin_ws/src/phd/src/thickness_service.cpp}{thickness\_service.cpp}
+\includecode[xmlstyle]{CleanedCode/CMakeLists.txt}{CMakeLists.txt}
 \section{Launch Files}
 \label{app:launch}
 \includecode[xmlstyle]{CleanedCode/launch/main.launch}{main.launch}
+\includecode[xmlstyle]{CleanedCode/launch/simulation.launch}{simulation.launch}
+\section{Configuration Files}
+\label{app:cfgs}
+\includecodelabel{CleanedCode/cfg/param_config.cfg}{Control Panel Configuration File param\_config.cfg}{code:cpcfg}
+\includecode{CleanedCode/cfg/localize_config.cfg}{Localization Configuration File localize\_config.cfg}\includecode{CleanedCode/cfg/trajectory_config.cfg}{Trajectory Generation Configuration File trajectory\_config.cfg}
+\includecodelabel{CleanedCode/cfg/laser_config.yaml}{LIDAR Filter Configuration File laser\_config.yaml}{code:yaml}
+\section{URDF}
+\label{app:urdf}
+\includecode[xmlstyle]{CleanedCode/urdf/base.urdf.xacro}{base.urdf.xacro}
+\includecode[xmlstyle]{CleanedCode/urdf/decorations.urdf.xacro}{decorations.urdf.xacro}
+\includecode[xmlstyle]{CleanedCode/urdf/description.xacro}{description.xacro}
+\includecode[xmlstyle]{CleanedCode/urdf/husky.urdf.xacro}{husky.urdf.xacro}
+\includecode[xmlstyle]{CleanedCode/urdf/materials.urdf.xacro}{materials.urdf.xacro}
+\includecode[xmlstyle]{CleanedCode/urdf/parts.urdf.xacro}{parts.urdf.xacro}
+\includecode[xmlstyle]{CleanedCode/urdf/wheel.urdf.xacro}{wheel.urdf.xacro}
+\section{Header Files}
+\label{app:headers}
+\includecode{CleanedCode/include/control_dashboard.h}{control\_dashboard.h}
+\includecode{CleanedCode/include/control_panel.hpp}{control\_panel.hpp}
+\includecode{CleanedCode/include/marker_selector.h}{marker\_selector.h}
+\section{Source Files}
+\label{app:source}
+\includecode{CleanedCode/src/control_dashboard.cpp}{control\_dashboard.cpp}
+\includecode{CleanedCode/src/control_panel.cpp}{control\_panel.cpp}
+\includecode{CleanedCode/src/denso_node.cpp}{denso\_node.cpp}
+\includecode{CleanedCode/src/cube_node.cpp}{cube\_node.cpp}
+\includecode{CleanedCode/src/marker_selector.cpp}{marker\_selector.cpp}
+\includecode{CleanedCode/src/joint_state_fusion.cpp}{joint\_state\_fusion.cpp}
+\subsection{Services}
+\label{app:sourcesrv}
+\includecode{CleanedCode/src/trajectory_service.cpp}{trajectory\_service.cpp}
+\includecode{CleanedCode/src/pointcloud_localization_service.cpp}{pointcloud\_localization\_service.cpp}
+\includecode{CleanedCode/src/thickness_service.cpp}{thickness\_service.cpp}
+\subsubsection{Transformation Matrix Calculation}
+\label{app:tmat}
+\includecodelines{CleanedCode/src/pointcloud_localization_service.cpp}{pointcloud\_localization\_service.cpp}{342-367}
 \chapter{DENSO Documentation}
 \section{Table of Shoulder, Elbow, and Wrist Figures}
 \label{sec:fig}

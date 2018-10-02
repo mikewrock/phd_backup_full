@@ -570,7 +570,7 @@ void show_markers(phd::trajectory_msg t_msg){
 		surface_path.points[i].z = t_msg.points[i].z;
 
 		float abs_pose = sqrt(pow(path.points[i].x-X_BASE_TO_ARM,2)+pow(path.points[i].y- Y_BASE_TO_ARM,2)+pow(path.points[i].z- (Z_BASE_TO_ARM+.28),2));
-		if(abs_pose < .432)	good_points.points.push_back(path.points[i]);
+		if(abs_pose < .732)	good_points.points.push_back(path.points[i]);
 		else bad_points.points.push_back(path.points[i]);
 
 		//ROS_INFO("Point %d: %f- %f- %f",i,path.points[i].x,path.points[i].y,path.points[i].z);
@@ -746,6 +746,8 @@ bool generate (phd::simple_trajectory_service::Request  &req,
 		std::vector<pcl::PointCloud<pcl::PointXYZI> > vertical_line;
 		pcl::PointCloud<pcl::PointXYZI> vertical_lines;
 		phd::trajectory_point found_pt;
+
+		sensor_msgs::PointCloud2 line_cloud3;
 pcl::PointXYZI target_pt;
 	if(horizontal_line->points.size()>0){
 		pcl::getMaxDistance(*horizontal_line, zeroPoint, farPoint);
@@ -842,7 +844,6 @@ pcl::PointXYZI target_pt;
 		//ROS_INFO("Roof far point %f - %f - %f", roofPoint[0], roofPoint[1], roofPoint[2]);
 		*sorted_horizontal_line = sort_NN_line(horizontal_line,roofPoint,CHUNK_RADIUS);
 		guides = guides + *sorted_horizontal_line;
-		sensor_msgs::PointCloud2 line_cloud3;
 		pcl::toROSMsg(guides,line_cloud3);
 		line_cloud3.header.frame_id = "/world";
 		line_cloud3.header.stamp = ros::Time::now();

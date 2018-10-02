@@ -68,7 +68,7 @@
 \BOOKMARK [3][-]{subsubsection.6.4.1.5}{Hector SLAM}{subsection.6.4.1}% 68
 \BOOKMARK [3][-]{subsubsection.6.4.1.6}{RQT Reconfigure}{subsection.6.4.1}% 69
 \BOOKMARK [2][-]{subsection.6.4.2}{Overview of the MASSS ROS Package}{section.6.4}% 70
-\BOOKMARK [0][-]{chapter.7}{Detailed Discussion of Software}{}% 71
+\BOOKMARK [0][-]{chapter.7}{Discussion of Software}{}% 71
 \BOOKMARK [1][-]{section.7.1}{Chapter Summary}{chapter.7}% 72
 \BOOKMARK [1][-]{section.7.2}{Package Files}{chapter.7}% 73
 \BOOKMARK [2][-]{subsection.7.2.1}{CMakeLists.txt}{section.7.2}% 74
@@ -91,33 +91,43 @@
 \BOOKMARK [2][-]{subsection.7.5.3}{Thickness Estimation Service}{section.7.5}% 91
 \BOOKMARK [2][-]{subsection.7.5.4}{Map Reset Service}{section.7.5}% 92
 \BOOKMARK [1][-]{section.7.6}{Configuration Files}{chapter.7}% 93
-\BOOKMARK [1][-]{section.7.7}{URDF}{chapter.7}% 94
-\BOOKMARK [1][-]{section.7.8}{Header Files}{chapter.7}% 95
-\BOOKMARK [1][-]{section.7.9}{Source Files}{chapter.7}% 96
-\BOOKMARK [1][-]{section.7.10}{External Packages and Libraries}{chapter.7}% 97
-\BOOKMARK [0][-]{chapter.8}{Testing}{}% 98
-\BOOKMARK [1][-]{section.8.1}{Mock Mine}{chapter.8}% 99
-\BOOKMARK [1][-]{section.8.2}{Test Scenarios}{chapter.8}% 100
-\BOOKMARK [2][-]{subsection.8.2.1}{Localization}{section.8.2}% 101
-\BOOKMARK [3][-]{subsubsection.8.2.1.1}{Localization Test}{subsection.8.2.1}% 102
-\BOOKMARK [3][-]{subsubsection.8.2.1.2}{Localization Sources of Error}{subsection.8.2.1}% 103
-\BOOKMARK [2][-]{subsection.8.2.2}{Trajectory Generation}{section.8.2}% 104
-\BOOKMARK [3][-]{subsubsection.8.2.2.1}{No trajectory generated}{subsection.8.2.2}% 105
-\BOOKMARK [3][-]{subsubsection.8.2.2.2}{Trajectory Point Outside Robot Workspace}{subsection.8.2.2}% 106
-\BOOKMARK [3][-]{subsubsection.8.2.2.3}{Trajectory Does Not Maintain Optimal Distance From Surface}{subsection.8.2.2}% 107
-\BOOKMARK [3][-]{subsubsection.8.2.2.4}{Trajectory Does Cover The Entire Selected Surface}{subsection.8.2.2}% 108
-\BOOKMARK [3][-]{subsubsection.8.2.2.5}{Trajectory Path Has Undesirable Overlap}{subsection.8.2.2}% 109
-\BOOKMARK [2][-]{subsection.8.2.3}{Thickness Estimation}{section.8.2}% 110
-\BOOKMARK [3][-]{subsubsection.8.2.3.1}{Thickness Estimation Sources of Error}{subsection.8.2.3}% 111
-\BOOKMARK [0][-]{chapter.9}{Discussion of Results}{}% 112
-\BOOKMARK [1][-]{subsubsection.9.0.3.2}{Repeatability of LIDAR}{chapter.9}% 113
-\BOOKMARK [0][-]{chapter.10}{Conclusions and Recommendations for Future Work}{}% 114
-\BOOKMARK [0][-]{appendix.A}{Complete Source Code}{}% 115
-\BOOKMARK [1][-]{section.A.1}{Cmakelists}{appendix.A}% 116
-\BOOKMARK [1][-]{section.A.2}{Code Snippets}{appendix.A}% 117
-\BOOKMARK [2][-]{subsection.A.2.1}{Transformation Matrix Calculation}{section.A.2}% 118
-\BOOKMARK [1][-]{section.A.3}{Nodes}{appendix.A}% 119
-\BOOKMARK [1][-]{section.A.4}{Services}{appendix.A}% 120
-\BOOKMARK [1][-]{section.A.5}{Launch Files}{appendix.A}% 121
-\BOOKMARK [0][-]{appendix.B}{DENSO Documentation}{}% 122
-\BOOKMARK [1][-]{section.B.1}{Table of Shoulder, Elbow, and Wrist Figures}{appendix.B}% 123
+\BOOKMARK [2][-]{subsection.7.6.1}{YAML Files}{section.7.6}% 94
+\BOOKMARK [1][-]{section.7.7}{URDF}{chapter.7}% 95
+\BOOKMARK [1][-]{section.7.8}{Header Files}{chapter.7}% 96
+\BOOKMARK [1][-]{section.7.9}{Source Files}{chapter.7}% 97
+\BOOKMARK [2][-]{subsection.7.9.1}{Control Dashboard}{section.7.9}% 98
+\BOOKMARK [2][-]{subsection.7.9.2}{Control Panel}{section.7.9}% 99
+\BOOKMARK [3][-]{subsubsection.7.9.2.1}{Visualization}{subsection.7.9.2}% 100
+\BOOKMARK [3][-]{subsubsection.7.9.2.2}{Administrative Functions}{subsection.7.9.2}% 101
+\BOOKMARK [3][-]{subsubsection.7.9.2.3}{Internal Functions}{subsection.7.9.2}% 102
+\BOOKMARK [2][-]{subsection.7.9.3}{DENSO and Powercube Nodes}{section.7.9}% 103
+\BOOKMARK [2][-]{subsection.7.9.4}{Additional Nodes}{section.7.9}% 104
+\BOOKMARK [1][-]{section.7.10}{External Packages and Libraries}{chapter.7}% 105
+\BOOKMARK [0][-]{chapter.8}{Testing}{}% 106
+\BOOKMARK [1][-]{section.8.1}{Mock Mine}{chapter.8}% 107
+\BOOKMARK [1][-]{section.8.2}{Test Scenarios}{chapter.8}% 108
+\BOOKMARK [2][-]{subsection.8.2.1}{Localization}{section.8.2}% 109
+\BOOKMARK [3][-]{subsubsection.8.2.1.1}{Localization Test}{subsection.8.2.1}% 110
+\BOOKMARK [3][-]{subsubsection.8.2.1.2}{Localization Sources of Error}{subsection.8.2.1}% 111
+\BOOKMARK [2][-]{subsection.8.2.2}{Trajectory Generation}{section.8.2}% 112
+\BOOKMARK [3][-]{subsubsection.8.2.2.1}{No trajectory generated}{subsection.8.2.2}% 113
+\BOOKMARK [3][-]{subsubsection.8.2.2.2}{Trajectory Point Outside Robot Workspace}{subsection.8.2.2}% 114
+\BOOKMARK [3][-]{subsubsection.8.2.2.3}{Trajectory Does Not Maintain Optimal Distance From Surface}{subsection.8.2.2}% 115
+\BOOKMARK [3][-]{subsubsection.8.2.2.4}{Trajectory Does Cover The Entire Selected Surface}{subsection.8.2.2}% 116
+\BOOKMARK [3][-]{subsubsection.8.2.2.5}{Trajectory Path Has Undesirable Overlap}{subsection.8.2.2}% 117
+\BOOKMARK [2][-]{subsection.8.2.3}{Thickness Estimation}{section.8.2}% 118
+\BOOKMARK [3][-]{subsubsection.8.2.3.1}{Thickness Estimation Sources of Error}{subsection.8.2.3}% 119
+\BOOKMARK [0][-]{chapter.9}{Discussion of Results}{}% 120
+\BOOKMARK [1][-]{subsubsection.9.0.3.2}{Repeatability of LIDAR}{chapter.9}% 121
+\BOOKMARK [0][-]{chapter.10}{Conclusions and Recommendations for Future Work}{}% 122
+\BOOKMARK [0][-]{appendix.A}{Complete Source Code}{}% 123
+\BOOKMARK [1][-]{section.A.1}{Cmakelists}{appendix.A}% 124
+\BOOKMARK [1][-]{section.A.2}{Launch Files}{appendix.A}% 125
+\BOOKMARK [1][-]{section.A.3}{Configuration Files}{appendix.A}% 126
+\BOOKMARK [1][-]{section.A.4}{URDF}{appendix.A}% 127
+\BOOKMARK [1][-]{section.A.5}{Header Files}{appendix.A}% 128
+\BOOKMARK [1][-]{section.A.6}{Source Files}{appendix.A}% 129
+\BOOKMARK [2][-]{subsection.A.6.1}{Services}{section.A.6}% 130
+\BOOKMARK [3][-]{subsubsection.A.6.1.1}{Transformation Matrix Calculation}{subsection.A.6.1}% 131
+\BOOKMARK [0][-]{appendix.B}{DENSO Documentation}{}% 132
+\BOOKMARK [1][-]{section.B.1}{Table of Shoulder, Elbow, and Wrist Figures}{appendix.B}% 133
