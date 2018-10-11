@@ -1,9 +1,41 @@
 \chapter{Introduction}
 \label{chap:introduction}
-\section{Underground Uranium Mining}
-\label{sec:umine}
+
+The engineering goals of this work are twofold; not only was a robotic system designed, constructed, and tested to complete a specific task, it also must serve as a development platform for implementing and testing new algorithms. Though a primary requirement is to demonstrate a functional proof of concept prototype, the priority is to develop a system on which further research can be performed.\\
+
+Most importantly this research aims to improve worker safety in underground uranium mines. It achieves this by not only removing workers from a hazardous environment but performing tasks (some of which directly related to establishing a safe environment) with greater accuracy, consistency, and measurability.\\
+
+As this is a research project in a research institution, simply designing a functional prototype would not be sufficient. The prototype must also serve as a research tool for developing other novel solutions to the problems discussed herein or problems that may be entirely unrelated to this work but require a similar robotic system or software platform. Both the hardware and software in this work is intended to be as modular and reusable as possible to not limit the potential research that can be performed on the final product.\\
+
+The hardware designs in this work aims not to replace existing hardware, but to mimic it. Choosing equipment capable of functioning in the harsh conditions of an underground uranium mine would add significant cost to the project. Instead, hardware was selected such that it had equivalent functionality but lacked the appropriate characteristics to endure the conditions it would be exposed to in the mine. As well, the mock mine constructed for testing is one third the scale of the real mine, meaning the robotic system was also designed at the same scale.\\
+
+The software framework developed in this work the most significant contribution of this research. If implemented on existing or novel hardware specifically intended for use in a mine, minimal modification to the code is required. One simply needs to replace the hardware drivers used with the appropriate drivers for the hardware used. The algorithms and implementation is highly modular and capable of performing on a wide variety of hardware systems. Moreover, the software was designed in such a way that it can be used in applications entirely unrelated to this work with no modification to the code.\\
+
 \section{Problem Statement}
 \label{sec:prob}
+The most crucial problem this work is trying to address is worker safety. It attempts to solve this problem in a way that is most conducive to continuing research. Specifically the scenario this work is intended to improve is underground uranium drift mining. First an explanation of underground drift mining is necessary, followed by a discussion of the additional dangers a radioactive ore presents. With an understanding of the current state of the art, the problem statement can be presented.\\
+
+\subsection{Underground Drift Mining}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{Pics/raisebore.jpg}
+    \caption{Raisebore Mining Technique \cite{weblink}}
+    \label{fig:raisebore}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{Pics/boxhole.jpg}
+    \caption{Boxhole Mining Technique \cite{weblink}}
+    \label{fig:boxhole}
+\end{figure}
+%https://www.cameco.com/businesses/mining-methods#raisebore-mining
+A drift is simply a mining term to describe a nearly horizontal passageway within a mine. The drifts usually follow an ore vein, allowing the miners to extract ore as the drift progresses. Prospecting drifts may intersect the ore body, but drifts are more commonly used to provide access areas of the mine where other mining methods are employed. Two methods of mining that require drifts can be seen in Figures \ref{fig:raisebore} and \ref{fig:boxhole}. These methods use the drifts to position the mining equipment above or below the ore body for extraction. Drifts are also used to place freeze lines in order to create a freeze wall that prevents the mine from flooding (as seen in Figure \ref{fig:boxhole}).\\
+
+
+\subsection{Mining Uranium Ore}
+\subsection{Surface Scanning}
+\subsection{Shotcrete Reinforcement}
 \section{Scope}
 \label{sec:scope}
 \section{Summary of Contributions}
