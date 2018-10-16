@@ -1,7 +1,7 @@
 \chapter{Introduction}
 \label{chap:introduction}
 
-The engineering goals of this work are twofold; not only was a robotic system designed, constructed, and tested to complete a specific task, it also must serve as a development platform for implementing and testing new algorithms. Though a primary requirement is to demonstrate a functional proof of concept prototype, the priority is to develop a system on which further research can be performed.\\
+The engineering goals of this work are twofold; not only was a robotic system designed, constructed, and tested to complete a specific set of tasks, it also must serve as a development platform for implementing and testing new algorithms. Though a primary requirement is to demonstrate a functional proof of concept prototype, the priority is to develop a system on which further research can be performed.\\
 
 Most importantly this research aims to improve worker safety in underground uranium mines. It achieves this by not only removing workers from a hazardous environment but performing tasks (some of which directly related to establishing a safe environment) with greater accuracy, consistency, and measurability.\\
 
@@ -19,23 +19,31 @@ The most crucial problem this work is trying to address is worker safety. It att
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{Pics/raisebore.jpg}
+    \includegraphics[width=\textwidth]{Pics/raisebore.jpg}
     \caption{Raisebore Mining Technique \cite{weblink}}
     \label{fig:raisebore}
 \end{figure}
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{Pics/boxhole.jpg}
+    \includegraphics[width=\textwidth]{Pics/boxhole.jpg}
     \caption{Boxhole Mining Technique \cite{weblink}}
     \label{fig:boxhole}
 \end{figure}
 %https://www.cameco.com/businesses/mining-methods#raisebore-mining
 A drift is simply a mining term to describe a nearly horizontal passageway within a mine. The drifts usually follow an ore vein, allowing the miners to extract ore as the drift progresses. Prospecting drifts may intersect the ore body, but drifts are more commonly used to provide access areas of the mine where other mining methods are employed. Two methods of mining that require drifts can be seen in Figures \ref{fig:raisebore} and \ref{fig:boxhole}. These methods use the drifts to position the mining equipment above or below the ore body for extraction. Drifts are also used to place freeze lines in order to create a freeze wall that prevents the mine from flooding (as seen in Figure \ref{fig:boxhole}).\\
 
+Drifts are typically created using the drill and blast method. Drills are used to create holes into which explosives are placed. After detonation the blasted rock is removed and the mine is reinforced. Rock bolts and mesh are applied to the mine surface, followed by an application of a sprayable concrete liner called shotcrete. When small sections of the mine are modified the rock bolts and mesh may be omitted, relying on the shotcrete alone for reinforcement.\\
 
-\subsection{Mining Uranium Ore}
+When mining uranium ore the shotcrete reinforcement serves two purposes. First and foremost, the shotcrete reinforces the mine and prevents rock-fall. Reinforcement is necessary to prevent the workers from getting crushed or trapped should the mine collapse, and prevent loose rock from falling and injuring the workers. However, in a uranium mine the shotcrete serves an additional purpose: protection from radiation and radon gas. As uranium decays it produces multiple types of radiation and radioactive products. Among these products is an odourless and colourless radioactive gas called radon. Inhalation of radon gas and it's progeny has been shown to increase the rate of lung cancer in uranium mine workers \cite{radon}. For this reason shotcrete must be applied to all surfaces of the mine unlike typical mines that do not require application of shotcrete to the drift face.\\
+
+%radon: http://nuclearsafety.gc.ca/eng/resources/fact-sheets/radon-fact-sheet.cfm
 \subsection{Surface Scanning}
+
+Since naturally occurring uranium ore has a known radiation signature, the ore concentration can be determined by measuring the radiation energy emitted. This radiation energy is harmful to those exposed to it, so workers attempt to maximize their distance from the ore when protection from a layer of shotcrete is not available. If the drift intersects the ore body geologists may want to inspect the drift face containing ore. To do so they use a radiation sensor such as a Geiger-M{\"u}ller counter mounted on the end of a long pole (to maximize their distance from the radioactive ore). This method is crude at best, the geologists are not able to position the sensors with very high accuracy or record the position at which they've taken the measurement. The measurements themselves lack accuracy as well, since the radiation sensors currently in use are unshielded and yield measurements 
+
+
 \subsection{Shotcrete Reinforcement}
+\subsection{Summary}
 \section{Scope}
 \label{sec:scope}
 \section{Summary of Contributions}
