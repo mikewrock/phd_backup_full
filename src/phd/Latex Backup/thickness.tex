@@ -45,31 +45,48 @@ As discussed in Chapter \ref{chap:localiz}, localization is achieved through the
 With two registered pointclouds the distance between them represents the thickness of the applied shotcrete layer. Calculating the distance can be divided in to three main categories, depending on how each pointcloud is treated. In the Point-to-point (P2P) method the pointclouds do not require further processing. The Point-to-mesh (P2M) method requires converting one of the pointclouds to a mesh, and the Mesh-to-mesh (M2M) approach requires converting both pointclouds to meshes.\\
 
 \subsection{Point-to-Point}
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{Pics/p2p.png}
+    \includegraphics[width=0.8\textwidth]{Pics/p2p.pdf}
     \caption{Point-to-Point Thickness Estimation}
     \label{fig:p2pdia}
 \end{figure}
+The P2P approach is the simplest yet most robust method for thickness estimation. If the initial and final pointclouds are sufficiently dense, it can be the most accurate as well. The P2P method loses accuracy when the surface scans have a significant amount of noise, or low point density. Calculating the shotcrete thickness using P2P is done using the nearest neighbour search method from the PCL library. For each point in the source cloud, the nearest point in the target cloud is found. The distance between the two points is calculated and stored in the final pointcloud used for thickness analysis. To achieve the best results the denser point cloud should be used as the target cloud.\\
 \subsection{Point-to-Mesh}
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{Pics/p2m.png}
+    \includegraphics[width=0.8\textwidth]{Pics/p2m.pdf}
     \caption{Point-to-Mesh Thickness Estimation}
     \label{fig:p2mdia}
 \end{figure}
-\begin{figure}[h]
+
+The P2M approach requires first generating a mesh of the final pointcloud. The most common approach to forming a mesh from a set of points is Delaunay triangulation. Using this method the points are grouped in threes to form a continuous surface of triangles. The thickness calculation is done by finding the nearest point or edge in the source cloud for each point in the target cloud. The distance is then calculated using a normal vector to the source cloud triangle's plane that intersects the point in the target cloud. As can be seen in Figure \ref{fig:p2mdia}, if the surface meshing is performed at too high a resolution the accuracy is significantly reduced. The original pointcloud can be downsampled using averaging methods to yield a lower resolution pointcloud, however the process requires tuning specific to the surface features it is used upon. As well, different sections of the surface may have significantly different roughness requiring differing degrees of downsampling to yield optimal results.\\
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{Pics/p2mlocal.png}
+    \includegraphics[width=0.8\textwidth]{Pics/p2mlocal.pdf}
     \caption{Point-to-Mesh Thickness Estimation Using Local Features}
     \label{fig:p2mlocaldia}
 \end{figure}
+To reduce the accuracy loss of using a single density for downsampling the pointcloud, local features can be computed. Local features are computed by averaging a group of points to form a single plane using a method such as the least squares. The least squares method attempts to find a plane having the least distance to each point in the local area. By computing local features, the accuracy loss shown in Figure \ref{fig:p2mdia} can be reduced to the scenario presented in \ref{fig:p2mlocal}. Local features once again requires knowledge of the surface roughness or scan specific tuning. The P2M approaches can provide greater accuracy in low density pointclouds than P2P can offer, but they require tuning and calibration from the operator and an increased amount of computation time.\\
 \subsection{Mesh-to-Mesh}
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{Pics/m2m.png}
+    \includegraphics[width=0.8\textwidth]{Pics/m2m.pdf}
     \caption{Mesh-to-Mesh Thickness Estimation}
     \label{fig:m2mdia}
 \end{figure}
+The M2M approaches are the most computationally intensive methods and have the highest sensitivity to computation parameter selection. Both pointclouds, initial and final, will have different surface roughness and require individual site specific tuning. In M2M, the midpoint of the line (or centroid of the triangle) formed by the meshing of the source pointcloud is used as the location to calculate a thickness measurement. The orthogonal distance from the line (or surface) of the source mesh to the intersection with the line (or surface) of the target mesh is used as the thickness estimate. Similar to P2M, M2M requires specific tuning to ensure the pointclouds are accurately represented as meshes.\\
+\subsection{Multiscale Model-to-Model Cloud Comparison}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Pics/m3c2.png}
+    \caption{Multiscale Model-to-Model Cloud Comparison \cite{accurate3d}}
+    \label{fig:m3c2}
+\end{figure}
+
+Multiscale Model-to-Model Cloud Comparison (M3C2) is visually summarised in Figure \ref{fig:m3c2}. This approach is similar to the local feature P2M approach in which local areas of the point cloud are averaged to generate planes which normals are used for thickness estimation. The accuracy loss from choosing an inappropriate scale at which to calculate local surface normals is shown in diagram b of Figure \ref{fig:m3c2}. Though M3C2 is also dependant on site specific calibration, the user is able to specify a confidence value for the accuracy of the surface scans ($\sigma_1,\sigma_2$) and the algorithm includes a confidence value for each thickness estimate.\\
 
 \section{Method Implemented for Estimating Thickness}
+Ultimately, the user is free to use alternate methods of thickness estimation. Every pointcloud obtained by the MASSS is localized to a common coordinate frame, making it simple to use external software for pointcloud comparison. CloudCompare (https://www.cloudcompare.org/) is an open source 3D point cloud and mesh processing software that can use the output files generated by the MASSS without the need for converting or processing the data. CloudCompare allows the user to calculate shotcrete thickness using a number of different approaches, with whatever computation parameters they choose.\\
+
+For the specific scenario the MASSS was designed to simulate, P2P was determined to be the best approach. It requires the least amount of user input and provides the highest accuracy for the given test conditions. Though CloudCompare provides an external solution for P2P thickness estimation, in the interest of providing a complete package the P2P algorithm was integrated in to the MASSS software package. Future research in which novel thickness estimation techniques are developed can be integrated directly in to the MASSS software package. The user can view and interact with the thickness estimates within the RVIZ environment thanks to the integration of thickness estimation algorithm in the MASSS software package. Due to the modularity of ROS, alternate thickness estimation algorithms can be selected by launching an alternate thickness estimation service either manually or within the ROS launch file.\\

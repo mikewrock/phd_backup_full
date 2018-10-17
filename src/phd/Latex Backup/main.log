@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2018.7.12)  16 OCT 2018 16:07
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2018.7.12)  17 OCT 2018 15:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1172,20 +1172,12 @@ Package: ltablex 1995/11/06 v1.0 Modified tabularx
 (/usr/share/texlive/texmf-dist/tex/latex/was/gensymb.sty
 Package: gensymb 2003/07/02 v1.0 (WaS)
 )
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/courier.sty
-Package: courier 2005/04/12 PSNFSS-v9.2a (WaS) 
-))
-\@input{studentInfo.aux}
-\openout2 = `studentInfo.aux'.
+(/usr/share/texlive/texmf-dist/tex/latex/pstricks/pstricks.sty
+Package: pstricks 2013/12/12 v0.60 LaTeX wrapper for `PSTricks' (RN,HV)
 
-(./studentInfo.tex
-\c@theorem=\count303
-\c@definition=\count304
-\c@lemma=\count305
-\c@notation=\count306
-)
-(/usr/share/texlive/texmf-dist/tex/latex/glossaries/base/glossaries.sty
-Package: glossaries 2014/01/20 v4.03 (NLCT)
+(/usr/share/texlive/texmf-dist/tex/generic/pstricks/pstricks.tex
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/pst-xkey.tex
+File: pst-xkey.tex 2005/11/25 v1.6 PSTricks specialization of xkeyval (HA)
 
 (/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
 Package: xkeyval 2012/10/14 v2.6b package option processing (HA)
@@ -1193,18 +1185,114 @@ Package: xkeyval 2012/10/14 v2.6b package option processing (HA)
 (/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
 \XKV@toks=\toks46
 \XKV@tempa@toks=\toks47
-\XKV@depth=\count307
+\XKV@depth=\count303
 File: xkeyval.tex 2012/10/14 v2.6b key=value parser (HA)
+)))
+(/usr/share/texlive/texmf-dist/tex/generic/pstricks/pst-fp.tex
+`pst-fp' v0.05, 2010/01/17 (hv)
+\pstFP@xs=\count304
+\pstFP@xia=\count305
+\pstFP@xib=\count306
+\pstFP@xfa=\count307
+\pstFP@xfb=\count308
+\pstFP@rega=\count309
+\pstFP@regb=\count310
+\pstFP@regs=\count311
+\pstFP@times=\count312
+)
+(/usr/share/texmf/tex/generic/pgf/utilities/pgfutil-common.tex
+\pgfutil@everybye=\toks48
+)
+(/usr/share/texmf/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks49
+\pgfkeys@temptoks=\toks50
+
+(/usr/share/texmf/tex/generic/pgf/utilities/pgfkeysfiltered.code.tex
+\pgfkeys@tmptoks=\toks51
 ))
+(/usr/share/texmf/tex/generic/pgf/utilities/pgffor.code.tex
+\pgffor@iter=\dimen263
+\pgffor@skip=\dimen264
+\pgffor@stack=\toks52
+\pgffor@toks=\toks53
+)
+\psLoopIndex=\count313
+
+`PSTricks' v2.51  <2014/02/03> (tvz)
+\pst@dima=\dimen265
+\pst@dimb=\dimen266
+\pst@dimc=\dimen267
+\pst@dimd=\dimen268
+\pst@dimg=\dimen269
+\pst@dimh=\dimen270
+\pst@dimm=\dimen271
+\pst@dimn=\dimen272
+\pst@dimo=\dimen273
+\pst@dimp=\dimen274
+\pst@hbox=\box65
+\pst@ibox=\box66
+\pst@boxg=\box67
+\pst@cnta=\count314
+\pst@cntb=\count315
+\pst@cntc=\count316
+\pst@cntd=\count317
+\pst@cntg=\count318
+\pst@cnth=\count319
+\pst@cntm=\count320
+\pst@cntn=\count321
+\pst@cnto=\count322
+\pst@cntp=\count323
+\@zero=\count324
+\pst@toks=\toks54
+(/usr/share/texlive/texmf-dist/tex/generic/pstricks/pstricks.con)
+\psunit=\dimen275
+\psxunit=\dimen276
+\psyunit=\dimen277
+\pst@C@@rType=\count325
+\pslinewidth=\dimen278
+\psk@startLW=\dimen279
+\psk@endLW=\dimen280
+\pst@customdefs=\toks55
+\pslinearc=\dimen281
+\pst@symbolStep=\dimen282
+\pst@symbolWidth=\dimen283
+\pst@symbolLinewidth=\dimen284
+\everypsbox=\toks56
+\psframesep=\dimen285
+\pslabelsep=\dimen286
+\sh@wgridXunit=\dimen287
+\sh@wgridYunit=\dimen288
+\pst@shift=\dimen289
+)
+File: pstricks.tex 2014/02/03 v2.51 `PSTricks' (tvz,hv)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pstricks/pst-fp.tex)
+File: pst-fp.tex 2014/02/03 v2.51 `PST-fp' (hv)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/courier.sty
+Package: courier 2005/04/12 PSNFSS-v9.2a (WaS) 
+))
+\@input{studentInfo.aux}
+\openout2 = `studentInfo.aux'.
+
+(./studentInfo.tex
+\c@theorem=\count326
+\c@definition=\count327
+\c@lemma=\count328
+\c@notation=\count329
+)
+(/usr/share/texlive/texmf-dist/tex/latex/glossaries/base/glossaries.sty
+Package: glossaries 2014/01/20 v4.03 (NLCT)
+
 (/usr/share/texlive/texmf-dist/tex/latex/glossaries/base/mfirstuc.sty
 Package: mfirstuc 2013/11/04 v1.08 (NLCT)
 
 (/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2011/01/03 v2.1 e-TeX tools for LaTeX
-\etb@tempcnta=\count308
+\etb@tempcnta=\count330
 )
-\@glsmfirst=\toks48
-\@glsmrest=\toks49
+\@glsmfirst=\toks57
+\@glsmrest=\toks58
 )
 (/usr/share/texlive/texmf-dist/tex/latex/textcase/textcase.sty
 Package: textcase 2004/10/07 v0.07 Text only upper/lower case changing (DPC)
@@ -1217,7 +1305,7 @@ Package: datatool-base 2013/09/06 v2.18 (NLCT)
 
 (/usr/share/texlive/texmf-dist/tex/latex/substr/substr.sty
 Package: substr 2009/10/20 v1.2 Handle substrings
-\c@su@anzahl=\count309
+\c@su@anzahl=\count331
 )
 (/usr/share/texlive/texmf-dist/tex/latex/datatool/datatool-fp.sty
 Package: datatool-fp 2013/08/29 v2.17 (NLCT)
@@ -1228,19 +1316,19 @@ Package: fp 1995/04/02
 `Fixed Point Package', Version 0.8, April 2, 1995 (C) Michael Mehlich
 (/usr/share/texlive/texmf-dist/tex/latex/fp/defpattern.sty
 Package: defpattern 1994/10/12
-\actioncount=\count310
+\actioncount=\count332
 )
 (/usr/share/texlive/texmf-dist/tex/latex/fp/fp-basic.sty
 Package: fp-basic 1996/05/13
-\FP@xs=\count311
-\FP@xia=\count312
-\FP@xib=\count313
-\FP@xfa=\count314
-\FP@xfb=\count315
-\FP@rega=\count316
-\FP@regb=\count317
-\FP@regs=\count318
-\FP@times=\count319
+\FP@xs=\count333
+\FP@xia=\count334
+\FP@xib=\count335
+\FP@xfa=\count336
+\FP@xfb=\count337
+\FP@rega=\count338
+\FP@regb=\count339
+\FP@regs=\count340
+\FP@times=\count341
 )
 (/usr/share/texlive/texmf-dist/tex/latex/fp/fp-addons.sty
 Package: fp-addons 1995/03/15
@@ -1259,7 +1347,7 @@ Package: fp-pas 1994/08/29
 )
 (/usr/share/texlive/texmf-dist/tex/latex/fp/fp-random.sty
 Package: fp-random 1995/02/23
-\FPseed=\count320
+\FPseed=\count342
 )
 (/usr/share/texlive/texmf-dist/tex/latex/fp/fp-eqn.sty
 Package: fp-eqn 1995/04/03
@@ -1270,28 +1358,28 @@ Package: fp-upn 1996/10/21
 (/usr/share/texlive/texmf-dist/tex/latex/fp/fp-eval.sty
 Package: fp-eval 1995/04/03
 )))
-\@dtl@toks=\toks50
-\@dtl@tmpcount=\count321
+\@dtl@toks=\toks59
+\@dtl@tmpcount=\count343
 \dtl@tmplength=\skip124
-\dtl@sortresult=\count322
-\@dtl@numgrpsepcount=\count323
-\@dtl@datatype=\count324
-\dtl@codeA=\count325
-\dtl@codeB=\count326
-\@dtl@foreach@level=\count327
+\dtl@sortresult=\count344
+\@dtl@numgrpsepcount=\count345
+\@dtl@datatype=\count346
+\dtl@codeA=\count347
+\dtl@codeB=\count348
+\@dtl@foreach@level=\count349
 )
 (/usr/share/texlive/texmf-dist/tex/latex/glossaries/base/glossaries-compatible-
 307.sty
 Package: glossaries-compatible-307 2013/11/14 v4.0 (NLCT)
 )
-\gls@level=\count328
-\@gls@tmpb=\toks51
+\gls@level=\count350
+\@gls@tmpb=\toks60
 \gls@tmplen=\skip125
 \glswrite=\write7
-\glskeylisttok=\toks52
-\glslabeltok=\toks53
-\glsshorttok=\toks54
-\glslongtok=\toks55
+\glskeylisttok=\toks61
+\glslabeltok=\toks62
+\glsshorttok=\toks63
+\glslongtok=\toks64
 
 (/usr/share/texlive/texmf-dist/tex/latex/glossaries/styles/glossary-hypernav.st
 y
@@ -1308,22 +1396,22 @@ Package: glossary-super 2013/11/14 v4.0 (NLCT)
 
 (/usr/share/texlive/texmf-dist/tex/latex/supertabular/supertabular.sty
 Package: supertabular 2004/02/20 v4.1e the supertabular environment
-\c@tracingst=\count329
-\ST@wd=\dimen263
+\c@tracingst=\count351
+\ST@wd=\dimen290
 \ST@rightskip=\skip129
 \ST@leftskip=\skip130
 \ST@parfillskip=\skip131
-\ST@pageleft=\dimen264
-\ST@headht=\dimen265
-\ST@tailht=\dimen266
-\ST@pagesofar=\dimen267
-\ST@pboxht=\dimen268
-\ST@lineht=\dimen269
-\ST@stretchht=\dimen270
-\ST@prevht=\dimen271
-\ST@toadd=\dimen272
-\ST@dimen=\dimen273
-\ST@pbox=\box65
+\ST@pageleft=\dimen291
+\ST@headht=\dimen292
+\ST@tailht=\dimen293
+\ST@pagesofar=\dimen294
+\ST@pboxht=\dimen295
+\ST@lineht=\dimen296
+\ST@stretchht=\dimen297
+\ST@prevht=\dimen298
+\ST@toadd=\dimen299
+\ST@dimen=\dimen300
+\ST@pbox=\box68
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/glossaries/styles/glossary-tree.sty
 Package: glossary-tree 2013/11/14 v4.0 (NLCT)
@@ -1334,7 +1422,7 @@ Package: glossary-tree 2013/11/14 v4.0 (NLCT)
 \openout8 = `main.glo'.
 
 Package glossaries Info: Writing glossary file main.glo on input line 8.
-\ALG@printindent@tempcnta=\count330
+\ALG@printindent@tempcnta=\count352
  (./main.aux (./abstract.aux) (./acknowledgements.aux)
 (./dedication.aux) (./introduction.aux) (./background.aux) (./localization.aux)
 (./trajectory.aux) (./thickness.aux) (./overview.aux) (./code.aux)
@@ -1400,20 +1488,20 @@ LaTeX Font Info:    ... okay on input line 115.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count331
-\scratchdimen=\dimen274
-\scratchbox=\box66
-\nofMPsegments=\count332
-\nofMParguments=\count333
-\everyMPshowfont=\toks56
-\MPscratchCnt=\count334
-\MPscratchDim=\dimen275
-\MPnumerator=\count335
-\makeMPintoPDFobject=\count336
-\everyMPtoPDFconversion=\toks57
+\scratchcounter=\count353
+\scratchdimen=\dimen301
+\scratchbox=\box69
+\nofMPsegments=\count354
+\nofMParguments=\count355
+\everyMPshowfont=\toks65
+\MPscratchCnt=\count356
+\MPscratchDim=\dimen302
+\MPnumerator=\count357
+\makeMPintoPDFobject=\count358
+\everyMPtoPDFconversion=\toks66
 )
-\c@lstlisting=\count337
-\AtBeginShipoutBox=\box67
+\c@lstlisting=\count359
+\AtBeginShipoutBox=\box70
 
 (/usr/share/texmf/tex/latex/beamer/base/translator/dicts/translator-basic-dicti
 onary/translator-basic-dictionary-English.dict
@@ -1434,7 +1522,7 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count338
+\c@section@level=\count360
 )
 LaTeX Info: Redefining \ref on input line 115.
 LaTeX Info: Redefining \pageref on input line 115.
@@ -1481,7 +1569,7 @@ LaTeX Info: Redefining \ohm on input line 115.
 Package gensymb Info: Using \textohm for \ohm on input line 115.
 LaTeX Info: Redefining \micro on input line 115.
 Package gensymb Info: Using \textmu for \micro on input line 115.
-\c__siunitx_mathsf_int=\count339
+\c__siunitx_mathsf_int=\count361
 LaTeX Font Info:    Try loading font information for U+msa on input line 115.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -1492,17 +1580,24 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 115.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-\c__siunitx_mathtt_int=\count340
+\c__siunitx_mathtt_int=\count362
 
 Overfull \hbox (7.2648pt too wide) in paragraph at lines 117--117
 [][] 
  []
 
 [1
+Non-PDF special ignored!
+Non-PDF special ignored!
+Non-PDF special ignored!
+Non-PDF special ignored!
 
 
 
 \reset@newl@bel
+Non-PDF special ignored!
+Non-PDF special ignored!
+Non-PDF special ignored!
 
 
 
@@ -1511,20 +1606,21 @@ Overfull \hbox (7.2648pt too wide) in paragraph at lines 117--117
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 \openout2 = `abstract.aux'.
 
- (./abstract.tex) [2
+
+(./abstract.tex) [2
 
 ]
 \openout2 = `acknowledgements.aux'.
 
-
-(./acknowledgements.tex) [3
+ (./acknowledgements.tex) [3
 
 
 
 ] (./main.toc [4
 
 
-] [5] [6] [7] [8])
+] [5] [6]
+[7] [8])
 \tf@toc=\write10
 \openout10 = `main.toc'.
 
@@ -1532,8 +1628,7 @@ Overfull \hbox (7.2648pt too wide) in paragraph at lines 117--117
 \tf@lot=\write11
 \openout11 = `main.lot'.
 
-
-[10
+ [10
 
 ] (./main.lof
 
@@ -1548,7 +1643,11 @@ File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 ) [11
 
 ]
-Overfull \hbox (11.54701pt too wide) in paragraph at lines 40--40
+
+LaTeX Warning: Citation `accurate3d' on page xii undefined on input line 35.
+
+
+Overfull \hbox (11.54701pt too wide) in paragraph at lines 45--45
  [][] [][]\T1/cmr/m/n/12 Trajectory Vizual-iza-tion: Sur-face path (Red), End-E
 ffector Path (Green), 
  []
@@ -1616,7 +1715,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--17
 
  []
 
-[2] <Pics/raisebore.jpg, id=978, 873.2625pt x 341.275pt>
+[2] <Pics/raisebore.jpg, id=993, 873.2625pt x 341.275pt>
 File: Pics/raisebore.jpg Graphic file (type jpg)
 
 <use Pics/raisebore.jpg>
@@ -1626,7 +1725,7 @@ Package pdftex.def Info: Pics/raisebore.jpg used on input line 22.
 
 LaTeX Warning: Citation `weblink' on page 3 undefined on input line 23.
 
-<Pics/boxhole.jpg, id=979, 873.2625pt x 341.275pt>
+<Pics/boxhole.jpg, id=994, 873.2625pt x 341.275pt>
 File: Pics/boxhole.jpg Graphic file (type jpg)
  <use Pics/boxhole.jpg>
 Package pdftex.def Info: Pics/boxhole.jpg used on input line 28.
@@ -1772,7 +1871,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 17--18
 
  []
 
-<Pics/frame.png, id=1033, 301.125pt x 301.125pt>
+<Pics/frame.png, id=1048, 301.125pt x 301.125pt>
 File: Pics/frame.png Graphic file (type png)
  <use Pics/frame.png>
 Package pdftex.def Info: Pics/frame.png used on input line 21.
@@ -1797,7 +1896,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 34--35
 
  []
 
-<Pics/fiducial.jpg, id=1046, 1291.82625pt x 828.09375pt>
+<Pics/fiducial.jpg, id=1061, 1291.82625pt x 828.09375pt>
 File: Pics/fiducial.jpg Graphic file (type jpg)
 
 <use Pics/fiducial.jpg>
@@ -1808,7 +1907,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 45--46
 
  []
 
-<Pics/light_metallic_spray_400px.jpg, id=1053, 170.6375pt x 401.5pt>
+<Pics/light_metallic_spray_400px.jpg, id=1068, 170.6375pt x 401.5pt>
 File: Pics/light_metallic_spray_400px.jpg Graphic file (type jpg)
 
 <use Pics/light_metallic_spray_400px.jpg>
@@ -1830,7 +1929,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 62--63
 
  []
 
-[18] <Pics/error.png, id=1065, 410.2828pt x 172.39406pt>
+[18] <Pics/error.png, id=1080, 410.2828pt x 172.39406pt>
 File: Pics/error.png Graphic file (type png)
  <use Pics/error.png>
 Package pdftex.def Info: Pics/error.png used on input line 67.
@@ -1919,7 +2018,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 8--9
 
 
 
-] <Pics/optimal.png, id=1127, 472.76625pt x 352.31625pt>
+] <Pics/optimal.png, id=1142, 472.76625pt x 352.31625pt>
 File: Pics/optimal.png Graphic file (type png)
 
 <use Pics/optimal.png>
@@ -1931,7 +2030,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 17--18
  []
 
 [28 <./Pics/optimal.png>]
-<Pics/dyngui.png, id=1135, 974.64125pt x 553.06625pt>
+<Pics/dyngui.png, id=1150, 974.64125pt x 553.06625pt>
 File: Pics/dyngui.png Graphic file (type png)
  <use Pics/dyngui.png>
 Package pdftex.def Info: Pics/dyngui.png used on input line 21.
@@ -1951,13 +2050,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--31
 
  []
 
-[30] <Pics/nonopt.png, id=1150, 349.305pt x 313.17pt>
+[30] <Pics/nonopt.png, id=1165, 349.305pt x 313.17pt>
 File: Pics/nonopt.png Graphic file (type png)
  <use Pics/nonopt.png>
 Package pdftex.def Info: Pics/nonopt.png used on input line 34.
 (pdftex.def)             Requested size: 348.03539pt x 312.05103pt.
 
-<Pics/viapts.png, id=1151, 193.87633pt x 204.71683pt>
+<Pics/viapts.png, id=1166, 193.87633pt x 204.71683pt>
 File: Pics/viapts.png Graphic file (type png)
  <use Pics/viapts.png>
 Package pdftex.def Info: Pics/viapts.png used on input line 41.
@@ -1991,7 +2090,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 58--59
 
  []
 
-<Pics/ant.png, id=1186, 228.87909pt x 138.30069pt>
+<Pics/ant.png, id=1201, 228.87909pt x 138.30069pt>
 File: Pics/ant.png Graphic file (type png)
  <use Pics/ant.png>
 Package pdftex.def Info: Pics/ant.png used on input line 63.
@@ -2010,7 +2109,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 71--72
 
  []
 
-<Pics/anttraj.png, id=1204, 572.1375pt x 572.1375pt>
+<Pics/anttraj.png, id=1219, 572.1375pt x 572.1375pt>
 File: Pics/anttraj.png Graphic file (type png)
  <use Pics/anttraj.png>
 Package pdftex.def Info: Pics/anttraj.png used on input line 75.
@@ -2024,7 +2123,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 82--83
 
  []
 
-[36] <Pics/hplanes.png, id=1210, 1305.87875pt x 746.79pt>
+[36] <Pics/hplanes.png, id=1225, 1305.87875pt x 746.79pt>
 File: Pics/hplanes.png Graphic file (type png)
 
 <use Pics/hplanes.png>
@@ -2040,26 +2139,26 @@ Underfull \hbox (badness 10000) in paragraph at lines 90--91
  []
 
 [37 <./Pics/anttraj.png>]
-<Pics/pitchroll.png, id=1219, 1306.8825pt x 1489.565pt>
+<Pics/pitchroll.png, id=1234, 1306.8825pt x 1489.565pt>
 File: Pics/pitchroll.png Graphic file (type png)
 
 <use Pics/pitchroll.png>
 Package pdftex.def Info: Pics/pitchroll.png used on input line 94.
 (pdftex.def)             Requested size: 435.04257pt x 495.85373pt.
- <Pics/yawlines.png, id=1220, 1305.87875pt x 746.79pt>
+ <Pics/yawlines.png, id=1235, 1305.87875pt x 746.79pt>
 File: Pics/yawlines.png Graphic file (type png)
 
 <use Pics/yawlines.png>
 Package pdftex.def Info: Pics/yawlines.png used on input line 100.
 (pdftex.def)             Requested size: 435.04257pt x 248.77745pt.
  [38 <./Pics/hplanes.png>] [39 <./Pics/pitchroll.png>]
-<Pics/nlines.png, id=1232, 1305.87875pt x 746.79pt>
+<Pics/nlines.png, id=1247, 1305.87875pt x 746.79pt>
 File: Pics/nlines.png Graphic file (type png)
  <use Pics/nlines.png>
 Package pdftex.def Info: Pics/nlines.png used on input line 107.
 (pdftex.def)             Requested size: 435.04257pt x 248.77745pt.
 
-<Pics/vline.png, id=1233, 1305.87875pt x 746.79pt>
+<Pics/vline.png, id=1248, 1305.87875pt x 746.79pt>
 File: Pics/vline.png Graphic file (type png)
  <use Pics/vline.png>
 Package pdftex.def Info: Pics/vline.png used on input line 116.
@@ -2080,32 +2179,32 @@ Underfull \hbox (badness 10000) in paragraph at lines 125--126
 
  []
 
-<Pics/sortedline.png, id=1251, 169.63374pt x 443.6575pt>
+<Pics/sortedline.png, id=1267, 169.63374pt x 443.6575pt>
 File: Pics/sortedline.png Graphic file (type png)
 
 <use Pics/sortedline.png>
 Package pdftex.def Info: Pics/sortedline.png used on input line 129.
 (pdftex.def)             Requested size: 169.63332pt x 443.6564pt.
- <Pics/inset.png, id=1252, 1019.007pt x 541.222pt>
+ <Pics/inset.png, id=1268, 1019.007pt x 541.222pt>
 File: Pics/inset.png Graphic file (type png)
 
 <use Pics/inset.png>
 Package pdftex.def Info: Pics/inset.png used on input line 135.
 (pdftex.def)             Requested size: 435.04257pt x 231.06099pt.
- [42] <Pics/sorting.png, id=1258, 489.83pt x 172.645pt>
+ [42] <Pics/sorting.png, id=1273, 489.83pt x 172.645pt>
 File: Pics/sorting.png Graphic file (type png)
 
 <use Pics/sorting.png>
 Package pdftex.def Info: Pics/sorting.png used on input line 141.
 (pdftex.def)             Requested size: 348.03539pt x 122.67099pt.
- <Pics/meandering.png, id=1259, 489.83pt x 172.645pt>
+ <Pics/meandering.png, id=1274, 489.83pt x 172.645pt>
 File: Pics/meandering.png Graphic file (type png)
 
 <use Pics/meandering.png>
 Package pdftex.def Info: Pics/meandering.png used on input line 147.
 (pdftex.def)             Requested size: 348.03539pt x 122.67099pt.
  [43 <./Pics/sortedline.png> <./Pics/inset.png>]
-<Pics/trajtiles.png, id=1265, 2611.7575pt x 1493.58pt>
+<Pics/trajtiles.png, id=1280, 2611.7575pt x 1493.58pt>
 File: Pics/trajtiles.png Graphic file (type png)
 
 <use Pics/trajtiles.png>
@@ -2120,7 +2219,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 180--181
 
  []
 
-<Pics/genclosepts.png, id=1281, 1305.87875pt x 746.79pt>
+<Pics/genclosepts.png, id=1296, 1305.87875pt x 746.79pt>
 File: Pics/genclosepts.png Graphic file (type png)
 
 <use Pics/genclosepts.png>
@@ -2131,7 +2230,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 192--193
 
  []
 
-<Pics/genclosejustribs.png, id=1288, 1305.87875pt x 746.79pt>
+<Pics/genclosejustribs.png, id=1303, 1305.87875pt x 746.79pt>
 File: Pics/genclosejustribs.png Graphic file (type png)
 
 <use Pics/genclosejustribs.png>
@@ -2143,4 +2242,1592 @@ Underfull \hbox (badness 10000) in paragraph at lines 204--205
  []
 
 [48 <./Pics/genclosejustribs.png>]
-<Pics/genclosepath.png, id=1300, 130
+<Pics/genclosepath.png, id=1315, 1305.87875pt x 746.79pt>
+File: Pics/genclosepath.png Graphic file (type png)
+
+<use Pics/genclosepath.png>
+Package pdftex.def Info: Pics/genclosepath.png used on input line 209.
+(pdftex.def)             Requested size: 348.03539pt x 199.02652pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 214--215
+
+ []
+
+[49 <./Pics/genclosepath.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 220--221
+
+ []
+
+[50])
+Underfull \hbox (badness 10000) in paragraph at lines 222--158
+
+ []
+
+[51]
+\openout2 = `thickness.aux'.
+
+ (./thickness.tex
+Chapter 5.
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--7
+
+ []
+
+[52
+
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 12--13
+
+ []
+
+[53]
+
+LaTeX Warning: Citation `impact' on page 54 undefined on input line 14.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 14--15
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--17
+
+ []
+
+[54]
+
+LaTeX Warning: Citation `impact' on page 55 undefined on input line 18.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 18--19
+
+ []
+
+
+LaTeX Warning: Citation `photo1' on page 55 undefined on input line 20.
+
+
+LaTeX Warning: Citation `photo2' on page 55 undefined on input line 20.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 20--21
+
+ []
+
+[55]
+
+LaTeX Warning: Citation `reg1' on page 56 undefined on input line 22.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--23
+
+ []
+
+[56]
+
+LaTeX Warning: Citation `narf' on page 57 undefined on input line 35.
+
+
+LaTeX Warning: Citation `sift' on page 57 undefined on input line 35.
+
+
+LaTeX Warning: Citation `fast' on page 57 undefined on input line 35.
+
+
+LaTeX Warning: Citation `keypoint' on page 57 undefined on input line 35.
+
+
+LaTeX Warning: Citation `flann' on page 57 undefined on input line 35.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 35--36
+
+ []
+
+
+LaTeX Warning: Citation `reg3' on page 57 undefined on input line 37.
+
+
+LaTeX Warning: Citation `mark1' on page 57 undefined on input line 37.
+
+
+LaTeX Warning: Citation `key1' on page 57 undefined on input line 37.
+
+
+LaTeX Warning: Citation `reg2' on page 57 undefined on input line 37.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 37--38
+
+ []
+
+[57]
+
+LaTeX Warning: Citation `mark2' on page 58 undefined on input line 39.
+
+
+LaTeX Warning: Citation `mark3' on page 58 undefined on input line 39.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 39--40
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 41--42
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 45--46
+
+ []
+
+<Pics/p2p.pdf, id=1362, 522.66753pt x 428.039pt>
+File: Pics/p2p.pdf Graphic file (type pdf)
+ <use Pics/p2p.pdf>
+Package pdftex.def Info: Pics/p2p.pdf used on input line 50.
+(pdftex.def)             Requested size: 348.03539pt x 285.02771pt.
+ [58]
+Underfull \hbox (badness 10000) in paragraph at lines 54--55
+
+ []
+
+<Pics/p2m.pdf, id=1367, 629.97798pt x 500.309pt>
+File: Pics/p2m.pdf Graphic file (type pdf)
+ <use Pics/p2m.pdf>
+Package pdftex.def Info: Pics/p2m.pdf used on input line 58.
+(pdftex.def)             Requested size: 348.03539pt x 276.39989pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<Pics/p2mlocal.pdf, id=1369, 596.65408pt x 572.46722pt>
+File: Pics/p2mlocal.pdf Graphic file (type pdf)
+
+<use Pics/p2mlocal.pdf>
+Package pdftex.def Info: Pics/p2mlocal.pdf used on input line 66.
+(pdftex.def)             Requested size: 348.03539pt x 333.93547pt.
+
+
+LaTeX Warning: Reference `fig:p2mlocal' on page 59 undefined on input line 70.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 63--71
+
+ []
+
+[59 <./Pics/p2p.pdf>] [60 <./Pics/p2m.pdf>]
+<Pics/m2m.pdf, id=1396, 629.97798pt x 500.309pt>
+File: Pics/m2m.pdf Graphic file (type pdf)
+ <use Pics/m2m.pdf>
+Package pdftex.def Info: Pics/m2m.pdf used on input line 74.
+(pdftex.def)             Requested size: 348.03539pt x 276.39989pt.
+ [61 <./Pics/p2mlocal.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 78--79
+
+ []
+
+<Pics/m3c2.png, id=1409, 1257.69875pt x 325.215pt>
+File: Pics/m3c2.png Graphic file (type png)
+ <use Pics/m3c2.png>
+Package pdftex.def Info: Pics/m3c2.png used on input line 82.
+(pdftex.def)             Requested size: 348.03539pt x 89.99266pt.
+
+
+LaTeX Warning: Citation `accurate3d' on page 62 undefined on input line 83.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 87--88
+
+ []
+
+[62 <./Pics/m2m.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 90--91
+
+ []
+
+[63 <./Pics/m3c2.png>])
+Underfull \hbox (badness 10000) in paragraph at lines 92--159
+
+ []
+
+[64]
+\openout2 = `overview.aux'.
+
+ (./overview.tex
+Chapter 6.
+
+Underfull \hbox (badness 10000) in paragraph at lines 18--19
+
+ []
+
+[65
+
+
+
+]
+Overfull \vbox (116.37442pt too high) has occurred while \output is active []
+
+
+[66]
+Underfull \hbox (badness 10000) in paragraph at lines 20--21
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--23
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 24--25
+
+ []
+
+[67]
+Underfull \hbox (badness 10000) in paragraph at lines 28--29
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 45--46
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 49--50
+
+ []
+
+[68]
+Underfull \hbox (badness 10000) in paragraph at lines 53--54
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 57--58
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 61--62
+
+ []
+
+[69]
+Underfull \hbox (badness 10000) in paragraph at lines 65--66
+
+ []
+
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2013/08/26 1.5b listings language file
+)
+(./Code/HuskyStatus.msg [70])
+Underfull \hbox (badness 10000) in paragraph at lines 75--76
+
+ []
+
+[71] (./Code/costmap_common.yaml)
+Underfull \hbox (badness 10000) in paragraph at lines 79--80
+
+ []
+
+[72]
+Underfull \hbox (badness 10000) in paragraph at lines 83--84
+
+ []
+
+<Pics/overview_tf.png, id=1541, 1134.639pt x 464.134pt>
+File: Pics/overview_tf.png Graphic file (type png)
+
+<use Pics/overview_tf.png>
+Package pdftex.def Info: Pics/overview_tf.png used on input line 87.
+(pdftex.def)             Requested size: 435.04257pt x 177.95914pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 92--93
+
+ []
+
+[73 <./Pics/overview_tf.png>]
+<Pics/recovery_behaviors.png, id=1551, 570.933pt x 223.234pt>
+File: Pics/recovery_behaviors.png Graphic file (type png)
+
+<use Pics/recovery_behaviors.png>
+Package pdftex.def Info: Pics/recovery_behaviors.png used on input line 96.
+(pdftex.def)             Requested size: 435.04257pt x 170.1058pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 104--105
+
+ []
+
+[74 <./Pics/recovery_behaviors.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 110--111
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 112--113
+
+ []
+
+[75]
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
+
+ []
+
+File: Pics/dyngui.png Graphic file (type png)
+<use Pics/dyngui.png>
+Package pdftex.def Info: Pics/dyngui.png used on input line 122.
+(pdftex.def)             Requested size: 348.03539pt x 197.49182pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 130--131
+
+ []
+
+[76]
+
+LaTeX Warning: Reference `fig:panel' on page 77 undefined on input line 132.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 132--133
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 134--135
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 136--137
+
+ []
+
+[77]) [78]
+\openout2 = `code.aux'.
+
+ (./code.tex
+Chapter 7.
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+
+ []
+
+
+Overfull \hbox (10.82637pt too wide) in paragraph at lines 7--8
+\T1/cmr/m/n/12 cre-ated for ROS. At it's min-i-mum, a pack-age is sim-ply a di-
+rec-tory con-tain-ing  $\T1/pcr/m/n/12 package .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 7--8
+
+ []
+
+[79
+
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 10--11
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 12--13
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 26--26
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 32--32
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 35--35
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 38--38
+
+ []
+
+[80] [81] [82]
+Underfull \hbox (badness 10000) in paragraph at lines 104--105
+
+ []
+
+
+Overfull \hbox (5.69238pt too wide) in paragraph at lines 106--107
+\T1/cmr/m/n/12 The node re-spon-si-ble for com-mu-ni-ca-tion be-tween ROS and t
+he Husky is called  $\T1/pcr/m/n/12 husky _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--109
+
+ []
+
+[83]
+Underfull \hbox (badness 10000) in paragraph at lines 110--111
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 112--113
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 114--115
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 118--119
+
+ []
+
+[84]
+Underfull \hbox (badness 10000) in paragraph at lines 139--140
+
+ []
+
+[85] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2013/08/26 1.5b listings language file
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2013/08/26 1.5b listings language file
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2013/08/26 1.5b (Carsten Heinz)
+)
+(./CleanedCode/msg/trajectory_point.msg)
+Underfull \hbox (badness 10000) in paragraph at lines 143--144
+
+ []
+
+(./CleanedCode/msg/trajectory_msg.msg)
+Underfull \hbox (badness 10000) in paragraph at lines 147--148
+
+ []
+
+[86] (./CleanedCode/msg/arm_msg.msg)
+Underfull \hbox (badness 10000) in paragraph at lines 151--152
+
+ []
+
+[87] (./CleanedCode/msg/cube_msg.msg)
+Underfull \hbox (badness 10000) in paragraph at lines 155--156
+
+ []
+
+(./CleanedCode/msg/marker_val.msg [88])
+Underfull \hbox (badness 10000) in paragraph at lines 159--160
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 162--163
+
+ []
+
+(./CleanedCode/srv/localize_cloud.srv [89])
+Underfull \hbox (badness 10000) in paragraph at lines 165--171
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 172--173
+
+ []
+
+[90] [91] [92]
+Underfull \hbox (badness 10000) in paragraph at lines 270--271
+
+ []
+
+(./CleanedCode/srv/trajectory_service.srv [93])
+Overfull \hbox (6.49359pt too wide) in paragraph at lines 274--275
+\T1/cmr/m/it/12 tory_msg \T1/cmr/m/n/12 for-mat-ted tra-jec-tory (see Sec-tion 
+[]7.4.2[]). The first point-cloud called  \T1/cmr/m/it/12 cloud_in
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 274--275
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 276--277
+
+ []
+
+[94]
+Overfull \vbox (6.50533pt too high) has occurred while \output is active []
+
+
+[95]
+Underfull \hbox (badness 10000) in paragraph at lines 360--361
+
+ []
+
+[96]
+Underfull \hbox (badness 10000) in paragraph at lines 384--385
+
+ []
+
+[97] <Pics/control_panel.png, id=1729, 1242.6425pt x 698.61pt>
+File: Pics/control_panel.png Graphic file (type png)
+
+<use Pics/control_panel.png>
+Package pdftex.def Info: Pics/control_panel.png used on input line 393.
+(pdftex.def)             Requested size: 435.04257pt x 244.58112pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 399--400
+
+ []
+
+[98 <./Pics/control_panel.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 402--403
+
+ []
+
+<Pics/urdf.png, id=1742, 2633.84pt x 960.58875pt>
+File: Pics/urdf.png Graphic file (type png)
+ <use Pics/urdf.png>
+Package pdftex.def Info: Pics/urdf.png used on input line 406.
+(pdftex.def)             Requested size: 435.04257pt x 158.65154pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 412--413
+
+ []
+
+[99]
+Underfull \hbox (badness 10000) in paragraph at lines 417--419
+
+ []
+
+[100 <./Pics/urdf.png>] [101] [102]
+<Pics/cropboxespng.png, id=1769, 955.31906pt x 507.39563pt>
+File: Pics/cropboxespng.png Graphic file (type png)
+
+<use Pics/cropboxespng.png>
+Package pdftex.def Info: Pics/cropboxespng.png used on input line 479.
+(pdftex.def)             Requested size: 435.04257pt x 231.05893pt.
+
+<Pics/workspace.png, id=1770, 955.31906pt x 507.39563pt>
+File: Pics/workspace.png Graphic file (type png)
+
+<use Pics/workspace.png>
+Package pdftex.def Info: Pics/workspace.png used on input line 485.
+(pdftex.def)             Requested size: 435.04257pt x 231.05893pt.
+
+<Pics/traj_viz.png, id=1771, 955.31906pt x 507.39563pt>
+File: Pics/traj_viz.png Graphic file (type png)
+
+<use Pics/traj_viz.png>
+Package pdftex.def Info: Pics/traj_viz.png used on input line 491.
+(pdftex.def)             Requested size: 435.04257pt x 231.05893pt.
+
+<Pics/candidates.png, id=1772, 955.31906pt x 507.39563pt>
+File: Pics/candidates.png Graphic file (type png)
+
+<use Pics/candidates.png>
+Package pdftex.def Info: Pics/candidates.png used on input line 497.
+(pdftex.def)             Requested size: 435.04257pt x 231.05893pt.
+ [103]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 502--503
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 504--505
+
+ []
+
+[104 <./Pics/cropboxespng.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 506--507
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 508--509
+
+ []
+
+[105 <./Pics/workspace.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 510--511
+
+ []
+
+[106 <./Pics/traj_viz.png>] [107 <./Pics/candidates.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 530--531
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 532--533
+
+ []
+
+[108]
+Underfull \hbox (badness 10000) in paragraph at lines 535--536
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 537--538
+
+ []
+
+[109]) [110]
+\openout2 = `testing.aux'.
+
+ (./testing.tex
+Chapter 8.
+<Pics/20170901_153356.jpg, id=1808, 4047.12pt x 3035.34pt>
+File: Pics/20170901_153356.jpg Graphic file (type jpg)
+
+<use Pics/20170901_153356.jpg>
+Package pdftex.def Info: Pics/20170901_153356.jpg used on input line 8.
+(pdftex.def)             Requested size: 435.04257pt x 326.24638pt.
+
+
+LaTeX Warning: Reference `fig:surfacefeature' on page 111 undefined on input li
+ne 12.
+
+<Pics/20180305_154842.jpg, id=1810, 4047.12pt x 3035.34pt>
+File: Pics/20180305_154842.jpg Graphic file (type jpg)
+
+<use Pics/20180305_154842.jpg>
+Package pdftex.def Info: Pics/20180305_154842.jpg used on input line 15.
+(pdftex.def)             Requested size: 435.04257pt x 326.24638pt.
+ [111
+
+
+
+] [112 <./Pics/20170901_153356.jpg>]
+[113 <./Pics/20180305_154842.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 33--34
+
+ []
+
+[114]
+Underfull \hbox (badness 10000) in paragraph at lines 35--36
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 37--38
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 39--40
+
+ []
+
+[115] <Pics/rgidi.jpg, id=1833, 309.155pt x 276.03125pt>
+File: Pics/rgidi.jpg Graphic file (type jpg)
+ <use Pics/rgidi.jpg>
+Package pdftex.def Info: Pics/rgidi.jpg used on input line 43.
+(pdftex.def)             Requested size: 435.04257pt x 388.46701pt.
+
+<Pics/20180303_182327.jpg, id=1834, 4047.12pt x 3035.34pt>
+File: Pics/20180303_182327.jpg Graphic file (type jpg)
+
+<use Pics/20180303_182327.jpg>
+Package pdftex.def Info: Pics/20180303_182327.jpg used on input line 49.
+(pdftex.def)             Requested size: 435.04257pt x 326.24638pt.
+
+
+LaTeX Warning: Reference `fig:wand' on page 116 undefined on input line 54.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--55
+
+ []
+
+[116] [117 <./Pics/rgidi.jpg>] [118 <./Pics/20180303_182327.jpg>]
+<Pics/20180303_164637.jpg, id=1849, 4047.12pt x 3035.34pt>
+File: Pics/20180303_164637.jpg Graphic file (type jpg)
+
+<use Pics/20180303_164637.jpg>
+Package pdftex.def Info: Pics/20180303_164637.jpg used on input line 58.
+(pdftex.def)             Requested size: 435.04257pt x 326.24638pt.
+ [119 <./Pics/20180303_164637.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 67--68
+
+ []
+
+<Pics/20180303_174007.jpg, id=1854, 4047.12pt x 3035.34pt>
+File: Pics/20180303_174007.jpg Graphic file (type jpg)
+
+<use Pics/20180303_174007.jpg>
+Package pdftex.def Info: Pics/20180303_174007.jpg used on input line 71.
+(pdftex.def)             Requested size: 435.04257pt x 326.24638pt.
+
+
+LaTeX Warning: Reference `sec:markercentre' on page 120 undefined on input line
+ 76.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--77
+
+ []
+
+[120 <./Pics/20180303_174007.jpg>]
+
+LaTeX Warning: Reference `fig:scanlocations' on page 121 undefined on input lin
+e 86.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 86--87
+
+ []
+
+
+LaTeX Warning: Citation `checkthebookmarsbar' on page 121 undefined on input li
+ne 92.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 92--93
+
+ []
+
+[121] <Pics/screenshot-1528748143.png, id=1866, 685.56125pt x 385.44pt>
+File: Pics/screenshot-1528748143.png Graphic file (type png)
+
+<use Pics/screenshot-1528748143.png>
+Package pdftex.def Info: Pics/screenshot-1528748143.png used on input line 97.
+(pdftex.def)             Requested size: 435.04257pt x 244.59875pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--102
+
+ []
+
+[122] [123 <./Pics/screenshot-1528748143.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 109--110
+
+ []
+
+<Pics/edgeveiling.png, id=1876, 3916.6325pt x 3475.98625pt>
+File: Pics/edgeveiling.png Graphic file (type png)
+
+<use Pics/edgeveiling.png>
+Package pdftex.def Info: Pics/edgeveiling.png used on input line 113.
+(pdftex.def)             Requested size: 435.04257pt x 386.07242pt.
+
+
+LaTeX Warning: Citation `bookbaredge' on page 124 undefined on input line 118.
+
+
+LaTeX Warning: Citation `theotherone' on page 124 undefined on input line 118.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 118--119
+
+ []
+
+[124 <./Pics/edgeveiling.png>]
+<Pics/eddt.png, id=1884, 98.61844pt x 39.89906pt>
+File: Pics/eddt.png Graphic file (type png)
+ <use Pics/eddt.png>
+Package pdftex.def Info: Pics/eddt.png used on input line 122.
+(pdftex.def)             Requested size: 435.04257pt x 176.0531pt.
+
+
+LaTeX Warning: Reference `sec:figureitout' on page 125 undefined on input line 
+127.
+
+<Pics/keypointerror.png, id=1887, 747.79375pt x 1056.94875pt>
+File: Pics/keypointerror.png Graphic file (type png)
+
+<use Pics/keypointerror.png>
+Package pdftex.def Info: Pics/keypointerror.png used on input line 130.
+(pdftex.def)             Requested size: 435.04257pt x 614.90152pt.
+
+
+LaTeX Warning: Float too large for page by 3.52806pt on input line 133.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 127--135
+
+ []
+
+[125 <./Pics/eddt.png>] [126] [127 <./Pics/keypointerror.png>]
+
+LaTeX Warning: Reference `trajtesting' on page 128 undefined on input line 148.
+
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 152--153
+
+ []
+
+[128]
+Underfull \hbox (badness 10000) in paragraph at lines 158--159
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 160--161
+
+ []
+
+[129]
+Underfull \hbox (badness 10000) in paragraph at lines 164--165
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 166--167
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 170--171
+
+ []
+
+[130]
+Underfull \hbox (badness 10000) in paragraph at lines 172--173
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 176--177
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 178--179
+
+ []
+
+[131] <Pics/controlpts.jpg, id=1921, 5926.14pt x 3966.82pt>
+File: Pics/controlpts.jpg Graphic file (type jpg)
+
+<use Pics/controlpts.jpg>
+Package pdftex.def Info: Pics/controlpts.jpg used on input line 184.
+(pdftex.def)             Requested size: 435.04257pt x 291.20367pt.
+
+
+LaTeX Warning: Reference `fig:controlpts' on page 132 undefined on input line 1
+89.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 189--190
+
+ []
+
+[132 <./Pics/controlpts.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 191--192
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 193--194
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 195--196
+
+ []
+
+[133]
+Underfull \hbox (badness 10000) in paragraph at lines 199--200
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 201--202
+
+ []
+
+[134]
+Underfull \hbox (badness 10000) in paragraph at lines 203--204
+
+ []
+
+
+LaTeX Warning: Reference `sec:p2p' on page 135 undefined on input line 205.
+
+
+LaTeX Warning: Reference `sec:p2m' on page 135 undefined on input line 205.
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 205--162
+
+ []
+
+[135]
+\openout2 = `results.aux'.
+
+ (./results.tex
+Chapter 9.
+
+Package hyperref Warning: Difference (3) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 3.
+
+) [136
+
+
+
+]
+\openout2 = `conclusions.aux'.
+
+ (./conclusions.tex
+Chapter 10.
+) [137
+
+
+
+] (./main.bbl [138
+
+
+]) [139]
+\openout2 = `appendix.aux'.
+
+ (./appendix.tex
+Appendix A.
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2013/08/26 1.5b listings language file
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2013/08/26 1.5b (Carsten Heinz)
+)
+(./CleanedCode/CMakeLists.txt [140
+
+
+] [141] [142] [143] [144]
+Overfull \hbox (26.84816pt too wide) in paragraph at lines 157--158
+[][][][][][][][][][][][][][][]  
+ []
+
+[145] [146] [147]) (./CleanedCode/launch/main.launch [148] [149] [150] [151]
+[152]) (./CleanedCode/launch/simulation.launch [153] [154])
+(./CleanedCode/cfg/param_config.cfg [155])
+(./CleanedCode/cfg/localize_config.cfg [156])
+(./CleanedCode/cfg/trajectory_config.cfg [157])
+(./CleanedCode/cfg/laser_config.yaml) [158] (./CleanedCode/urdf/base.urdf.xacro
+
+Overfull \hbox (16.85526pt too wide) in paragraph at lines 5--6
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][]  
+ []
+
+
+Overfull \hbox (28.85242pt too wide) in paragraph at lines 6--7
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][]  
+ []
+
+
+Overfull \hbox (4.8581pt too wide) in paragraph at lines 8--9
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][]  
+ []
+
+
+Overfull \hbox (16.85526pt too wide) in paragraph at lines 9--10
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][]  
+ []
+
+
+Overfull \hbox (76.84106pt too wide) in paragraph at lines 10--11
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][]  
+ []
+
+
+Overfull \hbox (64.8439pt too wide) in paragraph at lines 11--12
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][]  
+ []
+
+
+Overfull \hbox (64.8439pt too wide) in paragraph at lines 12--13
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][]  
+ []
+
+
+Overfull \hbox (76.84106pt too wide) in paragraph at lines 13--14
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][]  
+ []
+
+
+Overfull \hbox (40.84958pt too wide) in paragraph at lines 14--15
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][]  
+ []
+
+[159] [160] [161] [162] [163] [164] [165] [166] [167] [168] [169]
+Overfull \hbox (34.851pt too wide) in paragraph at lines 329--330
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (34.851pt too wide) in paragraph at lines 338--339
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[170]
+Overfull \hbox (34.851pt too wide) in paragraph at lines 351--352
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (34.851pt too wide) in paragraph at lines 358--359
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[171]
+Overfull \hbox (34.851pt too wide) in paragraph at lines 371--372
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (34.851pt too wide) in paragraph at lines 378--379
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (34.851pt too wide) in paragraph at lines 391--392
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[172]
+Overfull \hbox (34.851pt too wide) in paragraph at lines 398--399
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (34.851pt too wide) in paragraph at lines 411--412
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (34.851pt too wide) in paragraph at lines 418--419
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[173] [174]) (./CleanedCode/urdf/decorations.urdf.xacro [175] [176] [177]
+[178] [179]) (./CleanedCode/urdf/description.xacro [180])
+(./CleanedCode/urdf/husky.urdf.xacro [181] [182] [183] [184] [185] [186]
+[187]
+Overfull \hbox (100.83539pt too wide) in paragraph at lines 191--192
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[188] [189] [190]
+Overfull \hbox (88.83823pt too wide) in paragraph at lines 271--272
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[191]
+Overfull \hbox (34.851pt too wide) in paragraph at lines 316--317
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[192]
+Overfull \hbox (34.851pt too wide) in paragraph at lines 325--326
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (34.851pt too wide) in paragraph at lines 338--339
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[193]
+Overfull \hbox (34.851pt too wide) in paragraph at lines 345--346
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (34.851pt too wide) in paragraph at lines 358--359
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (34.851pt too wide) in paragraph at lines 365--366
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[194]
+Overfull \hbox (34.851pt too wide) in paragraph at lines 378--379
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (34.851pt too wide) in paragraph at lines 385--386
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[195]
+Overfull \hbox (34.851pt too wide) in paragraph at lines 398--399
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (34.851pt too wide) in paragraph at lines 405--406
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[196]) [197] (./CleanedCode/urdf/materials.urdf.xacro [198] [199])
+(./CleanedCode/urdf/parts.urdf.xacro [200]
+Overfull \hbox (28.85242pt too wide) in paragraph at lines 34--35
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][]  
+ []
+
+
+Overfull \hbox (76.84106pt too wide) in paragraph at lines 35--36
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][]  
+ []
+
+[201]
+Overfull \hbox (64.8439pt too wide) in paragraph at lines 36--37
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][]  
+ []
+
+[202] [203]) (./CleanedCode/urdf/wheel.urdf.xacro [204] [205]) [206]
+(./CleanedCode/include/control_dashboard.h [207] [208])
+(./CleanedCode/include/control_panel.hpp [209]
+Overfull \hbox (32.84674pt too wide) in paragraph at lines 42--43
+[][][][][][][][][][][]  
+ []
+
+
+Overfull \hbox (32.84674pt too wide) in paragraph at lines 44--46
+[][][][][][][][][][][]  
+ []
+
+[210]
+Overfull \hbox (32.84674pt too wide) in paragraph at lines 50--51
+[][][][][][][][][][][]  
+ []
+
+
+Overfull \hbox (32.84674pt too wide) in paragraph at lines 52--54
+[][][][][][][][][][][]  
+ []
+
+[211] [212] [213]) (./CleanedCode/include/marker_selector.h [214] [215]
+[216])
+Overfull \hbox (44.8439pt too wide) in paragraph at lines 94--30
+[][][][][][][][][][][]  
+ []
+
+(./CleanedCode/src/control_dashboard.cpp [217] [218] [219] [220] [221]
+Overfull \hbox (16.85526pt too wide) in paragraph at lines 134--135
+[][][][][][][][][][][][][][][][]  
+ []
+
+[222] [223]
+Overfull \hbox (34.851pt too wide) in paragraph at lines 204--205
+[][][][][][][][][][][][][][][][]  
+ []
+
+[224]
+Overfull \hbox (718.68922pt too wide) in paragraph at lines 220--221
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][]  
+ []
+
+
+Overfull \hbox (232.80417pt too wide) in paragraph at lines 225--226
+[][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+
+Overfull \hbox (58.84532pt too wide) in paragraph at lines 230--231
+[][][][][][][][][][][][][][][][][][]  
+ []
+
+[225]
+Overfull \hbox (16.85526pt too wide) in paragraph at lines 251--253
+[][][][][][][][][][][][][][][][]  
+ []
+
+
+Overfull \hbox (958.63246pt too wide) in paragraph at lines 257--258
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[226]
+Overfull \hbox (958.63246pt too wide) in paragraph at lines 262--263
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (958.63246pt too wide) in paragraph at lines 267--268
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (958.63246pt too wide) in paragraph at lines 272--273
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (832.66226pt too wide) in paragraph at lines 277--279
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[227] [228]
+Overfull \hbox (70.84248pt too wide) in paragraph at lines 318--319
+[][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+) [229] (./CleanedCode/src/control_panel.cpp [230] [231] [232] [233] [234]
+[235] [236] [237] [238] [239] [240]
+Overfull \hbox (4.8581pt too wide) in paragraph at lines 376--377
+[][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[241] [242] [243] [244] [245] [246]
+Overfull \hbox (70.84248pt too wide) in paragraph at lines 537--538
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[247] [248]
+Overfull \hbox (316.7843pt too wide) in paragraph at lines 615--616
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[249]
+Overfull \hbox (214.80843pt too wide) in paragraph at lines 635--636
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[250] [251]
+Overfull \hbox (196.81268pt too wide) in paragraph at lines 696--697
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[252] [253] [254] [255] [256] [257] [258] [259] [260] [261] [262] [263]
+[264] [265] [266] [267] [268] [269] [270] [271] [272] [273] [274] [275]
+[276] [277] [278] [279] [280] [281] [282] [283]
+Overfull \hbox (106.83397pt too wide) in paragraph at lines 1606--1607
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[284] [285]
+Overfull \hbox (64.8439pt too wide) in paragraph at lines 1678--1679
+[][][][][][][][][][][][][][][][][][][] 
+ []
+
+[286]) (./CleanedCode/src/denso_node.cpp [287] [288]
+Overfull \hbox (190.8141pt too wide) in paragraph at lines 54--55
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+
+Overfull \hbox (34.851pt too wide) in paragraph at lines 60--61
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][]  
+ []
+
+
+Overfull \hbox (34.851pt too wide) in paragraph at lines 67--68
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][]  
+ []
+
+
+Overfull \hbox (100.83539pt too wide) in paragraph at lines 72--73
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][]  
+ []
+
+
+Overfull \hbox (22.85384pt too wide) in paragraph at lines 77--78
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[289] [290] [291] [292] [293] [294] [295] [296] [297] [298] [299] [300]
+[301] [302] [303]) (./CleanedCode/src/cube_node.cpp [304] [305] [306] [307])
+(./CleanedCode/src/marker_selector.cpp [308]
+Overfull \hbox (44.8439pt too wide) in paragraph at lines 24--25
+[][][][][][][][]  
+ []
+
+[309] [310]
+Overfull \hbox (70.84248pt too wide) in paragraph at lines 75--76
+[][][][][][][][][][][][][][][] 
+ []
+
+[311] [312] [313] [314]) [315] (./CleanedCode/src/joint_state_fusion.cpp
+[316] [317] [318]) (./CleanedCode/src/trajectory_service.cpp [319] [320]
+[321] [322]
+Overfull \hbox (70.84248pt too wide) in paragraph at lines 127--128
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[323] [324]
+Overfull \hbox (316.7843pt too wide) in paragraph at lines 208--209
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[325] [326] [327] [328] [329] [330] [331] [332] [333] [334] [335] [336]
+[337] [338] [339]
+Overfull \hbox (46.84816pt too wide) in paragraph at lines 626--627
+[][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (430.75734pt too wide) in paragraph at lines 627--628
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][]  
+ []
+
+[340]
+Overfull \hbox (106.83397pt too wide) in paragraph at lines 633--634
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[341]
+Overfull \hbox (430.75734pt too wide) in paragraph at lines 664--665
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][]  
+ []
+
+
+Overfull \hbox (430.75734pt too wide) in paragraph at lines 668--669
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][]  
+ []
+
+
+Overfull \hbox (106.83397pt too wide) in paragraph at lines 675--676
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+
+Overfull \hbox (106.83397pt too wide) in paragraph at lines 686--687
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[342] [343] [344] [345]
+Overfull \hbox (208.80984pt too wide) in paragraph at lines 798--799
+[][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[346] [347] [348]
+Overfull \hbox (214.80843pt too wide) in paragraph at lines 884--885
+[][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[349] [350] [351]) (./CleanedCode/src/pointcloud_localization_service.cpp
+[352] [353] [354] [355] [356] [357] [358]
+Overfull \hbox (76.84106pt too wide) in paragraph at lines 209--211
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][]  
+ []
+
+[359] [360] [361] [362] [363] [364] [365] [366] [367] [368])
+(./CleanedCode/src/thickness_service.cpp [369] [370] [371] [372] [373])
+(./CleanedCode/src/pointcloud_localization_service.cpp [374]) [375]
+Appendix B.
+<Appendix/setting-e.pdf, id=9802, 597.45204pt x 845.1575pt>
+File: Appendix/setting-e.pdf Graphic file (type pdf)
+
+<use Appendix/setting-e.pdf>
+Package pdftex.def Info: Appendix/setting-e.pdf used on input line 50.
+(pdftex.def)             Requested size: 597.45058pt x 845.15544pt.
+File: Appendix/setting-e.pdf Graphic file (type pdf)
+ <use Appendix/setting-e.pdf>
+Package pdftex.def Info: Appendix/setting-e.pdf used on input line 50.
+(pdftex.def)             Requested size: 597.45058pt x 845.15544pt.
+ [376
+
+]
+<Appendix/setting-e.pdf, id=9809, page=288, 597.45204pt x 845.1575pt>
+File: Appendix/setting-e.pdf Graphic file (type pdf)
+
+<use Appendix/setting-e.pdf, page 288>
+Package pdftex.def Info: Appendix/setting-e.pdf, page288 used on input line 50.
+
+(pdftex.def)             Requested size: 597.45058pt x 845.15544pt.
+File: Appendix/setting-e.pdf Graphic file (type pdf)
+ <use Appendix/setting-e.pdf, page 288>
+Package pdftex.def Info: Appendix/setting-e.pdf, page288 used on input line 50.
+
+(pdftex.def)             Requested size: 562.06993pt x 795.10587pt.
+File: Appendix/setting-e.pdf Graphic file (type pdf)
+
+<use Appendix/setting-e.pdf, page 288>
+Package pdftex.def Info: Appendix/setting-e.pdf, page288 used on input line 50.
+
+(pdftex.def)             Requested size: 562.06993pt x 795.10587pt.
+File: Appendix/setting-e.pdf Graphic file (type pdf)
+ <use Appendix/setting-e.pdf, page 288>
+Package pdftex.def Info: Appendix/setting-e.pdf, page288 used on input line 50.
+
+(pdftex.def)             Requested size: 562.06993pt x 795.10587pt.
+File: Appendix/setting-e.pdf Graphic file (type pdf)
+
+<use Appendix/setting-e.pdf, page 288>
+Package pdftex.def Info: Appendix/setting-e.pdf, page288 used on input line 50.
+
+(pdftex.def)             Requested size: 562.06993pt x 795.10587pt.
+ [377 <./Appendix/setting-e.pdf>])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 172.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 172.
+
+(./main.aux (./abstract.aux) (./acknowledgements.aux) (./dedication.aux)
+(./introduction.aux) (./background.aux) (./localization.aux) (./trajectory.aux)
+(./thickness.aux) (./overview.aux) (./code.aux) (./testing.aux) (./results.aux)
+(./conclusions.aux) (./appendix.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 172.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 172.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 738BBBDFC924C69FC920E0AFD3AB5C2D;9960.
+
+
+LaTeX Warning: There were undefined references.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 172.
+ ) 
+Here is how much of TeX's memory you used:
+ 42538 strings out of 494985
+ 702439 string characters out of 6180356
+ 916449 words of memory out of 5000000
+ 37337 multiletter control sequences out of 15000+600000
+ 26370 words of font info for 78 fonts, out of 8000000 for 9000
+ 36 hyphenation exceptions out of 8191
+ 62i,18n,125p,10451b,2448s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/mike/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk> </home/mi
+ke/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1200.600pk> </home/mike/.texmf-va
+r/fonts/pk/ljfour/jknappen/ec/ecrm0600.600pk> </home/mike/.texmf-var/fonts/pk/l
+jfour/jknappen/ec/ecrm1000.600pk> </home/mike/.texmf-var/fonts/pk/ljfour/jknapp
+en/ec/ecti1200.600pk> </home/mike/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx14
+40.600pk>{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc} </home/mik
+e/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/mike/.texmf-var
+/fonts/pk/ljfour/jknappen/ec/ecbx2488.600pk> </home/mike/.texmf-var/fonts/pk/lj
+four/jknappen/ec/tcrm1200.600pk> </home/mike/.texmf-var/fonts/pk/ljfour/jknappe
+n/ec/ecrm1200.600pk> </home/mike/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx172
+8.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
+Output written on main.pdf (394 pages, 65057870 bytes).
+PDF statistics:
+ 11935 PDF objects out of 12825 (max. 8388607)
+ 10841 compressed objects within 109 object streams
+ 7543 named destinations out of 8907 (max. 500000)
+ 1378 words of extra memory for PDF output out of 10000 (max. 10000000)
+
