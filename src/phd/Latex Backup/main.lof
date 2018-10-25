@@ -1,61 +1,64 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {1.1}{\ignorespaces Raisebore Mining Technique \cite {weblink}}}{3}{figure.1.1}
 \contentsline {figure}{\numberline {1.2}{\ignorespaces Boxhole Mining Technique \cite {weblink}}}{3}{figure.1.2}
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Shotcrete Application Guideline \cite {camedoc}}}{7}{figure.1.3}
+\contentsline {figure}{\numberline {1.4}{\ignorespaces Rebound Effect of Offset and Angle to Application Surface \cite {camedoc}}}{7}{figure.1.4}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Example landmark, a QR code}}{14}{figure.3.1}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces IR reflective spherical fiducial marker}}{17}{figure.3.2}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Reflective spray paint \cite {spraypaint}}}{17}{figure.3.3}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Accuracy loss from keypoint measurement error}}{19}{figure.3.4}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Example landmark, a QR code}}{17}{figure.3.1}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces IR reflective spherical fiducial marker}}{20}{figure.3.2}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Reflective spray paint \cite {spraypaint}}}{20}{figure.3.3}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Accuracy loss from keypoint measurement error}}{22}{figure.3.4}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Trajectory Generation Template}}{28}{figure.4.1}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces \texttt {rqt\_reconfigure} GUI}}{29}{figure.4.2}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Trajectory Overlaid on Mine Surface. Via Points for Angle Shown in Green, Distance in Blue, and Missing Points in Red}}{31}{figure.4.3}
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Effect of Via Point Spacing}}{32}{figure.4.4}
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Determining Via Points Using Microscopic Path Planning}}{35}{figure.4.5}
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Trajectory Generated Using Microscopic Path Planning}}{37}{figure.4.6}
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Horizontal Plane Intersections}}{38}{figure.4.7}
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Pitch and Roll Plane Intersections}}{39}{figure.4.8}
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Yaw Plane Intersections}}{40}{figure.4.9}
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Normal-to-Surface Plane Intersections}}{40}{figure.4.10}
-\contentsline {figure}{\numberline {4.11}{\ignorespaces Vertical Line from Plane Intersection}}{41}{figure.4.11}
-\contentsline {figure}{\numberline {4.12}{\ignorespaces Sorted Line Failure}}{43}{figure.4.12}
-\contentsline {figure}{\numberline {4.13}{\ignorespaces Large Portion of a Sorted Line}}{43}{figure.4.13}
-\contentsline {figure}{\numberline {4.14}{\ignorespaces Long Path Produced by Nearest Neighbour Approach}}{44}{figure.4.14}
-\contentsline {figure}{\numberline {4.15}{\ignorespaces Improved Accuracy Using Downsampling}}{44}{figure.4.15}
-\contentsline {figure}{\numberline {4.16}{\ignorespaces Trajectory Generated Showing Surface Path (Red), Offset Normals (Blue), End-Effector Path (Green), Downsampled Ribs (bottom left), and Rib Location Points (bottom right)}}{45}{figure.4.16}
-\contentsline {figure}{\numberline {4.17}{\ignorespaces Sorted and Downsampled Vertical and Horizontal Plane Intersections}}{47}{figure.4.17}
-\contentsline {figure}{\numberline {4.18}{\ignorespaces Sorted and Downsampled Vertical and Horizontal Ribs}}{48}{figure.4.18}
-\contentsline {figure}{\numberline {4.19}{\ignorespaces Path Generated Through Selecting Trajectory Points}}{49}{figure.4.19}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Trajectory Generation Template}}{31}{figure.4.1}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces \texttt {rqt\_reconfigure} GUI}}{32}{figure.4.2}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Trajectory Overlaid on Mine Surface. Via Points for Angle Shown in Green, Distance in Blue, and Missing Points in Red}}{34}{figure.4.3}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Effect of Via Point Spacing}}{35}{figure.4.4}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Determining Via Points Using Microscopic Path Planning}}{38}{figure.4.5}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Trajectory Generated Using Microscopic Path Planning}}{40}{figure.4.6}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Horizontal Plane Intersections}}{41}{figure.4.7}
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Pitch and Roll Plane Intersections}}{42}{figure.4.8}
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Yaw Plane Intersections}}{43}{figure.4.9}
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Normal-to-Surface Plane Intersections}}{43}{figure.4.10}
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Vertical Line from Plane Intersection}}{44}{figure.4.11}
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Sorted Line Failure}}{46}{figure.4.12}
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Large Portion of a Sorted Line}}{46}{figure.4.13}
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Long Path Produced by Nearest Neighbour Approach}}{47}{figure.4.14}
+\contentsline {figure}{\numberline {4.15}{\ignorespaces Improved Accuracy Using Downsampling}}{47}{figure.4.15}
+\contentsline {figure}{\numberline {4.16}{\ignorespaces Trajectory Generated Showing Surface Path (Red), Offset Normals (Blue), End-Effector Path (Green), Downsampled Ribs (bottom left), and Rib Location Points (bottom right)}}{48}{figure.4.16}
+\contentsline {figure}{\numberline {4.17}{\ignorespaces Sorted and Downsampled Vertical and Horizontal Plane Intersections}}{50}{figure.4.17}
+\contentsline {figure}{\numberline {4.18}{\ignorespaces Sorted and Downsampled Vertical and Horizontal Ribs}}{51}{figure.4.18}
+\contentsline {figure}{\numberline {4.19}{\ignorespaces Path Generated Through Selecting Trajectory Points}}{52}{figure.4.19}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Point-to-Point Thickness Estimation}}{59}{figure.5.1}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Point-to-Mesh Thickness Estimation}}{60}{figure.5.2}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Point-to-Mesh Thickness Estimation Using Local Features}}{61}{figure.5.3}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Mesh-to-Mesh Thickness Estimation}}{62}{figure.5.4}
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Multiscale Model-to-Model Cloud Comparison \cite {accurate3d}}}{63}{figure.5.5}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Point-to-Point Thickness Estimation}}{62}{figure.5.1}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Point-to-Mesh Thickness Estimation}}{63}{figure.5.2}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Point-to-Mesh Thickness Estimation Using Local Features}}{64}{figure.5.3}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Mesh-to-Mesh Thickness Estimation}}{65}{figure.5.4}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Multiscale Model-to-Model Cloud Comparison \cite {accurate3d}}}{66}{figure.5.5}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Overview of the Move Base Package \cite {rosmovebase}}}{73}{figure.6.1}
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Move Base Recovery Behaviours \cite {rosmovebase}}}{74}{figure.6.2}
-\contentsline {figure}{\numberline {6.3}{\ignorespaces \texttt {rqt\_reconfigure} GUI}}{76}{figure.6.3}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Overview of the Move Base Package \cite {rosmovebase}}}{76}{figure.6.1}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Move Base Recovery Behaviours \cite {rosmovebase}}}{77}{figure.6.2}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces \texttt {rqt\_reconfigure} GUI}}{79}{figure.6.3}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {7.1}{\ignorespaces \texttt {rqt\_reconfigure} GUI for Control Panel Parameters}}{98}{figure.7.1}
-\contentsline {figure}{\numberline {7.2}{\ignorespaces Graphviz Diagram of URDF File}}{100}{figure.7.2}
-\contentsline {figure}{\numberline {7.3}{\ignorespaces Auto-crop (Orange) and Auto-shotcrete (Teal) Area Visualizations}}{104}{figure.7.3}
-\contentsline {figure}{\numberline {7.4}{\ignorespaces Visualization of DENSO Workspace}}{105}{figure.7.4}
-\contentsline {figure}{\numberline {7.5}{\ignorespaces Trajectory Vizualization: Surface path (Red), End-Effector Path (Green), Surface Normal (Blue), Via Points Within Manipulator Workspace (Green), and Via Points Outside Manipulator Workspace (Red)}}{106}{figure.7.5}
-\contentsline {figure}{\numberline {7.6}{\ignorespaces Potential Keypoint Candidates Highlighted (Red)}}{107}{figure.7.6}
+\contentsline {figure}{\numberline {7.1}{\ignorespaces \texttt {rqt\_reconfigure} GUI for Control Panel Parameters}}{101}{figure.7.1}
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Graphviz Diagram of URDF File}}{103}{figure.7.2}
+\contentsline {figure}{\numberline {7.3}{\ignorespaces Auto-crop (Orange) and Auto-shotcrete (Teal) Area Visualizations}}{107}{figure.7.3}
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Visualization of DENSO Workspace}}{108}{figure.7.4}
+\contentsline {figure}{\numberline {7.5}{\ignorespaces Trajectory Vizualization: Surface path (Red), End-Effector Path (Green), Surface Normal (Blue), Via Points Within Manipulator Workspace (Green), and Via Points Outside Manipulator Workspace (Red)}}{109}{figure.7.5}
+\contentsline {figure}{\numberline {7.6}{\ignorespaces Potential Keypoint Candidates Highlighted (Red)}}{110}{figure.7.6}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {8.1}{\ignorespaces MARS Lab Mock Mine (Picture to be replaced)}}{112}{figure.8.1}
-\contentsline {figure}{\numberline {8.2}{\ignorespaces Mock Mine Surface Features (Picture to be replaced)}}{113}{figure.8.2}
-\contentsline {figure}{\numberline {8.3}{\ignorespaces Rigid Body Trackable Object With Three IR Markers Installed (pic to be replaced)}}{117}{figure.8.3}
-\contentsline {figure}{\numberline {8.4}{\ignorespaces OptiTrack Interface, Trackable Object (pic to be replaced)}}{118}{figure.8.4}
-\contentsline {figure}{\numberline {8.5}{\ignorespaces OptiTrack Ground Plane Tool (pic to be replaced)}}{119}{figure.8.5}
-\contentsline {figure}{\numberline {8.6}{\ignorespaces MASSS Trackable Rigid Body Marker}}{120}{figure.8.6}
-\contentsline {figure}{\numberline {8.7}{\ignorespaces Pointcloud Data With Visible Gaps Dut To Latency}}{123}{figure.8.7}
-\contentsline {figure}{\numberline {8.8}{\ignorespaces Edge Veiling Effect}}{124}{figure.8.8}
-\contentsline {figure}{\numberline {8.9}{\ignorespaces Two Sections of a Pointcloud Containing Keypoints. Left: Keypoint Near the Scanner. Right: Keypoint Far From Scanner}}{125}{figure.8.9}
-\contentsline {figure}{\numberline {8.10}{\ignorespaces Two Potential Keypoint Locations (Shown in Black and White) With Error Highlighted in Red}}{127}{figure.8.10}
-\contentsline {figure}{\numberline {8.11}{\ignorespaces Control Points Marked on Mine and Simulated Shotcrete}}{132}{figure.8.11}
+\contentsline {figure}{\numberline {8.1}{\ignorespaces MARS Lab Mock Mine (Picture to be replaced)}}{115}{figure.8.1}
+\contentsline {figure}{\numberline {8.2}{\ignorespaces Mock Mine Surface Features (Picture to be replaced)}}{116}{figure.8.2}
+\contentsline {figure}{\numberline {8.3}{\ignorespaces Rigid Body Trackable Object With Three IR Markers Installed (pic to be replaced)}}{120}{figure.8.3}
+\contentsline {figure}{\numberline {8.4}{\ignorespaces OptiTrack Interface, Trackable Object (pic to be replaced)}}{121}{figure.8.4}
+\contentsline {figure}{\numberline {8.5}{\ignorespaces OptiTrack Ground Plane Tool (pic to be replaced)}}{122}{figure.8.5}
+\contentsline {figure}{\numberline {8.6}{\ignorespaces MASSS Trackable Rigid Body Marker}}{123}{figure.8.6}
+\contentsline {figure}{\numberline {8.7}{\ignorespaces Pointcloud Data With Visible Gaps Dut To Latency}}{126}{figure.8.7}
+\contentsline {figure}{\numberline {8.8}{\ignorespaces Edge Veiling Effect}}{127}{figure.8.8}
+\contentsline {figure}{\numberline {8.9}{\ignorespaces Two Sections of a Pointcloud Containing Keypoints. Left: Keypoint Near the Scanner. Right: Keypoint Far From Scanner}}{128}{figure.8.9}
+\contentsline {figure}{\numberline {8.10}{\ignorespaces Two Potential Keypoint Locations (Shown in Black and White) With Error Highlighted in Red}}{130}{figure.8.10}
+\contentsline {figure}{\numberline {8.11}{\ignorespaces Control Points Marked on Mine and Simulated Shotcrete}}{135}{figure.8.11}
+\addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

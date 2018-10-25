@@ -1,8 +1,8 @@
-\contentsline {algorithm}{\numberline {4.1}{\ignorespaces Trajectory Generation Algorithm}}{46}{algorithm.4.1}
-\contentsline {algorithm}{\numberline {7.1}{\ignorespaces Localization Algorithm}}{91}{algorithm.7.1}
-\contentsline {algorithm}{\numberline {7.2}{\ignorespaces Clustering Algorithm}}{92}{algorithm.7.2}
-\contentsline {algorithm}{\numberline {7.3}{\ignorespaces Keypoint Selection Algorithm}}{93}{algorithm.7.3}
-\contentsline {algorithm}{\numberline {7.4}{\ignorespaces Trajectory Generation Algorithm (Vertical Sections)}}{95}{algorithm.7.4}
-\contentsline {algorithm}{\numberline {7.5}{\ignorespaces Trajectory Generation Algorithm (Horizontal Sections)}}{96}{algorithm.7.5}
-\contentsline {algorithm}{\numberline {7.6}{\ignorespaces Thickness Estimation Algorithm}}{97}{algorithm.7.6}
-\contentsline {algorithm}{\numberline {7.7}{\ignorespaces Find and Move Base Algorithm}}{108}{algorithm.7.7}
+\contentsline {algorithm}{\numberline {4.1}{\ignorespaces Trajectory Generation Algorithm}}{49}{algorithm.4.1}
+\contentsline {algorithm}{\numberline {7.1}{\ignorespaces Localization Algorithm}}{94}{algorithm.7.1}
+\contentsline {algorithm}{\numberline {7.2}{\ignorespaces Clustering Algorithm}}{95}{algorithm.7.2}
+\contentsline {algorithm}{\numberline {7.3}{\ignorespaces Keypoint Selection Algorithm}}{96}{algorithm.7.3}
+\contentsline {algorithm}{\numberline {7.4}{\ignorespaces Trajectory Generation Algorithm (Vertical Sections)}}{98}{algorithm.7.4}
+\contentsline {algorithm}{\numberline {7.5}{\ignorespaces Trajectory Generation Algorithm (Horizontal Sections)}}{99}{algorithm.7.5}
+\contentsline {algorithm}{\numberline {7.6}{\ignorespaces Thickness Estimation Algorithm}}{100}{algorithm.7.6}
+\contentsline {algorithm}{\numberline {7.7}{\ignorespaces Find and Move Base Algorithm}}{111}{algorithm.7.7}

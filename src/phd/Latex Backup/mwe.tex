@@ -1,51 +1,60 @@
 % create the test file for this example
-\begin{filecontents}{external.c}
-this
-is
-some
-code
-I
-want
-to
-include
 
-\end{filecontents}
 
 \documentclass{article}
 
 \usepackage{listings}
 \usepackage{textcomp}
+\usepackage[strict]{changepage}
+\usepackage{setspace}
+\usepackage{texshade}
+\usepackage{algpseudocode}
+\usepackage{notoccite}
+\usepackage{cite}
+\usepackage{array}
+\usepackage{keyval}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{fancyhdr}
+\usepackage{footmisc}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{subfigure}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{nomencl}
+\usepackage{setspace}
+\usepackage{pdfpages}
+\usepackage{rotating}
+\usepackage{bigstrut}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{pdflscape} % Needed to change some pages to landscape
+\usepackage[T1]{fontenc}
+\usepackage{textcomp} % Needed to get some symbols
+\usepackage{eqnarray} % Needed to organize equations
+\usepackage{tabularx} % See if that fixes tables
+\usepackage{siunitx}
+\sisetup{group-digits = true}
+\sisetup{group-minimum-digits = 4}
+\sisetup{group-separator = {,}}
+
+\usepackage{acronym} % Loads chemical equation module... use \ce{UO2} in text
+\usepackage[version=3]{mhchem} % Handle abbreviations
+\usepackage{url} % Needed for url field
+\usepackage[hidelinks]{hyperref}
+\usepackage{sidecap} % Needed for SCfigures - side captions
+\usepackage{wrapfig} % Needed for wrapped text figures
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor} % Needed for coloured text
+\usepackage{enumitem} % for lists with no spacing
+\usepackage{longtable} % Needed for tables spanning more than one page
+\usepackage{ltablex}
+\usepackage{gensymb}
+\usepackage{pstricks}
 \usepackage{xcolor}
-\makeatletter
-\def\lst@MSkipToFirst{%
-    \global\advance\lst@lineno\@ne
-    \ifnum \lst@lineno=\lst@firstline
-        \def\lst@next{\lst@LeaveMode \global\lst@newlines\z@
-        \lst@OnceAtEOL \global\let\lst@OnceAtEOL\@empty
-        \ifnum \c@lstnumber>0
-            \vspace{2 mm}
-        \fi
-        \lst@InitLstNumber % Added to work with modified \lsthk@PreInit.
-        \lsthk@InitVarsBOL
-        \c@lstnumber=\numexpr-1+\lst@lineno % this enforces the displayed line numbers to always be the input line numbers
-        \lst@BOLGobble}%
-        \expandafter\lst@next
-    \fi}
-    	\def\lst@MSkipToFirst{%
-    \global\advance\lst@lineno\@ne
-    \ifnum \lst@lineno=\lst@firstline
-        \def\lst@next{\lst@LeaveMode \global\lst@newlines\z@
-        \lst@OnceAtEOL \global\let\lst@OnceAtEOL\@empty
-        \ifnum \c@lstnumber>0
-            \vspace{2 mm}
-        \fi
-        \lst@InitLstNumber % Added to work with modified \lsthk@PreInit.
-        \lsthk@InitVarsBOL
-        \c@lstnumber=\numexpr-1+\lst@lineno % this enforces the displayed line numbers to always be the input line numbers
-        \lst@BOLGobble}%
-        \expandafter\lst@next
-    \fi}
-\makeatother
 
  \newcommand{\includecoderange}[4][C++]{\lstinputlisting[
   basicstyle=\footnotesize,        % the size of the fonts that are used for the code
@@ -77,6 +86,5 @@ include
 \renewcommand{\lstlistlistingname}{List of \lstlistingname s}% List of Listings -> List of Algorithms
 \begin{document}
 Beginning text
-\includecoderange[python]{external.c}{Title}{5-8}
 Text with missing character
 \end{document}
