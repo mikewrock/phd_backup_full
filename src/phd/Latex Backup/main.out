@@ -10,131 +10,137 @@
 \BOOKMARK [2][-]{subsection.1.1.1}{Underground Drift Mining}{section.1.1}% 10
 \BOOKMARK [2][-]{subsection.1.1.2}{Surface Scanning}{section.1.1}% 11
 \BOOKMARK [2][-]{subsection.1.1.3}{Shotcrete Reinforcement}{section.1.1}% 12
-\BOOKMARK [2][-]{subsection.1.1.4}{Summary}{section.1.1}% 13
-\BOOKMARK [1][-]{section.1.2}{Scope}{chapter.1}% 14
-\BOOKMARK [1][-]{section.1.3}{Summary of Contributions}{chapter.1}% 15
-\BOOKMARK [1][-]{section.1.4}{Thesis Outline}{chapter.1}% 16
-\BOOKMARK [0][-]{chapter.2}{Background}{}% 17
-\BOOKMARK [1][-]{section.2.1}{Literature Review}{chapter.2}% 18
-\BOOKMARK [2][-]{subsection.2.1.1}{Robot Localization}{section.2.1}% 19
-\BOOKMARK [2][-]{subsection.2.1.2}{Trajectory Generation}{section.2.1}% 20
-\BOOKMARK [2][-]{subsection.2.1.3}{Thickness Estimation}{section.2.1}% 21
-\BOOKMARK [1][-]{section.2.2}{ROS: The Robot Operating System}{chapter.2}% 22
-\BOOKMARK [0][-]{chapter.3}{Robot Localization}{}% 23
-\BOOKMARK [1][-]{section.3.1}{Chapter Overview}{chapter.3}% 24
-\BOOKMARK [1][-]{section.3.2}{Introduction}{chapter.3}% 25
-\BOOKMARK [1][-]{section.3.3}{Localizing the MASSS}{chapter.3}% 26
-\BOOKMARK [2][-]{subsection.3.3.1}{Fiducial Markers}{section.3.3}% 27
-\BOOKMARK [3][-]{subsubsection.3.3.1.1}{Perceiving the fiducial markers}{subsection.3.3.1}% 28
-\BOOKMARK [3][-]{subsubsection.3.3.1.2}{Placing the fiducial marker}{subsection.3.3.1}% 29
-\BOOKMARK [3][-]{subsubsection.3.3.1.3}{Detecting the fiducial marker}{subsection.3.3.1}% 30
-\BOOKMARK [3][-]{subsubsection.3.3.1.4}{Determining the location of the fiducial marker}{subsection.3.3.1}% 31
-\BOOKMARK [2][-]{subsection.3.3.2}{Coordinate Frames}{section.3.3}% 32
-\BOOKMARK [2][-]{subsection.3.3.3}{Using multiple markers}{section.3.3}% 33
-\BOOKMARK [1][-]{section.3.4}{Chapter Summary}{chapter.3}% 34
-\BOOKMARK [0][-]{chapter.4}{Trajectory Generation}{}% 35
-\BOOKMARK [1][-]{section.4.1}{Chapter Overview}{chapter.4}% 36
-\BOOKMARK [1][-]{section.4.2}{Requirements of the Trajectory}{chapter.4}% 37
-\BOOKMARK [1][-]{section.4.3}{Techniques for Generating Trajectories}{chapter.4}% 38
-\BOOKMARK [2][-]{subsection.4.3.1}{Flattening Approach}{section.4.3}% 39
-\BOOKMARK [2][-]{subsection.4.3.2}{Microscopic Approach}{section.4.3}% 40
-\BOOKMARK [2][-]{subsection.4.3.3}{Plane Intersections}{section.4.3}% 41
-\BOOKMARK [3][-]{subsubsection.4.3.3.1}{Measuring Distance Along the Surface}{subsection.4.3.3}% 42
-\BOOKMARK [1][-]{section.4.4}{Algorithm Used for Trajectory Generation}{chapter.4}% 43
-\BOOKMARK [2][-]{subsection.4.4.1}{Extracting Plane Intersections}{section.4.4}% 44
-\BOOKMARK [2][-]{subsection.4.4.2}{Sorting Vertical and Horizontal Ribs}{section.4.4}% 45
-\BOOKMARK [2][-]{subsection.4.4.3}{Selecting Trajectory Points}{section.4.4}% 46
-\BOOKMARK [2][-]{subsection.4.4.4}{Advancing the Robot}{section.4.4}% 47
-\BOOKMARK [0][-]{chapter.5}{Thickness Estimation}{}% 48
-\BOOKMARK [1][-]{section.5.1}{Chapter Overview}{chapter.5}% 49
-\BOOKMARK [1][-]{section.5.2}{Requirements of the Estimate}{chapter.5}% 50
-\BOOKMARK [1][-]{section.5.3}{Techniques for Estimating Thickness}{chapter.5}% 51
-\BOOKMARK [1][-]{section.5.4}{Registration}{chapter.5}% 52
-\BOOKMARK [1][-]{section.5.5}{Non-Destructive Thickness Estimation}{chapter.5}% 53
-\BOOKMARK [2][-]{subsection.5.5.1}{Point-to-Point}{section.5.5}% 54
-\BOOKMARK [2][-]{subsection.5.5.2}{Point-to-Mesh}{section.5.5}% 55
-\BOOKMARK [2][-]{subsection.5.5.3}{Mesh-to-Mesh}{section.5.5}% 56
-\BOOKMARK [2][-]{subsection.5.5.4}{Multiscale Model-to-Model Cloud Comparison}{section.5.5}% 57
-\BOOKMARK [1][-]{section.5.6}{Method Implemented for Estimating Thickness}{chapter.5}% 58
-\BOOKMARK [0][-]{chapter.6}{Mobile Autonomous Shotcrete and Scanning System Overview}{}% 59
-\BOOKMARK [1][-]{section.6.1}{Chapter Overview}{chapter.6}% 60
-\BOOKMARK [1][-]{section.6.2}{Design Process}{chapter.6}% 61
-\BOOKMARK [1][-]{section.6.3}{Hardware}{chapter.6}% 62
-\BOOKMARK [2][-]{subsection.6.3.1}{Husky}{section.6.3}% 63
-\BOOKMARK [2][-]{subsection.6.3.2}{Husky Peripherals}{section.6.3}% 64
-\BOOKMARK [2][-]{subsection.6.3.3}{LMS100}{section.6.3}% 65
-\BOOKMARK [2][-]{subsection.6.3.4}{DENSO}{section.6.3}% 66
-\BOOKMARK [2][-]{subsection.6.3.5}{Powercube}{section.6.3}% 67
-\BOOKMARK [1][-]{section.6.4}{Software}{chapter.6}% 68
-\BOOKMARK [2][-]{subsection.6.4.1}{Overview of the Existing ROS Packages used}{section.6.4}% 69
-\BOOKMARK [3][-]{subsubsection.6.4.1.1}{RVIZ}{subsection.6.4.1}% 70
-\BOOKMARK [3][-]{subsubsection.6.4.1.2}{Husky}{subsection.6.4.1}% 71
-\BOOKMARK [3][-]{subsubsection.6.4.1.3}{Move Base}{subsection.6.4.1}% 72
-\BOOKMARK [3][-]{subsubsection.6.4.1.4}{Laser Assembler}{subsection.6.4.1}% 73
-\BOOKMARK [3][-]{subsubsection.6.4.1.5}{Hector SLAM}{subsection.6.4.1}% 74
-\BOOKMARK [3][-]{subsubsection.6.4.1.6}{RQT Reconfigure}{subsection.6.4.1}% 75
-\BOOKMARK [2][-]{subsection.6.4.2}{Overview of the MASSS ROS Package}{section.6.4}% 76
-\BOOKMARK [0][-]{chapter.7}{Discussion of Software}{}% 77
-\BOOKMARK [1][-]{section.7.1}{Chapter Summary}{chapter.7}% 78
-\BOOKMARK [1][-]{section.7.2}{Package Files}{chapter.7}% 79
-\BOOKMARK [2][-]{subsection.7.2.1}{package.xml}{section.7.2}% 80
-\BOOKMARK [2][-]{subsection.7.2.2}{plugin\137description.xml}{section.7.2}% 81
-\BOOKMARK [2][-]{subsection.7.2.3}{CMakeLists.txt}{section.7.2}% 82
-\BOOKMARK [1][-]{section.7.3}{Launch Files}{chapter.7}% 83
-\BOOKMARK [2][-]{subsection.7.3.1}{main.launch}{section.7.3}% 84
-\BOOKMARK [2][-]{subsection.7.3.2}{simulation.launch}{section.7.3}% 85
-\BOOKMARK [1][-]{section.7.4}{Messages}{chapter.7}% 86
-\BOOKMARK [2][-]{subsection.7.4.1}{trajectory\137point.msg}{section.7.4}% 87
-\BOOKMARK [2][-]{subsection.7.4.2}{trajectory\137msg.msg}{section.7.4}% 88
-\BOOKMARK [2][-]{subsection.7.4.3}{arm\137msg.msg}{section.7.4}% 89
-\BOOKMARK [2][-]{subsection.7.4.4}{cube\137msg.msg}{section.7.4}% 90
-\BOOKMARK [2][-]{subsection.7.4.5}{marker\137val.msg}{section.7.4}% 91
-\BOOKMARK [1][-]{section.7.5}{Services}{chapter.7}% 92
-\BOOKMARK [2][-]{subsection.7.5.1}{Cloud Localization Service}{section.7.5}% 93
-\BOOKMARK [3][-]{subsubsection.7.5.1.1}{Clustering Points}{subsection.7.5.1}% 94
-\BOOKMARK [3][-]{subsubsection.7.5.1.2}{Determining Marker Keypoints}{subsection.7.5.1}% 95
-\BOOKMARK [2][-]{subsection.7.5.2}{Trajectory Generation Service}{section.7.5}% 96
-\BOOKMARK [2][-]{subsection.7.5.3}{Thickness Estimation Service}{section.7.5}% 97
-\BOOKMARK [2][-]{subsection.7.5.4}{Map Reset Service}{section.7.5}% 98
-\BOOKMARK [1][-]{section.7.6}{Configuration Files}{chapter.7}% 99
-\BOOKMARK [2][-]{subsection.7.6.1}{YAML Files}{section.7.6}% 100
-\BOOKMARK [1][-]{section.7.7}{URDF}{chapter.7}% 101
-\BOOKMARK [1][-]{section.7.8}{Header Files}{chapter.7}% 102
-\BOOKMARK [1][-]{section.7.9}{Source Files}{chapter.7}% 103
-\BOOKMARK [2][-]{subsection.7.9.1}{Control Dashboard}{section.7.9}% 104
-\BOOKMARK [2][-]{subsection.7.9.2}{Control Panel}{section.7.9}% 105
-\BOOKMARK [3][-]{subsubsection.7.9.2.1}{Visualization}{subsection.7.9.2}% 106
-\BOOKMARK [3][-]{subsubsection.7.9.2.2}{Administrative Functions}{subsection.7.9.2}% 107
-\BOOKMARK [3][-]{subsubsection.7.9.2.3}{Internal Functions}{subsection.7.9.2}% 108
-\BOOKMARK [2][-]{subsection.7.9.3}{DENSO and Powercube Nodes}{section.7.9}% 109
-\BOOKMARK [2][-]{subsection.7.9.4}{Additional Nodes}{section.7.9}% 110
-\BOOKMARK [1][-]{section.7.10}{External Packages and Libraries}{chapter.7}% 111
-\BOOKMARK [0][-]{chapter.8}{Testing}{}% 112
-\BOOKMARK [1][-]{section.8.1}{Mock Mine}{chapter.8}% 113
-\BOOKMARK [1][-]{section.8.2}{Test Scenarios}{chapter.8}% 114
-\BOOKMARK [2][-]{subsection.8.2.1}{Localization}{section.8.2}% 115
-\BOOKMARK [3][-]{subsubsection.8.2.1.1}{Localization Test}{subsection.8.2.1}% 116
-\BOOKMARK [3][-]{subsubsection.8.2.1.2}{Localization Sources of Error}{subsection.8.2.1}% 117
-\BOOKMARK [2][-]{subsection.8.2.2}{Trajectory Generation}{section.8.2}% 118
-\BOOKMARK [3][-]{subsubsection.8.2.2.1}{No trajectory generated}{subsection.8.2.2}% 119
-\BOOKMARK [3][-]{subsubsection.8.2.2.2}{Trajectory Point Outside Robot Workspace}{subsection.8.2.2}% 120
-\BOOKMARK [3][-]{subsubsection.8.2.2.3}{Trajectory Does Not Maintain Optimal Distance From Surface}{subsection.8.2.2}% 121
-\BOOKMARK [3][-]{subsubsection.8.2.2.4}{Trajectory Does Cover The Entire Selected Surface}{subsection.8.2.2}% 122
-\BOOKMARK [3][-]{subsubsection.8.2.2.5}{Trajectory Path Has Undesirable Overlap}{subsection.8.2.2}% 123
-\BOOKMARK [2][-]{subsection.8.2.3}{Thickness Estimation}{section.8.2}% 124
-\BOOKMARK [3][-]{subsubsection.8.2.3.1}{Thickness Estimation Sources of Error}{subsection.8.2.3}% 125
-\BOOKMARK [0][-]{chapter.9}{Discussion of Results}{}% 126
-\BOOKMARK [1][-]{subsubsection.9.0.3.2}{Repeatability of LIDAR}{chapter.9}% 127
-\BOOKMARK [0][-]{chapter.10}{Conclusions and Recommendations for Future Work}{}% 128
-\BOOKMARK [0][-]{appendix.A}{Complete Source Code}{}% 129
-\BOOKMARK [1][-]{section.A.1}{Cmakelists}{appendix.A}% 130
-\BOOKMARK [1][-]{section.A.2}{Launch Files}{appendix.A}% 131
-\BOOKMARK [1][-]{section.A.3}{Configuration Files}{appendix.A}% 132
-\BOOKMARK [1][-]{section.A.4}{URDF}{appendix.A}% 133
-\BOOKMARK [1][-]{section.A.5}{Header Files}{appendix.A}% 134
-\BOOKMARK [1][-]{section.A.6}{Source Files}{appendix.A}% 135
-\BOOKMARK [2][-]{subsection.A.6.1}{Services}{section.A.6}% 136
-\BOOKMARK [3][-]{subsubsection.A.6.1.1}{Transformation Matrix Calculation}{subsection.A.6.1}% 137
-\BOOKMARK [0][-]{appendix.B}{DENSO Documentation}{}% 138
-\BOOKMARK [1][-]{section.B.1}{Table of Shoulder, Elbow, and Wrist Figures}{appendix.B}% 139
-\BOOKMARK [0][-]{appendix.C}{Shotcrete Work Instructions}{}% 140
+\BOOKMARK [2][-]{subsection.1.1.4}{Shotcrete Thickness}{section.1.1}% 13
+\BOOKMARK [2][-]{subsection.1.1.5}{Summary}{section.1.1}% 14
+\BOOKMARK [1][-]{section.1.2}{Scope}{chapter.1}% 15
+\BOOKMARK [1][-]{section.1.3}{Summary of Contributions}{chapter.1}% 16
+\BOOKMARK [2][-]{subsection.1.3.1}{Construction of the Prototype}{section.1.3}% 17
+\BOOKMARK [2][-]{subsection.1.3.2}{Software Design}{section.1.3}% 18
+\BOOKMARK [2][-]{subsection.1.3.3}{Trajectory Generation}{section.1.3}% 19
+\BOOKMARK [2][-]{subsection.1.3.4}{Thickness Estimation}{section.1.3}% 20
+\BOOKMARK [2][-]{subsection.1.3.5}{Localization}{section.1.3}% 21
+\BOOKMARK [1][-]{section.1.4}{Thesis Outline}{chapter.1}% 22
+\BOOKMARK [0][-]{chapter.2}{Background}{}% 23
+\BOOKMARK [1][-]{section.2.1}{Literature Review}{chapter.2}% 24
+\BOOKMARK [2][-]{subsection.2.1.1}{Robot Localization}{section.2.1}% 25
+\BOOKMARK [2][-]{subsection.2.1.2}{Trajectory Generation}{section.2.1}% 26
+\BOOKMARK [2][-]{subsection.2.1.3}{Thickness Estimation}{section.2.1}% 27
+\BOOKMARK [1][-]{section.2.2}{ROS: The Robot Operating System}{chapter.2}% 28
+\BOOKMARK [0][-]{chapter.3}{Robot Localization}{}% 29
+\BOOKMARK [1][-]{section.3.1}{Chapter Overview}{chapter.3}% 30
+\BOOKMARK [1][-]{section.3.2}{Introduction}{chapter.3}% 31
+\BOOKMARK [1][-]{section.3.3}{Localizing the MASSS}{chapter.3}% 32
+\BOOKMARK [2][-]{subsection.3.3.1}{Fiducial Markers}{section.3.3}% 33
+\BOOKMARK [3][-]{subsubsection.3.3.1.1}{Perceiving the fiducial markers}{subsection.3.3.1}% 34
+\BOOKMARK [3][-]{subsubsection.3.3.1.2}{Placing the fiducial marker}{subsection.3.3.1}% 35
+\BOOKMARK [3][-]{subsubsection.3.3.1.3}{Detecting the fiducial marker}{subsection.3.3.1}% 36
+\BOOKMARK [3][-]{subsubsection.3.3.1.4}{Determining the location of the fiducial marker}{subsection.3.3.1}% 37
+\BOOKMARK [2][-]{subsection.3.3.2}{Coordinate Frames}{section.3.3}% 38
+\BOOKMARK [2][-]{subsection.3.3.3}{Using multiple markers}{section.3.3}% 39
+\BOOKMARK [1][-]{section.3.4}{Chapter Summary}{chapter.3}% 40
+\BOOKMARK [0][-]{chapter.4}{Trajectory Generation}{}% 41
+\BOOKMARK [1][-]{section.4.1}{Chapter Overview}{chapter.4}% 42
+\BOOKMARK [1][-]{section.4.2}{Requirements of the Trajectory}{chapter.4}% 43
+\BOOKMARK [1][-]{section.4.3}{Techniques for Generating Trajectories}{chapter.4}% 44
+\BOOKMARK [2][-]{subsection.4.3.1}{Flattening Approach}{section.4.3}% 45
+\BOOKMARK [2][-]{subsection.4.3.2}{Microscopic Approach}{section.4.3}% 46
+\BOOKMARK [2][-]{subsection.4.3.3}{Plane Intersections}{section.4.3}% 47
+\BOOKMARK [3][-]{subsubsection.4.3.3.1}{Measuring Distance Along the Surface}{subsection.4.3.3}% 48
+\BOOKMARK [1][-]{section.4.4}{Algorithm Used for Trajectory Generation}{chapter.4}% 49
+\BOOKMARK [2][-]{subsection.4.4.1}{Extracting Plane Intersections}{section.4.4}% 50
+\BOOKMARK [2][-]{subsection.4.4.2}{Sorting Vertical and Horizontal Ribs}{section.4.4}% 51
+\BOOKMARK [2][-]{subsection.4.4.3}{Selecting Trajectory Points}{section.4.4}% 52
+\BOOKMARK [2][-]{subsection.4.4.4}{Advancing the Robot}{section.4.4}% 53
+\BOOKMARK [0][-]{chapter.5}{Thickness Estimation}{}% 54
+\BOOKMARK [1][-]{section.5.1}{Chapter Overview}{chapter.5}% 55
+\BOOKMARK [1][-]{section.5.2}{Requirements of the Estimate}{chapter.5}% 56
+\BOOKMARK [1][-]{section.5.3}{Techniques for Estimating Thickness}{chapter.5}% 57
+\BOOKMARK [1][-]{section.5.4}{Registration}{chapter.5}% 58
+\BOOKMARK [1][-]{section.5.5}{Non-Destructive Thickness Estimation}{chapter.5}% 59
+\BOOKMARK [2][-]{subsection.5.5.1}{Point-to-Point}{section.5.5}% 60
+\BOOKMARK [2][-]{subsection.5.5.2}{Point-to-Mesh}{section.5.5}% 61
+\BOOKMARK [2][-]{subsection.5.5.3}{Mesh-to-Mesh}{section.5.5}% 62
+\BOOKMARK [2][-]{subsection.5.5.4}{Multiscale Model-to-Model Cloud Comparison}{section.5.5}% 63
+\BOOKMARK [1][-]{section.5.6}{Method Implemented for Estimating Thickness}{chapter.5}% 64
+\BOOKMARK [0][-]{chapter.6}{Mobile Autonomous Shotcrete and Scanning System Overview}{}% 65
+\BOOKMARK [1][-]{section.6.1}{Chapter Overview}{chapter.6}% 66
+\BOOKMARK [1][-]{section.6.2}{Design Process}{chapter.6}% 67
+\BOOKMARK [1][-]{section.6.3}{Hardware}{chapter.6}% 68
+\BOOKMARK [2][-]{subsection.6.3.1}{Husky}{section.6.3}% 69
+\BOOKMARK [2][-]{subsection.6.3.2}{Husky Peripherals}{section.6.3}% 70
+\BOOKMARK [2][-]{subsection.6.3.3}{DENSO VP6242}{section.6.3}% 71
+\BOOKMARK [2][-]{subsection.6.3.4}{LMS101}{section.6.3}% 72
+\BOOKMARK [2][-]{subsection.6.3.5}{Schunk Powercube PR70}{section.6.3}% 73
+\BOOKMARK [1][-]{section.6.4}{Software}{chapter.6}% 74
+\BOOKMARK [2][-]{subsection.6.4.1}{Overview of the Existing ROS Packages used}{section.6.4}% 75
+\BOOKMARK [3][-]{subsubsection.6.4.1.1}{RVIZ}{subsection.6.4.1}% 76
+\BOOKMARK [3][-]{subsubsection.6.4.1.2}{Husky}{subsection.6.4.1}% 77
+\BOOKMARK [3][-]{subsubsection.6.4.1.3}{Move Base}{subsection.6.4.1}% 78
+\BOOKMARK [3][-]{subsubsection.6.4.1.4}{Laser Assembler}{subsection.6.4.1}% 79
+\BOOKMARK [3][-]{subsubsection.6.4.1.5}{Hector SLAM}{subsection.6.4.1}% 80
+\BOOKMARK [3][-]{subsubsection.6.4.1.6}{RQT Reconfigure}{subsection.6.4.1}% 81
+\BOOKMARK [2][-]{subsection.6.4.2}{Overview of the MASSS ROS Package}{section.6.4}% 82
+\BOOKMARK [0][-]{chapter.7}{Discussion of Software}{}% 83
+\BOOKMARK [1][-]{section.7.1}{Chapter Summary}{chapter.7}% 84
+\BOOKMARK [1][-]{section.7.2}{Package Files}{chapter.7}% 85
+\BOOKMARK [2][-]{subsection.7.2.1}{package.xml}{section.7.2}% 86
+\BOOKMARK [2][-]{subsection.7.2.2}{plugin\137description.xml}{section.7.2}% 87
+\BOOKMARK [2][-]{subsection.7.2.3}{CMakeLists.txt}{section.7.2}% 88
+\BOOKMARK [1][-]{section.7.3}{Launch Files}{chapter.7}% 89
+\BOOKMARK [2][-]{subsection.7.3.1}{main.launch}{section.7.3}% 90
+\BOOKMARK [2][-]{subsection.7.3.2}{simulation.launch}{section.7.3}% 91
+\BOOKMARK [1][-]{section.7.4}{Messages}{chapter.7}% 92
+\BOOKMARK [2][-]{subsection.7.4.1}{trajectory\137point.msg}{section.7.4}% 93
+\BOOKMARK [2][-]{subsection.7.4.2}{trajectory\137msg.msg}{section.7.4}% 94
+\BOOKMARK [2][-]{subsection.7.4.3}{arm\137msg.msg}{section.7.4}% 95
+\BOOKMARK [2][-]{subsection.7.4.4}{cube\137msg.msg}{section.7.4}% 96
+\BOOKMARK [2][-]{subsection.7.4.5}{marker\137val.msg}{section.7.4}% 97
+\BOOKMARK [1][-]{section.7.5}{Services}{chapter.7}% 98
+\BOOKMARK [2][-]{subsection.7.5.1}{Cloud Localization Service}{section.7.5}% 99
+\BOOKMARK [3][-]{subsubsection.7.5.1.1}{Clustering Points}{subsection.7.5.1}% 100
+\BOOKMARK [3][-]{subsubsection.7.5.1.2}{Determining Marker Keypoints}{subsection.7.5.1}% 101
+\BOOKMARK [2][-]{subsection.7.5.2}{Trajectory Generation Service}{section.7.5}% 102
+\BOOKMARK [2][-]{subsection.7.5.3}{Thickness Estimation Service}{section.7.5}% 103
+\BOOKMARK [2][-]{subsection.7.5.4}{Map Reset Service}{section.7.5}% 104
+\BOOKMARK [1][-]{section.7.6}{Configuration Files}{chapter.7}% 105
+\BOOKMARK [2][-]{subsection.7.6.1}{YAML Files}{section.7.6}% 106
+\BOOKMARK [1][-]{section.7.7}{URDF}{chapter.7}% 107
+\BOOKMARK [1][-]{section.7.8}{Header Files}{chapter.7}% 108
+\BOOKMARK [1][-]{section.7.9}{Source Files}{chapter.7}% 109
+\BOOKMARK [2][-]{subsection.7.9.1}{Control Dashboard}{section.7.9}% 110
+\BOOKMARK [2][-]{subsection.7.9.2}{Control Panel}{section.7.9}% 111
+\BOOKMARK [3][-]{subsubsection.7.9.2.1}{Visualization}{subsection.7.9.2}% 112
+\BOOKMARK [3][-]{subsubsection.7.9.2.2}{Administrative Functions}{subsection.7.9.2}% 113
+\BOOKMARK [3][-]{subsubsection.7.9.2.3}{Internal Functions}{subsection.7.9.2}% 114
+\BOOKMARK [2][-]{subsection.7.9.3}{DENSO and Powercube Nodes}{section.7.9}% 115
+\BOOKMARK [2][-]{subsection.7.9.4}{Additional Nodes}{section.7.9}% 116
+\BOOKMARK [1][-]{section.7.10}{External Packages and Libraries}{chapter.7}% 117
+\BOOKMARK [0][-]{chapter.8}{Testing}{}% 118
+\BOOKMARK [1][-]{section.8.1}{Mock Mine}{chapter.8}% 119
+\BOOKMARK [1][-]{section.8.2}{Test Scenarios}{chapter.8}% 120
+\BOOKMARK [2][-]{subsection.8.2.1}{Localization}{section.8.2}% 121
+\BOOKMARK [3][-]{subsubsection.8.2.1.1}{Localization Test}{subsection.8.2.1}% 122
+\BOOKMARK [3][-]{subsubsection.8.2.1.2}{Localization Sources of Error}{subsection.8.2.1}% 123
+\BOOKMARK [2][-]{subsection.8.2.2}{Trajectory Generation}{section.8.2}% 124
+\BOOKMARK [3][-]{subsubsection.8.2.2.1}{No trajectory generated}{subsection.8.2.2}% 125
+\BOOKMARK [3][-]{subsubsection.8.2.2.2}{Trajectory Point Outside Robot Workspace}{subsection.8.2.2}% 126
+\BOOKMARK [3][-]{subsubsection.8.2.2.3}{Trajectory Does Not Maintain Optimal Distance From Surface}{subsection.8.2.2}% 127
+\BOOKMARK [3][-]{subsubsection.8.2.2.4}{Trajectory Does Cover The Entire Selected Surface}{subsection.8.2.2}% 128
+\BOOKMARK [3][-]{subsubsection.8.2.2.5}{Trajectory Path Has Undesirable Overlap}{subsection.8.2.2}% 129
+\BOOKMARK [2][-]{subsection.8.2.3}{Thickness Estimation}{section.8.2}% 130
+\BOOKMARK [3][-]{subsubsection.8.2.3.1}{Thickness Estimation Sources of Error}{subsection.8.2.3}% 131
+\BOOKMARK [0][-]{chapter.9}{Discussion of Results}{}% 132
+\BOOKMARK [1][-]{subsubsection.9.0.3.2}{Repeatability of LIDAR}{chapter.9}% 133
+\BOOKMARK [0][-]{chapter.10}{Conclusions and Recommendations for Future Work}{}% 134
+\BOOKMARK [0][-]{appendix.A}{Complete Source Code}{}% 135
+\BOOKMARK [1][-]{section.A.1}{Cmakelists}{appendix.A}% 136
+\BOOKMARK [1][-]{section.A.2}{Launch Files}{appendix.A}% 137
+\BOOKMARK [1][-]{section.A.3}{Configuration Files}{appendix.A}% 138
+\BOOKMARK [1][-]{section.A.4}{URDF}{appendix.A}% 139
+\BOOKMARK [1][-]{section.A.5}{Header Files}{appendix.A}% 140
+\BOOKMARK [1][-]{section.A.6}{Source Files}{appendix.A}% 141
+\BOOKMARK [1][-]{section.A.7}{Services}{appendix.A}% 142
+\BOOKMARK [1][-]{section.A.8}{Transformation Matrix Calculation}{appendix.A}% 143
+\BOOKMARK [0][-]{appendix.B}{DENSO Documentation}{}% 144
+\BOOKMARK [1][-]{section.B.1}{Table of Shoulder, Elbow, and Wrist Figures}{appendix.B}% 145
+\BOOKMARK [0][-]{appendix.C}{Shotcrete Work Instructions}{}% 146

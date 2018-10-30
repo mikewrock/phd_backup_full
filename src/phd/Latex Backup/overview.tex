@@ -3,15 +3,67 @@
 \section{Chapter Overview}
 \section{Design Process}
 \label{sec:design}
+\subsection{Customer Requirements}
+\subsection{Engineering Requirements}
+\subsection{Project Resources}
+\subsection{Project Methodology}
+\subsection{Engineering Targets}
+\subsection{Concept Generation}
+\subsection{Concept Evaluation}
+\subsection{Failure Mode and Effect Analysis}
 \section{Hardware}
 \subsection{Husky}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Pics/husky.jpg}
+    \caption{Husky UGV \cite{huskypage}}
+    \label{fig:husky}
+\end{figure}
+%https://www.clearpathrobotics.com/husky-unmanned-ground-vehicle-robot/
+Clearpath's Husky Unmanned Ground Vehicle (Husky UGV) is the mobile base used for the proof of concept prototype. It is a four wheeled skid steer vehicle, capable of driving on uneven ground or loose gravel. It has a wheel diameter of 330mm, and external dimensions of 990mm $\times$ 670mm $\times$ 390 mm. It's maximum payload is 75kg and maximum speed is 1.0 m/s. Skid steer vehicles have notoriously unreliable odometry data which makes the Husky an excellent choice as a mobile base, since it creates a more realistic representation of the final product.\\
 \subsection{Husky Peripherals}
-\subsection{LMS100}
-\subsection{DENSO}
-\subsection{Powercube}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Pics/DSC0433.JPG}
+    \caption{Husky With Peripherals Attached}
+    \label{fig:peripherals}
+\end{figure}
+The Husky required a few modifications to support the additional hardware used. A top plate was machined to mount the manipulator, as well as a mounting bracket for the nodding head servo. A trailer hitch was installed and a trailer was built to allow the Husky to tow additional batteries, a generator, and the controller for the manipulator.\\
+\subsection{DENSO VP6242}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Pics/denso.png}
+    \caption{DENSO VP6242 Manipulator \cite{densopage}}
+    \label{fig:sick}
+\end{figure}
+%https://www.denso-wave.com/en/robot/product/five-six/vp.html
+The final product will likely use hydraulics to position the shotcreting and scanning end-effector since the payload and forces will require a high strength and rigidity manipulator. Designing a manipulator for this task is outside the scope of this research, so a suitable analogue was chosen. The requirements of the manipulator is that it can position it's end-effector with 6 Degrees-of-Freedom like the final version, but does not require the same workspace, strength, or rigidity the final product would in order to accurately position the end-effector and apply shotcrete. The DENSO manipulator was chosen since it fulfils all the application requirements and was available at UOIT for use in this work. It has a maximum reach of 432mm and a maximum payload of 2.5kg.\\ 
+\subsection{LMS101}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{Pics/sick.png}
+    \caption{SICK LMS101 LIDAR \cite{sickpage}}
+    \label{fig:sick}
+\end{figure}
+%https://www.sick.com/de/en/detection-and-ranging-solutions/2d-lidar-sensors/lms1xx/lms101-10000/p/p346868?ff_data=JmZmX2lkPXAzNDY4NjgmZmZfbWFzdGVySWQ9cDM0Njg2OCZmZl90aXRsZT1MTVMxMDEtMTAwMDAmZmZfcXVlcnk9JmZmX3Bvcz04JmZmX29yaWdQb3M9OCZmZl9wYWdlPTEmZmZfcGFnZVNpemU9OCZmZl9vcmlnUGFnZVNpemU9OCZmZl9zaW1pPTkzLjA=
+The LMS101 is a LIDAR scanner manufactured by SICK. It has an aperture angle of 270$\degree$, angular resolution of 0.25$\degree$ at 25Hz, and optimal range of 0.5m-20m. SICK is a well know brand of LIDAR scanners, with lots of software drivers available for the various systems it works with. The ROS driver for this LIDAR does not natively support 0.25$\degree$ resolution, so it has been modified accordingly. It has a systematic error of $\pm$30mm and statistical error	of 12mm, though through testing it was found the LIDAR performs much better in the given test conditions. With and IP rating of IP65, it is suitable for indoor use but can be replaced with another model from the same family with equal performance but higher IP rating (up to IP67).\\
+\subsection{Schunk Powercube PR70}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Pics/powercube.png}
+    \caption{Schunk Powercube PR70 \cite{schunkpage}}
+    \label{fig:schunk}
+\end{figure}
+%https://www.comoso.com/uploads/products/downloads/Schunk_Comoso_PR_gesamt_EN.pdf
+The LIDAR must be mounted on a nodding head to produce pointclouds. The Powercube PR70 made by Schunk was chosen for this task partly since it was already an asset of the UOIT MARS lab. The module has higher accuracy and payload than the application requires, but since it was an unused asset it was chosen for this application minimize budgetary impact. It has a nominal torque of 15Nm, repeat accuracy of 0.03$\degree$, maximum angular velocity of 240$\degree$/s, and maximum acceleration of 960$\degree$/s$^2$. \\
 \section{Software}
 \label{sec:software}
+All software integrated and developed for this research is intended for use within the ROS framework. Since ROS is an open source community with many packages available for use in research, it offers a wide selection of resources useful to this work. The framework itself was designed for modularity and functionality with robotics, making it an excellent choice for use in this work.\\
 \subsection{Overview of the Existing ROS Packages used}
+
+Many of the tasks required for operation of the MASSS have already been developed by the ROS community. Hardware drivers, motion controllers, LIDAR scan to pointcloud assemblers, navigation, and mapping packages are already available through the ROS website. An engineer's job is not to ``reinvent the wheel'', so software that has already been developed that is applicable to this system was used.\\
 \subsubsection{RVIZ}
 \label{sec:rviz}
 
