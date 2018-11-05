@@ -49,6 +49,8 @@
 %
 %examining board including name, degree department or field starting from Chair
 \def\examboard#1{\gdef\@examboard{#1}}
+\def\examboardx#1{\gdef\@examboardx{#1}}
+\def\uniboard#1{\gdef\@uniboard{#1}}
 %
 %external examiner including name, degree, department or field and Institution
 \def\externalexam#1{\gdef\@externalexam{#1}}
@@ -82,8 +84,10 @@
 \end{center}
 \begin{table}[!h]
 \begin{tabular}{l l}
-Supervisor(s): & \@supervisor \\
+Supervisor: & \@supervisor \\
 Examining Board: & \@examboard \\
+ & \@examboardx \\
+University Examiner: & \@uniboard \\
 External Examiner: & \@externalexam
 %\@externalexam
 \end{tabular}

@@ -49,10 +49,10 @@
 
  % \newcommand{\node}[1]{\texttt{\detokenize{#1}}}
   \newcommand{\node}[1]{
-   \path{#1}\unskip
+   \unskip\path{#1}\unskip
   }
   \newcommand{\var}[1]{
-   \textit{\detokenize{#1}}\unskip
+   \unskip\textit{\detokenize{#1}}\unskip
   }
   \newcommand{\cpnode}{\node{control\_panel}}
   
@@ -112,6 +112,7 @@
   %\lstset{rangeprefix=@@@,rangesuffix=@@@,includerangemarker=false}
   \renewcommand{\lstlistingname}{ROS File}% Listing -> Algorithm
 \renewcommand{\lstlistlistingname}{List of \lstlistingname s}% List of Listings -> List of Algorithms
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}m{#1}}
 \begin{document}
 
   \uoittitlepage
