@@ -21,9 +21,365 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{mani}
+M.~Thring, ``Mining without men underground,'' \emph{Elect. Rev.}, 1976.
+
+\bibitem{temp}
+\BIBentryALTinterwordspacing
+S.~Huh, U.~Lee, and H.~Shim, ``{Development of an unmanned coal mining robot
+  and a tele-operation system},'' \emph{Control, Automation and Systems
+  (ICCAS)}, pp. 31--35, 2011. [Online]. Available:
+  \url{http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=6106374}
+\BIBentrySTDinterwordspacing
+
+\bibitem{green}
+J.~J. Green, P.~Bosscha, L.~Candy, K.~Hlophe, S.~Coetzee, and S.~Brink, ``Can a
+  robot improve mine safety?'' \emph{Presented at CAD/CAM, Robotics and
+  Factories of the Future}, 2010.
+
+\bibitem{vogt}
+D.~Vogt, V.~Z. Brink, S.~Brink, M.~Price, and B.~Kagezi, ``New technology for
+  improving entry examination, thereby managing the rockfall risk in south
+  african gold and platinum mines,'' \emph{Presented at CSIR 3rd Biennial
+  Conference}, 2010.
+
+\bibitem{greener}
+\BIBentryALTinterwordspacing
+J.~J. Green and S.~Coetzee, ``{Novel sensors for underground robotics},''
+  \emph{2012 IEEE International Conference on Automation Science and
+  Engineering (CASE)}, pp. 724--728, Aug. 2012. [Online]. Available:
+  \url{http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=6386418}
+\BIBentrySTDinterwordspacing
+
+\bibitem{numbat2}
+\BIBentryALTinterwordspacing
+J.~C. Ralston, D.~W. Hainsworth, D.~C. Reid, D.~L. Anderson, and R.~J. McPhee,
+  ``{Recent advances in remote coal mining machine sensing, guidance, and
+  teleoperation},'' \emph{Robotica}, vol.~19, no.~05, pp. 513--526, Aug. 2001.
+  [Online]. Available:
+  \url{http://www.journals.cambridge.org/abstract\_S0263574701003447}
+\BIBentrySTDinterwordspacing
+
+\bibitem{table}
+\BIBentryALTinterwordspacing
+V.~Konykuh, ``{Robotics for mining},'' \emph{Mineral Resources Engineering},
+  vol.~11, no.~1, pp. 73--88, 2002. [Online]. Available:
+  \url{http://www.worldscientific.com/doi/abs/10.1142/S0950609802000860}
+\BIBentrySTDinterwordspacing
+
+\bibitem{auswall}
+\BIBentryALTinterwordspacing
+LASC. (2013) Lasc automation. [Online]. Available: \url{lascautomation.org}
+\BIBentrySTDinterwordspacing
+
+\bibitem{30p}
+\BIBentryALTinterwordspacing
+K.~Hyun-cheol. (2013) Coal-mining robots will debut in 2013. [Online].
+  Available:
+  \url{http://www.koreatimes.co.kr/www/news/biz/2009/08/123_50600.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{haul}
+T.~Maekawa and T.~Noda, ``Curvature continuous path generation for autonomous
+  vehicle using b-spline curves,'' \emph{Computer-Aided Design}, 2010.
+
+\bibitem{blast}
+M.~J. Scoble and J.~Peck, ``A technique for ground characterization using
+  automated production drill monitoring,'' \emph{International Journal of
+  Mining, Reclamation and Environment}, 1987.
+
+\bibitem{excavate}
+A.~W. Denman, P.~R. McAree, M.~P. Kearney, A.~W. Reid, and K.~J. Austin,
+  ``Swing trajectory control for large excavators,'' \emph{7th International
+  Conference on Field and Service Robotics}, 2009.
+
+\bibitem{large}
+\BIBentryALTinterwordspacing
+P.~Corke, J.~Roberts, and G.~Winstanley, ``{Experiments and experiences in
+  developing a large robot mining system},'' \emph{Experimental Robotics VI},
+  2000. [Online]. Available:
+  \url{http://link.springer.com/chapter/10.1007/BFb0119397}
+\BIBentrySTDinterwordspacing
+
+\bibitem{3500}
+\BIBentryALTinterwordspacing
+J.~Roberts, ``{Robot Control of a 3500 Tonne Mining Machine},'' \emph{Robot and
+  Human Interaction}, no. September, pp. 3--8, 1999. [Online]. Available:
+  \url{http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=900342}
+\BIBentrySTDinterwordspacing
+
+\bibitem{dump}
+\BIBentryALTinterwordspacing
+S.~Frimpong, R.~Changirwa, and J.~Szymanski, ``{Simulation of Automated Dump
+  Trucks for Large Scale Surface Mining Operations},'' \emph{International
+  Journal of Surface Mining, Reclamation and Environment}, vol.~17, no.~3, pp.
+  183--195, Sep. 2003. [Online]. Available:
+  \url{http://www.tandfonline.com/doi/abs/10.1076/ijsm.17.3.183.14770}
+\BIBentrySTDinterwordspacing
+
+\bibitem{petri}
+\BIBentryALTinterwordspacing
+J.~King, R.~Gosine, B.~Delaney, T.~Norvell, and S.~O'Young, ``{Discrete event
+  control and dynamic scheduling for tele-robotic mining},'' \emph{CIM
+  bulletin}, 2003. [Online]. Available:
+  \url{http://cat.inist.fr/?aModele=afficheN\&cpsidt=14638894}
+\BIBentrySTDinterwordspacing
+
+\bibitem{multi}
+\BIBentryALTinterwordspacing
+V.~Konyukh, ``{Strategy of automation for underground mining},'' \emph{2007
+  International Forum on Strategic Technology}, pp. 615--618, Oct. 2007.
+  [Online]. Available:
+  \url{http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=4798674}
+\BIBentrySTDinterwordspacing
+
+\bibitem{fuzzy}
+\BIBentryALTinterwordspacing
+P.~Lever, ``{A fuzzy control system for an automated mining excavator},''
+  \emph{Proceedings of the 1994 IEEE International Conference on Robotics and
+  Automation}, pp. 3284--3289, 1994. [Online]. Available:
+  \url{http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=351065}
+\BIBentrySTDinterwordspacing
+
+\bibitem{drill}
+\BIBentryALTinterwordspacing
+S.~T. Monteiro, P.~Hatherly, F.~Ramos, E.~Nettleton, and F.~Oppolzer,
+  ``{Automated rock recognition with wavelet feature space projection and
+  Gaussian Process classification},'' \emph{2010 IEEE International Conference
+  on Robotics and Automation}, pp. 4444--4450, May 2010. [Online]. Available:
+  \url{http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=5509605}
+\BIBentrySTDinterwordspacing
+
+\bibitem{radio}
+\BIBentryALTinterwordspacing
+J.~Bigu, ``{Use of an Automated Fluxmeter Employing Solid-State
+  Diffused-Junction Alpha-Detectors and Meterological Package to Determine
+  Surface Radon Flux},'' \emph{Nuclear Science, IEEE Transactions on}, no.~6,
+  pp. 1599--1606, 1984. [Online]. Available:
+  \url{http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=4333562}
+\BIBentrySTDinterwordspacing
+
+\bibitem{seam}
+\BIBentryALTinterwordspacing
+J.~C. Ralston, ``{Automated longwall shearer horizon control using thermal
+  infrared-based seam tracking},'' \emph{2012 IEEE International Conference on
+  Automation Science and Engineering (CASE)}, pp. 20--25, Aug. 2012. [Online].
+  Available:
+  \url{http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=6386442}
+\BIBentrySTDinterwordspacing
+
+\bibitem{real}
+\BIBentryALTinterwordspacing
+P.~Reid, M.~Dunn, D.~Reid, and J.~Ralston, ``{Real-world automation: New
+  capabilities for underground longwall mining},'' \emph{Robotics and
+  Automation}, 2010. [Online]. Available:
+  \url{http://www.araa.asn.au/acra/acra2010/papers/pap173s1-file1.pdf}
+\BIBentrySTDinterwordspacing
+
+\bibitem{spectral}
+\BIBentryALTinterwordspacing
+S.~Schneider, A.~Melkumyan, R.~J. Murphy, and E.~Nettleton, ``{A geological
+  perception system for autonomous mining},'' \emph{2012 IEEE International
+  Conference on Robotics and Automation}, pp. 2986--2991, May 2012. [Online].
+  Available:
+  \url{http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=6224761}
+\BIBentrySTDinterwordspacing
+
+\bibitem{uground}
+A.~Qandour, D.~Habibi, I.~Ahmad, and A.~W. Platform, ``{Applied Application of
+  Sensor Networks in Underground Mines},'' pp. 256--260, 2012.
+
+\bibitem{numbat}
+D.~W. Hainsworth, ``{Teleoperation User Interfaces for Mining Robotics},'' pp.
+  19--28, 2001.
+
+\bibitem{madhavan}
+R.~Madhavan, E.~Nettleton, E.~Nebot, G.~Dissanayake, J.~Cunningham,
+  H.~Durrant-Whyte, P.~Corke, and J.~Roberts, ``{Evaluation of internal
+  navigation sensor suites for underground mining vehicle navigation},''
+  \emph{Proceedings 1999 IEEE International Conference on Robotics and
+  Automation Cat No99CH36288C}, vol.~2, no. May, 1999.
+
+\bibitem{fusion}
+\BIBentryALTinterwordspacing
+L.~Banta and K.~D. Rawson, ``{Sensor fusion for mining robots},'' \emph{IEEE
+  Transactions on Industry Applications}, vol.~30, no.~5, pp. 1321--1325, 1994.
+  [Online]. Available:
+  \url{http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=315246}
+\BIBentrySTDinterwordspacing
+
+\bibitem{proof}
+W.~H. Strickland and R.~H. King, ``Characteristics of ultrasonic ranging
+  sensors in an underground mine environment,'' \emph{Society of Mining
+  Engineers 1990 Annual Meeting}, 1990.
+
+\bibitem{ganesh}
+J.~P.~H. Steele, C.~Ganesh, and A.~Kleve, ``{Control and scale model simulation
+  of sensor-guided LHD mining machines},'' \emph{Conference Record of the 1991
+  IEEE Industry Applications Society Annual Meeting}, vol.~29, no.~6, pp.
+  1232--1238, 1991.
+
+\bibitem{borth}
+S.~Borthwick and H.~Durrant-whyte, ``Dynamic localisation of autonomous guided
+  vehicles,'' \emph{Proceedings of the 1994 IEEE International Conference on
+  MultisensorFusion and Integration for Intelligent Systems}, 1994.
+
+\bibitem{neural}
+\BIBentryALTinterwordspacing
+P.~Li and R.~S. Nutter, ``{An underground mine landmark recognition system
+  using associative memories},'' \emph{10th Int. Mining Electrotechnol. Conf.},
+  vol.~1, pp. 76--78, 1991. [Online]. Available:
+  \url{http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=1596198}
+\BIBentrySTDinterwordspacing
+
+\bibitem{video}
+U.~S. Kumari, ``Position estimation of a mobile robot using monocular vision,''
+  M.S. thesis, WV Univ., Dep. Mechan. Aerospace Eng., 1993.
+
+\bibitem{feature}
+G.~Shaffer, A.~Stentz, W.~Whittaker, and K.~Fitzpatrick, ``Position estimator
+  for underground mine equipment,'' \emph{Tenth WVU International Mining
+  Electrotechnology Conference}, 1990.
+
+\bibitem{iconic}
+J.~Gonzalez, A.~Stentz, and A.~Ollero, ``An iconic position estimator for a 2d
+  laser rangefinder,'' \emph{IEEE International Conference on Robotics and
+  Automation}, 1992.
+
+\bibitem{both}
+G.~Shaffer and A.~Stentz, ``{A robotic system for underground coal mining},''
+  pp. 633--6380, 1992.
+
+\bibitem{barcode}
+\BIBentryALTinterwordspacing
+H.~Chi, K.~Zhan, and B.~Shi, ``{Automatic guidance of underground mining
+  vehicles using laser sensors},'' \emph{Tunnelling and Underground Space
+  Technology}, vol.~27, no.~1, pp. 142--148, Sep. 2011. [Online]. Available:
+  \url{http://linkinghub.elsevier.com/retrieve/pii/S0886779811001155}
+\BIBentrySTDinterwordspacing
+
+\bibitem{signal}
+\BIBentryALTinterwordspacing
+A.~Chehri, P.~Fortier, and P.~M. Tardif, ``{Application of Ad-hoc sensor
+  networks for localization in underground mines},'' \emph{2006 IEEE Annual
+  Wireless and Microwave Technology Conference}, pp. 1--4, 2006. [Online].
+  Available:
+  \url{http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=4161063}
+\BIBentrySTDinterwordspacing
+
+\bibitem{rfirusu}
+S.~R. Rusu and M.~J.~D. Hayes, ``{Localization in large scale in underground
+  environments with RFID},'' in \emph{24th Canadian Conference on Electrical
+  and Computer Engineering}, 2011, pp. 1140--1143.
+
+\bibitem{vis1}
+D.~Pomerleau, ``Neural network based autonomous navigation,'' \emph{Vision and
+  Navigation: The carnegie Mellon Navlab}, 1990.
+
+\bibitem{vis2}
+J.~Nitao and J.~D.~Cronquist, ``Computer modelling: a structured light vision
+  system for a mars rover,'' \emph{SPIE: Mobile Robots IV}, vol. 1195, pp.
+  168--177, 1989.
+
+\bibitem{irsonic}
+\BIBentryALTinterwordspacing
+M.~Guo, W.~Liu, and Z.~Wang, ``{Robot Navigation Based on Multi-sensor Data
+  Fusion},'' \emph{Intelligent Systems and Applications ISA 2010 2nd
+  International Workshop on}, pp. 1063--1066, Aug. 2010. [Online]. Available:
+  \url{http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=4399108}
+\BIBentrySTDinterwordspacing
+
+\bibitem{carlo}
+S.~Huh, U.~Lee, H.~Shim, J.~Park, and J.~Noh, ``{Development of an Unmanned
+  Coal Mining Robot and a Tele-Operation System},'' pp. 31--35, 2011.
+
+\bibitem{geom}
+D.~Mitra, ``{Development of a Sensor Fusion Strategy for Robotic Application
+  Based on Geometric Optimization},'' pp. 171--191, 2002.
+
+\bibitem{breaker}
+P.~I. Corke, J.~M. Roberts, and G.~J. Winstanley, ``{Robotics for the Mining
+  Industry}.''
+
+\bibitem{slope}
+\BIBentryALTinterwordspacing
+Z.~Yufeng, S.~Zhou, and T.~Lu, ``{Research on the Application of GPS in the
+  Slope Safety Monitoring Technique Using in Opencast Uuranium Mine Based on
+  VBA},'' \emph{2009 International Forum on Information Technology and
+  Applications}, vol.~2, pp. 760--763, May 2009. [Online]. Available:
+  \url{http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=5231475}
+\BIBentrySTDinterwordspacing
+
+\bibitem{opto}
+R.~Sahoo and A.~M. Mazid, ``{Application of opto-tactile sensor in shearer
+  machine design to recognise rock surfaces in underground coal mining},''
+  \emph{2009 IEEE International Conference on Industrial Technology}, pp. 1--6,
+  2009.
+
+\bibitem{gamma}
+G.~L. Mowrey, ``Horizon control holds key to automation,'' \emph{Coal,
+  Australia Part I}, 1992.
+
+\bibitem{vibe}
+R.~W. Patterson and G.~E.~N. Jr., ``The induced vibration touch sensor – a
+  new dynamic touch sensing concept,'' \emph{Robotica, vol. 4}, 1985.
+
+\bibitem{kelly}
+M.~Kelly, ``Outcome of the landmark longwall automation project with reference
+  to ground control,'' \emph{24th International Conference on Ground Control in
+  Miningh, West Virginia}, pp. 66--73, August 2005, august.
+
+\bibitem{chip}
+N.~Schemm, S.~Balkır, M.~W. Hoffman, and M.~Bauer, ``{A Directional Gamma Ray
+  Detector Using a Single Chip Computational Sensor},'' pp. 3--6, 2011.
+
+\bibitem{eggg}
+L.~Holmberg and Z.~H. Cho, ``A system for precise determinations of
+  electron-gamma directional correlations,'' \emph{Nuclear Insruments and
+  Methods}, vol.~93, pp. 353--355, 1970.
+
+\bibitem{dj}
+\BIBentryALTinterwordspacing
+C.~Larsson and S.~Djeffal, ``{Development of a Directional Gamma Ray Probe},''
+  \emph{IEEE Nuclear Science Symposium Conference Record, 2005}, vol.~1, pp.
+  16--18, 2005. [Online]. Available:
+  \url{http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=1596198}
+\BIBentrySTDinterwordspacing
+
+\bibitem{ingjet}
+\BIBentryALTinterwordspacing
+C.~Ingram and J.~Marshall, ``{Evaluation of a ToF camera for remote surveying
+  of underground cavities excavated by jet boring},'' \emph{Automation in
+  Construction}, vol.~49, pp. 271--282, Jan. 2015. [Online]. Available:
+  \url{http://linkinghub.elsevier.com/retrieve/pii/S0926580514002027}
+\BIBentrySTDinterwordspacing
+
+\bibitem{kinshot}
+X.~Rong, Y.~Li, and R.~Song, ``{Kinematic analysis of a shotcreting robot},''
+  in \emph{2010 International Conference on Mechanic Automation and Control
+  Engineering, MACE2010}, no.~1, 2010, pp. 2640--2643.
+
+\bibitem{sliner}
+K.~Ford, L.~Spence, D.~Mcgarva, and M.~Calderwood, ``{Robotic shotcrete shaft
+  lining — a new approach},'' in \emph{Shotcrete Elements of a System}, E.~S.
+  Bernard, Ed.\hskip 1em plus 0.5em minus 0.4em\relax CRC Press, 2010, ch.~12,
+  pp. 105--110.
+
+\bibitem{nabulsi}
+S.~Nabulsi, A.~Rodriguez, and O.~Rio, ``Robotic machine for high-quality
+  shotcreting process,'' in \emph{Robotics (ISR), 2010 41st International
+  Symposium on and 2010 6th German Conference on Robotics (ROBOTIK)}, June
+  2010, pp. 1--8.
+
 \bibitem{rosfirst}
 M.~Quigley, J.~Faust, T.~Foote, and J.~Leibs, ``Ros: an open-source robot
   operating system.''
+
+\bibitem{bsd}
+\BIBentryALTinterwordspacing
+T.~Foote. (2017) Community metrics report. [Online]. Available:
+  \url{http://download.ros.org/downloads/metrics/metrics-report-2017-07.pdf}
+\BIBentrySTDinterwordspacing
 
 \bibitem{spraypaint}
 \BIBentryALTinterwordspacing
@@ -32,11 +388,6 @@ Albedo100. (2018) Albedo100 light metallic reflective spray. [Online].
   \url{http://www.albedo100.co.uk/albedo100-reflective-spray-light-metallic/}
 \BIBentrySTDinterwordspacing
 
-\bibitem{fully}
-G.~Girmscheid and S.~Moser, ``{Fully automated shotcrete robot for rock
-  support},'' \emph{Computer-Aided Civil and Infrastructure Engineering},
-  vol.~16, no.~3, pp. 200--215, 2001.
-
 \bibitem{spraypat}
 \BIBentryALTinterwordspacing
 N.~Ginouse and M.~Jolin, ``{Investigation of spray pattern in shotcrete
@@ -44,6 +395,11 @@ N.~Ginouse and M.~Jolin, ``{Investigation of spray pattern in shotcrete
   966--972, 2015. [Online]. Available:
   \url{http://dx.doi.org/10.1016/j.conbuildmat.2015.05.061}
 \BIBentrySTDinterwordspacing
+
+\bibitem{fully}
+G.~Girmscheid and S.~Moser, ``{Fully automated shotcrete robot for rock
+  support},'' \emph{Computer-Aided Civil and Infrastructure Engineering},
+  vol.~16, no.~3, pp. 200--215, 2001.
 
 \bibitem{steal}
 S.~Nabulsi, M.~Salas, and L.~Madrid, ``{Robotic Machine for High-Quality
@@ -95,6 +451,141 @@ C.~C. Wang, ``{WireWarping: A fast surface flattening approach with
 Y.~Zhang and C.~C.~L. Wang, ``{WireWarping++: Robust and flexible surface
   flattening with length control},'' \emph{IEEE Transactions on Automation
   Science and Engineering}, vol.~8, no.~1, pp. 205--215, 2011.
+
+\bibitem{impact}
+A.~Gibson, ``Advances in shotcrete impact-echo testing,'' in \emph{Shotcrete:
+  Elements of a System. Proceedings of the 3rd International Conference on
+  Engineering Developments in Shotcrete}, vol.~13, London, 2010, pp. 111--117.
+
+\bibitem{photo1}
+T.~Schenk and B.~Csatho, ``Fusing imagery and 3d point clouds for
+  reconstructing visible surfaces of urban scenes,'' in \emph{2007 Urban Remote
+  Sensing Joint Event}, April 2007, pp. 1--7.
+
+\bibitem{photo2}
+J.~Hu, S.~You, and U.~Neumann, ``Integrating lidar, aerial image and ground
+  images for complete urban building modeling,'' in \emph{3D Data Processing,
+  Visualization, and Transmission, Third International Symposium on}, June
+  2006, pp. 184--191.
+
+\bibitem{reg1}
+A.~Abedinia, M.~Hahnb, and F.~Samadzadegana, ``An investigation into the
+  registration of lidar intensity data and aerial images using the sift
+  approach,'' in \emph{Proceedings of XXI ISPRS Congress}, 2008.
+
+\bibitem{narf}
+B.~Steder, R.~B. Rusu, K.~Konolige, and W.~Burgard, ``Point feature extraction
+  on 3d range scans taking into account object boundaries,'' in \emph{2011 IEEE
+  International Conference on Robotics and Automation}, May 2011, pp.
+  2601--2608.
+
+\bibitem{sift}
+D.~G. Lowe, ``Object recognition from local scale-invariant features,'' in
+  \emph{Proceedings of the Seventh IEEE International Conference on Computer
+  Vision}, vol.~2, 1999, pp. 1150--1157.
+
+\bibitem{fast}
+E.~Rosten and T.~Drummond, ``Machine learning for high-speed corner
+  detection,'' in \emph{Computer Vision -- ECCV 2006}.\hskip 1em plus 0.5em
+  minus 0.4em\relax Berlin, Heidelberg: Springer Berlin Heidelberg, 2006, pp.
+  430--443.
+
+\bibitem{keypoint}
+S.~Filipe and L.~A. Alexandre, ``A comparative evaluation of 3d keypoint
+  detectors in a rgb-d object dataset,'' in \emph{2014 International Conference
+  on Computer Vision Theory and Applications (VISAPP)}, vol.~1, Jan 2014, pp.
+  476--483.
+
+\bibitem{flann}
+M.~Muja and D.~G. Lowe, ``Fast approximate nearest neighbors with automatic
+  algorithm configuration,'' in \emph{International Conference on Computer
+  Vision Theory and Application (VISSAPP'09)}.\hskip 1em plus 0.5em minus
+  0.4em\relax INSTICC Press, 2009, pp. 331--340.
+
+\bibitem{reg3}
+\BIBentryALTinterwordspacing
+S.~Fekete, M.~Diederichs, and M.~Lato, ``Geotechnical and operational
+  applications for 3-dimensional laser scanning in drill and blast tunnels,''
+  \emph{Tunnelling and Underground Space Technology}, vol.~25, no.~5, pp. 614
+  -- 628, 2010. [Online]. Available:
+  \url{http://www.sciencedirect.com/science/article/pii/S0886779810000763}
+\BIBentrySTDinterwordspacing
+
+\bibitem{mark1}
+B.~Morrison, Richard, ``{Fiducial marker detection and pose estimation from
+  LIDAR range data},'' Master's thesis, Naval Postgraduate School, Monterey,
+  California, 2010.
+
+\bibitem{key1}
+A.~Habib, M.~Ghanma, and M.~Tait, ``Integration of lidar and photogrammetry for
+  close range applications,'' in \emph{Proceedings of: XXI ISPRS Congress
+  Istanbul, Turkey}, 2004.
+
+\bibitem{reg2}
+\BIBentryALTinterwordspacing
+J.~Mart\'{\i}nez-S\'anchez, I.~Puente, H.~Gonz\'alezJorge, B.~Riveiro, and
+  P.~Arias, ``Automatic thickness and volume estimation of sprayed concrete on
+  anchored retaining walls from terrestrial lidar data,'' \emph{ISPRS -
+  International Archives of the Photogrammetry, Remote Sensing and Spatial
+  Information Sciences}, vol. XLI-B5, pp. 521--526, 2016. [Online]. Available:
+  \url{https://www.int-arch-photogramm-remote-sens-spatial-inf-sci.net/XLI-B5/521/2016/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{mark2}
+\BIBentryALTinterwordspacing
+R.~Kukutsch, V.~Kajzar, P.~Konicek, P.~Waclawik, and J.~Ptacek, ``Possibility
+  of convergence measurement of gates in coal mining using terrestrial 3d laser
+  scanner,'' \emph{Journal of Sustainable Mining}, vol.~14, no.~1, pp. 30 --
+  37, 2015. [Online]. Available:
+  \url{http://www.sciencedirect.com/science/article/pii/S2300396015000063}
+\BIBentrySTDinterwordspacing
+
+\bibitem{mark3}
+C.~Gao, I.~Hoffman, T.~Miller, T.~Panzarella, and J.~Spletzer, ``Performance
+  characterization of lidar based localization for docking a smart wheelchair
+  system,'' in \emph{International Conference on Intelligent Robots and
+  Systems}, 2008.
+
+\bibitem{delaunay}
+B.~Delaunay, ``Sur la sph{\`e}re vide,'' \emph{Bulletin de l'Acad{\'e}mie des
+  Sciences de l'URSS, Classe des sciences math{\'e}matiques et naturelles},
+  vol.~6, no. 793-800, pp. 1--2, 1934.
+
+\bibitem{mesh1}
+\BIBentryALTinterwordspacing
+S.~Slob and R.~Hack, ``3d terrestrial laser scanning as a new field measurement
+  and monitoring technique,'' \emph{Engineering Geology for Infrastructure
+  Planning in Europe: A European Perspective}, pp. 179--189, 2004. [Online].
+  Available: \url{https://doi.org/10.1007/978-3-540-39918-6_22}
+\BIBentrySTDinterwordspacing
+
+\bibitem{mesh3}
+B.~Liu, N.~Shangguan, K.~Jiang, and J.~Lin, ``Triangular mesh model
+  reconstruction from scan point clouds based on template,'' \emph{Tsinghua
+  Science and Technology}, vol.~14, no.~S1, pp. 56--61, June 2009.
+
+\bibitem{mesh2}
+\BIBentryALTinterwordspacing
+H.~Huang, D.~Li, H.~Zhang, U.~Ascher, and D.~Cohen-Or, ``Consolidation of
+  unorganized point clouds for surface reconstruction,'' \emph{ACM Trans.
+  Graph.}, vol.~28, no.~5, pp. 176:1--176:7, Dec. 2009. [Online]. Available:
+  \url{http://doi.acm.org/10.1145/1618452.1618522}
+\BIBentrySTDinterwordspacing
+
+\bibitem{thick1}
+\BIBentryALTinterwordspacing
+D.~Lague, N.~Brodu, and J.~Leroux, ``Accurate 3d comparison of complex
+  topography with terrestrial laser scanner: Application to the rangitikei
+  canyon (n-z),'' \emph{ISPRS Journal of Photogrammetry and Remote Sensing},
+  vol.~82, pp. 10 -- 26, 2013. [Online]. Available:
+  \url{http://www.sciencedirect.com/science/article/pii/S0924271613001184}
+\BIBentrySTDinterwordspacing
+
+\bibitem{thick2}
+T.~Barnhart and B.~Crosby, ``Comparing two methods of surface change detection
+  on an evolving thermokarst using high-temporal-frequency terrestrial laser
+  scanning, selawik river, alaska,'' \emph{Remote Sensing}, vol.~5, pp.
+  2813--2837, May 2013.
 
 \bibitem{rosmovebase}
 \BIBentryALTinterwordspacing
