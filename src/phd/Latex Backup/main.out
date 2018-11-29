@@ -91,70 +91,71 @@
 \BOOKMARK [3][-]{subsubsection.6.4.1.5}{Hector SLAM}{subsection.6.4.1}% 91
 \BOOKMARK [3][-]{subsubsection.6.4.1.6}{RQT Reconfigure}{subsection.6.4.1}% 92
 \BOOKMARK [2][-]{subsection.6.4.2}{Overview of the MASSS ROS Package}{section.6.4}% 93
-\BOOKMARK [0][-]{chapter.7}{Software}{}% 94
-\BOOKMARK [1][-]{section.7.1}{Chapter Summary}{chapter.7}% 95
-\BOOKMARK [1][-]{section.7.2}{Package Files}{chapter.7}% 96
-\BOOKMARK [2][-]{subsection.7.2.1}{package.xml}{section.7.2}% 97
-\BOOKMARK [2][-]{subsection.7.2.2}{plugin\137description.xml}{section.7.2}% 98
-\BOOKMARK [2][-]{subsection.7.2.3}{CMakeLists.txt}{section.7.2}% 99
-\BOOKMARK [1][-]{section.7.3}{Launch Files}{chapter.7}% 100
-\BOOKMARK [2][-]{subsection.7.3.1}{main.launch}{section.7.3}% 101
-\BOOKMARK [2][-]{subsection.7.3.2}{simulation.launch}{section.7.3}% 102
-\BOOKMARK [1][-]{section.7.4}{Messages}{chapter.7}% 103
-\BOOKMARK [2][-]{subsection.7.4.1}{trajectory\137point.msg}{section.7.4}% 104
-\BOOKMARK [2][-]{subsection.7.4.2}{trajectory\137msg.msg}{section.7.4}% 105
-\BOOKMARK [2][-]{subsection.7.4.3}{arm\137msg.msg}{section.7.4}% 106
-\BOOKMARK [2][-]{subsection.7.4.4}{cube\137msg.msg}{section.7.4}% 107
-\BOOKMARK [2][-]{subsection.7.4.5}{marker\137val.msg}{section.7.4}% 108
-\BOOKMARK [1][-]{section.7.5}{Services}{chapter.7}% 109
-\BOOKMARK [2][-]{subsection.7.5.1}{Cloud Localization Service}{section.7.5}% 110
-\BOOKMARK [3][-]{subsubsection.7.5.1.1}{Clustering Points}{subsection.7.5.1}% 111
-\BOOKMARK [3][-]{subsubsection.7.5.1.2}{Determining Marker Keypoints}{subsection.7.5.1}% 112
-\BOOKMARK [2][-]{subsection.7.5.2}{Trajectory Generation Service}{section.7.5}% 113
-\BOOKMARK [2][-]{subsection.7.5.3}{Thickness Estimation Service}{section.7.5}% 114
-\BOOKMARK [2][-]{subsection.7.5.4}{Map Reset Service}{section.7.5}% 115
-\BOOKMARK [1][-]{section.7.6}{Configuration Files}{chapter.7}% 116
-\BOOKMARK [2][-]{subsection.7.6.1}{YAML Files}{section.7.6}% 117
-\BOOKMARK [1][-]{section.7.7}{URDF}{chapter.7}% 118
-\BOOKMARK [1][-]{section.7.8}{Header Files}{chapter.7}% 119
-\BOOKMARK [1][-]{section.7.9}{Source Files}{chapter.7}% 120
-\BOOKMARK [2][-]{subsection.7.9.1}{Control Dashboard}{section.7.9}% 121
-\BOOKMARK [2][-]{subsection.7.9.2}{Control Panel}{section.7.9}% 122
-\BOOKMARK [3][-]{subsubsection.7.9.2.1}{Visualization}{subsection.7.9.2}% 123
-\BOOKMARK [3][-]{subsubsection.7.9.2.2}{Administrative Functions}{subsection.7.9.2}% 124
-\BOOKMARK [3][-]{subsubsection.7.9.2.3}{Internal Functions}{subsection.7.9.2}% 125
-\BOOKMARK [2][-]{subsection.7.9.3}{DENSO and Powercube Nodes}{section.7.9}% 126
-\BOOKMARK [2][-]{subsection.7.9.4}{Additional Nodes}{section.7.9}% 127
-\BOOKMARK [1][-]{section.7.10}{External Packages and Libraries}{chapter.7}% 128
-\BOOKMARK [0][-]{chapter.8}{Testing}{}% 129
-\BOOKMARK [1][-]{section.8.1}{Mock Mine}{chapter.8}% 130
-\BOOKMARK [1][-]{section.8.2}{Test Scenarios}{chapter.8}% 131
-\BOOKMARK [2][-]{subsection.8.2.1}{Localization}{section.8.2}% 132
-\BOOKMARK [3][-]{subsubsection.8.2.1.1}{Localization Test}{subsection.8.2.1}% 133
-\BOOKMARK [3][-]{subsubsection.8.2.1.2}{Localization Sources of Error}{subsection.8.2.1}% 134
-\BOOKMARK [2][-]{subsection.8.2.2}{Trajectory Generation}{section.8.2}% 135
-\BOOKMARK [3][-]{subsubsection.8.2.2.1}{No trajectory generated}{subsection.8.2.2}% 136
-\BOOKMARK [3][-]{subsubsection.8.2.2.2}{Trajectory Point Outside Robot Workspace}{subsection.8.2.2}% 137
-\BOOKMARK [3][-]{subsubsection.8.2.2.3}{Trajectory Does Not Maintain Optimal Distance From Surface}{subsection.8.2.2}% 138
-\BOOKMARK [3][-]{subsubsection.8.2.2.4}{Trajectory Does Cover The Entire Selected Surface}{subsection.8.2.2}% 139
-\BOOKMARK [3][-]{subsubsection.8.2.2.5}{Trajectory Path Has Undesirable Overlap}{subsection.8.2.2}% 140
-\BOOKMARK [2][-]{subsection.8.2.3}{Thickness Estimation}{section.8.2}% 141
-\BOOKMARK [3][-]{subsubsection.8.2.3.1}{Thickness Estimation Sources of Error}{subsection.8.2.3}% 142
-\BOOKMARK [0][-]{chapter.9}{Discussion of Results}{}% 143
-\BOOKMARK [1][-]{subsubsection.9.0.3.2}{Repeatability of LIDAR}{chapter.9}% 144
-\BOOKMARK [0][-]{chapter.10}{Conclusions and Recommendations for Future Work}{}% 145
-\BOOKMARK [0][-]{appendix.A}{Example Files}{}% 146
-\BOOKMARK [1][-]{section.A.1}{HuskyStatus Message}{appendix.A}% 147
-\BOOKMARK [1][-]{section.A.2}{Husky Costmap Configuration File}{appendix.A}% 148
-\BOOKMARK [0][-]{appendix.B}{Complete Source Code}{}% 149
-\BOOKMARK [1][-]{section.B.1}{Cmakelists}{appendix.B}% 150
-\BOOKMARK [1][-]{section.B.2}{Launch Files}{appendix.B}% 151
-\BOOKMARK [1][-]{section.B.3}{Configuration Files}{appendix.B}% 152
-\BOOKMARK [1][-]{section.B.4}{URDF}{appendix.B}% 153
-\BOOKMARK [1][-]{section.B.5}{Header Files}{appendix.B}% 154
-\BOOKMARK [1][-]{section.B.6}{Source Files}{appendix.B}% 155
-\BOOKMARK [1][-]{section.B.7}{Services}{appendix.B}% 156
-\BOOKMARK [1][-]{section.B.8}{Transformation Matrix Calculation}{appendix.B}% 157
-\BOOKMARK [0][-]{appendix.C}{DENSO Documentation}{}% 158
-\BOOKMARK [1][-]{section.C.1}{Table of Shoulder, Elbow, and Wrist Figures}{appendix.C}% 159
-\BOOKMARK [0][-]{appendix.D}{Shotcrete Work Instructions}{}% 160
+\BOOKMARK [2][-]{subsection.6.4.3}{MASSS GUI}{section.6.4}% 94
+\BOOKMARK [0][-]{chapter.7}{Software}{}% 95
+\BOOKMARK [1][-]{section.7.1}{Chapter Summary}{chapter.7}% 96
+\BOOKMARK [1][-]{section.7.2}{Package Files}{chapter.7}% 97
+\BOOKMARK [2][-]{subsection.7.2.1}{package.xml}{section.7.2}% 98
+\BOOKMARK [2][-]{subsection.7.2.2}{plugin\137description.xml}{section.7.2}% 99
+\BOOKMARK [2][-]{subsection.7.2.3}{CMakeLists.txt}{section.7.2}% 100
+\BOOKMARK [1][-]{section.7.3}{Launch Files}{chapter.7}% 101
+\BOOKMARK [2][-]{subsection.7.3.1}{main.launch}{section.7.3}% 102
+\BOOKMARK [2][-]{subsection.7.3.2}{simulation.launch}{section.7.3}% 103
+\BOOKMARK [1][-]{section.7.4}{Messages}{chapter.7}% 104
+\BOOKMARK [2][-]{subsection.7.4.1}{trajectory\137point.msg}{section.7.4}% 105
+\BOOKMARK [2][-]{subsection.7.4.2}{trajectory\137msg.msg}{section.7.4}% 106
+\BOOKMARK [2][-]{subsection.7.4.3}{arm\137msg.msg}{section.7.4}% 107
+\BOOKMARK [2][-]{subsection.7.4.4}{cube\137msg.msg}{section.7.4}% 108
+\BOOKMARK [2][-]{subsection.7.4.5}{marker\137val.msg}{section.7.4}% 109
+\BOOKMARK [1][-]{section.7.5}{Services}{chapter.7}% 110
+\BOOKMARK [2][-]{subsection.7.5.1}{Cloud Localization Service}{section.7.5}% 111
+\BOOKMARK [3][-]{subsubsection.7.5.1.1}{Clustering Points}{subsection.7.5.1}% 112
+\BOOKMARK [3][-]{subsubsection.7.5.1.2}{Determining Marker Keypoints}{subsection.7.5.1}% 113
+\BOOKMARK [2][-]{subsection.7.5.2}{Trajectory Generation Service}{section.7.5}% 114
+\BOOKMARK [2][-]{subsection.7.5.3}{Thickness Estimation Service}{section.7.5}% 115
+\BOOKMARK [2][-]{subsection.7.5.4}{Map Reset Service}{section.7.5}% 116
+\BOOKMARK [1][-]{section.7.6}{Configuration Files}{chapter.7}% 117
+\BOOKMARK [2][-]{subsection.7.6.1}{YAML Files}{section.7.6}% 118
+\BOOKMARK [1][-]{section.7.7}{URDF}{chapter.7}% 119
+\BOOKMARK [1][-]{section.7.8}{Header Files}{chapter.7}% 120
+\BOOKMARK [1][-]{section.7.9}{Source Files}{chapter.7}% 121
+\BOOKMARK [2][-]{subsection.7.9.1}{Control Dashboard}{section.7.9}% 122
+\BOOKMARK [2][-]{subsection.7.9.2}{Control Panel}{section.7.9}% 123
+\BOOKMARK [3][-]{subsubsection.7.9.2.1}{Visualization}{subsection.7.9.2}% 124
+\BOOKMARK [3][-]{subsubsection.7.9.2.2}{Administrative Functions}{subsection.7.9.2}% 125
+\BOOKMARK [3][-]{subsubsection.7.9.2.3}{Internal Functions}{subsection.7.9.2}% 126
+\BOOKMARK [2][-]{subsection.7.9.3}{DENSO and Powercube Nodes}{section.7.9}% 127
+\BOOKMARK [2][-]{subsection.7.9.4}{Additional Nodes}{section.7.9}% 128
+\BOOKMARK [1][-]{section.7.10}{External Packages and Libraries}{chapter.7}% 129
+\BOOKMARK [0][-]{chapter.8}{Testing}{}% 130
+\BOOKMARK [1][-]{section.8.1}{Mock Mine}{chapter.8}% 131
+\BOOKMARK [1][-]{section.8.2}{Test Scenarios}{chapter.8}% 132
+\BOOKMARK [2][-]{subsection.8.2.1}{Localization}{section.8.2}% 133
+\BOOKMARK [3][-]{subsubsection.8.2.1.1}{Localization Test}{subsection.8.2.1}% 134
+\BOOKMARK [3][-]{subsubsection.8.2.1.2}{Localization Sources of Error}{subsection.8.2.1}% 135
+\BOOKMARK [2][-]{subsection.8.2.2}{Trajectory Generation}{section.8.2}% 136
+\BOOKMARK [3][-]{subsubsection.8.2.2.1}{No trajectory generated}{subsection.8.2.2}% 137
+\BOOKMARK [3][-]{subsubsection.8.2.2.2}{Trajectory Point Outside Robot Workspace}{subsection.8.2.2}% 138
+\BOOKMARK [3][-]{subsubsection.8.2.2.3}{Trajectory Does Not Maintain Optimal Distance From Surface}{subsection.8.2.2}% 139
+\BOOKMARK [3][-]{subsubsection.8.2.2.4}{Trajectory Does Cover The Entire Selected Surface}{subsection.8.2.2}% 140
+\BOOKMARK [3][-]{subsubsection.8.2.2.5}{Trajectory Path Has Undesirable Overlap}{subsection.8.2.2}% 141
+\BOOKMARK [2][-]{subsection.8.2.3}{Thickness Estimation}{section.8.2}% 142
+\BOOKMARK [3][-]{subsubsection.8.2.3.1}{Thickness Estimation Sources of Error}{subsection.8.2.3}% 143
+\BOOKMARK [0][-]{chapter.9}{Discussion of Results}{}% 144
+\BOOKMARK [1][-]{subsubsection.9.0.3.2}{Repeatability of LIDAR}{chapter.9}% 145
+\BOOKMARK [0][-]{chapter.10}{Conclusions and Recommendations for Future Work}{}% 146
+\BOOKMARK [0][-]{appendix.A}{Example Files}{}% 147
+\BOOKMARK [1][-]{section.A.1}{HuskyStatus Message}{appendix.A}% 148
+\BOOKMARK [1][-]{section.A.2}{Husky Costmap Configuration File}{appendix.A}% 149
+\BOOKMARK [0][-]{appendix.B}{Complete Source Code}{}% 150
+\BOOKMARK [1][-]{section.B.1}{Cmakelists}{appendix.B}% 151
+\BOOKMARK [1][-]{section.B.2}{Launch Files}{appendix.B}% 152
+\BOOKMARK [1][-]{section.B.3}{Configuration Files}{appendix.B}% 153
+\BOOKMARK [1][-]{section.B.4}{URDF}{appendix.B}% 154
+\BOOKMARK [1][-]{section.B.5}{Header Files}{appendix.B}% 155
+\BOOKMARK [1][-]{section.B.6}{Source Files}{appendix.B}% 156
+\BOOKMARK [1][-]{section.B.7}{Services}{appendix.B}% 157
+\BOOKMARK [1][-]{section.B.8}{Transformation Matrix Calculation}{appendix.B}% 158
+\BOOKMARK [0][-]{appendix.C}{DENSO Documentation}{}% 159
+\BOOKMARK [1][-]{section.C.1}{Table of Shoulder, Elbow, and Wrist Figures}{appendix.C}% 160
+\BOOKMARK [0][-]{appendix.D}{Shotcrete Work Instructions}{}% 161

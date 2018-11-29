@@ -117,11 +117,16 @@ R$_U$18: & Ethical practices & \begin{tabular}{L{0.05\linewidth} L{0.9\linewidth
 E25: & Adhere to ethical standards throughout design process\\
 \end{tabular} \\ \hline
 \end{tabular}
-\caption{UOIT Customer Requirements}
+\caption{UOIT Engineering Requirements}
 \label{tab:ureqs}
 \end{adjustwidth}
 \end{table}
 \subsection{House of Quality}
+\begin{figure}[h]
+\resizebox{1.2\textwidth}{!}{
+\includegraphics[trim=375pt 60pt 375pt 60pt, clip]{Pics/HOQ.pdf}}
+\caption{MASSS House of Quality}
+\end{figure}
 \subsection{Project Resources}
 \subsection{Project Methodology}
 \subsection{Engineering Targets}
@@ -302,4 +307,49 @@ The \node{control_panel} node is the heart of the control system. It is responsi
 
 The main contribution to the ROS community are the localization, trajectory generation, and thickness estimation services. These three services are intended to be as portable as possible so they can be useful in any robotics project, regardless of the system configuration. Should other researchers have a need for a service they can provide, one simply needs to install the package and will be able to launch the desired service from the terminal or their own launch file. Unfortunately, due to this document's confidentiality the source code will not be made available, so the functionality of the compiled binaries are provided as-is.\\
 
+\subsection{MASSS GUI}
+\label{sub:gui}
 
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{Pics/gui.pdf}
+    \caption{MASSS GUI}
+    \label{fig:thegui}
+\end{figure}
+
+The four tabs of the MASSS GUI control panel can be seen in Figure\ref{fig:thegui}. The main tab, called ``Operation'' if for use while the robot is operating. The red ``Stop'' button is a software activated emergency stop. The operation tab has a LiDAR scan button that commands the robot to perform a LiDAR scan using the nodding head and displays the resulting pointcloud in the RVIZ window. The ``Set Home'' button is pressed when the robot is in a location the operator intends to define as the origin. The home position is then used as the coordinate frame into which all other pointclouds are transformed in to. The ``Radiation Scan'' button generates a trajectory based on the current selection and performs the motions of a radiation scan. Clicking ``Apply Shotcrete'' generates a trajectory based on the current selection and performs the motions for shotcrete application. If no area is selected, the default region (defined with respect to the robot's centre) is used. ``Apply Continuously'' does the same thing but will drive forward and repeat the process until the operator stops it. Every time a pointcloud is acquired, it is saved to disk. The textbox allows the user to declare where they would like the pointclouds saved. The interface for recording localization markers is also present, and usage is discussed in Section \ref{sub:admin}.\\
+
+Though the shotcrete thickness is automatically displayed after applying shotcrete, the user may want to perform additional thickness calculations with RVIZ data or previously saved data. Selecting an area of a pointcloud and clicking ``Set Initial Cloud'' and repeating the steps for the final cloud allows the operator to calculate the shotcrete thickness at a specified region by pressing ``Calculate Thickness''. If they simply want to calculate thickness from two previously saved files, the filenames and locations can be entered and the calculation is performed upon pressing ``Estimate Thickness''. The resulting data can be saved to disk using the ``Save'' button, or an analysis of the data can be printed to the terminal window by pressing ``Compare Results''.\\
+
+The testing tab has many features useful in testing and developing new algorithms. Table \ref{tab:testing} explains each button's function.\\
+\begin{table}[h!] 
+\begin{tabular}{|L{0.2\textwidth}|L{0.8\textwidth}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Button}} & \multicolumn{1}{c|}{\textbf{Function}}\\ \hline
+Arm Step & Allows user to step through manipulator trajectory one via point at a time\\ \hline
+Reset & Reset the counter when stepping through trajectory via points\\ \hline
+Marker Only & Display markers for via points instead of moving the manipulator\\ \hline
+Set Home & Set home location\\ \hline
+Generate Poses & Calculate required positions the robot must move to to apply shotcrete over selected area\\ \hline
+Pose Step & Move to next location\\ \hline
+Ctr & Counter for tracking current via point\\ \hline
+Generate Trajectory & Generates a trajectory based on the current selection or default area, then saves to location entered in the ``Trajectory Save Location'' field\\ \hline
+Execute Trajectory & Moves manipulator to simulate shotcrete application or radiation scan\\ \hline
+Plot Path & Show the intended path the robot will travel to reach the desired location\\ \hline
+Execute Path & Move robot to desired location\\ \hline
+Show Nav Goal & Show robot's desired location\\ \hline
+Estimate Thickness & Calculate thickness from previous two pointcloud scans\\ \hline
+Nav Mode & Move LiDAR nodding head to a position for navigation (-1.57, other positions can be achieved using by changing the value of the text box)\\ \hline
+Localize & Localize the robot\\ \hline
+Auto Crop & Automatically crop an area behind the robot that the trailer is likely to occupy from the pointcloud\\ \hline
+Load Scan & Load a pointcloud from file and treat it as if it was a newly acquired scan\\ \hline
+Load Trajectory & Load a trajectory from file (at the location specified under ``Trajectory Save Location''\\ \hline
+Reset Map & Reset the SLAM map\\ \hline
+Scan & Perform a LiDAR scan\\ \hline
+
+\end{tabular}
+\caption{Testing Functions}
+\label{tab:testing}
+\end{table}
+
+The final tab allows the user to manually command the manipulator. The user can initialize the arm, shut it down, or clear the error. When sending a pose, the user can specify a target location and Point-to-Point motion (PTP), Continuous Path motion (CP), or use the tool coordinate frame (T). Alternatively, the user can specify specific joint angles to move to. The user can also set the speed of the manipulator, or use the text box to send a WINCAPSIII syntax command. The current robot pose is displayed as well.\\
