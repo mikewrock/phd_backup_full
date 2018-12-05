@@ -1,0 +1,132 @@
+\chapter{Removed Sections from Overview}
+\label{chap:removed}
+\section{Design Process}
+\label{sec:design}
+\subsection{Customer Requirements}
+There are two ``Customers'' in this research, the industry partner and the research facility. The industry partner, Cameco, requires a proof of concept prototype with functional algorithms that can be implemented in a final production model. The research facility, UOIT, requires a system on which novel software and hardware designs can be implemented and tested for academic research and publication. It is the requirement of this work to meet both customer's needs.\\
+
+\begin{table}[h!]
+\begin{adjustwidth}{-.75in}{-.25in}  
+\begin{tabular}{|L{0.05\linewidth} L{0.25\linewidth}|L{0.7\linewidth}|}
+\hline
+\multicolumn{3}{|c|}{\textbf{Cameco Requirements}} \\ \hline
+\multicolumn{2}{|c|}{Requirement} & \multicolumn{1}{c|}{Discussion} \\ \hline
+R$_C$1: & Proof of concept hardware prototype & The proof of concept prototype is Cameco's way of evaluating the success of the research and determining whether the software and hardware designs are a feasible substitute for the current practices.\\ \hline
+R$_C$2: & Autonomous scanning & The robot must be able to scan the drift face for radiation with minimal input from an operator. The operator should only have to select an area to scan. \\ \hline
+R$_C$3: & Autonomous shotcreting & The robot must be able to apply shotcrete with minimal input from an operator. The robot should be able to apply shotcrete autonomously once positioned or directed to the starting location. \\ \hline
+R$_C$4: & Autonomous navigation & The robot must be able to navigate to the desired location with minimal input from an operator. The operator must be able to intuitively define a location to autonomously navigate to, as well as be able to manually drive the robot. \\ \hline
+R$_C$5: & Obstacle avoidance & The robot must not collide with obstacles, stationary or moving, while navigating. The obstacles my appear at any time during navigation.\\ \hline
+R$_C$6: & Improved efficiency & The robot must use less resources (time, material, energy) \\ \hline
+R$_C$7: & Improved accuracy & The robot must be able to perform the task with equal or greater accuracy than the current standard. The includes the application and measurement of the shotcrete layer. \\ \hline
+R$_C$8: & 3D reconstruction & Though not a requirement of the customer, in order to perform certain functions the data necessary to generate a 3D reconstruction of the mine must be obtained. The 3D mine reconstruction is an added feature to be offered to the customer, so it is treated as a requirement.\\ \hline
+R$_C$9: & Worker safety & The robot must ensure workers are safe during the operation of the robot, and must also ensure the modifications to its surroundings do not increase the risk worker safety. \\ \hline
+R$_C$10: & Environmental Protection & The robot must be able to function in the environmental conditions of an underground uranium drift mine. \\ \hline
+\end{tabular}
+\caption{Cameco Customer Requirements}
+\label{tab:reqs}
+\end{adjustwidth}
+\end{table}
+\begin{table}[h!]
+\begin{adjustwidth}{-.75in}{-.25in}  
+\begin{tabular}{|L{0.05\linewidth}L{0.25\linewidth}|L{0.7\linewidth}|}
+\hline
+\multicolumn{3}{|c|}{\textbf{UOIT Requirements}} \\ \hline
+\multicolumn{2}{|c|}{Requirement} & \multicolumn{1}{c|}{Discussion} \\ \hline
+R$_U$11: & Functioning prototype & To consider the design problem solved, the system must function as intended providing a novel solution to the problems outlined.\\ \hline
+R$_U$12: & Accurate localization & The robot must be able to autonomously localize itself within it's environment. Testing must be performed with a ground truth system. \\ \hline
+R$_U$13: & Novel design & The research must be original. \\ \hline
+R$_U$14: & Use of engineering principals & Engineering principals and practices must be used in the design of the system. \\ \hline
+R$_U$15: & Research oriented & The robot must prove a valuable research tool. The insight gained from the testing should have value, and the hardware prototype should continue to be a useful tool once this research completes. \\ \hline
+R$_U$16: & Publications & The robot must employ novel design features with significant enough impact to the research community that can be published in academic peer reviewed publications. \\ \hline
+R$_U$17: & Continuation Opportunity & The design must not be a dead-end, further opportunities for novel design implementations must be possible. Either additional hardware modifications can be made, software packages can be built, or novel analysis of the obtained data must be possible. \\ \hline
+R$_U$18: & Ethical practices & The robot's intended use must be ethical. While the robot may replace human workers, the physical safety of the workers is of greater concern. No part of the design shall be built with the intention to be used in a way that can intentionally harm people, society, or the environment. \\ \hline
+\end{tabular}
+\caption{UOIT Customer Requirements}
+\label{tab:ureqs}
+\end{adjustwidth}
+\end{table}
+ 
+ \clearpage
+\subsection{Engineering Requirements}
+\begin{table}[h!]
+\begin{adjustwidth}{-.75in}{0in}  
+\begin{tabular}{|L{0.05\linewidth} L{0.25\linewidth}|L{0.7\linewidth}|}
+\hline
+\multicolumn{2}{|c|}{Customer Requirement} & Engineering Requirements \\ \hline
+R$_C$1: & Proof of concept hardware prototype & \begin{tabular}{L{0.05\linewidth} L{0.9\linewidth}}
+E1: & Apply shotcrete in a timely manner\\
+E2: & Scan drift face accurately\\
+\end{tabular} \\ \hline
+R$_C$2: & Autonomous scanning & \begin{tabular}{L{0.05\linewidth} L{0.9\linewidth}}
+E3: & Position end-effector accurately for scanning\\
+E4: & Record position and radiation levels accurately\\
+\end{tabular} \\ \hline
+R$_C$3: & Autonomous shotcreting & \begin{tabular}{L{0.05\linewidth} L{0.9\linewidth}}
+E5: & Position end-effector accurately for spraying\\
+E6: & Measure shotcrete thickness\\
+\end{tabular} \\ \hline
+R$_C$4: & Autonomous navigation & \begin{tabular}{L{0.05\linewidth} L{0.9\linewidth}}
+E7: & Navigate to desired location\\
+E8: & Ackerman steering for trailer\\
+\end{tabular} \\ \hline
+R$_C$5: & Obstacle avoidance & \begin{tabular}{L{0.05\linewidth} L{0.9\linewidth}}
+E9: & Avoid obstacles by user-defined distance\\
+\end{tabular} \\ \hline
+R$_C$6: & Improved efficiency & \begin{tabular}{L{0.05\linewidth} L{0.9\linewidth}}
+E10: & Perform scanning task faster than current practices\\
+E11: & Perform shotcreting task faster than current practices\\
+\end{tabular} \\ \hline
+R$_C$7: & Improved accuracy & \begin{tabular}{L{0.05\linewidth} L{0.9\linewidth}}
+E12: & Record radiation measurements with greater accuracy\\
+E13: & Record radiation measurement positions with greater accuracy\\
+E14: & Measure shotcrete thickness with greater accuracy than current practices\\
+\end{tabular} \\ \hline
+R$_C$8: & 3D reconstruction & \begin{tabular}{L{0.05\linewidth} L{0.9\linewidth}}
+E15: & Generate registered point cloud of mine environment\\
+\end{tabular} \\ \hline
+R$_C$9: & Worker safety & \begin{tabular}{L{0.05\linewidth} L{0.9\linewidth}}
+E16: & Minimize safety risk when present in a mine\\
+\end{tabular} \\ \hline
+R$_C$10: & Environmental Protection & \begin{tabular}{L{0.05\linewidth} L{0.9\linewidth}}
+E17: & Reduce environmental impact\\
+\end{tabular} \\ \hline
+R$_U$11: & Functioning prototype & \begin{tabular}{L{0.05\linewidth} L{0.9\linewidth}}
+E18: & Generate motion trajectories\\
+E19: & Perform radiation scanning motions\\
+E20: & Perform shotcrete application motions\\
+E21: & Estimate thickness\\
+\end{tabular} \\ \hline
+R$_U$12: & Accurate localization & \begin{tabular}{L{0.05\linewidth} L{0.9\linewidth}}
+E22: & Determine robot location\\
+\end{tabular} \\ \hline
+R$_U$13: & Novel design & \begin{tabular}{L{0.05\linewidth} L{0.9\linewidth}}
+E$_x$: & This can not be defined explicitly as an engineering specification\\
+\end{tabular} \\ \hline
+R$_U$14: & Use of engineering principals & \begin{tabular}{L{0.05\linewidth} L{0.9\linewidth}}
+E$_x$: & This can not be defined explicitly as an engineering specification, but includes the elements presented in the Design Process section \\
+\end{tabular} \\ \hline
+R$_U$15: & Research oriented & \begin{tabular}{L{0.05\linewidth} L{0.9\linewidth}}
+E23: & Modular design\\
+\end{tabular} \\ \hline
+R$_U$16: & Publications & \begin{tabular}{L{0.05\linewidth} L{0.9\linewidth}}
+E$_x$: &This can not be defined explicitly as an engineering specification. If R$_U$13 is completed and the research is worthwhile the requirement is considered fulfilled\\
+\end{tabular} \\ \hline
+R$_U$17: & Continuation Opportunity & \begin{tabular}{L{0.05\linewidth} L{0.9\linewidth}}
+E24: & Proper documentation\\
+\end{tabular} \\ \hline
+R$_U$18: & Ethical practices & \begin{tabular}{L{0.05\linewidth} L{0.9\linewidth}}
+E25: & Adhere to ethical standards throughout design process\\
+\end{tabular} \\ \hline
+\end{tabular}
+\caption{UOIT Engineering Requirements}
+\label{tab:ureqs}
+\end{adjustwidth}
+\end{table}
+
+ \clearpage
+\subsection{House of Quality}
+\begin{figure}[h]
+\resizebox{\textwidth}{!}{
+\includegraphics[trim=375pt 60pt 375pt 60pt, clip]{Pics/HOQ.pdf}}
+\caption{MASSS House of Quality}
+\end{figure}
