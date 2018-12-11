@@ -1,0 +1,10 @@
+geometry_msgs/Point p1;
+geometry_msgs/Point p2;
+geometry_msgs/Point p3;
+geometry_msgs/Point vec1;
+geometry_msgs/Point vec2;
+float64[] transform;
+float32 VAL1;
+float32 VAL2;
+float32 VAL3;
+float32 VAL4;

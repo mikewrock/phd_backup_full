@@ -1076,6 +1076,45 @@ test_panel/fast:
 .PHONY : test_panel/fast
 
 #=============================================================================
+# Target rules for targets named _run_tests_mocap_optitrack
+
+# Build rule for target.
+_run_tests_mocap_optitrack: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _run_tests_mocap_optitrack
+.PHONY : _run_tests_mocap_optitrack
+
+# fast build rule for target.
+_run_tests_mocap_optitrack/fast:
+	$(MAKE) -f mocap_optitrack-master/CMakeFiles/_run_tests_mocap_optitrack.dir/build.make mocap_optitrack-master/CMakeFiles/_run_tests_mocap_optitrack.dir/build
+.PHONY : _run_tests_mocap_optitrack/fast
+
+#=============================================================================
+# Target rules for targets named _run_tests_mocap_optitrack_roslaunch-check
+
+# Build rule for target.
+_run_tests_mocap_optitrack_roslaunch-check: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _run_tests_mocap_optitrack_roslaunch-check
+.PHONY : _run_tests_mocap_optitrack_roslaunch-check
+
+# fast build rule for target.
+_run_tests_mocap_optitrack_roslaunch-check/fast:
+	$(MAKE) -f mocap_optitrack-master/CMakeFiles/_run_tests_mocap_optitrack_roslaunch-check.dir/build.make mocap_optitrack-master/CMakeFiles/_run_tests_mocap_optitrack_roslaunch-check.dir/build
+.PHONY : _run_tests_mocap_optitrack_roslaunch-check/fast
+
+#=============================================================================
+# Target rules for targets named _run_tests_mocap_optitrack_roslaunch-check_launch
+
+# Build rule for target.
+_run_tests_mocap_optitrack_roslaunch-check_launch: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _run_tests_mocap_optitrack_roslaunch-check_launch
+.PHONY : _run_tests_mocap_optitrack_roslaunch-check_launch
+
+# fast build rule for target.
+_run_tests_mocap_optitrack_roslaunch-check_launch/fast:
+	$(MAKE) -f mocap_optitrack-master/CMakeFiles/_run_tests_mocap_optitrack_roslaunch-check_launch.dir/build.make mocap_optitrack-master/CMakeFiles/_run_tests_mocap_optitrack_roslaunch-check_launch.dir/build
+.PHONY : _run_tests_mocap_optitrack_roslaunch-check_launch/fast
+
+#=============================================================================
 # Target rules for targets named actionlib_generate_messages_cpp
 
 # Build rule for target.
@@ -1085,7 +1124,7 @@ actionlib_generate_messages_cpp: cmake_check_build_system
 
 # fast build rule for target.
 actionlib_generate_messages_cpp/fast:
-	$(MAKE) -f perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_generate_messages_cpp.dir/build.make perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_generate_messages_cpp.dir/build
+	$(MAKE) -f mocap_optitrack-master/CMakeFiles/actionlib_generate_messages_cpp.dir/build.make mocap_optitrack-master/CMakeFiles/actionlib_generate_messages_cpp.dir/build
 .PHONY : actionlib_generate_messages_cpp/fast
 
 #=============================================================================
@@ -1098,7 +1137,7 @@ actionlib_generate_messages_lisp: cmake_check_build_system
 
 # fast build rule for target.
 actionlib_generate_messages_lisp/fast:
-	$(MAKE) -f perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_generate_messages_lisp.dir/build.make perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_generate_messages_lisp.dir/build
+	$(MAKE) -f mocap_optitrack-master/CMakeFiles/actionlib_generate_messages_lisp.dir/build.make mocap_optitrack-master/CMakeFiles/actionlib_generate_messages_lisp.dir/build
 .PHONY : actionlib_generate_messages_lisp/fast
 
 #=============================================================================
@@ -1111,7 +1150,7 @@ actionlib_generate_messages_py: cmake_check_build_system
 
 # fast build rule for target.
 actionlib_generate_messages_py/fast:
-	$(MAKE) -f perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_generate_messages_py.dir/build.make perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_generate_messages_py.dir/build
+	$(MAKE) -f mocap_optitrack-master/CMakeFiles/actionlib_generate_messages_py.dir/build.make mocap_optitrack-master/CMakeFiles/actionlib_generate_messages_py.dir/build
 .PHONY : actionlib_generate_messages_py/fast
 
 #=============================================================================
@@ -1124,7 +1163,7 @@ actionlib_msgs_generate_messages_cpp: cmake_check_build_system
 
 # fast build rule for target.
 actionlib_msgs_generate_messages_cpp/fast:
-	$(MAKE) -f perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build.make perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build
+	$(MAKE) -f mocap_optitrack-master/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build.make mocap_optitrack-master/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build
 .PHONY : actionlib_msgs_generate_messages_cpp/fast
 
 #=============================================================================
@@ -1137,7 +1176,7 @@ actionlib_msgs_generate_messages_lisp: cmake_check_build_system
 
 # fast build rule for target.
 actionlib_msgs_generate_messages_lisp/fast:
-	$(MAKE) -f perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build.make perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build
+	$(MAKE) -f mocap_optitrack-master/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build.make mocap_optitrack-master/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build
 .PHONY : actionlib_msgs_generate_messages_lisp/fast
 
 #=============================================================================
@@ -1150,8 +1189,151 @@ actionlib_msgs_generate_messages_py: cmake_check_build_system
 
 # fast build rule for target.
 actionlib_msgs_generate_messages_py/fast:
-	$(MAKE) -f perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_msgs_generate_messages_py.dir/build.make perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/actionlib_msgs_generate_messages_py.dir/build
+	$(MAKE) -f mocap_optitrack-master/CMakeFiles/actionlib_msgs_generate_messages_py.dir/build.make mocap_optitrack-master/CMakeFiles/actionlib_msgs_generate_messages_py.dir/build
 .PHONY : actionlib_msgs_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named clean_test_results_mocap_optitrack
+
+# Build rule for target.
+clean_test_results_mocap_optitrack: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 clean_test_results_mocap_optitrack
+.PHONY : clean_test_results_mocap_optitrack
+
+# fast build rule for target.
+clean_test_results_mocap_optitrack/fast:
+	$(MAKE) -f mocap_optitrack-master/CMakeFiles/clean_test_results_mocap_optitrack.dir/build.make mocap_optitrack-master/CMakeFiles/clean_test_results_mocap_optitrack.dir/build
+.PHONY : clean_test_results_mocap_optitrack/fast
+
+#=============================================================================
+# Target rules for targets named run_tests_mocap_optitrack
+
+# Build rule for target.
+run_tests_mocap_optitrack: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 run_tests_mocap_optitrack
+.PHONY : run_tests_mocap_optitrack
+
+# fast build rule for target.
+run_tests_mocap_optitrack/fast:
+	$(MAKE) -f mocap_optitrack-master/CMakeFiles/run_tests_mocap_optitrack.dir/build.make mocap_optitrack-master/CMakeFiles/run_tests_mocap_optitrack.dir/build
+.PHONY : run_tests_mocap_optitrack/fast
+
+#=============================================================================
+# Target rules for targets named run_tests_mocap_optitrack_roslaunch-check
+
+# Build rule for target.
+run_tests_mocap_optitrack_roslaunch-check: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 run_tests_mocap_optitrack_roslaunch-check
+.PHONY : run_tests_mocap_optitrack_roslaunch-check
+
+# fast build rule for target.
+run_tests_mocap_optitrack_roslaunch-check/fast:
+	$(MAKE) -f mocap_optitrack-master/CMakeFiles/run_tests_mocap_optitrack_roslaunch-check.dir/build.make mocap_optitrack-master/CMakeFiles/run_tests_mocap_optitrack_roslaunch-check.dir/build
+.PHONY : run_tests_mocap_optitrack_roslaunch-check/fast
+
+#=============================================================================
+# Target rules for targets named run_tests_mocap_optitrack_roslaunch-check_launch
+
+# Build rule for target.
+run_tests_mocap_optitrack_roslaunch-check_launch: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 run_tests_mocap_optitrack_roslaunch-check_launch
+.PHONY : run_tests_mocap_optitrack_roslaunch-check_launch
+
+# fast build rule for target.
+run_tests_mocap_optitrack_roslaunch-check_launch/fast:
+	$(MAKE) -f mocap_optitrack-master/CMakeFiles/run_tests_mocap_optitrack_roslaunch-check_launch.dir/build.make mocap_optitrack-master/CMakeFiles/run_tests_mocap_optitrack_roslaunch-check_launch.dir/build
+.PHONY : run_tests_mocap_optitrack_roslaunch-check_launch/fast
+
+#=============================================================================
+# Target rules for targets named tf2_msgs_generate_messages_cpp
+
+# Build rule for target.
+tf2_msgs_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tf2_msgs_generate_messages_cpp
+.PHONY : tf2_msgs_generate_messages_cpp
+
+# fast build rule for target.
+tf2_msgs_generate_messages_cpp/fast:
+	$(MAKE) -f mocap_optitrack-master/CMakeFiles/tf2_msgs_generate_messages_cpp.dir/build.make mocap_optitrack-master/CMakeFiles/tf2_msgs_generate_messages_cpp.dir/build
+.PHONY : tf2_msgs_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named tf2_msgs_generate_messages_lisp
+
+# Build rule for target.
+tf2_msgs_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tf2_msgs_generate_messages_lisp
+.PHONY : tf2_msgs_generate_messages_lisp
+
+# fast build rule for target.
+tf2_msgs_generate_messages_lisp/fast:
+	$(MAKE) -f mocap_optitrack-master/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/build.make mocap_optitrack-master/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/build
+.PHONY : tf2_msgs_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named tf2_msgs_generate_messages_py
+
+# Build rule for target.
+tf2_msgs_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tf2_msgs_generate_messages_py
+.PHONY : tf2_msgs_generate_messages_py
+
+# fast build rule for target.
+tf2_msgs_generate_messages_py/fast:
+	$(MAKE) -f mocap_optitrack-master/CMakeFiles/tf2_msgs_generate_messages_py.dir/build.make mocap_optitrack-master/CMakeFiles/tf2_msgs_generate_messages_py.dir/build
+.PHONY : tf2_msgs_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named tf_generate_messages_cpp
+
+# Build rule for target.
+tf_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tf_generate_messages_cpp
+.PHONY : tf_generate_messages_cpp
+
+# fast build rule for target.
+tf_generate_messages_cpp/fast:
+	$(MAKE) -f mocap_optitrack-master/CMakeFiles/tf_generate_messages_cpp.dir/build.make mocap_optitrack-master/CMakeFiles/tf_generate_messages_cpp.dir/build
+.PHONY : tf_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named tf_generate_messages_lisp
+
+# Build rule for target.
+tf_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tf_generate_messages_lisp
+.PHONY : tf_generate_messages_lisp
+
+# fast build rule for target.
+tf_generate_messages_lisp/fast:
+	$(MAKE) -f mocap_optitrack-master/CMakeFiles/tf_generate_messages_lisp.dir/build.make mocap_optitrack-master/CMakeFiles/tf_generate_messages_lisp.dir/build
+.PHONY : tf_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named tf_generate_messages_py
+
+# Build rule for target.
+tf_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tf_generate_messages_py
+.PHONY : tf_generate_messages_py
+
+# fast build rule for target.
+tf_generate_messages_py/fast:
+	$(MAKE) -f mocap_optitrack-master/CMakeFiles/tf_generate_messages_py.dir/build.make mocap_optitrack-master/CMakeFiles/tf_generate_messages_py.dir/build
+.PHONY : tf_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named mocap_optitrack_mocap_node
+
+# Build rule for target.
+mocap_optitrack_mocap_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 mocap_optitrack_mocap_node
+.PHONY : mocap_optitrack_mocap_node
+
+# fast build rule for target.
+mocap_optitrack_mocap_node/fast:
+	$(MAKE) -f mocap_optitrack-master/src/CMakeFiles/mocap_optitrack_mocap_node.dir/build.make mocap_optitrack-master/src/CMakeFiles/mocap_optitrack_mocap_node.dir/build
+.PHONY : mocap_optitrack_mocap_node/fast
 
 #=============================================================================
 # Target rules for targets named bond_generate_messages_cpp
@@ -1438,84 +1620,6 @@ simple_test: cmake_check_build_system
 simple_test/fast:
 	$(MAKE) -f perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/simple_test.dir/build.make perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/simple_test.dir/build
 .PHONY : simple_test/fast
-
-#=============================================================================
-# Target rules for targets named tf2_msgs_generate_messages_cpp
-
-# Build rule for target.
-tf2_msgs_generate_messages_cpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 tf2_msgs_generate_messages_cpp
-.PHONY : tf2_msgs_generate_messages_cpp
-
-# fast build rule for target.
-tf2_msgs_generate_messages_cpp/fast:
-	$(MAKE) -f perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf2_msgs_generate_messages_cpp.dir/build.make perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf2_msgs_generate_messages_cpp.dir/build
-.PHONY : tf2_msgs_generate_messages_cpp/fast
-
-#=============================================================================
-# Target rules for targets named tf2_msgs_generate_messages_lisp
-
-# Build rule for target.
-tf2_msgs_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 tf2_msgs_generate_messages_lisp
-.PHONY : tf2_msgs_generate_messages_lisp
-
-# fast build rule for target.
-tf2_msgs_generate_messages_lisp/fast:
-	$(MAKE) -f perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/build.make perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/build
-.PHONY : tf2_msgs_generate_messages_lisp/fast
-
-#=============================================================================
-# Target rules for targets named tf2_msgs_generate_messages_py
-
-# Build rule for target.
-tf2_msgs_generate_messages_py: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 tf2_msgs_generate_messages_py
-.PHONY : tf2_msgs_generate_messages_py
-
-# fast build rule for target.
-tf2_msgs_generate_messages_py/fast:
-	$(MAKE) -f perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf2_msgs_generate_messages_py.dir/build.make perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf2_msgs_generate_messages_py.dir/build
-.PHONY : tf2_msgs_generate_messages_py/fast
-
-#=============================================================================
-# Target rules for targets named tf_generate_messages_cpp
-
-# Build rule for target.
-tf_generate_messages_cpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 tf_generate_messages_cpp
-.PHONY : tf_generate_messages_cpp
-
-# fast build rule for target.
-tf_generate_messages_cpp/fast:
-	$(MAKE) -f perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf_generate_messages_cpp.dir/build.make perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf_generate_messages_cpp.dir/build
-.PHONY : tf_generate_messages_cpp/fast
-
-#=============================================================================
-# Target rules for targets named tf_generate_messages_lisp
-
-# Build rule for target.
-tf_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 tf_generate_messages_lisp
-.PHONY : tf_generate_messages_lisp
-
-# fast build rule for target.
-tf_generate_messages_lisp/fast:
-	$(MAKE) -f perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf_generate_messages_lisp.dir/build.make perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf_generate_messages_lisp.dir/build
-.PHONY : tf_generate_messages_lisp/fast
-
-#=============================================================================
-# Target rules for targets named tf_generate_messages_py
-
-# Build rule for target.
-tf_generate_messages_py: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 tf_generate_messages_py
-.PHONY : tf_generate_messages_py
-
-# fast build rule for target.
-tf_generate_messages_py/fast:
-	$(MAKE) -f perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf_generate_messages_py.dir/build.make perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/tf_generate_messages_py.dir/build
-.PHONY : tf_generate_messages_py/fast
 
 #=============================================================================
 # Target rules for targets named topic_tools_generate_messages_cpp
@@ -2322,6 +2426,32 @@ _phd_generate_messages_check_deps_localize_cloud: cmake_check_build_system
 _phd_generate_messages_check_deps_localize_cloud/fast:
 	$(MAKE) -f phd/CMakeFiles/_phd_generate_messages_check_deps_localize_cloud.dir/build.make phd/CMakeFiles/_phd_generate_messages_check_deps_localize_cloud.dir/build
 .PHONY : _phd_generate_messages_check_deps_localize_cloud/fast
+
+#=============================================================================
+# Target rules for targets named _phd_generate_messages_check_deps_marker_msg
+
+# Build rule for target.
+_phd_generate_messages_check_deps_marker_msg: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _phd_generate_messages_check_deps_marker_msg
+.PHONY : _phd_generate_messages_check_deps_marker_msg
+
+# fast build rule for target.
+_phd_generate_messages_check_deps_marker_msg/fast:
+	$(MAKE) -f phd/CMakeFiles/_phd_generate_messages_check_deps_marker_msg.dir/build.make phd/CMakeFiles/_phd_generate_messages_check_deps_marker_msg.dir/build
+.PHONY : _phd_generate_messages_check_deps_marker_msg/fast
+
+#=============================================================================
+# Target rules for targets named _phd_generate_messages_check_deps_marker_val
+
+# Build rule for target.
+_phd_generate_messages_check_deps_marker_val: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _phd_generate_messages_check_deps_marker_val
+.PHONY : _phd_generate_messages_check_deps_marker_val
+
+# fast build rule for target.
+_phd_generate_messages_check_deps_marker_val/fast:
+	$(MAKE) -f phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir/build.make phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir/build
+.PHONY : _phd_generate_messages_check_deps_marker_val/fast
 
 #=============================================================================
 # Target rules for targets named _phd_generate_messages_check_deps_simple_trajectory_service
@@ -3408,12 +3538,26 @@ help:
 	@echo "... run_tests_lms1xx_roslaunch-check_launch_LMS1xx.launch"
 	@echo "... test_buffer"
 	@echo "... test_panel"
+	@echo "... _run_tests_mocap_optitrack"
+	@echo "... _run_tests_mocap_optitrack_roslaunch-check"
+	@echo "... _run_tests_mocap_optitrack_roslaunch-check_launch"
 	@echo "... actionlib_generate_messages_cpp"
 	@echo "... actionlib_generate_messages_lisp"
 	@echo "... actionlib_generate_messages_py"
 	@echo "... actionlib_msgs_generate_messages_cpp"
 	@echo "... actionlib_msgs_generate_messages_lisp"
 	@echo "... actionlib_msgs_generate_messages_py"
+	@echo "... clean_test_results_mocap_optitrack"
+	@echo "... run_tests_mocap_optitrack"
+	@echo "... run_tests_mocap_optitrack_roslaunch-check"
+	@echo "... run_tests_mocap_optitrack_roslaunch-check_launch"
+	@echo "... tf2_msgs_generate_messages_cpp"
+	@echo "... tf2_msgs_generate_messages_lisp"
+	@echo "... tf2_msgs_generate_messages_py"
+	@echo "... tf_generate_messages_cpp"
+	@echo "... tf_generate_messages_lisp"
+	@echo "... tf_generate_messages_py"
+	@echo "... mocap_optitrack_mocap_node"
 	@echo "... bond_generate_messages_cpp"
 	@echo "... bond_generate_messages_lisp"
 	@echo "... bond_generate_messages_py"
@@ -3436,12 +3580,6 @@ help:
 	@echo "... pcl_msgs_generate_messages_py"
 	@echo "... pcl_ros_gencfg"
 	@echo "... simple_test"
-	@echo "... tf2_msgs_generate_messages_cpp"
-	@echo "... tf2_msgs_generate_messages_lisp"
-	@echo "... tf2_msgs_generate_messages_py"
-	@echo "... tf_generate_messages_cpp"
-	@echo "... tf_generate_messages_lisp"
-	@echo "... tf_generate_messages_py"
 	@echo "... topic_tools_generate_messages_cpp"
 	@echo "... topic_tools_generate_messages_lisp"
 	@echo "... topic_tools_generate_messages_py"
@@ -3504,6 +3642,8 @@ help:
 	@echo "... _phd_generate_messages_check_deps_cube_msg"
 	@echo "... _phd_generate_messages_check_deps_empty"
 	@echo "... _phd_generate_messages_check_deps_localize_cloud"
+	@echo "... _phd_generate_messages_check_deps_marker_msg"
+	@echo "... _phd_generate_messages_check_deps_marker_val"
 	@echo "... _phd_generate_messages_check_deps_simple_trajectory_service"
 	@echo "... _phd_generate_messages_check_deps_thickness_service"
 	@echo "... _phd_generate_messages_check_deps_trajectory_array"

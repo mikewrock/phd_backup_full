@@ -9,8 +9,11 @@
 #include <QDir>
 #include <QFileInfo>
 #include "control_panel.hpp"
+#include <rosbag/bag.h>
+#include <rosbag/view.h>
 #include <phd/arm_msg.h>
 #include "phd/empty.h"
+#include <boost/foreach.hpp>
 #include <visualization_msgs/Marker.h>
 namespace control_panel
 {
@@ -37,6 +40,8 @@ void arm_loop();
 void fake_scan();
 void fake_scan2();
 void scan();
+void prescan();
+void postscan();
 void homing_scan();
 void cluster();
 void gen_trajectory();	
@@ -48,6 +53,7 @@ void onStringCommand();
 void onShutdownCommand();
 void onSpeedCommand();
 void load_traj();
+void print_markers();
 void rosSpinner();
 void soft_stop();
 void pose_step();

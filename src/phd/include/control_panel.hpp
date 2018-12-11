@@ -57,9 +57,10 @@ public:
 //See control_panel.cpp for description of these functions
 	void jointCallback(const sensor_msgs::JointState::ConstPtr& msg);
 	void cloudCallback(const sensor_msgs::PointCloud2::ConstPtr& cloud);
+	void poseCallback(const geometry_msgs::PoseStamped::ConstPtr& msg);
 	QNode(){}
 	virtual ~QNode();
-	void scan(std::string, bool localize);
+	void scan(std::string, bool localize, std::string);
 	phd::trajectory_point step(int traj_ctr, bool arm, float fig);
 	void show_nav();
 	void thickness_from_file(std::string,std::string);
@@ -101,6 +102,7 @@ private:
 	//Subscribers, Publishers, and Services explained in control_panel.cpp
 	ros::Subscriber joint_sub;
 	ros::Subscriber cloud_sub;
+	ros::Subscriber pose_sub;
 	ros::Publisher cmd_pub;
 	ros::Publisher arm_pub;
 	ros::Publisher nav_vis_pub;

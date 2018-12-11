@@ -1,0 +1,35 @@
+float32 j1
+float32 j2
+float32 j3
+float32 j4
+float32 j5
+float32 j6
+float32 x
+float32 y
+float32 z
+float32 rx
+float32 ry
+float32 rz
+float32 vel
+float32 acc
+int32 fig
+bool pose
+geometry_msgs::Point p1;
+		marker_file >> p1.y;
+		marker_file >> p1.z;
+		marker_file >> p2.x;
+		marker_file >> p2.y;
+		marker_file >> p2.z;
+		marker_file >> p3.x;
+		marker_file >> p3.y;
+		marker_file >> p3.z;
+		marker_file >> VAL1;
+		marker_file >> VAL2;
+		marker_file >> VAL3;
+		marker_file >> VAL4;
+		marker_file >> vec1[0];
+		marker_file >> vec1[1];
+		marker_file >> vec1[2];
+		marker_file >> vec2[0];
+		marker_file >> vec2[1];
+		marker_file >> vec2[2];

@@ -142,7 +142,7 @@ catkin_package(
       diagnostic_msgs
       control_msgs
       message_runtime
-      roscpps
+      roscpp
       dynamic_reconfigure
 )    
 

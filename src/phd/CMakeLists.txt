@@ -89,6 +89,8 @@ generate_dynamic_reconfigure_options(
    FILES
    cube_msg.msg
    arm_msg.msg
+   marker_msg.msg
+   marker_val.msg
    trajectory_point.msg
    trajectory_msg.msg
    trajectory_array.msg

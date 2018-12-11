@@ -31,6 +31,7 @@
 #include "sensor_msgs/PointCloud.h"
 #include <phd/cube_msg.h>
 #include <phd/arm_msg.h>
+#include <phd/marker_msg.h>
 //PCL includes
 #include <pcl/io/pcd_io.h>
 #include <pcl_conversions/pcl_conversions.h>
@@ -92,7 +93,7 @@ double occludeMaxX, occludeMaxY, occludeMaxZ, occludeMinX, occludeMinY, occludeM
 	ros::Publisher crop_pub;
 bool pose_waiting, marker_only, INIT_CLEAR;
 std_msgs::String RESET_MAP, CLOUD_STR, TRAJ, SCAN_COMPLETE;
-
+geometry_msgs::PoseStamped basePose;
 //This is our client for sending move_base goals
 actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient("move_base", true);
 
@@ -531,6 +532,14 @@ void QNode::cloudCallback(const sensor_msgs::PointCloud2::ConstPtr& cloud)
 	current_pc_.reset(new pcl::PointCloud<pcl::PointXYZI>());
 	pcl::fromROSMsg(*cloud, *this->current_pc_);
 
+}
+//Store the current pose
+void QNode::poseCallback(const geometry_msgs::PoseStamped::ConstPtr& msg)
+{
+	
+	basePose.pose.position = msg->pose.position;
+	basePose.pose.orientation = msg->pose.orientation;
+	ROS_INFO("Pose %f-%f-%f",basePose.pose.position.x,basePose.pose.position.y,basePose.pose.position.z);
 
 }
 
@@ -562,6 +571,7 @@ bool QNode::init() {
 	//Subscribers to listen to the powercube position and point cloud selection
 	joint_sub = nh_.subscribe("cube_joint_states", 1, &control_panel::control_panel_ns::QNode::jointCallback,this);
 	cloud_sub = nh_.subscribe("marker_selected_points", 1, &control_panel::control_panel_ns::QNode::cloudCallback,this);
+	pose_sub = nh_.subscribe("mocap_node/Robot_1/pose", 1, &control_panel::control_panel_ns::QNode::poseCallback,this);
 	callback_type = boost::bind(&reconfig_callback, _1, _2);
 	server.setCallback(callback_type);
 	//Service client for calling the laser scan assembler
@@ -872,7 +882,7 @@ phd::trajectory_point QNode::step(int traj_ctr,bool sim, float fig){
 	msg.z = (traj.points[traj_ctr].z-(traj.points[traj_ctr].nz*P_OFFSET) - Z_BASE_TO_ARM)*1000;
 	//check to see if the arm point is within the arms workspace
 	float ws_dist = sqrt(pow(msg.x,2)+pow(msg.y,2)+pow(msg.z-280,2));
-	if(ws_dist > 675 || check_pie(msg.x,msg.y)){
+	if(ws_dist > 375 || check_pie(msg.x,msg.y)){
 		if(DEBUG) ROS_INFO("Modifying %d, %f",traj_ctr,ws_dist);
 		//if outside workspace, move within
 		msg = move_to_workspace(traj.points[traj_ctr]);
@@ -979,7 +989,15 @@ void QNode::set_sprayed(){
 }
 
 //Perform a laser scan, either localize the cloud or set it as the global frame, and save to disk
-void QNode::scan(std::string markername, bool localize){
+void QNode::scan(std::string markername, bool localize, std::string prefix){
+	
+	//Save Optitrack Location
+	ofstream myfile;
+	std::stringstream fs;
+	fs << "/home/mike/results/pose.csv";
+	myfile.open (fs.str().c_str(), std::ios::out|std::ios::app);
+	myfile << prefix << "," << basePose.pose.position.x << "," << basePose.pose.position.y << "," << basePose.pose.position.z << "," << basePose.pose.orientation.w << "," << basePose.pose.orientation.x << "," << basePose.pose.orientation.y << "," << basePose.pose.orientation.z << std::endl;
+	myfile.close();
 	//move the arm out of the way
 	QNode::send_joint_command(-90,45,90,0,0,0);
 	//Create a message to send to the powercube node, moving the powercube to its start location
@@ -1017,7 +1035,6 @@ void QNode::scan(std::string markername, bool localize){
 	srv.request.end   = ros::Time::now();
 	//Spin to send the end time to the service before calling it
 	ros::spinOnce();
-
 	// Make the service call
 	if (client.call(srv)){
 		ROS_INFO("Assembled Cloud %d", (uint32_t)(srv.response.cloud.width)) ;
@@ -1084,10 +1101,14 @@ void QNode::scan(std::string markername, bool localize){
 			//Tell pcl what the 4th field information is
 			cloud_surface_world.fields[3].name = "intensity";
 			pcl::fromROSMsg(cloud_surface_world, *full_cloud);
-			pf.str("");			
+			pf.str("");		
 			if(localize){
+				if(prefix.compare("") == 0){
+					pf << markername << cloud_ctr << "home" << CLOUD << ".pcd";
+				}
+				else
+					pf << markername << prefix << CLOUD << ".pcd";
 				cloud_surface_world.header.frame_id = "/world";
-				pf << markername << cloud_ctr << "home" << CLOUD << ".pcd";
 				transform.setOrigin( tf::Vector3(0, 0, 0) );
 				q.setRPY(0, 0, 0);
 				transform.setRotation(q);
@@ -1281,7 +1302,8 @@ void QNode::cluster(std::string filename, int index){
 	//Save either point 1, 2, or 3 to file
 	switch (index){
 		//point 1
-		case 0:	myfile.open (fs.str().c_str(), std::ios::out|std::ios::trunc);
+		case 0:	
+			myfile.open (fs.str().c_str(), std::ios::out|std::ios::trunc);
 			P1x = xs;
 			P1y = ys;
 			P1z = zs;
@@ -1297,9 +1319,25 @@ void QNode::cluster(std::string filename, int index){
 		//point 3 (final)
 		case 2: myfile.open (fs.str().c_str(), std::ios::out|std::ios::app);
 			myfile << xs << std::endl << ys << std::endl << zs << std::endl;
+			//Calculate the distance between each point (VAL1-3) and the dot product of vector P1P2 and P3P2 (VAL4)
+			Eigen::Vector3f vec1, vec2;
+			float VAL1 = sqrt(pow(P1x - P2x,2)+pow(P1y - P2y,2)+pow(P1z - P2z,2));
+			float VAL3 = sqrt(pow(P1x - xs,2)+pow(P1y - ys,2)+pow(P1z - zs,2));
+			float VAL2 = sqrt(pow(xs - P2x,2)+pow(ys - P2y,2)+pow(zs - P2z,2));
+			vec1[0] = P2x - P1x;
+			vec1[1] = P2y - P1y;
+			vec1[2] = P2z - P1z;
+			vec2[0] = P2x - xs;
+			vec2[1] = P2y - ys;
+			vec2[2] = P2z - zs;
+			float VAL4 = vec1[0]*vec2[0] + vec1[1]*vec2[1] + vec1[2]*vec2[2];
+			//Save VAL1-4 to disk
+			myfile << VAL1 << std::endl << VAL2 << std::endl << VAL3 << std::endl << VAL4 << std::endl;
+			myfile << vec1[0] << std::endl << vec1[1] << std::endl << vec1[2] << std::endl;
+			myfile << vec2[0] << std::endl << vec2[1] << std::endl << vec2[2] << std::endl;
+			myfile.close();
 			//Calculate the transformation matrix from the origin to the centre of the marker points
 			Eigen::Vector3f a,n,c,o;
-			Eigen::Matrix4f A_mat;
 			float mn = sqrt(pow(xs-P2x,2)+pow(ys-P2y,2)+pow(zs-P2z,2));
 			float mc = sqrt(pow(P1x-P2x,2)+pow(P1y-P2y,2)+pow(P1z-P2z,2));
 			n(0) = (xs-P2x)/mn;
@@ -1318,6 +1356,43 @@ void QNode::cluster(std::string filename, int index){
 			o(0) = a(1)*n(2)-a(2)*n(1);
 			o(1) = a(2)*n(0)-a(0)*n(2);
 			o(2) = a(0)*n(1)-a(1)*n(0);
+			phd::marker_msg new_marker;
+			new_marker.p1.x = P1x;
+			new_marker.p1.y = P1y;
+			new_marker.p1.z = P1z;
+			new_marker.p2.x = P2x;
+			new_marker.p2.y = P2y;
+			new_marker.p2.z = P2z;
+			new_marker.p3.x = xs;
+			new_marker.p3.y = ys;
+			new_marker.p3.z = zs;
+			new_marker.vec1.x = P2x - P1x;
+			new_marker.vec1.y = P2y - P1y;
+			new_marker.vec1.z = P2z - P1z;
+			new_marker.vec2.x = P2x - xs;
+			new_marker.vec2.y = P2y - ys;
+			new_marker.vec2.z = P2z - zs;
+			new_marker.VAL1 = sqrt(pow(P1x - P2x,2)+pow(P1y - P2y,2)+pow(P1z - P2z,2));
+			new_marker.VAL2 = sqrt(pow(xs - P2x,2)+pow(ys - P2y,2)+pow(zs - P2z,2));
+			new_marker.VAL3 = sqrt(pow(P1x - xs,2)+pow(P1y - ys,2)+pow(P1z - zs,2));
+			new_marker.VAL4 = new_marker.vec1.x*new_marker.vec2.x + new_marker.vec1.y*new_marker.vec2.y + new_marker.vec1.z*new_marker.vec2.z;
+			new_marker.transform.push_back(n(0));
+			new_marker.transform.push_back(o(0));
+			new_marker.transform.push_back(a(0));
+			new_marker.transform.push_back((P1x+P2x+xs)/3);
+			new_marker.transform.push_back(n(1));
+			new_marker.transform.push_back(o(1));
+			new_marker.transform.push_back(a(1));
+			new_marker.transform.push_back((P1y+P2y+ys)/3);
+			new_marker.transform.push_back(n(2));
+			new_marker.transform.push_back(o(2));
+			new_marker.transform.push_back(a(2));
+			new_marker.transform.push_back((P1z+P2z+zs)/3);
+			new_marker.transform.push_back(0);	
+			new_marker.transform.push_back(0);	
+			new_marker.transform.push_back(0);	
+			new_marker.transform.push_back(1);	
+			Eigen::Matrix4f A_mat;
 			A_mat(0,0) = n(0);
 			A_mat(0,1) = o(0);
 			A_mat(0,2) = a(0);
@@ -1334,28 +1409,12 @@ void QNode::cluster(std::string filename, int index){
 			A_mat(3,1) = 0;
 			A_mat(3,2) = 0;
 			A_mat(3,3) = 1;
-			//Calculate the distance between each point (VAL1-3) and the dot product of vector P1P2 and P3P2 (VAL4)
-			Eigen::Vector3f vec1, vec2;
-			float VAL1 = sqrt(pow(P1x - P2x,2)+pow(P1y - P2y,2)+pow(P1z - P2z,2));
-			float VAL3 = sqrt(pow(P1x - xs,2)+pow(P1y - ys,2)+pow(P1z - zs,2));
-			float VAL2 = sqrt(pow(xs - P2x,2)+pow(ys - P2y,2)+pow(zs - P2z,2));
-			vec1[0] = P2x - P1x;
-			vec1[1] = P2y - P1y;
-			vec1[2] = P2z - P1z;
-			vec2[0] = P2x - xs;
-			vec2[1] = P2y - ys;
-			vec2[2] = P2z - zs;
-			float VAL4 = vec1[0]*vec2[0] + vec1[1]*vec2[1] + vec1[2]*vec2[2];
-			//Save VAL1-4 to disk
-			myfile << VAL1 << std::endl << VAL2 << std::endl << VAL3 << std::endl << VAL4 << std::endl;
-			myfile << vec1[0] << std::endl << vec1[1] << std::endl << vec1[2] << std::endl;
-			myfile << vec2[0] << std::endl << vec2[1] << std::endl << vec2[2] << std::endl;
-			myfile.close();
 			//Save the transformation matrix as a rosbag
 			rosbag::Bag bag;
 			std::stringstream fs2;
 			fs2 << filename << "marker.bag";
-			bag.open(fs2.str().c_str(), rosbag::bagmode::Write);
+			bag.open(fs2.str().c_str(), rosbag::bagmode::Append);
+			bag.write("markers", ros::Time::now(), new_marker);
 			std_msgs::Float64 f;
 			for(int fctr = 0; fctr < 4; ++fctr){
 				for(int fctr2 = 0; fctr2 < 4; ++fctr2){
@@ -1743,7 +1802,7 @@ void  QNode::find_and_move(bool marker){
 	if(DEBUG) ROS_INFO("Scanning");
 		pose_waiting = true;
 		marker_only = marker;
-		QNode::scan("string",true);
+		QNode::scan("string",true,"");
 	}else{
 	if(DEBUG) ROS_INFO("Finding Pose");
 

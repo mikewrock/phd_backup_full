@@ -1,0 +1,8 @@
+prefix=/home/mike/catkin_ws/devel
+
+Name: mocap_optitrack
+Description: Description of mocap_optitrack
+Version: 0.1.0
+Cflags: -I/home/mike/catkin_ws/src/mocap_optitrack-master/include
+Libs: -L/home/mike/catkin_ws/devel/lib 
+Requires: roscpp

@@ -2,7 +2,8 @@
 (cl:in-package :asdf)
 
 (defsystem "phd-msg"
-  :depends-on (:roslisp-msg-protocol :roslisp-utils )
+  :depends-on (:roslisp-msg-protocol :roslisp-utils :geometry_msgs-msg
+)
   :components ((:file "_package")
     (:file "marker_vals" :depends-on ("_package_marker_vals"))
     (:file "_package_marker_vals" :depends-on ("_package"))
@@ -18,6 +19,8 @@
     (:file "_package_cube_msg" :depends-on ("_package"))
     (:file "trajectory_msg" :depends-on ("_package_trajectory_msg"))
     (:file "_package_trajectory_msg" :depends-on ("_package"))
+    (:file "marker_msg" :depends-on ("_package_marker_msg"))
+    (:file "_package_marker_msg" :depends-on ("_package"))
     (:file "trajectory_point" :depends-on ("_package_trajectory_point"))
     (:file "_package_trajectory_point" :depends-on ("_package"))
     (:file "trajectory_test" :depends-on ("_package_trajectory_test"))

@@ -60,6 +60,8 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
   FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/phd/msg" TYPE FILE FILES
     "/home/mike/catkin_ws/src/phd/msg/cube_msg.msg"
     "/home/mike/catkin_ws/src/phd/msg/arm_msg.msg"
+    "/home/mike/catkin_ws/src/phd/msg/marker_msg.msg"
+    "/home/mike/catkin_ws/src/phd/msg/marker_val.msg"
     "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg"
     "/home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg"
     "/home/mike/catkin_ws/src/phd/msg/trajectory_array.msg"

@@ -6,6 +6,7 @@
 #include <QDateTime>
 #include <QTimer>
 
+#include <phd/marker_msg.h>
 //A few useful defines
 #define ARM 1
 #define HUSKY 2
@@ -53,6 +54,8 @@ namespace control_panel
 		connect(ui_.fscan_button, SIGNAL(clicked()), this, SLOT(fake_scan()));
 		connect(ui_.fscan_button_2, SIGNAL(clicked()), this, SLOT(fake_scan2()));
 		connect(ui_.scan_button, SIGNAL(clicked()), this, SLOT(scan()));
+		connect(ui_.prescan_button, SIGNAL(clicked()), this, SLOT(prescan()));
+		connect(ui_.postscan_button, SIGNAL(clicked()), this, SLOT(postscan()));
 		connect(ui_.set_home_button, SIGNAL(clicked()), this, SLOT(homing_scan()));
 		connect(ui_.thickness_button, SIGNAL(clicked()), this, SLOT(thickness_from_file()));
 		connect(ui_.cluster1, SIGNAL(clicked()), this, SLOT(cluster()));
@@ -78,6 +81,7 @@ namespace control_panel
 		connect(ui_.speed_button, SIGNAL(clicked()), this, SLOT(onSpeedCommand()));
 		connect(ui_.string_button, SIGNAL(clicked()), this, SLOT(onStringCommand()));
 		connect(ui_.joint_command_button, SIGNAL(clicked()), this, SLOT(onJointCommand()));
+		connect(ui_.print_markers, SIGNAL(clicked()), this, SLOT(print_markers()));
 		//Initialize various counters and booleans
 		cluster_index = 0;
 		traj_ctr = 0;
@@ -121,7 +125,7 @@ namespace control_panel
 		ui_.j6_browser->setText(QString::number(msg.j6));
 		//Check to see if arm is executing a trajectory and reached its goal
 		float dis = tgt_distance(msg,arm_tgt);
-		ROS_INFO("New pose %d -- %f / %f -%f",state,dis, msg.x, arm_tgt.x);
+		//ROS_INFO("New pose %d -- %f / %f -%f",state,dis, msg.x, arm_tgt.x);
 		if((state == SPRAYING || state == MOVE_AND_SPRAY) && tgt_distance(msg,arm_tgt)<TARGET_TOLERANCE){
 			//Call the arm_step function to continue executing trajectory points
 			ROS_INFO("Via pt complete %f", dis);
@@ -139,7 +143,7 @@ namespace control_panel
 		if(state == MOVE_AND_SPRAY){
 			traj_size = 0;
 			control_panel.reset_things();
-			control_panel.scan(ui_.marker_name_box->text().toStdString(),false);
+			control_panel.scan(ui_.marker_name_box->text().toStdString(),false,"");
 
 		}
 	}
@@ -232,12 +236,26 @@ namespace control_panel
 	//Perform a laser scan and tell control_panel the fiducial name and whether to localize the scan
 	void ControlPanel::scan(){
 
-		  control_panel.scan(ui_.marker_name_box->text().toStdString(),false);
+		  control_panel.scan(ui_.marker_name_box->text().toStdString(),false,"");
+
+	}
+	void ControlPanel::prescan(){
+		std::stringstream ss;
+		ss << "/pre/" << ui_.pre_box->text().toStdString();
+		control_panel.scan(ui_.marker_name_box->text().toStdString(),true,ss.str());
+		ui_.pre_box->setText(QString::number(ui_.pre_box->text().toInt() + 1));
+
+	}
+	void ControlPanel::postscan(){
+		std::stringstream ss;
+		ss << "/post/" << ui_.post_box->text().toStdString();
+		control_panel.scan(ui_.marker_name_box->text().toStdString(),true,ss.str());
+		ui_.post_box->setText(QString::number(ui_.post_box->text().toInt() + 1));
 
 	}//Perform a laser scan and tell control_panel the fiducial name and to set the pose as global origin 
 	void ControlPanel::homing_scan(){
 
-		  control_panel.scan(ui_.marker_name_box->text().toStdString(),true);
+		  control_panel.scan(ui_.marker_name_box->text().toStdString(),true,"");
 
 	}
 	//Load a scan from file
@@ -386,6 +404,24 @@ namespace control_panel
 		state == HALT;
 		control_panel.soft_stop();
 		control_panel.reset_things();
+	}
+	void ControlPanel::print_markers(){
+		
+//Open the marker.bag file 
+		std::stringstream fs2;
+		fs2 << "/home/mike/results/marker/marker.bag";
+		rosbag::Bag bag; //bag file for recording marker to disk
+		bag.open(fs2.str().c_str(), rosbag::bagmode::Read);
+		rosbag::View view_marker(bag, rosbag::TopicQuery("markers"));
+		phd::marker_msg new_marker;
+		//input data from marker.bag
+		foreach(rosbag::MessageInstance const m, view_marker){
+			phd::marker_msg::ConstPtr i = m.instantiate<phd::marker_msg>();
+			new_marker = *i;
+			ROS_INFO("MARKER FOUND: %f - %f - %f",new_marker.p1.x,new_marker.VAL1,new_marker.transform[4]);
+		}
+		bag.close();	
+
 	}
 
 }

@@ -68,7 +68,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>/home/mike/saved/full</string>
+      <string>/home/mike/results/marker/</string>
      </property>
     </widget>
     <widget class="QLabel" name="marker_info_9">
@@ -128,7 +128,7 @@ color: rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="text">
-      <string>/home/mike/saved/full1rawcloud.pcd</string>
+      <string>/home/mike/results/1rawcloud.pcd</string>
      </property>
     </widget>
     <widget class="QPushButton" name="fscan_button_2">
@@ -316,7 +316,7 @@ Trajectory</string>
      <property name="geometry">
       <rect>
        <x>160</x>
-       <y>70</y>
+       <y>80</y>
        <width>101</width>
        <height>27</height>
       </rect>
@@ -675,6 +675,77 @@ Trajectory</string>
      </property>
      <property name="checked">
       <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="prescan_button">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>51</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Pre</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="postscan_button">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>40</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Post</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="pre_box">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>40</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>1</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="post_box">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>40</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>1</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="print_markers">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>160</y>
+       <width>98</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Print Markers</string>
      </property>
     </widget>
    </widget>

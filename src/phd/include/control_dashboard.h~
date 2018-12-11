@@ -9,6 +9,8 @@
 #include <QDir>
 #include <QFileInfo>
 #include "control_panel.hpp"
+#include <rosbag/bag.h>
+#include <rosbag/view.h>
 #include <phd/arm_msg.h>
 #include "phd/empty.h"
 #include <visualization_msgs/Marker.h>
@@ -32,10 +34,13 @@ protected Q_SLOTS:
 void do_nav();
 void show_nav();
 void arm_step();
+void arm_step_man();
 void arm_loop();
 void fake_scan();
 void fake_scan2();
 void scan();
+void prescan();
+void postscan();
 void homing_scan();
 void cluster();
 void gen_trajectory();	
@@ -47,6 +52,7 @@ void onStringCommand();
 void onShutdownCommand();
 void onSpeedCommand();
 void load_traj();
+void print_markers();
 void rosSpinner();
 void soft_stop();
 void pose_step();

@@ -13,6 +13,8 @@
 <!--- Laser filters-->
   <node pkg="laser_filters" type="scan_to_scan_filter_chain"
       name="laser_filter" output = "screen">
+<remap from="scan" to="scan_unfiltered" />
+<remap from="scan_filtered" to="scan" />
     <rosparam command="load" file="$(find phd)/cfg/my_laser_config.yaml" />
   </node>
 
@@ -21,7 +23,6 @@
     <param name="max_scans" type="int" value="10000" />
     <param name="fixed_frame" type="string" value="base_link" />
     <param name="tf_cache_time_secs" type="double" value="30.0" />
-    <remap from="scan" to="scan_filtered" />
   </node>
 
     <!--- Run static transform for laser 
@@ -51,6 +52,6 @@
   <!--- Run Joint State Fusion node-->
   <node name="joint_fusion_node" pkg="phd" type="joint_fusion_node" output="screen" />
   
- <!--- Run Denso node-->
-  <node name="denso_node" pkg="phd" type="denso_node" output="screen" />
+ <!--- Run Denso node
+  <node name="denso_node" pkg="phd" type="denso_node" output="screen" />-->
 </launch>

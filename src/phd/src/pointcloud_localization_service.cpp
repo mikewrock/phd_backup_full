@@ -2,6 +2,7 @@
 #include <dynamic_reconfigure/server.h>
 #include <phd/LocalizeConfig.h>
 #include <phd/marker_val.h>
+#include <phd/marker_msg.h>
 #include <visualization_msgs/Marker.h>
 #include <sensor_msgs/PointCloud2.h>
 #include <pcl_conversions/pcl_conversions.h>
@@ -69,6 +70,7 @@ float VAL1, VAL2, VAL3, VAL4, CROP;
 float VACC, CLUSTER_SIZE;
 int VINT_MIN, VINT_MAX;
 ros::Publisher vis_pub;
+std::vector<phd::marker_msg> marker_list;
 visualization_msgs::Marker point_list;
 
 //This callback is for dynamic reconfigure, it sets the global variables
@@ -417,11 +419,12 @@ bool localize(phd::localize_cloud::Request  &req, phd::localize_cloud::Response 
 		geometry_msgs::Point p1, p2, p3;
 		//container for the vectors from keypoints 2->1 and 2->3
 		Eigen::Vector3f vec1, vec2;
-		//container for marker filename
+		/*/container for marker filename
 		std::stringstream fs;
 		fs << req.marker_file << "marker.dat";
 		//open the marker.dat file
 		ifstream marker_file( fs.str().c_str());
+		
 		marker_file >> p1.x;
 		marker_file >> p1.y;
 		marker_file >> p1.z;
@@ -440,16 +443,13 @@ bool localize(phd::localize_cloud::Request  &req, phd::localize_cloud::Response 
 		marker_file >> vec1[2];
 		marker_file >> vec2[0];
 		marker_file >> vec2[1];
-		marker_file >> vec2[2];
+		marker_file >> vec2[2];*/
+
 		//container for unknown number of keypoint candidates
 		std::vector<pcl::PointXYZI> Pts;
 		//cluster points together
 		Pts = cluster_points(cloud_intensity_filtered);
 		if(DEBUG) ROS_INFO("Clustered Points: %lu", Pts.size());
-		Eigen::Matrix3f marker_loc;
-		Eigen::Matrix4f transform_mat;
-		//pick most likely keypoint candidtaes to use as marker
-		marker = locate_marker(Pts, marker_loc, transform_mat);
 		//Open the marker.bag file 
 		std::stringstream fs2;
 		fs2 << req.marker_file << "marker.bag";
@@ -470,7 +470,21 @@ bool localize(phd::localize_cloud::Request  &req, phd::localize_cloud::Response 
 				++fctr;
 			}
 		}
+		//NEW ROSBAG STUFF
+		
+		rosbag::View view_marker(bag, rosbag::TopicQuery("markers"));
+		phd::marker_msg new_marker;
+		//input data from marker.bag
+		foreach(rosbag::MessageInstance const m, view_marker){
+			phd::marker_msg::ConstPtr i = m.instantiate<phd::marker_msg>();
+			new_marker = *i;
+			marker_list.push_back(new_marker);
+		}
 		bag.close();	
+		Eigen::Matrix3f marker_loc;
+		Eigen::Matrix4f transform_mat;
+		//pick most likely keypoint candidtaes to use as marker
+		marker = locate_marker(Pts, marker_loc, transform_mat);
 		if(DEBUG) std::cout << "Transform Mat" << transform_mat << std::endl;
 		if(DEBUG) std::cout << "Transform A" << transformA << std::endl;
 		pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_int (new pcl::PointCloud<pcl::PointXYZI>);

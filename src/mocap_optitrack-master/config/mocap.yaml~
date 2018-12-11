@@ -1,0 +1,8 @@
+#
+# Definition of all trackable objects
+# Identifier corresponds to Trackable ID set in Tracking Tools
+#
+optitrack_config:
+        multicast_address: 239.255.42.255
+        command_port: 1510
+        data_port: 1511
