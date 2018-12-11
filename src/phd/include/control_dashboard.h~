@@ -13,6 +13,7 @@
 #include <rosbag/view.h>
 #include <phd/arm_msg.h>
 #include "phd/empty.h"
+#include <boost/foreach.hpp>
 #include <visualization_msgs/Marker.h>
 namespace control_panel
 {

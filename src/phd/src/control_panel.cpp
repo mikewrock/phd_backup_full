@@ -1205,13 +1205,13 @@ void QNode::fscan(std::string filename, bool auto_localize,bool set_home, std::s
 				//Tell pcl what the 4th field information is
 				cloud_surface_world.fields[3].name = "intensity";
 				pcl::fromROSMsg(cloud_surface_world, *save_cloud);
-				pf << filename << "localized.pcd";
+				pf << markername << CLOUD << cloud_ctr  << "localized.pcd";
 				if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
 				if(save_cloud->size() > 0) pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
 				//Open file for saving marker location
 				ofstream myfile;
 				std::stringstream fs;
-				fs << "/home/mike/results/poses.csv";
+				fs << "/home/mike/results/localizedposes.csv";
 				myfile.open (fs.str().c_str(), std::ios::out|std::ios::app);
 				myfile << CLOUD << cloud_ctr << ",";
 				for(int i = 0; i <16; ++i){
@@ -1219,6 +1219,7 @@ void QNode::fscan(std::string filename, bool auto_localize,bool set_home, std::s
 					myfile << loc_srv.response.transform_mat[i] << ",";
 				}
 				myfile << std::endl;
+				++cloud_ctr;
 			}else ROS_INFO("Service Failed");
 		}
 		if(autocrop){

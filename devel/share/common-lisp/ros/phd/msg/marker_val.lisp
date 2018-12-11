@@ -22,6 +22,11 @@
     :initarg :j
     :type cl:integer
     :initform 0)
+   (index
+    :reader index
+    :initarg :index
+    :type cl:integer
+    :initform 0)
    (val
     :reader val
     :initarg :val
@@ -52,6 +57,11 @@
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader phd-msg:j-val is deprecated.  Use phd-msg:j instead.")
   (j m))
 
+(cl:ensure-generic-function 'index-val :lambda-list '(m))
+(cl:defmethod index-val ((m <marker_val>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader phd-msg:index-val is deprecated.  Use phd-msg:index instead.")
+  (index m))
+
 (cl:ensure-generic-function 'val-val :lambda-list '(m))
 (cl:defmethod val-val ((m <marker_val>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader phd-msg:val-val is deprecated.  Use phd-msg:val instead.")
@@ -71,6 +81,12 @@
     (cl:write-byte (cl:ldb (cl:byte 8 24) unsigned) ostream)
     )
   (cl:let* ((signed (cl:slot-value msg 'j)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 4294967296) signed)))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) unsigned) ostream)
+    )
+  (cl:let* ((signed (cl:slot-value msg 'index)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 4294967296) signed)))
     (cl:write-byte (cl:ldb (cl:byte 8 0) unsigned) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 8) unsigned) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 16) unsigned) ostream)
@@ -102,6 +118,12 @@
       (cl:setf (cl:ldb (cl:byte 8 16) unsigned) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 24) unsigned) (cl:read-byte istream))
       (cl:setf (cl:slot-value msg 'j) (cl:if (cl:< unsigned 2147483648) unsigned (cl:- unsigned 4294967296))))
+    (cl:let ((unsigned 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:slot-value msg 'index) (cl:if (cl:< unsigned 2147483648) unsigned (cl:- unsigned 4294967296))))
     (cl:let ((bits 0))
       (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
@@ -118,18 +140,19 @@
   "phd/marker_val")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<marker_val>)))
   "Returns md5sum for a message object of type '<marker_val>"
-  "0b968334689a1ff08b48d542e172c4d5")
+  "e9b66eb77ea6bafd8fa062f32c61a435")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'marker_val)))
   "Returns md5sum for a message object of type 'marker_val"
-  "0b968334689a1ff08b48d542e172c4d5")
+  "e9b66eb77ea6bafd8fa062f32c61a435")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<marker_val>)))
   "Returns full string definition for message of type '<marker_val>"
-  (cl:format cl:nil "int32 i~%int32 k~%int32 j~%float32 val~%~%~%~%"))
+  (cl:format cl:nil "int32 i~%int32 k~%int32 j~%int32 index~%float32 val~%~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'marker_val)))
   "Returns full string definition for message of type 'marker_val"
-  (cl:format cl:nil "int32 i~%int32 k~%int32 j~%float32 val~%~%~%~%"))
+  (cl:format cl:nil "int32 i~%int32 k~%int32 j~%int32 index~%float32 val~%~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <marker_val>))
   (cl:+ 0
+     4
      4
      4
      4
@@ -141,5 +164,6 @@
     (cl:cons ':i (i msg))
     (cl:cons ':k (k msg))
     (cl:cons ':j (j msg))
+    (cl:cons ':index (index msg))
     (cl:cons ':val (val msg))
 ))

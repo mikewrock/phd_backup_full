@@ -5,6 +5,8 @@
           K
           J-VAL
           J
+          INDEX-VAL
+          INDEX
           VAL-VAL
           VAL
 ))

@@ -54,6 +54,7 @@ void onShutdownCommand();
 void onSpeedCommand();
 void load_traj();
 void print_markers();
+void clear_markers();
 void rosSpinner();
 void soft_stop();
 void pose_step();

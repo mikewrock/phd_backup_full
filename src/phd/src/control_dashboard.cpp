@@ -82,6 +82,7 @@ namespace control_panel
 		connect(ui_.string_button, SIGNAL(clicked()), this, SLOT(onStringCommand()));
 		connect(ui_.joint_command_button, SIGNAL(clicked()), this, SLOT(onJointCommand()));
 		connect(ui_.print_markers, SIGNAL(clicked()), this, SLOT(print_markers()));
+		connect(ui_.clear_markers, SIGNAL(clicked()), this, SLOT(clear_markers()));
 		//Initialize various counters and booleans
 		cluster_index = 0;
 		traj_ctr = 0;
@@ -407,9 +408,9 @@ namespace control_panel
 	}
 	void ControlPanel::print_markers(){
 		
-//Open the marker.bag file 
+	//Open the marker.bag file 
 		std::stringstream fs2;
-		fs2 << "/home/mike/results/marker/marker.bag";
+		fs2 << ui_.marker_name_box->text().toStdString() << "marker.bag";
 		rosbag::Bag bag; //bag file for recording marker to disk
 		bag.open(fs2.str().c_str(), rosbag::bagmode::Read);
 		rosbag::View view_marker(bag, rosbag::TopicQuery("markers"));
@@ -420,6 +421,16 @@ namespace control_panel
 			new_marker = *i;
 			ROS_INFO("MARKER FOUND: %f - %f - %f",new_marker.p1.x,new_marker.VAL1,new_marker.transform[4]);
 		}
+		bag.close();	
+
+	}
+	void ControlPanel::clear_markers(){
+		
+		//Open the marker.bag file 
+		std::stringstream fs2;
+		fs2 << ui_.marker_name_box->text().toStdString() << "marker.bag";
+		rosbag::Bag bag; //bag file for recording marker to disk
+		bag.open(fs2.str().c_str(), rosbag::bagmode::Write);
 		bag.close();	
 
 	}

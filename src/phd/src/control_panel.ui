@@ -68,7 +68,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>/home/mike/results/marker/</string>
+      <string>/home/mike/results/</string>
      </property>
     </widget>
     <widget class="QLabel" name="marker_info_9">
@@ -674,7 +674,7 @@ Trajectory</string>
       <string>Set Home</string>
      </property>
      <property name="checked">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
     </widget>
     <widget class="QPushButton" name="prescan_button">
@@ -746,6 +746,19 @@ Trajectory</string>
      </property>
      <property name="text">
       <string>Print Markers</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="clear_markers">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>460</y>
+       <width>98</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Clear Markers</string>
      </property>
     </widget>
    </widget>

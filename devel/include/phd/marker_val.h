@@ -27,12 +27,14 @@ struct marker_val_
     : i(0)
     , k(0)
     , j(0)
+    , index(0)
     , val(0.0)  {
     }
   marker_val_(const ContainerAllocator& _alloc)
     : i(0)
     , k(0)
     , j(0)
+    , index(0)
     , val(0.0)  {
   (void)_alloc;
     }
@@ -47,6 +49,9 @@ struct marker_val_
 
    typedef int32_t _j_type;
   _j_type j;
+
+   typedef int32_t _index_type;
+  _index_type index;
 
    typedef float _val_type;
   _val_type val;
@@ -128,12 +133,12 @@ struct MD5Sum< ::phd::marker_val_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "0b968334689a1ff08b48d542e172c4d5";
+    return "e9b66eb77ea6bafd8fa062f32c61a435";
   }
 
   static const char* value(const ::phd::marker_val_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x0b968334689a1ff0ULL;
-  static const uint64_t static_value2 = 0x8b48d542e172c4d5ULL;
+  static const uint64_t static_value1 = 0xe9b66eb77ea6bafdULL;
+  static const uint64_t static_value2 = 0x8fa062f32c61a435ULL;
 };
 
 template<class ContainerAllocator>
@@ -155,6 +160,7 @@ struct Definition< ::phd::marker_val_<ContainerAllocator> >
     return "int32 i\n\
 int32 k\n\
 int32 j\n\
+int32 index\n\
 float32 val\n\
 \n\
 ";
@@ -178,6 +184,7 @@ namespace serialization
       stream.next(m.i);
       stream.next(m.k);
       stream.next(m.j);
+      stream.next(m.index);
       stream.next(m.val);
     }
 
@@ -203,6 +210,8 @@ struct Printer< ::phd::marker_val_<ContainerAllocator> >
     Printer<int32_t>::stream(s, indent + "  ", v.k);
     s << indent << "j: ";
     Printer<int32_t>::stream(s, indent + "  ", v.j);
+    s << indent << "index: ";
+    Printer<int32_t>::stream(s, indent + "  ", v.index);
     s << indent << "val: ";
     Printer<float>::stream(s, indent + "  ", v.val);
   }

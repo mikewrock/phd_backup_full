@@ -7,17 +7,18 @@ import struct
 
 
 class marker_val(genpy.Message):
-  _md5sum = "0b968334689a1ff08b48d542e172c4d5"
+  _md5sum = "e9b66eb77ea6bafd8fa062f32c61a435"
   _type = "phd/marker_val"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """int32 i
 int32 k
 int32 j
+int32 index
 float32 val
 
 """
-  __slots__ = ['i','k','j','val']
-  _slot_types = ['int32','int32','int32','float32']
+  __slots__ = ['i','k','j','index','val']
+  _slot_types = ['int32','int32','int32','int32','float32']
 
   def __init__(self, *args, **kwds):
     """
@@ -27,7 +28,7 @@ float32 val
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       i,k,j,val
+       i,k,j,index,val
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -42,12 +43,15 @@ float32 val
         self.k = 0
       if self.j is None:
         self.j = 0
+      if self.index is None:
+        self.index = 0
       if self.val is None:
         self.val = 0.
     else:
       self.i = 0
       self.k = 0
       self.j = 0
+      self.index = 0
       self.val = 0.
 
   def _get_types(self):
@@ -63,7 +67,7 @@ float32 val
     """
     try:
       _x = self
-      buff.write(_struct_3if.pack(_x.i, _x.k, _x.j, _x.val))
+      buff.write(_struct_4if.pack(_x.i, _x.k, _x.j, _x.index, _x.val))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -76,8 +80,8 @@ float32 val
       end = 0
       _x = self
       start = end
-      end += 16
-      (_x.i, _x.k, _x.j, _x.val,) = _struct_3if.unpack(str[start:end])
+      end += 20
+      (_x.i, _x.k, _x.j, _x.index, _x.val,) = _struct_4if.unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -91,7 +95,7 @@ float32 val
     """
     try:
       _x = self
-      buff.write(_struct_3if.pack(_x.i, _x.k, _x.j, _x.val))
+      buff.write(_struct_4if.pack(_x.i, _x.k, _x.j, _x.index, _x.val))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -105,11 +109,11 @@ float32 val
       end = 0
       _x = self
       start = end
-      end += 16
-      (_x.i, _x.k, _x.j, _x.val,) = _struct_3if.unpack(str[start:end])
+      end += 20
+      (_x.i, _x.k, _x.j, _x.index, _x.val,) = _struct_4if.unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
 
 _struct_I = genpy.struct_I
-_struct_3if = struct.Struct("<3if")
+_struct_4if = struct.Struct("<4if")

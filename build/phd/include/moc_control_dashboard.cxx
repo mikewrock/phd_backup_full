@@ -22,7 +22,7 @@ static const uint qt_meta_data_control_panel__ControlPanel[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      33,   14, // methods
+      34,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -53,16 +53,17 @@ static const uint qt_meta_data_control_panel__ControlPanel[] = {
      294,   28,   28,   28, 0x09,
      306,   28,   28,   28, 0x09,
      322,   28,   28,   28, 0x09,
-     335,   28,   28,   28, 0x09,
-     347,   28,   28,   28, 0x09,
-     359,   28,   28,   28, 0x09,
-     371,   28,   28,   28, 0x09,
-     383,   28,   28,   28, 0x09,
-     395,   28,   28,   28, 0x09,
-     409,   28,   28,   28, 0x09,
-     431,   28,   28,   28, 0x09,
-     453,   28,   28,   28, 0x09,
-     484,  476,  470,   28, 0x09,
+     338,   28,   28,   28, 0x09,
+     351,   28,   28,   28, 0x09,
+     363,   28,   28,   28, 0x09,
+     375,   28,   28,   28, 0x09,
+     387,   28,   28,   28, 0x09,
+     399,   28,   28,   28, 0x09,
+     411,   28,   28,   28, 0x09,
+     425,   28,   28,   28, 0x09,
+     447,   28,   28,   28, 0x09,
+     469,   28,   28,   28, 0x09,
+     500,  492,  486,   28, 0x09,
 
        0        // eod
 };
@@ -76,11 +77,12 @@ static const char qt_meta_stringdata_control_panel__ControlPanel[] = {
     "onCPCommand()\0onTCommand()\0onJointCommand()\0"
     "onStringCommand()\0onShutdownCommand()\0"
     "onSpeedCommand()\0load_traj()\0"
-    "print_markers()\0rosSpinner()\0soft_stop()\0"
-    "pose_step()\0pose_loop()\0reset_map()\0"
-    "set_clean()\0set_sprayed()\0"
-    "calculate_thickness()\0thickness_from_file()\0"
-    "save_selection()\0float\0arm,tgt\0"
+    "print_markers()\0clear_markers()\0"
+    "rosSpinner()\0soft_stop()\0pose_step()\0"
+    "pose_loop()\0reset_map()\0set_clean()\0"
+    "set_sprayed()\0calculate_thickness()\0"
+    "thickness_from_file()\0save_selection()\0"
+    "float\0arm,tgt\0"
     "tgt_distance(phd::arm_msg,phd::trajectory_point)\0"
 };
 
@@ -112,17 +114,18 @@ void control_panel::ControlPanel::qt_static_metacall(QObject *_o, QMetaObject::C
         case 19: _t->onSpeedCommand(); break;
         case 20: _t->load_traj(); break;
         case 21: _t->print_markers(); break;
-        case 22: _t->rosSpinner(); break;
-        case 23: _t->soft_stop(); break;
-        case 24: _t->pose_step(); break;
-        case 25: _t->pose_loop(); break;
-        case 26: _t->reset_map(); break;
-        case 27: _t->set_clean(); break;
-        case 28: _t->set_sprayed(); break;
-        case 29: _t->calculate_thickness(); break;
-        case 30: _t->thickness_from_file(); break;
-        case 31: _t->save_selection(); break;
-        case 32: { float _r = _t->tgt_distance((*reinterpret_cast< phd::arm_msg(*)>(_a[1])),(*reinterpret_cast< phd::trajectory_point(*)>(_a[2])));
+        case 22: _t->clear_markers(); break;
+        case 23: _t->rosSpinner(); break;
+        case 24: _t->soft_stop(); break;
+        case 25: _t->pose_step(); break;
+        case 26: _t->pose_loop(); break;
+        case 27: _t->reset_map(); break;
+        case 28: _t->set_clean(); break;
+        case 29: _t->set_sprayed(); break;
+        case 30: _t->calculate_thickness(); break;
+        case 31: _t->thickness_from_file(); break;
+        case 32: _t->save_selection(); break;
+        case 33: { float _r = _t->tgt_distance((*reinterpret_cast< phd::arm_msg(*)>(_a[1])),(*reinterpret_cast< phd::trajectory_point(*)>(_a[2])));
             if (_a[0]) *reinterpret_cast< float*>(_a[0]) = _r; }  break;
         default: ;
         }
@@ -163,9 +166,9 @@ int control_panel::ControlPanel::qt_metacall(QMetaObject::Call _c, int _id, void
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 33)
+        if (_id < 34)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 33;
+        _id -= 34;
     }
     return _id;
 }

@@ -80,6 +80,7 @@ public:
     QLineEdit *pre_box;
     QLineEdit *post_box;
     QPushButton *print_markers;
+    QPushButton *clear_markers;
     QWidget *tab_2;
     QLineEdit *j5_box;
     QLabel *label_24;
@@ -326,7 +327,7 @@ public:
         set_home->setObjectName(QString::fromUtf8("set_home"));
         set_home->setEnabled(true);
         set_home->setGeometry(QRect(10, 90, 121, 30));
-        set_home->setChecked(true);
+        set_home->setChecked(false);
         prescan_button = new QPushButton(tab);
         prescan_button->setObjectName(QString::fromUtf8("prescan_button"));
         prescan_button->setGeometry(QRect(10, 40, 51, 31));
@@ -344,6 +345,9 @@ public:
         print_markers = new QPushButton(tab);
         print_markers->setObjectName(QString::fromUtf8("print_markers"));
         print_markers->setGeometry(QRect(20, 160, 98, 27));
+        clear_markers = new QPushButton(tab);
+        clear_markers->setObjectName(QString::fromUtf8("clear_markers"));
+        clear_markers->setGeometry(QRect(10, 460, 98, 27));
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -594,7 +598,7 @@ public:
         Control_Form->setWindowTitle(QApplication::translate("Control_Form", "Form", 0, QApplication::UnicodeUTF8));
         scan_button->setText(QApplication::translate("Control_Form", "Scan", 0, QApplication::UnicodeUTF8));
         auto_localize->setText(QApplication::translate("Control_Form", "Auto Localize", 0, QApplication::UnicodeUTF8));
-        marker_name_box->setText(QApplication::translate("Control_Form", "/home/mike/results/marker/", 0, QApplication::UnicodeUTF8));
+        marker_name_box->setText(QApplication::translate("Control_Form", "/home/mike/results/", 0, QApplication::UnicodeUTF8));
         marker_info_9->setText(QApplication::translate("Control_Form", "Pointcloud Save Location:", 0, QApplication::UnicodeUTF8));
         soft_stop_2->setText(QApplication::translate("Control_Form", "STOP", 0, QApplication::UnicodeUTF8));
         reset_map_button_2->setText(QApplication::translate("Control_Form", "Reset Map", 0, QApplication::UnicodeUTF8));
@@ -645,6 +649,7 @@ public:
         pre_box->setText(QApplication::translate("Control_Form", "1", 0, QApplication::UnicodeUTF8));
         post_box->setText(QApplication::translate("Control_Form", "1", 0, QApplication::UnicodeUTF8));
         print_markers->setText(QApplication::translate("Control_Form", "Print Markers", 0, QApplication::UnicodeUTF8));
+        clear_markers->setText(QApplication::translate("Control_Form", "Clear Markers", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("Control_Form", "Testing", 0, QApplication::UnicodeUTF8));
         j5_box->setText(QApplication::translate("Control_Form", "0", 0, QApplication::UnicodeUTF8));
         label_24->setText(QApplication::translate("Control_Form", "z", 0, QApplication::UnicodeUTF8));
