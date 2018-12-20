@@ -27,12 +27,20 @@ struct doctor_cloudRequest_
   doctor_cloudRequest_()
     : cloud_in()
     , marker_file()
-    , homing(false)  {
+    , markername()
+    , homing(false)
+    , tgt_x(0.0)
+    , tgt_y(0.0)
+    , num(0)  {
     }
   doctor_cloudRequest_(const ContainerAllocator& _alloc)
     : cloud_in(_alloc)
     , marker_file(_alloc)
-    , homing(false)  {
+    , markername(_alloc)
+    , homing(false)
+    , tgt_x(0.0)
+    , tgt_y(0.0)
+    , num(0)  {
   (void)_alloc;
     }
 
@@ -44,8 +52,20 @@ struct doctor_cloudRequest_
    typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _marker_file_type;
   _marker_file_type marker_file;
 
+   typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _markername_type;
+  _markername_type markername;
+
    typedef uint8_t _homing_type;
   _homing_type homing;
+
+   typedef double _tgt_x_type;
+  _tgt_x_type tgt_x;
+
+   typedef double _tgt_y_type;
+  _tgt_y_type tgt_y;
+
+   typedef int32_t _num_type;
+  _num_type num;
 
 
 
@@ -124,12 +144,12 @@ struct MD5Sum< ::phd::doctor_cloudRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "4177966bfe648dd616186ef1a0d7924a";
+    return "bced439934de0c93eb33c2f7834b07df";
   }
 
   static const char* value(const ::phd::doctor_cloudRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x4177966bfe648dd6ULL;
-  static const uint64_t static_value2 = 0x16186ef1a0d7924aULL;
+  static const uint64_t static_value1 = 0xbced439934de0c93ULL;
+  static const uint64_t static_value2 = 0xeb33c2f7834b07dfULL;
 };
 
 template<class ContainerAllocator>
@@ -150,7 +170,11 @@ struct Definition< ::phd::doctor_cloudRequest_<ContainerAllocator> >
   {
     return "sensor_msgs/PointCloud2 cloud_in\n\
 string marker_file\n\
+string markername\n\
 bool homing\n\
+float64 tgt_x\n\
+float64 tgt_y\n\
+int32 num\n\
 \n\
 ================================================================================\n\
 MSG: sensor_msgs/PointCloud2\n\
@@ -237,7 +261,11 @@ namespace serialization
     {
       stream.next(m.cloud_in);
       stream.next(m.marker_file);
+      stream.next(m.markername);
       stream.next(m.homing);
+      stream.next(m.tgt_x);
+      stream.next(m.tgt_y);
+      stream.next(m.num);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -261,8 +289,16 @@ struct Printer< ::phd::doctor_cloudRequest_<ContainerAllocator> >
     Printer< ::sensor_msgs::PointCloud2_<ContainerAllocator> >::stream(s, indent + "  ", v.cloud_in);
     s << indent << "marker_file: ";
     Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.marker_file);
+    s << indent << "markername: ";
+    Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.markername);
     s << indent << "homing: ";
     Printer<uint8_t>::stream(s, indent + "  ", v.homing);
+    s << indent << "tgt_x: ";
+    Printer<double>::stream(s, indent + "  ", v.tgt_x);
+    s << indent << "tgt_y: ";
+    Printer<double>::stream(s, indent + "  ", v.tgt_y);
+    s << indent << "num: ";
+    Printer<int32_t>::stream(s, indent + "  ", v.num);
   }
 };
 

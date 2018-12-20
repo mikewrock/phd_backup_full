@@ -256,7 +256,7 @@ boost/foreach.hpp
 dynamic_reconfigure/server.h
 -
 phd/seg_configConfig.h
--
+/home/mike/catkin_ws/src/phd/src/phd/seg_configConfig.h
 
 /opt/ros/indigo/include/XmlRpcDecl.h
 ros/macros.h

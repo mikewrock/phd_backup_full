@@ -451,12 +451,13 @@ namespace control_panel
 
 		std::stringstream fs, fs2;
 		int ctr = 1;
-		//for(int ctr = 1; ctr <= 63; ++ctr){
+		for(int ctr = ui_.pre_box->text().toInt(); ctr <= ui_.post_box->text().toInt();; ++ctr){
 		fs2.str("");
-		//fs2 << ui_.filename_box->text().toStdString() << "cloud" << ctr << "localized.pcd";
+		//ctr = ui_.pre_box->text().toInt();
+		//fs2 << ui_.filename_box->text().toStdString() << ui_.pre_box->text().toStdString() << "rawcloud.pcd";
 		fs2 << ui_.filename_box->text().toStdString() << ctr << "rawcloud.pcd";
 		 control_panel.ascan(fs2.str(),ui_.marker_name_box->text().toStdString(),ctr-1);
-		//}	
+		}	
 
 	}
 

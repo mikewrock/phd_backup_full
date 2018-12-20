@@ -57,7 +57,7 @@
 #include <std_msgs/Float64.h>
 #include <boost/foreach.hpp>
 #include <dynamic_reconfigure/server.h>
-#include <phd/seg_configConfig.h>
+#include "phd/seg_configConfig.h"
 #include <phd/thickness_service.h>
 
 #define DEBUG true

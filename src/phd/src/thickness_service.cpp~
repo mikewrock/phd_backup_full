@@ -103,7 +103,7 @@ if(DEBUG) ROS_INFO("Calculating");
 
 		if(octree.nearestKSearch (searchPoint, K, pointIdxNKNSearch, pointNKNSquaredDistance) > 0){
 			if(pointNKNSquaredDistance[0]<.1)
-				pt.intensity = pointNKNSquaredDistance[0];
+				pt.intensity = pointNKNSquaredDistance[0]*pointNKNSquaredDistance[0];
 			else
 				pt.intensity = 0;
 		}

@@ -9,12 +9,16 @@ import std_msgs.msg
 import sensor_msgs.msg
 
 class doctor_cloudRequest(genpy.Message):
-  _md5sum = "4177966bfe648dd616186ef1a0d7924a"
+  _md5sum = "bced439934de0c93eb33c2f7834b07df"
   _type = "phd/doctor_cloudRequest"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """sensor_msgs/PointCloud2 cloud_in
 string marker_file
+string markername
 bool homing
+float64 tgt_x
+float64 tgt_y
+int32 num
 
 ================================================================================
 MSG: sensor_msgs/PointCloud2
@@ -82,8 +86,8 @@ uint32 offset    # Offset from start of point struct
 uint8  datatype  # Datatype enumeration, see above
 uint32 count     # How many elements in the field
 """
-  __slots__ = ['cloud_in','marker_file','homing']
-  _slot_types = ['sensor_msgs/PointCloud2','string','bool']
+  __slots__ = ['cloud_in','marker_file','markername','homing','tgt_x','tgt_y','num']
+  _slot_types = ['sensor_msgs/PointCloud2','string','string','bool','float64','float64','int32']
 
   def __init__(self, *args, **kwds):
     """
@@ -93,7 +97,7 @@ uint32 count     # How many elements in the field
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       cloud_in,marker_file,homing
+       cloud_in,marker_file,markername,homing,tgt_x,tgt_y,num
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -106,12 +110,24 @@ uint32 count     # How many elements in the field
         self.cloud_in = sensor_msgs.msg.PointCloud2()
       if self.marker_file is None:
         self.marker_file = ''
+      if self.markername is None:
+        self.markername = ''
       if self.homing is None:
         self.homing = False
+      if self.tgt_x is None:
+        self.tgt_x = 0.
+      if self.tgt_y is None:
+        self.tgt_y = 0.
+      if self.num is None:
+        self.num = 0
     else:
       self.cloud_in = sensor_msgs.msg.PointCloud2()
       self.marker_file = ''
+      self.markername = ''
       self.homing = False
+      self.tgt_x = 0.
+      self.tgt_y = 0.
+      self.num = 0
 
   def _get_types(self):
     """
@@ -171,7 +187,17 @@ uint32 count     # How many elements in the field
         buff.write(struct.pack('<I%sB'%length, length, *_x))
       else:
         buff.write(struct.pack('<I%ss'%length, length, _x))
-      buff.write(_struct_B.pack(self.homing))
+      _x = self.markername
+      length = len(_x)
+      if python3 or type(_x) == unicode:
+        _x = _x.encode('utf-8')
+        length = len(_x)
+      if python3:
+        buff.write(struct.pack('<I%sB'%length, length, *_x))
+      else:
+        buff.write(struct.pack('<I%ss'%length, length, _x))
+      _x = self
+      buff.write(_struct_B2di.pack(_x.homing, _x.tgt_x, _x.tgt_y, _x.num))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -246,8 +272,18 @@ uint32 count     # How many elements in the field
       else:
         self.marker_file = str[start:end]
       start = end
-      end += 1
-      (self.homing,) = _struct_B.unpack(str[start:end])
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      if python3:
+        self.markername = str[start:end].decode('utf-8')
+      else:
+        self.markername = str[start:end]
+      _x = self
+      start = end
+      end += 21
+      (_x.homing, _x.tgt_x, _x.tgt_y, _x.num,) = _struct_B2di.unpack(str[start:end])
       self.homing = bool(self.homing)
       return self
     except struct.error as e:
@@ -307,7 +343,17 @@ uint32 count     # How many elements in the field
         buff.write(struct.pack('<I%sB'%length, length, *_x))
       else:
         buff.write(struct.pack('<I%ss'%length, length, _x))
-      buff.write(_struct_B.pack(self.homing))
+      _x = self.markername
+      length = len(_x)
+      if python3 or type(_x) == unicode:
+        _x = _x.encode('utf-8')
+        length = len(_x)
+      if python3:
+        buff.write(struct.pack('<I%sB'%length, length, *_x))
+      else:
+        buff.write(struct.pack('<I%ss'%length, length, _x))
+      _x = self
+      buff.write(_struct_B2di.pack(_x.homing, _x.tgt_x, _x.tgt_y, _x.num))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -383,8 +429,18 @@ uint32 count     # How many elements in the field
       else:
         self.marker_file = str[start:end]
       start = end
-      end += 1
-      (self.homing,) = _struct_B.unpack(str[start:end])
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      if python3:
+        self.markername = str[start:end].decode('utf-8')
+      else:
+        self.markername = str[start:end]
+      _x = self
+      start = end
+      end += 21
+      (_x.homing, _x.tgt_x, _x.tgt_y, _x.num,) = _struct_B2di.unpack(str[start:end])
       self.homing = bool(self.homing)
       return self
     except struct.error as e:
@@ -392,10 +448,11 @@ uint32 count     # How many elements in the field
 
 _struct_I = genpy.struct_I
 _struct_IBI = struct.Struct("<IBI")
-_struct_3I = struct.Struct("<3I")
 _struct_B = struct.Struct("<B")
-_struct_2I = struct.Struct("<2I")
+_struct_B2di = struct.Struct("<B2di")
+_struct_3I = struct.Struct("<3I")
 _struct_B2I = struct.Struct("<B2I")
+_struct_2I = struct.Struct("<2I")
 # This Python file uses the following encoding: utf-8
 """autogenerated by genpy from phd/doctor_cloudResponse.msg. Do not edit."""
 import sys
@@ -814,6 +871,6 @@ _struct_4f = struct.Struct("<4f")
 _struct_2I = struct.Struct("<2I")
 class doctor_cloud(object):
   _type          = 'phd/doctor_cloud'
-  _md5sum = 'd0bf3e98b4d1a486924402bbb512ae62'
+  _md5sum = 'cae4fb365d52ae353fa3450fdf68bef2'
   _request_class  = doctor_cloudRequest
   _response_class = doctor_cloudResponse

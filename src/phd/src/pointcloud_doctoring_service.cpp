@@ -34,8 +34,12 @@
 #include <pcl/registration/transforms.h>
 #include <pcl/visualization/pcl_visualizer.h>
 #include <limits>
+#include <iterator>
+#include <iostream>
 #include <fstream>
+#include <sstream>
 #include <vector>
+#include <string>
 #include <cmath>
 #include <Eigen/Core>
 #include <Eigen/Dense>
@@ -63,7 +67,7 @@
 #include <rosbag/view.h>
 #include <boost/foreach.hpp>
 #include <dynamic_reconfigure/server.h>
-#include <phd/seg_configConfig.h>
+#include "phd/seg_configConfig.h"
 
 #define DEBUG 1
 #define foreach BOOST_FOREACH
@@ -74,6 +78,8 @@ int VINT_MIN, VINT_MAX;
 ros::Publisher vis_pub;
 std::vector<phd::marker_msg> marker_list;
 visualization_msgs::Marker point_list;
+phd::localize_cloud loc_srv;
+ros::ServiceClient loc_client;
 
 //This callback is for dynamic reconfigure, it sets the global variables
 void reconfig_callback(phd::LocalizeConfig &config, uint32_t level) {
@@ -86,6 +92,7 @@ void reconfig_callback(phd::LocalizeConfig &config, uint32_t level) {
 
 
 }
+
 //Helper function for performing dot products
 float dot_product(Eigen::Vector3f first,Eigen::Vector3f second){
 	return first(0)*second(0) + first(1)*second(1) + first(2)*second(2);
@@ -149,7 +156,7 @@ std::vector<pcl::PointXYZI> cluster_points(pcl::PointCloud<pcl::PointXYZI>::Ptr 
 			p.x = Pt.x;
 			p.y = Pt.y;
 			p.z = Pt.z;
-			if(DEBUG) ROS_INFO("Found point %f/%f - %f - %f",Pt.intensity,Pt.x,Pt.y,Pt.z);
+			//if(DEBUG) ROS_INFO("Found point %f/%f - %f - %f",Pt.intensity,Pt.x,Pt.y,Pt.z);
 			Pts.push_back(Pt);
 			point_list.points.push_back(p);
 		}
@@ -166,7 +173,7 @@ std::vector<pcl::PointXYZI> cluster_points(pcl::PointCloud<pcl::PointXYZI>::Ptr 
 //this functon locates the marker within a point cloud, it takes any amount of normals, returns true if a marker is found, and sets the marker location and transformation matrix values at the adresses given
 bool locate_marker(std::vector<pcl::PointXYZI> Pts, Eigen::Matrix3f &marker_location, Eigen::Matrix4f &A_mat){
 	
-	if(DEBUG) ROS_INFO("Locating from %lu points", Pts.size());
+	//if(DEBUG) ROS_INFO("Locating from %lu points", Pts.size());
 	float bvecs = 1;
 	float vecs;
 	int cnts = 0;
@@ -209,7 +216,7 @@ bool locate_marker(std::vector<pcl::PointXYZI> Pts, Eigen::Matrix3f &marker_loca
 					val_array.push_back(marker_val);
 					//if(fabs(val1-VAL1) < VACC && fabs(val2-VAL2) < VACC && fabs(val3-VAL3) < VACC && fabs(fabs(val4)-VAL4) < 3*VACC){ 
 					if(marker_val.val < 4*VACC){
-						if(DEBUG) ROS_INFO("Marker Found, Val: %f",marker_val.val);	
+						//if(DEBUG) ROS_INFO("Marker Found, Val: %f",marker_val.val);	
 						//if(DEBUG) ROS_INFO("Pt1 Vals: %f - %f - %f\nPt2 Vals: %f - %f - %f\nPt3 Vals: %f - %f - %f\n", Pts[i].x,Pts[i].y,Pts[i].z,Pts[j].x,Pts[j].y,Pts[j].z,Pts[k].x,Pts[k].y,Pts[k].z);	
 						
 						if(marker_flag == false) marker_flag = true;
@@ -236,7 +243,7 @@ bool locate_marker(std::vector<pcl::PointXYZI> Pts, Eigen::Matrix3f &marker_loca
 						p.z = P3z;
 						point_list.points.push_back(p);
 						vis_pub.publish(point_list);
-						if(DEBUG) ROS_INFO("Marker Location: %f/%f/%f - %f/%f/%f - %f/%f/%f", P1x,P1y,P1z,P2x,P2y,P2z,P3x,P3y,P3z);		
+						//if(DEBUG) ROS_INFO("Marker Location: %f/%f/%f - %f/%f/%f - %f/%f/%f", P1x,P1y,P1z,P2x,P2y,P2z,P3x,P3y,P3z);		
 					}
 				}
 			}
@@ -386,9 +393,10 @@ bool locate_marker(std::vector<pcl::PointXYZI> Pts, Eigen::Matrix3f &marker_loca
 
 //FLOAT RETURNING VERSION
 //this functon locates the marker within a point cloud, it takes any amount of normals, returns true if a marker is found, and sets the marker location and transformation matrix values at the adresses given
-float locate_marker(std::vector<pcl::PointXYZI> Pts, std::vector<Eigen::Matrix4f> &A_mat_list, std::vector<phd::marker_msg> markers, std::vector<float> &idxs){
+float locate_marker(std::vector<pcl::PointXYZI> Pts, std::vector<phd::doctor_msg> &msg_list, std::vector<phd::marker_msg> markers){
 	
-	if(DEBUG) ROS_INFO("Locating from %lu points", Pts.size());
+	if(DEBUG) ROS_INFO("Locating from %lu points and %lu markers %lu", Pts.size(), markers.size(), msg_list.size());
+	msg_list.clear();
 	float bvecs = 1;
 	float vecs;
 	int cnts = 0;
@@ -399,14 +407,18 @@ float locate_marker(std::vector<pcl::PointXYZI> Pts, std::vector<Eigen::Matrix4f
 	bool opt_flag = false;
 	Eigen::Vector3f vec1, vec2, intersection, holder;
 	Eigen::Vector3f best_intersection(100,100,100);
-	Eigen::Matrix4f A_mat;
 	float best_value = 1;
 	float val1,val2,val3,val4;
 	float P1x,P1y,P1z,P2x,P2y,P2z,P3x,P3y,P3z;
 	Eigen::Vector3f a,n,c,o;
 	float mn, mc;
 	std::vector<phd::marker_val> val_array;
+	int master = markers.size();
+	std::vector<std::vector<phd::marker_val> > val_master(master);
+	val_array.clear();
+	val_master.clear();
 	phd::marker_val marker_val;
+	phd::doctor_msg doc_msg;
 	point_list.color.r = 0.0;
 	point_list.color.b = 1.0;
 
@@ -431,7 +443,8 @@ float locate_marker(std::vector<pcl::PointXYZI> Pts, std::vector<Eigen::Matrix4f
 						marker_val.j = j;
 						marker_val.k = k;
 						marker_val.index = ctr;
-						val_array.push_back(marker_val);
+						val_master[ctr].push_back(marker_val);
+						//val_array.push_back(marker_val);
 					}
 					//if(fabs(val1-marker.VAL1) < VACC && fabs(val2-marker.VAL2) < VACC && fabs(val3-marker.VAL3) < VACC && fabs(fabs(val4)-marker.VAL4) < 3*VACC){ 
 					/*if(marker_val.val < 4*VACC){
@@ -471,21 +484,29 @@ float locate_marker(std::vector<pcl::PointXYZI> Pts, std::vector<Eigen::Matrix4f
 
 
 	float bval = 100;
+	float lbval;
 	int best_idx = -1;
-	for(int ctr = 0; ctr < val_array.size(); ++ctr){
-		if(val_array[ctr].val < bval){
-			bval = val_array[ctr].val;
-			best_idx = val_array[ctr].index;
-			idxs.push_back(best_idx);
-			P1x = Pts[val_array[ctr].i].x;
-			P1y = Pts[val_array[ctr].i].y;
-			P1z = Pts[val_array[ctr].i].z;
-			P2x = Pts[val_array[ctr].j].x;
-			P2y = Pts[val_array[ctr].j].y;
-			P2z = Pts[val_array[ctr].j].z;
-			P3x = Pts[val_array[ctr].k].x;
-			P3y = Pts[val_array[ctr].k].y;
-			P3z = Pts[val_array[ctr].k].z;
+	for(int vctr = 0; vctr < master; ++vctr){
+	lbval = 100;
+	for(int ctr = 0; ctr < val_master[vctr].size(); ++ctr){
+		if(val_master[vctr][ctr].val < VACC*10){
+	
+			if(val_master[vctr][ctr].val < bval){
+				bval = val_master[vctr][ctr].val;
+				lbval = bval;
+				best_idx = val_master[vctr][ctr].index;
+				ROS_INFO("New best");
+			}
+			//idxs.push_back(best_idx);
+			P1x = Pts[val_master[vctr][ctr].i].x;
+			P1y = Pts[val_master[vctr][ctr].i].y;
+			P1z = Pts[val_master[vctr][ctr].i].z;
+			P2x = Pts[val_master[vctr][ctr].j].x;
+			P2y = Pts[val_master[vctr][ctr].j].y;
+			P2z = Pts[val_master[vctr][ctr].j].z;
+			P3x = Pts[val_master[vctr][ctr].k].x;
+			P3y = Pts[val_master[vctr][ctr].k].y;
+			P3z = Pts[val_master[vctr][ctr].k].z;
 			mn = sqrt(pow(P3x-P2x,2)+pow(P3y-P2y,2)+pow(P3z-P2z,2));
 			mc = sqrt(pow(P1x-P2x,2)+pow(P1y-P2y,2)+pow(P1z-P2z,2));
 			n(0) = (P3x-P2x)/mn;
@@ -496,27 +517,32 @@ float locate_marker(std::vector<pcl::PointXYZI> Pts, std::vector<Eigen::Matrix4f
 			c(2) = (P1z-P2z)/mc;
 			a = normalized_cross_product(n,c);
 			o = cross_product(a,n);
-			A_mat(0,0) = n(0);
-			A_mat(0,1) = o(0);
-			A_mat(0,2) = a(0);
-			A_mat(0,3) = (P1x+P2x+P3x)/3;
-			A_mat(1,0) = n(1);
-			A_mat(1,1) = o(1);
-			A_mat(1,2) = a(1);
-			A_mat(1,3) = (P1y+P2y+P3y)/3;
-			A_mat(2,0) = n(2);
-			A_mat(2,1) = o(2);
-			A_mat(2,2) = a(2);
-			A_mat(2,3) = (P1z+P2z+P3z)/3;
-			A_mat(3,0) = 0;
-			A_mat(3,1) = 0;
-			A_mat(3,2) = 0;
-			A_mat(3,3) = bval;
-			A_mat_list.push_back(A_mat);
-			if(DEBUG)ROS_INFO("Marker Found: %f/%f/%f - %f/%f/%f - %f/%f/%f -- %f\nAt idx: %d num: %lu",P1x,P1y,P1z,P2x,P2y,P2z,P3x,P3y,P3z,bval,ctr,idxs.size());		
+			
+			doc_msg.transform_mat[0] = n(0);
+			doc_msg.transform_mat[1] = o(0);
+			doc_msg.transform_mat[2] = a(0);
+			doc_msg.transform_mat[3] = (P1x+P2x+P3x)/3;
+			doc_msg.transform_mat[4] = n(1);
+			doc_msg.transform_mat[5] = o(1);
+			doc_msg.transform_mat[6] = a(1);
+			doc_msg.transform_mat[7] = (P1y+P2y+P3y)/3;
+			doc_msg.transform_mat[8] = n(2);
+			doc_msg.transform_mat[9] = o(2);
+			doc_msg.transform_mat[10] = a(2);
+			doc_msg.transform_mat[11] = (P1z+P2z+P3z)/3;
+			doc_msg.transform_mat[12] = 0;
+			doc_msg.transform_mat[13] = 0;
+			doc_msg.transform_mat[14] = 0;
+			doc_msg.transform_mat[15] = 1;
+			doc_msg.x = val_master[vctr][ctr].val;
+			doc_msg.id = best_idx;
+			//if(DEBUG)ROS_INFO("Marker Found: %f/%f/%f - %f/%f/%f - %f/%f/%f -- %f\nAt idx: %d num: %lu",P1x,P1y,P1z,P2x,P2y,P2z,P3x,P3y,P3z,bval,ctr,idxs.size());		
+			msg_list.push_back(doc_msg);	
+			if(DEBUG)ROS_INFO("Adding %lu Best Val: %f Using Marker: %d",msg_list.size(),bval,best_idx);	
 		}
 	}
-	ROS_INFO("Returning: %lu - %lu", A_mat_list.size(),idxs.size());
+	
+	}
 	return best_idx;
 
 }
@@ -529,7 +555,9 @@ bool localize(phd::doctor_cloud::Request  &req, phd::doctor_cloud::Response &res
 	
 	bool marker; //indicates if marker was found
 	int marker_idx; //indicates if marker was found
+	pcl::PointCloud<pcl::PointXYZI>::Ptr save_cloud (new pcl::PointCloud<pcl::PointXYZI>);
 	std::vector<float> idxs;
+	std::vector<phd::doctor_msg> doc_msgs;
 	rosbag::Bag bag; //bag file for recording marker to disk
 	phd::doctor_msg doc_msg;
 	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_world(new pcl::PointCloud<pcl::PointXYZI> ); //PCL formatted input cloud
@@ -570,43 +598,62 @@ bool localize(phd::doctor_cloud::Request  &req, phd::doctor_cloud::Response &res
 		fs2 << req.marker_file << "marker.bag";
 		ROS_INFO("Using marker file %s",fs2.str().c_str());
 		bag.open(fs2.str().c_str(), rosbag::bagmode::Read);
-		Eigen::Matrix4f transformA;
+		Eigen::Matrix4f transformB, transformA;
 		rosbag::View view_marker(bag, rosbag::TopicQuery("markers"));
 		phd::marker_msg new_marker;
 		Eigen::Matrix4f transform_mat;
 		std::vector<Eigen::Matrix4f> transform_mat_list;
 		//input data from marker.bag
+		marker_list.clear();
 		foreach(rosbag::MessageInstance const m, view_marker){
 			phd::marker_msg::ConstPtr i = m.instantiate<phd::marker_msg>();
 			new_marker = *i;
 			marker_list.push_back(new_marker);
 		}
-		marker_idx = locate_marker(Pts, transform_mat_list, marker_list,idxs);
+
+
+
+		marker_idx = locate_marker(Pts, doc_msgs, marker_list);
 		bag.close();
 		Eigen::Matrix3f marker_loc;
 		pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_int (new pcl::PointCloud<pcl::PointXYZI>);
 		Eigen::Matrix4f transformAB;
-		ROS_INFO("Found %lu hits",idxs.size());
 		if(marker_idx>=0){
-			for(int dctr = 0; dctr < idxs.size();++dctr){
+			for(int dctr = 0; dctr < doc_msgs.size();++dctr){
 				
-				transformA(0,0) = marker_list[idxs[dctr]].transform[0];
-				transformA(0,1) = marker_list[idxs[dctr]].transform[1];
-				transformA(0,2) = marker_list[idxs[dctr]].transform[2];
-				transformA(0,3) = marker_list[idxs[dctr]].transform[3];
-				transformA(1,0) = marker_list[idxs[dctr]].transform[4];
-				transformA(1,1) = marker_list[idxs[dctr]].transform[5];
-				transformA(1,2) = marker_list[idxs[dctr]].transform[6];
-				transformA(1,3) = marker_list[idxs[dctr]].transform[7];
-				transformA(2,0) = marker_list[idxs[dctr]].transform[8];
-				transformA(2,1) = marker_list[idxs[dctr]].transform[9];
-				transformA(2,2) = marker_list[idxs[dctr]].transform[10];
-				transformA(2,3) = marker_list[idxs[dctr]].transform[11];
-				transformA(3,0) = marker_list[idxs[dctr]].transform[12];
-				transformA(3,1) = marker_list[idxs[dctr]].transform[13];
-				transformA(3,2) = marker_list[idxs[dctr]].transform[14];
-				transformA(3,3) = marker_list[idxs[dctr]].transform[15];
-				transformAB = transform_mat_list[dctr].inverse();
+				transformA(0,0) = marker_list[doc_msgs[dctr].id].transform[0];
+				transformA(0,1) = marker_list[doc_msgs[dctr].id].transform[1];
+				transformA(0,2) = marker_list[doc_msgs[dctr].id].transform[2];
+				transformA(0,3) = marker_list[doc_msgs[dctr].id].transform[3];
+				transformA(1,0) = marker_list[doc_msgs[dctr].id].transform[4];
+				transformA(1,1) = marker_list[doc_msgs[dctr].id].transform[5];
+				transformA(1,2) = marker_list[doc_msgs[dctr].id].transform[6];
+				transformA(1,3) = marker_list[doc_msgs[dctr].id].transform[7];
+				transformA(2,0) = marker_list[doc_msgs[dctr].id].transform[8];
+				transformA(2,1) = marker_list[doc_msgs[dctr].id].transform[9];
+				transformA(2,2) = marker_list[doc_msgs[dctr].id].transform[10];
+				transformA(2,3) = marker_list[doc_msgs[dctr].id].transform[11];
+				transformA(3,0) = marker_list[doc_msgs[dctr].id].transform[12];
+				transformA(3,1) = marker_list[doc_msgs[dctr].id].transform[13];
+				transformA(3,2) = marker_list[doc_msgs[dctr].id].transform[14];
+				transformA(3,3) = marker_list[doc_msgs[dctr].id].transform[15];
+				transformB(0,0) = doc_msgs[dctr].transform_mat[0];
+				transformB(0,1) = doc_msgs[dctr].transform_mat[1];
+				transformB(0,2) = doc_msgs[dctr].transform_mat[2];
+				transformB(0,3) = doc_msgs[dctr].transform_mat[3];
+				transformB(1,0) = doc_msgs[dctr].transform_mat[4];
+				transformB(1,1) = doc_msgs[dctr].transform_mat[5];
+				transformB(1,2) = doc_msgs[dctr].transform_mat[6];
+				transformB(1,3) = doc_msgs[dctr].transform_mat[7];
+				transformB(2,0) = doc_msgs[dctr].transform_mat[8];
+				transformB(2,1) = doc_msgs[dctr].transform_mat[9];
+				transformB(2,2) = doc_msgs[dctr].transform_mat[10];
+				transformB(2,3) = doc_msgs[dctr].transform_mat[11];
+				transformB(3,0) = doc_msgs[dctr].transform_mat[12];
+				transformB(3,1) = doc_msgs[dctr].transform_mat[13];
+				transformB(3,2) = doc_msgs[dctr].transform_mat[14];
+				transformB(3,3) = doc_msgs[dctr].transform_mat[15];
+				transformAB = transformB.inverse();
 				doc_msg.transform_mat[0] = transformAB(0,0);
 				doc_msg.transform_mat[1] = transformAB(0,1);
 				doc_msg.transform_mat[2] = transformAB(0,2);
@@ -623,10 +670,11 @@ bool localize(phd::doctor_cloud::Request  &req, phd::doctor_cloud::Response &res
 				doc_msg.transform_mat[13] = transformAB(3,1);
 				doc_msg.transform_mat[14] = transformAB(3,2);
 				doc_msg.transform_mat[15] = transformAB(3,3);
-				doc_msg.x= transform_mat_list[dctr](0,3);
-				doc_msg.y = transform_mat_list[dctr](1,3);
-				doc_msg.z = transform_mat_list[dctr](2,3);
-				doc_msg.id = dctr;
+				//doc_msg.x = transform_mat_list[dctr](0,3);
+				//doc_msg.y = transform_mat_list[dctr](1,3);
+				//doc_msg.z = transform_mat_list[dctr](2,3);
+				doc_msg.x = doc_msgs[dctr].x;
+				doc_msg.id = doc_msgs[dctr].id;
 				//first transform the unlocalized pointcloud to its marker's coordinate frame
 				pcl::transformPointCloud (*cloud_world, *cloud_int, transformAB);
 				//next transform the pointcloud from the marker coordinate frame to the world coordinate frame
@@ -642,11 +690,57 @@ bool localize(phd::doctor_cloud::Request  &req, phd::doctor_cloud::Response &res
 				res.clouds.push_back(doc_msg);
 				
 			}
-			if(DEBUG) ROS_INFO("Setting marker true");
 			marker = true;
 		}	
 	}
-	
+int cloud_ctr = 0;
+	//Open file for saving marker location
+			ofstream myfile;
+			std::stringstream fs, pf, mn;
+			fs << "/home/mike/processed/multiposes.csv";
+				mn.str("");
+				mn << "/home/mike/processed/tracker/";
+			myfile.open (fs.str().c_str(), std::ios::out|std::ios::app);
+			ROS_INFO("Response: %lu", res.clouds.size());
+			float acc = 100;
+			float nacc;
+			float best_doc;
+			float cloud_num = 0;			
+			for(int sctr = 0; sctr < res.clouds.size(); ++ sctr){
+				
+				//Call the localization service
+				loc_srv.request.cloud_in = res.clouds[sctr].cloud_out;
+				loc_srv.request.homing = false;
+				loc_srv.request.marker_file = mn.str();
+				if(loc_client.call(loc_srv)){
+					ROS_INFO("Found tracker %f - %f -%f",loc_srv.response.transform_mat[3],loc_srv.response.transform_mat[7],loc_srv.response.transform_mat[11]);	
+				}
+				nacc = sqrt(pow(loc_srv.response.transform_mat[3]-req.tgt_x,2)+pow(loc_srv.response.transform_mat[7]-req.tgt_y,2));
+				
+				if(nacc<acc){
+					ROS_INFO("Best acc: %f",nacc);
+					acc = nacc;
+					best_doc = sctr;
+					pf.str("");
+					pf << "/home/mike/processed/" << req.num  << "best_V" << sctr << "-" << res.clouds[best_doc].id << ".pcd";				
+					//Tell pcl what the 4th field information is
+					res.clouds[sctr].cloud_out.fields[3].name = "intensity";
+					pcl::fromROSMsg(res.clouds[best_doc].cloud_out, *save_cloud);
+					if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
+					if(save_cloud->size() > 0) pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
+					myfile << "Cloud: ," << req.num << ",";
+					myfile << "Marker: ," << res.clouds[best_doc].id << ",Acc:," << nacc << ",Val:," << res.clouds[best_doc].x << ",";	
+					myfile << "Tracker: ," << loc_srv.response.transform_mat[3] << "," << loc_srv.response.transform_mat[7] << "," << loc_srv.response.transform_mat[11] << ",";
+					myfile << "Opti: ," << req.tgt_x << "," << req.tgt_y << ",";
+					myfile << "Transform: ,";
+					for(int i = 0; i <16; ++i){
+						//if(i%4 == 0) myfile << std::endl;
+						myfile << res.clouds[sctr].transform_mat[i] << ",";
+					}
+					myfile << std::endl;
+				}
+			}
+			myfile.close();
   	return marker;
 }
 
@@ -661,6 +755,7 @@ int main (int argc, char** argv){
 	dynamic_reconfigure::Server<phd::LocalizeConfig>::CallbackType callback_type;
 	callback_type = boost::bind(&reconfig_callback, _1, _2);
 	server.setCallback(callback_type);
+	loc_client = nh.serviceClient<phd::localize_cloud>("localize_pcd");
 	//Visualization marker for possible marker points
 	point_list.header.frame_id = "/base_footprint";
 	point_list.header.stamp = ros::Time::now();

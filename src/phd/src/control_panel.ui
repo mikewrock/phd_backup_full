@@ -128,7 +128,7 @@ color: rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="text">
-      <string>/home/mike/results/1rawcloud.pcd</string>
+      <string>/home/mike/processed/1rawcloud.pcd</string>
      </property>
     </widget>
     <widget class="QPushButton" name="fscan_button_2">
@@ -555,7 +555,7 @@ color: rgb(255, 255, 255);</string>
       <string>Auto Crop</string>
      </property>
      <property name="checked">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
     </widget>
     <widget class="QLabel" name="marker_info_15">
@@ -729,7 +729,7 @@ Trajectory</string>
       </rect>
      </property>
      <property name="text">
-      <string>1</string>
+      <string>5</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

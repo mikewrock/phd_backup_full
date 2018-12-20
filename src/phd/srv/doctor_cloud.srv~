@@ -1,6 +1,9 @@
 sensor_msgs/PointCloud2 cloud_in
 string marker_file
+string markername
 bool homing
+float64 tgt_x
+float64 tgt_y
+int num
 ---
-sensor_msgs/PointCloud2 cloud_out
-float64[16] transform_mat
+doctor_msg[] clouds
