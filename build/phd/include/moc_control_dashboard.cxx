@@ -22,7 +22,7 @@ static const uint qt_meta_data_control_panel__ControlPanel[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      34,   14, // methods
+      36,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -63,7 +63,9 @@ static const uint qt_meta_data_control_panel__ControlPanel[] = {
      425,   28,   28,   28, 0x09,
      447,   28,   28,   28, 0x09,
      469,   28,   28,   28, 0x09,
-     500,  492,  486,   28, 0x09,
+     486,   28,   28,   28, 0x09,
+     501,   28,   28,   28, 0x09,
+     525,  517,  511,   28, 0x09,
 
        0        // eod
 };
@@ -82,7 +84,7 @@ static const char qt_meta_stringdata_control_panel__ControlPanel[] = {
     "pose_loop()\0reset_map()\0set_clean()\0"
     "set_sprayed()\0calculate_thickness()\0"
     "thickness_from_file()\0save_selection()\0"
-    "float\0arm,tgt\0"
+    "process_data()\0analyze()\0float\0arm,tgt\0"
     "tgt_distance(phd::arm_msg,phd::trajectory_point)\0"
 };
 
@@ -125,7 +127,9 @@ void control_panel::ControlPanel::qt_static_metacall(QObject *_o, QMetaObject::C
         case 30: _t->calculate_thickness(); break;
         case 31: _t->thickness_from_file(); break;
         case 32: _t->save_selection(); break;
-        case 33: { float _r = _t->tgt_distance((*reinterpret_cast< phd::arm_msg(*)>(_a[1])),(*reinterpret_cast< phd::trajectory_point(*)>(_a[2])));
+        case 33: _t->process_data(); break;
+        case 34: _t->analyze(); break;
+        case 35: { float _r = _t->tgt_distance((*reinterpret_cast< phd::arm_msg(*)>(_a[1])),(*reinterpret_cast< phd::trajectory_point(*)>(_a[2])));
             if (_a[0]) *reinterpret_cast< float*>(_a[0]) = _r; }  break;
         default: ;
         }
@@ -166,9 +170,9 @@ int control_panel::ControlPanel::qt_metacall(QMetaObject::Call _c, int _id, void
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 34)
+        if (_id < 36)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 34;
+        _id -= 36;
     }
     return _id;
 }

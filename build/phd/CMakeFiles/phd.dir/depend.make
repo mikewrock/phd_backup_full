@@ -2138,6 +2138,10 @@ phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: phd/ui_control_panel.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/ParamConfig.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/arm_msg.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/cube_msg.h
+phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/doctor_cloud.h
+phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/doctor_cloudRequest.h
+phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/doctor_cloudResponse.h
+phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/doctor_msg.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/empty.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/emptyRequest.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/emptyResponse.h

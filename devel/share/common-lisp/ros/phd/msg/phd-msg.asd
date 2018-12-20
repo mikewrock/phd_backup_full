@@ -3,6 +3,7 @@
 
 (defsystem "phd-msg"
   :depends-on (:roslisp-msg-protocol :roslisp-utils :geometry_msgs-msg
+               :sensor_msgs-msg
 )
   :components ((:file "_package")
     (:file "marker_vals" :depends-on ("_package_marker_vals"))
@@ -25,6 +26,8 @@
     (:file "_package_trajectory_point" :depends-on ("_package"))
     (:file "trajectory_test" :depends-on ("_package_trajectory_test"))
     (:file "_package_trajectory_test" :depends-on ("_package"))
+    (:file "doctor_msg" :depends-on ("_package_doctor_msg"))
+    (:file "_package_doctor_msg" :depends-on ("_package"))
     (:file "marker_val" :depends-on ("_package_marker_val"))
     (:file "_package_marker_val" :depends-on ("_package"))
   ))

@@ -58,9 +58,11 @@ namespace control_panel
 		connect(ui_.postscan_button, SIGNAL(clicked()), this, SLOT(postscan()));
 		connect(ui_.set_home_button, SIGNAL(clicked()), this, SLOT(homing_scan()));
 		connect(ui_.thickness_button, SIGNAL(clicked()), this, SLOT(thickness_from_file()));
+		connect(ui_.thickness, SIGNAL(clicked()), this, SLOT(process_data()));
 		connect(ui_.cluster1, SIGNAL(clicked()), this, SLOT(cluster()));
 		connect(ui_.gen_trajectory, SIGNAL(clicked()), this, SLOT(gen_trajectory()));
 		connect(ui_.f_traj, SIGNAL(clicked()), this, SLOT(load_traj()));
+		connect(ui_.exe_path, SIGNAL(clicked()), this, SLOT(analyze()));
 		connect(ui_.pose_step, SIGNAL(clicked()), this, SLOT(pose_step()));
 		connect(ui_.pose_loop_button, SIGNAL(clicked()), this, SLOT(pose_loop()));
 		connect(ui_.arm_loop_button, SIGNAL(clicked()), this, SLOT(arm_loop()));
@@ -242,14 +244,14 @@ namespace control_panel
 	}
 	void ControlPanel::prescan(){
 		std::stringstream ss;
-		ss << "/pre/" << ui_.pre_box->text().toStdString();
+		ss << "pre/" << ui_.pre_box->text().toStdString();
 		control_panel.scan(ui_.marker_name_box->text().toStdString(),true,ss.str());
 		ui_.pre_box->setText(QString::number(ui_.pre_box->text().toInt() + 1));
 
 	}
 	void ControlPanel::postscan(){
 		std::stringstream ss;
-		ss << "/post/" << ui_.post_box->text().toStdString();
+		ss << "post/" << ui_.post_box->text().toStdString();
 		control_panel.scan(ui_.marker_name_box->text().toStdString(),true,ss.str());
 		ui_.post_box->setText(QString::number(ui_.post_box->text().toInt() + 1));
 
@@ -267,7 +269,7 @@ namespace control_panel
 	//Load a scan from file
 	void ControlPanel::fake_scan2(){
 
-		  control_panel.fscan(ui_.filename_box->text().toStdString(),ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		  control_panel.fscan(ui_.filename_box_2->text().toStdString(),ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
 	}
 	//Calculate thickness from the two files specified
 	void ControlPanel::thickness_from_file(){
@@ -432,6 +434,29 @@ namespace control_panel
 		rosbag::Bag bag; //bag file for recording marker to disk
 		bag.open(fs2.str().c_str(), rosbag::bagmode::Write);
 		bag.close();	
+
+	}
+	void ControlPanel::process_data(){
+
+		std::stringstream fs, fs2;
+		for(int ctr = 1; ctr <= 63; ++ctr){
+		fs2.str("");
+		fs2 << ui_.filename_box->text().toStdString() << ctr << "rawcloud.pcd";
+		 control_panel.fscan(fs2.str(),true,false,ui_.filename_box->text().toStdString(),false);
+		}	
+
+	}
+
+	void ControlPanel::analyze(){
+
+		std::stringstream fs, fs2;
+		int ctr = 1;
+		//for(int ctr = 1; ctr <= 63; ++ctr){
+		fs2.str("");
+		//fs2 << ui_.filename_box->text().toStdString() << "cloud" << ctr << "localized.pcd";
+		fs2 << ui_.filename_box->text().toStdString() << ctr << "rawcloud.pcd";
+		 control_panel.ascan(fs2.str(),ui_.marker_name_box->text().toStdString(),ctr-1);
+		//}	
 
 	}
 

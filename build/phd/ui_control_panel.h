@@ -587,7 +587,7 @@ public:
 
         retranslateUi(Control_Form);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(Control_Form);
@@ -598,7 +598,7 @@ public:
         Control_Form->setWindowTitle(QApplication::translate("Control_Form", "Form", 0, QApplication::UnicodeUTF8));
         scan_button->setText(QApplication::translate("Control_Form", "Scan", 0, QApplication::UnicodeUTF8));
         auto_localize->setText(QApplication::translate("Control_Form", "Auto Localize", 0, QApplication::UnicodeUTF8));
-        marker_name_box->setText(QApplication::translate("Control_Form", "/home/mike/results/", 0, QApplication::UnicodeUTF8));
+        marker_name_box->setText(QApplication::translate("Control_Form", "/home/mike/processed/", 0, QApplication::UnicodeUTF8));
         marker_info_9->setText(QApplication::translate("Control_Form", "Pointcloud Save Location:", 0, QApplication::UnicodeUTF8));
         soft_stop_2->setText(QApplication::translate("Control_Form", "STOP", 0, QApplication::UnicodeUTF8));
         reset_map_button_2->setText(QApplication::translate("Control_Form", "Reset Map", 0, QApplication::UnicodeUTF8));
@@ -620,12 +620,12 @@ public:
         start_point->setText(QApplication::translate("Control_Form", "Start Point", 0, QApplication::UnicodeUTF8));
         soft_stop->setText(QApplication::translate("Control_Form", "STOP", 0, QApplication::UnicodeUTF8));
         plot_path->setText(QApplication::translate("Control_Form", "Plot Path", 0, QApplication::UnicodeUTF8));
-        exe_path->setText(QApplication::translate("Control_Form", "Execute Path", 0, QApplication::UnicodeUTF8));
-        thickness->setText(QApplication::translate("Control_Form", "Estimate Thickness", 0, QApplication::UnicodeUTF8));
+        exe_path->setText(QApplication::translate("Control_Form", "Analyze Data", 0, QApplication::UnicodeUTF8));
+        thickness->setText(QApplication::translate("Control_Form", "Process Data", 0, QApplication::UnicodeUTF8));
         marker_info_2->setText(QApplication::translate("Control_Form", "Testing/Research Functions", 0, QApplication::UnicodeUTF8));
         est_pos->setText(QApplication::translate("Control_Form", "Estimate Position", 0, QApplication::UnicodeUTF8));
         show_nav_button->setText(QApplication::translate("Control_Form", "Show Nav Goal", 0, QApplication::UnicodeUTF8));
-        filename_box->setText(QApplication::translate("Control_Form", "/home/mike/results/c1rawcloud.pcd", 0, QApplication::UnicodeUTF8));
+        filename_box->setText(QApplication::translate("Control_Form", "/home/mike/processed/", 0, QApplication::UnicodeUTF8));
         scan_360->setText(QApplication::translate("Control_Form", "360 scan", 0, QApplication::UnicodeUTF8));
         f_traj->setText(QApplication::translate("Control_Form", "Load Traj", 0, QApplication::UnicodeUTF8));
         exe_trajectory->setText(QApplication::translate("Control_Form", "Execute Trajectory", 0, QApplication::UnicodeUTF8));

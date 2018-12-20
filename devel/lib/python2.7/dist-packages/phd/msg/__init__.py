@@ -1,5 +1,6 @@
 from ._arm_msg import *
 from ._cube_msg import *
+from ._doctor_msg import *
 from ._marker_msg import *
 from ._marker_val import *
 from ._trajectory_array import *

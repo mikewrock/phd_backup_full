@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <property name="movable">
     <bool>false</bool>
@@ -68,7 +68,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>/home/mike/results/</string>
+      <string>/home/mike/processed/</string>
      </property>
     </widget>
     <widget class="QLabel" name="marker_info_9">
@@ -358,7 +358,7 @@ color: rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="text">
-      <string>Execute Path</string>
+      <string>Analyze Data</string>
      </property>
     </widget>
     <widget class="QPushButton" name="thickness">
@@ -374,7 +374,7 @@ color: rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="text">
-      <string>Estimate Thickness</string>
+      <string>Process Data</string>
      </property>
     </widget>
     <widget class="QLabel" name="marker_info_2">
@@ -426,7 +426,7 @@ color: rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="text">
-      <string>/home/mike/results/c1rawcloud.pcd</string>
+      <string>/home/mike/processed/</string>
      </property>
     </widget>
     <widget class="QPushButton" name="scan_360">

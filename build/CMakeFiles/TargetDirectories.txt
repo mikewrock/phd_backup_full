@@ -4,6 +4,8 @@
 /home/mike/catkin_ws/build/husky_msgs/CMakeFiles/_husky_msgs_generate_messages_check_deps_HuskyStatus.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/_phd_generate_messages_check_deps_arm_msg.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/_phd_generate_messages_check_deps_cube_msg.dir
+/home/mike/catkin_ws/build/phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_cloud.dir
+/home/mike/catkin_ws/build/phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_msg.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/_phd_generate_messages_check_deps_empty.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/_phd_generate_messages_check_deps_localize_cloud.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/_phd_generate_messages_check_deps_marker_msg.dir
@@ -68,6 +70,7 @@
 /home/mike/catkin_ws/build/husky_navigation/CMakeFiles/clean_test_results_husky_navigation.dir
 /home/mike/catkin_ws/build/LMS1xx-master/CMakeFiles/clean_test_results_lms1xx.dir
 /home/mike/catkin_ws/build/mocap_optitrack-master/CMakeFiles/clean_test_results_mocap_optitrack.dir
+/home/mike/catkin_ws/build/phd/CMakeFiles/cloud_doctor.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/cloud_localizer.dir
 /home/mike/catkin_ws/build/wrock/CMakeFiles/cloud_parser.dir
 /home/mike/catkin_ws/build/registration_localization/CMakeFiles/clustering.dir

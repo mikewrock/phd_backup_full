@@ -1,5 +1,6 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/phd_generate_messages_lisp"
+  "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/doctor_msg.lisp"
   "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/marker_val.lisp"
   "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/arm_msg.lisp"
   "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/marker_msg.lisp"
@@ -8,6 +9,7 @@ FILE(REMOVE_RECURSE
   "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/cube_msg.lisp"
   "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/trajectory_msg.lisp"
   "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/localize_cloud.lisp"
+  "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/doctor_cloud.lisp"
   "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/empty.lisp"
   "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/thickness_service.lisp"
   "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/simple_trajectory_service.lisp"

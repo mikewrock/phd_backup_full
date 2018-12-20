@@ -25,6 +25,7 @@
 // Services
 #include "laser_assembler/AssembleScans2.h"
 #include "phd/localize_cloud.h"
+#include "phd/doctor_cloud.h"
 #include "phd/simple_trajectory_service.h"
 #include "phd/thickness_service.h"
 // Messages
@@ -81,6 +82,7 @@ double joint1;
 laser_assembler::AssembleScans2 srv;
 //For localizing a pointcloud
 phd::localize_cloud loc_srv;
+phd::doctor_cloud doc_srv;
 //For generating arm trajectories
 phd::simple_trajectory_service traj_srv;
 //Dynamic Reconfig Variables
@@ -539,7 +541,7 @@ void QNode::poseCallback(const geometry_msgs::PoseStamped::ConstPtr& msg)
 	
 	basePose.pose.position = msg->pose.position;
 	basePose.pose.orientation = msg->pose.orientation;
-	ROS_INFO("Pose %f-%f-%f",basePose.pose.position.x,basePose.pose.position.y,basePose.pose.position.z);
+	//ROS_INFO("Pose %f-%f-%f",basePose.pose.position.x,basePose.pose.position.y,basePose.pose.position.z);
 
 }
 
@@ -578,6 +580,7 @@ bool QNode::init() {
 	client = nh_.serviceClient<laser_assembler::AssembleScans2>("assemble_scans2");
 	//Service client for transforming th point cloud to the world coordinate frame
 	loc_client = nh_.serviceClient<phd::localize_cloud>("localize_pcd");
+	doc_client = nh_.serviceClient<phd::doctor_cloud>("doctor_pcd");
 	//Service client for gerneating an arm trajectory
 	traj_client = nh_.serviceClient<phd::simple_trajectory_service>("trajectory_gen");
 	//Service client for estimating thickness
@@ -1106,8 +1109,9 @@ void QNode::scan(std::string markername, bool localize, std::string prefix){
 				if(prefix.compare("") == 0){
 					pf << markername << cloud_ctr << "home" << CLOUD << ".pcd";
 				}
-				else
+				else					
 					pf << markername << prefix << CLOUD << ".pcd";
+				ROS_INFO("Saving: %s",pf.str().c_str());
 				cloud_surface_world.header.frame_id = "/world";
 				transform.setOrigin( tf::Vector3(0, 0, 0) );
 				q.setRPY(0, 0, 0);
@@ -1205,17 +1209,17 @@ void QNode::fscan(std::string filename, bool auto_localize,bool set_home, std::s
 				//Tell pcl what the 4th field information is
 				cloud_surface_world.fields[3].name = "intensity";
 				pcl::fromROSMsg(cloud_surface_world, *save_cloud);
-				pf << filename << CLOUD << cloud_ctr  << "localized.pcd";
+				pf << markername << CLOUD << cloud_ctr  << "localized.pcd";
 				if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
 				if(save_cloud->size() > 0) pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
 				//Open file for saving marker location
 				ofstream myfile;
 				std::stringstream fs;
-				fs << "/home/mike/results/localizedposes.csv";
+				fs << "/home/mike/processed/localizedposes.csv";
 				myfile.open (fs.str().c_str(), std::ios::out|std::ios::app);
 				myfile << CLOUD << cloud_ctr << ",";
 				for(int i = 0; i <16; ++i){
-					if(i%4 == 0) myfile << std::endl;
+					//if(i%4 == 0) myfile << std::endl;
 					myfile << loc_srv.response.transform_mat[i] << ",";
 				}
 				myfile << std::endl;
@@ -1259,6 +1263,78 @@ void QNode::fscan(std::string filename, bool auto_localize,bool set_home, std::s
 		}
 			cloud_surface_world.header.frame_id = "/world";
 			rawpub.publish(cloud_surface_world);
+	}
+	
+
+}
+
+//Testing function for publishing point clouds from file
+void QNode::ascan(std::string filename, std::string markername, int cloud_num){
+
+	//Create a pcl pointer to load the clound in to
+	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZI> );
+	//Create a ros message to publish the cloud as
+	sensor_msgs::PointCloud2 cloud_msg;
+
+	current_pc_.reset(new pcl::PointCloud<pcl::PointXYZI>());
+	//Load the file
+	if (pcl::io::loadPCDFile<pcl::PointXYZI> (filename.c_str(), *cloud) == -1) PCL_ERROR ("Couldn't read file\n");
+	else{
+		//Convert from PCL to ROS
+		pcl::toROSMsg(*cloud,cloud_msg);
+		//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
+		cloud_msg.fields[3].name = "intensity";
+		//Set the frame
+		cloud_msg.header.frame_id = "/base_footprint";
+		//Call the localization service
+		doc_srv.request.cloud_in = cloud_msg;
+		doc_srv.request.homing = false;
+		doc_srv.request.marker_file = markername;
+		std::stringstream mn;
+		if(doc_client.call(doc_srv)){
+		
+			pcl::PointCloud<pcl::PointXYZI>::Ptr save_cloud (new pcl::PointCloud<pcl::PointXYZI>);
+			std::stringstream pf;
+			//Open file for saving marker location
+			ofstream myfile;
+			std::stringstream fs;
+			fs << "/home/mike/analyzed/multiposes.csv";
+			myfile.open (fs.str().c_str(), std::ios::out|std::ios::app);
+			ROS_INFO("Response: %lu", doc_srv.response.clouds.size());
+			for(int sctr = 0; sctr < doc_srv.response.clouds.size(); ++ sctr){
+				pf.str("");
+				pf << markername << cloud_num  << "localized_V" << sctr << "-" << doc_srv.response.clouds[sctr].id << ".pcd";
+				//Tell pcl what the 4th field information is
+				doc_srv.response.clouds[sctr].cloud_out.fields[3].name = "intensity";
+				pcl::fromROSMsg(doc_srv.response.clouds[sctr].cloud_out, *save_cloud);
+				if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
+				if(save_cloud->size() > 0) pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
+				myfile << CLOUD << cloud_ctr << "V_" << sctr << ",";
+				for(int i = 0; i <16; ++i){
+					//if(i%4 == 0) myfile << std::endl;
+					myfile << doc_srv.response.clouds[sctr].transform_mat[i] << ",";
+				}
+				myfile << "Marker " << doc_srv.response.id << " at:," << doc_srv.response.x << "," << doc_srv.response.y << "," << doc_srv.response.z << ","<< doc_srv.response.id << ",";	
+				//Call the localization service
+				loc_srv.request.cloud_in = doc_srv.response.clouds[sctr].cloud_out;
+				loc_srv.request.homing = false;
+				mn.str("");
+				mn << "/home/mike/processed/tracker/";
+				loc_srv.request.marker_file = mn.str();
+				if(loc_client.call(loc_srv)){
+					ROS_INFO("Found tracker");	
+					}
+				myfile << std::endl;
+				
+
+
+
+
+			}
+			myfile.close();
+				++cloud_ctr;
+		}else ROS_INFO("Service Failed");
+		
 	}
 	
 

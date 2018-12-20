@@ -114,9 +114,13 @@ std::vector<pcl::PointXYZI> cluster_points(pcl::PointCloud<pcl::PointXYZI>::Ptr 
 	point_list.header.stamp = ros::Time::now();
 	//This vector holds all the keypoint candidates
 	std::vector<pcl::PointXYZI> Pts;
-	
+	//ROS_INFO("Clustering");
 	for(int i = 0; i < (cloud_in->width * cloud_in->height) - 1 ; ++i){
-		if(cloud_in->points[i].intensity != 0){
+	//ROS_INFO("1Clustering %lu",(cloud_in->width * cloud_in->height));
+//if(cloud_in->points[i].intensity != 0) ROS_INFO("iftest");
+//else ROS_INFO("else");
+		if(cloud_in->points[i].intensity != 0 && (cloud_in->width * cloud_in->height)!=0){
+	//ROS_INFO("2Clustering");
 			std::vector<pcl::PointXYZI> cluster;
 			cluster.push_back(cloud_in->points[i]);
 			for(int j = i+ 1; j < (cloud_in->width * cloud_in->height); ++j){
@@ -147,16 +151,20 @@ std::vector<pcl::PointXYZI> cluster_points(pcl::PointCloud<pcl::PointXYZI>::Ptr 
 			p.x = Pt.x;
 			p.y = Pt.y;
 			p.z = Pt.z;
+	//ROS_INFO("3Clustering");
 			if(DEBUG) ROS_INFO("Found point %f/%f - %f - %f",Pt.intensity,Pt.x,Pt.y,Pt.z);
 			Pts.push_back(Pt);
 			point_list.points.push_back(p);
 		}
+	//ROS_INFO("4Clustering");
 	}
 	//Write algorithm to detect if Pts.size > 3 and delete the cluster with the least points here if having issues
 
+	//ROS_INFO("5Clustering");
 	point_list.color.r = 1.0;
 	point_list.color.b = 0.0;
-	vis_pub.publish(point_list);
+	if(point_list.points.size()>0) vis_pub.publish(point_list);
+	//ROS_INFO("Done Clustering");
 	return Pts;
 }
 
@@ -164,7 +172,7 @@ std::vector<pcl::PointXYZI> cluster_points(pcl::PointCloud<pcl::PointXYZI>::Ptr 
 //this functon locates the marker within a point cloud, it takes any amount of normals, returns true if a marker is found, and sets the marker location and transformation matrix values at the adresses given
 bool locate_marker(std::vector<pcl::PointXYZI> Pts, Eigen::Matrix3f &marker_location, Eigen::Matrix4f &A_mat){
 	
-	if(DEBUG) ROS_INFO("Locating from %lu points", Pts.size());
+	if(DEBUG) ROS_INFO("BooLocating from %lu points", Pts.size());
 	float bvecs = 1;
 	float vecs;
 	int cnts = 0;
@@ -472,7 +480,7 @@ float locate_marker(std::vector<pcl::PointXYZI> Pts, Eigen::Matrix4f &A_mat, std
 	for(int ctr = 0; ctr < val_array.size(); ++ctr){
 		if(val_array[ctr].val < bval){
 			bval = val_array[ctr].val;
-			best_idx = ctr;
+			best_idx = val_array[ctr].index;
 			P1x = Pts[val_array[ctr].i].x;
 			P1y = Pts[val_array[ctr].i].y;
 			P1z = Pts[val_array[ctr].i].z;
@@ -579,7 +587,7 @@ bool localize(phd::localize_cloud::Request  &req, phd::localize_cloud::Response 
 	if(req.homing){
 		if(DEBUG) ROS_INFO("Homing scan, returning assembled_cloud");
 		cloud_msg = cloud_req; //return the cloud sent to us unchanged
-	}else{
+	}else if(cloud_intensity_filtered->width>0){
 		
 		if(DEBUG) ROS_INFO("Localizing scan");
 		//container for unknown number of keypoint candidates
@@ -602,7 +610,8 @@ bool localize(phd::localize_cloud::Request  &req, phd::localize_cloud::Response 
 			new_marker = *i;
 			marker_list.push_back(new_marker);
 		}
-		marker_idx = locate_marker(Pts, transform_mat, marker_list);
+		if(Pts.size()>0) marker_idx = locate_marker(Pts, transform_mat, marker_list);
+		else marker_idx = -1;
 		bag.close();
 		if(marker_idx>=0){
 			transformA(0,0) = marker_list[marker_idx].transform[0];
@@ -621,6 +630,7 @@ bool localize(phd::localize_cloud::Request  &req, phd::localize_cloud::Response 
 			transformA(3,1) = marker_list[marker_idx].transform[13];
 			transformA(3,2) = marker_list[marker_idx].transform[14];
 			transformA(3,3) = marker_list[marker_idx].transform[15];
+			if(DEBUG) ROS_INFO("Using Marker %d",marker_idx);
 			marker = true;
 		}
 		Eigen::Matrix3f marker_loc;
@@ -644,9 +654,9 @@ bool localize(phd::localize_cloud::Request  &req, phd::localize_cloud::Response 
 		res.transform_mat[9] = transformAB(2,1);
 		res.transform_mat[10] = transformAB(2,2);
 		res.transform_mat[11] = transformAB(2,3);
-		res.transform_mat[12] = transformAB(3,0);
-		res.transform_mat[13] = transformAB(3,1);
-		res.transform_mat[14] = transformAB(3,2);
+		res.transform_mat[12] = transform_mat(0,3);
+		res.transform_mat[13] = transform_mat(1,3);
+		res.transform_mat[14] = transform_mat(2,3);
 		res.transform_mat[15] = transformAB(3,3);
 		//first transform the unlocalized pointcloud to its marker's coordinate frame
 		pcl::transformPointCloud (*cloud_world, *cloud_int, transformAB);
@@ -654,12 +664,12 @@ bool localize(phd::localize_cloud::Request  &req, phd::localize_cloud::Response 
 		pcl::transformPointCloud (*cloud_int, *cloud_output, transformA);
 		//convert the PCL cloud to a ROS cloud
 		pcl::toROSMsg(*cloud_output,cloud_msg);
-	}
 	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
 	cloud_msg.fields[3].name = "intensity";
 	cloud_msg.header.frame_id = "/base_footprint";
 	cloud_msg.header.stamp = ros::Time::now();
 	res.cloud_out = cloud_msg;
+	}else marker = false;
   	return marker;
 }
 

@@ -181,6 +181,34 @@ _phd_generate_messages_check_deps_cube_msg/fast:
 .PHONY : _phd_generate_messages_check_deps_cube_msg/fast
 
 # Convenience name for target.
+phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_cloud.dir/rule:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_cloud.dir/rule
+.PHONY : phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_cloud.dir/rule
+
+# Convenience name for target.
+_phd_generate_messages_check_deps_doctor_cloud: phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_cloud.dir/rule
+.PHONY : _phd_generate_messages_check_deps_doctor_cloud
+
+# fast build rule for target.
+_phd_generate_messages_check_deps_doctor_cloud/fast:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_cloud.dir/build.make phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_cloud.dir/build
+.PHONY : _phd_generate_messages_check_deps_doctor_cloud/fast
+
+# Convenience name for target.
+phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_msg.dir/rule:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_msg.dir/rule
+.PHONY : phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_msg.dir/rule
+
+# Convenience name for target.
+_phd_generate_messages_check_deps_doctor_msg: phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_msg.dir/rule
+.PHONY : _phd_generate_messages_check_deps_doctor_msg
+
+# fast build rule for target.
+_phd_generate_messages_check_deps_doctor_msg/fast:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_msg.dir/build.make phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_msg.dir/build
+.PHONY : _phd_generate_messages_check_deps_doctor_msg/fast
+
+# Convenience name for target.
 phd/CMakeFiles/_phd_generate_messages_check_deps_empty.dir/rule:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/_phd_generate_messages_check_deps_empty.dir/rule
 .PHONY : phd/CMakeFiles/_phd_generate_messages_check_deps_empty.dir/rule
@@ -361,6 +389,20 @@ brics_actuator_generate_messages_py: phd/CMakeFiles/brics_actuator_generate_mess
 brics_actuator_generate_messages_py/fast:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/brics_actuator_generate_messages_py.dir/build.make phd/CMakeFiles/brics_actuator_generate_messages_py.dir/build
 .PHONY : brics_actuator_generate_messages_py/fast
+
+# Convenience name for target.
+phd/CMakeFiles/cloud_doctor.dir/rule:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/cloud_doctor.dir/rule
+.PHONY : phd/CMakeFiles/cloud_doctor.dir/rule
+
+# Convenience name for target.
+cloud_doctor: phd/CMakeFiles/cloud_doctor.dir/rule
+.PHONY : cloud_doctor
+
+# fast build rule for target.
+cloud_doctor/fast:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/cloud_doctor.dir/build.make phd/CMakeFiles/cloud_doctor.dir/build
+.PHONY : cloud_doctor/fast
 
 # Convenience name for target.
 phd/CMakeFiles/cloud_localizer.dir/rule:
@@ -1279,6 +1321,30 @@ src/marker_selector.cpp.s:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/phd.dir/build.make phd/CMakeFiles/phd.dir/src/marker_selector.cpp.s
 .PHONY : src/marker_selector.cpp.s
 
+src/pointcloud_doctoring_service.o: src/pointcloud_doctoring_service.cpp.o
+.PHONY : src/pointcloud_doctoring_service.o
+
+# target to build an object file
+src/pointcloud_doctoring_service.cpp.o:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/cloud_doctor.dir/build.make phd/CMakeFiles/cloud_doctor.dir/src/pointcloud_doctoring_service.cpp.o
+.PHONY : src/pointcloud_doctoring_service.cpp.o
+
+src/pointcloud_doctoring_service.i: src/pointcloud_doctoring_service.cpp.i
+.PHONY : src/pointcloud_doctoring_service.i
+
+# target to preprocess a source file
+src/pointcloud_doctoring_service.cpp.i:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/cloud_doctor.dir/build.make phd/CMakeFiles/cloud_doctor.dir/src/pointcloud_doctoring_service.cpp.i
+.PHONY : src/pointcloud_doctoring_service.cpp.i
+
+src/pointcloud_doctoring_service.s: src/pointcloud_doctoring_service.cpp.s
+.PHONY : src/pointcloud_doctoring_service.s
+
+# target to generate assembly for a file
+src/pointcloud_doctoring_service.cpp.s:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/cloud_doctor.dir/build.make phd/CMakeFiles/cloud_doctor.dir/src/pointcloud_doctoring_service.cpp.s
+.PHONY : src/pointcloud_doctoring_service.cpp.s
+
 src/pointcloud_localization_service.o: src/pointcloud_localization_service.cpp.o
 .PHONY : src/pointcloud_localization_service.o
 
@@ -1383,6 +1449,8 @@ help:
 	@echo "... depend"
 	@echo "... _phd_generate_messages_check_deps_arm_msg"
 	@echo "... _phd_generate_messages_check_deps_cube_msg"
+	@echo "... _phd_generate_messages_check_deps_doctor_cloud"
+	@echo "... _phd_generate_messages_check_deps_doctor_msg"
 	@echo "... _phd_generate_messages_check_deps_empty"
 	@echo "... _phd_generate_messages_check_deps_localize_cloud"
 	@echo "... _phd_generate_messages_check_deps_marker_msg"
@@ -1396,6 +1464,7 @@ help:
 	@echo "... brics_actuator_generate_messages_cpp"
 	@echo "... brics_actuator_generate_messages_lisp"
 	@echo "... brics_actuator_generate_messages_py"
+	@echo "... cloud_doctor"
 	@echo "... cloud_localizer"
 	@echo "... cob_srvs_generate_messages_cpp"
 	@echo "... cob_srvs_generate_messages_lisp"
@@ -1491,6 +1560,9 @@ help:
 	@echo "... src/marker_selector.o"
 	@echo "... src/marker_selector.i"
 	@echo "... src/marker_selector.s"
+	@echo "... src/pointcloud_doctoring_service.o"
+	@echo "... src/pointcloud_doctoring_service.i"
+	@echo "... src/pointcloud_doctoring_service.s"
 	@echo "... src/pointcloud_localization_service.o"
 	@echo "... src/pointcloud_localization_service.i"
 	@echo "... src/pointcloud_localization_service.s"

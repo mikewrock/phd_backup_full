@@ -66,6 +66,7 @@ public:
 	void thickness_from_file(std::string,std::string);
 	void nav_mode(float pos);
 	void fscan(std::string, bool auto_localize,bool set_home,std::string,bool autocrop);
+	void ascan(std::string,std::string,int);
 	void cluster(std::string, int index);
 	int gen_trajectory(std::string);
 	int load_traj(std::string);
@@ -117,6 +118,7 @@ private:
 	ros::ServiceClient reset_map_srv;
 	ros::ServiceClient client;
 	ros::ServiceClient loc_client;
+	ros::ServiceClient doc_client;
 	ros::ServiceClient traj_client;
 	ros::ServiceClient thick_client;
 	//Dynamic Reconfigure

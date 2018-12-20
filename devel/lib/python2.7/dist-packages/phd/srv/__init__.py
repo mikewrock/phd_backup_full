@@ -1,3 +1,4 @@
+from ._doctor_cloud import *
 from ._empty import *
 from ._localize_cloud import *
 from ._simple_trajectory_service import *

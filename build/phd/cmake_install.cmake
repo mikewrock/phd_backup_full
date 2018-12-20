@@ -65,6 +65,7 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
     "/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg"
     "/home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg"
     "/home/mike/catkin_ws/src/phd/msg/trajectory_array.msg"
+    "/home/mike/catkin_ws/src/phd/msg/doctor_msg.msg"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
@@ -73,6 +74,7 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
     "/home/mike/catkin_ws/src/phd/srv/localize_cloud.srv"
     "/home/mike/catkin_ws/src/phd/srv/thickness_service.srv"
     "/home/mike/catkin_ws/src/phd/srv/simple_trajectory_service.srv"
+    "/home/mike/catkin_ws/src/phd/srv/doctor_cloud.srv"
     "/home/mike/catkin_ws/src/phd/srv/empty.srv"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")

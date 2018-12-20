@@ -2139,6 +2139,10 @@ phd/CMakeFiles/phd.dir/src/control_panel.cpp.o
  /home/mike/catkin_ws/devel/include/phd/ParamConfig.h
  /home/mike/catkin_ws/devel/include/phd/arm_msg.h
  /home/mike/catkin_ws/devel/include/phd/cube_msg.h
+ /home/mike/catkin_ws/devel/include/phd/doctor_cloud.h
+ /home/mike/catkin_ws/devel/include/phd/doctor_cloudRequest.h
+ /home/mike/catkin_ws/devel/include/phd/doctor_cloudResponse.h
+ /home/mike/catkin_ws/devel/include/phd/doctor_msg.h
  /home/mike/catkin_ws/devel/include/phd/empty.h
  /home/mike/catkin_ws/devel/include/phd/emptyRequest.h
  /home/mike/catkin_ws/devel/include/phd/emptyResponse.h

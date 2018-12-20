@@ -2,6 +2,8 @@
 2a961ee61e74b1cb773b4dd518e66ec7 /home/mike/catkin_ws/devel/include/husky_msgs/HuskyStatus.h
 43dfd9a7f96a23a6048c0da204a807f8 /home/mike/catkin_ws/devel/include/phd/arm_msg.h
 752dc6836cef19d8d0855a335f99ebd7 /home/mike/catkin_ws/devel/include/phd/cube_msg.h
+74d155d061a5ad8f6ced5e3c68652fdf /home/mike/catkin_ws/devel/include/phd/doctor_cloud.h
+1610178c21132307e07d60b24d02b3de /home/mike/catkin_ws/devel/include/phd/doctor_msg.h
 ac1c607b4c1a8f1d3a20a95af7e4161f /home/mike/catkin_ws/devel/include/phd/empty.h
 27d851202598c1c0c031059ba32d736f /home/mike/catkin_ws/devel/include/phd/localize_cloud.h
 6d73d53376eac3cc85dbf299148c6f91 /home/mike/catkin_ws/devel/include/phd/localize_configConfig.h
@@ -34,6 +36,7 @@ e91ec098ff9e125f0c1acc241ec5205d /home/mike/catkin_ws/devel/lib/python2.7/dist-p
 176ea5e5f9500ac020203237b0f5ec99 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/__init__.py
 0add84f442de37f31f02b1944a94f3d9 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_arm_msg.py
 3bc26de30ce14f252a3ac46b13ee26e3 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_cube_msg.py
+53f123379db0bbfe75c168513000ee36 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_doctor_msg.py
 4e691166da0e1af13b4e3198f7102aae /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_marker_msg.py
 711dfc8e5720876112a0bd90f0568d55 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_marker_val.py
 d92fa7e5a3ecbd50244af50c0361f713 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_trajectory_array.py
@@ -41,6 +44,7 @@ d92fa7e5a3ecbd50244af50c0361f713 /home/mike/catkin_ws/devel/lib/python2.7/dist-p
 57f060f89d3eff11bd4217f75fb277d0 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_trajectory_point.py
 63dd2e95fa2dc824a03e785622fc8fe9 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_trajectory_section.py
 9b548bcf3806d95fa5f3b5ed64b2595e /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/__init__.py
+26c34cff657248539d36074e1918e592 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_doctor_cloud.py
 bb04749763034bf8de9862b87433b175 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_empty.py
 4ef2e30e14fce09cb94bcaa30a621051 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_localize_cloud.py
 2e77eed2638877017279a933ed059bd4 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_simple_trajectory_service.py
@@ -61,12 +65,14 @@ c1e267e50d9f694f303402fe7f3d2c4b /home/mike/catkin_ws/devel/lib/python2.7/dist-p
 e04db45ddcdc5762b37072e62eaf9106 /home/mike/catkin_ws/devel/share/common-lisp/ros/husky_msgs/msg/HuskyStatus.lisp
 f2ebdb23df9a3ff1f8712802f7ad6d6b /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/arm_msg.lisp
 f8e0734375b5219ed5c7312fc5d8fd7d /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/cube_msg.lisp
+d2dbd6f68315ceceef3af91579f62618 /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/doctor_msg.lisp
 2fdffef7a89ed152721aaf6cc6859fb9 /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/marker_msg.lisp
 61e9bef23e8371c244681dd6e1bf94b5 /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/marker_val.lisp
 868b7e8d10237ae801d64abefc011437 /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/trajectory_array.lisp
 f4a7a466cddd6840e313491aa46d0369 /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/trajectory_msg.lisp
 21857c660bdaae8ecb8936be913259ed /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/trajectory_point.lisp
 8495910379ad64b4b68b377ae08545f5 /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/trajectory_section.lisp
+e171aa236e30f525cb4233face72ffd2 /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/doctor_cloud.lisp
 bb7ab8a36696f5b1251edfac9189792d /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/empty.lisp
 44aeb988e4fe5bc6265823bd8bde23bd /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/localize_cloud.lisp
 c03cfe4e9b7ccc01380fb0537ba318ba /home/mike/catkin_ws/devel/share/common-lisp/ros/phd/srv/simple_trajectory_service.lisp
@@ -190,6 +196,8 @@ a994a387c0f9a05895e79fda1d489cb8 perception_oru-release-debian-indigo-trusty-ndt
 a994a387c0f9a05895e79fda1d489cb8 perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/topic_tools_generate_messages_py
 c62829cf0e1fe3fb4233aa5924be911e phd/CMakeFiles/_phd_generate_messages_check_deps_arm_msg
 4bd5d1da8400a290af2023c47b7757b1 phd/CMakeFiles/_phd_generate_messages_check_deps_cube_msg
+38037985e140a15f73990478eeb96afd phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_cloud
+089df3b36dda107735f9f6d0f76e42e1 phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_msg
 8d2e513f1f5a6689a4293ee335e5dc8b phd/CMakeFiles/_phd_generate_messages_check_deps_empty
 e048bc74709489450db4961955db6b24 phd/CMakeFiles/_phd_generate_messages_check_deps_localize_cloud
 143a0544035e392c0da369a8812dfb60 phd/CMakeFiles/_phd_generate_messages_check_deps_marker_msg

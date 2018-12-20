@@ -2402,6 +2402,32 @@ _phd_generate_messages_check_deps_cube_msg/fast:
 .PHONY : _phd_generate_messages_check_deps_cube_msg/fast
 
 #=============================================================================
+# Target rules for targets named _phd_generate_messages_check_deps_doctor_cloud
+
+# Build rule for target.
+_phd_generate_messages_check_deps_doctor_cloud: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _phd_generate_messages_check_deps_doctor_cloud
+.PHONY : _phd_generate_messages_check_deps_doctor_cloud
+
+# fast build rule for target.
+_phd_generate_messages_check_deps_doctor_cloud/fast:
+	$(MAKE) -f phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_cloud.dir/build.make phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_cloud.dir/build
+.PHONY : _phd_generate_messages_check_deps_doctor_cloud/fast
+
+#=============================================================================
+# Target rules for targets named _phd_generate_messages_check_deps_doctor_msg
+
+# Build rule for target.
+_phd_generate_messages_check_deps_doctor_msg: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _phd_generate_messages_check_deps_doctor_msg
+.PHONY : _phd_generate_messages_check_deps_doctor_msg
+
+# fast build rule for target.
+_phd_generate_messages_check_deps_doctor_msg/fast:
+	$(MAKE) -f phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_msg.dir/build.make phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_msg.dir/build
+.PHONY : _phd_generate_messages_check_deps_doctor_msg/fast
+
+#=============================================================================
 # Target rules for targets named _phd_generate_messages_check_deps_empty
 
 # Build rule for target.
@@ -2569,6 +2595,19 @@ brics_actuator_generate_messages_py: cmake_check_build_system
 brics_actuator_generate_messages_py/fast:
 	$(MAKE) -f phd/CMakeFiles/brics_actuator_generate_messages_py.dir/build.make phd/CMakeFiles/brics_actuator_generate_messages_py.dir/build
 .PHONY : brics_actuator_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named cloud_doctor
+
+# Build rule for target.
+cloud_doctor: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 cloud_doctor
+.PHONY : cloud_doctor
+
+# fast build rule for target.
+cloud_doctor/fast:
+	$(MAKE) -f phd/CMakeFiles/cloud_doctor.dir/build.make phd/CMakeFiles/cloud_doctor.dir/build
+.PHONY : cloud_doctor/fast
 
 #=============================================================================
 # Target rules for targets named cloud_localizer
@@ -3640,6 +3679,8 @@ help:
 	@echo "... newwrock"
 	@echo "... _phd_generate_messages_check_deps_arm_msg"
 	@echo "... _phd_generate_messages_check_deps_cube_msg"
+	@echo "... _phd_generate_messages_check_deps_doctor_cloud"
+	@echo "... _phd_generate_messages_check_deps_doctor_msg"
 	@echo "... _phd_generate_messages_check_deps_empty"
 	@echo "... _phd_generate_messages_check_deps_localize_cloud"
 	@echo "... _phd_generate_messages_check_deps_marker_msg"
@@ -3653,6 +3694,7 @@ help:
 	@echo "... brics_actuator_generate_messages_cpp"
 	@echo "... brics_actuator_generate_messages_lisp"
 	@echo "... brics_actuator_generate_messages_py"
+	@echo "... cloud_doctor"
 	@echo "... cloud_localizer"
 	@echo "... cob_srvs_generate_messages_cpp"
 	@echo "... cob_srvs_generate_messages_lisp"

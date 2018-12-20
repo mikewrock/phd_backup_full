@@ -18,4 +18,6 @@
     (:file "_package_simple_trajectory_service" :depends-on ("_package"))
     (:file "empty" :depends-on ("_package_empty"))
     (:file "_package_empty" :depends-on ("_package"))
+    (:file "doctor_cloud" :depends-on ("_package_doctor_cloud"))
+    (:file "_package_doctor_cloud" :depends-on ("_package"))
   ))
