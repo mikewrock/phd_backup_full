@@ -1,4 +1,4 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/teb_local_planner.dir/src/timed_elastic_band.cpp.o"
   "CMakeFiles/teb_local_planner.dir/src/optimal_planner.cpp.o"
   "CMakeFiles/teb_local_planner.dir/src/obstacles.cpp.o"
@@ -11,6 +11,6 @@ FILE(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang CXX)
-  INCLUDE(CMakeFiles/teb_local_planner.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang CXX)
+  include(CMakeFiles/teb_local_planner.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

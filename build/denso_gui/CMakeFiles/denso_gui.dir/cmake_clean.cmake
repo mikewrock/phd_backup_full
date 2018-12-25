@@ -1,4 +1,4 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "include/denso_gui/moc_dashboard_panel.cxx"
   "include/denso_gui/moc_denso_gui.cxx"
   "ui_dashboard_panel2.h"
@@ -20,6 +20,6 @@ FILE(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang C CXX)
-  INCLUDE(CMakeFiles/denso_gui.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang C CXX)
+  include(CMakeFiles/denso_gui.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

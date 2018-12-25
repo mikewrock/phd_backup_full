@@ -1,4 +1,4 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "include/moc_drive_widget.cxx"
   "include/moc_teleop_panel.cxx"
   "CMakeFiles/newwrock.dir/src/drive_widget.cpp.o"
@@ -10,6 +10,6 @@ FILE(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang CXX)
-  INCLUDE(CMakeFiles/newwrock.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang CXX)
+  include(CMakeFiles/newwrock.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

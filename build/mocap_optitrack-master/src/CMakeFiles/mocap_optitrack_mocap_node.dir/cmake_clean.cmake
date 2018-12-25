@@ -1,4 +1,4 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/mocap_optitrack_mocap_node.dir/natnet/natnet_packet_definition.cpp.o"
   "CMakeFiles/mocap_optitrack_mocap_node.dir/natnet/natnet_messages.cpp.o"
   "CMakeFiles/mocap_optitrack_mocap_node.dir/socket.cpp.o"
@@ -12,6 +12,6 @@ FILE(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang CXX)
-  INCLUDE(CMakeFiles/mocap_optitrack_mocap_node.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang CXX)
+  include(CMakeFiles/mocap_optitrack_mocap_node.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

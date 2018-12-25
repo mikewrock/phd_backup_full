@@ -1,4 +1,4 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "include/shotcrete_selector/moc_shotcretePointsPublisher.cxx"
   "CMakeFiles/shotcrete_points_publisher.dir/src/shotcretePointsPublisher.cpp.o"
   "CMakeFiles/shotcrete_points_publisher.dir/include/shotcrete_selector/moc_shotcretePointsPublisher.cxx.o"
@@ -7,6 +7,6 @@ FILE(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang CXX)
-  INCLUDE(CMakeFiles/shotcrete_points_publisher.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang CXX)
+  include(CMakeFiles/shotcrete_points_publisher.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

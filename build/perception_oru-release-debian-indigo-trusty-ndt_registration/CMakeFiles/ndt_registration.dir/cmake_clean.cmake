@@ -1,4 +1,4 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/ndt_registration.dir/src/ndt_matcher_d2d.cpp.o"
   "CMakeFiles/ndt_registration.dir/src/ndt_matcher_d2d_2d.cpp.o"
   "CMakeFiles/ndt_registration.dir/src/ndt_matcher_d2d_feature.cpp.o"
@@ -8,6 +8,6 @@ FILE(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang CXX)
-  INCLUDE(CMakeFiles/ndt_registration.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang CXX)
+  include(CMakeFiles/ndt_registration.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

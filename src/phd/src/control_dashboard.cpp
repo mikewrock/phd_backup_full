@@ -421,7 +421,14 @@ namespace control_panel
 		BOOST_FOREACH(rosbag::MessageInstance const m, view_marker){
 			phd::marker_msg::ConstPtr i = m.instantiate<phd::marker_msg>();
 			new_marker = *i;
-			ROS_INFO("MARKER FOUND: %f - %f - %f",new_marker.p1.x,new_marker.VAL1,new_marker.transform[4]);
+			ROS_INFO("MARKER FOUND:\nP1: %f / %f / %f\nP2: %f / %f / %f\nP3: %f / %f / %f\nVal: %f/%f/%f/%f\n|%f/%f/%f/%f|\n|%f/%f/%f/%f|\n|%f/%f/%f/%f|\n|%f/%f/%f/%f|\n",new_marker.p1.x,new_marker.p1.y,new_marker.p1.z,
+								new_marker.p2.x,new_marker.p2.y,new_marker.p2.z,
+								new_marker.p3.x,new_marker.p3.y,new_marker.p3.z,
+								new_marker.VAL1,new_marker.VAL2,new_marker.VAL3,new_marker.VAL4,
+					new_marker.transform[0],new_marker.transform[1],new_marker.transform[2],new_marker.transform[3],
+					new_marker.transform[4],new_marker.transform[5],new_marker.transform[6],new_marker.transform[7],
+					new_marker.transform[8],new_marker.transform[9],new_marker.transform[10],new_marker.transform[11],
+					new_marker.transform[12],new_marker.transform[13],new_marker.transform[14],new_marker.transform[15]);
 		}
 		bag.close();	
 
@@ -439,7 +446,7 @@ namespace control_panel
 	void ControlPanel::process_data(){
 
 		std::stringstream fs, fs2;
-		for(int ctr = 1; ctr <= 63; ++ctr){
+		for(int ctr = ui_.pre_box->text().toInt(); ctr <= ui_.post_box->text().toInt(); ++ctr){
 		fs2.str("");
 		fs2 << ui_.filename_box->text().toStdString() << ctr << "rawcloud.pcd";
 		 control_panel.fscan(fs2.str(),true,false,ui_.filename_box->text().toStdString(),false);

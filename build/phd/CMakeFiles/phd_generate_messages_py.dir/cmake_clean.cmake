@@ -1,4 +1,4 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/phd_generate_messages_py"
   "/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_doctor_msg.py"
   "/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_marker_val.py"
@@ -18,6 +18,6 @@ FILE(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang)
-  INCLUDE(CMakeFiles/phd_generate_messages_py.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang )
+  include(CMakeFiles/phd_generate_messages_py.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

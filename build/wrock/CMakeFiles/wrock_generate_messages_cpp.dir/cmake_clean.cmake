@@ -1,4 +1,4 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/wrock_generate_messages_cpp"
   "/home/mike/catkin_ws/devel/include/wrock/cube_pose.h"
   "/home/mike/catkin_ws/devel/include/wrock/arm_msg.h"
@@ -9,6 +9,6 @@ FILE(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang)
-  INCLUDE(CMakeFiles/wrock_generate_messages_cpp.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang )
+  include(CMakeFiles/wrock_generate_messages_cpp.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

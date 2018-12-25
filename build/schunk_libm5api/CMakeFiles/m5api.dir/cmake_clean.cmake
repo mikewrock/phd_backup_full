@@ -1,4 +1,4 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/m5api.dir/src/Device/Device.cpp.o"
   "CMakeFiles/m5api.dir/src/Device/ProtocolDevice.cpp.o"
   "CMakeFiles/m5api.dir/src/Device/ESDDevice.cpp.o"
@@ -16,6 +16,6 @@ FILE(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang CXX)
-  INCLUDE(CMakeFiles/m5api.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang CXX)
+  include(CMakeFiles/m5api.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

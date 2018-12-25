@@ -1,4 +1,4 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/teb_local_planner_generate_messages_cpp"
   "/home/mike/catkin_ws/devel/include/teb_local_planner/TrajectoryPointMsg.h"
   "/home/mike/catkin_ws/devel/include/teb_local_planner/TrajectoryMsg.h"
@@ -7,6 +7,6 @@ FILE(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang)
-  INCLUDE(CMakeFiles/teb_local_planner_generate_messages_cpp.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang )
+  include(CMakeFiles/teb_local_planner_generate_messages_cpp.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

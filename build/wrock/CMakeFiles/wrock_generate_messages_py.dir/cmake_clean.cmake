@@ -1,4 +1,4 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/wrock_generate_messages_py"
   "/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/wrock/msg/_cube_pose.py"
   "/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/wrock/msg/_arm_msg.py"
@@ -10,6 +10,6 @@ FILE(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang)
-  INCLUDE(CMakeFiles/wrock_generate_messages_py.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang )
+  include(CMakeFiles/wrock_generate_messages_py.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

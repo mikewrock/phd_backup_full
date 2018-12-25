@@ -1,4 +1,4 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "include/moc_control_panel.cxx"
   "include/moc_control_dashboard.cxx"
   "include/moc_marker_selector.cxx"
@@ -25,6 +25,6 @@ FILE(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang C CXX)
-  INCLUDE(CMakeFiles/phd.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang C CXX)
+  include(CMakeFiles/phd.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

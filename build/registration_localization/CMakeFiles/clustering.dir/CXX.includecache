@@ -6,6 +6,8 @@
 
 #IncludeRegexTransform: 
 
+/home/mike/catkin_ws/devel/include/registration_localization/SEGConfig.h
+
 /home/mike/catkin_ws/src/registration_localization/src/clustering.cpp
 ros/ros.h
 -

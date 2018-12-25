@@ -1,4 +1,4 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/registration_localization_gencfg"
   "/home/mike/catkin_ws/devel/include/registration_localization/testConfig.h"
   "/home/mike/catkin_ws/devel/share/registration_localization/docs/testConfig.dox"
@@ -8,6 +8,6 @@ FILE(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang)
-  INCLUDE(CMakeFiles/registration_localization_gencfg.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang )
+  include(CMakeFiles/registration_localization_gencfg.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

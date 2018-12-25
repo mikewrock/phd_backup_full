@@ -1,4 +1,4 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/bcap_client.dir/src/bcap_common.c.o"
   "CMakeFiles/bcap_client.dir/src/dn_com.c.o"
   "CMakeFiles/bcap_client.dir/src/dn_common.c.o"
@@ -13,6 +13,6 @@ FILE(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang C)
-  INCLUDE(CMakeFiles/bcap_client.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang C)
+  include(CMakeFiles/bcap_client.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

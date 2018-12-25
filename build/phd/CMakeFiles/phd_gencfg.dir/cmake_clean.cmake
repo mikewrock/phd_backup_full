@@ -1,4 +1,4 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/phd_gencfg"
   "/home/mike/catkin_ws/devel/include/phd/param_configConfig.h"
   "/home/mike/catkin_ws/devel/share/phd/docs/param_configConfig.dox"
@@ -23,6 +23,6 @@ FILE(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang)
-  INCLUDE(CMakeFiles/phd_gencfg.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang )
+  include(CMakeFiles/phd_gencfg.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

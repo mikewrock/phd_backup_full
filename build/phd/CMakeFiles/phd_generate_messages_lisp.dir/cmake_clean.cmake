@@ -1,4 +1,4 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/phd_generate_messages_lisp"
   "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/doctor_msg.lisp"
   "/home/mike/catkin_ws/devel/share/common-lisp/ros/phd/msg/marker_val.lisp"
@@ -16,6 +16,6 @@ FILE(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang)
-  INCLUDE(CMakeFiles/phd_generate_messages_lisp.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang )
+  include(CMakeFiles/phd_generate_messages_lisp.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

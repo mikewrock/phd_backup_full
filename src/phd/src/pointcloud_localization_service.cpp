@@ -638,11 +638,11 @@ bool localize(phd::localize_cloud::Request  &req, phd::localize_cloud::Response 
 		Eigen::Matrix3f marker_loc;
 		//pick most likely keypoint candidates to use as marker
 		//marker = locate_marker(Pts, marker_loc, transform_mat);
-		if(DEBUG) std::cout << "Transform Mat" << transform_mat << std::endl;
-		if(DEBUG) std::cout << "Transform A" << transformA << std::endl;
+		if(DEBUG) ROS_INFO_STREAM( "Transform Mat\n" << transform_mat);
+		if(DEBUG) ROS_INFO_STREAM( "Transform A\n" << transformA);
 		pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_int (new pcl::PointCloud<pcl::PointXYZI>);
 		Eigen::Matrix4f transformAB = transform_mat.inverse();
-		if(DEBUG) std::cout << "Transform AB" << transformAB << std::endl;
+		if(DEBUG) ROS_INFO_STREAM( "Transform AB\n" << transformAB);
 		//form transformation matrix from marker.bag file information
 		res.transform_mat[0] = transform_mat(0,0);
 		res.transform_mat[1] = transform_mat(0,1);

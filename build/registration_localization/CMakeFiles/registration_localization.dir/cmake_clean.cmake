@@ -1,4 +1,4 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "include/registration_localization/moc_dashboard_panel.cxx"
   "include/registration_localization/moc_point_selector.cxx"
   "include/registration_localization/moc_save_marker.cxx"
@@ -17,6 +17,6 @@ FILE(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang CXX)
-  INCLUDE(CMakeFiles/registration_localization.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang CXX)
+  include(CMakeFiles/registration_localization.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

@@ -1,4 +1,4 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "qrc_images.cxx"
   "ui_main_window.h"
   "include/test_panel/moc_main_window.cxx"
@@ -14,6 +14,6 @@ FILE(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang CXX)
-  INCLUDE(CMakeFiles/test_panel.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang CXX)
+  include(CMakeFiles/test_panel.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()
