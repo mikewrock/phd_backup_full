@@ -671,6 +671,7 @@ bool localize(phd::localize_cloud::Request  &req, phd::localize_cloud::Response 
 	cloud_msg.header.frame_id = "/base_footprint";
 	cloud_msg.header.stamp = ros::Time::now();
 	res.cloud_out = cloud_msg;
+	res.marker = marker_idx;
 	}else marker = false;
   	return marker;
 }

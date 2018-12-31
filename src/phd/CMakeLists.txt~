@@ -83,6 +83,7 @@ generate_dynamic_reconfigure_options(
   cfg/param_config.cfg
   cfg/localize_config.cfg
   cfg/trajectory_config.cfg
+  cfg/seg_config.cfg
 )
 ## Generate messages in the 'msg' folder
  add_message_files(

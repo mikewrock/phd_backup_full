@@ -17,6 +17,8 @@ registration_localization/CMakeFiles/vregister.dir/src/vregister.cpp.o: /opt/ros
 registration_localization/CMakeFiles/vregister.dir/src/vregister.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/ReconfigureRequest.h
 registration_localization/CMakeFiles/vregister.dir/src/vregister.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/ReconfigureResponse.h
 registration_localization/CMakeFiles/vregister.dir/src/vregister.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/StrParameter.h
+registration_localization/CMakeFiles/vregister.dir/src/vregister.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/config_init_mutex.h
+registration_localization/CMakeFiles/vregister.dir/src/vregister.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/config_tools.h
 registration_localization/CMakeFiles/vregister.dir/src/vregister.cpp.o: /opt/ros/indigo/include/dynamic_reconfigure/server.h
 registration_localization/CMakeFiles/vregister.dir/src/vregister.cpp.o: /opt/ros/indigo/include/geometry_msgs/Point.h
 registration_localization/CMakeFiles/vregister.dir/src/vregister.cpp.o: /opt/ros/indigo/include/geometry_msgs/Point32.h

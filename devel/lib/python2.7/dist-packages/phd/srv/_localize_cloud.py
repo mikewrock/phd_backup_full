@@ -407,11 +407,12 @@ import std_msgs.msg
 import sensor_msgs.msg
 
 class localize_cloudResponse(genpy.Message):
-  _md5sum = "b199ee0f9f915c62760e2e9b5c864faa"
+  _md5sum = "7332045ad514a38283514da5725a64f7"
   _type = "phd/localize_cloudResponse"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """sensor_msgs/PointCloud2 cloud_out
 float64[16] transform_mat
+float64 marker
 
 
 ================================================================================
@@ -480,8 +481,8 @@ uint32 offset    # Offset from start of point struct
 uint8  datatype  # Datatype enumeration, see above
 uint32 count     # How many elements in the field
 """
-  __slots__ = ['cloud_out','transform_mat']
-  _slot_types = ['sensor_msgs/PointCloud2','float64[16]']
+  __slots__ = ['cloud_out','transform_mat','marker']
+  _slot_types = ['sensor_msgs/PointCloud2','float64[16]','float64']
 
   def __init__(self, *args, **kwds):
     """
@@ -491,7 +492,7 @@ uint32 count     # How many elements in the field
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       cloud_out,transform_mat
+       cloud_out,transform_mat,marker
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -504,9 +505,12 @@ uint32 count     # How many elements in the field
         self.cloud_out = sensor_msgs.msg.PointCloud2()
       if self.transform_mat is None:
         self.transform_mat = [0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.]
+      if self.marker is None:
+        self.marker = 0.
     else:
       self.cloud_out = sensor_msgs.msg.PointCloud2()
       self.transform_mat = [0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.]
+      self.marker = 0.
 
   def _get_types(self):
     """
@@ -558,6 +562,7 @@ uint32 count     # How many elements in the field
         buff.write(struct.pack('<I%ss'%length, length, _x))
       buff.write(_struct_B.pack(self.cloud_out.is_dense))
       buff.write(_struct_16d.pack(*self.transform_mat))
+      buff.write(_struct_d.pack(self.marker))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -625,6 +630,9 @@ uint32 count     # How many elements in the field
       start = end
       end += 128
       self.transform_mat = _struct_16d.unpack(str[start:end])
+      start = end
+      end += 8
+      (self.marker,) = _struct_d.unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -675,6 +683,7 @@ uint32 count     # How many elements in the field
         buff.write(struct.pack('<I%ss'%length, length, _x))
       buff.write(_struct_B.pack(self.cloud_out.is_dense))
       buff.write(self.transform_mat.tostring())
+      buff.write(_struct_d.pack(self.marker))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -743,6 +752,9 @@ uint32 count     # How many elements in the field
       start = end
       end += 128
       self.transform_mat = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=16)
+      start = end
+      end += 8
+      (self.marker,) = _struct_d.unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -750,12 +762,13 @@ uint32 count     # How many elements in the field
 _struct_I = genpy.struct_I
 _struct_IBI = struct.Struct("<IBI")
 _struct_B = struct.Struct("<B")
+_struct_d = struct.Struct("<d")
 _struct_16d = struct.Struct("<16d")
 _struct_3I = struct.Struct("<3I")
 _struct_B2I = struct.Struct("<B2I")
 _struct_2I = struct.Struct("<2I")
 class localize_cloud(object):
   _type          = 'phd/localize_cloud'
-  _md5sum = 'e94e341fd35037c227d8abedb9ee2c51'
+  _md5sum = '91635e6bd9326f467ba5f0832b0e3ef6'
   _request_class  = localize_cloudRequest
   _response_class = localize_cloudResponse

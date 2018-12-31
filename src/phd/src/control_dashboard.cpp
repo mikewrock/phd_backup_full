@@ -52,6 +52,7 @@ namespace control_panel
 		connect(ui_.nav_mode_button, SIGNAL(clicked()), this, SLOT(do_nav()));
 		connect(ui_.show_nav_button, SIGNAL(clicked()), this, SLOT(show_nav()));
 		connect(ui_.fscan_button, SIGNAL(clicked()), this, SLOT(fake_scan()));
+		connect(ui_.more_anal, SIGNAL(clicked()), this, SLOT(anal_scan()));
 		connect(ui_.fscan_button_2, SIGNAL(clicked()), this, SLOT(fake_scan2()));
 		connect(ui_.scan_button, SIGNAL(clicked()), this, SLOT(scan()));
 		connect(ui_.prescan_button, SIGNAL(clicked()), this, SLOT(prescan()));
@@ -448,8 +449,8 @@ namespace control_panel
 		std::stringstream fs, fs2;
 		for(int ctr = ui_.pre_box->text().toInt(); ctr <= ui_.post_box->text().toInt(); ++ctr){
 		fs2.str("");
-		fs2 << ui_.filename_box->text().toStdString() << ctr << "rawcloud.pcd";
-		 control_panel.fscan(fs2.str(),true,false,ui_.filename_box->text().toStdString(),false);
+		fs2 << ui_.filename_box->text().toStdString() << ctr << "cloud.pcd";
+		 control_panel.fscan(fs2.str(),true,false,ui_.filename_box->text().toStdString(),true);
 		}	
 
 	}
@@ -457,16 +458,30 @@ namespace control_panel
 	void ControlPanel::analyze(){
 
 		std::stringstream fs, fs2;
-		int ctr = 1;
 		for(int ctr = ui_.pre_box->text().toInt(); ctr <= ui_.post_box->text().toInt(); ++ctr){
 		fs2.str("");
 		//ctr = ui_.pre_box->text().toInt();
 		//fs2 << ui_.filename_box->text().toStdString() << ui_.pre_box->text().toStdString() << "rawcloud.pcd";
-		fs2 << ui_.filename_box->text().toStdString() << ctr << "rawcloud.pcd";
-		 control_panel.ascan(fs2.str(),ui_.marker_name_box->text().toStdString(),ctr-1);
+		fs2 << ui_.filename_box->text().toStdString() << ctr << "localized.pcd";
+		 control_panel.ascan(fs2.str(),ui_.marker_name_box->text().toStdString(),ctr);
 		}	
 
 	}
+	//More analysis
+	void ControlPanel::anal_scan(){
+	std::stringstream fs, fs2;
+	for(int ctr2 = 0; ctr2 <= ui_.pre_box->text().toInt(); ++ctr2){
+		fs.str("");
+		fs << ui_.filename_box->text().toStdString() << "post/"<< ctr2 << "localized.pcd";
+	
+		for(int ctr = 0; ctr <= ui_.post_box->text().toInt(); ++ctr){
+		fs2.str("");
+		//ctr = ui_.pre_box->text().toInt();
+		//fs2 << ui_.filename_box->text().toStdString() << ui_.pre_box->text().toStdString() << "rawcloud.pcd";
+		fs2 << ui_.filename_box->text().toStdString() << "pre/" << ctr << "localized.pcd";
+		  control_panel.xscan(fs2.str(),ctr2,ctr,fs.str(),true);
+		}
+	}}
 
 }
 

@@ -7,6 +7,6 @@
 # new environment variables
 
 # modified environment variables
-export LD_LIBRARY_PATH="/opt/ros/indigo/lib/x86_64-linux-gnu:/home/mike/Qt/5.7/gcc_64/lib/:/home/mike/catkin_ws/devel/lib:/opt/ros/indigo/lib"
+export LD_LIBRARY_PATH="/opt/ros/indigo/lib/x86_64-linux-gnu:/home/mike/catkin_ws/devel/lib:/opt/ros/indigo/lib"
 export PKG_CONFIG_PATH="/opt/ros/indigo/lib/x86_64-linux-gnu/pkgconfig:/home/mike/catkin_ws/devel/lib/pkgconfig:/opt/ros/indigo/lib/pkgconfig"
 export PWD="/home/mike/catkin_ws/build"

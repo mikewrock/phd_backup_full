@@ -1,5 +1,6 @@
 // Always goes first
 #define _CUSTOM_UINT64
+#define PCL_NO_PRECOMPILE
 // ROS
 #include <ros/ros.h>
 //Header for this file
@@ -14,6 +15,7 @@
 #include <std_msgs/Float64.h>
 #include <rosbag/bag.h>
 #include <rosbag/view.h>
+#include <pcl/register_point_struct.h>
 #include <boost/foreach.hpp>
 #include <actionlib/client/simple_action_client.h>
 //C++ includes
@@ -28,6 +30,7 @@
 #include "phd/doctor_cloud.h"
 #include "phd/simple_trajectory_service.h"
 #include "phd/thickness_service.h"
+#include "phd/accuracy_service.h"
 // Messages
 #include "sensor_msgs/PointCloud.h"
 #include <phd/cube_msg.h>
@@ -47,7 +50,7 @@
 #include <pcl/registration/ia_ransac.h>
 #include <pcl/filters/passthrough.h>
 #include <pcl/common/common.h>
-#include <pcl/filters/impl/box_clipper3D.hpp>
+//#include <pcl/filters/impl/box_clipper3D.hpp>
 #include <pcl/features/fpfh.h>
 #include <pcl/filters/crop_box.h>
 #include <pcl/filters/voxel_grid.h>
@@ -77,6 +80,15 @@
 #define X_BASE_TO_ARM .156971
 #define Y_BASE_TO_ARM -.096013
 #define Z_BASE_TO_ARM .405369
+struct PointXYZIT
+{
+  PCL_ADD_POINT4D;                  // preferred way of adding a XYZ+padding
+  float intensity;
+  float C2M_signed_distances;
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW   // make sure our new allocators are aligned
+} EIGEN_ALIGN16;                    // enforce SSE padding for correct memory alignment
+
+POINT_CLOUD_REGISTER_POINT_STRUCT (PointXYZIT,(float, x, x)(float, y, y)(float, z, z)(float, intensity, intensity)(float, C2M_signed_distances, C2M_signed_distances))
 
 namespace control_panel{
 namespace control_panel_ns{
@@ -106,7 +118,6 @@ std_msgs::String RESET_MAP, CLOUD_STR, TRAJ, SCAN_COMPLETE;
 geometry_msgs::PoseStamped basePose;
 //This is our client for sending move_base goals
 actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient("move_base", true);
-
 class CSVRow
 {
     public:
@@ -632,6 +643,7 @@ bool QNode::init() {
 	traj_client = nh_.serviceClient<phd::simple_trajectory_service>("trajectory_gen");
 	//Service client for estimating thickness
 	thick_client = nh_.serviceClient<phd::thickness_service>("thick_srv");
+	acc_client = nh_.serviceClient<phd::accuracy_service>("acc_srv");
 	//Initialize the trajectory display marker	
 	point_list.header.frame_id = "/base_footprint";
 	point_list.header.stamp = ros::Time::now();
@@ -646,6 +658,7 @@ bool QNode::init() {
 	point_list.color.a = 1;
 	//Start the counters for trajectory sections and points at 0
 	cloud_ctr = 0;
+	thick_ctr = 0;
 	tctr = 0;
 	current_pc_.reset(new pcl::PointCloud<pcl::PointXYZI>());
 	raw_pc_.reset(new pcl::PointCloud<pcl::PointXYZI>());
@@ -1240,39 +1253,8 @@ void QNode::fscan(std::string filename, bool auto_localize,bool set_home, std::s
 		cloud_msg.fields[3].name = "intensity";
 		//Set the frame
 		cloud_msg.header.frame_id = "/base_footprint";
-		if(auto_localize){
-			if(DEBUG) ROS_INFO("Auto Localizing");	
-			//Call the localization service
-			loc_srv.request.cloud_in = cloud_msg;
-			loc_srv.request.homing = set_home;
-			loc_srv.request.marker_file = markername;
-			if(loc_client.call(loc_srv)){
-				ROS_INFO("Localized Cloud %d", (uint32_t)(loc_srv.response.cloud_out.width));
-				pub.publish(loc_srv.response.cloud_out);
-				cloud_surface_world = loc_srv.response.cloud_out;
 
-				pcl::PointCloud<pcl::PointXYZI>::Ptr save_cloud (new pcl::PointCloud<pcl::PointXYZI>);
-				std::stringstream pf;
-				//Tell pcl what the 4th field information is
-				cloud_surface_world.fields[3].name = "intensity";
-				pcl::fromROSMsg(cloud_surface_world, *save_cloud);
-				pf << markername << CLOUD << cloud_ctr  << "localized.pcd";
-				if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
-				if(save_cloud->size() > 0) pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
-				//Open file for saving marker location
-				ofstream myfile;
-				std::stringstream fs;
-				fs << "/home/mike/processed/localizedposes.csv";
-				myfile.open (fs.str().c_str(), std::ios::out|std::ios::app);
-				myfile << CLOUD << cloud_ctr << ",";
-				for(int i = 0; i <16; ++i){
-					//if(i%4 == 0) myfile << std::endl;
-					myfile << loc_srv.response.transform_mat[i] << ",";
-				}
-				myfile << std::endl;
-				++cloud_ctr;
-			}else ROS_INFO("Service Failed");
-		}
+
 		if(autocrop){
 			//Crop points that are the robot itself
 			Eigen::Vector4f minPoint; 
@@ -1303,13 +1285,153 @@ void QNode::fscan(std::string filename, bool auto_localize,bool set_home, std::s
 			//Set the pointcloud to cover
 			pcl::toROSMsg(*cloudOut,cloud_surface_world);
 			//current_pc_ = cloudOut;
-		}else{
+		}
+		else{
 		cloud_surface_world = cloud_msg;
 		cloud_surface_world.fields[3].name = "intensities";
 		//current_pc_ = cloud;
 		}
+
+
+
+		if(auto_localize){
+			if(DEBUG) ROS_INFO("Auto Localizing");	
+			//Call the localization service
+			loc_srv.request.cloud_in = cloud_surface_world;
+			loc_srv.request.homing = set_home;
+			loc_srv.request.marker_file = markername;
+			if(loc_client.call(loc_srv)){
+				ROS_INFO("Localized Cloud %d", (uint32_t)(loc_srv.response.cloud_out.width));
+				pub.publish(loc_srv.response.cloud_out);
+				cloud_surface_world = loc_srv.response.cloud_out;
+
+				pcl::PointCloud<pcl::PointXYZI>::Ptr save_cloud (new pcl::PointCloud<pcl::PointXYZI>);
+				std::stringstream pf;
+				//Tell pcl what the 4th field information is
+				cloud_surface_world.fields[3].name = "intensity";
+				pcl::fromROSMsg(cloud_surface_world, *save_cloud);
+				pf << markername << cloud_ctr  << "localized.pcd";
+				if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
+				if(save_cloud->size() > 0) pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
+				//Open file for saving marker location
+				ofstream myfile;
+				std::stringstream fs;
+				fs << markername << "localizedposes.csv";
+				myfile.open (fs.str().c_str(), std::ios::out|std::ios::app);
+				myfile << CLOUD << cloud_ctr << ",Marker," << loc_srv.response.marker << ",";
+				for(int i = 0; i <16; ++i){
+					//if(i%4 == 0) myfile << std::endl;
+					myfile << loc_srv.response.transform_mat[i] << ",";
+				}
+				myfile << std::endl;
+				++cloud_ctr;
+			}else ROS_INFO("Service Failed");
+		}
 			cloud_surface_world.header.frame_id = "/world";
 			rawpub.publish(cloud_surface_world);
+	}
+}
+
+//Testing function for publishing point clouds from file
+void QNode::xscan(std::string before, int postnum,int prenum, std::string after, bool autocrop){
+
+	//Create a pcl pointer to load the datum cloud in to
+	pcl::PointCloud<PointXYZIT>::Ptr datum (new pcl::PointCloud<PointXYZIT> );
+	pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_before (new pcl::PointCloud<pcl::PointXYZI> );
+	pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_after (new pcl::PointCloud<pcl::PointXYZI> );
+	//Create a ros message to publish the cloud and datum
+	sensor_msgs::PointCloud2 cloud_datum, cloud_msg;
+	//Create a ros message to publish the cloud as
+	sensor_msgs::PointCloud2 cloud_before;
+	sensor_msgs::PointCloud2 cloud_after;
+	std::stringstream fs;
+	fs <<  "/home/mike/Datum/Datum.pcd";
+	//Load the file
+	if (pcl::io::loadPCDFile<PointXYZIT> (fs.str().c_str(), *datum) == -1) PCL_ERROR ("Couldn't read file\n");
+	//Load the file
+	else if (pcl::io::loadPCDFile<pcl::PointXYZI> (before.c_str(), *pcl_before) == -1) PCL_ERROR ("Couldn't read file\n");
+	else if (pcl::io::loadPCDFile<pcl::PointXYZI> (after.c_str(), *pcl_after) == -1) PCL_ERROR ("Couldn't read file\n");
+	else{
+		if(DEBUG) ROS_INFO("Files Opened");
+		
+
+//Convert from PCL to ROS
+		pcl::toROSMsg(*datum,cloud_datum);
+		//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
+		cloud_datum.fields[3].name = "intensity";
+		//Set the frame
+		cloud_datum.header.frame_id = "/base_footprint";
+
+
+	//Convert from PCL to ROS
+	pcl::toROSMsg(*pcl_after,cloud_after);
+	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
+	cloud_after.fields[3].name = "intensity";
+	//Set the frame
+	cloud_after.header.frame_id = "/world";
+
+if(autocrop){
+			//Crop points that are the robot itself
+			Eigen::Vector4f minPoint; 
+			minPoint[0]=.99;  // define minimum point x 
+			minPoint[1]=2.5;  // define minimum point y 
+			minPoint[2]=.3;  // define minimum point z 
+			Eigen::Vector4f maxPoint; 
+			maxPoint[0]=1.44;  // define max point x 
+			maxPoint[1]=3.5;  // define max point y 
+			maxPoint[2]=1.19;  // define max point z 
+			Eigen::Vector3f boxTranslatation; 
+			boxTranslatation[0]=0;   
+			boxTranslatation[1]=0;   
+			boxTranslatation[2]=0;   
+			Eigen::Vector3f boxRotation; 
+			boxRotation[0]=0;  // rotation around x-axis 
+			boxRotation[1]=0;  // rotation around y-axis 
+			boxRotation[2]=0;  //in radians rotation around z-axis. this rotates your cube 45deg around z-axis. 
+			pcl::PointCloud<pcl::PointXYZI>::Ptr cloudOut (new pcl::PointCloud<pcl::PointXYZI>); 
+			pcl::CropBox<pcl::PointXYZI> cropFilter; 
+			cropFilter.setInputCloud (pcl_before); 
+			cropFilter.setMin(minPoint); 
+			cropFilter.setMax(maxPoint);
+			cropFilter.setTranslation(boxTranslatation); 
+			cropFilter.setRotation(boxRotation); 
+			cropFilter.setNegative(false);
+			cropFilter.filter (*cloudOut); 
+				//Convert from PCL to ROS
+			pcl::toROSMsg(*cloudOut,cloud_before);
+			//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
+			cloud_before.fields[3].name = "intensity";
+			//Set the frame
+			cloud_before.header.frame_id = "/world";
+
+			cloudOut.reset(new pcl::PointCloud<pcl::PointXYZI>());
+			
+			cropFilter.setInputCloud (pcl_after); 
+			cropFilter.filter (*cloudOut);  
+				//Convert from PCL to ROS
+			pcl::toROSMsg(*cloudOut,cloud_after);
+			//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
+			cloud_after.fields[3].name = "intensity";
+			//Set the frame
+			cloud_after.header.frame_id = "/world";
+
+		}
+
+	if(DEBUG) ROS_INFO("thickening");	
+	phd::accuracy_service acc_srv;
+		//Call the localization service
+		acc_srv.request.cloud_1 = cloud_before;
+		acc_srv.request.cloud_2 = cloud_after;
+		acc_srv.request.cloud_datum = cloud_datum;
+		if(acc_client.call(acc_srv)){
+		pcl::PointCloud<PointXYZIT>::Ptr save_cloud (new pcl::PointCloud<PointXYZIT>);
+		std::stringstream pf;
+		pcl::fromROSMsg(acc_srv.response.cloud_out, *save_cloud);
+		pf << "/home/mike/raw/processed/" << prenum << "to" << postnum << "thickened.pcd";
+		if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
+		if(save_cloud->size() > 0) pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
+		}else ROS_INFO("Thickness Service Failed");
+
 	}
 	
 

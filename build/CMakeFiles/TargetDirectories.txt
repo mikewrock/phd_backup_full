@@ -327,6 +327,8 @@
 /home/mike/catkin_ws/build/phd/CMakeFiles/install/strip.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/phd.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/saveselection.dir
+/home/mike/catkin_ws/build/phd/CMakeFiles/simple_trajectory_server.dir
+/home/mike/catkin_ws/build/phd/CMakeFiles/accuracy_server.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/_phd_generate_messages_check_deps_thickness_service.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/edit_cache.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/_phd_generate_messages_check_deps_localize_cloud.dir
@@ -346,7 +348,6 @@
 /home/mike/catkin_ws/build/phd/CMakeFiles/diagnostic_msgs_generate_messages_cpp.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/install/local.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/laser_assembler_generate_messages_lisp.dir
-/home/mike/catkin_ws/build/phd/CMakeFiles/brics_actuator_generate_messages_cpp.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/list_install_components.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/diagnostic_msgs_generate_messages_lisp.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/cob_srvs_generate_messages_cpp.dir
@@ -366,6 +367,8 @@
 /home/mike/catkin_ws/build/phd/CMakeFiles/rebuild_cache.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_cloud.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/_phd_generate_messages_check_deps_cube_msg.dir
+/home/mike/catkin_ws/build/phd/CMakeFiles/brics_actuator_generate_messages_cpp.dir
+/home/mike/catkin_ws/build/phd/CMakeFiles/_phd_generate_messages_check_deps_accuracy_service.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/bcap_client.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_msg.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/phd_generate_messages_lisp.dir
@@ -378,7 +381,6 @@
 /home/mike/catkin_ws/build/phd/CMakeFiles/joint_fusion_node.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/cloud_doctor.dir
 /home/mike/catkin_ws/build/phd/CMakeFiles/thickness_server.dir
-/home/mike/catkin_ws/build/phd/CMakeFiles/simple_trajectory_server.dir
 /home/mike/catkin_ws/build/wrock/CMakeFiles/edit_cache.dir
 /home/mike/catkin_ws/build/wrock/CMakeFiles/list_install_components.dir
 /home/mike/catkin_ws/build/wrock/CMakeFiles/install/strip.dir

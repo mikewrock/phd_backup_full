@@ -196,6 +196,36 @@ saveselection/fast:
 .PHONY : saveselection/fast
 
 # Convenience name for target.
+phd/CMakeFiles/simple_trajectory_server.dir/rule:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/simple_trajectory_server.dir/rule
+.PHONY : phd/CMakeFiles/simple_trajectory_server.dir/rule
+
+# Convenience name for target.
+simple_trajectory_server: phd/CMakeFiles/simple_trajectory_server.dir/rule
+
+.PHONY : simple_trajectory_server
+
+# fast build rule for target.
+simple_trajectory_server/fast:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/simple_trajectory_server.dir/build.make phd/CMakeFiles/simple_trajectory_server.dir/build
+.PHONY : simple_trajectory_server/fast
+
+# Convenience name for target.
+phd/CMakeFiles/accuracy_server.dir/rule:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/accuracy_server.dir/rule
+.PHONY : phd/CMakeFiles/accuracy_server.dir/rule
+
+# Convenience name for target.
+accuracy_server: phd/CMakeFiles/accuracy_server.dir/rule
+
+.PHONY : accuracy_server
+
+# fast build rule for target.
+accuracy_server/fast:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/accuracy_server.dir/build.make phd/CMakeFiles/accuracy_server.dir/build
+.PHONY : accuracy_server/fast
+
+# Convenience name for target.
 phd/CMakeFiles/_phd_generate_messages_check_deps_thickness_service.dir/rule:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/_phd_generate_messages_check_deps_thickness_service.dir/rule
 .PHONY : phd/CMakeFiles/_phd_generate_messages_check_deps_thickness_service.dir/rule
@@ -434,21 +464,6 @@ laser_assembler_generate_messages_lisp: phd/CMakeFiles/laser_assembler_generate_
 laser_assembler_generate_messages_lisp/fast:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/laser_assembler_generate_messages_lisp.dir/build.make phd/CMakeFiles/laser_assembler_generate_messages_lisp.dir/build
 .PHONY : laser_assembler_generate_messages_lisp/fast
-
-# Convenience name for target.
-phd/CMakeFiles/brics_actuator_generate_messages_cpp.dir/rule:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/brics_actuator_generate_messages_cpp.dir/rule
-.PHONY : phd/CMakeFiles/brics_actuator_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-brics_actuator_generate_messages_cpp: phd/CMakeFiles/brics_actuator_generate_messages_cpp.dir/rule
-
-.PHONY : brics_actuator_generate_messages_cpp
-
-# fast build rule for target.
-brics_actuator_generate_messages_cpp/fast:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/brics_actuator_generate_messages_cpp.dir/build.make phd/CMakeFiles/brics_actuator_generate_messages_cpp.dir/build
-.PHONY : brics_actuator_generate_messages_cpp/fast
 
 # Convenience name for target.
 phd/CMakeFiles/diagnostic_msgs_generate_messages_lisp.dir/rule:
@@ -706,6 +721,36 @@ _phd_generate_messages_check_deps_cube_msg/fast:
 .PHONY : _phd_generate_messages_check_deps_cube_msg/fast
 
 # Convenience name for target.
+phd/CMakeFiles/brics_actuator_generate_messages_cpp.dir/rule:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/brics_actuator_generate_messages_cpp.dir/rule
+.PHONY : phd/CMakeFiles/brics_actuator_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+brics_actuator_generate_messages_cpp: phd/CMakeFiles/brics_actuator_generate_messages_cpp.dir/rule
+
+.PHONY : brics_actuator_generate_messages_cpp
+
+# fast build rule for target.
+brics_actuator_generate_messages_cpp/fast:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/brics_actuator_generate_messages_cpp.dir/build.make phd/CMakeFiles/brics_actuator_generate_messages_cpp.dir/build
+.PHONY : brics_actuator_generate_messages_cpp/fast
+
+# Convenience name for target.
+phd/CMakeFiles/_phd_generate_messages_check_deps_accuracy_service.dir/rule:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/_phd_generate_messages_check_deps_accuracy_service.dir/rule
+.PHONY : phd/CMakeFiles/_phd_generate_messages_check_deps_accuracy_service.dir/rule
+
+# Convenience name for target.
+_phd_generate_messages_check_deps_accuracy_service: phd/CMakeFiles/_phd_generate_messages_check_deps_accuracy_service.dir/rule
+
+.PHONY : _phd_generate_messages_check_deps_accuracy_service
+
+# fast build rule for target.
+_phd_generate_messages_check_deps_accuracy_service/fast:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/_phd_generate_messages_check_deps_accuracy_service.dir/build.make phd/CMakeFiles/_phd_generate_messages_check_deps_accuracy_service.dir/build
+.PHONY : _phd_generate_messages_check_deps_accuracy_service/fast
+
+# Convenience name for target.
 phd/CMakeFiles/bcap_client.dir/rule:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/bcap_client.dir/rule
 .PHONY : phd/CMakeFiles/bcap_client.dir/rule
@@ -885,21 +930,6 @@ thickness_server/fast:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/thickness_server.dir/build.make phd/CMakeFiles/thickness_server.dir/build
 .PHONY : thickness_server/fast
 
-# Convenience name for target.
-phd/CMakeFiles/simple_trajectory_server.dir/rule:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/simple_trajectory_server.dir/rule
-.PHONY : phd/CMakeFiles/simple_trajectory_server.dir/rule
-
-# Convenience name for target.
-simple_trajectory_server: phd/CMakeFiles/simple_trajectory_server.dir/rule
-
-.PHONY : simple_trajectory_server
-
-# fast build rule for target.
-simple_trajectory_server/fast:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/simple_trajectory_server.dir/build.make phd/CMakeFiles/simple_trajectory_server.dir/build
-.PHONY : simple_trajectory_server/fast
-
 include/moc_control_dashboard.o: include/moc_control_dashboard.cxx.o
 
 .PHONY : include/moc_control_dashboard.o
@@ -1007,6 +1037,33 @@ qrc_ui_resource.s: qrc_ui_resource.cxx.s
 qrc_ui_resource.cxx.s:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/phd.dir/build.make phd/CMakeFiles/phd.dir/qrc_ui_resource.cxx.s
 .PHONY : qrc_ui_resource.cxx.s
+
+src/accuracy_service.o: src/accuracy_service.cpp.o
+
+.PHONY : src/accuracy_service.o
+
+# target to build an object file
+src/accuracy_service.cpp.o:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/accuracy_server.dir/build.make phd/CMakeFiles/accuracy_server.dir/src/accuracy_service.cpp.o
+.PHONY : src/accuracy_service.cpp.o
+
+src/accuracy_service.i: src/accuracy_service.cpp.i
+
+.PHONY : src/accuracy_service.i
+
+# target to preprocess a source file
+src/accuracy_service.cpp.i:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/accuracy_server.dir/build.make phd/CMakeFiles/accuracy_server.dir/src/accuracy_service.cpp.i
+.PHONY : src/accuracy_service.cpp.i
+
+src/accuracy_service.s: src/accuracy_service.cpp.s
+
+.PHONY : src/accuracy_service.s
+
+# target to generate assembly for a file
+src/accuracy_service.cpp.s:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/accuracy_server.dir/build.make phd/CMakeFiles/accuracy_server.dir/src/accuracy_service.cpp.s
+.PHONY : src/accuracy_service.cpp.s
 
 src/bcap_client.o: src/bcap_client.c.o
 
@@ -1585,6 +1642,8 @@ help:
 	@echo "... install/strip"
 	@echo "... phd"
 	@echo "... saveselection"
+	@echo "... simple_trajectory_server"
+	@echo "... accuracy_server"
 	@echo "... _phd_generate_messages_check_deps_thickness_service"
 	@echo "... edit_cache"
 	@echo "... _phd_generate_messages_check_deps_localize_cloud"
@@ -1604,7 +1663,6 @@ help:
 	@echo "... diagnostic_msgs_generate_messages_cpp"
 	@echo "... install/local"
 	@echo "... laser_assembler_generate_messages_lisp"
-	@echo "... brics_actuator_generate_messages_cpp"
 	@echo "... list_install_components"
 	@echo "... diagnostic_msgs_generate_messages_lisp"
 	@echo "... cob_srvs_generate_messages_cpp"
@@ -1624,6 +1682,8 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... _phd_generate_messages_check_deps_doctor_cloud"
 	@echo "... _phd_generate_messages_check_deps_cube_msg"
+	@echo "... brics_actuator_generate_messages_cpp"
+	@echo "... _phd_generate_messages_check_deps_accuracy_service"
 	@echo "... bcap_client"
 	@echo "... _phd_generate_messages_check_deps_trajectory_msg"
 	@echo "... phd_generate_messages_lisp"
@@ -1636,7 +1696,6 @@ help:
 	@echo "... joint_fusion_node"
 	@echo "... cloud_doctor"
 	@echo "... thickness_server"
-	@echo "... simple_trajectory_server"
 	@echo "... include/moc_control_dashboard.o"
 	@echo "... include/moc_control_dashboard.i"
 	@echo "... include/moc_control_dashboard.s"
@@ -1649,6 +1708,9 @@ help:
 	@echo "... qrc_ui_resource.o"
 	@echo "... qrc_ui_resource.i"
 	@echo "... qrc_ui_resource.s"
+	@echo "... src/accuracy_service.o"
+	@echo "... src/accuracy_service.i"
+	@echo "... src/accuracy_service.s"
 	@echo "... src/bcap_client.o"
 	@echo "... src/bcap_client.i"
 	@echo "... src/bcap_client.s"

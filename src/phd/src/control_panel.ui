@@ -68,7 +68,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>/home/mike/processed/</string>
+      <string>/home/mike/raw/</string>
      </property>
     </widget>
     <widget class="QLabel" name="marker_info_9">
@@ -329,7 +329,7 @@ color: rgb(255, 255, 255);</string>
       <string>STOP</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="plot_path">
+    <widget class="QPushButton" name="more_anal">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -342,7 +342,7 @@ color: rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="text">
-      <string>Plot Path</string>
+      <string>More Analysis</string>
      </property>
     </widget>
     <widget class="QPushButton" name="exe_path">
@@ -426,7 +426,7 @@ color: rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="text">
-      <string>/home/mike/processed/</string>
+      <string>/home/mike/raw/</string>
      </property>
     </widget>
     <widget class="QPushButton" name="scan_360">
@@ -713,7 +713,7 @@ Trajectory</string>
       </rect>
      </property>
      <property name="text">
-      <string>1</string>
+      <string>31</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -729,7 +729,7 @@ Trajectory</string>
       </rect>
      </property>
      <property name="text">
-      <string>5</string>
+      <string>31</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

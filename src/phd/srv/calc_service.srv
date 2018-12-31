@@ -1,0 +1,5 @@
+int32[] pre_ids
+int32[] post_ids
+sensor_msgs/PointCloud2 cloud_datum
+---
+sensor_msgs/PointCloud2 cloud_out

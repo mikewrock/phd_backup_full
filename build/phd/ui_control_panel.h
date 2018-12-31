@@ -51,7 +51,7 @@ public:
     QPushButton *localization_button_2;
     QPushButton *start_point;
     QPushButton *soft_stop;
-    QPushButton *plot_path;
+    QPushButton *more_anal;
     QPushButton *exe_path;
     QPushButton *thickness;
     QLabel *marker_info_2;
@@ -243,10 +243,10 @@ public:
         soft_stop->setGeometry(QRect(160, 80, 101, 27));
         soft_stop->setStyleSheet(QString::fromUtf8("background-color: rgb(170, 0, 0);\n"
 "color: rgb(255, 255, 255);"));
-        plot_path = new QPushButton(tab);
-        plot_path->setObjectName(QString::fromUtf8("plot_path"));
-        plot_path->setEnabled(true);
-        plot_path->setGeometry(QRect(10, 210, 111, 27));
+        more_anal = new QPushButton(tab);
+        more_anal->setObjectName(QString::fromUtf8("more_anal"));
+        more_anal->setEnabled(true);
+        more_anal->setGeometry(QRect(10, 210, 111, 27));
         exe_path = new QPushButton(tab);
         exe_path->setObjectName(QString::fromUtf8("exe_path"));
         exe_path->setEnabled(true);
@@ -598,7 +598,7 @@ public:
         Control_Form->setWindowTitle(QApplication::translate("Control_Form", "Form", 0, QApplication::UnicodeUTF8));
         scan_button->setText(QApplication::translate("Control_Form", "Scan", 0, QApplication::UnicodeUTF8));
         auto_localize->setText(QApplication::translate("Control_Form", "Auto Localize", 0, QApplication::UnicodeUTF8));
-        marker_name_box->setText(QApplication::translate("Control_Form", "/home/mike/processed/", 0, QApplication::UnicodeUTF8));
+        marker_name_box->setText(QApplication::translate("Control_Form", "/home/mike/raw/", 0, QApplication::UnicodeUTF8));
         marker_info_9->setText(QApplication::translate("Control_Form", "Pointcloud Save Location:", 0, QApplication::UnicodeUTF8));
         soft_stop_2->setText(QApplication::translate("Control_Form", "STOP", 0, QApplication::UnicodeUTF8));
         reset_map_button_2->setText(QApplication::translate("Control_Form", "Reset Map", 0, QApplication::UnicodeUTF8));
@@ -619,13 +619,13 @@ public:
         localization_button_2->setText(QApplication::translate("Control_Form", "Test Localization", 0, QApplication::UnicodeUTF8));
         start_point->setText(QApplication::translate("Control_Form", "Start Point", 0, QApplication::UnicodeUTF8));
         soft_stop->setText(QApplication::translate("Control_Form", "STOP", 0, QApplication::UnicodeUTF8));
-        plot_path->setText(QApplication::translate("Control_Form", "Plot Path", 0, QApplication::UnicodeUTF8));
+        more_anal->setText(QApplication::translate("Control_Form", "More Analysis", 0, QApplication::UnicodeUTF8));
         exe_path->setText(QApplication::translate("Control_Form", "Analyze Data", 0, QApplication::UnicodeUTF8));
         thickness->setText(QApplication::translate("Control_Form", "Process Data", 0, QApplication::UnicodeUTF8));
         marker_info_2->setText(QApplication::translate("Control_Form", "Testing/Research Functions", 0, QApplication::UnicodeUTF8));
         est_pos->setText(QApplication::translate("Control_Form", "Estimate Position", 0, QApplication::UnicodeUTF8));
         show_nav_button->setText(QApplication::translate("Control_Form", "Show Nav Goal", 0, QApplication::UnicodeUTF8));
-        filename_box->setText(QApplication::translate("Control_Form", "/home/mike/processed/", 0, QApplication::UnicodeUTF8));
+        filename_box->setText(QApplication::translate("Control_Form", "/home/mike/raw/", 0, QApplication::UnicodeUTF8));
         scan_360->setText(QApplication::translate("Control_Form", "360 scan", 0, QApplication::UnicodeUTF8));
         f_traj->setText(QApplication::translate("Control_Form", "Load Traj", 0, QApplication::UnicodeUTF8));
         exe_trajectory->setText(QApplication::translate("Control_Form", "Execute Trajectory", 0, QApplication::UnicodeUTF8));
@@ -646,8 +646,8 @@ public:
         set_home->setText(QApplication::translate("Control_Form", "Set Home", 0, QApplication::UnicodeUTF8));
         prescan_button->setText(QApplication::translate("Control_Form", "Pre", 0, QApplication::UnicodeUTF8));
         postscan_button->setText(QApplication::translate("Control_Form", "Post", 0, QApplication::UnicodeUTF8));
-        pre_box->setText(QApplication::translate("Control_Form", "1", 0, QApplication::UnicodeUTF8));
-        post_box->setText(QApplication::translate("Control_Form", "5", 0, QApplication::UnicodeUTF8));
+        pre_box->setText(QApplication::translate("Control_Form", "31", 0, QApplication::UnicodeUTF8));
+        post_box->setText(QApplication::translate("Control_Form", "31", 0, QApplication::UnicodeUTF8));
         print_markers->setText(QApplication::translate("Control_Form", "Print Markers", 0, QApplication::UnicodeUTF8));
         clear_markers->setText(QApplication::translate("Control_Form", "Clear Markers", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("Control_Form", "Testing", 0, QApplication::UnicodeUTF8));

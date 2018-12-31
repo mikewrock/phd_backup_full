@@ -2136,6 +2136,9 @@ phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: /usr/include/qt4/QtGui/qwmat
 phd/CMakeFiles/phd.dir/src/control_dashboard.cpp.o: phd/ui_control_panel.h
 
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/ParamConfig.h
+phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/accuracy_service.h
+phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/accuracy_serviceRequest.h
+phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/accuracy_serviceResponse.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/arm_msg.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/cube_msg.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/doctor_cloud.h
@@ -2607,13 +2610,10 @@ phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /usr/include/pcl-1.7/pcl/feature
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /usr/include/pcl-1.7/pcl/features/normal_3d.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /usr/include/pcl-1.7/pcl/features/pfh_tools.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /usr/include/pcl-1.7/pcl/filters/boost.h
-phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /usr/include/pcl-1.7/pcl/filters/box_clipper3D.h
-phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /usr/include/pcl-1.7/pcl/filters/clipper3D.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /usr/include/pcl-1.7/pcl/filters/crop_box.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /usr/include/pcl-1.7/pcl/filters/extract_indices.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /usr/include/pcl-1.7/pcl/filters/filter.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /usr/include/pcl-1.7/pcl/filters/filter_indices.h
-phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /usr/include/pcl-1.7/pcl/filters/impl/box_clipper3D.hpp
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /usr/include/pcl-1.7/pcl/filters/impl/crop_box.hpp
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /usr/include/pcl-1.7/pcl/filters/impl/extract_indices.hpp
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /usr/include/pcl-1.7/pcl/filters/impl/filter.hpp

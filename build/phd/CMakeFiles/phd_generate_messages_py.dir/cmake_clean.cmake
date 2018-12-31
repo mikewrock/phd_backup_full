@@ -9,10 +9,11 @@ file(REMOVE_RECURSE
   "/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_cube_msg.py"
   "/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_trajectory_msg.py"
   "/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_localize_cloud.py"
-  "/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_doctor_cloud.py"
   "/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_empty.py"
-  "/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_thickness_service.py"
+  "/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_accuracy_service.py"
   "/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_simple_trajectory_service.py"
+  "/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_doctor_cloud.py"
+  "/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_thickness_service.py"
   "/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/__init__.py"
   "/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/__init__.py"
 )

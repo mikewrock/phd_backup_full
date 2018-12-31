@@ -66,6 +66,7 @@ public:
 	void thickness_from_file(std::string,std::string);
 	void nav_mode(float pos);
 	void fscan(std::string, bool auto_localize,bool set_home,std::string,bool autocrop);
+	void xscan(std::string, int postnum,int prenum,std::string,bool autocrop);
 	void ascan(std::string,std::string,int);
 	void cluster(std::string, int index);
 	int gen_trajectory(std::string);
@@ -120,6 +121,7 @@ private:
 	ros::ServiceClient loc_client;
 	ros::ServiceClient doc_client;
 	ros::ServiceClient traj_client;
+	ros::ServiceClient acc_client;
 	ros::ServiceClient thick_client;
 	//Dynamic Reconfigure
 	dynamic_reconfigure::Server<phd::ParamConfig> server;
@@ -131,7 +133,7 @@ private:
 	//Holds the entire pointcloud from laser_scan_assembler, used for calculating normals (useful at the edges of current_pc_)
 	sensor_msgs::PointCloud2 cloud_surface_raw;
 	sensor_msgs::PointCloud2 cloud_surface_world;
-	int cloud_ctr;
+	int cloud_ctr,thick_ctr;
 	int tctr;
 	tf::TransformBroadcaster br;
 	tf::Transform transform;

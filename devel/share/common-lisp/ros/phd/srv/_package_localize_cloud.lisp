@@ -9,4 +9,6 @@
           CLOUD_OUT
           TRANSFORM_MAT-VAL
           TRANSFORM_MAT
+          MARKER-VAL
+          MARKER
 ))

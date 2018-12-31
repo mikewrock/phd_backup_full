@@ -2415,6 +2415,32 @@ saveselection/fast:
 .PHONY : saveselection/fast
 
 #=============================================================================
+# Target rules for targets named simple_trajectory_server
+
+# Build rule for target.
+simple_trajectory_server: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 simple_trajectory_server
+.PHONY : simple_trajectory_server
+
+# fast build rule for target.
+simple_trajectory_server/fast:
+	$(MAKE) -f phd/CMakeFiles/simple_trajectory_server.dir/build.make phd/CMakeFiles/simple_trajectory_server.dir/build
+.PHONY : simple_trajectory_server/fast
+
+#=============================================================================
+# Target rules for targets named accuracy_server
+
+# Build rule for target.
+accuracy_server: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 accuracy_server
+.PHONY : accuracy_server
+
+# fast build rule for target.
+accuracy_server/fast:
+	$(MAKE) -f phd/CMakeFiles/accuracy_server.dir/build.make phd/CMakeFiles/accuracy_server.dir/build
+.PHONY : accuracy_server/fast
+
+#=============================================================================
 # Target rules for targets named _phd_generate_messages_check_deps_thickness_service
 
 # Build rule for target.
@@ -2621,19 +2647,6 @@ laser_assembler_generate_messages_lisp: cmake_check_build_system
 laser_assembler_generate_messages_lisp/fast:
 	$(MAKE) -f phd/CMakeFiles/laser_assembler_generate_messages_lisp.dir/build.make phd/CMakeFiles/laser_assembler_generate_messages_lisp.dir/build
 .PHONY : laser_assembler_generate_messages_lisp/fast
-
-#=============================================================================
-# Target rules for targets named brics_actuator_generate_messages_cpp
-
-# Build rule for target.
-brics_actuator_generate_messages_cpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 brics_actuator_generate_messages_cpp
-.PHONY : brics_actuator_generate_messages_cpp
-
-# fast build rule for target.
-brics_actuator_generate_messages_cpp/fast:
-	$(MAKE) -f phd/CMakeFiles/brics_actuator_generate_messages_cpp.dir/build.make phd/CMakeFiles/brics_actuator_generate_messages_cpp.dir/build
-.PHONY : brics_actuator_generate_messages_cpp/fast
 
 #=============================================================================
 # Target rules for targets named diagnostic_msgs_generate_messages_lisp
@@ -2857,6 +2870,32 @@ _phd_generate_messages_check_deps_cube_msg/fast:
 .PHONY : _phd_generate_messages_check_deps_cube_msg/fast
 
 #=============================================================================
+# Target rules for targets named brics_actuator_generate_messages_cpp
+
+# Build rule for target.
+brics_actuator_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 brics_actuator_generate_messages_cpp
+.PHONY : brics_actuator_generate_messages_cpp
+
+# fast build rule for target.
+brics_actuator_generate_messages_cpp/fast:
+	$(MAKE) -f phd/CMakeFiles/brics_actuator_generate_messages_cpp.dir/build.make phd/CMakeFiles/brics_actuator_generate_messages_cpp.dir/build
+.PHONY : brics_actuator_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named _phd_generate_messages_check_deps_accuracy_service
+
+# Build rule for target.
+_phd_generate_messages_check_deps_accuracy_service: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _phd_generate_messages_check_deps_accuracy_service
+.PHONY : _phd_generate_messages_check_deps_accuracy_service
+
+# fast build rule for target.
+_phd_generate_messages_check_deps_accuracy_service/fast:
+	$(MAKE) -f phd/CMakeFiles/_phd_generate_messages_check_deps_accuracy_service.dir/build.make phd/CMakeFiles/_phd_generate_messages_check_deps_accuracy_service.dir/build
+.PHONY : _phd_generate_messages_check_deps_accuracy_service/fast
+
+#=============================================================================
 # Target rules for targets named bcap_client
 
 # Build rule for target.
@@ -3011,19 +3050,6 @@ thickness_server: cmake_check_build_system
 thickness_server/fast:
 	$(MAKE) -f phd/CMakeFiles/thickness_server.dir/build.make phd/CMakeFiles/thickness_server.dir/build
 .PHONY : thickness_server/fast
-
-#=============================================================================
-# Target rules for targets named simple_trajectory_server
-
-# Build rule for target.
-simple_trajectory_server: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 simple_trajectory_server
-.PHONY : simple_trajectory_server
-
-# fast build rule for target.
-simple_trajectory_server/fast:
-	$(MAKE) -f phd/CMakeFiles/simple_trajectory_server.dir/build.make phd/CMakeFiles/simple_trajectory_server.dir/build
-.PHONY : simple_trajectory_server/fast
 
 #=============================================================================
 # Target rules for targets named bcap_clienta
@@ -3692,6 +3718,8 @@ help:
 	@echo "... newwrock"
 	@echo "... phd"
 	@echo "... saveselection"
+	@echo "... simple_trajectory_server"
+	@echo "... accuracy_server"
 	@echo "... _phd_generate_messages_check_deps_thickness_service"
 	@echo "... _phd_generate_messages_check_deps_localize_cloud"
 	@echo "... phd_generate_messages_cpp"
@@ -3708,7 +3736,6 @@ help:
 	@echo "... _phd_generate_messages_check_deps_trajectory_point"
 	@echo "... diagnostic_msgs_generate_messages_cpp"
 	@echo "... laser_assembler_generate_messages_lisp"
-	@echo "... brics_actuator_generate_messages_cpp"
 	@echo "... diagnostic_msgs_generate_messages_lisp"
 	@echo "... cob_srvs_generate_messages_cpp"
 	@echo "... brics_actuator_generate_messages_py"
@@ -3726,6 +3753,8 @@ help:
 	@echo "... cube_node"
 	@echo "... _phd_generate_messages_check_deps_doctor_cloud"
 	@echo "... _phd_generate_messages_check_deps_cube_msg"
+	@echo "... brics_actuator_generate_messages_cpp"
+	@echo "... _phd_generate_messages_check_deps_accuracy_service"
 	@echo "... bcap_client"
 	@echo "... _phd_generate_messages_check_deps_trajectory_msg"
 	@echo "... phd_generate_messages_lisp"
@@ -3738,7 +3767,6 @@ help:
 	@echo "... joint_fusion_node"
 	@echo "... cloud_doctor"
 	@echo "... thickness_server"
-	@echo "... simple_trajectory_server"
 	@echo "... bcap_clienta"
 	@echo "... pubmarker"
 	@echo "... move"

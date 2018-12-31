@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "phd: 8 messages, 5 services")
+message(STATUS "phd: 8 messages, 6 services")
 
 set(MSG_I_FLAGS "-Iphd:/home/mike/catkin_ws/src/phd/msg;-Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg;-Iactionlib_msgs:/opt/ros/indigo/share/actionlib_msgs/cmake/../msg;-Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg")
 
@@ -68,6 +68,11 @@ add_custom_target(_phd_generate_messages_check_deps_${_filename}
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/empty.srv" NAME_WE)
 add_custom_target(_phd_generate_messages_check_deps_${_filename}
   COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "phd" "/home/mike/catkin_ws/src/phd/srv/empty.srv" ""
+)
+
+get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/accuracy_service.srv" NAME_WE)
+add_custom_target(_phd_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "phd" "/home/mike/catkin_ws/src/phd/srv/accuracy_service.srv" "sensor_msgs/PointField:sensor_msgs/PointCloud2:std_msgs/Header"
 )
 
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/doctor_msg.msg" NAME_WE)
@@ -143,19 +148,13 @@ _generate_srv_cpp(phd
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/phd
 )
 _generate_srv_cpp(phd
-  "/home/mike/catkin_ws/src/phd/srv/doctor_cloud.srv"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointField.msg;/home/mike/catkin_ws/src/phd/msg/doctor_msg.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg;/opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/phd
-)
-_generate_srv_cpp(phd
   "/home/mike/catkin_ws/src/phd/srv/empty.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/phd
 )
 _generate_srv_cpp(phd
-  "/home/mike/catkin_ws/src/phd/srv/thickness_service.srv"
+  "/home/mike/catkin_ws/src/phd/srv/accuracy_service.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointField.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg;/opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/phd
@@ -164,6 +163,18 @@ _generate_srv_cpp(phd
   "/home/mike/catkin_ws/src/phd/srv/simple_trajectory_service.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointField.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg;/opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/phd
+)
+_generate_srv_cpp(phd
+  "/home/mike/catkin_ws/src/phd/srv/doctor_cloud.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointField.msg;/home/mike/catkin_ws/src/phd/msg/doctor_msg.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg;/opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/phd
+)
+_generate_srv_cpp(phd
+  "/home/mike/catkin_ws/src/phd/srv/thickness_service.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointField.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg;/opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/phd
 )
 
@@ -200,6 +211,8 @@ add_dependencies(phd_generate_messages_cpp _phd_generate_messages_check_deps_${_
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/cube_msg.msg" NAME_WE)
 add_dependencies(phd_generate_messages_cpp _phd_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/empty.srv" NAME_WE)
+add_dependencies(phd_generate_messages_cpp _phd_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/accuracy_service.srv" NAME_WE)
 add_dependencies(phd_generate_messages_cpp _phd_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/doctor_msg.msg" NAME_WE)
 add_dependencies(phd_generate_messages_cpp _phd_generate_messages_check_deps_${_filename})
@@ -272,19 +285,13 @@ _generate_srv_lisp(phd
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/phd
 )
 _generate_srv_lisp(phd
-  "/home/mike/catkin_ws/src/phd/srv/doctor_cloud.srv"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointField.msg;/home/mike/catkin_ws/src/phd/msg/doctor_msg.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg;/opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/phd
-)
-_generate_srv_lisp(phd
   "/home/mike/catkin_ws/src/phd/srv/empty.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/phd
 )
 _generate_srv_lisp(phd
-  "/home/mike/catkin_ws/src/phd/srv/thickness_service.srv"
+  "/home/mike/catkin_ws/src/phd/srv/accuracy_service.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointField.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg;/opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/phd
@@ -293,6 +300,18 @@ _generate_srv_lisp(phd
   "/home/mike/catkin_ws/src/phd/srv/simple_trajectory_service.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointField.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg;/opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/phd
+)
+_generate_srv_lisp(phd
+  "/home/mike/catkin_ws/src/phd/srv/doctor_cloud.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointField.msg;/home/mike/catkin_ws/src/phd/msg/doctor_msg.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg;/opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/phd
+)
+_generate_srv_lisp(phd
+  "/home/mike/catkin_ws/src/phd/srv/thickness_service.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointField.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg;/opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/phd
 )
 
@@ -329,6 +348,8 @@ add_dependencies(phd_generate_messages_lisp _phd_generate_messages_check_deps_${
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/cube_msg.msg" NAME_WE)
 add_dependencies(phd_generate_messages_lisp _phd_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/empty.srv" NAME_WE)
+add_dependencies(phd_generate_messages_lisp _phd_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/accuracy_service.srv" NAME_WE)
 add_dependencies(phd_generate_messages_lisp _phd_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/doctor_msg.msg" NAME_WE)
 add_dependencies(phd_generate_messages_lisp _phd_generate_messages_check_deps_${_filename})
@@ -401,19 +422,13 @@ _generate_srv_py(phd
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/phd
 )
 _generate_srv_py(phd
-  "/home/mike/catkin_ws/src/phd/srv/doctor_cloud.srv"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointField.msg;/home/mike/catkin_ws/src/phd/msg/doctor_msg.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg;/opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/phd
-)
-_generate_srv_py(phd
   "/home/mike/catkin_ws/src/phd/srv/empty.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/phd
 )
 _generate_srv_py(phd
-  "/home/mike/catkin_ws/src/phd/srv/thickness_service.srv"
+  "/home/mike/catkin_ws/src/phd/srv/accuracy_service.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointField.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg;/opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/phd
@@ -422,6 +437,18 @@ _generate_srv_py(phd
   "/home/mike/catkin_ws/src/phd/srv/simple_trajectory_service.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointField.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_point.msg;/opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg;/home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/phd
+)
+_generate_srv_py(phd
+  "/home/mike/catkin_ws/src/phd/srv/doctor_cloud.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointField.msg;/home/mike/catkin_ws/src/phd/msg/doctor_msg.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg;/opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/phd
+)
+_generate_srv_py(phd
+  "/home/mike/catkin_ws/src/phd/srv/thickness_service.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointField.msg;/opt/ros/indigo/share/sensor_msgs/cmake/../msg/PointCloud2.msg;/opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/phd
 )
 
@@ -458,6 +485,8 @@ add_dependencies(phd_generate_messages_py _phd_generate_messages_check_deps_${_f
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/cube_msg.msg" NAME_WE)
 add_dependencies(phd_generate_messages_py _phd_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/empty.srv" NAME_WE)
+add_dependencies(phd_generate_messages_py _phd_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/mike/catkin_ws/src/phd/srv/accuracy_service.srv" NAME_WE)
 add_dependencies(phd_generate_messages_py _phd_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/mike/catkin_ws/src/phd/msg/doctor_msg.msg" NAME_WE)
 add_dependencies(phd_generate_messages_py _phd_generate_messages_check_deps_${_filename})

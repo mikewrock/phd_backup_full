@@ -26,12 +26,14 @@ struct localize_cloudResponse_
 
   localize_cloudResponse_()
     : cloud_out()
-    , transform_mat()  {
+    , transform_mat()
+    , marker(0.0)  {
       transform_mat.assign(0.0);
   }
   localize_cloudResponse_(const ContainerAllocator& _alloc)
     : cloud_out(_alloc)
-    , transform_mat()  {
+    , transform_mat()
+    , marker(0.0)  {
   (void)_alloc;
       transform_mat.assign(0.0);
   }
@@ -43,6 +45,9 @@ struct localize_cloudResponse_
 
    typedef boost::array<double, 16>  _transform_mat_type;
   _transform_mat_type transform_mat;
+
+   typedef double _marker_type;
+  _marker_type marker;
 
 
 
@@ -121,12 +126,12 @@ struct MD5Sum< ::phd::localize_cloudResponse_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "b199ee0f9f915c62760e2e9b5c864faa";
+    return "7332045ad514a38283514da5725a64f7";
   }
 
   static const char* value(const ::phd::localize_cloudResponse_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xb199ee0f9f915c62ULL;
-  static const uint64_t static_value2 = 0x760e2e9b5c864faaULL;
+  static const uint64_t static_value1 = 0x7332045ad514a382ULL;
+  static const uint64_t static_value2 = 0x83514da5725a64f7ULL;
 };
 
 template<class ContainerAllocator>
@@ -147,6 +152,7 @@ struct Definition< ::phd::localize_cloudResponse_<ContainerAllocator> >
   {
     return "sensor_msgs/PointCloud2 cloud_out\n\
 float64[16] transform_mat\n\
+float64 marker\n\
 \n\
 \n\
 ================================================================================\n\
@@ -234,6 +240,7 @@ namespace serialization
     {
       stream.next(m.cloud_out);
       stream.next(m.transform_mat);
+      stream.next(m.marker);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -261,6 +268,8 @@ struct Printer< ::phd::localize_cloudResponse_<ContainerAllocator> >
       s << indent << "  transform_mat[" << i << "]: ";
       Printer<double>::stream(s, indent + "  ", v.transform_mat[i]);
     }
+    s << indent << "marker: ";
+    Printer<double>::stream(s, indent + "  ", v.marker);
   }
 };
 
