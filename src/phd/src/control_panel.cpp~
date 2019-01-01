@@ -31,6 +31,7 @@
 #include "phd/simple_trajectory_service.h"
 #include "phd/thickness_service.h"
 #include "phd/accuracy_service.h"
+#include "phd/calc_service.h"
 // Messages
 #include "sensor_msgs/PointCloud.h"
 #include <phd/cube_msg.h>
@@ -644,6 +645,7 @@ bool QNode::init() {
 	//Service client for estimating thickness
 	thick_client = nh_.serviceClient<phd::thickness_service>("thick_srv");
 	acc_client = nh_.serviceClient<phd::accuracy_service>("acc_srv");
+	calc_client = nh_.serviceClient<phd::calc_service>("calc_srv");
 	//Initialize the trajectory display marker	
 	point_list.header.frame_id = "/base_footprint";
 	point_list.header.stamp = ros::Time::now();
@@ -1424,18 +1426,116 @@ if(autocrop){
 		acc_srv.request.cloud_2 = cloud_after;
 		acc_srv.request.cloud_datum = cloud_datum;
 		if(acc_client.call(acc_srv)){
-		ROS_INFO("Service success");
 		pcl::PointCloud<PointXYZIT>::Ptr save_cloud (new pcl::PointCloud<PointXYZIT>);
 		std::stringstream pf;
 		pcl::fromROSMsg(acc_srv.response.cloud_out, *save_cloud);
-
-		ROS_INFO("Service success");
 		pf << "/home/mike/raw/processed/" << prenum << "to" << postnum << "thickened.pcd";
 		if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
 		if(save_cloud->size() > 0) pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
 		}else ROS_INFO("Thickness Service Failed");
 
 	}
+	
+
+}
+//Testing function for publishing point clouds from file
+void QNode::wscan(std::string filename){
+/*
+	//Create a pcl pointer to load the datum cloud in to
+	pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_before (new pcl::PointCloud<pcl::PointXYZI> );
+	pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_after (new pcl::PointCloud<pcl::PointXYZI> );
+	//Create a ros message to publish the cloud and datum
+	sensor_msgs::PointCloud2 cloud_datum, cloud_msg;
+	//Create a ros message to publish the cloud as
+	sensor_msgs::PointCloud2 cloud_before;
+	sensor_msgs::PointCloud2 cloud_after;
+	//Load the file
+	else if (pcl::io::loadPCDFile<pcl::PointXYZI> (before.c_str(), *pcl_before) == -1) PCL_ERROR ("Couldn't read file\n");
+	else if (pcl::io::loadPCDFile<pcl::PointXYZI> (after.c_str(), *pcl_after) == -1) PCL_ERROR ("Couldn't read file\n");
+	else{
+		if(DEBUG) ROS_INFO("Files Opened");
+		
+
+//Convert from PCL to ROS
+
+	
+	//Convert from PCL to ROS
+	pcl::toROSMsg(*pcl_after,cloud_after);
+	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
+	cloud_after.fields[3].name = "intensity";
+	//Set the frame
+	cloud_after.header.frame_id = "/world";
+
+if(autocrop){
+			//Crop points that are the robot itself
+			Eigen::Vector4f minPoint; 
+			minPoint[0]=.99;  // define minimum point x 
+			minPoint[1]=2.5;  // define minimum point y 
+			minPoint[2]=.3;  // define minimum point z 
+			Eigen::Vector4f maxPoint; 
+			maxPoint[0]=1.44;  // define max point x 
+			maxPoint[1]=3.5;  // define max point y 
+			maxPoint[2]=1.19;  // define max point z 
+			Eigen::Vector3f boxTranslatation; 
+			boxTranslatation[0]=0;   
+			boxTranslatation[1]=0;   
+			boxTranslatation[2]=0;   
+			Eigen::Vector3f boxRotation; 
+			boxRotation[0]=0;  // rotation around x-axis 
+			boxRotation[1]=0;  // rotation around y-axis 
+			boxRotation[2]=0;  //in radians rotation around z-axis. this rotates your cube 45deg around z-axis. 
+			pcl::PointCloud<pcl::PointXYZI>::Ptr cloudOut (new pcl::PointCloud<pcl::PointXYZI>); 
+			pcl::CropBox<pcl::PointXYZI> cropFilter; 
+			cropFilter.setInputCloud (pcl_before); 
+			cropFilter.setMin(minPoint); 
+			cropFilter.setMax(maxPoint);
+			cropFilter.setTranslation(boxTranslatation); 
+			cropFilter.setRotation(boxRotation); 
+			cropFilter.setNegative(false);
+			cropFilter.filter (*cloudOut); 
+				//Convert from PCL to ROS
+			pcl::toROSMsg(*cloudOut,cloud_before);
+			//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
+			cloud_before.fields[3].name = "intensity";
+			//Set the frame
+			cloud_before.header.frame_id = "/world";
+
+			cloudOut.reset(new pcl::PointCloud<pcl::PointXYZI>());
+			
+			cropFilter.setInputCloud (pcl_after); 
+			cropFilter.filter (*cloudOut);  
+				//Convert from PCL to ROS
+			pcl::toROSMsg(*cloudOut,cloud_after);
+			//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
+			cloud_after.fields[3].name = "intensity";
+			//Set the frame
+			cloud_after.header.frame_id = "/world";
+
+		}
+*/
+	if(DEBUG) ROS_INFO("rte");	
+	phd::calc_service calc_srv;
+	sensor_msgs::PointCloud2 cloud_datum;
+	pcl::PointCloud<PointXYZIT>::Ptr datum (new pcl::PointCloud<PointXYZIT> );
+	std::stringstream fs;
+	fs <<  "/home/mike/Datum/Datum.pcd";//Load the file
+	//if (pcl::io::loadPCDFile<PointXYZIT> (fs.str().c_str(), *datum) == -1) PCL_ERROR ("Couldn't read file\n");
+	//else{
+		//pcl::toROSMsg(*datum,cloud_datum);
+		//Set the frame
+		//cloud_datum.header.frame_id = "/base_footprint";
+		//Call the localization service
+		calc_srv.request.pre_ids.push_back(0);
+		calc_srv.request.post_ids.push_back(1);
+		calc_srv.request.pre_ids.push_back(2);
+		calc_srv.request.post_ids.push_back(3);
+		calc_srv.request.location = filename;
+		calc_srv.request.datum = "/home/mike/Datum/Datum.pcd";
+		if(calc_client.call(calc_srv)){
+
+		}else ROS_INFO("rte Service Failed");
+
+	//}
 	
 
 }

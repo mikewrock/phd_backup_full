@@ -67,6 +67,7 @@ public:
 	void nav_mode(float pos);
 	void fscan(std::string, bool auto_localize,bool set_home,std::string,bool autocrop);
 	void xscan(std::string, int postnum,int prenum,std::string,bool autocrop);
+	void wscan(std::string);
 	void ascan(std::string,std::string,int);
 	void cluster(std::string, int index);
 	int gen_trajectory(std::string);
@@ -122,6 +123,7 @@ private:
 	ros::ServiceClient doc_client;
 	ros::ServiceClient traj_client;
 	ros::ServiceClient acc_client;
+	ros::ServiceClient calc_client;
 	ros::ServiceClient thick_client;
 	//Dynamic Reconfigure
 	dynamic_reconfigure::Server<phd::ParamConfig> server;

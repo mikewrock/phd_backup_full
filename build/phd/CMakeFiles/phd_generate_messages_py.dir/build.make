@@ -62,6 +62,7 @@ phd/CMakeFiles/phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.
 phd/CMakeFiles/phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_cube_msg.py
 phd/CMakeFiles/phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_trajectory_msg.py
 phd/CMakeFiles/phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_localize_cloud.py
+phd/CMakeFiles/phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_calc_service.py
 phd/CMakeFiles/phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_empty.py
 phd/CMakeFiles/phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_accuracy_service.py
 phd/CMakeFiles/phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_simple_trajectory_service.py
@@ -126,9 +127,17 @@ phd/CMakeFiles/phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Generating Python code from SRV phd/localize_cloud"
 	cd /home/mike/catkin_ws/build/phd && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/mike/catkin_ws/src/phd/srv/localize_cloud.srv -Iphd:/home/mike/catkin_ws/src/phd/msg -Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/indigo/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg -p phd -o /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv
 
+/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_calc_service.py: /opt/ros/indigo/lib/genpy/gensrv_py.py
+/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_calc_service.py: /home/mike/catkin_ws/src/phd/srv/calc_service.srv
+/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_calc_service.py: /opt/ros/indigo/share/sensor_msgs/msg/PointField.msg
+/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_calc_service.py: /opt/ros/indigo/share/sensor_msgs/msg/PointCloud2.msg
+/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_calc_service.py: /opt/ros/indigo/share/std_msgs/msg/Header.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Generating Python code from SRV phd/calc_service"
+	cd /home/mike/catkin_ws/build/phd && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/mike/catkin_ws/src/phd/srv/calc_service.srv -Iphd:/home/mike/catkin_ws/src/phd/msg -Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/indigo/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg -p phd -o /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv
+
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_empty.py: /opt/ros/indigo/lib/genpy/gensrv_py.py
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_empty.py: /home/mike/catkin_ws/src/phd/srv/empty.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Generating Python code from SRV phd/empty"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Generating Python code from SRV phd/empty"
 	cd /home/mike/catkin_ws/build/phd && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/mike/catkin_ws/src/phd/srv/empty.srv -Iphd:/home/mike/catkin_ws/src/phd/msg -Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/indigo/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg -p phd -o /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv
 
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_accuracy_service.py: /opt/ros/indigo/lib/genpy/gensrv_py.py
@@ -136,7 +145,7 @@ phd/CMakeFiles/phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_accuracy_service.py: /opt/ros/indigo/share/sensor_msgs/msg/PointField.msg
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_accuracy_service.py: /opt/ros/indigo/share/sensor_msgs/msg/PointCloud2.msg
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_accuracy_service.py: /opt/ros/indigo/share/std_msgs/msg/Header.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Generating Python code from SRV phd/accuracy_service"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Generating Python code from SRV phd/accuracy_service"
 	cd /home/mike/catkin_ws/build/phd && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/mike/catkin_ws/src/phd/srv/accuracy_service.srv -Iphd:/home/mike/catkin_ws/src/phd/msg -Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/indigo/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg -p phd -o /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv
 
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_simple_trajectory_service.py: /opt/ros/indigo/lib/genpy/gensrv_py.py
@@ -146,7 +155,7 @@ phd/CMakeFiles/phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_simple_trajectory_service.py: /home/mike/catkin_ws/src/phd/msg/trajectory_point.msg
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_simple_trajectory_service.py: /opt/ros/indigo/share/std_msgs/msg/Header.msg
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_simple_trajectory_service.py: /home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Generating Python code from SRV phd/simple_trajectory_service"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Generating Python code from SRV phd/simple_trajectory_service"
 	cd /home/mike/catkin_ws/build/phd && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/mike/catkin_ws/src/phd/srv/simple_trajectory_service.srv -Iphd:/home/mike/catkin_ws/src/phd/msg -Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/indigo/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg -p phd -o /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv
 
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_doctor_cloud.py: /opt/ros/indigo/lib/genpy/gensrv_py.py
@@ -155,7 +164,7 @@ phd/CMakeFiles/phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_doctor_cloud.py: /home/mike/catkin_ws/src/phd/msg/doctor_msg.msg
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_doctor_cloud.py: /opt/ros/indigo/share/sensor_msgs/msg/PointCloud2.msg
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_doctor_cloud.py: /opt/ros/indigo/share/std_msgs/msg/Header.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Generating Python code from SRV phd/doctor_cloud"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Generating Python code from SRV phd/doctor_cloud"
 	cd /home/mike/catkin_ws/build/phd && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/mike/catkin_ws/src/phd/srv/doctor_cloud.srv -Iphd:/home/mike/catkin_ws/src/phd/msg -Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/indigo/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg -p phd -o /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv
 
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_thickness_service.py: /opt/ros/indigo/lib/genpy/gensrv_py.py
@@ -163,7 +172,7 @@ phd/CMakeFiles/phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_thickness_service.py: /opt/ros/indigo/share/sensor_msgs/msg/PointField.msg
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_thickness_service.py: /opt/ros/indigo/share/sensor_msgs/msg/PointCloud2.msg
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_thickness_service.py: /opt/ros/indigo/share/std_msgs/msg/Header.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Generating Python code from SRV phd/thickness_service"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Generating Python code from SRV phd/thickness_service"
 	cd /home/mike/catkin_ws/build/phd && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/mike/catkin_ws/src/phd/srv/thickness_service.srv -Iphd:/home/mike/catkin_ws/src/phd/msg -Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/indigo/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg -p phd -o /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv
 
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/__init__.py: /opt/ros/indigo/lib/genpy/genmsg_py.py
@@ -176,12 +185,13 @@ phd/CMakeFiles/phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/__init__.py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_cube_msg.py
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/__init__.py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_trajectory_msg.py
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/__init__.py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_localize_cloud.py
+/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/__init__.py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_calc_service.py
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/__init__.py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_empty.py
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/__init__.py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_accuracy_service.py
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/__init__.py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_simple_trajectory_service.py
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/__init__.py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_doctor_cloud.py
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/__init__.py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_thickness_service.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Generating Python msg __init__.py for phd"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Generating Python msg __init__.py for phd"
 	cd /home/mike/catkin_ws/build/phd && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg --initpy
 
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/__init__.py: /opt/ros/indigo/lib/genpy/genmsg_py.py
@@ -194,12 +204,13 @@ phd/CMakeFiles/phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/__init__.py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_cube_msg.py
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/__init__.py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_trajectory_msg.py
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/__init__.py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_localize_cloud.py
+/home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/__init__.py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_calc_service.py
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/__init__.py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_empty.py
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/__init__.py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_accuracy_service.py
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/__init__.py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_simple_trajectory_service.py
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/__init__.py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_doctor_cloud.py
 /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/__init__.py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_thickness_service.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Generating Python srv __init__.py for phd"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Generating Python srv __init__.py for phd"
 	cd /home/mike/catkin_ws/build/phd && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv --initpy
 
 phd_generate_messages_py: phd/CMakeFiles/phd_generate_messages_py
@@ -212,6 +223,7 @@ phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages
 phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_cube_msg.py
 phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/msg/_trajectory_msg.py
 phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_localize_cloud.py
+phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_calc_service.py
 phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_empty.py
 phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_accuracy_service.py
 phd_generate_messages_py: /home/mike/catkin_ws/devel/lib/python2.7/dist-packages/phd/srv/_simple_trajectory_service.py

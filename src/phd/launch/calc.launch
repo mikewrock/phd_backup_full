@@ -1,0 +1,23 @@
+<launch>
+
+
+  <!--- Run localization service -->
+  <node type="cloud_localizer" pkg="phd" name="localization_service" output="screen">
+  </node>
+  <!--- Run thickness service -->
+  <node type="thickness_server" pkg="phd" name="thickness_service" output="screen">
+  </node>
+  <!--- Run acc service -->
+  <node type="accuracy_server" pkg="phd" name="accuracy_service" output="screen">
+  </node>
+  <!--- Run calc service -->
+  <node type="calc_server" pkg="phd" name="calc_service" output="screen">
+  </node>
+
+
+
+  <!--- Run rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" required="True" output="screen" args="-d $(find phd)/cfg/rviz_debug.rviz" clear_params="true"> 
+  </node>
+
+</launch>

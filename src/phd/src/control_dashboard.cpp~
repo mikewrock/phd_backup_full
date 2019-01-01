@@ -470,16 +470,13 @@ namespace control_panel
 	//More analysis
 	void ControlPanel::anal_scan(){
 	std::stringstream fs, fs2;
-	for(int ctr2 = 0; ctr <= ui_.pre_box->text().toInt(); ++ctr2){
 		fs.str("");
-		fs << ui_.filename_box->text().toStdString() << "post/"<< ctr2 << "localized.pcd";
+		fs << ui_.filename_box->text().toStdString();
 	
-		for(int ctr = 0; ctr <= ui_.post_box->text().toInt(); ++ctr){
-		fs2.str("");
 		//ctr = ui_.pre_box->text().toInt();
 		//fs2 << ui_.filename_box->text().toStdString() << ui_.pre_box->text().toStdString() << "rawcloud.pcd";
 		fs2 << ui_.filename_box->text().toStdString() << "pre/" << ctr << "localized.pcd";
-		  control_panel.xscan(fs2.str(),ctr2,ctr,fs.str(),true);
+		  control_panel.xscan(ui_.filename_box->text().toStdString(),0,0,ui_.filename_box->text().toStdString(),true);
 		}
 	}}
 

@@ -31,6 +31,7 @@
 #include "phd/simple_trajectory_service.h"
 #include "phd/thickness_service.h"
 #include "phd/accuracy_service.h"
+#include "phd/calc_service.h"
 // Messages
 #include "sensor_msgs/PointCloud.h"
 #include <phd/cube_msg.h>
@@ -644,6 +645,7 @@ bool QNode::init() {
 	//Service client for estimating thickness
 	thick_client = nh_.serviceClient<phd::thickness_service>("thick_srv");
 	acc_client = nh_.serviceClient<phd::accuracy_service>("acc_srv");
+	calc_client = nh_.serviceClient<phd::calc_service>("calc_srv");
 	//Initialize the trajectory display marker	
 	point_list.header.frame_id = "/base_footprint";
 	point_list.header.stamp = ros::Time::now();
@@ -1433,6 +1435,28 @@ if(autocrop){
 		}else ROS_INFO("Thickness Service Failed");
 
 	}
+	
+
+}
+//Testing function for publishing point clouds from file
+void QNode::wscan(std::string filename){
+	
+	phd::calc_service calc_srv;
+	sensor_msgs::PointCloud2 cloud_datum;
+	pcl::PointCloud<PointXYZIT>::Ptr datum (new pcl::PointCloud<PointXYZIT> );
+	std::stringstream fs;
+	fs <<  "/home/mike/Datum/Datum.pcd";//Load the file
+		calc_srv.request.pre_ids.push_back(0);
+		calc_srv.request.pre_ids.push_back(2);
+		calc_srv.request.post_ids.push_back(1);
+		calc_srv.request.post_ids.push_back(3);
+		calc_srv.request.location = filename;
+		calc_srv.request.datum = "/home/mike/Datum/Datum.pcd";
+		if(calc_client.call(calc_srv)){
+
+		}else ROS_INFO("rte Service Failed");
+
+	//}
 	
 
 }

@@ -2441,6 +2441,19 @@ accuracy_server/fast:
 .PHONY : accuracy_server/fast
 
 #=============================================================================
+# Target rules for targets named thickness_server
+
+# Build rule for target.
+thickness_server: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 thickness_server
+.PHONY : thickness_server
+
+# fast build rule for target.
+thickness_server/fast:
+	$(MAKE) -f phd/CMakeFiles/thickness_server.dir/build.make phd/CMakeFiles/thickness_server.dir/build
+.PHONY : thickness_server/fast
+
+#=============================================================================
 # Target rules for targets named _phd_generate_messages_check_deps_thickness_service
 
 # Build rule for target.
@@ -2543,19 +2556,6 @@ trajectory_msgs_generate_messages_py: cmake_check_build_system
 trajectory_msgs_generate_messages_py/fast:
 	$(MAKE) -f phd/CMakeFiles/trajectory_msgs_generate_messages_py.dir/build.make phd/CMakeFiles/trajectory_msgs_generate_messages_py.dir/build
 .PHONY : trajectory_msgs_generate_messages_py/fast
-
-#=============================================================================
-# Target rules for targets named cob_srvs_generate_messages_lisp
-
-# Build rule for target.
-cob_srvs_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 cob_srvs_generate_messages_lisp
-.PHONY : cob_srvs_generate_messages_lisp
-
-# fast build rule for target.
-cob_srvs_generate_messages_lisp/fast:
-	$(MAKE) -f phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/build.make phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/build
-.PHONY : cob_srvs_generate_messages_lisp/fast
 
 #=============================================================================
 # Target rules for targets named _phd_generate_messages_check_deps_doctor_msg
@@ -2662,6 +2662,19 @@ diagnostic_msgs_generate_messages_lisp/fast:
 .PHONY : diagnostic_msgs_generate_messages_lisp/fast
 
 #=============================================================================
+# Target rules for targets named calc_server
+
+# Build rule for target.
+calc_server: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 calc_server
+.PHONY : calc_server
+
+# fast build rule for target.
+calc_server/fast:
+	$(MAKE) -f phd/CMakeFiles/calc_server.dir/build.make phd/CMakeFiles/calc_server.dir/build
+.PHONY : calc_server/fast
+
+#=============================================================================
 # Target rules for targets named cob_srvs_generate_messages_cpp
 
 # Build rule for target.
@@ -2751,6 +2764,32 @@ control_msgs_generate_messages_cpp: cmake_check_build_system
 control_msgs_generate_messages_cpp/fast:
 	$(MAKE) -f phd/CMakeFiles/control_msgs_generate_messages_cpp.dir/build.make phd/CMakeFiles/control_msgs_generate_messages_cpp.dir/build
 .PHONY : control_msgs_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named cob_srvs_generate_messages_lisp
+
+# Build rule for target.
+cob_srvs_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 cob_srvs_generate_messages_lisp
+.PHONY : cob_srvs_generate_messages_lisp
+
+# fast build rule for target.
+cob_srvs_generate_messages_lisp/fast:
+	$(MAKE) -f phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/build.make phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/build
+.PHONY : cob_srvs_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named _phd_generate_messages_check_deps_calc_service
+
+# Build rule for target.
+_phd_generate_messages_check_deps_calc_service: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _phd_generate_messages_check_deps_calc_service
+.PHONY : _phd_generate_messages_check_deps_calc_service
+
+# fast build rule for target.
+_phd_generate_messages_check_deps_calc_service/fast:
+	$(MAKE) -f phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/build.make phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/build
+.PHONY : _phd_generate_messages_check_deps_calc_service/fast
 
 #=============================================================================
 # Target rules for targets named _phd_generate_messages_check_deps_marker_val
@@ -3037,19 +3076,6 @@ cloud_doctor: cmake_check_build_system
 cloud_doctor/fast:
 	$(MAKE) -f phd/CMakeFiles/cloud_doctor.dir/build.make phd/CMakeFiles/cloud_doctor.dir/build
 .PHONY : cloud_doctor/fast
-
-#=============================================================================
-# Target rules for targets named thickness_server
-
-# Build rule for target.
-thickness_server: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 thickness_server
-.PHONY : thickness_server
-
-# fast build rule for target.
-thickness_server/fast:
-	$(MAKE) -f phd/CMakeFiles/thickness_server.dir/build.make phd/CMakeFiles/thickness_server.dir/build
-.PHONY : thickness_server/fast
 
 #=============================================================================
 # Target rules for targets named bcap_clienta
@@ -3720,6 +3746,7 @@ help:
 	@echo "... saveselection"
 	@echo "... simple_trajectory_server"
 	@echo "... accuracy_server"
+	@echo "... thickness_server"
 	@echo "... _phd_generate_messages_check_deps_thickness_service"
 	@echo "... _phd_generate_messages_check_deps_localize_cloud"
 	@echo "... phd_generate_messages_cpp"
@@ -3728,7 +3755,6 @@ help:
 	@echo "... laser_assembler_generate_messages_py"
 	@echo "... phd_gencfg"
 	@echo "... trajectory_msgs_generate_messages_py"
-	@echo "... cob_srvs_generate_messages_lisp"
 	@echo "... _phd_generate_messages_check_deps_doctor_msg"
 	@echo "... trajectory_msgs_generate_messages_cpp"
 	@echo "... laser_assembler_generate_messages_cpp"
@@ -3737,6 +3763,7 @@ help:
 	@echo "... diagnostic_msgs_generate_messages_cpp"
 	@echo "... laser_assembler_generate_messages_lisp"
 	@echo "... diagnostic_msgs_generate_messages_lisp"
+	@echo "... calc_server"
 	@echo "... cob_srvs_generate_messages_cpp"
 	@echo "... brics_actuator_generate_messages_py"
 	@echo "... phd_generate_messages"
@@ -3744,6 +3771,8 @@ help:
 	@echo "... cob_srvs_generate_messages_py"
 	@echo "... brics_actuator_generate_messages_lisp"
 	@echo "... control_msgs_generate_messages_cpp"
+	@echo "... cob_srvs_generate_messages_lisp"
+	@echo "... _phd_generate_messages_check_deps_calc_service"
 	@echo "... _phd_generate_messages_check_deps_marker_val"
 	@echo "... _phd_generate_messages_check_deps_arm_msg"
 	@echo "... denso_node"
@@ -3766,7 +3795,6 @@ help:
 	@echo "... cloud_localizer"
 	@echo "... joint_fusion_node"
 	@echo "... cloud_doctor"
-	@echo "... thickness_server"
 	@echo "... bcap_clienta"
 	@echo "... pubmarker"
 	@echo "... move"

@@ -2140,6 +2140,9 @@ phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/inclu
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/accuracy_serviceRequest.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/accuracy_serviceResponse.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/arm_msg.h
+phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/calc_service.h
+phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/calc_serviceRequest.h
+phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/calc_serviceResponse.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/cube_msg.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/doctor_cloud.h
 phd/CMakeFiles/phd.dir/src/control_panel.cpp.o: /home/mike/catkin_ws/devel/include/phd/doctor_cloudRequest.h

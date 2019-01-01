@@ -254,7 +254,7 @@ gtest/CMakeFiles/gtest_main.dir/all: gtest/CMakeFiles/gtest.dir/all
 
 # Build rule for subdir invocation for target.
 gtest/CMakeFiles/gtest_main.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 gtest/CMakeFiles/gtest_main.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : gtest/CMakeFiles/gtest_main.dir/rule
@@ -281,12 +281,12 @@ clean: gtest/CMakeFiles/gtest_main.dir/clean
 gtest/CMakeFiles/gtest.dir/all:
 	$(MAKE) -f gtest/CMakeFiles/gtest.dir/build.make gtest/CMakeFiles/gtest.dir/depend
 	$(MAKE) -f gtest/CMakeFiles/gtest.dir/build.make gtest/CMakeFiles/gtest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=24 "Built target gtest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target gtest"
 .PHONY : gtest/CMakeFiles/gtest.dir/all
 
 # Build rule for subdir invocation for target.
 gtest/CMakeFiles/gtest.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 gtest/CMakeFiles/gtest.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : gtest/CMakeFiles/gtest.dir/rule
@@ -856,7 +856,7 @@ point_cloud_converter-hydro-devel/preinstall:
 point_cloud_converter-hydro-devel/CMakeFiles/point_cloud_converter_node.dir/all:
 	$(MAKE) -f point_cloud_converter-hydro-devel/CMakeFiles/point_cloud_converter_node.dir/build.make point_cloud_converter-hydro-devel/CMakeFiles/point_cloud_converter_node.dir/depend
 	$(MAKE) -f point_cloud_converter-hydro-devel/CMakeFiles/point_cloud_converter_node.dir/build.make point_cloud_converter-hydro-devel/CMakeFiles/point_cloud_converter_node.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=65 "Built target point_cloud_converter_node"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target point_cloud_converter_node"
 .PHONY : point_cloud_converter-hydro-devel/CMakeFiles/point_cloud_converter_node.dir/all
 
 # Include target in all.
@@ -866,7 +866,7 @@ all: point_cloud_converter-hydro-devel/CMakeFiles/point_cloud_converter_node.dir
 
 # Build rule for subdir invocation for target.
 point_cloud_converter-hydro-devel/CMakeFiles/point_cloud_converter_node.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 point_cloud_converter-hydro-devel/CMakeFiles/point_cloud_converter_node.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : point_cloud_converter-hydro-devel/CMakeFiles/point_cloud_converter_node.dir/rule
@@ -2111,7 +2111,7 @@ LMS1xx-master/CMakeFiles/test_buffer.dir/all: gtest/CMakeFiles/gtest_main.dir/al
 LMS1xx-master/CMakeFiles/test_buffer.dir/all: gtest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f LMS1xx-master/CMakeFiles/test_buffer.dir/build.make LMS1xx-master/CMakeFiles/test_buffer.dir/depend
 	$(MAKE) -f LMS1xx-master/CMakeFiles/test_buffer.dir/build.make LMS1xx-master/CMakeFiles/test_buffer.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target test_buffer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=86 "Built target test_buffer"
 .PHONY : LMS1xx-master/CMakeFiles/test_buffer.dir/all
 
 # Build rule for subdir invocation for target.
@@ -3480,7 +3480,7 @@ clean: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/p
 perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/d2d_deathmatch.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/ndt_registration.dir/all
 	$(MAKE) -f perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/d2d_deathmatch.dir/build.make perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/d2d_deathmatch.dir/depend
 	$(MAKE) -f perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/d2d_deathmatch.dir/build.make perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/d2d_deathmatch.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=17 "Built target d2d_deathmatch"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target d2d_deathmatch"
 .PHONY : perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/d2d_deathmatch.dir/all
 
 # Include target in all.
@@ -3490,7 +3490,7 @@ all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/d2d
 
 # Build rule for subdir invocation for target.
 perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/d2d_deathmatch.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/d2d_deathmatch.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/d2d_deathmatch.dir/rule
@@ -4029,7 +4029,7 @@ clean: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/p
 perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/simple_test.dir/all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/ndt_registration.dir/all
 	$(MAKE) -f perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/simple_test.dir/build.make perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/simple_test.dir/depend
 	$(MAKE) -f perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/simple_test.dir/build.make perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/simple_test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target simple_test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=78 "Built target simple_test"
 .PHONY : perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/simple_test.dir/all
 
 # Include target in all.
@@ -4039,7 +4039,7 @@ all: perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/sim
 
 # Build rule for subdir invocation for target.
 perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/simple_test.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/simple_test.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : perception_oru-release-debian-indigo-trusty-ndt_registration/CMakeFiles/simple_test.dir/rule
@@ -4879,7 +4879,7 @@ registration_localization/CMakeFiles/registration_localization.dir/all: denso_gu
 registration_localization/CMakeFiles/registration_localization.dir/all: denso_gui/CMakeFiles/nav_msgs_generate_messages_lisp.dir/all
 	$(MAKE) -f registration_localization/CMakeFiles/registration_localization.dir/build.make registration_localization/CMakeFiles/registration_localization.dir/depend
 	$(MAKE) -f registration_localization/CMakeFiles/registration_localization.dir/build.make registration_localization/CMakeFiles/registration_localization.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=67,68,69,70 "Built target registration_localization"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=68,69,70,71 "Built target registration_localization"
 .PHONY : registration_localization/CMakeFiles/registration_localization.dir/all
 
 # Include target in all.
@@ -4953,7 +4953,7 @@ clean: registration_localization/CMakeFiles/keypoints.dir/clean
 registration_localization/CMakeFiles/clustering.dir/all:
 	$(MAKE) -f registration_localization/CMakeFiles/clustering.dir/build.make registration_localization/CMakeFiles/clustering.dir/depend
 	$(MAKE) -f registration_localization/CMakeFiles/clustering.dir/build.make registration_localization/CMakeFiles/clustering.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=14 "Built target clustering"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target clustering"
 .PHONY : registration_localization/CMakeFiles/clustering.dir/all
 
 # Include target in all.
@@ -4963,7 +4963,7 @@ all: registration_localization/CMakeFiles/clustering.dir/all
 
 # Build rule for subdir invocation for target.
 registration_localization/CMakeFiles/clustering.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 registration_localization/CMakeFiles/clustering.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : registration_localization/CMakeFiles/clustering.dir/rule
@@ -4990,7 +4990,7 @@ clean: registration_localization/CMakeFiles/clustering.dir/clean
 registration_localization/CMakeFiles/segmentation.dir/all:
 	$(MAKE) -f registration_localization/CMakeFiles/segmentation.dir/build.make registration_localization/CMakeFiles/segmentation.dir/depend
 	$(MAKE) -f registration_localization/CMakeFiles/segmentation.dir/build.make registration_localization/CMakeFiles/segmentation.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target segmentation"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=74 "Built target segmentation"
 .PHONY : registration_localization/CMakeFiles/segmentation.dir/all
 
 # Include target in all.
@@ -5000,7 +5000,7 @@ all: registration_localization/CMakeFiles/segmentation.dir/all
 
 # Build rule for subdir invocation for target.
 registration_localization/CMakeFiles/segmentation.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 registration_localization/CMakeFiles/segmentation.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : registration_localization/CMakeFiles/segmentation.dir/rule
@@ -5027,7 +5027,7 @@ clean: registration_localization/CMakeFiles/segmentation.dir/clean
 registration_localization/CMakeFiles/saveapcd.dir/all:
 	$(MAKE) -f registration_localization/CMakeFiles/saveapcd.dir/build.make registration_localization/CMakeFiles/saveapcd.dir/depend
 	$(MAKE) -f registration_localization/CMakeFiles/saveapcd.dir/build.make registration_localization/CMakeFiles/saveapcd.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=71 "Built target saveapcd"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target saveapcd"
 .PHONY : registration_localization/CMakeFiles/saveapcd.dir/all
 
 # Include target in all.
@@ -5037,7 +5037,7 @@ all: registration_localization/CMakeFiles/saveapcd.dir/all
 
 # Build rule for subdir invocation for target.
 registration_localization/CMakeFiles/saveapcd.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 registration_localization/CMakeFiles/saveapcd.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : registration_localization/CMakeFiles/saveapcd.dir/rule
@@ -5138,7 +5138,7 @@ clean: registration_localization/CMakeFiles/algorithm.dir/clean
 registration_localization/CMakeFiles/linering.dir/all:
 	$(MAKE) -f registration_localization/CMakeFiles/linering.dir/build.make registration_localization/CMakeFiles/linering.dir/depend
 	$(MAKE) -f registration_localization/CMakeFiles/linering.dir/build.make registration_localization/CMakeFiles/linering.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=28 "Built target linering"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target linering"
 .PHONY : registration_localization/CMakeFiles/linering.dir/all
 
 # Include target in all.
@@ -5148,7 +5148,7 @@ all: registration_localization/CMakeFiles/linering.dir/all
 
 # Build rule for subdir invocation for target.
 registration_localization/CMakeFiles/linering.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 registration_localization/CMakeFiles/linering.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : registration_localization/CMakeFiles/linering.dir/rule
@@ -5175,7 +5175,7 @@ clean: registration_localization/CMakeFiles/linering.dir/clean
 registration_localization/CMakeFiles/vregister.dir/all:
 	$(MAKE) -f registration_localization/CMakeFiles/vregister.dir/build.make registration_localization/CMakeFiles/vregister.dir/depend
 	$(MAKE) -f registration_localization/CMakeFiles/vregister.dir/build.make registration_localization/CMakeFiles/vregister.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=92 "Built target vregister"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target vregister"
 .PHONY : registration_localization/CMakeFiles/vregister.dir/all
 
 # Include target in all.
@@ -5185,7 +5185,7 @@ all: registration_localization/CMakeFiles/vregister.dir/all
 
 # Build rule for subdir invocation for target.
 registration_localization/CMakeFiles/vregister.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 registration_localization/CMakeFiles/vregister.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : registration_localization/CMakeFiles/vregister.dir/rule
@@ -5212,7 +5212,7 @@ clean: registration_localization/CMakeFiles/vregister.dir/clean
 registration_localization/CMakeFiles/planes.dir/all:
 	$(MAKE) -f registration_localization/CMakeFiles/planes.dir/build.make registration_localization/CMakeFiles/planes.dir/depend
 	$(MAKE) -f registration_localization/CMakeFiles/planes.dir/build.make registration_localization/CMakeFiles/planes.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target planes"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=65 "Built target planes"
 .PHONY : registration_localization/CMakeFiles/planes.dir/all
 
 # Include target in all.
@@ -5222,7 +5222,7 @@ all: registration_localization/CMakeFiles/planes.dir/all
 
 # Build rule for subdir invocation for target.
 registration_localization/CMakeFiles/planes.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 registration_localization/CMakeFiles/planes.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : registration_localization/CMakeFiles/planes.dir/rule
@@ -5452,7 +5452,7 @@ selected_points_publisher/preinstall:
 selected_points_publisher/CMakeFiles/selected_points_publisher.dir/all:
 	$(MAKE) -f selected_points_publisher/CMakeFiles/selected_points_publisher.dir/build.make selected_points_publisher/CMakeFiles/selected_points_publisher.dir/depend
 	$(MAKE) -f selected_points_publisher/CMakeFiles/selected_points_publisher.dir/build.make selected_points_publisher/CMakeFiles/selected_points_publisher.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=74 "Built target selected_points_publisher"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=75 "Built target selected_points_publisher"
 .PHONY : selected_points_publisher/CMakeFiles/selected_points_publisher.dir/all
 
 # Include target in all.
@@ -5507,7 +5507,7 @@ shotcrete_points/preinstall:
 shotcrete_points/CMakeFiles/shotcrete_points_publisher.dir/all:
 	$(MAKE) -f shotcrete_points/CMakeFiles/shotcrete_points_publisher.dir/build.make shotcrete_points/CMakeFiles/shotcrete_points_publisher.dir/depend
 	$(MAKE) -f shotcrete_points/CMakeFiles/shotcrete_points_publisher.dir/build.make shotcrete_points/CMakeFiles/shotcrete_points_publisher.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=75,76 "Built target shotcrete_points_publisher"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=76 "Built target shotcrete_points_publisher"
 .PHONY : shotcrete_points/CMakeFiles/shotcrete_points_publisher.dir/all
 
 # Include target in all.
@@ -5517,7 +5517,7 @@ all: shotcrete_points/CMakeFiles/shotcrete_points_publisher.dir/all
 
 # Build rule for subdir invocation for target.
 shotcrete_points/CMakeFiles/shotcrete_points_publisher.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 shotcrete_points/CMakeFiles/shotcrete_points_publisher.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : shotcrete_points/CMakeFiles/shotcrete_points_publisher.dir/rule
@@ -5753,7 +5753,7 @@ teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner.dir/all: teb_local_p
 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner.dir/all: teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_gencfg.dir/all
 	$(MAKE) -f teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner.dir/build.make teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner.dir/depend
 	$(MAKE) -f teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner.dir/build.make teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=79,80,81 "Built target teb_local_planner"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=80,81 "Built target teb_local_planner"
 .PHONY : teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner.dir/all
 
 # Include target in all.
@@ -5763,7 +5763,7 @@ all: teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner.dir/all
 
 # Build rule for subdir invocation for target.
 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner.dir/rule
@@ -5989,7 +5989,7 @@ clean: teb_local_planner-indigo-devel/CMakeFiles/costmap_2d_gencfg.dir/clean
 teb_local_planner-indigo-devel/CMakeFiles/test_optim_node.dir/all: teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner.dir/all
 	$(MAKE) -f teb_local_planner-indigo-devel/CMakeFiles/test_optim_node.dir/build.make teb_local_planner-indigo-devel/CMakeFiles/test_optim_node.dir/depend
 	$(MAKE) -f teb_local_planner-indigo-devel/CMakeFiles/test_optim_node.dir/build.make teb_local_planner-indigo-devel/CMakeFiles/test_optim_node.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=86 "Built target test_optim_node"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target test_optim_node"
 .PHONY : teb_local_planner-indigo-devel/CMakeFiles/test_optim_node.dir/all
 
 # Include target in all.
@@ -5999,7 +5999,7 @@ all: teb_local_planner-indigo-devel/CMakeFiles/test_optim_node.dir/all
 
 # Build rule for subdir invocation for target.
 teb_local_planner-indigo-devel/CMakeFiles/test_optim_node.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 teb_local_planner-indigo-devel/CMakeFiles/test_optim_node.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : teb_local_planner-indigo-devel/CMakeFiles/test_optim_node.dir/rule
@@ -6031,7 +6031,7 @@ teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_genlisp.dir/all: teb
 
 # Build rule for subdir invocation for target.
 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_genlisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_genlisp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_genlisp.dir/rule
@@ -6260,12 +6260,12 @@ teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_li
 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/all: teb_local_planner-indigo-devel/CMakeFiles/_teb_local_planner_generate_messages_check_deps_FeedbackMsg.dir/all
 	$(MAKE) -f teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/build.make teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/depend
 	$(MAKE) -f teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/build.make teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=83 "Built target teb_local_planner_generate_messages_lisp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=83,84 "Built target teb_local_planner_generate_messages_lisp"
 .PHONY : teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_lisp.dir/rule
@@ -6297,12 +6297,12 @@ teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py
 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py.dir/all: teb_local_planner-indigo-devel/CMakeFiles/_teb_local_planner_generate_messages_check_deps_FeedbackMsg.dir/all
 	$(MAKE) -f teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py.dir/build.make teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py.dir/depend
 	$(MAKE) -f teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py.dir/build.make teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=84,85 "Built target teb_local_planner_generate_messages_py"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=85 "Built target teb_local_planner_generate_messages_py"
 .PHONY : teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_generate_messages_py.dir/rule
@@ -6334,7 +6334,7 @@ teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_genpy.dir/all: teb_l
 
 # Build rule for subdir invocation for target.
 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_genpy.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_genpy.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : teb_local_planner-indigo-devel/CMakeFiles/teb_local_planner_genpy.dir/rule
@@ -6417,7 +6417,9 @@ phd/all: phd/CMakeFiles/phd.dir/all
 phd/all: phd/CMakeFiles/saveselection.dir/all
 phd/all: phd/CMakeFiles/simple_trajectory_server.dir/all
 phd/all: phd/CMakeFiles/accuracy_server.dir/all
+phd/all: phd/CMakeFiles/thickness_server.dir/all
 phd/all: phd/CMakeFiles/phd_gencfg.dir/all
+phd/all: phd/CMakeFiles/calc_server.dir/all
 phd/all: phd/CMakeFiles/phd_generate_messages.dir/all
 phd/all: phd/CMakeFiles/denso_node.dir/all
 phd/all: phd/CMakeFiles/cube_node.dir/all
@@ -6425,7 +6427,6 @@ phd/all: phd/CMakeFiles/bcap_client.dir/all
 phd/all: phd/CMakeFiles/cloud_localizer.dir/all
 phd/all: phd/CMakeFiles/joint_fusion_node.dir/all
 phd/all: phd/CMakeFiles/cloud_doctor.dir/all
-phd/all: phd/CMakeFiles/thickness_server.dir/all
 
 .PHONY : phd/all
 
@@ -6434,6 +6435,7 @@ phd/clean: phd/CMakeFiles/phd.dir/clean
 phd/clean: phd/CMakeFiles/saveselection.dir/clean
 phd/clean: phd/CMakeFiles/simple_trajectory_server.dir/clean
 phd/clean: phd/CMakeFiles/accuracy_server.dir/clean
+phd/clean: phd/CMakeFiles/thickness_server.dir/clean
 phd/clean: phd/CMakeFiles/_phd_generate_messages_check_deps_thickness_service.dir/clean
 phd/clean: phd/CMakeFiles/_phd_generate_messages_check_deps_localize_cloud.dir/clean
 phd/clean: phd/CMakeFiles/phd_generate_messages_cpp.dir/clean
@@ -6442,7 +6444,6 @@ phd/clean: phd/CMakeFiles/phd_gencpp.dir/clean
 phd/clean: phd/CMakeFiles/laser_assembler_generate_messages_py.dir/clean
 phd/clean: phd/CMakeFiles/phd_gencfg.dir/clean
 phd/clean: phd/CMakeFiles/trajectory_msgs_generate_messages_py.dir/clean
-phd/clean: phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/clean
 phd/clean: phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_msg.dir/clean
 phd/clean: phd/CMakeFiles/trajectory_msgs_generate_messages_cpp.dir/clean
 phd/clean: phd/CMakeFiles/laser_assembler_generate_messages_cpp.dir/clean
@@ -6451,6 +6452,7 @@ phd/clean: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_point.dir
 phd/clean: phd/CMakeFiles/diagnostic_msgs_generate_messages_cpp.dir/clean
 phd/clean: phd/CMakeFiles/laser_assembler_generate_messages_lisp.dir/clean
 phd/clean: phd/CMakeFiles/diagnostic_msgs_generate_messages_lisp.dir/clean
+phd/clean: phd/CMakeFiles/calc_server.dir/clean
 phd/clean: phd/CMakeFiles/cob_srvs_generate_messages_cpp.dir/clean
 phd/clean: phd/CMakeFiles/brics_actuator_generate_messages_py.dir/clean
 phd/clean: phd/CMakeFiles/phd_generate_messages.dir/clean
@@ -6458,6 +6460,8 @@ phd/clean: phd/CMakeFiles/phd_generate_messages_py.dir/clean
 phd/clean: phd/CMakeFiles/cob_srvs_generate_messages_py.dir/clean
 phd/clean: phd/CMakeFiles/brics_actuator_generate_messages_lisp.dir/clean
 phd/clean: phd/CMakeFiles/control_msgs_generate_messages_cpp.dir/clean
+phd/clean: phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/clean
+phd/clean: phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/clean
 phd/clean: phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir/clean
 phd/clean: phd/CMakeFiles/_phd_generate_messages_check_deps_arm_msg.dir/clean
 phd/clean: phd/CMakeFiles/denso_node.dir/clean
@@ -6480,7 +6484,6 @@ phd/clean: phd/CMakeFiles/_phd_generate_messages_check_deps_empty.dir/clean
 phd/clean: phd/CMakeFiles/cloud_localizer.dir/clean
 phd/clean: phd/CMakeFiles/joint_fusion_node.dir/clean
 phd/clean: phd/CMakeFiles/cloud_doctor.dir/clean
-phd/clean: phd/CMakeFiles/thickness_server.dir/clean
 
 .PHONY : phd/clean
 
@@ -6533,7 +6536,7 @@ clean: phd/CMakeFiles/phd.dir/clean
 phd/CMakeFiles/saveselection.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
 	$(MAKE) -f phd/CMakeFiles/saveselection.dir/build.make phd/CMakeFiles/saveselection.dir/depend
 	$(MAKE) -f phd/CMakeFiles/saveselection.dir/build.make phd/CMakeFiles/saveselection.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=73 "Built target saveselection"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target saveselection"
 .PHONY : phd/CMakeFiles/saveselection.dir/all
 
 # Include target in all.
@@ -6543,7 +6546,7 @@ all: phd/CMakeFiles/saveselection.dir/all
 
 # Build rule for subdir invocation for target.
 phd/CMakeFiles/saveselection.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/saveselection.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : phd/CMakeFiles/saveselection.dir/rule
@@ -6573,7 +6576,7 @@ phd/CMakeFiles/simple_trajectory_server.dir/all: phd/CMakeFiles/phd_gencpp.dir/a
 phd/CMakeFiles/simple_trajectory_server.dir/all: phd/CMakeFiles/phd_gencfg.dir/all
 	$(MAKE) -f phd/CMakeFiles/simple_trajectory_server.dir/build.make phd/CMakeFiles/simple_trajectory_server.dir/depend
 	$(MAKE) -f phd/CMakeFiles/simple_trajectory_server.dir/build.make phd/CMakeFiles/simple_trajectory_server.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=78 "Built target simple_trajectory_server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target simple_trajectory_server"
 .PHONY : phd/CMakeFiles/simple_trajectory_server.dir/all
 
 # Include target in all.
@@ -6583,7 +6586,7 @@ all: phd/CMakeFiles/simple_trajectory_server.dir/all
 
 # Build rule for subdir invocation for target.
 phd/CMakeFiles/simple_trajectory_server.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 9
 	$(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/simple_trajectory_server.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : phd/CMakeFiles/simple_trajectory_server.dir/rule
@@ -6640,6 +6643,46 @@ phd/CMakeFiles/accuracy_server.dir/clean:
 
 # clean rule for target.
 clean: phd/CMakeFiles/accuracy_server.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target phd/CMakeFiles/thickness_server.dir
+
+# All Build rule for target.
+phd/CMakeFiles/thickness_server.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
+phd/CMakeFiles/thickness_server.dir/all: phd/CMakeFiles/phd_generate_messages_cpp.dir/all
+phd/CMakeFiles/thickness_server.dir/all: phd/CMakeFiles/phd_gencpp.dir/all
+phd/CMakeFiles/thickness_server.dir/all: phd/CMakeFiles/phd_gencfg.dir/all
+	$(MAKE) -f phd/CMakeFiles/thickness_server.dir/build.make phd/CMakeFiles/thickness_server.dir/depend
+	$(MAKE) -f phd/CMakeFiles/thickness_server.dir/build.make phd/CMakeFiles/thickness_server.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=91 "Built target thickness_server"
+.PHONY : phd/CMakeFiles/thickness_server.dir/all
+
+# Include target in all.
+all: phd/CMakeFiles/thickness_server.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+phd/CMakeFiles/thickness_server.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 10
+	$(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/thickness_server.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
+.PHONY : phd/CMakeFiles/thickness_server.dir/rule
+
+# Convenience name for target.
+thickness_server: phd/CMakeFiles/thickness_server.dir/rule
+
+.PHONY : thickness_server
+
+# clean rule for target.
+phd/CMakeFiles/thickness_server.dir/clean:
+	$(MAKE) -f phd/CMakeFiles/thickness_server.dir/build.make phd/CMakeFiles/thickness_server.dir/clean
+.PHONY : phd/CMakeFiles/thickness_server.dir/clean
+
+# clean rule for target.
+clean: phd/CMakeFiles/thickness_server.dir/clean
 
 .PHONY : clean
 
@@ -6718,6 +6761,7 @@ phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_m
 phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_localize_cloud.dir/all
 phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_msg.dir/all
 phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_point.dir/all
+phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/all
 phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir/all
 phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_arm_msg.dir/all
 phd/CMakeFiles/phd_generate_messages_cpp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_marker_msg.dir/all
@@ -6917,38 +6961,6 @@ phd/CMakeFiles/trajectory_msgs_generate_messages_py.dir/clean:
 
 # clean rule for target.
 clean: phd/CMakeFiles/trajectory_msgs_generate_messages_py.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir
-
-# All Build rule for target.
-phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/all:
-	$(MAKE) -f phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/build.make phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/depend
-	$(MAKE) -f phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/build.make phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target cob_srvs_generate_messages_lisp"
-.PHONY : phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/all
-
-# Build rule for subdir invocation for target.
-phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
-	$(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
-.PHONY : phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-cob_srvs_generate_messages_lisp: phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/rule
-
-.PHONY : cob_srvs_generate_messages_lisp
-
-# clean rule for target.
-phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/clean:
-	$(MAKE) -f phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/build.make phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/clean
-.PHONY : phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/clean
-
-# clean rule for target.
-clean: phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/clean
 
 .PHONY : clean
 
@@ -7209,6 +7221,46 @@ clean: phd/CMakeFiles/diagnostic_msgs_generate_messages_lisp.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target phd/CMakeFiles/calc_server.dir
+
+# All Build rule for target.
+phd/CMakeFiles/calc_server.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
+phd/CMakeFiles/calc_server.dir/all: phd/CMakeFiles/phd_generate_messages_cpp.dir/all
+phd/CMakeFiles/calc_server.dir/all: phd/CMakeFiles/phd_gencpp.dir/all
+phd/CMakeFiles/calc_server.dir/all: phd/CMakeFiles/phd_gencfg.dir/all
+	$(MAKE) -f phd/CMakeFiles/calc_server.dir/build.make phd/CMakeFiles/calc_server.dir/depend
+	$(MAKE) -f phd/CMakeFiles/calc_server.dir/build.make phd/CMakeFiles/calc_server.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target calc_server"
+.PHONY : phd/CMakeFiles/calc_server.dir/all
+
+# Include target in all.
+all: phd/CMakeFiles/calc_server.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+phd/CMakeFiles/calc_server.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 9
+	$(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/calc_server.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
+.PHONY : phd/CMakeFiles/calc_server.dir/rule
+
+# Convenience name for target.
+calc_server: phd/CMakeFiles/calc_server.dir/rule
+
+.PHONY : calc_server
+
+# clean rule for target.
+phd/CMakeFiles/calc_server.dir/clean:
+	$(MAKE) -f phd/CMakeFiles/calc_server.dir/build.make phd/CMakeFiles/calc_server.dir/clean
+.PHONY : phd/CMakeFiles/calc_server.dir/clean
+
+# clean rule for target.
+clean: phd/CMakeFiles/calc_server.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target phd/CMakeFiles/cob_srvs_generate_messages_cpp.dir
 
 # All Build rule for target.
@@ -7322,6 +7374,7 @@ phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_me
 phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_localize_cloud.dir/all
 phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_msg.dir/all
 phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_point.dir/all
+phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/all
 phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir/all
 phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_arm_msg.dir/all
 phd/CMakeFiles/phd_generate_messages_py.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_marker_msg.dir/all
@@ -7456,6 +7509,70 @@ clean: phd/CMakeFiles/control_msgs_generate_messages_cpp.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir
+
+# All Build rule for target.
+phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/all:
+	$(MAKE) -f phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/build.make phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/depend
+	$(MAKE) -f phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/build.make phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target cob_srvs_generate_messages_lisp"
+.PHONY : phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/all
+
+# Build rule for subdir invocation for target.
+phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
+.PHONY : phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+cob_srvs_generate_messages_lisp: phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/rule
+
+.PHONY : cob_srvs_generate_messages_lisp
+
+# clean rule for target.
+phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/clean:
+	$(MAKE) -f phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/build.make phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/clean
+.PHONY : phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/clean
+
+# clean rule for target.
+clean: phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir
+
+# All Build rule for target.
+phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/all:
+	$(MAKE) -f phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/build.make phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/depend
+	$(MAKE) -f phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/build.make phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target _phd_generate_messages_check_deps_calc_service"
+.PHONY : phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/all
+
+# Build rule for subdir invocation for target.
+phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
+.PHONY : phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/rule
+
+# Convenience name for target.
+_phd_generate_messages_check_deps_calc_service: phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/rule
+
+.PHONY : _phd_generate_messages_check_deps_calc_service
+
+# clean rule for target.
+phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/clean:
+	$(MAKE) -f phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/build.make phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/clean
+.PHONY : phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/clean
+
+# clean rule for target.
+clean: phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir
 
 # All Build rule for target.
@@ -7528,7 +7645,7 @@ phd/CMakeFiles/denso_node.dir/all: phd/CMakeFiles/phd_generate_messages_cpp.dir/
 phd/CMakeFiles/denso_node.dir/all: phd/CMakeFiles/bcap_client.dir/all
 	$(MAKE) -f phd/CMakeFiles/denso_node.dir/build.make phd/CMakeFiles/denso_node.dir/depend
 	$(MAKE) -f phd/CMakeFiles/denso_node.dir/build.make phd/CMakeFiles/denso_node.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target denso_node"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=23 "Built target denso_node"
 .PHONY : phd/CMakeFiles/denso_node.dir/all
 
 # Include target in all.
@@ -7538,7 +7655,7 @@ all: phd/CMakeFiles/denso_node.dir/all
 
 # Build rule for subdir invocation for target.
 phd/CMakeFiles/denso_node.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 11
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 12
 	$(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/denso_node.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : phd/CMakeFiles/denso_node.dir/rule
@@ -7900,6 +8017,7 @@ phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_
 phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_localize_cloud.dir/all
 phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_msg.dir/all
 phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_trajectory_point.dir/all
+phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/all
 phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir/all
 phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_arm_msg.dir/all
 phd/CMakeFiles/phd_generate_messages_lisp.dir/all: phd/CMakeFiles/_phd_generate_messages_check_deps_marker_msg.dir/all
@@ -8107,7 +8225,7 @@ phd/CMakeFiles/cloud_localizer.dir/all: phd/CMakeFiles/phd_gencpp.dir/all
 phd/CMakeFiles/cloud_localizer.dir/all: phd/CMakeFiles/phd_gencfg.dir/all
 	$(MAKE) -f phd/CMakeFiles/cloud_localizer.dir/build.make phd/CMakeFiles/cloud_localizer.dir/depend
 	$(MAKE) -f phd/CMakeFiles/cloud_localizer.dir/build.make phd/CMakeFiles/cloud_localizer.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=13 "Built target cloud_localizer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target cloud_localizer"
 .PHONY : phd/CMakeFiles/cloud_localizer.dir/all
 
 # Include target in all.
@@ -8117,7 +8235,7 @@ all: phd/CMakeFiles/cloud_localizer.dir/all
 
 # Build rule for subdir invocation for target.
 phd/CMakeFiles/cloud_localizer.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 9
 	$(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/cloud_localizer.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : phd/CMakeFiles/cloud_localizer.dir/rule
@@ -8184,7 +8302,7 @@ phd/CMakeFiles/cloud_doctor.dir/all: phd/CMakeFiles/phd_gencpp.dir/all
 phd/CMakeFiles/cloud_doctor.dir/all: phd/CMakeFiles/phd_gencfg.dir/all
 	$(MAKE) -f phd/CMakeFiles/cloud_doctor.dir/build.make phd/CMakeFiles/cloud_doctor.dir/depend
 	$(MAKE) -f phd/CMakeFiles/cloud_doctor.dir/build.make phd/CMakeFiles/cloud_doctor.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target cloud_doctor"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=13 "Built target cloud_doctor"
 .PHONY : phd/CMakeFiles/cloud_doctor.dir/all
 
 # Include target in all.
@@ -8194,7 +8312,7 @@ all: phd/CMakeFiles/cloud_doctor.dir/all
 
 # Build rule for subdir invocation for target.
 phd/CMakeFiles/cloud_doctor.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 10
 	$(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/cloud_doctor.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : phd/CMakeFiles/cloud_doctor.dir/rule
@@ -8211,46 +8329,6 @@ phd/CMakeFiles/cloud_doctor.dir/clean:
 
 # clean rule for target.
 clean: phd/CMakeFiles/cloud_doctor.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target phd/CMakeFiles/thickness_server.dir
-
-# All Build rule for target.
-phd/CMakeFiles/thickness_server.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
-phd/CMakeFiles/thickness_server.dir/all: phd/CMakeFiles/phd_generate_messages_cpp.dir/all
-phd/CMakeFiles/thickness_server.dir/all: phd/CMakeFiles/phd_gencpp.dir/all
-phd/CMakeFiles/thickness_server.dir/all: phd/CMakeFiles/phd_gencfg.dir/all
-	$(MAKE) -f phd/CMakeFiles/thickness_server.dir/build.make phd/CMakeFiles/thickness_server.dir/depend
-	$(MAKE) -f phd/CMakeFiles/thickness_server.dir/build.make phd/CMakeFiles/thickness_server.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=91 "Built target thickness_server"
-.PHONY : phd/CMakeFiles/thickness_server.dir/all
-
-# Include target in all.
-all: phd/CMakeFiles/thickness_server.dir/all
-
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-phd/CMakeFiles/thickness_server.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 10
-	$(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/thickness_server.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
-.PHONY : phd/CMakeFiles/thickness_server.dir/rule
-
-# Convenience name for target.
-thickness_server: phd/CMakeFiles/thickness_server.dir/rule
-
-.PHONY : thickness_server
-
-# clean rule for target.
-phd/CMakeFiles/thickness_server.dir/clean:
-	$(MAKE) -f phd/CMakeFiles/thickness_server.dir/build.make phd/CMakeFiles/thickness_server.dir/clean
-.PHONY : phd/CMakeFiles/thickness_server.dir/clean
-
-# clean rule for target.
-clean: phd/CMakeFiles/thickness_server.dir/clean
 
 .PHONY : clean
 
@@ -8376,7 +8454,7 @@ clean: wrock/CMakeFiles/bcap_clienta.dir/clean
 wrock/CMakeFiles/pubmarker.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
 	$(MAKE) -f wrock/CMakeFiles/pubmarker.dir/build.make wrock/CMakeFiles/pubmarker.dir/depend
 	$(MAKE) -f wrock/CMakeFiles/pubmarker.dir/build.make wrock/CMakeFiles/pubmarker.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target pubmarker"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=66 "Built target pubmarker"
 .PHONY : wrock/CMakeFiles/pubmarker.dir/all
 
 # Include target in all.
@@ -8386,7 +8464,7 @@ all: wrock/CMakeFiles/pubmarker.dir/all
 
 # Build rule for subdir invocation for target.
 wrock/CMakeFiles/pubmarker.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 5
 	$(MAKE) -f CMakeFiles/Makefile2 wrock/CMakeFiles/pubmarker.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : wrock/CMakeFiles/pubmarker.dir/rule
@@ -8452,7 +8530,7 @@ clean: wrock/CMakeFiles/move.dir/clean
 wrock/CMakeFiles/trajectory.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
 	$(MAKE) -f wrock/CMakeFiles/trajectory.dir/build.make wrock/CMakeFiles/trajectory.dir/depend
 	$(MAKE) -f wrock/CMakeFiles/trajectory.dir/build.make wrock/CMakeFiles/trajectory.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target trajectory"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=92 "Built target trajectory"
 .PHONY : wrock/CMakeFiles/trajectory.dir/all
 
 # Include target in all.
@@ -8462,7 +8540,7 @@ all: wrock/CMakeFiles/trajectory.dir/all
 
 # Build rule for subdir invocation for target.
 wrock/CMakeFiles/trajectory.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 5
 	$(MAKE) -f CMakeFiles/Makefile2 wrock/CMakeFiles/trajectory.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : wrock/CMakeFiles/trajectory.dir/rule
@@ -8674,7 +8752,7 @@ clean: wrock/CMakeFiles/matching.dir/clean
 wrock/CMakeFiles/global_trans.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
 	$(MAKE) -f wrock/CMakeFiles/global_trans.dir/build.make wrock/CMakeFiles/global_trans.dir/depend
 	$(MAKE) -f wrock/CMakeFiles/global_trans.dir/build.make wrock/CMakeFiles/global_trans.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target global_trans"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=24 "Built target global_trans"
 .PHONY : wrock/CMakeFiles/global_trans.dir/all
 
 # Include target in all.
@@ -8684,7 +8762,7 @@ all: wrock/CMakeFiles/global_trans.dir/all
 
 # Build rule for subdir invocation for target.
 wrock/CMakeFiles/global_trans.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 5
 	$(MAKE) -f CMakeFiles/Makefile2 wrock/CMakeFiles/global_trans.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : wrock/CMakeFiles/global_trans.dir/rule
@@ -8711,7 +8789,7 @@ clean: wrock/CMakeFiles/global_trans.dir/clean
 wrock/CMakeFiles/fileplay.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
 	$(MAKE) -f wrock/CMakeFiles/fileplay.dir/build.make wrock/CMakeFiles/fileplay.dir/depend
 	$(MAKE) -f wrock/CMakeFiles/fileplay.dir/build.make wrock/CMakeFiles/fileplay.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=23 "Built target fileplay"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target fileplay"
 .PHONY : wrock/CMakeFiles/fileplay.dir/all
 
 # Include target in all.
@@ -8721,7 +8799,7 @@ all: wrock/CMakeFiles/fileplay.dir/all
 
 # Build rule for subdir invocation for target.
 wrock/CMakeFiles/fileplay.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 wrock/CMakeFiles/fileplay.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : wrock/CMakeFiles/fileplay.dir/rule
@@ -8788,12 +8866,12 @@ wrock/CMakeFiles/wrock_generate_messages_lisp.dir/all: wrock/CMakeFiles/_wrock_g
 wrock/CMakeFiles/wrock_generate_messages_lisp.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_cube_pose.dir/all
 	$(MAKE) -f wrock/CMakeFiles/wrock_generate_messages_lisp.dir/build.make wrock/CMakeFiles/wrock_generate_messages_lisp.dir/depend
 	$(MAKE) -f wrock/CMakeFiles/wrock_generate_messages_lisp.dir/build.make wrock/CMakeFiles/wrock_generate_messages_lisp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=97 "Built target wrock_generate_messages_lisp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=97,98 "Built target wrock_generate_messages_lisp"
 .PHONY : wrock/CMakeFiles/wrock_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 wrock/CMakeFiles/wrock_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 wrock/CMakeFiles/wrock_generate_messages_lisp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : wrock/CMakeFiles/wrock_generate_messages_lisp.dir/rule
@@ -8857,7 +8935,7 @@ wrock/CMakeFiles/wrock_genlisp.dir/all: wrock/CMakeFiles/wrock_generate_messages
 
 # Build rule for subdir invocation for target.
 wrock/CMakeFiles/wrock_genlisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 wrock/CMakeFiles/wrock_genlisp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : wrock/CMakeFiles/wrock_genlisp.dir/rule
@@ -8993,12 +9071,12 @@ wrock/CMakeFiles/wrock_generate_messages_py.dir/all: wrock/CMakeFiles/_wrock_gen
 wrock/CMakeFiles/wrock_generate_messages_py.dir/all: wrock/CMakeFiles/_wrock_generate_messages_check_deps_cube_pose.dir/all
 	$(MAKE) -f wrock/CMakeFiles/wrock_generate_messages_py.dir/build.make wrock/CMakeFiles/wrock_generate_messages_py.dir/depend
 	$(MAKE) -f wrock/CMakeFiles/wrock_generate_messages_py.dir/build.make wrock/CMakeFiles/wrock_generate_messages_py.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=98,99,100 "Built target wrock_generate_messages_py"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=99,100 "Built target wrock_generate_messages_py"
 .PHONY : wrock/CMakeFiles/wrock_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 wrock/CMakeFiles/wrock_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 wrock/CMakeFiles/wrock_generate_messages_py.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : wrock/CMakeFiles/wrock_generate_messages_py.dir/rule
@@ -9065,7 +9143,7 @@ clean: wrock/CMakeFiles/wrock_generate_messages_cpp.dir/clean
 wrock/CMakeFiles/spatial.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
 	$(MAKE) -f wrock/CMakeFiles/spatial.dir/build.make wrock/CMakeFiles/spatial.dir/depend
 	$(MAKE) -f wrock/CMakeFiles/spatial.dir/build.make wrock/CMakeFiles/spatial.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target spatial"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=79 "Built target spatial"
 .PHONY : wrock/CMakeFiles/spatial.dir/all
 
 # Include target in all.
@@ -9075,7 +9153,7 @@ all: wrock/CMakeFiles/spatial.dir/all
 
 # Build rule for subdir invocation for target.
 wrock/CMakeFiles/spatial.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 5
 	$(MAKE) -f CMakeFiles/Makefile2 wrock/CMakeFiles/spatial.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : wrock/CMakeFiles/spatial.dir/rule
@@ -9134,7 +9212,7 @@ clean: wrock/CMakeFiles/_wrock_generate_messages_check_deps_arm_msg.dir/clean
 wrock/CMakeFiles/registration.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
 	$(MAKE) -f wrock/CMakeFiles/registration.dir/build.make wrock/CMakeFiles/registration.dir/depend
 	$(MAKE) -f wrock/CMakeFiles/registration.dir/build.make wrock/CMakeFiles/registration.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=66 "Built target registration"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=67 "Built target registration"
 .PHONY : wrock/CMakeFiles/registration.dir/all
 
 # Include target in all.
@@ -9172,7 +9250,7 @@ wrock/CMakeFiles/cube_move.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
 wrock/CMakeFiles/cube_move.dir/all: wrock/CMakeFiles/wrock_generate_messages_cpp.dir/all
 	$(MAKE) -f wrock/CMakeFiles/cube_move.dir/build.make wrock/CMakeFiles/cube_move.dir/depend
 	$(MAKE) -f wrock/CMakeFiles/cube_move.dir/build.make wrock/CMakeFiles/cube_move.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=15 "Built target cube_move"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target cube_move"
 .PHONY : wrock/CMakeFiles/cube_move.dir/all
 
 # Include target in all.
@@ -9182,7 +9260,7 @@ all: wrock/CMakeFiles/cube_move.dir/all
 
 # Build rule for subdir invocation for target.
 wrock/CMakeFiles/cube_move.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 6
 	$(MAKE) -f CMakeFiles/Makefile2 wrock/CMakeFiles/cube_move.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : wrock/CMakeFiles/cube_move.dir/rule
@@ -9250,7 +9328,7 @@ wrock/CMakeFiles/cube_demo.dir/all: wrock/CMakeFiles/wrock_generate_messages_cpp
 wrock/CMakeFiles/cube_demo.dir/all: wrock/CMakeFiles/wrock.dir/all
 	$(MAKE) -f wrock/CMakeFiles/cube_demo.dir/build.make wrock/CMakeFiles/cube_demo.dir/depend
 	$(MAKE) -f wrock/CMakeFiles/cube_demo.dir/build.make wrock/CMakeFiles/cube_demo.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target cube_demo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=15 "Built target cube_demo"
 .PHONY : wrock/CMakeFiles/cube_demo.dir/all
 
 # Include target in all.
@@ -9260,7 +9338,7 @@ all: wrock/CMakeFiles/cube_demo.dir/all
 
 # Build rule for subdir invocation for target.
 wrock/CMakeFiles/cube_demo.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 9
 	$(MAKE) -f CMakeFiles/Makefile2 wrock/CMakeFiles/cube_demo.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : wrock/CMakeFiles/cube_demo.dir/rule
@@ -9292,7 +9370,7 @@ wrock/CMakeFiles/wrock_genpy.dir/all: wrock/CMakeFiles/wrock_generate_messages_p
 
 # Build rule for subdir invocation for target.
 wrock/CMakeFiles/wrock_genpy.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 wrock/CMakeFiles/wrock_genpy.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : wrock/CMakeFiles/wrock_genpy.dir/rule
@@ -9351,7 +9429,7 @@ clean: wrock/CMakeFiles/_wrock_generate_messages_check_deps_cube_kin.dir/clean
 wrock/CMakeFiles/cube_state_publisher.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
 	$(MAKE) -f wrock/CMakeFiles/cube_state_publisher.dir/build.make wrock/CMakeFiles/cube_state_publisher.dir/depend
 	$(MAKE) -f wrock/CMakeFiles/cube_state_publisher.dir/build.make wrock/CMakeFiles/cube_state_publisher.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target cube_state_publisher"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=17 "Built target cube_state_publisher"
 .PHONY : wrock/CMakeFiles/cube_state_publisher.dir/all
 
 # Include target in all.
@@ -9361,7 +9439,7 @@ all: wrock/CMakeFiles/cube_state_publisher.dir/all
 
 # Build rule for subdir invocation for target.
 wrock/CMakeFiles/cube_state_publisher.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 5
 	$(MAKE) -f CMakeFiles/Makefile2 wrock/CMakeFiles/cube_state_publisher.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : wrock/CMakeFiles/cube_state_publisher.dir/rule
@@ -9390,7 +9468,7 @@ wrock/CMakeFiles/laser_demo.dir/all: wrock/CMakeFiles/wrock_generate_messages_cp
 wrock/CMakeFiles/laser_demo.dir/all: wrock/CMakeFiles/wrock.dir/all
 	$(MAKE) -f wrock/CMakeFiles/laser_demo.dir/build.make wrock/CMakeFiles/laser_demo.dir/depend
 	$(MAKE) -f wrock/CMakeFiles/laser_demo.dir/build.make wrock/CMakeFiles/laser_demo.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target laser_demo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=28 "Built target laser_demo"
 .PHONY : wrock/CMakeFiles/laser_demo.dir/all
 
 # Include target in all.
@@ -9400,7 +9478,7 @@ all: wrock/CMakeFiles/laser_demo.dir/all
 
 # Build rule for subdir invocation for target.
 wrock/CMakeFiles/laser_demo.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 9
 	$(MAKE) -f CMakeFiles/Makefile2 wrock/CMakeFiles/laser_demo.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : wrock/CMakeFiles/laser_demo.dir/rule
@@ -9464,7 +9542,7 @@ clean: wrock/CMakeFiles/wrock.dir/clean
 wrock/CMakeFiles/cloud_parser.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
 	$(MAKE) -f wrock/CMakeFiles/cloud_parser.dir/build.make wrock/CMakeFiles/cloud_parser.dir/depend
 	$(MAKE) -f wrock/CMakeFiles/cloud_parser.dir/build.make wrock/CMakeFiles/cloud_parser.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target cloud_parser"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=14 "Built target cloud_parser"
 .PHONY : wrock/CMakeFiles/cloud_parser.dir/all
 
 # Include target in all.
@@ -9474,7 +9552,7 @@ all: wrock/CMakeFiles/cloud_parser.dir/all
 
 # Build rule for subdir invocation for target.
 wrock/CMakeFiles/cloud_parser.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 5
 	$(MAKE) -f CMakeFiles/Makefile2 wrock/CMakeFiles/cloud_parser.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : wrock/CMakeFiles/cloud_parser.dir/rule
@@ -9644,7 +9722,7 @@ clean: wrock/CMakeFiles/pcf.dir/clean
 wrock/CMakeFiles/savepcd.dir/all: schunk_libm5api/CMakeFiles/m5api.dir/all
 	$(MAKE) -f wrock/CMakeFiles/savepcd.dir/build.make wrock/CMakeFiles/savepcd.dir/depend
 	$(MAKE) -f wrock/CMakeFiles/savepcd.dir/build.make wrock/CMakeFiles/savepcd.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num= "Built target savepcd"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=73 "Built target savepcd"
 .PHONY : wrock/CMakeFiles/savepcd.dir/all
 
 # Include target in all.
@@ -9654,7 +9732,7 @@ all: wrock/CMakeFiles/savepcd.dir/all
 
 # Build rule for subdir invocation for target.
 wrock/CMakeFiles/savepcd.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 5
 	$(MAKE) -f CMakeFiles/Makefile2 wrock/CMakeFiles/savepcd.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/mike/catkin_ws/build/CMakeFiles 0
 .PHONY : wrock/CMakeFiles/savepcd.dir/rule

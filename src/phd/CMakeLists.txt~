@@ -103,6 +103,7 @@ generate_dynamic_reconfigure_options(
    FILES
 	localize_cloud.srv
 	thickness_service.srv
+	accuracy_service.srv
 	simple_trajectory_service.srv
 	doctor_cloud.srv
 	empty.srv
@@ -198,6 +199,7 @@ add_executable(joint_fusion_node src/joint_state_fusion.cpp)
 add_executable(cloud_localizer src/pointcloud_localization_service.cpp)
 add_executable(cloud_doctor src/pointcloud_doctoring_service.cpp)
 add_executable(thickness_server src/thickness_service.cpp)
+add_executable(accuracy_server src/accuracy_service.cpp)
 add_executable(simple_trajectory_server src/simple_trajectory_service.cpp)
 add_executable(saveselection src/saveselection.cpp)
 
@@ -228,6 +230,7 @@ target_link_libraries(cube_node  ${catkin_LIBRARIES})
 target_link_libraries(cloud_localizer  ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(cloud_doctor  ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(thickness_server  ${catkin_LIBRARIES} ${PCL_LIBRARIES})
+target_link_libraries(accuracy_server  ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(simple_trajectory_server  ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(joint_fusion_node  ${catkin_LIBRARIES})
 target_link_libraries(denso_node bcap_client ${catkin_LIBRARIES})
@@ -238,6 +241,7 @@ set_target_properties(cube_node PROPERTIES COMPILE_FLAGS "-D__LINUX__ -DUSE_ESD"
 add_dependencies(cloud_localizer  phd_EXPORTED_TARGETS phd_generate_messages_cpp phd_gencpp phd_gencfg)
 add_dependencies(cloud_doctor  phd_EXPORTED_TARGETS phd_generate_messages_cpp phd_gencpp phd_gencfg)
 add_dependencies(thickness_server  phd_EXPORTED_TARGETS phd_generate_messages_cpp phd_gencpp phd_gencfg)
+add_dependencies(accuracy_server  phd_EXPORTED_TARGETS phd_generate_messages_cpp phd_gencpp phd_gencfg)
 add_dependencies(simple_trajectory_server  phd_EXPORTED_TARGETS phd_generate_messages_cpp phd_gencpp phd_gencfg)
 add_dependencies(cube_node  phd_EXPORTED_TARGETS phd_generate_messages_cpp)
 add_dependencies(denso_node  phd_EXPORTED_TARGETS phd_generate_messages_cpp)

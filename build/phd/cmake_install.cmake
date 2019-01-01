@@ -78,6 +78,7 @@ if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
     "/home/mike/catkin_ws/src/phd/srv/localize_cloud.srv"
     "/home/mike/catkin_ws/src/phd/srv/thickness_service.srv"
     "/home/mike/catkin_ws/src/phd/srv/accuracy_service.srv"
+    "/home/mike/catkin_ws/src/phd/srv/calc_service.srv"
     "/home/mike/catkin_ws/src/phd/srv/simple_trajectory_service.srv"
     "/home/mike/catkin_ws/src/phd/srv/doctor_cloud.srv"
     "/home/mike/catkin_ws/src/phd/srv/empty.srv"

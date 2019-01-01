@@ -62,6 +62,7 @@ phd/CMakeFiles/phd_generate_messages_cpp: /home/mike/catkin_ws/devel/include/phd
 phd/CMakeFiles/phd_generate_messages_cpp: /home/mike/catkin_ws/devel/include/phd/cube_msg.h
 phd/CMakeFiles/phd_generate_messages_cpp: /home/mike/catkin_ws/devel/include/phd/trajectory_msg.h
 phd/CMakeFiles/phd_generate_messages_cpp: /home/mike/catkin_ws/devel/include/phd/localize_cloud.h
+phd/CMakeFiles/phd_generate_messages_cpp: /home/mike/catkin_ws/devel/include/phd/calc_service.h
 phd/CMakeFiles/phd_generate_messages_cpp: /home/mike/catkin_ws/devel/include/phd/empty.h
 phd/CMakeFiles/phd_generate_messages_cpp: /home/mike/catkin_ws/devel/include/phd/accuracy_service.h
 phd/CMakeFiles/phd_generate_messages_cpp: /home/mike/catkin_ws/devel/include/phd/simple_trajectory_service.h
@@ -134,11 +135,21 @@ phd/CMakeFiles/phd_generate_messages_cpp: /home/mike/catkin_ws/devel/include/phd
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Generating C++ code from phd/localize_cloud.srv"
 	cd /home/mike/catkin_ws/build/phd && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/mike/catkin_ws/src/phd/srv/localize_cloud.srv -Iphd:/home/mike/catkin_ws/src/phd/msg -Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/indigo/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg -p phd -o /home/mike/catkin_ws/devel/include/phd -e /opt/ros/indigo/share/gencpp/cmake/..
 
+/home/mike/catkin_ws/devel/include/phd/calc_service.h: /opt/ros/indigo/lib/gencpp/gen_cpp.py
+/home/mike/catkin_ws/devel/include/phd/calc_service.h: /home/mike/catkin_ws/src/phd/srv/calc_service.srv
+/home/mike/catkin_ws/devel/include/phd/calc_service.h: /opt/ros/indigo/share/sensor_msgs/msg/PointField.msg
+/home/mike/catkin_ws/devel/include/phd/calc_service.h: /opt/ros/indigo/share/sensor_msgs/msg/PointCloud2.msg
+/home/mike/catkin_ws/devel/include/phd/calc_service.h: /opt/ros/indigo/share/std_msgs/msg/Header.msg
+/home/mike/catkin_ws/devel/include/phd/calc_service.h: /opt/ros/indigo/share/gencpp/msg.h.template
+/home/mike/catkin_ws/devel/include/phd/calc_service.h: /opt/ros/indigo/share/gencpp/srv.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Generating C++ code from phd/calc_service.srv"
+	cd /home/mike/catkin_ws/build/phd && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/mike/catkin_ws/src/phd/srv/calc_service.srv -Iphd:/home/mike/catkin_ws/src/phd/msg -Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/indigo/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg -p phd -o /home/mike/catkin_ws/devel/include/phd -e /opt/ros/indigo/share/gencpp/cmake/..
+
 /home/mike/catkin_ws/devel/include/phd/empty.h: /opt/ros/indigo/lib/gencpp/gen_cpp.py
 /home/mike/catkin_ws/devel/include/phd/empty.h: /home/mike/catkin_ws/src/phd/srv/empty.srv
 /home/mike/catkin_ws/devel/include/phd/empty.h: /opt/ros/indigo/share/gencpp/msg.h.template
 /home/mike/catkin_ws/devel/include/phd/empty.h: /opt/ros/indigo/share/gencpp/srv.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Generating C++ code from phd/empty.srv"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Generating C++ code from phd/empty.srv"
 	cd /home/mike/catkin_ws/build/phd && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/mike/catkin_ws/src/phd/srv/empty.srv -Iphd:/home/mike/catkin_ws/src/phd/msg -Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/indigo/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg -p phd -o /home/mike/catkin_ws/devel/include/phd -e /opt/ros/indigo/share/gencpp/cmake/..
 
 /home/mike/catkin_ws/devel/include/phd/accuracy_service.h: /opt/ros/indigo/lib/gencpp/gen_cpp.py
@@ -148,7 +159,7 @@ phd/CMakeFiles/phd_generate_messages_cpp: /home/mike/catkin_ws/devel/include/phd
 /home/mike/catkin_ws/devel/include/phd/accuracy_service.h: /opt/ros/indigo/share/std_msgs/msg/Header.msg
 /home/mike/catkin_ws/devel/include/phd/accuracy_service.h: /opt/ros/indigo/share/gencpp/msg.h.template
 /home/mike/catkin_ws/devel/include/phd/accuracy_service.h: /opt/ros/indigo/share/gencpp/srv.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Generating C++ code from phd/accuracy_service.srv"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Generating C++ code from phd/accuracy_service.srv"
 	cd /home/mike/catkin_ws/build/phd && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/mike/catkin_ws/src/phd/srv/accuracy_service.srv -Iphd:/home/mike/catkin_ws/src/phd/msg -Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/indigo/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg -p phd -o /home/mike/catkin_ws/devel/include/phd -e /opt/ros/indigo/share/gencpp/cmake/..
 
 /home/mike/catkin_ws/devel/include/phd/simple_trajectory_service.h: /opt/ros/indigo/lib/gencpp/gen_cpp.py
@@ -160,7 +171,7 @@ phd/CMakeFiles/phd_generate_messages_cpp: /home/mike/catkin_ws/devel/include/phd
 /home/mike/catkin_ws/devel/include/phd/simple_trajectory_service.h: /home/mike/catkin_ws/src/phd/msg/trajectory_msg.msg
 /home/mike/catkin_ws/devel/include/phd/simple_trajectory_service.h: /opt/ros/indigo/share/gencpp/msg.h.template
 /home/mike/catkin_ws/devel/include/phd/simple_trajectory_service.h: /opt/ros/indigo/share/gencpp/srv.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Generating C++ code from phd/simple_trajectory_service.srv"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Generating C++ code from phd/simple_trajectory_service.srv"
 	cd /home/mike/catkin_ws/build/phd && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/mike/catkin_ws/src/phd/srv/simple_trajectory_service.srv -Iphd:/home/mike/catkin_ws/src/phd/msg -Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/indigo/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg -p phd -o /home/mike/catkin_ws/devel/include/phd -e /opt/ros/indigo/share/gencpp/cmake/..
 
 /home/mike/catkin_ws/devel/include/phd/doctor_cloud.h: /opt/ros/indigo/lib/gencpp/gen_cpp.py
@@ -171,7 +182,7 @@ phd/CMakeFiles/phd_generate_messages_cpp: /home/mike/catkin_ws/devel/include/phd
 /home/mike/catkin_ws/devel/include/phd/doctor_cloud.h: /opt/ros/indigo/share/std_msgs/msg/Header.msg
 /home/mike/catkin_ws/devel/include/phd/doctor_cloud.h: /opt/ros/indigo/share/gencpp/msg.h.template
 /home/mike/catkin_ws/devel/include/phd/doctor_cloud.h: /opt/ros/indigo/share/gencpp/srv.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Generating C++ code from phd/doctor_cloud.srv"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Generating C++ code from phd/doctor_cloud.srv"
 	cd /home/mike/catkin_ws/build/phd && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/mike/catkin_ws/src/phd/srv/doctor_cloud.srv -Iphd:/home/mike/catkin_ws/src/phd/msg -Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/indigo/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg -p phd -o /home/mike/catkin_ws/devel/include/phd -e /opt/ros/indigo/share/gencpp/cmake/..
 
 /home/mike/catkin_ws/devel/include/phd/thickness_service.h: /opt/ros/indigo/lib/gencpp/gen_cpp.py
@@ -181,7 +192,7 @@ phd/CMakeFiles/phd_generate_messages_cpp: /home/mike/catkin_ws/devel/include/phd
 /home/mike/catkin_ws/devel/include/phd/thickness_service.h: /opt/ros/indigo/share/std_msgs/msg/Header.msg
 /home/mike/catkin_ws/devel/include/phd/thickness_service.h: /opt/ros/indigo/share/gencpp/msg.h.template
 /home/mike/catkin_ws/devel/include/phd/thickness_service.h: /opt/ros/indigo/share/gencpp/srv.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Generating C++ code from phd/thickness_service.srv"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/mike/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Generating C++ code from phd/thickness_service.srv"
 	cd /home/mike/catkin_ws/build/phd && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/mike/catkin_ws/src/phd/srv/thickness_service.srv -Iphd:/home/mike/catkin_ws/src/phd/msg -Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/indigo/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg -p phd -o /home/mike/catkin_ws/devel/include/phd -e /opt/ros/indigo/share/gencpp/cmake/..
 
 phd_generate_messages_cpp: phd/CMakeFiles/phd_generate_messages_cpp
@@ -194,6 +205,7 @@ phd_generate_messages_cpp: /home/mike/catkin_ws/devel/include/phd/trajectory_poi
 phd_generate_messages_cpp: /home/mike/catkin_ws/devel/include/phd/cube_msg.h
 phd_generate_messages_cpp: /home/mike/catkin_ws/devel/include/phd/trajectory_msg.h
 phd_generate_messages_cpp: /home/mike/catkin_ws/devel/include/phd/localize_cloud.h
+phd_generate_messages_cpp: /home/mike/catkin_ws/devel/include/phd/calc_service.h
 phd_generate_messages_cpp: /home/mike/catkin_ws/devel/include/phd/empty.h
 phd_generate_messages_cpp: /home/mike/catkin_ws/devel/include/phd/accuracy_service.h
 phd_generate_messages_cpp: /home/mike/catkin_ws/devel/include/phd/simple_trajectory_service.h

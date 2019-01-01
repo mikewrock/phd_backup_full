@@ -10,6 +10,9 @@
   <!--- Run thickness service -->
   <node type="thickness_server" pkg="phd" name="thickness_service" output="screen">
   </node>
+  <!--- Run acc service -->
+  <node type="accuracy_server" pkg="phd" name="accuracy_service" output="screen">
+  </node>
 
   <!--- Run trajectory service -->
   <node type="simple_trajectory_server" pkg="phd" name="trajectory_service" output="screen" required="True">

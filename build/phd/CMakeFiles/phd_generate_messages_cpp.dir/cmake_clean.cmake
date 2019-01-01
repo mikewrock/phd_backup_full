@@ -9,6 +9,7 @@ file(REMOVE_RECURSE
   "/home/mike/catkin_ws/devel/include/phd/cube_msg.h"
   "/home/mike/catkin_ws/devel/include/phd/trajectory_msg.h"
   "/home/mike/catkin_ws/devel/include/phd/localize_cloud.h"
+  "/home/mike/catkin_ws/devel/include/phd/calc_service.h"
   "/home/mike/catkin_ws/devel/include/phd/empty.h"
   "/home/mike/catkin_ws/devel/include/phd/accuracy_service.h"
   "/home/mike/catkin_ws/devel/include/phd/simple_trajectory_service.h"

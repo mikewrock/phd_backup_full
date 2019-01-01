@@ -469,7 +469,7 @@ namespace control_panel
 	}
 	//More analysis
 	void ControlPanel::anal_scan(){
-	std::stringstream fs, fs2;
+	/*std::stringstream fs, fs2;
 	for(int ctr2 = 0; ctr2 <= ui_.pre_box->text().toInt(); ++ctr2){
 		fs.str("");
 		fs << ui_.filename_box->text().toStdString() << "post/"<< ctr2 << "localized.pcd";
@@ -481,8 +481,9 @@ namespace control_panel
 		fs2 << ui_.filename_box->text().toStdString() << "pre/" << ctr << "localized.pcd";
 		  control_panel.xscan(fs2.str(),ctr2,ctr,fs.str(),true);
 		}
-	}}
-
+	}}*/
+	control_panel.wscan(ui_.filename_box->text().toStdString());
+	}
 }
 
 #include <pluginlib/class_list_macros.h>

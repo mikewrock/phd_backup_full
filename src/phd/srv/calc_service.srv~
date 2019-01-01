@@ -1,5 +1,6 @@
-sensor_msgs/PointCloud2 cloud_1
-sensor_msgs/PointCloud2 cloud_2
+int32[] pre_ids
+int32[] post_ids
 sensor_msgs/PointCloud2 cloud_datum
+string location
 ---
 sensor_msgs/PointCloud2 cloud_out

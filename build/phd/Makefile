@@ -226,6 +226,21 @@ accuracy_server/fast:
 .PHONY : accuracy_server/fast
 
 # Convenience name for target.
+phd/CMakeFiles/thickness_server.dir/rule:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/thickness_server.dir/rule
+.PHONY : phd/CMakeFiles/thickness_server.dir/rule
+
+# Convenience name for target.
+thickness_server: phd/CMakeFiles/thickness_server.dir/rule
+
+.PHONY : thickness_server
+
+# fast build rule for target.
+thickness_server/fast:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/thickness_server.dir/build.make phd/CMakeFiles/thickness_server.dir/build
+.PHONY : thickness_server/fast
+
+# Convenience name for target.
 phd/CMakeFiles/_phd_generate_messages_check_deps_thickness_service.dir/rule:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/_phd_generate_messages_check_deps_thickness_service.dir/rule
 .PHONY : phd/CMakeFiles/_phd_generate_messages_check_deps_thickness_service.dir/rule
@@ -344,21 +359,6 @@ trajectory_msgs_generate_messages_py: phd/CMakeFiles/trajectory_msgs_generate_me
 trajectory_msgs_generate_messages_py/fast:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/trajectory_msgs_generate_messages_py.dir/build.make phd/CMakeFiles/trajectory_msgs_generate_messages_py.dir/build
 .PHONY : trajectory_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/rule:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/rule
-.PHONY : phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-cob_srvs_generate_messages_lisp: phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/rule
-
-.PHONY : cob_srvs_generate_messages_lisp
-
-# fast build rule for target.
-cob_srvs_generate_messages_lisp/fast:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/build.make phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/build
-.PHONY : cob_srvs_generate_messages_lisp/fast
 
 # Convenience name for target.
 phd/CMakeFiles/_phd_generate_messages_check_deps_doctor_msg.dir/rule:
@@ -481,6 +481,21 @@ diagnostic_msgs_generate_messages_lisp/fast:
 .PHONY : diagnostic_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
+phd/CMakeFiles/calc_server.dir/rule:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/calc_server.dir/rule
+.PHONY : phd/CMakeFiles/calc_server.dir/rule
+
+# Convenience name for target.
+calc_server: phd/CMakeFiles/calc_server.dir/rule
+
+.PHONY : calc_server
+
+# fast build rule for target.
+calc_server/fast:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/calc_server.dir/build.make phd/CMakeFiles/calc_server.dir/build
+.PHONY : calc_server/fast
+
+# Convenience name for target.
 phd/CMakeFiles/cob_srvs_generate_messages_cpp.dir/rule:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/cob_srvs_generate_messages_cpp.dir/rule
 .PHONY : phd/CMakeFiles/cob_srvs_generate_messages_cpp.dir/rule
@@ -584,6 +599,36 @@ control_msgs_generate_messages_cpp: phd/CMakeFiles/control_msgs_generate_message
 control_msgs_generate_messages_cpp/fast:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/control_msgs_generate_messages_cpp.dir/build.make phd/CMakeFiles/control_msgs_generate_messages_cpp.dir/build
 .PHONY : control_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
+phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/rule:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/rule
+.PHONY : phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+cob_srvs_generate_messages_lisp: phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/rule
+
+.PHONY : cob_srvs_generate_messages_lisp
+
+# fast build rule for target.
+cob_srvs_generate_messages_lisp/fast:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/build.make phd/CMakeFiles/cob_srvs_generate_messages_lisp.dir/build
+.PHONY : cob_srvs_generate_messages_lisp/fast
+
+# Convenience name for target.
+phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/rule:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/rule
+.PHONY : phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/rule
+
+# Convenience name for target.
+_phd_generate_messages_check_deps_calc_service: phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/rule
+
+.PHONY : _phd_generate_messages_check_deps_calc_service
+
+# fast build rule for target.
+_phd_generate_messages_check_deps_calc_service/fast:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/build.make phd/CMakeFiles/_phd_generate_messages_check_deps_calc_service.dir/build
+.PHONY : _phd_generate_messages_check_deps_calc_service/fast
 
 # Convenience name for target.
 phd/CMakeFiles/_phd_generate_messages_check_deps_marker_val.dir/rule:
@@ -915,21 +960,6 @@ cloud_doctor/fast:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/cloud_doctor.dir/build.make phd/CMakeFiles/cloud_doctor.dir/build
 .PHONY : cloud_doctor/fast
 
-# Convenience name for target.
-phd/CMakeFiles/thickness_server.dir/rule:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 phd/CMakeFiles/thickness_server.dir/rule
-.PHONY : phd/CMakeFiles/thickness_server.dir/rule
-
-# Convenience name for target.
-thickness_server: phd/CMakeFiles/thickness_server.dir/rule
-
-.PHONY : thickness_server
-
-# fast build rule for target.
-thickness_server/fast:
-	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/thickness_server.dir/build.make phd/CMakeFiles/thickness_server.dir/build
-.PHONY : thickness_server/fast
-
 include/moc_control_dashboard.o: include/moc_control_dashboard.cxx.o
 
 .PHONY : include/moc_control_dashboard.o
@@ -1124,6 +1154,33 @@ src/bcap_common.c.s:
 	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/phd.dir/build.make phd/CMakeFiles/phd.dir/src/bcap_common.c.s
 	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/bcap_client.dir/build.make phd/CMakeFiles/bcap_client.dir/src/bcap_common.c.s
 .PHONY : src/bcap_common.c.s
+
+src/calc_service.o: src/calc_service.cpp.o
+
+.PHONY : src/calc_service.o
+
+# target to build an object file
+src/calc_service.cpp.o:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/calc_server.dir/build.make phd/CMakeFiles/calc_server.dir/src/calc_service.cpp.o
+.PHONY : src/calc_service.cpp.o
+
+src/calc_service.i: src/calc_service.cpp.i
+
+.PHONY : src/calc_service.i
+
+# target to preprocess a source file
+src/calc_service.cpp.i:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/calc_server.dir/build.make phd/CMakeFiles/calc_server.dir/src/calc_service.cpp.i
+.PHONY : src/calc_service.cpp.i
+
+src/calc_service.s: src/calc_service.cpp.s
+
+.PHONY : src/calc_service.s
+
+# target to generate assembly for a file
+src/calc_service.cpp.s:
+	cd /home/mike/catkin_ws/build && $(MAKE) -f phd/CMakeFiles/calc_server.dir/build.make phd/CMakeFiles/calc_server.dir/src/calc_service.cpp.s
+.PHONY : src/calc_service.cpp.s
 
 src/control_dashboard.o: src/control_dashboard.cpp.o
 
@@ -1644,6 +1701,7 @@ help:
 	@echo "... saveselection"
 	@echo "... simple_trajectory_server"
 	@echo "... accuracy_server"
+	@echo "... thickness_server"
 	@echo "... _phd_generate_messages_check_deps_thickness_service"
 	@echo "... edit_cache"
 	@echo "... _phd_generate_messages_check_deps_localize_cloud"
@@ -1653,7 +1711,6 @@ help:
 	@echo "... laser_assembler_generate_messages_py"
 	@echo "... phd_gencfg"
 	@echo "... trajectory_msgs_generate_messages_py"
-	@echo "... cob_srvs_generate_messages_lisp"
 	@echo "... _phd_generate_messages_check_deps_doctor_msg"
 	@echo "... test"
 	@echo "... trajectory_msgs_generate_messages_cpp"
@@ -1665,6 +1722,7 @@ help:
 	@echo "... laser_assembler_generate_messages_lisp"
 	@echo "... list_install_components"
 	@echo "... diagnostic_msgs_generate_messages_lisp"
+	@echo "... calc_server"
 	@echo "... cob_srvs_generate_messages_cpp"
 	@echo "... brics_actuator_generate_messages_py"
 	@echo "... phd_generate_messages"
@@ -1672,6 +1730,8 @@ help:
 	@echo "... cob_srvs_generate_messages_py"
 	@echo "... brics_actuator_generate_messages_lisp"
 	@echo "... control_msgs_generate_messages_cpp"
+	@echo "... cob_srvs_generate_messages_lisp"
+	@echo "... _phd_generate_messages_check_deps_calc_service"
 	@echo "... _phd_generate_messages_check_deps_marker_val"
 	@echo "... _phd_generate_messages_check_deps_arm_msg"
 	@echo "... denso_node"
@@ -1695,7 +1755,6 @@ help:
 	@echo "... cloud_localizer"
 	@echo "... joint_fusion_node"
 	@echo "... cloud_doctor"
-	@echo "... thickness_server"
 	@echo "... include/moc_control_dashboard.o"
 	@echo "... include/moc_control_dashboard.i"
 	@echo "... include/moc_control_dashboard.s"
@@ -1717,6 +1776,9 @@ help:
 	@echo "... src/bcap_common.o"
 	@echo "... src/bcap_common.i"
 	@echo "... src/bcap_common.s"
+	@echo "... src/calc_service.o"
+	@echo "... src/calc_service.i"
+	@echo "... src/calc_service.s"
 	@echo "... src/control_dashboard.o"
 	@echo "... src/control_dashboard.i"
 	@echo "... src/control_dashboard.s"

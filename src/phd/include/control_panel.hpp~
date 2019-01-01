@@ -121,6 +121,8 @@ private:
 	ros::ServiceClient loc_client;
 	ros::ServiceClient doc_client;
 	ros::ServiceClient traj_client;
+	ros::ServiceClient acc_client;
+	ros::ServiceClient calc_client;
 	ros::ServiceClient thick_client;
 	//Dynamic Reconfigure
 	dynamic_reconfigure::Server<phd::ParamConfig> server;
