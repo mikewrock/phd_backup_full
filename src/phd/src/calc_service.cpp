@@ -128,7 +128,8 @@ if(DEBUG) ROS_INFO("Calculating...");
 			cropFilter.setNegative(false);
 	for(int ctr = 0; ctr < req.post_ids.size();++ctr){
 		std::stringstream fs;
-		fs <<  req.location << "post/" << req.post_ids[ctr] << "localized.pcd";
+		//fs <<  req.location << "post/" << req.post_ids[ctr] << "localized.pcd";
+		fs <<  req.location << "cloud" << req.post_ids[ctr] << "localized.pcd";
 		if (pcl::io::loadPCDFile<pcl::PointXYZI> (fs.str().c_str(), *pcl_holder) == -1) PCL_ERROR ("Couldn't read file\n");
 		else{
 
@@ -143,7 +144,8 @@ if(DEBUG) ROS_INFO("Calculating...");
 	}
 	for(int ctr2 = 0; ctr2 < req.pre_ids.size();++ctr2){
 		std::stringstream ss;
-		ss <<  req.location << "pre/" << req.pre_ids[ctr2] << "localized.pcd";
+		//ss <<  req.location << "pre/" << req.pre_ids[ctr2] << "localized.pcd";
+		ss <<  req.location << "cloud" << req.pre_ids[ctr2] << "localized.pcd";
 		if (pcl::io::loadPCDFile<pcl::PointXYZI> (ss.str().c_str(), *pcl_holder) == -1) PCL_ERROR ("Couldn't read file\n");
 		else{
 			cloudOut.reset(new pcl::PointCloud<pcl::PointXYZI>());
@@ -235,89 +237,6 @@ computed_clouds.resize(req.pre_ids.size());
 ROS_INFO("done");
 myfile.close();
 
-//////////////////////////////////
-
-
-
-	
-		//ROS_INFO("Loaded %lu and %lu",pre_clouds.size(),post_clouds.size());
-
-
-
-
-/*
-	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_one(new pcl::PointCloud<pcl::PointXYZI> );
-	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_two(new pcl::PointCloud<pcl::PointXYZI> );
-	pcl::PointCloud<PointXYZIT>::Ptr pcl_datum(new pcl::PointCloud<PointXYZIT> );
-
-	pcl::PointCloud<PointXYZIT>::Ptr cloud(new pcl::PointCloud<PointXYZIT> );
-	sensor_msgs::PointCloud2 cloud_req1 = req.cloud_1;
-	sensor_msgs::PointCloud2 cloud_req2 = req.cloud_2;
-	sensor_msgs::PointCloud2 cloud_datum = req.cloud_datum;
-	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
-	cloud_req1.fields[3].name = "intensity";
-	pcl::fromROSMsg(cloud_req1,*cloud_one);
-	cloud_req2.fields[3].name = "intensity";
-	pcl::fromROSMsg(cloud_req2,*cloud_two);
-	pcl::fromROSMsg(cloud_req2,*cloud);
-	cloud_datum.fields[3].name = "intensity";
-	//ROS_INFO("Inpuit datum");
-	pcl::fromROSMsg(cloud_datum,*pcl_datum);
-	float resolution = 0.01f;
-	pcl::octree::OctreePointCloudSearch<pcl::PointXYZI> octree (resolution);
-	octree.setInputCloud (cloud_one);
-	octree.addPointsFromInputCloud ();
-	pcl::octree::OctreePointCloudSearch<PointXYZIT> dattree (resolution);
-	dattree.setInputCloud (pcl_datum);
-	dattree.addPointsFromInputCloud ();
-	pcl::PointXYZI searchPoint;
-	PointXYZIT searchPointT;
-	// Neighbors within radius search
-	std::vector<int> pointIdxRadiusSearch;
-	std::vector<float> pointRadiusSquaredDistance;
-	int K = 1;
-	std::vector<int> pointIdxNKNSearch;
-	std::vector<float> pointNKNSquaredDistance;
-	//Look for the nearest neighbor in cloud 1 of each point in cloud 2 
-	BOOST_FOREACH (PointXYZIT& pt, cloud->points){
-		searchPoint.x = pt.x;
-		searchPoint.y = pt.y;
-		searchPoint.z = pt.z;
-		searchPointT.x = pt.x;
-		searchPointT.y = pt.y;
-		searchPointT.z = pt.z;
-
-		if(octree.nearestKSearch (searchPoint, K, pointIdxNKNSearch, pointNKNSquaredDistance) > 0){
-			if(pointNKNSquaredDistance[0]<.1)
-				pt.intensity = pointNKNSquaredDistance[0]*pointNKNSquaredDistance[0];
-			else
-				pt.intensity = 0;
-		}
-		if(dattree.nearestKSearch (searchPointT, K, pointIdxNKNSearch, pointNKNSquaredDistance) > 0){
-			if(pointNKNSquaredDistance[0]<.1){
-	//ROS_INFO("Msg2");
-	float num1 = pt.intensity;
-	//ROS_INFO("Msg2");
-	float num2 = pcl_datum->points[pointIdxNKNSearch[0]].C2M_signed_distances;
-
-	//ROS_INFO("Msg %f",num2);
-				pt.C2M_signed_distances = fabs(pt.intensity-pcl_datum->points[pointIdxNKNSearch[0]].C2M_signed_distances);
-			}else
-	//ROS_INFO("Msg5");
-				pt.intensity = 0;
-		}
-	}
-
-	//ROS_INFO("Msg4");
-	sensor_msgs::PointCloud2 cloud_msg;
-	pcl::toROSMsg(*cloud,cloud_msg);
-	//fix the naming discrepancy between ROS and PCL (from "intensities" to "intensity")
-	cloud_msg.fields[3].name = "intensities";
-	cloud_msg.header.frame_id = "/base_footprint";
-	res.cloud_out = cloud_msg;
-
-	//ROS_INFO("Msg4");
-*/
 	return true;
 }
 

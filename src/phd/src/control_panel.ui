@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <property name="movable">
     <bool>false</bool>
@@ -68,7 +68,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>/home/mike/raw/</string>
+      <string>/home/mike/Testing Data/Selected Optitrack/</string>
      </property>
     </widget>
     <widget class="QLabel" name="marker_info_9">
@@ -128,7 +128,7 @@ color: rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="text">
-      <string>/home/mike/processed/1rawcloud.pcd</string>
+      <string>/home/mike/Testing Data/Selected Optitrack/post/15cloud.pcd</string>
      </property>
     </widget>
     <widget class="QPushButton" name="fscan_button_2">

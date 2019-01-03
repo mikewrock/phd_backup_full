@@ -270,7 +270,39 @@ namespace control_panel
 	//Load a scan from file
 	void ControlPanel::fake_scan2(){
 
-		  control_panel.fscan(ui_.filename_box_2->text().toStdString(),ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/0localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/1localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/2localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/3localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/4localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/5localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/6localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/7localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/8localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/9localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/10localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/11localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/12localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/13localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/14localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/15localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/16localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/17localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/18localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/19localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/20localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/21localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/22localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/23localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/24localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/25localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/26localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/27localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/28localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/29localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/30localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan("/home/mike/Testing Data/Selected Optitrack/For Tracking/31localized.pcd",ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+			
 	}
 	//Calculate thickness from the two files specified
 	void ControlPanel::thickness_from_file(){
@@ -469,17 +501,21 @@ namespace control_panel
 	}
 	//More analysis
 	void ControlPanel::anal_scan(){
-	std::stringstream fs, fs2;
+	/*std::stringstream fs, fs2;
+	for(int ctr2 = 0; ctr2 <= ui_.pre_box->text().toInt(); ++ctr2){
 		fs.str("");
-		fs << ui_.filename_box->text().toStdString();
+		fs << ui_.filename_box->text().toStdString() << "post/"<< ctr2 << "localized.pcd";
 	
+		for(int ctr = 0; ctr <= ui_.post_box->text().toInt(); ++ctr){
+		fs2.str("");
 		//ctr = ui_.pre_box->text().toInt();
 		//fs2 << ui_.filename_box->text().toStdString() << ui_.pre_box->text().toStdString() << "rawcloud.pcd";
 		fs2 << ui_.filename_box->text().toStdString() << "pre/" << ctr << "localized.pcd";
-		  control_panel.xscan(ui_.filename_box->text().toStdString(),0,0,ui_.filename_box->text().toStdString(),true);
+		  control_panel.xscan(fs2.str(),ctr2,ctr,fs.str(),true);
 		}
-	}}
-
+	}}*/
+	control_panel.wscan(ui_.filename_box->text().toStdString());
+	}
 }
 
 #include <pluginlib/class_list_macros.h>

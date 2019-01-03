@@ -1347,7 +1347,7 @@ void QNode::xscan(std::string before, int postnum,int prenum, std::string after,
 	sensor_msgs::PointCloud2 cloud_before;
 	sensor_msgs::PointCloud2 cloud_after;
 	std::stringstream fs;
-	fs <<  "/home/mike/Datum/Datum.pcd";
+	fs <<  "/home/mike/Testing Data/Datum/Datum.pcd";
 	//Load the file
 	if (pcl::io::loadPCDFile<PointXYZIT> (fs.str().c_str(), *datum) == -1) PCL_ERROR ("Couldn't read file\n");
 	//Load the file
@@ -1429,7 +1429,7 @@ if(autocrop){
 		pcl::PointCloud<PointXYZIT>::Ptr save_cloud (new pcl::PointCloud<PointXYZIT>);
 		std::stringstream pf;
 		pcl::fromROSMsg(acc_srv.response.cloud_out, *save_cloud);
-		pf << "/home/mike/raw/processed/" << prenum << "to" << postnum << "thickened.pcd";
+		pf << "/home/mike/Testing Data/Datum/processed/" << prenum << "to" << postnum << "thickened.pcd";
 		if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
 		if(save_cloud->size() > 0) pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
 		}else ROS_INFO("Thickness Service Failed");
@@ -1444,14 +1444,34 @@ void QNode::wscan(std::string filename){
 	phd::calc_service calc_srv;
 	sensor_msgs::PointCloud2 cloud_datum;
 	pcl::PointCloud<PointXYZIT>::Ptr datum (new pcl::PointCloud<PointXYZIT> );
-	std::stringstream fs;
-	fs <<  "/home/mike/Datum/Datum.pcd";//Load the file
+	//std::stringstream fs;
+	//fs <<  "/home/mike/Testing Data/Datum/Datum.pcd";//Load the file
 		calc_srv.request.pre_ids.push_back(0);
+		calc_srv.request.pre_ids.push_back(1);
 		calc_srv.request.pre_ids.push_back(2);
-		calc_srv.request.post_ids.push_back(1);
-		calc_srv.request.post_ids.push_back(3);
+		calc_srv.request.pre_ids.push_back(3);
+		calc_srv.request.pre_ids.push_back(4);
+		calc_srv.request.pre_ids.push_back(5);
+		calc_srv.request.pre_ids.push_back(6);
+		calc_srv.request.pre_ids.push_back(7);
+		calc_srv.request.pre_ids.push_back(8);
+		calc_srv.request.pre_ids.push_back(9);
+		calc_srv.request.pre_ids.push_back(10);
+		calc_srv.request.pre_ids.push_back(11);
+		calc_srv.request.post_ids.push_back(12);
+		calc_srv.request.post_ids.push_back(13);
+		calc_srv.request.post_ids.push_back(14);
+		calc_srv.request.post_ids.push_back(15);
+		calc_srv.request.post_ids.push_back(16);
+		calc_srv.request.post_ids.push_back(17);
+		calc_srv.request.post_ids.push_back(18);
+		calc_srv.request.post_ids.push_back(19);
+		calc_srv.request.post_ids.push_back(20);
+		calc_srv.request.post_ids.push_back(21);
+		calc_srv.request.post_ids.push_back(22);
+		calc_srv.request.post_ids.push_back(23);
 		calc_srv.request.location = filename;
-		calc_srv.request.datum = "/home/mike/Datum/Datum.pcd";
+		calc_srv.request.datum = "/home/mike/Testing Data/Datum/Datum.pcd";
 		if(calc_client.call(calc_srv)){
 
 		}else ROS_INFO("rte Service Failed");

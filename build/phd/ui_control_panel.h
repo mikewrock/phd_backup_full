@@ -587,7 +587,7 @@ public:
 
         retranslateUi(Control_Form);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(Control_Form);
@@ -598,11 +598,11 @@ public:
         Control_Form->setWindowTitle(QApplication::translate("Control_Form", "Form", 0, QApplication::UnicodeUTF8));
         scan_button->setText(QApplication::translate("Control_Form", "Scan", 0, QApplication::UnicodeUTF8));
         auto_localize->setText(QApplication::translate("Control_Form", "Auto Localize", 0, QApplication::UnicodeUTF8));
-        marker_name_box->setText(QApplication::translate("Control_Form", "/home/mike/raw/", 0, QApplication::UnicodeUTF8));
+        marker_name_box->setText(QApplication::translate("Control_Form", "/home/mike/Testing Data/Selected Optitrack/", 0, QApplication::UnicodeUTF8));
         marker_info_9->setText(QApplication::translate("Control_Form", "Pointcloud Save Location:", 0, QApplication::UnicodeUTF8));
         soft_stop_2->setText(QApplication::translate("Control_Form", "STOP", 0, QApplication::UnicodeUTF8));
         reset_map_button_2->setText(QApplication::translate("Control_Form", "Reset Map", 0, QApplication::UnicodeUTF8));
-        filename_box_2->setText(QApplication::translate("Control_Form", "/home/mike/processed/1rawcloud.pcd", 0, QApplication::UnicodeUTF8));
+        filename_box_2->setText(QApplication::translate("Control_Form", "/home/mike/Testing Data/Selected Optitrack/post/15cloud.pcd", 0, QApplication::UnicodeUTF8));
         fscan_button_2->setText(QApplication::translate("Control_Form", "Load Scan", 0, QApplication::UnicodeUTF8));
         set_home_button->setText(QApplication::translate("Control_Form", "Set Home", 0, QApplication::UnicodeUTF8));
         marker_info->setText(QApplication::translate("Control_Form", "Ready to cluster", 0, QApplication::UnicodeUTF8));

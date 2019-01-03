@@ -656,9 +656,9 @@ bool localize(phd::localize_cloud::Request  &req, phd::localize_cloud::Response 
 		res.transform_mat[9] = transform_mat(2,1);
 		res.transform_mat[10] = transform_mat(2,2);
 		res.transform_mat[11] = transform_mat(2,3);
-		res.transform_mat[12] = transform_mat(0,3);
-		res.transform_mat[13] = transform_mat(1,3);
-		res.transform_mat[14] = transform_mat(2,3);
+		res.transform_mat[12] = transform_mat(3,0);
+		res.transform_mat[13] = transform_mat(3,1);
+		res.transform_mat[14] = transform_mat(3,2);
 		res.transform_mat[15] = transform_mat(3,3);
 		//first transform the unlocalized pointcloud to its marker's coordinate frame
 		pcl::transformPointCloud (*cloud_world, *cloud_int, transformAB);

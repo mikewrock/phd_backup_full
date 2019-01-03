@@ -270,7 +270,8 @@ namespace control_panel
 	//Load a scan from file
 	void ControlPanel::fake_scan2(){
 
-		  control_panel.fscan(ui_.filename_box_2->text().toStdString(),ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+		control_panel.fscan(ui_.filename_box_2->text().toStdString(),ui_.auto_localize->isChecked(),ui_.set_home->isChecked(),ui_.marker_name_box->text().toStdString(),ui_.autocrop_box->isChecked());
+			
 	}
 	//Calculate thickness from the two files specified
 	void ControlPanel::thickness_from_file(){
