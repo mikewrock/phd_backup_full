@@ -495,21 +495,19 @@ float locate_marker(std::vector<pcl::PointXYZI> Pts, Eigen::Matrix4f &A_mat, std
 			p.x = P1x;
 			p.y = P1y;
 			p.z = P1z;
-			point_list.points.push_back(p);
+			if(bval<1) point_list.points.push_back(p);
 			p.x = P2x;
 			p.y = P2y;
 			p.z = P2z;
-			point_list.points.push_back(p);
+			if(bval<1) point_list.points.push_back(p);
 			p.x = P3x;
 			p.y = P3y;
 			p.z = P3z;
-			point_list.points.push_back(p);
-			point_list.color.r += 0.2;
-			point_list.color.b -= 0.2;
-			vis_pub.publish(point_list);
+			if(bval<1) point_list.points.push_back(p);
+			point_list.color.r += 0.05;
+			point_list.color.b -= 0.05;
 		}		
-	
-
+	}
 	
 	if(best_idx>=0){
 
@@ -543,7 +541,8 @@ float locate_marker(std::vector<pcl::PointXYZI> Pts, Eigen::Matrix4f &A_mat, std
 	}
 	else 	ROS_INFO("Could not find marker");
 
-}
+
+			vis_pub.publish(point_list);
 
 
 

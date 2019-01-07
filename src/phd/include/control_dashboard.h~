@@ -38,6 +38,7 @@ void arm_step();
 void arm_step_man();
 void arm_loop();
 void fake_scan();
+void anal_scan();
 void fake_scan2();
 void scan();
 void prescan();

@@ -1313,7 +1313,7 @@ void QNode::fscan(std::string filename, bool auto_localize,bool set_home, std::s
 				cloud_surface_world.fields[3].name = "intensity";
 				pcl::fromROSMsg(cloud_surface_world, *save_cloud);
 				pf << markername << cloud_ctr  << "localized.pcd";
-				if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
+				/*if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
 				if(save_cloud->size() > 0) pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
 				//Open file for saving marker location
 				ofstream myfile;
@@ -1326,13 +1326,61 @@ void QNode::fscan(std::string filename, bool auto_localize,bool set_home, std::s
 					myfile << loc_srv.response.transform_mat[i] << ",";
 				}
 				myfile << std::endl;
-				++cloud_ctr;
+				*/++cloud_ctr;
 			}else ROS_INFO("Service Failed");
 		}
 			cloud_surface_world.header.frame_id = "/world";
 			rawpub.publish(cloud_surface_world);
+			//current_pc_ = cloud_surface_world;
 	}
 }
+
+
+void QNode::save_tracker(std::string filename){
+	std::stringstream markername;
+	//Create a pcl pointer to load the clound in to
+	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZI> );
+	//Create a ros message to publish the cloud as
+	sensor_msgs::PointCloud2 cloud_msg;
+
+	//current_pc_.reset(new pcl::PointCloud<pcl::PointXYZI>());
+
+		//if(auto_localize){
+			if(DEBUG) ROS_INFO("Finding Tracker");	
+			//Call the localization service
+			loc_srv.request.cloud_in = cloud_surface_world;
+			loc_srv.request.homing = false;
+			loc_srv.request.marker_file = "/home/mike/Testing Data/Selected Optitrack/For Tracking/";
+			if(loc_client.call(loc_srv)){
+				ROS_INFO("Localized Cloud %d", (uint32_t)(loc_srv.response.cloud_out.width));
+				//pub.publish(loc_srv.response.cloud_out);
+				//cloud_surface_world = loc_srv.response.cloud_out;
+
+				//pcl::PointCloud<pcl::PointXYZI>::Ptr save_cloud (new pcl::PointCloud<pcl::PointXYZI>);
+				std::stringstream pf;
+				//Tell pcl what the 4th field information is
+				cloud_surface_world.fields[3].name = "intensity";
+				//pcl::fromROSMsg(cloud_surface_world, *save_cloud);
+				//pf << markername << cloud_ctr  << "localized.pcd";
+				//if(DEBUG) ROS_INFO("Saving to %s",pf.str().c_str());
+				//if(save_cloud->size() > 0) pcl::io::savePCDFileASCII (pf.str().c_str(), *save_cloud);
+				//Open file for saving marker location
+				ofstream myfile;
+				std::stringstream fs;
+				fs << "/home/mike/Testing Data/Selected Optitrack/For Tracking/" << "trackerpose.csv";
+				myfile.open (fs.str().c_str(), std::ios::out|std::ios::app);
+				myfile << filename << "," <<  loc_srv.response.transform_mat[3] << ","<<  loc_srv.response.transform_mat[7] << std::endl;
+				
+				
+				//++cloud_ctr;
+			}else ROS_INFO("Service Failed");
+		//}
+			//cloud_surface_world.header.frame_id = "/world";
+			//rawpub.publish(cloud_surface_world);
+
+}
+
+
 
 //Testing function for publishing point clouds from file
 void QNode::xscan(std::string before, int postnum,int prenum, std::string after, bool autocrop){
@@ -1453,9 +1501,9 @@ void QNode::wscan(std::string filename){
 		calc_srv.request.pre_ids.push_back(4);
 		calc_srv.request.pre_ids.push_back(5);
 		calc_srv.request.pre_ids.push_back(6);
-		calc_srv.request.pre_ids.push_back(72);
-		calc_srv.request.pre_ids.push_back(83);
-		calc_srv.request.pre_ids.push_back(94);
+		calc_srv.request.pre_ids.push_back(7);
+		calc_srv.request.pre_ids.push_back(8);
+		calc_srv.request.pre_ids.push_back(9);
 		calc_srv.request.pre_ids.push_back(10);
 		calc_srv.request.pre_ids.push_back(11);
 		calc_srv.request.post_ids.push_back(12);

@@ -226,6 +226,19 @@ color: rgb(255, 255, 255);</string>
 Trajectory</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="save_tracker">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>360</y>
+       <width>98</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Save Tracker</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -741,7 +754,7 @@ Trajectory</string>
        <x>20</x>
        <y>160</y>
        <width>98</width>
-       <height>27</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="text">

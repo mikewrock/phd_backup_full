@@ -68,6 +68,7 @@ namespace control_panel
 		connect(ui_.pose_loop_button, SIGNAL(clicked()), this, SLOT(pose_loop()));
 		connect(ui_.arm_loop_button, SIGNAL(clicked()), this, SLOT(arm_loop()));
 		connect(ui_.step_button, SIGNAL(clicked()), this, SLOT(arm_step_man()));
+		connect(ui_.save_tracker, SIGNAL(clicked()), this, SLOT(save_tracker()));
 		connect(ui_.soft_stop, SIGNAL(clicked()), this, SLOT(soft_stop()));
 		connect(ui_.soft_stop_2, SIGNAL(clicked()), this, SLOT(soft_stop()));
 		connect(ui_.reset_map_button, SIGNAL(clicked()), this, SLOT(reset_map()));
@@ -453,6 +454,11 @@ namespace control_panel
 		fs2 << ui_.filename_box->text().toStdString() << ctr << "cloud.pcd";
 		 control_panel.fscan(fs2.str(),true,false,ui_.filename_box->text().toStdString(),true);
 		}	
+
+	}
+	void ControlPanel::save_tracker(){
+
+		control_panel.save_tracker(ui_.filename_box_2->text().toStdString());	
 
 	}
 

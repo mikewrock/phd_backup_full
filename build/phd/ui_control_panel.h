@@ -43,6 +43,7 @@ public:
     QPushButton *arm_loop_button;
     QPushButton *pose_loop_button;
     QPushButton *gen_trajectory;
+    QPushButton *save_tracker;
     QWidget *tab;
     QPushButton *fscan_button;
     QLineEdit *pos_box;
@@ -216,6 +217,9 @@ public:
         gen_trajectory->setObjectName(QString::fromUtf8("gen_trajectory"));
         gen_trajectory->setEnabled(true);
         gen_trajectory->setGeometry(QRect(0, 180, 121, 41));
+        save_tracker = new QPushButton(tab_4);
+        save_tracker->setObjectName(QString::fromUtf8("save_tracker"));
+        save_tracker->setGeometry(QRect(20, 360, 98, 21));
         tabWidget->addTab(tab_4, QString());
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
@@ -344,7 +348,7 @@ public:
         post_box->setAlignment(Qt::AlignCenter);
         print_markers = new QPushButton(tab);
         print_markers->setObjectName(QString::fromUtf8("print_markers"));
-        print_markers->setGeometry(QRect(20, 160, 98, 27));
+        print_markers->setGeometry(QRect(20, 160, 98, 21));
         clear_markers = new QPushButton(tab);
         clear_markers->setObjectName(QString::fromUtf8("clear_markers"));
         clear_markers->setGeometry(QRect(10, 460, 98, 27));
@@ -611,6 +615,7 @@ public:
         pose_loop_button->setText(QApplication::translate("Control_Form", "Drive and Shotcrete", 0, QApplication::UnicodeUTF8));
         gen_trajectory->setText(QApplication::translate("Control_Form", "Generate \n"
 "Trajectory", 0, QApplication::UnicodeUTF8));
+        save_tracker->setText(QApplication::translate("Control_Form", "Save Tracker", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_4), QApplication::translate("Control_Form", "Operation", 0, QApplication::UnicodeUTF8));
         fscan_button->setText(QApplication::translate("Control_Form", "Fake Scan", 0, QApplication::UnicodeUTF8));
         pos_box->setText(QApplication::translate("Control_Form", "-1.57", 0, QApplication::UnicodeUTF8));

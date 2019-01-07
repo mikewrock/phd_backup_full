@@ -68,6 +68,7 @@ public:
 	void fscan(std::string, bool auto_localize,bool set_home,std::string,bool autocrop);
 	void xscan(std::string, int postnum,int prenum,std::string,bool autocrop);
 	void wscan(std::string);
+	void save_tracker(std::string);
 	void ascan(std::string,std::string,int);
 	void cluster(std::string, int index);
 	int gen_trajectory(std::string);

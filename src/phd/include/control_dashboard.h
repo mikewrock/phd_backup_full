@@ -62,6 +62,7 @@ void pose_step();
 void pose_loop();
 void reset_map();
 void set_clean();
+void save_tracker();
 void set_sprayed();
 void calculate_thickness();
 void thickness_from_file();
