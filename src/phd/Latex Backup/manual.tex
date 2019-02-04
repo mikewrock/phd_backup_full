@@ -1,0 +1,352 @@
+\chapter{Operation Instructions}
+\label{chap:manual}
+
+\begin{tabularx}{\textwidth}{p{0.3\textwidth} p{0.7\textwidth} }
+    \multicolumn{2}{c}{\textbf{Setting the home coordinate frame}}\\ \toprule
+    \multicolumn{2}{l}{\textbf{Navigate robot to home position}}\\ \midrule
+\begin{minipage}{.3\textwidth} 	
+\scriptsize
+\raggedright
+        \textbf{Manual Navigation} The MASSS can be driven using a standard USB joystick connected to any computer on the same network that hes been configured and running ROS.\\
+        \textbf{Autonomous Navigation} The MASSS can autonomously navigate to a goal specified using the 2D Nav Goal tool located at the top of the RVIZ window. The MASSS performs SLAM as it is navigating and is capable of avoiding obstacles and planning paths around them. To set a goal click the RVIZ window where the robot should to navigate to, and drag the cursor in the direction the robot should face. A green arrow is shown representing the final position and orientation the navigation system will attempt to achieve. Though not required, it is recommended the operator perform a non-homing scan (by clicking the ``Scan'' button) so RVIZ can display a rendering of the environment.
+      \end{minipage}%
+      &
+        \begin{minipage}{.7\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=\linewidth]{Pics/Manual/afar_goal.png}
+      \captionof{figure}{Setting a Navigation Goal}
+      \label{fig:goal}
+		\end{center}
+    \end{minipage}
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{m{0.3\textwidth} m{0.7\textwidth} }
+    \multicolumn{2}{l}{\textbf{Performing a Homing Scan}}\\ \midrule
+\begin{minipage}{.3\textwidth} 	
+\scriptsize
+\raggedright
+       Click the Set Home button on the Control Panel. All future scans will be localized to this coordinate frame.
+      \end{minipage}%
+      &
+        \begin{minipage}{.7\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=.5\linewidth]{Pics/Manual/sethome.png}
+      \captionof{figure}{Control Panel, Operation Tab. Set Home Button Highlighted}
+		\end{center}
+    \end{minipage}
+\end{tabularx}
+\newpage
+\begin{tabularx}{\textwidth}{p{0.3\textwidth} p{0.7\textwidth} }
+    \multicolumn{2}{c}{\textbf{Recording the Fiducial Marker}}\\ \toprule
+    \multicolumn{2}{l}{\textbf{Selecting Marker Keypoints}}\\ \midrule
+\begin{minipage}{.3\textwidth} 	
+\scriptsize
+\raggedright
+       Using the Selection Tool, click and drag to form a box surrounding the marker keypoint.
+      \end{minipage}%
+      &
+        \begin{minipage}{.7\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=\linewidth]{Pics/Manual/marker1_selecting.png}
+      \captionof{figure}{Selecting a Marker Keypoint}
+      \label{fig:afar}
+		\end{center}
+    \end{minipage}\\
+   
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{m{0.3\textwidth} m{0.7\textwidth} }
+ \multicolumn{2}{l}{\textbf{Selecting Marker Keypoints (Continued)}}\\ \midrule
+ \begin{minipage}{.3\textwidth} 	
+\scriptsize
+\raggedright
+       The selected points are highlighted in blue. Points with intensity below ``intensity\_min'' (which can be changed using \node{rqt_reconfigure}) are automatically removed.
+      \end{minipage}%
+      &
+        \begin{minipage}{.7\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=\linewidth]{Pics/Manual/marker1_selected.png}
+      \captionof{figure}{Selected Points Highlighted in Blue}
+		\end{center}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=\linewidth]{Pics/Manual/marker1_selected_zoom.png}
+      \captionof{figure}{A Closer Look at Selected Points}
+		\end{center}
+    \end{minipage}%
+\end{tabularx}
+\begin{tabularx}{\textwidth}{m{0.3\textwidth} m{0.7\textwidth} }
+ \multicolumn{2}{l}{\textbf{Selecting Marker Keypoints (Continued)}}\\ \midrule
+ \begin{minipage}{.3\textwidth} 	
+\scriptsize
+\raggedright
+      Click the ``Cluster Pt. 1'' button.
+      \end{minipage}%
+      &
+        \begin{minipage}{.7\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=.5\linewidth]{Pics/Manual/cluster1.png}
+      \captionof{figure}{Teaching the First Marker Keypoint}
+		\end{center}
+    \end{minipage}\\
+     \begin{minipage}{.3\textwidth} 	
+\scriptsize
+\raggedright
+      Repeat the process for the second and third marker keypoints.
+      \end{minipage}%
+      &
+        \begin{minipage}{.7\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=.5\linewidth]{Pics/Manual/cluster2.png}
+      \captionof{figure}{Teaching the Second Marker Keypoint}
+		\end{center}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=.5\linewidth]{Pics/Manual/cluster3.png}
+      \captionof{figure}{Teaching the Third Marker Keypoint}
+		\end{center}
+    \end{minipage}%
+\end{tabularx}
+\begin{tabularx}{\textwidth}{m{0.3\textwidth} m{0.7\textwidth} }
+ \multicolumn{2}{l}{\textbf{Selecting Marker Keypoints (Continued)}}\\ \midrule
+         \begin{minipage}{.3\textwidth} 	
+\scriptsize
+\raggedright
+      Once Complete, the text displays ``Marker Recorded''. The ``Auto Localize'' feature is automatically enabled, as indicated by the checkbox.
+      \end{minipage}%
+      &
+        \begin{minipage}{.7\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=.5\linewidth]{Pics/Manual/operation_recorded.png}
+      \captionof{figure}{Fiducial Marker Completed}
+		\end{center}
+    \end{minipage}
+\end{tabularx}
+\begin{tabularx}{\textwidth}{p{0.5\textwidth} p{0.5\textwidth} }
+    \multicolumn{2}{l}{\textbf{Training Additional Markers}}\\ \midrule
+\begin{minipage}{.5\textwidth} 	
+\scriptsize
+\raggedright
+       Multiple fiducial markers can be used, the localization algorithm will select the best keypoints to use for localization. All fiducial markers are stored in a file at the same location as the point clouds are automatically saved. The point cloud and fiducial marker save location is indicated by the ``Point cloud save location'' text box in the operation tab of the Control Panel. Additional markers can be added using the same procedure as the first marker. New markers must be added using a localized point cloud if the operator requires all point clouds to be localized to the same coordinate frame. To localize a point cloud and teach a new marker, the robot must take a scan from a position that includes both the old marker keypoints as well as the new ones to be taught. Figure \ref{fig:afar} shows a point cloud scan taken from a location in which two individual fiducial markers can be taught.
+      \end{minipage}%
+      &
+        \begin{minipage}{.5\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=.8\linewidth]{Pics/Manual/operation_save.png}
+      \captionof{figure}{Point Cloud Save Location is the Same as the Marker Save Location}
+		\end{center}
+    \end{minipage}
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{p{0.3\textwidth} p{0.7\textwidth} }
+    \multicolumn{2}{c}{\textbf{Shotcrete Application}}\\ \toprule
+    \multicolumn{2}{l}{\textbf{Applying Shotcrete to a Selected Area}}\\ \midrule
+\begin{minipage}{.3\textwidth} 	
+\scriptsize
+\raggedright
+       To autonomously apply shotcrete to a selected area, use the Selection Tool located at the top of the RVIZ window and drag a box to encompass the desired area to apply shotcrete. More complex selection shapes can be achieved by holding the Ctrl button while selecting additional areas or points.
+      \end{minipage}%
+      &
+        \begin{minipage}{.7\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=\linewidth]{Pics/Manual/afar_goal.png}
+      \captionof{figure}{Manual Selection of Shotcrete Area}
+		\end{center}
+    \end{minipage}\\
+		\begin{minipage}{.3\textwidth} 	
+\scriptsize
+\raggedright
+       Once the desired area has been selected, press the Generate Trajectory button to generate a trajectory for the manipulator to follow.
+      \end{minipage}%
+      &
+        \begin{minipage}{.7\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=.5\linewidth]{Pics/Manual/operation_gen.png}
+      \captionof{figure}{Generate Trajectory Button}
+		\end{center}
+    \end{minipage}
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{p{0.3\textwidth} p{0.7\textwidth} }
+    \multicolumn{2}{l}{\textbf{Applying Shotcrete to a Selected Area (Continued)}}\\ \midrule
+\begin{minipage}{.3\textwidth} 	
+\scriptsize
+\raggedright
+       Inspect the trajectory to ensure a satisfactory result. Via points outside the robot's workspace are shown in red, while via points within the workspace are shown in green. The path along the surface the robot will follow is shown in red, the path the end effector will follow is shown in green, and the surface normals are shown in blue.
+      \end{minipage}%
+      &
+        \begin{minipage}{.7\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=\linewidth]{Pics/Manual/goodbadpts_robot.png}
+      \captionof{figure}{Robot Workspace (White) with Via Points Highlighted in Red (Outside Workspace) or Green (Within Workspace)}
+		\end{center}
+    \end{minipage}\\
+		\begin{minipage}{.3\textwidth} 	
+\scriptsize
+\raggedright
+       If the trajectory is satisfactory the operator can press the Apply Shotcrete button. Once pressed, the via points outside the robot's workspace are moved and the robot will navigate to the wall if necessary. As the algorithm executes the trajectory, the blue lines connecting the surface path to the via points are turned white as each via point is completed.
+      \end{minipage}%
+      &
+        \begin{minipage}{.7\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=.5\linewidth]{Pics/Manual/operation_apply.png}
+      \captionof{figure}{Apply Shotcrete Button}
+		\end{center}
+    \end{minipage}
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{p{0.3\textwidth} p{0.7\textwidth} }
+    \multicolumn{2}{l}{\textbf{Autonomous Shotcrete Application}}\\ \midrule
+\begin{minipage}{.3\textwidth} 	
+\scriptsize
+\raggedright
+       When the robot autonomously applies shotcrete it acts similar to a wall following robot; it will follow the mine surface beside it until the operator commands it to stop (Using the STOP button on the Control Panel).
+      \end{minipage}%
+      &
+        \begin{minipage}{.7\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=.5\linewidth]{Pics/Manual/operation_stop.png}
+      \captionof{figure}{STOP Button Can be Used During Regular Operation or During Emergency Operator Intervention}
+		\end{center}
+    \end{minipage}\\
+    \begin{minipage}{.3\textwidth} 	
+\scriptsize
+\raggedright
+       The operator should navigate the robot to a location where the automatic shotcreting can begin, using the Set Goal tool as shown in Figure \ref{fig:goal}. Once there, the operator should ensure the automatic shotcrete selection area, as well as the automatic occlusion area is suitable. The area of the mine scan that is kept for trajectory generation is shown in blue and can be changed using the \node{rqt_reconfigure} panel.
+      \end{minipage}%
+      &
+        \begin{minipage}{.7\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=\linewidth]{Pics/Manual/autokeep.png}
+      \captionof{figure}{Points to be Kept for Automatic Shotcrete Application}
+		\end{center}
+    \end{minipage}
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{p{0.3\textwidth} p{0.7\textwidth} }
+    \multicolumn{2}{l}{\textbf{Autonomous Shotcrete Application (Continued)}}\\ \midrule
+    \begin{minipage}{.3\textwidth} 	
+\scriptsize
+\raggedright
+     To ensure the robot does not attempt to apply shotcrete to itself it is important to ensure the occlusion zone is set appropriately. Using \node{rqt_reconfigure}, the area to be cropped in which the robot's components may be detected by the LiDAR scan is set. The volume enclosed by orange lines will be automatically removed before shotcrete trajectory generation.
+      \end{minipage}%
+      &
+        \begin{minipage}{.7\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=\linewidth]{Pics/Manual/auto_occlude.png}
+      \captionof{figure}{Points to be Removed Before Trajectory Generation}
+		\end{center}
+    \end{minipage}\\
+    \begin{minipage}{.3\textwidth} 	
+\scriptsize
+\raggedright
+       If no area of the mine has been selected for manual shotcrete application, the operator can click the Apply Shotcrete button to begin the automatic shotcrete application.
+      \end{minipage}%
+      &
+        \begin{minipage}{.7\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=.5\linewidth]{Pics/Manual/operation_apply.png}
+      \captionof{figure}{Clicking Apply Shotcrete Without a Selection Begins the Autonomous Shotcreting Process}
+		\end{center}
+    \end{minipage}
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{p{0.3\textwidth} p{0.7\textwidth} }
+    \multicolumn{2}{l}{\textbf{Autonomous Shotcrete Application (Continued)}}\\ \midrule
+       \multicolumn{2}{c}{\begin{minipage}{\linewidth}
+\scriptsize
+        Progress should be monitored by the operator, and the STOP button should be pressed when the robot has finished applying shotcrete to the desired area.
+        \end{minipage}}\\
+ \multicolumn{2}{c}{\begin{minipage}{\linewidth}
+    
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=\linewidth]{Pics/Manual/triple.png}
+      \captionof{figure}{Multiple Trajectories Generated as Robot Autonomously Follows Mine Applying Shotcrete}
+		\end{center}
+    \end{minipage}}
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{p{0.3\textwidth} p{0.7\textwidth} }
+    \multicolumn{2}{c}{\textbf{Shotcrete Thickness Estimation}}\\ \toprule
+    \multicolumn{2}{l}{\textbf{Automatic Thickness Estimation}}\\ \midrule
+\begin{minipage}{.3\textwidth} 	
+\scriptsize
+\raggedright
+       During normal operation, the shotcrete thickness is automatically estimated after shotcrete has been applied.
+      \end{minipage}%
+      &
+        \begin{minipage}{.7\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=.5\linewidth]{Pics/thickeg.png}
+      \captionof{figure}{Automatic Thickness Estimate}\label{fig:thickeg}
+		\end{center}
+    \end{minipage}
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{p{0.3\textwidth} p{0.7\textwidth} }
+    \multicolumn{2}{l}{\textbf{Thickness Estimation From File}}\\ \midrule
+\begin{minipage}{.3\textwidth} 	
+\scriptsize
+\raggedright
+       To apply the shotcrete thickness estimation algorithm to point clouds saved to disk, use the Thickness Estimation tab of the Control Panel to indicate the location of the initial and final scans, then click the Estimate Thickness button. The resulting estimate can be saved by clicking the save button.
+      \end{minipage}%
+      &
+        \begin{minipage}{.7\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=.5\linewidth]{Pics/Manual/thickness_estimate.png}
+      \captionof{figure}{Estimating Shotcrete Thickness From two Saved Scans}
+		\end{center}
+    \end{minipage}\\
+    \multicolumn{2}{l}{\textbf{Loading a Point Cloud From Disk}}\\ \midrule
+    \begin{minipage}{.3\textwidth} 	
+\scriptsize
+\raggedright
+       To load a point cloud, scan, or thickness estimate from disk click the Load button on the Operation tab of the Control Panel.
+      \end{minipage}%
+      &
+        \begin{minipage}{.7\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=.5\linewidth]{Pics/Manual/operation_load.png}
+      \captionof{figure}{Point Cloud Files can be Loaded From Disk}
+      \label{fig:load}
+		\end{center}
+    \end{minipage}
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{p{0.3\textwidth} p{0.7\textwidth} }
+    \multicolumn{2}{l}{\textbf{Estimating Shotcrete Thickness Between Two Selected Areas}}\\ \midrule
+\begin{minipage}{.3\textwidth} 	
+\scriptsize
+\raggedright
+       To estimate shotcrete thickness for a specific area, the first point cloud should be loaded from disk (see Figure \ref{fig:load}). Using the Selection Tool, select an area slightly larger than the desired measurement area and click Set Initial Cloud. Load the final point cloud, and select the area in which to estimate thickness. Click the Set Final Cloud button. Once the initial and final point cloud have been set the user can click Calculate Thickness to generate a thickness estimate like the one shown in Figure \ref{fig:thickeg}.
+      \end{minipage}%
+      &
+        \begin{minipage}{.7\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=.5\linewidth]{Pics/Manual/thickness_selection.png}
+      \captionof{figure}{Calculating Shotcrete Thickness for a Specific Selection}
+		\end{center}
+    \end{minipage}\\
+\end{tabularx}\\
+

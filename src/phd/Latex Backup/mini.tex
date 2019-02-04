@@ -16,7 +16,8 @@
 
 \makeatletter
 % start with some helper code
-% This is the vertical rule that is inserted
+% This is the vertical rule that is inserted    
+     
 \newcommand*{\algrule}[1][\algorithmicindent]{%
   \makebox[#1][l]{%
     \hspace*{.2em}% <------------- This is where the rule starts from
@@ -113,6 +114,9 @@
   \renewcommand{\lstlistingname}{ROS File}% Listing -> Algorithm
 \renewcommand{\lstlistlistingname}{List of \lstlistingname s}% List of Listings -> List of Algorithms
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}m{#1}}
+
+
+
 \begin{document}
 
   \uoittitlepage
@@ -121,30 +125,6 @@
   \pagenumbering{roman} \setcounter{page}{1}
   \doublespacing
 
-  \include{abstract}
-  \include{acknowledgements}
-
-  %%-----------Table of Contents----------------------
-  \renewcommand{\contentsname}{Table of Contents}
-  \tableofcontents{}
-  \addcontentsline{toc}{chapter}{Table of Contents}
-  %%------------List of Tables------------------------
-  \listoftables{}
-  \addcontentsline{toc}{chapter}{List of Tables}
-  %%------------List of Figures-----------------------
-  \listoffigures{}
-  \addcontentsline{toc}{chapter}{List of Figures}
-  \printglossary[style=list]
-  \glsaddall
-  
-  %%------------List of CODE-----------------------
-  \lstlistoflistings
-  \addcontentsline{toc}{chapter}{List of ROS Files}
-  %%------------List of Algorithms-----------------------
-  \listofalgorithms
-  \addcontentsline{toc}{chapter}{List of Algorithms}
-  %%------------Dedication----------------------------
-  \include{dedication}
 
   %%-------------Change single space to double space--
   \newpage
@@ -153,21 +133,9 @@
 
   %%-------------Include your chapters----------------
   %% You can rename the files.
-  \include{introduction}
-  \include{background}
-  \include{localization}
-  \include{trajectory}
-  \include{thickness}
-  \include{overview}
   \include{manual}
-  \include{code}
-  \include{testing}
-  \include{conclusions}
 
-  \bibliographystyle{IEEEtran}
-  \bibliography{references}
 
-  \include{appendix}
   
  
 \end{document}
