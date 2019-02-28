@@ -107,12 +107,20 @@
   caption=#3 (lines {#4}),
   linerange={#4},
   ]{#2}}
-  
+  \newenvironment{myitemize}
+{ \begin{itemize}
+    \setlength{\itemsep}{0pt}
+    \setlength{\parskip}{0pt}
+    \setlength{\parsep}{0pt}     }
+{ \end{itemize}                  } 
 \newcommand{\tabitem}{\textbullet~~}
   %\lstset{rangeprefix=@@@,rangesuffix=@@@,includerangemarker=false}
   \renewcommand{\lstlistingname}{ROS File}% Listing -> Algorithm
 \renewcommand{\lstlistlistingname}{List of \lstlistingname s}% List of Listings -> List of Algorithms
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}m{#1}}
+\renewcommand\algorithmiccomment[1]{%
+  \hfill\**\ #1%
+}
 \begin{document}
 
   \uoittitlepage
@@ -153,16 +161,15 @@
 
   %%-------------Include your chapters----------------
   %% You can rename the files.
-  \include{introduction}
-  \include{background}
-  \include{localization}
-  \include{trajectory}
-  \include{thickness}
-  \include{overview}
-  \include{manual}
-  \include{code}
-  \include{testing}
-  \include{conclusions}
+  \include{1introduction}
+  \include{2background}
+  \include{3localization}
+  \include{4trajectory}
+  \include{5thickness}
+  \include{6overview}
+  \include{7code}
+  \include{8testing}
+  \include{9conclusions}
 
   \bibliographystyle{IEEEtran}
   \bibliography{references}

@@ -1,5 +1,8 @@
 \appendix
-\chapter{Example Files}
+\chapter{Shotcrete Work Instructions}
+\label{sec:shotcreteapp}
+\includepdf[pages=-]{Appendix/MCAWetShotcreteApplication.pdf}
+\chapter{Sample Files}
 \section{HuskyStatus Message}
 \label{app:huskystatus}
 \includecode[pythonstyle]{Code/HuskyStatus.msg}{HuskyStatus.msg}
@@ -8,6 +11,16 @@
 \includecode[pythonstyle]{Code/costmap_common.yaml}{Husky Costmap Configuration File (costmap\_common.yaml)}
 \chapter{Complete Source Code}
 \label{app:code}
+\section{Package.xml}
+\label{app:pack} 
+  \begin{adjustwidth}{-1in}{-.8in}
+\includecode[xmlstyle]{CleanedCode/package.xml}{Package.xml}
+\end{adjustwidth}
+\section{Plugin Description}
+\label{app:plug} 
+  \begin{adjustwidth}{-1in}{-.8in}
+\includecode[xmlstyle]{CleanedCode/plugin_description.xml}{plugin\_description.xml}
+\end{adjustwidth}
 \section{Cmakelists}
 \label{app:cmake} 
   \begin{adjustwidth}{-1in}{-.8in}
@@ -70,6 +83,3 @@
 \section{Table of Shoulder, Elbow, and Wrist Figures}
 \label{sec:fig}
 \includepdf[pages=288]{Appendix/setting-e.pdf}
-\chapter{Shotcrete Work Instructions}
-\label{sec:shotcreteapp}
-\includepdf[pages=-]{Appendix/MCAWetShotcreteApplication.pdf}

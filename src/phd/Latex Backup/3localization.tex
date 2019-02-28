@@ -1,0 +1,146 @@
+\chapter{Robot Localization}
+\label{chap:localiz}
+\section{Chapter Overview}
+A custom localization method has been developed for this work. Design choices were made to yield high accuracy by exploiting some of the unique properties of the environment. Since accuracy is of great importance in this application, a method involving fiducial markers was chosen. The fiducial marker consists of three keypoints placed in the robot's environment. The localization algorithm detects these keypoints and represents the location of the marker using a homogeneous transformation matrix. Using the transformation matrices, point cloud data collected in the robot base's coordinate frame can be transformed into a user defined world coordinate frame.\\
+
+\section{Introduction}
+Localization is a crucial component of any mobile robot control system. In order to interact with its surroundings a robot must have a way of detecting what is nearby. While robots can perform many tasks without localizing, the ability to determine where it is allows it to perform many more. When a robot is required to navigate, the controller creates a plan to navigate to the desired goal. The plan is subdivided in to a global plan and a local plan. The global plan can be likened to driving directions, one would have a ``goal'' such as an address and a global plan like a set of streets and turns to take. The local plan is a set of rules used along the way, like stopping at red lights, changing lanes, and avoiding collisions. Local planning can be done without localization, but global planning requires knowing where the robot is with respect to its fixed surroundings.\\
+
+Localization requires a fixed global frame of reference to which a map is placed or built. This coordinate frame is often referred to as the world coordinate frame. The map can be very rich, containing not only the physical layout of the environment but information about the environment as well. Maps may contain information on colour, brightness, elevation, temperature, radioactivity, or any other information the system is capable of detecting. The map can also be incredibly sparse, the minimum amount of information required is simply an origin and scale to which the robot can be localized relative to.\\
+
+Robots can estimate their position without any perception of their environment using a technique called dead reckoning. By using their starting pose as the fixed frame of reference and measuring the locomotive output of the system, the robot can track what motions it has performed and estimate what its location is. For wheeled robots, odometry allows the robot to measure how much each wheel has rotated through the use of wheel encoders. Using the physical specifications of the robot, such as wheel diameter, its position can be estimated. Wheel odometry is considered to have poor reliability over time because there are a number of factors that can limit the accuracy of the estimates. The biggest concern when using wheel odometry is slippage. Wheel slippage is impossible to detect using wheel encoders alone and occurs often when robots are in low traction areas or while turning, especially in skid-steered vehicles. Other factors can affect odometry accuracy like the diameter of the wheel, which can change with wear or internal air pressure changes, may not be measured with high accuracy, or may not be equivalent in all wheels. As well, sensor noise can further reduce the accuracy of the measurements.\\
+
+To improve a dead reckoning localization estimate, wheel odometry is often paired with an Inertial Measurement Unit (IMU). Using a combination of gyroscopes, accelerometers, magnetometers, or barometers the IMU can report its rate of rotation, acceleration, orientation, and altitude. By combining the two, filters can be used to ignore IMU noise when encoder data reports no movement, or correct turning rate estimates when the wheels are likely to be slipping. The most popular way to filter IMU and odometry data is the Kalman filter. The Kalman filter is best explained as two steps, a prediction step and an update step. The prediction step uses the system outputs to predict the current state of the system. The update step then compares what the sensors should detect based on the given outputs to what the sensors actually detect. Using the actual sensor data, the robot's state estimate is updated. With each step the filter generates a confidence value to represent how accurate the estimate is likely to be. Using the confidence to weigh the sensor data for fusion allows the Kalman filter to generate state estimates more accurate than any of the individual sensors could provide.\\
+
+Even with the improved accuracy a Kalman filter provides, dead reckoning alone is rarely sufficient for robot localization. The reason for this is estimation errors can grow unbounded. Since dead reckoning position estimates are always relative to the previous position estimate, each estimate's accuracy is dependant on the accuracy of the previous estimate. If the pose estimate is wrong by 0.1\% each control loop, by the 100th estimate the robot position could be off by as much as 10\%. With no absolute point of reference there is no way of correcting the position error.\\
+
+Landmark based localization techniques avoid the unbounded error growth of dead reckoning by detecting the location of fixed reference points with respect to the robot. These fixed reference points, or landmarks, can be either passive or active. Passive landmarks are simply unique portions of the robot's environment that can be reliably identified by the robot. Since the landmarks do not move, anytime one is detected the error generated through dead reckoning can be corrected. In this way the robot is able to navigate without consistently detecting a landmark but can correct the error generated in its position estimate when it does. Passive landmarks can be manually added to the environment, the benefit of doing so is the landmarks can be made so that they are highly unique and identifiable, like the QR code shown in Figure \ref{fig:qr}. If the robot environment cannot be customized prior to navigation, the system must determine suitable landmarks using a set of predetermined criteria. Landmarks must be unique, detectable from multiple angles and distances, and unmoving. Active landmarks emit a signal from components such as LEDs, speakers, or radio antennae. The signal can be a simple identifier and the active markers are used in the same way passive markers are, or information can be passed along the active marker's signal for more advanced localization techniques.\\
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{Pics/frame.png}
+    \caption{Example landmark, a QR code}
+    \label{fig:qr}
+\end{figure}
+
+One of the most familiar active landmarks is the Global Positioning System (GPS) used by many of our electronic devices. The landmarks are a constellation of satellites orbiting Earth, each one transmitting their unique identifier and current time. By comparing the current time of the receiver with the time transmitted from the satellite, the time of flight of the signal can be measured. The distance to the satellite can be calculated using the speed the signal is travelling and the time it took to travel. By calculating the distance to three or more satellites the location of the receiver can be determined through trilateration. GPS signals do not penetrate solid objects very well so using GPS in indoor or underground environments may not be possible. In many situations indoor GPS systems are developed for use in robot localization. Rather than use satellites, fixed beacons are placed in the environment. Time of flight of electromagnetic signals may not be a feasible measurement over such short distances, but slower propagating signals such as sound can be used. Alternatively signal strength alone can estimate distance to the beacons, or the signal strength variations within an area can be mapped.\\
+
+In other forms of localization the robot is tracked by the surroundings. The robot can have a marker installed on it like a QR code, LED, reflective marker, or ultrasonic beacon as well as any number of passive and active identifying devices. One such system is the OptiTrack motion capture system. It uses a series of cameras to monitor a workspace. Objects of high reflectivity with specific features can be detected and tracked within the workspace. In this work, the OptiTrack motion capture system is used to obtain high accuracy ground truth measurements for verifying the robot's localization accuracy.\\
+
+Often robots are needed in environments that cannot be modified prior to use and maps of the environment may not be available or usable by the current sensor suite. In this case Simultaneous Localization and Mapping (SLAM) can be used. SLAM robots build a map of their environment, and then localize themself within that map. This is often accomplished through the use of Light Detection and Ranging (LiDAR) devices. LiDAR sensors usually measure objects intersecting a horizontal plane in the robot's environment. Each LiDAR scan is aligned using feature recognition and the dead reckoning estimates to form a map of the robot environment. Once the map is complete, the SLAM algorithm simply matches the features it detects with the features it has recorded on the map to localize the robot.\\
+
+\section{Localizing the MASSS}
+
+For this work, a novel localization method was developed to suit the needs and capabilities of the MASSS. The MASSS's main sensor for navigation and localization is a LiDAR scanner on a nodding head. During navigation the MASSS uses its wheel odometry and IMU together with a Kalman filter to generate a dead reckoning position estimate, as well as its LiDAR scanner to perform SLAM and detect obstacles or movement in the environment. For reasons discussed in Chapter \ref{chap:thick}, the MASSS requires a localization algorithm that is as accurate as possible. To achieve such accuracy, the robot environment is minimally modified with fiducial markers. A fiducial marker is a marker placed within the field of view of a vision system specifically for the purpose of determining the frame of reference of the sensor. Localization can be performed without the use of fiducial markers, but the accuracy improvement they provide makes their installation worthwhile. For the purpose of this research the most accurate approach to this technique is used, but more convenient methods of applying fiducial markers can be used with little expected loss of accuracy.\\
+
+\subsection{Fiducial Markers}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{Pics/fiducial.jpg}
+    \caption{IR reflective spherical fiducial marker}
+    \label{fig:fiducial}
+\end{figure}
+
+The fiducial markers used in this work are IR reflective spheres produced by OptiTrack and can be seen in Figure \ref{fig:fiducial}. They are attached to the mock mine environment using double sided tape, though any suitable adhesive can be used. If the spheres are too costly or time consuming to apply, reflective spray paint like that in Figure \ref{fig:irspray} can be used to quickly and conveniently apply fiducial marks to the environment.\\
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.2\textwidth]{Pics/light_metallic_spray_400px.jpg}
+    \caption{Reflective spray paint \cite{spraypaint}}
+    \label{fig:irspray}
+\end{figure}
+
+\subsubsection{Perceiving the Fiducial Markers}
+
+The robot is able to perceive the fiducial markers by making use of the nodding head the LiDAR is mounted on. By tilting the LiDAR scanner up and down, the LiDAR beam sweeps across the surface of the robot's environment. Using the \node{laser_scan_assembler} package available in ROS the system can use the positions of the nodding head to combine the individual LiDAR scans into a single point cloud representation of the environment. Since the LiDAR scanner returns reflected intensity, the highly reflective fiducial markers are easy to detect, particularly in an underground mining environment where there are very few highly reflective objects.\\
+
+\subsubsection{Placing the Fiducial Marker}
+
+The fiducial markers in this work are formed from three keypoints. Each keypoint is a highly reflective region created through the use of reflective material such as the keypoint shown in Figure \ref{fig:fiducial}. Using a single keypoint the localization algorithm can determine its distance from the marker, but cannot determine its orientation. Two keypoints provide incomplete data on the robot's pose, but three keypoints allow the robot to determine the position and orientation of the marker and, therefore, the position and orientation of itself with respect to the marker.\\
+
+The only true restriction on the placement of the marker keypoints is that they are not colinear or equidistant. Placing the keypoints collinearly makes their orientation around their colinear axis ambiguous and impossible to determine. Placing two equidistant from each other yields two possible orientations, and all if three are equidistant there are six possible orientations. As long as the keypoints are not co-linear or equidistant, they are suitable for use as a fiducial marker.\\
+
+To yield the greatest accuracy, the fiducial marker keypoints should be placed as far apart as possible while remaining close enough to be captured in a single point cloud. Figure \ref{fig:resacc} demonstrates a worst case scenario for position estimation using fiducial markers when the keypoints are not detected accurately. This occurs when the two closest keypoints within the fiducial marker are measured incorrectly by a distance equal to the maximum error of the LiDAR scanner ($e_1$), in opposite collinear directions. When this occurs, the error at the point furthest from the marker centre is calculated to be $e_2$ from:
+
+\begin{figure}
+\includegraphics[width=\textwidth]{Pics/error.png}
+\caption{Accuracy loss from keypoint measurement error}
+\label{fig:resacc} 
+\end{figure}
+
+\begin{equation}
+   e_2 = 2e_1\times\frac{d_1+d_2}{d_1}\label{eq:2}
+\end{equation}
+
+With an accuracy of $1\ mm$ ($e_1$), if the two closest marker keypoints (shown in grey) are $2\ m$ apart ($d_1$), the entire scanned area has a $10\ m$ radius ($d_1+d_2$), and the fiducial marker centre is chosen coincident with the centre of the scanned area (top left actual keypoint), the maximum error in measurement will be $10\ mm$ ($e_2$).\\
+
+Once the fiducial marker has been placed, it must be recorded by the software for future identification. To do so, the user must command the robot to take a scan of its environment while the marker is in view. Using a graphical interface window and a selection tool the user will select a region that contains a single marker keypoint and click the ``Record Marker Keypoint'' button in the Graphical User Interface (GUI). The software will use its intensity cutoff filter and clustering algorithm to determine the location of the centre of the keypoint. The operator then repeats the process for the other two keypoints and the fiducial marker's identifying parameters are recorded to a marker file. To identify a fiducial marker the distance between all three keypoints must be known. Alternatively, two distances and the angle between them can be used. The marker file can contain multiple markers, be shared among machines, multiple marker files can be used, and if necessary the marker files can be modified directly by the user. Detailed instructions on how to record markers can be found in section \ref{sec:manual}\\
+
+The marker recording process can be automated, where the system detects possible keypoints and selects the three furthest apart to use as a fiducial marker but this may lead to the system selecting keypoints that are not intended for use as keypoints. It is possible that movable or temporary objects in the robot's environment may be reflective enough to be considered a keypoint, but if chosen there is a likelihood the keypoint will move and become impossible to detect.\\
+
+\subsubsection{Detecting the Fiducial Marker}
+
+Detecting the fiducial marker first requires detection of each keypoint, then by calculating the distance between the keypoints a correspondence between the fiducial marker and the keypoints can be determined. Once the correspondence of each keypoint is determined, the position and orientation of the marker can be calculated. When the pose of the marker is represented using a transformation matrix, the pose of the robot with respect to the marker can be determined by inverting the transformation matrix representing the markers location.\\
+
+Since the keypoints are much more reflective than their surrounding environment, their initial detection is quite straightforward. A cutoff intensity has been determined experimentally. This value represents the minimum acceptable intensity to consider the data point part of a marker keypoint. The minimum and maximum intensity values are set using the localization configuration file but can be changed during runtime if necessary. The LiDAR scanner's resolution is high enough that there are typically 5-10 data points detected for each of the keypoints shown in Figure \ref{fig:fiducial}. When the point cloud is filtered such that only the data points above the cutoff intensity remain, the data points must then be grouped to represent the three keypoints of the fiducial marker. This is performed by the clustering algorithm (Algorithm \ref{alg:cluster}). In the case of the spherical keypoints used, only half the sphere can be detected as the other half would be occluded by the portion facing the scanner. For this reason the location of the keypoint must be offset by the radius of the keypoint sphere in the direction of the keypoint as seen from the scanner.\\
+
+The clustering algorithm turns a cluster of data points into a single keypoint location by calculating the mean location of the data points. Using the \var{cluster_size} parameter in the localization service configuration file the user can set the the maximum allowable diameter for a group of data points to be included in a cluster. The algorithm will iterate through every remaining point after intensity filtering and calculate the mean of all the data points within the cluster distance set by the user. Ideally, only three keypoints will remain, but if multiple markers are used or highly reflective objects are within view, they will appear as potential keypoints.\\
+
+The localization algorithm is responsible for determining which, if any, fiducial markers are in view. If there are multiple entries in the marker file the algorithm will choose the maker with the highest correspondence. The algorithm iterates through every keypoint candidate and calculates the distance to every other keypoint candidate. If any three distances correspond to the distances recorded in the marker file, a match has been found. The algorithm compares all the matches to determine which one has the least amount of error. The three keypoints that most closely match the marker file parameters are then considered to be a fiducial marker. The amount of allowable error can be set using the \var{accuracy} parameter of the localization configuration file. Any parameters in the configuration file can be changed during runtime using the GUI launched by the \node{dynamic_reconfigure} node.\\
+
+\subsubsection{Determining the Location of the Fiducial Marker}
+
+The location of the robot with respect to the marker is found by inverting the transformation matrix that represents the position and orientation of the marker with respect to the robot. Since the marker consists of three keypoints, a centre must be chosen. The default choice is selecting the mean of the keypoints, but if the operator desires, they can define an offset to place the centre of the marker in the location of their choosing (relative to the keypoints' mean). The transformation matrix representing the marker location relative to the robot base frame is calculated as follows:
+
+\begin{equation}
+    ^{B}_{M}\mathbf{T} = \begin{bmatrix}
+    \mathbf{n}_x & \mathbf{o}_x & \mathbf{a}_x & \mathbf{P}_{c_x}\\
+   \mathbf{n}_y & \mathbf{o}_y & \mathbf{a}_y & \mathbf{P}_{c_y}\\
+   \mathbf{n}_z & \mathbf{o}_z & \mathbf{a}_z & \mathbf{P}_{c_z}\\
+   0 & 0 & 0 & 1\end{bmatrix}\label{eq:1}
+\end{equation}
+
+\noindent where:
+
+\begin{align}
+    \mathbf{n} &= \frac{\mathbf{p}_3 - \mathbf{p}_2}{|\mathbf{p}_3 - \mathbf{p}_2|}\\
+    \mathbf{c} &= \frac{\mathbf{p}_1 - \mathbf{p}_2}{|\mathbf{p}_1 - \mathbf{p}_2|}\\
+    \mathbf{a} &= \frac{\mathbf{n}\times\mathbf{c}}{|\mathbf{n}\times\mathbf{c}|}\\
+    \mathbf{o} &= \mathbf{a}\times\mathbf{n}
+\end{align}
+
+\noindent and $\mathbf{p}_c$ is the centre of the fiducial marker (either the centroid of the three keypoints $\mathbf{p}_1,\ \mathbf{p}_2,\ \mathbf{p}_3$ or a user defined location). To determine the robot base location with respect to the marker, $^{B}_{M}\mathbf{T}$ in inverted to calculate $^{M}_{B}\mathbf{T} = ^{B}_{M}\mathbf{T}^{-1}$.\\
+
+\subsection{Coordinate Frames}
+
+To localize, a robot must determine its location in a fixed coordinate frame. If having a single fixed point of reference for the robot to determine its location relative to is the only requirement, using the transformation matrix $^{M}_{B}\mathbf{T}$ is sufficient for describing the robot's location. However, using the fiducial marker's coordinate frame as the world coordinate frame would not yield an intuitive display of the robot's environment. For this reason, the system was designed to allow the user to specify a world coordinate frame.\\
+
+The world coordinate frame is a frame of reference to which all pose dependant information is transformed into before being presented to the user. Since all data is placed in this coordinate frame when displayed and recorded, it is useful for the operator to be able to choose the location of it. To define the world coordinate frame, the operator can manually drive or autonomously navigate the robot to a position and orientation they want to use as the origin of the world coordinate frame and perform a homing scan. The homing scan is initiated by the operator pressing the ``Set Home'' button on the user interface panel. If the desired world origin location cannot be accessed by the robot, an additional transformation matrix must be defined to specify the world coordinate origin with respect to the robot location at the time of recording the world coordinate frame. Alternatively, the transformation matrix from the marker centre to the world origin can be manually defined and the homing scan can be skipped entirely.\\
+
+The world coordinate frame is defined relative to a fiducial marker. After a homing scan, when the localization algorithm detects a marker and produces the transformation matrix describing the robot base with respect to the marker, $^{M}_{B}\mathbf{T}$, it is renamed to $^{M}_{W}\mathbf{T}$ to denote the transformation is from the marker centre to the world origin. When a new scan is performed, it is transformed from the base coordinate frame to the world coordinate frame using the following operation:
+
+\begin{equation}
+    ^{B}_{W}\mathbf{T} = ^{B}_{M}\mathbf{T}^{M}_{W}\mathbf{T}
+\end{equation}\\
+
+Point clouds are recorded in the robot base's coordinate frame. Using the function \var{transformPointCloud()} from the Point Cloud Library (PCL) and $^{B}_{W}\mathbf{T}$, the point cloud is transformed to the world coordinate frame. The localized point cloud is saved to disk in the world coordinate frame so when it is viewed at a later time it is oriented in a meaningful way to the user.\\
+
+\subsection{Using Multiple Markers}
+
+As the mine grows the robot will be required to operate in areas where it cannot detect the original marker. The operator has the option of creating a new world coordinate frame or performing a transition scan to detect the new marker in the original world coordinate frame. The transition scan must be done in a location where both fiducial markers can be detected. If this is not possible, surveying methods can be used to determine the position and orientation of the second marker with respect to the first. A second marker can be created by installing one additional keypoint and using two of the previous marker's keypoints as long as distances between the marker keypoints are not identical to that of the previous marker. Given the transformation matrix from the first marker to the world origin $^{W}_{M_1}\mathbf{T}$ and the transformation matrix from one marker to the next $^{M_1}_{M_2}\mathbf{T}$, the robot can localize itself using the transformation matrix from its current location to the second marker $^{B}_{M_2}\mathbf{T}$ with:
+
+\begin{equation}
+\label{eq:mtmat}
+    ^{W}_{B}\mathbf{T} = ^{W}_{M_1}\mathbf{T}^{M_1}_{M_2}\mathbf{T}^{M_2}_{B}\mathbf{T}
+\end{equation}
+
+If more than two markers are included, the following formula can be applied:
+
+\begin{equation}
+\label{eq:mmtmat}
+   ^{W}_{B}\mathbf{T} = ^{W}_{M_1}\mathbf{T}^{M_1}_{M_2}\mathbf{T}\hdots^{M_{n-1}}_{M_n}\mathbf{T}^{M_n}_{B}\mathbf{T}
+\end{equation}
+
+%\section{Chapter Summary}
+%This chapter presents the fiducial marker method of localization and why it was chosen. The strategy for placing the marker keypoints and how to record them, as well as how the system detects and determines the position of the marker was discussed. How to transform the coordinate frames for the robot base and marker to the world coordinate frame was shown. An explanation of how multiple fiducial markers can be used was given.
