@@ -1,7 +1,7 @@
 \chapter{Software}
 \label{chap:code}
 \section{Chapter Summary}
-This chapter discusses the complete ROS package built and presents the algorithms used in the MASSS source code. Much of the code simply facilitates the handling and communication of data across the various nodes as well as inputting and parsing commands from the user. Since the system was primarily designed to be a research platform many of the testing, debugging, and experimentation portions of the code have been included in the final version for future work. The ROS package contains typical elements such as \node{CMakeLists.txt}, \node{package.xml}, messages, services, configuration and launch files, URDF descriptions, source code, and headers. The following sections discuss the package framework and core functionality using pseudo code algorithms. The complete code can be found in Appendix \ref{app:code}. Beginning with a discussion of the ROS framework this chapter presents the novel algorithms developed for this work.\\
+This chapter discusses the complete ROS package built and presents the algorithms used in the MASS source code. Much of the code simply facilitates the handling and communication of data across the various nodes as well as inputting and parsing commands from the user. Since the system was primarily designed to be a research platform many of the testing, debugging, and experimentation portions of the code have been included in the final version for future work. The ROS package contains typical elements such as \node{CMakeLists.txt}, \node{package.xml}, messages, services, configuration and launch files, URDF descriptions, source code, and headers. The following sections discuss the package framework and core functionality using pseudo code algorithms. The complete code can be found in Appendix \ref{app:code}. Beginning with a discussion of the ROS framework this chapter presents the novel algorithms developed for this work.\\
 \section{Package Files}
 
 A package is the most atomic structure in ROS, meaning it is the root of all projects created for ROS. At its minimum, a package is simply a directory containing \node{package.xml}. As the package grows to contain its own software nodes, a \node{CMakeLists.txt} file is used to define which software files need to be compiled. Other components of a ROS package can include messages, services, dependencies, header files, and source code. Packages big and small are all self contained so they can be easily shared and implemented on other systems.\\
@@ -11,7 +11,7 @@ The file \node{package.xml} contains the package name, version number, descripti
 
 The \node{package.xml} for the MASS can be found in Appendix \ref{app:pack}.
 \subsection{plugin\_description.xml}
-This package uses a custom plugin and tool for RViz. The plugin, called ``Control Panel'' is a ``ControlPanel'' object in the ``control\_panel'' namespace and extends the ``rviz::Panel'' class. The ``Selection Tool'' tool is a fork of the ``SelectionTool'' class called ``selection\_tool'' and extends the ``rviz::Tool'' class. It has been modified to function more effectively when used with the MASSS GUI.\\
+This package uses a custom plugin and tool for RViz. The plugin, called ``Control Panel'' is a ``ControlPanel'' object in the ``control\_panel'' namespace and extends the ``RViz::Panel'' class. The ``Selection Tool'' tool is a fork of the ``SelectionTool'' class called ``selection\_tool'' and extends the ``RViz::Tool'' class. It has been modified to function more effectively when used with the MASS GUI.\\
 
 The \node{plugin_description.xml} for the MASS can be found in Appendix \ref{app:plug}.
 \subsection{CMakeLists.txt}
@@ -57,7 +57,7 @@ The \node{main.launch} file performs the following actions (using the syntax \no
 
 \begin{itemize}
 
-\item \node{MASSS_husky_description} : \node{description.launch}
+\item \node{MASS_husky_description} : \node{description.launch}
 \item \node{husky_control} : \node{control.launch}
 \item \node{husky_control} : \node{teleop.launch}
 
@@ -75,7 +75,7 @@ The \node{main.launch} file performs the following actions (using the syntax \no
 \item \node{laser_filters} : \node{scan_to_scan_filter_chain}
 \item \node{laser_assembler} : \node{laser_scan_assembler}
 \item \node{hector_mapping} : \node{hector_mapping}
-\item \node{rviz} : \node{rviz}
+\item \node{RViz} : \node{RViz}
 \item \node{rqt_reconfigure} : \node{rqt_reconfigure}
 \item \node{tf} : \node{static_transform_publisher}
 
@@ -95,7 +95,7 @@ The \node{main.launch} file performs the following actions (using the syntax \no
 
 \begin{itemize}
 
-\item \node{MASS} : \node{rviz_main.rviz}
+\item \node{MASS} : \node{RViz_main.RViz}
 \item \node{MASS} : \node{my_laser_config.yaml}
 \item \node{husky_navigation} : \node{planner.yaml}
 \item \node{husky_navigation} : \node{costmap_common.yaml}
@@ -105,35 +105,35 @@ The \node{main.launch} file performs the following actions (using the syntax \no
 
 \end{itemize}
 
-Since the MASSS is a modified Husky UGV, the URDF description has been modified accordingly. A separate package for the modified URDF description called \node{MASSS_husky_description} was made and the launch file containing the URDF description is included. Including a launch file within another launch file effectively copies all the code from the included launch file into the main launch file, but keeping them separate allows the user to keep the package modular and makes the launch file more compact and readable.\\
+Since the MASS is a modified Husky UGV, the URDF description has been modified accordingly. A separate package for the modified URDF description called \node{MASS_husky_description} was made and the launch file containing the URDF description is included. Including a launch file within another launch file effectively copies all the code from the included launch file into the main launch file, but keeping them separate allows the user to keep the package modular and makes the launch file more compact and readable.\\
 
 Following the inclusion of the URDF launch file, the Husky specific nodes are launched. The node responsible for communication between ROS and the Husky is called \node{husky_node}. When launched the parameters indicating which USB port it is connected to, the controller and diagnostic frequencies, wheel diameter, and speed and acceleration limits are set. Launch files from the \node{husky_control} package are included to instruct the controller how to properly handle \node{move_base} velocity and joystick commands, perform EKF localization, and display the Husky's movements in RViz. As well, the driver for the IMU on board the Husky is launched.\\
 
 When the \node{move_base} node is launched the local and global planner configurations are loaded from a file or stated explicitly. Parameters like the Husky footprint size and recovery behaviours are not intended to be modified frequently, so they are stored in a file. The user may want to change other parameters like maximum velocity and the safety buffer from obstacles, or have multiple launch files with different settings. They are able to set or overwrite parameters from a configuration file explicitly in the launch file. Whether the parameters are set using a configuration file or from the launch file the effect is the same, however, the launch file takes priority so if the same parameter is set using both methods, the values in the launch file will be used.\\
 
-When the \node{scan_to_scan_filter} node is launched it loads the configuration file that sets the LIDAR distance, intensity, and angular range to be used. As well, the LIDAR driver and \node{laser_scan_assembler} node is launched.\\
+When the \node{scan_to_scan_filter} node is launched it loads the configuration file that sets the LiDAR distance, intensity, and angular range to be used. As well, the LiDAR driver and \node{laser_scan_assembler} node is launched.\\
 
-The \node{powercube}, \node{denso}, and \node{joint_fusion} nodes are launched to publish the joint states of the robot. The \node{joint_fusion} node combines the individual joint states from the other two nodes and publishes them as a single joint state message. The node \node{robot_state_publisher} uses the joint state message and the URDF file to publish the tf tree of the robot. The tf tree, as its name implies, is a tree structure of coordinate frame transformations. It is used by ROS to calculate the transformation between any two frames present and is used by RViz along with the URDF to display the current pose of the MASSS and its manipulator.\\
+The \node{powercube}, \node{denso}, and \node{joint_fusion} nodes are launched to publish the joint states of the robot. The \node{joint_fusion} node combines the individual joint states from the other two nodes and publishes them as a single joint state message. The node \node{robot_state_publisher} uses the joint state message and the URDF file to publish the tf tree of the robot. The tf tree, as its name implies, is a tree structure of coordinate frame transformations. It is used by ROS to calculate the transformation between any two frames present and is used by RViz along with the URDF to display the current pose of the MASS and its manipulator.\\
 
 The node \node{hector_mapping} performs SLAM while the robot is operating. When launched, the parameter for \var{base_frame} is set so it has a point of reference for its local coordinate frame.\\
 
-When RViz is launched, ``rviz\_MASSS.rviz'' is loaded to configure the RViz environment optimally for use with the MASSS. Different ``.rviz'' files can be loaded for different scenarios, for example the ``rviz\_debug.rviz'' configuration is loaded when debugging because it displays many of the point clouds and visualizations that are helpful in debugging but unnecessary during normal operation.\\
+When RViz is launched, ``RViz\_MASS.RViz'' is loaded to configure the RViz environment optimally for use with the MASS. Different ``.RViz'' files can be loaded for different scenarios, for example the ``RViz\_debug.RViz'' configuration is loaded when debugging because it displays many of the point clouds and visualizations that are helpful in debugging but unnecessary during normal operation.\\
 
 The final section of the launch file launches the trajectory generation, localization, and thickness estimation services, the \node{rqt_reconfigure} GUI, and a \node{static_transform_publisher} that aligns the map to the world coordinate frame.\\
 
 \subsection{simulation.launch}
 
-For demonstration, experimentation, or debugging purposes, the user may want to launch an environment where they can use the MASSS control panel in RViz with the localization, trajectory generation, and thickness estimation services without connecting to the physical robot. The \node{simulation.launch} file allows the user to do so by launching the following nodes and files:
+For demonstration, experimentation, or debugging purposes, the user may want to launch an environment where they can use the MASS control panel in RViz with the localization, trajectory generation, and thickness estimation services without connecting to the physical robot. The \node{simulation.launch} file allows the user to do so by launching the following nodes and files:
 
 \begin{itemize}
 
-\item \node{MASSS_husky_description} : \node{description.launch}
+\item \node{MASS_husky_description} : \node{description.launch}
 \item \node{MASS} : \node{joint_fusion}
 \item \node{MASS} : \node{cloud_localizer}
 \item \node{MASS} : \node{trajectory_server}
 \item \node{MASS} : \node{thickness_server}
-\item \node{rviz} : \node{rviz}
-\item \node{MASS} : \node{rviz_debug.rviz}
+\item \node{RViz} : \node{RViz}
+\item \node{MASS} : \node{RViz_debug.RViz}
 \item \node{rqt_reconfigure} : \node{rqt_reconfigure}
 \item \node{tf} : \node{static_transform_publisher}
 \end{itemize}
@@ -198,7 +198,7 @@ The callback function to localize the cloud is explained in Algorithm \ref{alg:l
 \end{algorithm}
 
 \subsubsection{Clustering Points}
-Since the LIDAR scanner's resolution is smaller than the size of the marker keypoint, it will typically detect multiple data points per marker keypoint. The keypoint candidates are determined by taking the mean location of all data points within a certain radius and with sufficiently high reflected intensity. The algorithm to cluster data points into keypoint candidates is Algorithm \ref{alg:cluster} (note, the data has already been filtered for intensity so all data points remaining are possible marker keypoints).
+Since the LiDAR scanner's resolution is smaller than the size of the marker keypoint, it will typically detect multiple data points per marker keypoint. The keypoint candidates are determined by taking the mean location of all data points within a certain radius and with sufficiently high reflected intensity. The algorithm to cluster data points into keypoint candidates is Algorithm \ref{alg:cluster} (note, the data has already been filtered for intensity so all data points remaining are possible marker keypoints).
 
 \begin{algorithm}[H]
 \caption{Clustering Algorithm}
@@ -385,7 +385,7 @@ The algorithm for calculating shotcrete thickness is Algorithm \ref{alg:thick}.
 \end{algorithm}
 
 \subsection{Map Reset Service}
-The Hector SLAM package does not have the functionality to halt the mapping process. It also does not support 3D mapping so it will not take in to account the rotation of the LIDAR's nodding head. This means that when the nodding head moves to generate a point cloud, the SLAM algorithm will attempt to interpret the new laser scan data as robot motion, most often ending up distorting the map and losing its position. For this reason, the map must be reset after every point cloud scan. The Hector SLAM package can reset the map upon receiving an empty service call on the \node{move_base/clear_costmaps} topic, so the message ``empty.srv'' was generated to perform such actions. Before each reset the map is saved to disk so SLAM can resume after the scan is taken.\\
+The Hector SLAM package does not have the functionality to halt the mapping process. It also does not support 3D mapping so it will not take in to account the rotation of the LiDAR's nodding head. This means that when the nodding head moves to generate a point cloud, the SLAM algorithm will attempt to interpret the new laser scan data as robot motion, most often ending up distorting the map and losing its position. For this reason, the map must be reset after every point cloud scan. The Hector SLAM package can reset the map upon receiving an empty service call on the \node{move_base/clear_costmaps} topic, so the message ``empty.srv'' was generated to perform such actions. Before each reset the map is saved to disk so SLAM can resume after the scan is taken.\\
 
 \section{Configuration Files}
 Configuration files used by the \node{rqt_reconfigure} node make the parameters within them available for modification through the \node{rqt_reconfigure} GUI. A configuration file contains the variables' name, data type, priority level, and text description as well as the default, maximum, and minimum value. The configuration files for this work can be found in Appendix \ref{app:cfgs}.\\
@@ -400,7 +400,7 @@ The control panel configuration file (ROS File \ref{code:cpcfg} in Appendix \ref
 \end{figure}
 
 \subsection{YAML Files}
-Files with the .yaml extension are used for parameters that should be easily changed, but do not require modification during runtime. For example, the data from the laser scanner is filtered before being used to create point clouds. Due to the range of motion of the nodding head and the angular bounds of the laser scanner, it is capable of detecting portions of the robot to which it is mounted. This data can be cropped out at a later time, but it is more efficient to limit the distance, angle, and intensity values of the LIDAR data so that the \node{laser_scan_assembler} node does not have to handle as much data. The ROS File \ref{code:yaml} in Appendix \ref{app:cfgs} shows the .yaml configuration file for the \node{scan_filter_chain} node that sets the minimum distance, maximum angle, and maximum intensity values to keep.\\
+Files with the .yaml extension are used for parameters that should be easily changed, but do not require modification during runtime. For example, the data from the laser scanner is filtered before being used to create point clouds. Due to the range of motion of the nodding head and the angular bounds of the laser scanner, it is capable of detecting portions of the robot to which it is mounted. This data can be cropped out at a later time, but it is more efficient to limit the distance, angle, and intensity values of the LiDAR data so that the \node{laser_scan_assembler} node does not have to handle as much data. The ROS File \ref{code:yaml} in Appendix \ref{app:cfgs} shows the .yaml configuration file for the \node{scan_filter_chain} node that sets the minimum distance, maximum angle, and maximum intensity values to keep.\\
 
 \section{URDF}
 The Unified Robot Description Format (URDF) is an XML format for representing a robot model. A URDF file representing the system in this work can be found in Appendix \ref{app:urdf}. The Graphviz diagram for visualizing the URDF model can be seen in Figure \ref{fig:urdf}. In the URDF file each link within the robot is given a name. The links are shown in Figure \ref{fig:urdf} as black boxes. The links are then connected with joints (either revolute or prismatic), shown as blue ellipses in Figure \ref{fig:urdf}. The position and orientation of each link is specified in the URDF, as well as the 3D mesh for visualizing the links. With a complete URDF, ROS only requires the angle (or extension) of each joint in order to display a 3D rendered model of the robot within RViz. The \node{robot_state_publisher} node listens for the joint angles and broadcasts the tf tree containing the coordinate frame transformations for each link.\\
@@ -516,7 +516,7 @@ Since the manipulator workspace is small, it is difficult to test if the traject
 
 The manipulator requires Roll-Pitch-Yaw (RPY) angles to define the end-effector orientation, so \node{control_panel} calculates the corresponding RPY at each via point based on the surface normal. To calculate the RPY, a dot product function is used. While there are dot product functions available through the Eigen software library, they require different data types, so a modified dot product function was used instead of performing data type conversions on the input and output values of the Eigen dot product function.\\
 
-Once the MASSS has completed scanning or shotcreting the area within its workspace, it may be required to advance the base to a new location to complete the scanning or shotcreting process. It does so using Algorithm \ref{alg:findandmove}.
+Once the MASS has completed scanning or shotcreting the area within its workspace, it may be required to advance the base to a new location to complete the scanning or shotcreting process. It does so using Algorithm \ref{alg:findandmove}.
 
 \begin{algorithm}[H]
 \caption{Base Advance Algorithm}
@@ -549,7 +549,7 @@ Some of the nodes in this work use messages or functions created for other packa
 \begin{itemize}
 \item roscpp
 \item rospy
-\item rviz
+\item RViz
 \item sensor\_msgs
 \item std\_msgs
 \item tf
@@ -564,7 +564,7 @@ Some of the nodes in this work use messages or functions created for other packa
 \item laser\_assembler
 \item pcl\_conversions 
 \item pcl\_ros 
-\item MASSS\_husky\_description
+\item MASS\_husky\_description
 \item qt\_build
 \item dynamic\_reconfigure
 \end{itemize}

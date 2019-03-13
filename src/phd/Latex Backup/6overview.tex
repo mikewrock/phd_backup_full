@@ -37,7 +37,7 @@ The final product will likely use hydraulics to position the shotcreting and sca
     \caption{SICK LMS101 LiDAR \cite{sickpage}}
     \label{fig:sick}
 \end{figure}
-%https://www.sick.com/de/en/detection-and-ranging-solutions/2d-lidar-sensors/lms1xx/lms101-10000/p/p346868?ff_data=JmZmX2lkPXAzNDY4NjgmZmZfbWFzdGVySWQ9cDM0Njg2OCZmZl90aXRsZT1MTVMxMDEtMTAwMDAmZmZfcXVlcnk9JmZmX3Bvcz04JmZmX29yaWdQb3M9OCZmZl9wYWdlPTEmZmZfcGFnZVNpemU9OCZmZl9vcmlnUGFnZVNpemU9OCZmZl9zaW1pPTkzLjA=
+%https://www.sick.com/de/en/detection-and-ranging-solutions/2d-LiDAR-sensors/lms1xx/lms101-10000/p/p346868?ff_data=JmZmX2lkPXAzNDY4NjgmZmZfbWFzdGVySWQ9cDM0Njg2OCZmZl90aXRsZT1MTVMxMDEtMTAwMDAmZmZfcXVlcnk9JmZmX3Bvcz04JmZmX29yaWdQb3M9OCZmZl9wYWdlPTEmZmZfcGFnZVNpemU9OCZmZl9vcmlnUGFnZVNpemU9OCZmZl9zaW1pPTkzLjA=
 The LMS101 is a LiDAR scanner manufactured by SICK. It has an aperture angle of 270$\degree$, angular resolution of 0.25$\degree$ at 25 Hz, and optimal range of 0.5 m - 20 m. SICK is a well know brand of LiDAR scanners, with lots of software drivers available for the various systems it works with. The ROS driver for this LiDAR does not natively support 0.25$\degree$ resolution, so it has been modified accordingly. It has a systematic error of $\pm$30 mm and statistical error	of 12 mm, though through testing it was found the LiDAR performs much better in the given test conditions. With and IP rating of IP65, it is suitable for indoor use but can be replaced with another model from the same family with equal performance but higher IP rating (up to IP67).\\
 \subsection{Schunk Powercube PR70}
 \begin{figure}[H]
@@ -46,22 +46,22 @@ The LMS101 is a LiDAR scanner manufactured by SICK. It has an aperture angle of 
     \caption{Schunk Powercube PR70 \cite{schunkpage}}
     \label{fig:schunk}
 \end{figure}
-The LiDAR used must be mounted on a nodding head to generate pointclouds. The Powercube PR70 made by Schunk was chosen for this task partly since it was already an asset of the UOIT MARS lab. The module has higher accuracy and payload than the application requires, but since it was an unused asset it was chosen for this application for practicality reasons. It has a nominal torque of 15 Nm, repeat accuracy of 0.03$\degree$, maximum angular velocity of 240$\degree$/s, and maximum acceleration of 960$\degree$/s$^2$. \\
+The LiDAR used must be mounted on a nodding head to generate point clouds. The Powercube PR70 made by Schunk was chosen for this task partly since it was already an asset of the UOIT MARS lab. The module has higher accuracy and payload than the application requires, but since it was an unused asset it was chosen for this application for practicality reasons. It has a nominal torque of 15 Nm, repeat accuracy of 0.03$\degree$, maximum angular velocity of 240$\degree$/s, and maximum acceleration of 960$\degree$/s$^2$. \\
 \section{Software}
 \label{sec:software}
 All software integrated and developed for this research is intended for use within the ROS framework. Since ROS is an open source community with many packages available for use in research, it offers a wide selection of resources useful to this work.\\
 
-Many of the tasks required for operation of the MASSS have already been developed by the ROS community. Hardware drivers, motion controllers, LiDAR scan to pointcloud assemblers, navigation, and mapping packages are already available through ROS. The following packages are necessary for the MASSS to function.\\
-\subsection{RVIZ}
-\label{sec:rviz}
+Many of the tasks required for operation of the MASS have already been developed by the ROS community. Hardware drivers, motion controllers, LiDAR scan to point cloud assemblers, navigation, and mapping packages are already available through ROS. The following packages are necessary for the MASS to function.\\
+\subsection{RViz}
+\label{sec:RViz}
 
-Complete documentation on RVIZ can be found at \url{http://wiki.ros.org/rviz}\\
+Complete documentation on RViz can be found at \url{http://wiki.ros.org/RViz}\\
 
-RVIZ is a powerful visualization tool developed for use with ROS. There is a large quantity of information that can be generated using ROS that is not easily interpreted without the use of an interactive graphical user interface. RVIZ allows users to view, interact with, interpret, and modify the data handled within ROS. RVIZ is an invaluable tool in mobile robotics; it can display a model of the robot, a map the robot has generated of its environment, the path it intends to follow, and display sensor data the robot acquires. The user can interact with RVIZ and send commands to the robot such as: position goals, movement commands, status changes, or selecting parts of the sensor data to be used in other software algorithms.\\
+RViz is a powerful visualization tool developed for use with ROS. There is a large quantity of information that can be generated using ROS that is not easily interpreted without the use of an interactive graphical user interface. RViz allows users to view, interact with, interpret, and modify the data handled within ROS. RViz is an invaluable tool in mobile robotics; it can display a model of the robot, a map the robot has generated of its environment, the path it intends to follow, and display sensor data the robot acquires. The user can interact with RViz and send commands to the robot such as: position goals, movement commands, status changes, or selecting parts of the sensor data to be used in other software algorithms.\\
 
-RVIZ is designed to be adaptable for whatever the operator needs. Custom tools and plugins are easily developed to make RVIZ helpful in the context it is used. In this work, a custom tool was implemented for selecting sections of the mine surface to be scanned or shotcreted. A custom plugin called the control panel was created to provide a user-friendly interface to command and control all relevant aspects of the MASSS.\\
+RViz is designed to be adaptable for whatever the operator needs. Custom tools and plugins are easily developed to make RViz helpful in the context it is used. In this work, a custom tool was implemented for selecting sections of the mine surface to be scanned or shotcreted. A custom plugin called the control panel was created to provide a user-friendly interface to command and control all relevant aspects of the MASS.\\
 
-RVIZ configurations can be saved to a file and loaded at launch when the robot control system is brought online. The configuration file for this work sets the RVIZ environment in a way that is practical for the operator, but includes options to reveal information useful for debugging and research. For example, under most circumstances the pointcloud representation of the mine surface should be shown but individual laser scans hidden. If the operator wanted to see the instantaneous view of the robot's environment represented as a laser scan, the topic's checkbox simply needs to be checked. Similarly, pointclouds are cropped to remove sections of the robot detected be the scanner can be visualized by enabling the appropriate display. When generating trajectories the surface path, surface normals, and end-effector path is shown, however the operator may only want some or none of the information displayed so they are all easily hidden or shown. This is all accomplished in the ``Displays'' panel of RVIZ. The configuration file subscribes RVIZ to all the available topics and automatically hides the topics containing information that does not need to be displayed.\\
+RViz configurations can be saved to a file and loaded at launch when the robot control system is brought online. The configuration file for this work sets the RViz environment in a way that is practical for the operator, but includes options to reveal information useful for debugging and research. For example, under most circumstances the point cloud representation of the mine surface should be shown but individual laser scans hidden. If the operator wanted to see the instantaneous view of the robot's environment represented as a laser scan, the topic's checkbox simply needs to be checked. Similarly, point clouds are cropped to remove sections of the robot detected be the scanner can be visualized by enabling the appropriate display. When generating trajectories the surface path, surface normals, and end-effector path is shown, however the operator may only want some or none of the information displayed so they are all easily hidden or shown. This is all accomplished in the ``Displays'' panel of RViz. The configuration file subscribes RViz to all the available topics and automatically hides the topics containing information that does not need to be displayed.\\
 
 \subsection{Husky}
 
@@ -94,7 +94,7 @@ Gazebo is a simulation tool used in ROS. With a fully defined robot model, Gazeb
 
 \paragraph{husky\_viz}
 
-RVIZ configurations can be saved and loaded by ROS. The \node{husky_viz} package contains various configurations for RVIZ that optimize its configuration for use with the Husky.\\
+RViz configurations can be saved and loaded by ROS. The \node{husky_viz} package contains various configurations for RViz that optimize its configuration for use with the Husky.\\
 
 \paragraph{husky\_control}
 
@@ -102,7 +102,7 @@ The package \node{husky_control} turns motion goals in to actual robot motion. T
 
 \paragraph{husky\_description}
 
-In order to visualize the robot in the RVIZ environment, the robot requires a description. The robot description contains all the relevant information about the robot parts, which way they can move, what colour they are, and how to visually represent them. The description also contains the relevant physical characteristics to simulate the robot in Gazebo. The \node{husky_description} package uses the Unified Robot Description Format (URDF) to describe the model for the Husky UGV.\\
+In order to visualize the robot in the RViz environment, the robot requires a description. The robot description contains all the relevant information about the robot parts, which way they can move, what colour they are, and how to visually represent them. The description also contains the relevant physical characteristics to simulate the robot in Gazebo. The \node{husky_description} package uses the Unified Robot Description Format (URDF) to describe the model for the Husky UGV.\\
 
 \paragraph{husky\_msgs}
 
@@ -141,13 +141,13 @@ The \node{move_base} package takes high level commands such as a location goal a
 
 Complete documentation of the Laser Assembler package can be found at \url{http://wiki.ros.org/laser_assembler}\\
 
-The \node{laser_assembler} package converts the stream of laserscan data to a pointcloud. When MASSS creates a pointcloud representation of it's surroundings, it tells \node{laser_assembler} package when to start and stop recording the laser scans generated by the LMS100 LiDAR scanner. The assembler will store all of the laserscans, along with the coordinate frame transformation from a fixed frame to the LiDAR frame at that moment. When the pointcloud scan is complete, \node{laser_assembler} is notified and produces a pointcloud in the coordinate frame requested by the user. Discussed further in Section \ref{sec:locsourceerror}, the parameter \var{ignore_laser_skew} is set to false so that each point in the laser scan is transformed using the current pose of the LiDAR rather than the whole scan at once.\\
+The \node{laser_assembler} package converts the stream of laserscan data to a point cloud. When MASS creates a point cloud representation of it's surroundings, it tells \node{laser_assembler} package when to start and stop recording the laser scans generated by the LMS100 LiDAR scanner. The assembler will store all of the laserscans, along with the coordinate frame transformation from a fixed frame to the LiDAR frame at that moment. When the point cloud scan is complete, \node{laser_assembler} is notified and produces a point cloud in the coordinate frame requested by the user. Discussed further in Section \ref{sec:locsourceerror}, the parameter \var{ignore_laser_skew} is set to false so that each point in the laser scan is transformed using the current pose of the LiDAR rather than the whole scan at once.\\
 
 \subsection{Hector SLAM}
 
 Complete documentation of the Hector SLAM package can be found at \url{http://wiki.ros.org/hector_slam}\\
 
-The \node{hector_slam} package contains the \node{hector_mapping} package used by the MASSS to perform SLAM. The two main SLAM packages available for use with ROS are Gmapping and Hector SLAM. Gmapping is a more popular algorithm, but requires odometry from the robot. Hector SLAM can perform SLAM without the need for odometry. While the MASSS does measure its odometry, it is intended for use on uneven rocky ground and odometry may not be reliable. For that reason, Hector SLAM was chosen as the SLAM algorithm for use on the MASSS. However, thanks to the modularity that ROS offers it is a simple task to utilize other SLAM algorithms like Gmapping on the MASSS.\\
+The \node{hector_slam} package contains the \node{hector_mapping} package used by the MASS to perform SLAM. The two main SLAM packages available for use with ROS are Gmapping and Hector SLAM. Gmapping is a more popular algorithm, but requires odometry from the robot. Hector SLAM can perform SLAM without the need for odometry. While the MASS does measure its odometry, it is intended for use on uneven rocky ground and odometry may not be reliable. For that reason, Hector SLAM was chosen as the SLAM algorithm for use on the MASS. However, thanks to the modularity that ROS offers it is a simple task to utilize other SLAM algorithms like Gmapping on the MASS.\\
 
 \subsection{RQT Reconfigure}
 
@@ -162,40 +162,40 @@ If a node has been configured with parameters that can change at runtime, \node{
     \label{fig:dyngui2}
 \end{figure}
 
-\subsection{The MASSS ROS Package}
+\subsection{The MASS ROS Package}
 \label{sub:software}
 
-A thorough discussion of the source code is provided in Chapter \ref{chap:code}, however an overview of the MASSS would be incomplete without mentioning the ROS package that provides its functionality. The complete code can be found in Appendix \ref{app:code}.\\ 
+A thorough discussion of the source code is provided in Chapter \ref{chap:code}, however an overview of the MASS would be incomplete without mentioning the ROS package that provides its functionality. The complete code can be found in Appendix \ref{app:code}.\\ 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{Pics/rviz_window.png}
-    \caption{RVIZ User Interface}
+    \includegraphics[width=\textwidth]{Pics/RViz_window.png}
+    \caption{RViz User Interface}
     \label{fig:panel}
 \end{figure}
 
-The main interface between the user and the control system occurs within an RVIZ window. Along with the regular features of RVIZ, this software adds a panel and a tool to the RVIZ interface. The additional features can be seen in Figure \ref{fig:panel}. The code for the control panel is split between two files. For the system's current purpose it would be far less functional to have a standalone Graphical User Interface (GUI) and not use RVIZ for visualization therefore \node{control_dashboard} was designed as a plugin for RVIZ. As future work on this project continues, the need for RVIZ visualization may diminish, so the node was designed to make converting it to run without RVIZ a trivial task. Eventually, when this system is implemented in a mine, no graphical interface at all will be required on the machine itself. For that reason, the core functionality of the system lies in the \node{control_panel} node. The \node{control_dashboard} node simply relays the actions from the user interface to the \node{control_panel} node.\\
+The main interface between the user and the control system occurs within an RViz window. Along with the regular features of RViz, this software adds a panel and a tool to the RViz interface. The additional features can be seen in Figure \ref{fig:panel}. The code for the control panel is split between two files. For the system's current purpose it would be far less functional to have a standalone Graphical User Interface (GUI) and not use RViz for visualization therefore \node{control_dashboard} was designed as a plugin for RViz. As future work on this project continues, the need for RViz visualization may diminish, so the node was designed to make converting it to run without RViz a trivial task. Eventually, when this system is implemented in a mine, no graphical interface at all will be required on the machine itself. For that reason, the core functionality of the system lies in the \node{control_panel} node. The \node{control_dashboard} node simply relays the actions from the user interface to the \node{control_panel} node.\\
 
-The \node{control_panel} node is the heart of the control system. It is responsible for calling the localization, trajectory generation, and thickness estimation services, as well as communication with the DENSO arm, PowerCube servo, and Husky UGV. Other MASSS-specific requirements such as cropping regions from the robots perception that are occupied by the robot itself, or  modifying trajectory points to fit within the DENSO arm's workspace are performed by the \node{control_panel} node. \\
+The \node{control_panel} node is the heart of the control system. It is responsible for calling the localization, trajectory generation, and thickness estimation services, as well as communication with the DENSO arm, PowerCube servo, and Husky UGV. Other MASS-specific requirements such as cropping regions from the robots perception that are occupied by the robot itself, or  modifying trajectory points to fit within the DENSO arm's workspace are performed by the \node{control_panel} node. \\
 
 The main contribution to the ROS community are the localization, trajectory generation, and thickness estimation services. These three services are intended to be as portable as possible so they can be useful in any robotics project, regardless of the system configuration. Should other researchers have a need for the service they provide, one simply needs to install the package and will be able to launch the desired service from the terminal or their own launch file. Unfortunately, due to this document's confidentiality the source code will not be made available, so the functionality of the compiled binaries are provided as-is.\\
 
-\subsubsection{MASSS GUI}
+\subsubsection{MASS GUI}
 \label{sub:gui}
 
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=\textwidth]{Pics/gui.pdf}
-    \caption{MASSS GUI}
+    \caption{MASS GUI}
     \label{fig:thegui}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 %FIX THIS FIGURE"CALCULATE THICKNESS"
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55555
 
-The four tabs of the MASSS GUI control panel can be seen in Figure \ref{fig:thegui}. The main tab, called ``Operation'' is for use while the robot is operating. The red ``Stop'' button is a software activated emergency stop. The operation tab has a LiDAR scan button that commands the robot to perform a LiDAR scan using the nodding head and displays the resulting pointcloud in the RVIZ window. The ``Set Home'' button is pressed when the robot is in a location the operator intends to define as the origin. The home position is then used as the coordinate frame into which all other pointclouds are transformed in to. The ``Radiation Scan'' button generates a trajectory based on the current selection and performs the motions of a radiation scan. Clicking ``Apply Shotcrete'' generates a trajectory based on the current selection and performs the motions for shotcrete application. If no area is selected, the default region (defined with respect to the robot's centre) is used. ``Apply Continuously'' does the same thing but will drive forward and repeat the process until the operator stops it. Every time a pointcloud is acquired, it is saved to disk. The textbox allows the user to declare where they would like the pointclouds saved. The interface for recording localization markers is also present, and usage is discussed in Section \ref{sub:admin}.\\
+The four tabs of the MASS GUI control panel can be seen in Figure \ref{fig:thegui}. The main tab, called ``Operation'' is for use while the robot is operating. The red ``Stop'' button is a software activated emergency stop. The operation tab has a LiDAR scan button that commands the robot to perform a LiDAR scan using the nodding head and displays the resulting point cloud in the RViz window. The ``Set Home'' button is pressed when the robot is in a location the operator intends to define as the origin. The home position is then used as the coordinate frame into which all other point clouds are transformed in to. The ``Radiation Scan'' button generates a trajectory based on the current selection and performs the motions of a radiation scan. Clicking ``Apply Shotcrete'' generates a trajectory based on the current selection and performs the motions for shotcrete application. If no area is selected, the default region (defined with respect to the robot's centre) is used. ``Apply Continuously'' does the same thing but will drive forward and repeat the process until the operator stops it. Every time a point cloud is acquired, it is saved to disk. The textbox allows the user to declare where they would like the point clouds saved. The interface for recording localization markers is also present, and usage is discussed in Section \ref{sub:admin}.\\
 
-Though the shotcrete thickness is automatically displayed after applying shotcrete, the user may want to perform additional thickness calculations with RVIZ data or previously saved data. Selecting an area of a pointcloud and clicking ``Set Initial Cloud'' and repeating the steps for the final cloud allows the operator to calculate the shotcrete thickness at a specified region by pressing ``Calculate Thickness''. If they simply want to calculate thickness from two previously saved files, the filenames and locations can be entered and the calculation is performed upon pressing ``Estimate Thickness''. The resulting data can be saved to disk using the ``Save'' button, or an analysis of the data can be printed to the terminal window by pressing ``Compare Results''.\\
+Though the shotcrete thickness is automatically displayed after applying shotcrete, the user may want to perform additional thickness calculations with RViz data or previously saved data. Selecting an area of a point cloud and clicking ``Set Initial Cloud'' and repeating the steps for the final cloud allows the operator to calculate the shotcrete thickness at a specified region by pressing ``Calculate Thickness''. If they simply want to calculate thickness from two previously saved files, the filenames and locations can be entered and the calculation is performed upon pressing ``Estimate Thickness''. The resulting data can be saved to disk using the ``Save'' button, or an analysis of the data can be printed to the terminal window by pressing ``Compare Results''.\\
 
 The testing tab has many features useful in testing and developing new algorithms. Table \ref{tab:testing} explains each button's function.\\
 \begin{table}[h!] 
@@ -214,11 +214,11 @@ Execute Trajectory & Moves manipulator to simulate shotcrete application or radi
 Plot Path & Show the intended path the robot will travel to reach the desired location\\ \hline
 Execute Path & Move robot to desired location\\ \hline
 Show Nav Goal & Show robot's desired location\\ \hline
-Estimate Thickness & Calculate thickness from previous two pointcloud scans\\ \hline
+Estimate Thickness & Calculate thickness from previous two point cloud scans\\ \hline
 Nav Mode & Move LiDAR nodding head to a position for navigation (-1.57, other positions can be commanded by changing the value of the text box)\\ \hline
 Localize & Localize the robot\\ \hline
-Auto Crop & Automatically crop an area behind the robot that the trailer is likely to occupy from the pointcloud\\ \hline
-Load Scan & Load a pointcloud from file and treat it as if it was a newly acquired scan\\ \hline
+Auto Crop & Automatically crop an area behind the robot that the trailer is likely to occupy from the point cloud\\ \hline
+Load Scan & Load a point cloud from file and treat it as if it was a newly acquired scan\\ \hline
 Load Trajectory & Load a trajectory from file (at the location specified under ``Trajectory Save Location'')\\ \hline
 Reset Map & Reset the SLAM map\\ \hline
 Scan & Perform a LiDAR scan\\ \hline
@@ -232,7 +232,7 @@ The final tab allows the user to manually command the manipulator. The user can 
 \clearpage
 \section{Operation Overview}
 \label{sec:manual}
-This section is intended to serve as an overview of how the MASSS performs the following tasks:
+This section is intended to serve as an overview of how the MASS performs the following tasks:
 \begin{myitemize}
 \item Setting the Home Coordinate Frame
 \begin{myitemize}
@@ -264,7 +264,7 @@ This section is intended to serve as an overview of how the MASSS performs the f
      \multicolumn{2}{l}{
      \begin{minipage}{\textwidth} 	
 \scriptsize
-     \textbf{Manual Navigation} The MASSS can be driven using a standard USB joystick connected to any computer on the same network that hes been configured and running ROS.
+     \textbf{Manual Navigation} The MASS can be driven using a standard USB joystick connected to any computer on the same network that hes been configured and running ROS.
      \end{minipage}
      }\\
       
@@ -272,7 +272,7 @@ This section is intended to serve as an overview of how the MASSS performs the f
 \begin{minipage}{.4\textwidth} 	
 \scriptsize
 \raggedright
-        \textbf{Autonomous Navigation} The MASSS can autonomously navigate to a goal specified using the 2D Nav Goal tool located at the top of the RVIZ window (see Figure \ref{fig:goal2}). The MASSS performs SLAM as it is navigating and is capable of avoiding obstacles and planning paths around them. To set a goal click the RVIZ window where the robot should to navigate to, and drag the cursor in the direction the robot should face. A green arrow is shown representing the final position and orientation the navigation system will attempt to achieve. Though not required, it is recommended the operator perform a non-homing scan (by clicking the ``Scan'' button) so RVIZ can display a rendering of the environment.
+        \textbf{Autonomous Navigation} The MASS can autonomously navigate to a goal specified using the 2D Nav Goal tool located at the top of the RViz window (see Figure \ref{fig:goal2}). The MASS performs SLAM as it is navigating and is capable of avoiding obstacles and planning paths around them. To set a goal click the RViz window where the robot should to navigate to, and drag the cursor in the direction the robot should face. A green arrow is shown representing the final position and orientation the navigation system will attempt to achieve. Though not required, it is recommended the operator perform a non-homing scan (by clicking the ``Scan'' button) so RViz can display a rendering of the environment.
       \end{minipage}%
       &
         \begin{minipage}{.6\textwidth}
@@ -432,7 +432,7 @@ This section is intended to serve as an overview of how the MASSS performs the f
 \begin{minipage}{.3\textwidth} 	
 \scriptsize
 \raggedright
-       To autonomously apply shotcrete to a selected area, use the Selection Tool located at the top of the RVIZ window and drag a box to encompass the desired area to apply shotcrete (see Figure \ref{fig:xx12}). More complex selections can be achieved by holding the Ctrl button while selecting additional areas or points.
+       To autonomously apply shotcrete to a selected area, use the Selection Tool located at the top of the RViz window and drag a box to encompass the desired area to apply shotcrete (see Figure \ref{fig:xx12}). More complex selections can be achieved by holding the Ctrl button while selecting additional areas or points.
       \end{minipage}%
       &
         \begin{minipage}{.7\textwidth}
