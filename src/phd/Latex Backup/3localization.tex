@@ -19,7 +19,7 @@ Landmark based localization techniques avoid the unbounded error growth of dead 
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{Pics/frame.png}
-    \caption{Example landmark, a QR code}
+    \caption{Example Landmark, a QR Code}
     \label{fig:qr}
 \end{figure}
 
@@ -38,7 +38,7 @@ For this work, a novel localization method was developed to suit the needs and c
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{Pics/fiducial.jpg}
-    \caption{IR reflective spherical fiducial marker}
+    \caption{IR Reflective Spherical Fiducial Marker Keypoint}
     \label{fig:fiducial}
 \end{figure}
 
@@ -47,7 +47,7 @@ The fiducial markers used in this work are IR reflective spheres produced by Opt
 \begin{figure}
     \centering
     \includegraphics[width=0.2\textwidth]{Pics/light_metallic_spray_400px.jpg}
-    \caption{Reflective spray paint \cite{spraypaint}}
+    \caption{Reflective Spray Paint \cite{spraypaint}}
     \label{fig:irspray}
 \end{figure}
 
@@ -64,8 +64,8 @@ The only true restriction on the placement of the marker keypoints is that they 
 To yield the greatest accuracy, the fiducial marker keypoints should be placed as far apart as possible while remaining close enough to be captured in a single point cloud. Figure \ref{fig:resacc} demonstrates a worst case scenario for position estimation using fiducial markers when the keypoints are not detected accurately. This occurs when the two closest keypoints within the fiducial marker are measured incorrectly by a distance equal to the maximum error of the LiDAR scanner ($e_1$), in opposite collinear directions. When this occurs, the error at the point furthest from the marker centre is calculated to be $e_2$ from:
 
 \begin{figure}
-\includegraphics[width=\textwidth]{Pics/error.png}
-\caption{Accuracy loss from keypoint measurement error}
+\includegraphics[width=0.4\textwidth]{Pics/error.pdf}
+\caption{Accuracy Loss From Keypoint Measurement Error}
 \label{fig:resacc} 
 \end{figure}
 
@@ -124,7 +124,7 @@ The world coordinate frame is defined relative to a fiducial marker. After a hom
     ^{B}_{W}\mathbf{T} = ^{B}_{M}\mathbf{T}^{M}_{W}\mathbf{T}
 \end{equation}\\
 
-Point clouds are recorded in the robot base's coordinate frame. Using the function \var{transformPointCloud()} from the Point Cloud Library (PCL) and $^{B}_{W}\mathbf{T}$, the point cloud is transformed to the world coordinate frame. The localized point cloud is saved to disk in the world coordinate frame so when it is viewed at a later time it is oriented in a meaningful way to the user.\\
+Point clouds are recorded in the robot base's coordinate frame. Using the function \func{transformPointCloud} from the Point Cloud Library (PCL) and $^{B}_{W}\mathbf{T}$, the point cloud is transformed to the world coordinate frame. The localized point cloud is saved to disk in the world coordinate frame so when it is viewed at a later time it is oriented in a meaningful way to the user.\\
 
 \subsection{Using Multiple Markers}
 
@@ -141,6 +141,7 @@ If more than two markers are included, the following formula can be applied:
 \label{eq:mmtmat}
    ^{W}_{B}\mathbf{T} = ^{W}_{M_1}\mathbf{T}^{M_1}_{M_2}\mathbf{T}\hdots^{M_{n-1}}_{M_n}\mathbf{T}^{M_n}_{B}\mathbf{T}
 \end{equation}
-
+\subsection{The Marker File}
+A marker file contains the information of one or more markers. Using ROS's bag file format, each marker is stored in the form of a ROS marker message. The bag files and their messages can easily be read and written to using the ROS functions for reading and writing `bag' files. ROS command line utilities allow users to view the contents of the marker file, add to them, or publish the messages they contain. The marker files can be copied as backups or for use in other machines. If multiple marker files have different markers recorded within them, they can be combined. Existing marker files can record additional markers without the need to predetermine or limit their maximum size. The marker file is a highly portable and accessible container optimized for the ROS framework capable of storing any number of markers.\\
 %\section{Chapter Summary}
 %This chapter presents the fiducial marker method of localization and why it was chosen. The strategy for placing the marker keypoints and how to record them, as well as how the system detects and determines the position of the marker was discussed. How to transform the coordinate frames for the robot base and marker to the world coordinate frame was shown. An explanation of how multiple fiducial markers can be used was given.

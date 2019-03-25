@@ -1,6 +1,6 @@
 \include{packagesClasses}
 \include{studentInfo}
-
+\addbibresource{references.bib} 
 %% Helps generate the nomenclature
 \newcommand*{\glossaryname}{Glossary}
 \usepackage[nonumberlist,toc]{glossaries}
@@ -54,6 +54,10 @@
   \newcommand{\var}[1]{
    \unskip\textit{\detokenize{#1}}\unskip
   }
+  \newcommand{\func}[1]{
+   \unskip\textit{\detokenize{#1}}()\unskip
+  }
+  \def\CC{{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\tiny\bf ++}}}
   \newcommand{\cpnode}{\node{control\_panel}}
   
   \lstdefinestyle{mystyle}{
@@ -152,7 +156,7 @@
   \listofalgorithms
   \addcontentsline{toc}{chapter}{List of Algorithms}
   %%------------Dedication----------------------------
-  \include{dedication}
+ % \include{dedication}
 
   %%-------------Change single space to double space--
   \newpage
@@ -161,19 +165,22 @@
 
   %%-------------Include your chapters----------------
   %% You can rename the files.
-  \include{1introduction}
-  \include{2background}
-  \include{3localization}
+%  \include{1introduction}
+%  \include{2background}
+%  \include{3localization}
   \include{4trajectory}
-  \include{5thickness}
-  \include{6overview}
-  \include{7code}
-  \include{8testing}
-  \include{9conclusions}
+%  \include{5thickness}
+%  \include{6overview}
+%  \include{7code}
+%  \include{8testing}
+%  \include{9conclusions}
 
-  \bibliographystyle{IEEEtran}
-  \bibliography{references}
-
+  %\bibliographystyle{IEEEtran}
+  %\bibliography{references}
+  \printbibliography[
+heading=bibintoc,
+title={References}
+]
   \include{appendix}
   
  

@@ -1,14 +1,46 @@
 \chapter{Operation Instructions}
 \label{chap:manual}
-
+This chapter is intended to serve as a guide to give the reader better understanding of how the MASS performs the following tasks:
+\begin{myitemize}
+\item Setting the Home Coordinate Frame
+\begin{myitemize}
+\item Navigating The Robot to Home Position
+\item Performing a Localization Scan
+\end{myitemize}
+\item Recording the Fiducial Marker
+\begin{myitemize}
+\item Selecting marker Keypoints
+\item Training Additional Markers
+\end{myitemize}
+\item Shotcrete Application
+\begin{myitemize}
+\item Applying Shotcere to a Selected Area
+\item Autonomous Shotcrete Application
+\end{myitemize}
+\item Shotcrete Thickness Estimation
+\begin{myitemize}
+\item Automatic Thickness Estimation
+\item Thickness Estimation From File
+\item Loading a Point Cloud From Disk
+\item Estimating Shotcrete Thickness Between Two Selected Areas
+\end{myitemize}
+\end{myitemize}
+\newpage
 \begin{tabularx}{\textwidth}{p{0.3\textwidth} p{0.7\textwidth} }
     \multicolumn{2}{c}{\textbf{Setting the home coordinate frame}}\\ \toprule
-    \multicolumn{2}{l}{\textbf{Navigate robot to home position}}\\ \midrule
+    \multicolumn{2}{l}{\textbf{Navigating robot to home position}}\\ \midrule
+     \multicolumn{2}{l}{
+     \begin{minipage}{\textwidth} 	
+\scriptsize
+     \textbf{Manual Navigation} The MASS can be driven using a standard USB joystick connected to any computer on the same network that hes been configured and running ROS.
+     \end{minipage}
+     }\\
+      
+      \\
 \begin{minipage}{.3\textwidth} 	
 \scriptsize
 \raggedright
-        \textbf{Manual Navigation} The MASSS can be driven using a standard USB joystick connected to any computer on the same network that hes been configured and running ROS.\\
-        \textbf{Autonomous Navigation} The MASSS can autonomously navigate to a goal specified using the 2D Nav Goal tool located at the top of the RVIZ window. The MASSS performs SLAM as it is navigating and is capable of avoiding obstacles and planning paths around them. To set a goal click the RVIZ window where the robot should to navigate to, and drag the cursor in the direction the robot should face. A green arrow is shown representing the final position and orientation the navigation system will attempt to achieve. Though not required, it is recommended the operator perform a non-homing scan (by clicking the ``Scan'' button) so RVIZ can display a rendering of the environment.
+        \textbf{Autonomous Navigation} The MASS can autonomously navigate to a goal specified using the 2D Nav Goal tool located at the top of the RViz window. The MASS performs SLAM as it is navigating and is capable of avoiding obstacles and planning paths around them. To set a goal click the RViz window where the robot should to navigate to, and drag the cursor in the direction the robot should face. A green arrow is shown representing the final position and orientation the navigation system will attempt to achieve. Though not required, it is recommended the operator perform a non-homing scan (by clicking the ``Scan'' button) so RViz can display a rendering of the environment.
       \end{minipage}%
       &
         \begin{minipage}{.7\textwidth}
@@ -33,6 +65,7 @@
         \vspace{1pt}
       \begin{center}
             \includegraphics[width=.5\linewidth]{Pics/Manual/sethome.png}
+      \captionsetup[figure]{font=scriptsize}
       \captionof{figure}{Control Panel, Operation Tab. Set Home Button Highlighted}
 		\end{center}
     \end{minipage}
@@ -55,7 +88,13 @@
       \label{fig:afar}
 		\end{center}
     \end{minipage}\\
-   
+    \multicolumn{2}{c}{\begin{minipage}{\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=\linewidth]{Pics/Manual/marker_2view.png}
+      \captionof{figure}{Marker Keypoints Are Easily Visible When Colours Are Set to Indicate Intensity}
+		\end{center}
+    \end{minipage}}
 \end{tabularx}
 
 \begin{tabularx}{\textwidth}{m{0.3\textwidth} m{0.7\textwidth} }
@@ -152,27 +191,31 @@
 \begin{minipage}{.3\textwidth} 	
 \scriptsize
 \raggedright
-       To autonomously apply shotcrete to a selected area, use the Selection Tool located at the top of the RVIZ window and drag a box to encompass the desired area to apply shotcrete. More complex selection shapes can be achieved by holding the Ctrl button while selecting additional areas or points.
+       To autonomously apply shotcrete to a selected area, use the Selection Tool located at the top of the RViz window and drag a box to encompass the desired area to apply shotcrete. More complex selection shapes can be achieved by holding the Ctrl button while selecting additional areas or points.
       \end{minipage}%
       &
         \begin{minipage}{.7\textwidth}
         \vspace{1pt}
       \begin{center}
-            \includegraphics[width=\linewidth]{Pics/Manual/afar_goal.png}
+            \includegraphics[width=\linewidth]{Pics/Manual/shotcrete_selecting.png}
       \captionof{figure}{Manual Selection of Shotcrete Area}
 		\end{center}
     \end{minipage}\\
 		\begin{minipage}{.3\textwidth} 	
 \scriptsize
 \raggedright
-       Once the desired area has been selected, press the Generate Trajectory button to generate a trajectory for the manipulator to follow.
+       Once the desired area has been selected, press the Generate Trajectory button to generate a trajectory for the manipulator to follow.\\
+       \vspace{2pt}
+       \includegraphics[width=\linewidth]{Pics/Manual/operation_gen.png}
+      \captionsetup[figure]{font=scriptsize}
+      \captionof{figure}{Generate Trajectory Button}
       \end{minipage}%
       &
         \begin{minipage}{.7\textwidth}
         \vspace{1pt}
       \begin{center}
-            \includegraphics[width=.5\linewidth]{Pics/Manual/operation_gen.png}
-      \captionof{figure}{Generate Trajectory Button}
+            \includegraphics[width=\linewidth]{Pics/Manual/shotcrete_trajectory.png}
+      \captionof{figure}{Trajectory Generated from Shotcrete Selection}
 		\end{center}
     \end{minipage}
 \end{tabularx}
@@ -206,28 +249,32 @@
 		\end{center}
     \end{minipage}
 \end{tabularx}
-
-\begin{tabularx}{\textwidth}{p{0.3\textwidth} p{0.7\textwidth} }
-    \multicolumn{2}{l}{\textbf{Autonomous Shotcrete Application}}\\ \midrule
-\begin{minipage}{.3\textwidth} 	
+%
+\newpage
+\begin{tabularx}{\textwidth}{p{\textwidth}}
+    \textbf{Autonomous Shotcrete Application}\\ \midrule
+\begin{minipage}{.7\textwidth} 	
 \scriptsize
 \raggedright
        When the robot autonomously applies shotcrete it acts similar to a wall following robot; it will follow the mine surface beside it until the operator commands it to stop (Using the STOP button on the Control Panel).
-      \end{minipage}%
-      &
-        \begin{minipage}{.7\textwidth}
+\end{minipage}%
+\begin{minipage}{.3\textwidth}
         \vspace{1pt}
       \begin{center}
-            \includegraphics[width=.5\linewidth]{Pics/Manual/operation_stop.png}
-      \captionof{figure}{STOP Button Can be Used During Regular Operation or During Emergency Operator Intervention}
+            \includegraphics[width=.8\linewidth]{Pics/Manual/operation_stop.png}
+      %\captionsetup[figure]{font=scriptsize}
+      %\captionof{figure}{STOP Button Can be Used During Regular Operation or During Emergency Operator Intervention}
 		\end{center}
-    \end{minipage}\\
+		\end{minipage}\\
+      \begin{center}
+            \includegraphics[width=\linewidth]{Pics/Manual/3pose_frame.png}
+      \captionof{figure}{Multiple Trajectories Generated as Robot Autonomously Follows Mine Applying Shotcrete}
+		\end{center}\\
     \begin{minipage}{.3\textwidth} 	
 \scriptsize
 \raggedright
        The operator should navigate the robot to a location where the automatic shotcreting can begin, using the Set Goal tool as shown in Figure \ref{fig:goal}. Once there, the operator should ensure the automatic shotcrete selection area, as well as the automatic occlusion area is suitable. The area of the mine scan that is kept for trajectory generation is shown in blue and can be changed using the \node{rqt_reconfigure} panel.
       \end{minipage}%
-      &
         \begin{minipage}{.7\textwidth}
         \vspace{1pt}
       \begin{center}
@@ -267,21 +314,6 @@
     \end{minipage}
 \end{tabularx}
 
-\begin{tabularx}{\textwidth}{p{0.3\textwidth} p{0.7\textwidth} }
-    \multicolumn{2}{l}{\textbf{Autonomous Shotcrete Application (Continued)}}\\ \midrule
-       \multicolumn{2}{c}{\begin{minipage}{\linewidth}
-\scriptsize
-        Progress should be monitored by the operator, and the STOP button should be pressed when the robot has finished applying shotcrete to the desired area.
-        \end{minipage}}\\
- \multicolumn{2}{c}{\begin{minipage}{\linewidth}
-    
-        \vspace{1pt}
-      \begin{center}
-            \includegraphics[width=\linewidth]{Pics/Manual/triple.png}
-      \captionof{figure}{Multiple Trajectories Generated as Robot Autonomously Follows Mine Applying Shotcrete}
-		\end{center}
-    \end{minipage}}
-\end{tabularx}
 
 \begin{tabularx}{\textwidth}{p{0.3\textwidth} p{0.7\textwidth} }
     \multicolumn{2}{c}{\textbf{Shotcrete Thickness Estimation}}\\ \toprule
@@ -295,7 +327,7 @@
         \begin{minipage}{.7\textwidth}
         \vspace{1pt}
       \begin{center}
-            \includegraphics[width=.5\linewidth]{Pics/thickeg.png}
+            \includegraphics[width=\linewidth]{Pics/Manual/thickness_result.png}
       \captionof{figure}{Automatic Thickness Estimate}\label{fig:thickeg}
 		\end{center}
     \end{minipage}
@@ -348,5 +380,45 @@
       \captionof{figure}{Calculating Shotcrete Thickness for a Specific Selection}
 		\end{center}
     \end{minipage}\\
+    \multicolumn{2}{c}{
+    \begin{minipage}{.5\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=\linewidth]{Pics/Manual/pre_selecting.png}
+      \begin{minipage}{.8\linewidth}
+      \captionof{figure}{Selecting the Initial Point Cloud}
+      \end{minipage}
+		\end{center}
+    \end{minipage}%
+    \begin{minipage}{.5\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=\linewidth]{Pics/Manual/post_selecting.png}
+      \begin{minipage}{.8\linewidth}
+      \captionof{figure}{Selecting the Final Point Cloud}
+      \end{minipage}
+		\end{center}
+    \end{minipage}
+    }\\
+        \multicolumn{2}{c}{
+    \begin{minipage}{.5\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=\linewidth]{Pics/Manual/pre_selected.png}
+      \begin{minipage}{.8\linewidth}
+      \captionof{figure}{Selecting the Initial Point Cloud (V2)}
+      \end{minipage}
+		\end{center}
+    \end{minipage}%
+    \begin{minipage}{.5\textwidth}
+        \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=\linewidth]{Pics/Manual/post_selected.png}
+      \begin{minipage}{.8\linewidth}
+      \captionof{figure}{Selecting the Final Point Cloud (V2)}
+      \end{minipage}
+		\end{center}
+    \end{minipage}
+    }
 \end{tabularx}\\
 
