@@ -5,8 +5,7 @@
 A package is the most atomic structure in \acrshort{ros}, meaning it is the root of all projects created for \acrshort{ros}. At its minimum, a package is simply a directory containing \node{package.xml}. As the package expands to contain software nodes, a \node{CMakeLists.txt} file is used to define which software files need to be compiled. The \node{CMakeLists.txt} file also includes the required information to complile the package's messages, services, dependencies, and header files. Packages are self contained so they can be easily shared and implemented on other systems.\\
 
 \subsection{package.xml}
-The file \node{package.xml} contains the package name, version number, description, maintainer, and license. As well, it contains a list of all the other packages necessary to build and run the package. It contains a reference to \node{plugin_description.xml} so the compiler is aware there are custom plugins for this package and what file they are located in.\\
-
+The file \node{package.xml} contains the package name, version number, description, maintainer, and license. As well, it contains a list of all the other packages necessary to build and run the package. It contains a reference to \node{plugin_description.xml} so the compiler is aware there are custom plugins for this package and what file they are located in.
 The \node{package.xml} for the MASS can be found in Appendix \ref{app:pack}.
 \subsection{plugin\_description.xml}
 This package uses a custom plugin and tool for RViz. The plugin, called ``Control Panel'' is a \textbf{ControlPanel} object in the ``control\_panel'' namespace and extends the \textbf{RViz::Panel} class. The ``Selection Tool'' tool is a fork of the \textbf{SelectionTool} class called \textbf{selection\_tool} and extends the \textbf{RViz::Tool} class. It has been modified to function more effectively when used with the MASS \acrshort{gui}.\\
@@ -154,7 +153,7 @@ The \var{arm_msg} message was designed to make it easy to send commands to the D
 \subsection{cube\_msg.msg}
 \includecode{CleanedCode/msg/cube_msg.msg}{cube\_msg.msg}
 Originally the \node{cube_node} was designed to handle multiple Powercubes at once, but as research progressed, the Powercube manipulator was replaced with the DENSO manipulator. Additional joint variables can easily be added should a user want to control multiple Powercubes, however, a single Powercube for the nodding head servo is all that is required within this work. The variables in the \var{cube_msg} message contain the desired position or velocity (depending on the value of \var{pose}), the maximum velocity (used only in position commands), and maximum acceleration allowed to reach the position (or velocity) goal.\\
-
+\clearpage
 \subsection{marker\_val.msg}
 \includecode{CleanedCode/msg/marker_val.msg}{marker\_val.msg}
 When the localization algorithm attempts to detect the markers, it is possible there may be many potential keypoints to choose from, meaning multiple marker candidates exist. The \var{marker_val} message is used to hold them so a sorting algorithm can find the closest match in the marker file. The \var{i}, \var{j}, and \var{k} variables hold the position of the first, second, and third keypoint within the array of keypoint candidates. The \var{val} variable holds a value representing how accurately the keypoints correspond to the recorded keypoints in the marker file. The value for \var{val} is calculated using a weighted sum of the the distances between $P_1-P_2$, $P_2-P_3$, and the angle between $\mathbf{P_1P_2}$ and $\mathbf{P_2P_3}$. \\
@@ -269,7 +268,7 @@ After the clustering algorithm, an array of keypoint candidates is produced. If 
 \end{algorithm}
 \end{spacing}
 The code for calculating the transformation matrix (where P1, P2, and P3 correspond to $i$, $j$, and $k$ from algorithm \ref{alg:keypoint}) can be found in Appendix \ref{app:tmat}.\\
-
+\clearpage
 \subsection{Trajectory Generation  Service}
 \includecode{CleanedCode/srv/trajectory_service.srv}{trajectory\_service.srv}
 The trajectory generation service expects two point clouds and returns a \var{trajectory_msg} formatted trajectory (see Section \ref{sec:trajmsg}). The first point cloud, called \var{cloud_in}, is the area to generate a trajectory for. The second point cloud, \var{cloud_surface}, is the entire scan. The full surface scan is required for calculating surface normals at the edge of the selected area, since without it only a portion of the surrounding data points would be used to calculate the surface normal.\\
@@ -410,8 +409,7 @@ The Unified Robot Description Format (\acrshort{urdf}) is an \acrshort{xml} form
 \end{figure}
 
 \section{Header Files}
-Header files are often used to define various global functions and variables to be made available to the source files that include it. These globals can be made public or private, restricting or allowing them to be accessed by other programs. The two source files requiring custom headers are \node{control_panel.cpp} and \node{control_dashboard.cpp}. As well, the \node{marker_selector} plugin has a custom header file for its internal functionality. The header files can be found in Appendix \ref{app:headers}.\\
-
+Header files are often used to define various global functions and variables to be made available to the source files that include it. These globals can be made public or private, restricting or allowing them to be accessed by other programs. The two source files requiring custom headers are \node{control_panel.cpp} and \node{control_dashboard.cpp}. As well, the \node{marker_selector} plugin has a custom header file for its internal functionality. The header files can be found in Appendix \ref{app:headers}.
 \section{Source Files}
 The main component of the source code for this work is the control panel. The \node{control_dashboard} is embedded as a panel in RViz and creates the \textbf{QNode} object \node{control_panel}. The reason for this configuration is modularity; if the Control Panel is to be moved out of the RViz environment, \node{control_panel} is left unchanged and \node{control_dashboard} is replaced with a standalone container for the \acrshort{gui}. The complete code for all source files can be found in Appendix \ref{app:source}.
 \subsection{Control Dashboard}
@@ -479,13 +477,13 @@ The \node{control_panel} node is the central controller of the system. It is res
 Figures \ref{fig:cropb} to \ref{fig:cands} show the visualizations that \node{control_panel} generates. The default area the robot will apply shotcrete to is shown in teal in Figure \ref{fig:cropb}. Since the scanner can capture some of the robot body when generating point clouds, it is useful to automatically crop a region that is likely to contain the robot but unlikely to contain sections of the mine surface. The auto-crop region is shown in orange in Figure \ref{fig:cropb}. For debugging purposes, the user may want to be aware of the keypoint candidates the localization algorithm is using, so they are published as translucent red boxes as seen in Figure \ref{fig:cands}. When a trajectory is generated many of the via points must be moved to within the manipulator's workspace due to its small size. The points that must be moved are shown as red points in Figure \ref{fig:trajviz} and the points that lie within the workspace are shown in green. A visualization of the robot workspace is available, as shown in Figure \ref{fig:worksp}.\\
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{Pics/cropboxespng.png}
+    \includegraphics[width=.8\textwidth]{Pics/cropboxespng.png}
     \caption{Auto-crop (Orange) and Auto-shotcrete (Teal) Area Visualizations}
     \label{fig:cropb}
 \end{figure}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{Pics/traj_viz.png}
+    \includegraphics[width=.8\textwidth]{Pics/traj_viz.png}
     \caption{Trajectory Vizualization: Surface Path (Red), End-Effector Path (Green), Surface Normal (Blue), Via Points Within Manipulator Workspace (Green), and Via Points Outside Manipulator Workspace (Red)}
     \label{fig:trajviz}
 \end{figure}
@@ -501,6 +499,7 @@ Figures \ref{fig:cropb} to \ref{fig:cands} show the visualizations that \node{co
     \caption{Potential Keypoint Candidates Highlighted (Red)}
     \label{fig:cands}
 \end{figure}
+\clearpage
 \subsubsection{Administrative Functions}
 \label{sub:admin}
 Most of the administrative functions are functions that are used internally during autonomous mode. When manually controlling the robot, they can be controlled directly. Through the use of administrative functions, the operator can manually drive the robot to a location of their choosing, perform a scan (and either set the location as the world coordinate frame or localize the cloud within it), generate a trajectory, load a trajectory or point cloud from file, step through the via points one at a time, set the manipulator speed, or initiate a software E-Stop (emergency stop) command. \\

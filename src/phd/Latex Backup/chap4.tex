@@ -2,7 +2,7 @@
 \include{studentInfo}
 \addbibresource{references.bib}
 
-\usepackage[nomain,nopostdot,acronym,nonumberlist,toc,automake]{glossaries}
+\usepackage[nomain,acronym,nonumberlist,toc,automake]{glossaries}
 \makeglossaries 
 \input{nomenclature.tex}
 %% make dots on all table of contents
@@ -125,14 +125,11 @@
 }
 \begin{document}
 
-  \uoittitlepage
 
   \setcounter{secnumdepth}{3} \setcounter{tocdepth}{3}
   \pagenumbering{roman} \setcounter{page}{1}
   \doublespacing
 
-  \include{abstract}
-  \include{acknowledgements}
 
   %%-----------Table of Contents----------------------
   \renewcommand{\contentsname}{Table of Contents}
@@ -156,7 +153,7 @@
   
   %%------------List of Abbreviations-----------------------
   \glsaddall
-  \printglossary[title=List of Abbreviations,type=\acronymtype]
+  %\printglossary[title=List of Abbreviations,type=\acronymtype]
   %\printglossaries
   %%------------Dedication----------------------------
  % \include{dedication}
@@ -168,15 +165,15 @@
 
   %%-------------Include your chapters----------------
 %  % You can rename the files.
-  \include{1introduction}
-  \include{2background}
-  \include{3localization}
+%  \include{1introduction}
+%  \include{2background}
+%  \include{3localization}
   \include{4trajectory}
-  \include{5thickness}
-  \include{6overview}
-  \include{7code}
-  \include{8testing}
-  \include{9conclusions}
+%  \include{5thickness}
+%  \include{6overview}
+%  \include{7code}
+%  \include{8testing}
+%  \include{9conclusions}
 
   %\bibliographystyle{IEEEtran}
   %\bibliography{references}
@@ -184,7 +181,6 @@
 heading=bibintoc,
 title={References}
 ]
-  \include{appendix}
   
  
 \end{document}

@@ -15,7 +15,7 @@ Even with the improved accuracy a Kalman filter provides, dead reckoning alone i
 
 Landmark based localization techniques avoid the unbounded error growth of dead reckoning by detecting the location of fixed reference points with respect to the robot. These fixed reference points, or landmarks, can be either passive or active. Passive landmarks are simply unique portions of the robot's environment that can be reliably identified by the robot. Since the landmarks do not move, anytime one is detected the error generated through dead reckoning can be corrected. In this way the robot is able to navigate without consistently detecting a landmark but can correct the error generated in its position estimate when it does. Passive landmarks can be manually added to the environment, the benefit of doing so is the landmarks can be made so that they are highly unique and identifiable, like the QR code shown in Figure \ref{fig:qr}. If the robot environment cannot be customized prior to navigation, the system must determine suitable landmarks using a set of predetermined criteria. Landmarks must be unique, detectable from multiple angles and distances, and unmoving (or moving along a known trajectory). Active landmarks emit a signal from components such as \acrshort{led}s, speakers, or radio antennae. The signal can be a simple identifier and the active markers are used in the same way passive markers are, or information can be passed along the active marker's signal for more advanced localization techniques.\\
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{Pics/frame.png}
     \caption{Example Landmark, a QR Code}
@@ -34,7 +34,7 @@ For this work, a novel localization method was developed to suit the needs and c
 
 \subsection{Fiducial Markers}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{Pics/fiducial.jpg}
     \caption{IR Reflective Spherical Fiducial Marker Keypoint}
@@ -43,7 +43,7 @@ For this work, a novel localization method was developed to suit the needs and c
 
 The fiducial markers used in this work are IR reflective spheres produced by OptiTrack and can be seen in Figure \ref{fig:fiducial}. They are attached to the mock mine environment using a threaded mount and double sided tape, though any suitable adhesive or threaded rod can be used. If the spheres are too costly or time consuming to apply, reflective spray paint like that in Figure \ref{fig:irspray} can be used to quickly and conveniently apply fiducial marks to the environment.\\
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.2\textwidth]{Pics/light_metallic_spray_400px.jpg}
     \caption{Reflective Spray Paint \cite{spraypaint}}
@@ -62,9 +62,9 @@ The only true restriction on the placement of the marker keypoints is that they 
 
 To yield the greatest accuracy, the fiducial marker keypoints should be placed as far apart as possible while remaining close enough to be captured in a single point cloud. Figure \ref{fig:resacc} demonstrates a worst case scenario for position estimation using fiducial markers when the keypoints are not detected accurately. This occurs when the two closest keypoints within the fiducial marker are measured incorrectly by a distance equal to the maximum error of the \acrshort{lidar} scanner ($e_1$), in opposite collinear directions. When this occurs, the error at the point furthest from the marker centre is calculated to be $e_2$ from:
 
-\begin{figure}
+\begin{figure}[h]
 \centering
-\includegraphics[width=0.8\textwidth]{Pics/error.pdf}
+\includegraphics[width=0.7\textwidth]{Pics/error.pdf}
 \caption{Accuracy Loss From Keypoint Measurement Error}
 \label{fig:resacc} 
 \end{figure}
@@ -79,7 +79,7 @@ Once the fiducial marker has been placed, it must be recorded by the software fo
 
 Installing the IR reflective spheres that serve as marker keypoints is not necessary since there are many alternatives. IR reflective spray paint can be used in place of the spheres at minimal cost to accuracy. As shown in Figure \ref{fig:minepaint}, there is already an established practice of installing permanent markers in the mine for surveying purposes and there is no issue or limitations with applying spray paint to the mine. Even without using IR reflective spray paint, the \acrshort{lidar} will easily detect the white paint shown. For greater accuracy, solid IR reflective spheres can be attached in a removeable way to the permanently installed marker shown, allowing re-use of the markers when localization in that area is no longer necessary. Using that approach, keypoints can be placed on the surface that requires shotcrete as long as the metal marker protrudes far enough that it does not get covered by the shotcrete layer.\\
 
-\begin{figure}
+\begin{figure}[h]
     \centering
 \includegraphics[width=\textwidth]{Pics/painted.jpg} 
     \caption{Permanent Marker for Mine Surveying}

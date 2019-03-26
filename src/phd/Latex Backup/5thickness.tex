@@ -32,8 +32,7 @@ In order to maximize the accuracy of registration, keypoints can be manually sel
 
 Since the scanner in this research returns reflected intensity and mines have very few highly reflective areas, reflection based fiducial markers are very well suited for registration keypoints. Kukutsch, et al. used circular markers with high reflectivity that can pan and tilt without moving the centre of the marker \cite{mark2}. A fiducial marker based on two cylinders was able to be localized to within 7.5 mm in \cite{mark3}.\\
 
-As discussed in Chapter \ref{chap:localiz}, localization is achieved through the use of fiducial markers. The localization of the robot eliminates the need for registration, since the point clouds can be spatially aligned using the location of the robot at the time it takes each scan. For this application, the localization method implemented is more accurate than any of the registration approaches tested and discussed.\\
-
+As discussed in Chapter \ref{chap:localiz}, localization is achieved through the use of fiducial markers. The localization of the robot eliminates the need for registration, since the point clouds can be spatially aligned using the location of the robot at the time it takes each scan. For this application, the localization method implemented is more accurate than any of the registration approaches tested and discussed.
 \section{Thickness Estimation Methods}
 
 With two registered point clouds, the distance between them represents the thickness of the applied shotcrete layer. Calculating the distance can be divided into three main categories, depending on how each point cloud is treated. In the Point-to-Point (\acrshort{p2p}) method the point clouds do not require further processing. The Point-to-Mesh (\acrshort{p2m}) method requires converting one of the point clouds to a mesh and the Mesh-to-Mesh (\acrshort{m2m}) approach requires converting both point clouds to meshes.\\
@@ -53,18 +52,20 @@ The \acrshort{p2m} approach requires first generating a mesh of the final point 
 \label{sec:p2m}
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=\textwidth]{Pics/p2m.pdf}
+    \includegraphics[width=.8\textwidth]{Pics/p2m.pdf}
     \caption{Point-to-Mesh Thickness Estimation}
     \label{fig:p2mdia}
 \end{figure}
+\clearpage
 
 Thickness calculation is done by finding the nearest point or edge in the source cloud for each point in the target cloud. The distance is then calculated using a normal vector to the source cloud triangle's plane that intersects the point in the target cloud. As can be seen in Figure \ref{fig:p2mdia}, if the surface meshing is performed at too high a resolution, the accuracy is significantly reduced. The original point cloud can be downsampled using averaging methods to yield a lower resolution point cloud, however, the process requires tuning specific to the surface features it is used upon. As well, different sections of the surface may have significantly different roughness requiring differing degrees of downsampling to yield optimal results.\\
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=\textwidth]{Pics/p2mlocal.pdf}
+    \includegraphics[width=.8\textwidth]{Pics/p2mlocal.pdf}
     \caption{Point-to-Mesh Thickness Estimation Using Local Features}
     \label{fig:p2mlocaldia}
 \end{figure}
+\clearpage
 
 To reduce the accuracy loss of using a single density for downsampling the point cloud, local features can be computed. Local features are computed by averaging a group of points to form a single plane using a method such as least squares. The least squares method attempts to find a plane having the least distance to each point in the local area. By computing local features, the accuracy loss shown in Figure \ref{fig:p2mdia} can be reduced to the scenario presented in Figure \ref{fig:p2mlocaldia}. Local features once again require knowledge of the surface roughness or scan specific tuning. The \acrshort{p2m} approaches can provide greater accuracy in low density point clouds than \acrshort{p2p} can offer, but they require tuning and calibration from the operator and an increased amount of computation time.\\
 \subsection{Mesh-to-Mesh}
@@ -75,6 +76,7 @@ The \acrshort{m2m} approaches are the most computationally intensive methods and
     \caption{Mesh-to-Mesh Thickness Estimation}
     \label{fig:m2mdia}
 \end{figure}
+\clearpage
 \subsection{Multiscale Model-to-Model Cloud Comparison}
 
 Multiscale Model-to-Model Cloud Comparison (\acrshort{m3c2}) is visually summarised in Figure \ref{fig:m3c2} and presented in \cite{thick2}. This approach is similar to the local feature \acrshort{p2m} approach in which local areas of the point cloud are averaged to generate planes whose normals are used for thickness estimation. The accuracy loss from choosing an inappropriate scale at which to calculate local surface normals is shown in Figure \ref{fig:m3c2}(b). Though \acrshort{m3c2} is also dependant on site specific calibration, the user is able to specify a confidence value for the accuracy of the surface scans ($\sigma_1,\sigma_2$) with the algorithm producing a confidence value for each thickness estimate.\\

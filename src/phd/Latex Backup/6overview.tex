@@ -12,7 +12,7 @@ Clearpath Robotics's Husky Unmanned Ground Vehicle (Husky UGV) shown in Figure \
 \end{figure}
 \subsection{Husky Peripherals}
 
-\begin{figure}[H]
+\begin{figure}[htb]
     \centering
     \includegraphics[width=\textwidth]{Pics/DSC0433.JPG}
     \caption{Husky with Peripherals Attached}
@@ -32,7 +32,7 @@ The final product will likely use hydraulics to position the shotcreting and sca
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.3\textwidth]{Pics/sick.png}
+    \includegraphics[width=0.25\textwidth]{Pics/sick.png}
     \caption{SICK LMS101 \acrshort{lidar} \cite{sickpage}}
     \label{fig:sick}
 \end{figure}
@@ -41,11 +41,17 @@ The LMS101 shown in Figure \ref{fig:sick} is a \acrshort{lidar} scanner manufact
 \subsection{Schunk Powercube PR70}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.3\textwidth]{Pics/powercube.png}
+    \includegraphics[width=0.27\textwidth]{Pics/powercube.png}
     \caption{Schunk Powercube PR70 \cite{schunkpage}}
     \label{fig:schunk}
 \end{figure}
-The \acrshort{lidar} used must be mounted on a nodding head to generate 3D point clouds. The Powercube PR70 made by Schunk was chosen for this task partly since it was already an asset of the \acrshort{uoit} \acrshort{mars} Lab and can be seen in Figure \ref{fig:schunk}. The module has higher accuracy and payload than the application requires, but since it was an unused asset it was chosen for this application for practicality reasons. It has a nominal torque of 15 Nm, repeat accuracy of 0.03$\degree$, maximum angular velocity of 240$\degree$/s, and maximum acceleration of 960$\degree$/s$^2$. \\
+The \acrshort{lidar} used must be mounted on a nodding head to generate 3D point clouds. The Powercube PR70 made by Schunk was chosen for this task partly since it was already an asset of the \acrshort{uoit} \acrshort{mars} Lab and can be seen in Figure \ref{fig:schunk}. The module has higher accuracy and payload than the application requires, but since it was an unused asset it was chosen for this application for practicality reasons. It has a nominal torque of 15 Nm, repeat accuracy of 0.03$\degree$, maximum angular velocity of 240$\degree$/s, and maximum acceleration of 960$\degree$/s$^2$. The Powercube PR70 can be seen mounted on the MASS with the LMS101 \acrshort{lidar} attached in Figure \ref{fig:lidarmass}.\\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.67\textwidth]{Pics/zoom.jpg}
+    \caption{MASS Nodding Head Assembly}
+    \label{fig:lidarmass}
+\end{figure}
 \section{Software}
 \label{sec:software}
 All software integrated and developed for this research is intended for use within the \acrshort{ros} framework. Since \acrshort{ros} is an open source community with many packages available for use in research, it offers a wide selection of resources useful to this work.\\
@@ -112,7 +118,7 @@ To communicate with other packages, or within the Husky packages, custom message
 \paragraph{husky\_navigation}
 
 The \node{husky_navigation} package provides configurations and examples for using varous navigation packages with the Husky. It contains all the relevant information a navigation package requires to successfuly apply the navigation algorithm on the Husky. Parameters such as the robot's footprint size, how far away to stay from obstacles, what sort of behaviours to exhibit when encountering obstacles, and what sensor information is available are contained within the configuration files. Navigation packages configure their global and local planners with the files contained in the \node{husky_navigation} package. The configuration file for producing costmaps for use in navigation is shown in Appendix \ref{app:huskyconfig} . The package contains launch files to use various navigation packages with the Husky robot as well as demos that will launch the required accompanying packages. Launch files for \acrshort{amcl}, GMapping, Frontier Exploration, and Move Base packages are included as well as an empty map for use when the robot is being simulated in Gazebo.\\ 
-
+\clearpage
 \subsection{Move Base}
 
 Complete documentation of the Move Base package can be found at \url{http://wiki.ros.org/move_base}\\
@@ -166,7 +172,7 @@ A thorough discussion of the source code is provided in Chapter \ref{chap:code},
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{Pics/RViz_window.png}
+    \includegraphics[width=\textwidth]{Pics/sixpt9.png}
     \caption{RViz User Interface}
     \label{fig:panel}
 \end{figure}
@@ -182,50 +188,59 @@ The main contribution of this work to the \acrshort{ros} community are the local
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=\textwidth]{Pics/gui.pdf}
-    \caption{MASS \acrshort{gui}}
+    \includegraphics[width=.7\textwidth]{Pics/guidrawing.pdf}
+    \caption{MASS \acrshort{gui} Panel}
     \label{fig:thegui}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 %FIX THIS FIGURE"CALCULATE THICKNESS"
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55555
 
-The tabs of the MASS \acrshort{gui} control panel can be seen in Figure \ref{fig:thegui}. The main tab, called ``Operation'' is for use while the robot is operating. The red ``Stop'' button is a software activated emergency stop. The operation tab has a \acrshort{lidar} scan button that commands the robot to perform a \acrshort{lidar} scan using the nodding head and displays the resulting point cloud in the RViz window. The ``Set Home'' button is pressed when the robot is in a location the operator intends to define as the origin. The home position is then used as the coordinate frame into which all other point clouds are transformed into. The Generate Trajectory button generates a trajectory based on the current selection. Clicking Apply Shotcrete performs the motions for shotcrete application. If no area is selected, the default region (modified using \node{rqt_reconfigure}) is used and the system enters autonomous shotcrete mode. While in autonomous shotcrete mode the system will apply shotcrete and advance the robot until it is halted using the Stop button. Every time a point cloud is acquired, it is saved to disk. The textbox allows the user to declare where they would like the point clouds to be saved. The interface for recording localization markers is also present and its usage is discussed in Section \ref{sub:admin}. The load button can be used to load the indicated point cloud file from disk for display or analysis purposes.\\
+The tabs of the MASS \acrshort{gui} control panel can be seen in Figure \ref{fig:thegui}. The main tab, called ``Operation'' is for use while the robot is operating. The red Stop button is a software activated emergency stop. The operation tab has a \acrshort{lidar} scan button that commands the robot to perform a \acrshort{lidar} scan using the nodding head and displays the resulting point cloud in the RViz window. The Set Home button is pressed when the robot is in a location the operator intends to define as the origin. The home position is then used as the coordinate frame into which all other point clouds are transformed into. The Generate Trajectory button generates a trajectory based on the current selection. Clicking Apply Shotcrete performs the motions for shotcrete application. If no area is selected, the default region (modified using \node{rqt_reconfigure}) is used and the system enters autonomous shotcrete mode. While in autonomous shotcrete mode the system will apply shotcrete and advance the robot until it is halted using the Stop button. Every time a point cloud is acquired, it is saved to disk. The textbox allows the user to declare where they would like the point clouds to be saved. The interface for recording localization markers is also present and its usage is discussed in Section \ref{sub:admin}. The load button can be used to load the indicated point cloud file from disk for display or analysis purposes.\\
 
 Though the shotcrete thickness is automatically saved and displayed after applying shotcrete, the user may want to perform additional thickness calculations with RViz data or previously saved data. Selecting an area of a point cloud, clicking Set Initial Cloud, and repeating the steps for the final point cloud allows the operator to calculate the shotcrete thickness at a specified region by pressing Calculate Thickness. If they simply want to calculate thickness from two previously saved files, the file names and locations can be entered and the calculation is performed upon pressing Estimate Thickness. The resulting data can be saved to disk using the Save button.\\
 
-If the debug version is launched, the testing tab shown in Figure \ref{fig:ttab} is available. The testing tab has many features useful for testing and developing new algorithms. Table \ref{tab:testing} explains each button's function.\\
+The Denso Control tab allows the user to manually command the manipulator. The user can initialize the arm, shut it down, or clear the errors. When sending a pose, the user can specify a target location and Point-to-Point motion (PTP), Continuous Path motion (CP), or use the Tool coordinate frame (T). Alternatively, the user can specify specific joint angles to move to. The user can also set the speed of the manipulator, or use the text box to send a command formatted using DENSO's WINCAPSIII communication protocol. The current robot pose is displayed as well.\\
 \begin{table}[h!] 
-\begin{tabular}{|L{0.2\textwidth}|L{0.8\textwidth}|}
-\hline
-\multicolumn{1}{|c|}{\textbf{Button}} & \multicolumn{1}{c|}{\textbf{Function}}\\ \hline
-Arm Step & Allows user to step through manipulator trajectory one via point at a time\\ \hline
-Reset & Reset the counter when stepping through trajectory via points\\ \hline
-Marker Only & Display markers for via points instead of moving the manipulator\\ \hline
-Set Home & Set home location\\ \hline
-Generate Poses & Calculate required positions the robot must move to to apply shotcrete over selected area\\ \hline
-Pose Step & Move to next location\\ \hline
-Ctr & Counter for tracking current via point\\ \hline
-Generate Trajectory & Generates a trajectory based on the current selection or default area, then saves to location entered in the ``Trajectory Save Location'' field\\ \hline
-Execute Trajectory & Moves manipulator to simulate shotcrete application or radiation scan\\ \hline
-Plot Path & Show the intended path the robot will travel to reach the desired location\\ \hline
-Execute Path & Move robot to desired location\\ \hline
-Show Nav Goal & Show robot's desired location\\ \hline
-Estimate Thickness & Calculate thickness from previous two point cloud scans\\ \hline
-Nav Mode & Move \acrshort{lidar} nodding head to a position for navigation (-1.57 radians, other positions can be commanded by changing the value of the text box)\\ \hline
-Localize & Localize the robot\\ \hline
-Auto Crop & Automatically crop an area behind the robot that the trailer is likely to occupy from the point cloud\\ \hline
-Load Scan & Load a point cloud from file and treat it as if it was a newly acquired scan\\ \hline
-Load Trajectory & Load a trajectory from file (at the location specified under ``Trajectory Save Location'')\\ \hline
-Reset Map & Reset the \acrshort{slam} map\\ \hline
-Scan & Perform a \acrshort{lidar} scan\\ \hline
+\begin{tabular}{|L{.12\textwidth}|L{0.6\textwidth}|m{0.28\textwidth}}
+\cline{1-2}
+\multicolumn{1}{|c|}{\textbf{Button}} & \multicolumn{1}{c|}{\textbf{Function}} &  \\ \cline{1-2}
+Arm Step & Allows user to step through manipulator trajectory one via point at a time& \\ \cline{1-2}
+Reset & Reset the counter when stepping through trajectory via points& \\ \cline{1-2}
+Marker Only & Display markers for via points instead of moving the manipulator& \\ \cline{1-2}
+Set Home & Set home location& \\ \cline{1-2}
+Generate Poses & Calculate required positions the robot must move to to apply shotcrete over selected area& \multirow{15}{*}{\begin{minipage}{.3\textwidth}
+      %  \vspace{1pt}
+      \begin{center}
+            \includegraphics[width=\linewidth]{Pics/ttab.png}
+      \captionof{figure}{MASS \acrshort{gui} Testing Tab}
+    \label{fig:ttab}
+		\end{center}       
+    \end{minipage}} \\ \cline{1-2}
+Pose Step & Move to next location& \\ \cline{1-2}
+Ctr & Counter for tracking current via point& \\ \cline{1-2}
+Generate Trajectory & Generates a trajectory based on the current selection or default area, then saves to location entered in the ``Trajectory Save Location'' field& \\ \cline{1-2}
+Execute Trajectory & Moves manipulator to simulate shotcrete application or radiation scan& \\ \cline{1-2}
+Plot Path & Show the intended path the robot will travel to reach the desired location& \\ \cline{1-2}
+Execute Path & Move robot to desired location& \\ \cline{1-2}
+Show Nav Goal & Show robot's desired location& \\ \cline{1-2}
+Estimate Thickness & Calculate thickness from previous two point cloud scans& \\ \cline{1-2}
+Nav Mode & Move \acrshort{lidar} nodding head to a position for navigation (-1.57 radians, other positions can be commanded by changing the value of the text box)& \\ \cline{1-2}
+Localize & Localize the robot& \\ \cline{1-2}
+Auto Crop & Automatically crop an area behind the robot that the trailer is likely to occupy from the point cloud& \\ \cline{1-2}
+Load Scan & Load a point cloud from file and treat it as if it was a newly acquired scan& \\ \cline{1-2}
+Load Trajectory & Load a trajectory from file (at the location specified under ``Trajectory Save Location'')& \\ \cline{1-2}
+Reset Map & Reset the \acrshort{slam} map& \\ \cline{1-2}
+Scan & Perform a \acrshort{lidar} scan& \\ \cline{1-2}
 
 \end{tabular}
 \caption{Testing Functions}
 \label{tab:testing}
 \end{table}
+        
 
-The Denso Control tab allows the user to manually command the manipulator. The user can initialize the arm, shut it down, or clear the errors. When sending a pose, the user can specify a target location and Point-to-Point motion (PTP), Continuous Path motion (CP), or use the Tool coordinate frame (T). Alternatively, the user can specify specific joint angles to move to. The user can also set the speed of the manipulator, or use the text box to send a command formatted using DENSO's WINCAPSIII communication protocol. The current robot pose is displayed as well.\\
+If the debug version is launched, the testing tab shown in Figure \ref{fig:ttab} is available. The testing tab has many features useful for testing and developing new algorithms. Table \ref{tab:testing} explains each button's function.\\
+
 \clearpage
 \section{Operation Overview}
 \label{sec:manual}
@@ -256,7 +271,7 @@ This section is intended to serve as an overview of how the MASS performs the fo
 \end{myitemize}
 \newpage
 \begin{tabularx}{\textwidth}{p{0.4\textwidth} p{0.6\textwidth} }
-    \multicolumn{2}{c}{\textbf{Setting the Home Coordinate Frame}}\\ \toprule
+    \multicolumn{2}{c}{\parbox{\textwidth}{\subsection{Setting the Home Coordinate Frame}}}\\ \toprule
     \multicolumn{2}{l}{\textbf{Navigating the Robot to the Home Position}}\\ \midrule
      \multicolumn{2}{l}{
      \begin{minipage}{\textwidth} 	
@@ -269,7 +284,7 @@ This section is intended to serve as an overview of how the MASS performs the fo
 \begin{minipage}{.4\textwidth} 	
 \scriptsize
 \raggedright
-        \textbf{Autonomous Navigation} The MASS can autonomously navigate to a goal specified using the 2D Nav Goal tool located at the top of the RViz window (see Figure \ref{fig:goal2}). The MASS performs \acrshort{slam} as it is navigating and is capable of avoiding obstacles and planning paths around them. To set a goal click the RViz window where the robot should to navigate to, and drag the cursor in the direction the robot should face. A green arrow is shown representing the final position and orientation the navigation system will attempt to achieve. Though not required, it is recommended the operator perform a non-homing scan (by clicking the ``Scan'' button) so RViz can display a rendering of the environment.
+        \textbf{Autonomous Navigation} The MASS can autonomously navigate to a goal specified using the 2D Nav Goal tool located at the top of the RViz window (see Figure \ref{fig:goal2}). The MASS performs \acrshort{slam} as it is navigating and is capable of avoiding obstacles and planning paths around them. To set a goal click the RViz window where the robot should to navigate to, and drag the cursor in the direction the robot should face. A green arrow is shown representing the final position and orientation the navigation system will attempt to achieve. Though not required, it is recommended the operator perform a non-homing scan (by clicking the Scan button) so RViz can display a rendering of the environment.
       \end{minipage}%
       &
         \begin{minipage}{.6\textwidth}
@@ -303,7 +318,7 @@ This section is intended to serve as an overview of how the MASS performs the fo
 \end{tabularx}
 \newpage
 \begin{tabularx}{\textwidth}{p{0.3\textwidth} p{0.7\textwidth} }
-    \multicolumn{2}{c}{\textbf{Recording the Fiducial Marker}}\\ \toprule
+    \multicolumn{2}{c}{\parbox{\textwidth}{\subsection{Recording the Fiducial Marker}}}\\ \toprule
     \multicolumn{2}{l}{\textbf{Selecting Marker Keypoints}}\\ \midrule
 \begin{minipage}{.3\textwidth} 	
 \scriptsize
@@ -434,7 +449,7 @@ This section is intended to serve as an overview of how the MASS performs the fo
 \end{tabularx}
 
 \begin{tabularx}{\textwidth}{p{0.3\textwidth} p{0.7\textwidth} }
-    \multicolumn{2}{c}{\textbf{Shotcrete Application}}\\ \toprule
+    \multicolumn{2}{c}{\parbox{\textwidth}{\subsection{Shotcrete Application}}}\\ \toprule
     \multicolumn{2}{l}{\textbf{Applying Shotcrete to a Selected Area}}\\ \midrule
 \begin{minipage}{.3\textwidth} 	
 \scriptsize
@@ -583,7 +598,7 @@ This section is intended to serve as an overview of how the MASS performs the fo
 
 
 \begin{tabularx}{\textwidth}{p{0.3\textwidth} p{0.7\textwidth} }
-    \multicolumn{2}{c}{\textbf{Shotcrete Thickness Estimation}}\\ \toprule
+    \multicolumn{2}{c}{\parbox{\textwidth}{\subsection{Shotcrete Thickness Estimation}}}\\ \toprule
     \multicolumn{2}{l}{\textbf{Automatic Thickness Estimation}}\\ \midrule
 \begin{minipage}{.3\textwidth} 	
 \scriptsize
@@ -679,7 +694,7 @@ This section is intended to serve as an overview of how the MASS performs the fo
     \end{minipage}
     }
 \end{tabularx}\\
-
+\clearpage
 \section{Chapter Summary}
 
 The hardware and software components of the MASS were discussed. The Husky UGV, DENSO manipulator, SICK \acrshort{lidar}, are Powercube servo are the main hardware systems used. The software packages for RViz, Husky, and \acrshort{slam} along with their dependent packages are available through \acrshort{ros} and were configured to operate with the MASS. A brief overview of the MASS software package was presented, and a pseudo manual describing the typical operation of the MASS features was provided.\\

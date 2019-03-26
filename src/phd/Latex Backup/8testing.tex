@@ -5,17 +5,18 @@
 \label{sec:mine}
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{Pics/20170901_153356.jpg}
-    \caption{\acrshort{mars} Lab Mock Mine (Picture to be replaced)}
+    \includegraphics[width=\textwidth]{Pics/mockmine.jpg}
+    \caption{\acrshort{mars} Lab Mock Mine}
     \label{fig:mockmine}
 \end{figure}
 Testing of the MASS occurred in the Mechatronic and Robotic Systems (\acrshort{mars}) Laboratory mock mine at \acrshort{uoit}. Figure \ref{fig:mockmine} shows a picture of the mock mine used for testing. The mine is 6 m long, 3 m wide, 1.5 m tall, and the roof overhang is 1 m. Since Cameco's MacArthur River mine corridors are approximately 6 m tall and 5-8 m wide, the mock mine is considered a quarter scale representation. It is constructed from wood framing with foam surfaces and features. Figure \ref{fig:surfacefeature} shows an image of some of the surface features installed on the mine. The uneven surfaces and features are similar to what can be found in the MacArthur River mine. Due to practicality, the surface roughness is much smoother than the actual mine. The main difference with the lack of surface roughness is the normal estimation will be more accurate over smaller regions, but using a larger radius to calculate the surface normals will yield similar results. Through testing it was determined the measurement error of the \acrshort{lidar} produced results similar to what would be obtained under ideal conditions with realistic surface roughness. Currently the mock mine floor is plywood material, but it has been designed to support a gravel surface. The gravel adds an additional source or error when using wheel odometry for dead-reckoning estimates, as does the skid-steer drive of the robot. For these reasons the wheel odometry was regarded as highly unreliable. The MASS relies on a number of alternate sensors and algorithms to estimate its pose since the software designed for the MASS treats dead-reckoning as an unacceptable source for localization.\\
-\begin{figure}
+\begin{figure}[htb]
     \centering
-    \includegraphics[width=\textwidth]{Pics/20180305_154842.jpg}
-    \caption{Mock Mine Surface Features (Picture to be replaced)}
+    \includegraphics[width=.8\textwidth]{Pics/sfeats.jpg}
+    \caption{Mock Mine Surface Features}
     \label{fig:surfacefeature}
 \end{figure}
+\clearpage
 \section{Test Plan}
 \label{sec:scenario}
 \subsection{Localization}
@@ -40,14 +41,14 @@ The most accurate localization system available for this research is the OptiTra
 
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{Pics/rgidi.jpg}
-    \caption{Rigid Body Trackable Object With Three IR Markers Installed (pic to be replaced)}
+    \includegraphics[width=.6\textwidth]{Pics/rigdi.jpg}
+    \caption{Rigid Body Trackable Object With Three IR Markers Installed}
     \label{fig:trackable}
 \end{figure}
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{Pics/20180303_182327.jpg}
-    \caption{OptiTrack Interface, Trackable Object (pic to be replaced)}
+    \includegraphics[width=\textwidth]{Pics/ss3.png}
+    \caption{OptiTrack Interface, Trackable Object Selected}
     \label{fig:motivetrackable}
 \end{figure}
 
@@ -55,8 +56,14 @@ The OptiTrack cameras are placed in the robot environment such that the field of
 
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{Pics/20180303_164637.jpg}
-    \caption{OptiTrack Ground Plane Tool (pic to be replaced)}
+    \includegraphics[width=.4\textwidth]{Pics/calwand.jpg}
+    \caption{OptiTrack Calibration Wand \cite{caltools}}
+    \label{fig:wand}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=.4\textwidth]{Pics/calsquare.jpg}
+    \caption{OptiTrack Ground Plane Tool \cite{caltools}}
     \label{fig:groundplane}
 \end{figure}
 
@@ -169,24 +176,23 @@ The ground truth determined by the OptiTrack system is the first significant sou
 \end{figure}
 
 Another limiting factor in the accuracy of the localization estimate is the accuracy of the \acrshort{lidar} scanner. The manufacturer states a systematic error of $\pm$30 mm and statistical error of 12 mm, however, the accuracy decreases with larger distances and less reflected light. Boehler and Marbs provide a comprehensive analysis of the sources of error in laser measurement devices \cite{checkthebookmarksbar}. To determine the experimental accuracy of the \acrshort{lidar} device, repeatability testing was performed in the \acrshort{mars} lab mock mine. Accuracy testing is difficult to achieve, but can be performed by physically verifying distance measurements using a measuring tape or placing markers detectable by both the \acrshort{lidar} and OptiTrack system and comparing the measured distances. Since these techniques introduce either human or measurement error, and algorithms for thickness estimation and localization require repeatability more than accuracy, the focus was to determine the repeatability of the \acrshort{lidar} scanner more so than the accuracy. By performing 12 scans at the same location, and comparing the distance from each scan's point to a mesh generated by the combined point clouds it was found the \acrshort{lidar}'s repeatability had a standard deviation of 6.7 mm as shown in Figure \ref{fig:repeathist}. The the reported accuracy meets the requirements but the true accuracy of the localization system was in fact better than the reported accuracy. Using the localization system to register two point clouds, the thickness estimation algorithm can be used on portions that remain unchanged. The resulting thickness estimates represent the error in localization combined with the measurement error of the \acrshort{lidar}. Similar to the scenario discussed in section \ref{sec:placing}, the reported accuracy is proportional to the distance from the scanner to the location within a point cloud, making it difficult to provide a true estimate of the localization accuracy. Since the purpose of the localization system is to accurately register point cloud scans for thickness estimation, OptiTrack was only used as a form of verification for localization accuracy.\\
-
-\begin{figure}
+\begin{figure}[hb]
     \centering
-    \includegraphics[width=\textwidth]{Pics/bumpsinset.png}
+    \includegraphics[width=.8\textwidth]{Pics/bumpsinset.png}
     \caption{High Reflectivity Areas Creating False Contours (Top Image Shows Reflected Intensity)}
     \label{fig:bumps}
 \end{figure}
-
+\clearpage
 For determining the accuracy of the point-to-mesh (\acrshort{p2m}) thickness estimation technique (in which the distance is calculated normal to the mesh surface), infrared (IR) reflective stickers were placed on the simulated shotcrete and mine surface such that they are collinear along a normal to the simulated shotcrete surface. When the \acrshort{lidar} scans were analyzed, it became apparent how the reflectivity of the surface affects the distance measurement error as shown in Figure \ref{fig:bumps}. It was found the false contours protruded from the surface approximately 20 mm.\\
 
+The \acrshort{lidar} scanner is mounted on a servo motor acting as a nodding head. The servo is a SCHUNK PR70 rotary module having a 0.08\degree\hspace{0pt} repeatability. Since the encoder is relative, there is no absolute accuracy specifications provided by the manufacturer. It uses end stops and a homing routine to determine its position when brought online. When the nodding head moves the \acrshort{lidar} scanner, each individual laser scan is combined to form a point cloud. If the nodding head reports an incorrect position, the laser scan will be positioned incorrectly in the point cloud. Nodding head position error can come from the servo itself, or occur due to software latency. Since the operating system is not designed as a real-time operating system, the servo position data may get delayed when being sent to the laser scan assembler. The \acrshort{lidar}, DENSO controller, and WiFi connection require the MASS to have an on-board router. For teleoperation and communication with the OptiTrack system the on board router must connect to a wireless network. The network is not configured to prioritize \acrshort{lidar} data, presenting an additional source of latency. Figure \ref{fig:headlag} shows a point cloud where the laser scan data had significant latency. Though all non-essential processes are halted during the scanning process, due to the current hardware limitations of the MASS many scans had latency errors.\\
+\clearpage
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{Pics/screenshot-1528748143.png}
+    \includegraphics[width=.8\textwidth]{Pics/lag.png}
     \caption{Point Cloud Data With Visible Gaps Due To Latency}
     \label{fig:headlag}
 \end{figure}
-The \acrshort{lidar} scanner is mounted on a servo motor acting as a nodding head. The servo is a SCHUNK PR70 rotary module having a 0.08\degree\hspace{0pt} repeatability. Since the encoder is relative, there is no absolute accuracy specifications provided by the manufacturer. It uses end stops and a homing routine to determine its position when brought online. When the nodding head moves the \acrshort{lidar} scanner, each individual laser scan is combined to form a point cloud. If the nodding head reports an incorrect position, the laser scan will be positioned incorrectly in the point cloud. Nodding head position error can come from the servo itself, or occur due to software latency. Since the operating system is not designed as a real-time operating system, the servo position data may get delayed when being sent to the laser scan assembler. The \acrshort{lidar}, DENSO controller, and WiFi connection require the MASS to have an on-board router. For teleoperation and communication with the OptiTrack system the on board router must connect to a wireless network. The network is not configured to prioritize \acrshort{lidar} data, presenting an additional source of latency. Figure \ref{fig:headlag} shows a point cloud where the laser scan data had significant latency. Though all non-essential processes are halted during the scanning process, due to the current hardware limitations of the MASS many scans had latency errors.\\
-
 The mounting bracket for the laser scanner was designed to flex as little as possible. If the mounting bracket flexes or vibrates, the calculated position of the \acrshort{lidar} will differ from the true position. Since the laser scan assembler uses the forward displacement solution to calculate the nodding head position and cannot detect mechanical vibration or deformation, these sources of error can cause inaccuracy in the assembled point clouds. With this potential for error in mind, the mounting bracket was designed to allow as little vibration and deformation as possible.\\
 
 The \acrshort{lidar} scanner measures a single point at a time and uses an internal rotating mirror to sweep the laser in a horizontal line at a frequency of 25 Hz. If the nodding head moves fast enough the position of the first point in the scan will be on a different plane than the last point in the scan. If the nodding head transmits the servo position at a higher frequency than the \acrshort{lidar} scans, the laser scan assembler can transform each individual point measurement into the fixed coordinate frame rather than the whole scan at once. This is a fairly CPU intensive process and it was determined that a sufficiently slow slew rate could achieve accurate results. The maximum skew is defined as:
@@ -197,27 +203,28 @@ The \acrshort{lidar} scanner measures a single point at a time and uses an inter
 
 where $S_{max}$ is the maximum skew angle from the first point in the scan to the last, $\omega_H$ is the nodding head angular velocity, and $f_L$ is the scanning frequency of the \acrshort{lidar}.\\
 
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{Pics/edgeveiling.png}
+    \includegraphics[width=.8\textwidth]{Pics/edgeveiling.png}
     \caption{Edge Veiling Effect}
     \label{fig:veiling}
 \end{figure}
 
 One source of error easily visible to the human eye is the edge veiling effect and can be seen in Figure \ref{fig:veiling}. Since the laser beam is not a single point but a ray that spreads over distance, when it lands on an edge, it is possible that the area of measurement may only partially lie on a surface. The remainder of the measurement area may lie on a further object or beyond the measurement range of the scanner. The area that lands on the object's edge could be anywhere from a tiny fraction to a large majority of the measurement area. Depending on how much of the measurement area lies on the edge, how far the remaining measurement area is from the edge, and what the reflectivity of the surfaces are, the measured point will be reported as somewhere between the edge and the surface beyond. The edge effect can be minimized using the Intensity Recovery Algorithm presented in \cite{bookbaredge} and \cite{theotherone}. The \node{laser_filters} package for \acrshort{ros} provides a \func{ScanShadowsFilter} function that attempts to minimize the edge effect using the angle between the laser origin and two points. Given $P_1$ and $P_2$ with an origin $O$, the user can specify if $\angle OP_1P_2$ is beyond an acceptable range to remove the specified number of neighbouring data points. Since the fiducial marker keypoints used in this research are mounted such that they stand offset from the surface, it is possible the edge effect may affect the measured location of the keypoint.\\
 
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{Pics/eddt.png}
+    \includegraphics[width=\textwidth]{Pics/eddt.pdf}
     \caption{Two Sections of a Point Cloud Containing Keypoints. Left: Keypoint Near the Scanner. Right: Keypoint Far From Scanner}
     \label{fig:keypointresolution}
 \end{figure}
 
-Though the edge effect can lower the accuracy of the measured location of the fiducial marker keypoint, the resolution of the point cloud has a far greater impact. Figure \ref{fig:keypointresolution} shows two sections of a point cloud containing marker keypoints. Since the resolution and reflected intensity decreases over distance, the marker keypoints further away from the scanner will have less data points and a lower intensity. As well, the edge effect occurs not just to discontinuous surfaces, but also to discontinuities in the reflectivity of the surface. At further distances from the scanner, the laser point measurement area is larger and a significant enough portion may overlap the highly reflective surface of the marker keypoint to return a measured point with high enough intensity to be considered a portion of the marker keypoint. Figure \ref{fig:keypointinaccuracy} shows a portion of a point cloud containing a keypoint and indicates two possible locations the keypoint may be found. Since it is impossible to determine exactly where the keypoint is from that data, an averaging algorithm takes the mean location to be the assumed location of the keypoint.\\ 
-\begin{figure}
+Though the edge effect can lower the accuracy of the measured location of the fiducial marker keypoint, the resolution of the point cloud has a far greater impact. Figure \ref{fig:keypointresolution} shows two sections of a point cloud containing marker keypoints. Since the resolution and reflected intensity decreases over distance, the marker keypoints further away from the scanner will have less data points and a lower intensity. As well, the edge effect occurs not just to discontinuous surfaces, but also to discontinuities in the reflectivity of the surface. At further distances from the scanner, the laser point measurement area is larger and a significant enough portion may overlap the highly reflective surface of the marker keypoint to return a measured point with high enough intensity to be considered a portion of the marker keypoint. Figure \ref{fig:keypointinaccuracy} shows a portion of a point cloud containing a keypoint taken from a distance and highlights the possible area in which the keypoint may be. Since it is impossible to determine exactly where the keypoint is from that data, an averaging algorithm takes the mean location to be the assumed location of the keypoint.\\ 
+
+\begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{Pics/keypointerror.png}
-    \caption{Two Potential Keypoint Locations (Shown in Black and White) With Error Highlighted in Red}
+    \includegraphics[width=.7\textwidth]{Pics/badpt.pdf}
+    \caption{Keypoint Detected at a Distance}
     \label{fig:keypointinaccuracy}
 \end{figure}
 The software algorithm for localization has a minimal loss of accuracy. Occasionally the operating system must perform mathematical operations using values with more digits than a variable can hold. For example, $\pi$ is infinite and non-repeating so it is impossible to perform any calculations with a truly accurate value of $\pi$. However, the computer can perform operations with sufficient accuracy that rounding errors are likely not a significant source of error.\\
@@ -236,9 +243,9 @@ The testing of the trajectory generation algorithm is difficult to quantify. Thr
 
 As long as none of the failure criteria are met, the trajectory generation was considered successful. The testing strategy consists of generating trajectories from a variety of positions and orientations relative to the mine surface, as well as selecting different sections of the mine. Trajectories are generated at positions near and far from the walls, with the robot positioned parallel or perpendicular to the surface, as well as on wall sections, roof sections, and combined sections. Straight sections of the mine as well as curved sections were selected for trajectory generation. Figures \ref{fig:traj1}, \ref{fig:traj2}, and \ref{fig:traj3} show trajectories generated for various sections of the mine. For debugging purposes, the surface path the manipulator is to follow is shown in red, the actual path the end-effector follows is in green, and the normal vector of length equal to the desired offset is shown at each via point in blue. The lines that are used to calculate distance measured along the surface is shown with points ranging in colour from red to pink, with colour representing distance measured along the mine surface (or in the case of wall sections, simply the Z-height from the ground).\\
 
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{Pics/front_combo.png}
+    \includegraphics[width=.8\textwidth]{Pics/front_combo.png}
     \caption{Trajectory Generation for a Wall Section}
     \label{fig:traj1}
 \end{figure}
@@ -254,7 +261,7 @@ As long as none of the failure criteria are met, the trajectory generation was c
     \caption{Trajectory Generation for a Flat, Curved, and Overhung Section}
     \label{fig:traj3}
 \end{figure}
-
+\clearpage
 
 In the following sections, the causes of the failure criteria are discussed.
 
@@ -284,8 +291,7 @@ Due to the robust algorithm developed, the trajectory points will only be create
 
 The trajectory algorithm uses a subtractive approach to generating a shotcrete application trajectory. As it generates trajectory points it removes the original points from the point cloud passed to it. Using this approach the entire surface will be covered by the generated trajectory.\\
 
-If a section of the surface does not receive shotcrete, the thickness estimation will detect the area has insufficient shotcrete and the system can autonomously navigate to that area and reapply shotcrete. Without the additional verification of shotcrete thickness performed by the MASS, not covering the intended surface with shotcrete could be a significant failure resulting in risk to humans present. It is therefore recommended that the thickness estimation service be used to verify successful shotcrete application.\\
-
+If a section of the surface does not receive shotcrete, the thickness estimation will detect the area has insufficient shotcrete and the system can autonomously navigate to that area and reapply shotcrete. Without the additional verification of shotcrete thickness performed by the MASS, not covering the intended surface with shotcrete could be a significant failure resulting in risk to humans present. It is therefore recommended that the thickness estimation service be used to verify successful shotcrete application.
 \subsubsection{Trajectory Path Has Undesirable Overlap}
 
 A certain amount of overlap may be desirable when applying shotcrete. This can be configured using the \node{dynamic_reconfigure} node, \acrshort{ros} parameter server (through command line utilities), or changing the configuration file for the MASS. An undesirable overlap occurs if the trajectory passes over a previously shotcreted area. Since the trajectory generation algorithm removes the points it has generated a spray trajectory for, it is unlikely the system can produce a trajectory that overlaps itself. During testing and development, the trajectory generation algorithm never produced overlapping shotcrete spray paths.\\
@@ -294,20 +300,20 @@ Should the algorithm be modified in a way that results in undesirable overlappin
 
 \subsection{Thickness Estimation}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{Pics/controlpts.jpg}
+    \includegraphics[width=.9\textwidth]{Pics/controlpt.pdf}
     \caption{Control Points Marked on Mine and Simulated Shotcrete}
     \label{fig:controlpts}
 \end{figure}
 
 To estimate the thickness of the applied shotcrete, an artificial shotcrete is applied to the surface of the mine. Magnets are used to ensure consistent placement of the artificial shotcrete. Control points were placed on the surface of the mine as well as the surface of the artificial shotcrete as shown in Figure \ref{fig:controlpts}. The control points are highly reflective to infrared light, so they are easy to distinguish from the surrounding area when examining Optitrack or \acrshort{lidar} point cloud data. The control points were placed normal to the artificial shotcrete surface. Using the control points, the point-to-mesh (\acrshort{p2m}) thickness estimation can be verified, however the point-to-point (\acrshort{p2p}) approach would require different placement to verify. As discussed in Section \ref{sec:locsourceerror} and shown in Figure \ref{fig:bumps}, the control points became a source of error rather than a verification tool.\\
 
-Accuracy is verified through the use of control measurements. By taking scans before and after the artificial shotcrete is applied without moving the MASS, thickness estimates can be generated without introducing the localization algorithm as a source of error. Though the thickness estimates using the \acrshort{p2p} approach cannot be physically verified, the high repeatability of the \acrshort{lidar} scans can be used to produce a reasonably accurate control measurement. To generate an accurate estimate of the thickness of the artificial shotcrete layer, 12 scans were taken from a single location of the bare surface, and another 12 were taken from the same location after applying the artificial shotcrete. The 12 bare surface scans were combined to a single point cloud, then processed to remove outliers and reduce the density using the CloudCompare software. The downsampled point cloud was then converted to a mesh representation using Poisson surface reconstruction to form a continuous surface. The initial mesh had much more surface roughness than the true surface due to sensor noise, so surface smoothing was performed to improve the quality of the mesh representation. The 12 post-shotcrete scans were also combined but not downsampled. The combined post-shotcrete point cloud was compared to the pre-shotcrete surface mesh using CloudCompare's \acrshort{p2m} tool to produce a high density point cloud of thickness measurements to which other thickness estimation point clouds can be compared to, herein referred to as the control cloud.\\
+Accuracy is verified through the use of control measurements. By taking scans before and after the artificial shotcrete is applied without moving the MASS, thickness estimates can be generated without introducing the localization algorithm as a source of error. Though the thickness estimates using the \acrshort{p2p} approach cannot be physically verified, the high repeatability of the \acrshort{lidar} scans can be used to produce a reasonably accurate control measurement. To generate an accurate estimate of the thickness of the artificial shotcrete layer, 12 scans were taken from a single location of the bare surface, and another 12 were taken from the same location after applying the artificial shotcrete. The 12 bare surface scans were combined to a single point cloud, then processed to remove outliers and reduce the density using the CloudCompare software. The downsampled point cloud was then converted to a mesh representation using Poisson surface reconstruction to form a continuous surface. The initial mesh had much more surface roughness than the true surface due to sensor noise, so surface smoothing was performed to improve the quality of the mesh representation. The 12 post-shotcrete scans were also combined but not downsampled. The combined post-shotcrete point cloud was compared to the pre-shotcrete surface mesh using CloudCompare's \acrshort{p2m} tool to produce a high density point cloud of thickness measurements to which other thickness estimation point clouds can be compared to, herein referred to as the control cloud.
 
 Thickness estimation was performed on the same section of artificial shotcrete from a variety of locations. Since the accuracy of the localization was tested separately, the most accurate fiducial marker configuration was chosen. If using a similar configuration for the marker is not possible, the accuracy confidence can be lowered accordingly for the shotcrete thickness estimation. The robot was positioned at multiple locations, both near and far from the region of interest. The locations of the scans can be seen in Figure \ref{fig:thickscans}.\\
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=.8\textwidth]{Pics/postprescanlocations.png}
     \caption{Thickness Estimation Scan Locations (Pre-Shotcrete in Green, Post-Shotcrete in Red)}
@@ -316,20 +322,19 @@ Thickness estimation was performed on the same section of artificial shotcrete f
 
 There were 19 locations chosen as pre-shotcrete scans, and 12 locations chosen as post-shotcrete scans. Comparing each post-shotcrete scan to every pre-shotcrete scan yielded 228 thickness estimation point clouds. The point clouds were compared to the control cloud and the measurement error was computed at each point. The mean error of each cloud was computed to give each cloud a single error measurement. The mean error of all the clouds was 23.3 mm with a standard deviation of 13.7 mm and a histogram of the data can be seen in Figure \ref{fig:thist}. Table \ref{tab:thickres} shows the mean error of each point cloud along with the number of data points per cloud. Figure \ref{fig:thickeg} shows a typical thickness estimate point cloud.\\
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.4\textwidth]{Pics/thickeg.png}
     \caption{Thickness Estimates Presented as Point Cloud}
     \label{fig:thickeg}
 \end{figure}
-
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{Pics/THistogram.png}
     \caption{Histogram of Thickness Estimation Errors (m)}
     \label{fig:thist}
 \end{figure}
-
+\clearpage
 \begin{table}[]
 \begin{tabular}{cc|c|c|c|c|c|c|c|c|c|c|c|c|}
 \cline{3-14}

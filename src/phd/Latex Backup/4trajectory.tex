@@ -5,13 +5,13 @@
 \label{sec:four}
 Trajectory generation is used for two tasks that have very different applications but very similar execution. The purpose of the scanning task is to position a shielded radiation detector along the surface of the mine to determine ore concentration, while the shotcreting task is to apply shotcrete to the mine surface. Though the tasks and their purpose differ, their needs are the same. Both tasks require the manipulator to position itself orthogonal to the mine surface, execute a motion that maintains a certain distance from the mine, and cover a specified region. Figure \ref{fig:idealspray} shows the trajectory that would be required to scan or shotcrete a flat square.\\
 
-\begin{figure}[h]
+\clearpage
+\begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{Pics/optimal.png}
+    \includegraphics[width=0.7\textwidth]{Pics/optimal.png}
     \caption{Trajectory Generation Template}
     \label{fig:idealspray}
 \end{figure}
-
 To be functional as a trajectory generation algorithm for both scanning and shotcreting, some parameters of the generated trajectory must be easily changed. This is accomplished through the use of configuration files and the \node{rqt_reconfigure} node. The configuration files contain the specifications that are used each time a trajectory is generated. They can be edited by the user and shared among multiple systems. If they need to be changed during runtime or modified for a single use, the \acrshort{gui} provided by the \node{rqt_reconfigure} node (shown in Fig. \ref{fig:dyngui}) allows the user to quickly and easily modify the parameters. Two of the main parameters can be seen in Figure \ref{fig:idealspray}: \var{step_height} and \var{via_distance}. As well, a third main parameter is the offset from the surface. Finally, the selection width and height can be specified by the user or left for the system to determine automatically. If no area is selected for scanning or shotcreting, a region next to the robot is selected with a size that is optimal for the manipulator's workspace. The control system uses the location of the default scan and shotcrete region when autonomously positioning itself to scan or shotcrete the next section of the mine such that it will not miss any sections.\\
 
 \begin{figure}[h]
@@ -22,18 +22,15 @@ To be functional as a trajectory generation algorithm for both scanning and shot
 \end{figure}
 
 Specifically for shotcrete, the sprayer distance from the surface and angle relative to it are of the highest importance. Optimal distance and orientation maximizes the amount of adhesion and minimizes rebound  \cite{spraypat}. When the sprayer is too far away from the surface, not enough shotcrete sticks to the surface and when the sprayer is too close, shotcrete will bounce off the surface. In both cases, either shotcrete is wasted or the applied layer is of insufficient thickness. The former is uneconomical and the latter is unsafe. Similarly, the amount of rebound is related to the amount the sprayer is off from the ideal 90\degree\hspace{0pt} angle to the surface. The importance of choosing an appropriate radius at which to calculate the surface normal is illustrated in Figure \ref{fig:vianorm}. The height step and surface offset is determined by the amount of spread from the shotcrete spray nozzle, shotcrete composition, pressure, and flow rate.\\
-
+\clearpage
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\textwidth]{Pics/viapts3.pdf}
+    \includegraphics[width=.8\textwidth]{Pics/viapts3.pdf}
     \caption{Effect of Surface Normal Calculation Radius}
     \label{fig:vianorm}
 \end{figure}
 
 The scanning configuration is dependant on the shielding used with the radiation sensor. In an effort to improve current techniques, shielded detectors will be used to measure a precise region and avoid detecting energy from the surrounding ore. The sensor will detect a conical area in the direction it is facing. The shape of the cone is dependant on the sensor and shielding used. The surface offset for radiation scanning is determined by how detailed of a scan the operator wants from the mine surface. Offset can be increased to scan a larger region or complete the area scan faster, or decreased to measure smaller regions and achieve higher resolution. Step height can be determined to ensure full coverage with no overlap or can be increased to reduce scanning time by not scanning the entirety of the selected area.\\
-
-The via points and via distance allow the robot to follow the uneven surface of the mine. In the example shown in Figure \ref{fig:idealspray}, there is no need for via points at locations along the straight lines, but when the image is overlaid on the mine surface as shown in Figure \ref{fig:unidealspray}, the need for via points becomes apparent. The red circles highlight areas where additional via points are required to maintain optimal distance. The blue circles show the via points that help to maintain optimal distance, and the green circles show the via points used to achieve optimal angle. The via distance is the amount of space between via points and is set by the user. Determining the via distance requires knowledge of how rough the surface is likely to be, a parameter that would likely remain constant throughout the region in which the MASS is used. In extreme cases, via points can be calculated at every data point measured by the scanner. However, such high via point density leads to longer computation time and can become detrimental to the accuracy of the shotcrete application. Figure \ref{fig:viapts} shows how choosing too high a via point density leads to a convoluted spray path that may be less effective than a lower via point density. The diagram demonstrates the efficacy of using wider via point spacing. When the finer spacing was used, the additional via points caused the sprayer to move along a trajectory that is unnecessarily complex. In practice, small obtrusions on the mine surface are better ignored than attempting to orient the sprayer orthogonally to the surface at every point.\\
-
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{Pics/nonopt.png}
@@ -41,9 +38,11 @@ The via points and via distance allow the robot to follow the uneven surface of 
     \label{fig:unidealspray}
 \end{figure}
 
+The via points and via distance allow the robot to follow the uneven surface of the mine. In the example shown in Figure \ref{fig:idealspray}, there is no need for via points at locations along the straight lines, but when the image is overlaid on the mine surface as shown in Figure \ref{fig:unidealspray}, the need for via points becomes apparent. The red circles highlight areas where additional via points are required to maintain optimal distance. The blue circles show the via points that help to maintain optimal distance, and the green circles show the via points used to achieve optimal angle. The via distance is the amount of space between via points and is set by the user. Determining the via distance requires knowledge of how rough the surface is likely to be, a parameter that would likely remain constant throughout the region in which the MASS is used. In extreme cases, via points can be calculated at every data point measured by the scanner. However, such high via point density leads to longer computation time and can become detrimental to the accuracy of the shotcrete application. Figure \ref{fig:viapts} shows how choosing too high a via point density leads to a convoluted spray path that may be less effective than a lower via point density. The diagram demonstrates the efficacy of using wider via point spacing. When the finer spacing was used, the additional via points caused the sprayer to move along a trajectory that is unnecessarily complex. In practice, small obtrusions on the mine surface are better ignored than attempting to orient the sprayer orthogonally to the surface at every point.\\
+
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{Pics/viapts.pdf}
+    \includegraphics[width=.9\textwidth]{Pics/viapts2.pdf}
     \caption{Effect of Via Point Spacing}
     \label{fig:viapts}
 \end{figure}
@@ -73,7 +72,7 @@ For testing purposes, the algorithm assumes the selection area begins on a verti
 
 
 Since the robot is able to detect areas of insufficient shotcrete thickness, this method is viable, however, in practice it did not consistently yield a satisfactory trajectory. An example trajectory using this method is shown in Figure \ref{fig:anttraj}. Though the path does not fail entirely, the problems become evident - via points are not sufficiently constrained to vertical and horizontal paths. The direction vectors proved unreliable, so to test the algorithm in a best-case scenario, the selected area was chosen to be mostly vertical and the direction vectors were replaced with horizontal vectors. The direction vectors shown in red, surface normals in blue, and end-effector path in green show how the nearest neighbour search and expected via points approach causes the spray trajectory to become uneven.\\
-
+\clearpage
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{Pics/anttraj.png}
@@ -93,40 +92,38 @@ One simple technique to generate a shotcrete trajectory is to calculate the inte
 \end{figure}
 The next technique investigated was keeping the plane centred on the robot and rotating around the robot's axes as shown in Figures \ref{fig:pitchroll} and \ref{fig:yawplane}. Once again, using a fixed step angle will not yield a consistent step height. Moreover, the lines will converge at a point on a non-orthogonal wall. Consistent step height can be achieved by sorting the points on a line and determining the distance along the surface, then calculating the angle from the robot centre to the point at the appropriate step height. Using that angle, the plane can be rotated by the appropriate amount to yield consistent and accurate step heights, but the converging patterns cannot be avoided. If the crop plane is centred on a point on the mine surface and rotated to an angle normal to the surface, some converging lines disappear but the overall trajectory is still insufficient as shown in Figure \ref{fig:nplanes}. \\
 
-\begin{figure}[H]
+\begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{Pics/pitchroll.png}
+    \includegraphics[width=.95\textwidth]{Pics/pitchroll.png}
     \caption{Pitch and Roll Plane Intersections}
     \label{fig:pitchroll}
-\end{figure}
+\end{figure}   
+\clearpage
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{Pics/yawlines.png}
+    \includegraphics[width=.95\textwidth]{Pics/yawlines.png}
     \caption{Yaw Plane Intersections}
     \label{fig:yawplane}
 \end{figure}
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{Pics/nlines.png}
+    \includegraphics[width=.95\textwidth]{Pics/nlines.png}
     \caption{Normal-to-Surface Plane Intersections}
     \label{fig:nplanes}
 \end{figure}
+\clearpage
 
 \subsubsection{Measuring Distance Along the Surface}
 
-\begin{figure}[H]
+In this work, a sorted line is a line of points which are sorted by distance measured along the surface on which they lie. To produce a sorted line, first the line is extracted using a plane intersection as shown in Figure \ref{fig:vline}. The beginning of the line is determined by finding the point with the lowest vertical height. The nearest neighbour search is used to find the next closest point and the distance between the two points is calculated. Each successive point's distance is added to the cumulative point-to-point distance so that each point contains the distance from that point to the first point, travelling through each point along the way. Choosing the plane on which to extract points can be arbitrary, but if it is not vertical, the end points of the line are determined by finding the two furthest points along the line. Ideally the vertical line would be one dimensional, but since the crop box technique was used, the line can have a width of a few data points.
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=\textwidth]{Pics/vline.png}
     \caption{Single Line from Plane Intersection}
     \label{fig:vline}
 \end{figure}
-
-In this work, a sorted line is a line of points which are sorted by distance measured along the surface on which they lie. To produce a sorted line, first the line is extracted using a plane intersection as shown in Figure \ref{fig:vline}. The beginning of the line is determined by finding the point with the lowest vertical height. The nearest neighbour search is used to find the next closest point and the distance between the two points is calculated. Each successive point's distance is added to the cumulative point-to-point distance so that each point contains the distance from that point to the first point, travelling through each point along the way. Choosing the plane on which to extract points can be arbitrary, but if it is not vertical, the end points of the line are determined by finding the two furthest points along the line. Ideally the vertical line would be one dimensional, but since the crop box technique was used, the line can have a width of a few data points. \\
-
+\clearpage
 One of the problems with sorting the vertical line using nearest neighbours is that some points may be missed entirely. The missed points are then added once the line is complete, forming a sorted line similar to the one shown in Figure \ref{fig:sline}. In the figure, the point distance is represented by colour, red being the smallest, then yellow, green, blue, purple, and pink. The points ranging from blue through pink are all extra points that should have been ignored or used in the initial calculations. As well, when too many points are used, the cumulative distance is longer than the true surface distance. Figure \ref{fig:inset} highlights a small portion of a larger section of a sorted line. Figure \ref{fig:meandering} shows how using the nearest neighbour approach can miss points and how it takes a much longer path than necessary. Figure \ref{fig:downsampledpath} shows how down-sampling the data allows the surface distance to approach a value much closer to the true value by ignoring all points within a certain radius of the accepted points. \\
-
-Another error check performed when sorting a line is to ensure the distance between two points is not too far apart. Since Figure \ref{fig:inset} is only a section of a larger portion of a sorted line, the majority of the points are orange, indicating they were all sorted together. The purple points were not sorted when the algorithm initially passed through, but since the algorithm will continue until all the points have been sorted it will eventually return to them (though the distance will be significantly larger due to each point storing the cumulative distance travelled). To avoid this case, a maximum distance between sorted points is set such that when the sorting algorithm reaches the end of the line it will not jump backwards to sort the remaining points it missed.\\
 
 \begin{figure}[H]
     \centering
@@ -134,33 +131,29 @@ Another error check performed when sorting a line is to ensure the distance betw
     \caption{Sorted Line Failure}
     \label{fig:sline}
 \end{figure}
+Another error check performed when sorting a line is to ensure the distance between two points is not too far apart. Since Figure \ref{fig:inset} is only a section of a larger portion of a sorted line, the majority of the points are orange, indicating they were all sorted together. The purple points were not sorted when the algorithm initially passed through, but since the algorithm will continue until all the points have been sorted it will eventually return to them (though the distance will be significantly larger due to each point storing the cumulative distance travelled). To avoid this case, a maximum distance between sorted points is set such that when the sorting algorithm reaches the end of the line it will not jump backwards to sort the remaining points it missed.\\
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{Pics/inset.png}
+    \includegraphics[width=.8\textwidth]{Pics/inset.pdf}
     \caption{Large Portion of a Sorted Line}
     \label{fig:inset}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{Pics/sorting.png}
+    \includegraphics[width=0.8\textwidth]{Pics/sorting.pdf}
     \caption{Long Path Produced by Nearest Neighbour Approach}
     \label{fig:meandering}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{Pics/meandering.png}
+    \includegraphics[width=0.8\textwidth]{Pics/meandering.pdf}
     \caption{Improved Accuracy Using Downsampling}
     \label{fig:downsampledpath}
 \end{figure}
 
 \section{Algorithm Used for Trajectory Generation}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{Pics/trajtiles.png}
-    \caption{Trajectory Generated (Top Left and Top Right) Showing Surface Path (Red), Offset Normals (Blue), End-Effector Path (Green), Downsampled Ribs (bottom left), and Rib Location Points (bottom right)}
-    \label{fig:trajtiles}
-\end{figure}
 
 The final algorithm chosen for implementation uses a combination of the yaw plane intersections from Figure \ref{fig:yawplane} for the wall sections and the pitch/roll plane intersections from Figure \ref{fig:pitchroll} for the roof sections. To generate trajectories the algorithm uses the structure outlined in Algorithm \ref{alg:trajgen}.\\
 
@@ -181,11 +174,17 @@ The final algorithm chosen for implementation uses a combination of the yaw plan
 \end{algorithmic}
 \end{algorithm}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Pics/trajtiles.png}
+    \caption{Trajectory Generated (Top Left and Top Right) Showing Surface Path (Red), Offset Normals (Blue), End-Effector Path (Green), Downsampled Ribs (bottom left), and Rib Location Points (bottom right)}
+    \label{fig:trajtiles}
+\end{figure}
 Figure \ref{fig:trajtiles} shows the final trajectory in the upper right. Steps 1-2 can be seen in the bottom right, Steps 3-4 in the bottom left, and the surface path in the upper left. It should be noted the spray head will be instructed to shut off while it is moving from the final trajectory point of the wall section to the initial trajectory point of the roof section.\\
 
 \subsection{Extracting Plane Intersections}
 
-
+Steps 1-2 of the algorithm require extracting a vertical and horizontal plane intersection. The height of the horizontal plane can be set using the \var{mid_height} parameter. The vertical plane is centred on the robot. The thickness of the plane is set using the \var{slice_thickness} parameter. Once extracted, the line of points is sorted and points that are \var{via_distance} apart are used as locations to calculate ribs. The horizontal and vertical plane intersection lines after their points have been downsampled to \var{via_distance} apart can be seen as two, four-point lines in Figure \ref{fig:sortedintersections}. The final point of the sorted vertical line is not \var{via_distance} from the previous point, but is included to ensure the trajectory covers the entire selected area. This behaviour was chosen because additional shotcrete usage is preferred over missed areas.\\
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Pics/genclosepts.png}
@@ -193,30 +192,28 @@ Figure \ref{fig:trajtiles} shows the final trajectory in the upper right. Steps 
     \label{fig:sortedintersections}
 \end{figure}
 
-Steps 1-2 of the algorithm require extracting a vertical and horizontal plane intersection. The height of the horizontal plane can be set using the \var{mid_height} parameter. The vertical plane is centred on the robot. The thickness of the plane is set using the \var{slice_thickness} parameter. Once extracted, the line of points is sorted and points that are \var{via_distance} apart are used as locations to calculate ribs. The horizontal and vertical plane intersection lines after their points have been downsampled to \var{via_distance} apart can be seen as two, four-point lines in Figure \ref{fig:sortedintersections}. The final point of the sorted vertical line is not \var{via_distance} from the previous point, but is included to ensure the trajectory covers the entire selected area. This behaviour was chosen because additional shotcrete usage is preferred over missed areas.\\
-
 \subsection{Sorting Vertical and Horizontal Ribs}
 \label{sec:sortlines}
-\begin{figure}[H]
+
+At each point generated from the sorted vertical and horizontal plane intersections, a vertical or horizontal rib is generated as shown in Figure \ref{fig:ribs}. The ribs, receiving their name due to the similarity in appearance to a human rib cage, have their points sorted using the line point sorting algorithm. The spacing between points within a rib is determined by the \var{rib_downsampling} parameter. The maximum height of the wall section is defined using the \var{max_height} parameter. It does not need to be exact, but should approximate the height of the transition from a vertical wall section to a horizontal roof section. Trajectories for the curved sections between wall and roof sections can be generated with either vertical or horizontal ribs making exact determination of \var{max_height} not a necessity. Additional parameters to prevent trajectory generation failure and improve accuracy are \var{max_rib_length}, \var{z_vert_limit}, and \var{rib_tolerance}. The parameter \var{max_rib_length} limits the maximum length the rib can be. However, to ensure ribs are not unintentionally shortened, knowledge of the mine size and shape is required to fully utilize this parameter. To achieve more accurate coverage of the wall sections, \var{z_vert_limit} is used to define the vertical limit where exclusively $Z$-values are used to determine the point-to-point distance along the rib. This decision was made since an accurate \var{step_height} is more important for trajectories than the true surface distance. When sorting the rib points, it is possible the scanner may pick up erroneous data points from particulate in the air or unexpected objects in the work environment. These data points are usually significantly further away from the line of rib points, so any points further than \var{rib_tolerance} from the previous point is considered an outlier and ignored. The \var{rib_tolerance} parameter reduces the need for the \var{max_rib_length} value, so it is used when the operator has little knowledge of the mine dimensions.\\
+
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{Pics/genclosejustribs.png}
     \caption{Sorted and Downsampled Vertical and Horizontal Ribs}
     \label{fig:ribs}
 \end{figure}
 
-
-At each point generated from the sorted vertical and horizontal plane intersections, a vertical or horizontal rib is generated as shown in Figure \ref{fig:ribs}. The ribs, receiving their name due to the similarity in appearance to a human rib cage, have their points sorted using the line point sorting algorithm. The spacing between points within a rib is determined by the \var{rib_downsampling} parameter. The maximum height of the wall section is defined using the \var{max_height} parameter. It does not need to be exact, but should approximate the height of the transition from a vertical wall section to a horizontal roof section. Trajectories for the curved sections between wall and roof sections can be generated with either vertical or horizontal ribs making exact determination of \var{max_height} not a necessity. Additional parameters to prevent trajectory generation failure and improve accuracy are \var{max_rib_length}, \var{z_vert_limit}, and \var{rib_tolerance}. The parameter \var{max_rib_length} limits the maximum length the rib can be. However, to ensure ribs are not unintentionally shortened, knowledge of the mine size and shape is required to fully utilize this parameter. To achieve more accurate coverage of the wall sections, \var{z_vert_limit} is used to define the vertical limit where exclusively $Z$-values are used to determine the point-to-point distance along the rib. This decision was made since an accurate \var{step_height} is more important for trajectories than the true surface distance. When sorting the rib points, it is possible the scanner may pick up erroneous data points from particulate in the air or unexpected objects in the work environment. These data points are usually significantly further away from the line of rib points, so any points further than \var{rib_tolerance} from the previous point is considered an outlier and ignored. The \var{rib_tolerance} parameter reduces the need for the \var{max_rib_length} value, so it is used when the operator has little knowledge of the mine dimensions.\\
-
 \subsection{Selecting Trajectory Via Points}
-\begin{figure}[H]
+
+Once the ribs have been generated and sorted the trajectory via points are selected to form the path shown in Figure \ref{fig:path}. Beginning with the vertical ribs, the first point of the first rib is selected. The surface normal is calculated at that point and the via point is offset from the surface along the surface normal by the amount defined in the configuration file. The orientation of the spray nozzle at each via point is determined as the negative value of the surface normal. Going through each rib in order, the first point of the rib is offset and added to the list of trajectory points. After the first point of each rib has been converted to a trajectory point, the same process is repeated using the ribs in reverse order. Rather then picking the first point on the rib, a point \var{step_height} away from the previous point is used to calculate the trajectory point. This process is repeated while alternating the order of ribs from which the points are selected until the trajectory reaches the top of the wall section that was defined by \var{max_height}. The process repeats itself for the ribs generated for the roof section to complete the trajectory generation as shown in Figure \ref{fig:path}.\\
+
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{Pics/genclosepath.png}
     \caption{Path Generated Through Selecting Trajectory Via Points}
     \label{fig:path}
 \end{figure}
-
-Once the ribs have been generated and sorted the trajectory via points are selected to form the path shown in Figure \ref{fig:path}. Beginning with the vertical ribs, the first point of the first rib is selected. The surface normal is calculated at that point and the via point is offset from the surface along the surface normal by the amount defined in the configuration file. The orientation of the spray nozzle at each via point is determined as the negative value of the surface normal. Going through each rib in order, the first point of the rib is offset and added to the list of trajectory points. After the first point of each rib has been converted to a trajectory point, the same process is repeated using the ribs in reverse order. Rather then picking the first point on the rib, a point \var{step_height} away from the previous point is used to calculate the trajectory point. This process is repeated while alternating the order of ribs from which the points are selected until the trajectory reaches the top of the wall section that was defined by \var{max_height}. The process repeats itself for the ribs generated for the roof section to complete the trajectory generation as shown in Figure \ref{fig:path}.\\
-
 \subsection{Advancing the Robot}
 
 If the user selects an area to shotcrete that is outside the manipulator's workspace, it will autonomously navigate to an appropriate start position. Similarly, if the shotcrete area is larger than the manipulator's workspace, the robot base will move as necessary to ensure the entire selected area receives a shotcrete application. If no specific area is selected the system enters continuous operation mode, and will autonomously apply shotcrete to an area the size of its workspace, then move along the mine surface continually applying shotcrete until the operator instructs it to halt.\\
