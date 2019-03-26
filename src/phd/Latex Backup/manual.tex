@@ -32,7 +32,7 @@ This chapter is intended to serve as a guide to give the reader better understan
      \multicolumn{2}{l}{
      \begin{minipage}{\textwidth} 	
 \scriptsize
-     \textbf{Manual Navigation} The MASS can be driven using a standard USB joystick connected to any computer on the same network that hes been configured and running ROS.
+     \textbf{Manual Navigation} The MASS can be driven using a standard USB joystick connected to any computer on the same network that hes been configured and running \acrshort{ros}.
      \end{minipage}
      }\\
       
@@ -40,7 +40,7 @@ This chapter is intended to serve as a guide to give the reader better understan
 \begin{minipage}{.3\textwidth} 	
 \scriptsize
 \raggedright
-        \textbf{Autonomous Navigation} The MASS can autonomously navigate to a goal specified using the 2D Nav Goal tool located at the top of the RViz window. The MASS performs SLAM as it is navigating and is capable of avoiding obstacles and planning paths around them. To set a goal click the RViz window where the robot should to navigate to, and drag the cursor in the direction the robot should face. A green arrow is shown representing the final position and orientation the navigation system will attempt to achieve. Though not required, it is recommended the operator perform a non-homing scan (by clicking the ``Scan'' button) so RViz can display a rendering of the environment.
+        \textbf{Autonomous Navigation} The MASS can autonomously navigate to a goal specified using the 2D Nav Goal tool located at the top of the RViz window. The MASS performs \acrshort{slam} as it is navigating and is capable of avoiding obstacles and planning paths around them. To set a goal click the RViz window where the robot should to navigate to, and drag the cursor in the direction the robot should face. A green arrow is shown representing the final position and orientation the navigation system will attempt to achieve. Though not required, it is recommended the operator perform a non-homing scan (by clicking the ``Scan'' button) so RViz can display a rendering of the environment.
       \end{minipage}%
       &
         \begin{minipage}{.7\textwidth}
@@ -289,7 +289,7 @@ This chapter is intended to serve as a guide to give the reader better understan
     \begin{minipage}{.3\textwidth} 	
 \scriptsize
 \raggedright
-     To ensure the robot does not attempt to apply shotcrete to itself it is important to ensure the occlusion zone is set appropriately. Using \node{rqt_reconfigure}, the area to be cropped in which the robot's components may be detected by the LiDAR scan is set. The volume enclosed by orange lines will be automatically removed before shotcrete trajectory generation.
+     To ensure the robot does not attempt to apply shotcrete to itself it is important to ensure the occlusion zone is set appropriately. Using \node{rqt_reconfigure}, the area to be cropped in which the robot's components may be detected by the \acrshort{lidar} scan is set. The volume enclosed by orange lines will be automatically removed before shotcrete trajectory generation.
       \end{minipage}%
       &
         \begin{minipage}{.7\textwidth}

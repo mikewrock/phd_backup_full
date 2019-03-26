@@ -1,12 +1,10 @@
 \include{packagesClasses}
 \include{studentInfo}
-\addbibresource{references.bib} 
-%% Helps generate the nomenclature
-\newcommand*{\glossaryname}{Glossary}
-\usepackage[nonumberlist,toc]{glossaries}
-\input{nomenclature.tex}
-\makeglossaries
+\addbibresource{references.bib}
 
+\usepackage[nomain,acronym,nonumberlist,toc,automake]{glossaries}
+\makeglossaries 
+\input{nomenclature.tex}
 %% make dots on all table of contents
 %\usepackage{tocloft}
 %\renewcommand{\cftpartleader}{\cftdontfill{\cftdotsep}} % for parts
@@ -55,7 +53,7 @@
    \unskip\textit{\detokenize{#1}}\unskip
   }
   \newcommand{\func}[1]{
-   \unskip\textit{\detokenize{#1}}()\unskip
+   \unskip\textbf{\detokenize{#1}}()\unskip
   }
   \def\CC{{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\tiny\bf ++}}}
   \newcommand{\cpnode}{\node{control\_panel}}
@@ -119,7 +117,7 @@
 { \end{itemize}                  } 
 \newcommand{\tabitem}{\textbullet~~}
   %\lstset{rangeprefix=@@@,rangesuffix=@@@,includerangemarker=false}
-  \renewcommand{\lstlistingname}{ROS File}% Listing -> Algorithm
+  \renewcommand{\lstlistingname}{\acrshort{ros} File}% Listing -> Algorithm
 \renewcommand{\lstlistlistingname}{List of \lstlistingname s}% List of Listings -> List of Algorithms
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}m{#1}}
 \renewcommand\algorithmiccomment[1]{%
@@ -146,8 +144,8 @@
   %%------------List of Figures-----------------------
   \listoffigures{}
   \addcontentsline{toc}{chapter}{List of Figures}
-  \printglossary[style=list]
-  \glsaddall
+  %\printglossary[style=list]
+  %\glsaddall
   
   %%------------List of CODE-----------------------
   \lstlistoflistings
@@ -155,6 +153,11 @@
   %%------------List of Algorithms-----------------------
   \listofalgorithms
   \addcontentsline{toc}{chapter}{List of Algorithms}
+  
+  %%------------List of Abbreviations-----------------------
+  \glsaddall
+  \printglossary[title=List of Abbreviations,type=\acronymtype]
+  %\printglossaries
   %%------------Dedication----------------------------
  % \include{dedication}
 
@@ -165,15 +168,15 @@
 
   %%-------------Include your chapters----------------
   %% You can rename the files.
-%  \include{1introduction}
-%  \include{2background}
-%  \include{3localization}
+  \include{1introduction}
+  \include{2background}
+  \include{3localization}
   \include{4trajectory}
-%  \include{5thickness}
-%  \include{6overview}
-%  \include{7code}
-%  \include{8testing}
-%  \include{9conclusions}
+  \include{5thickness}
+  \include{6overview}
+  \include{7code}
+  \include{8testing}
+  \include{9conclusions}
 
   %\bibliographystyle{IEEEtran}
   %\bibliography{references}

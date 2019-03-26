@@ -1,90 +1,35 @@
-% create the test file for this example
+\include{packagesClasses2}
+%% make dots on all table of contents
+%\usepackage{tocloft}
+%\renewcommand{\cftpartleader}{\cftdontfill{\cftdotsep}} % for parts
+%\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}} % for chapters
+%\documentclass[12pt]{uoitthesis}
+
+\usepackage[acronym]{glossaries}
+\makeglossaries 
+\input{nomenclature.tex}
 
 
-\documentclass{article}
-
-\usepackage{listings}
-\usepackage{textcomp}
-\usepackage[strict]{changepage}
-\usepackage{setspace}
-\usepackage{texshade}
-\usepackage{algpseudocode}
-\usepackage{notoccite}
-\usepackage{cite}
-\usepackage{array}
-\usepackage{keyval}
-\usepackage{float}
-\usepackage{multirow}
-\usepackage{graphicx}
-\usepackage{epstopdf}
-\usepackage{fancyhdr}
-\usepackage{footmisc}
-\usepackage{listings}
-\usepackage{fancyvrb}
-\usepackage{subfigure}
-\usepackage{amsmath}
-\usepackage{amsthm}
-\usepackage{amssymb}
-\usepackage{nomencl}
-\usepackage{setspace}
-\usepackage{pdfpages}
-\usepackage{rotating}
-\usepackage{bigstrut}
-\usepackage{multirow}
-\usepackage{booktabs}
-\usepackage{pdflscape} % Needed to change some pages to landscape
-\usepackage[T1]{fontenc}
-\usepackage{textcomp} % Needed to get some symbols
-\usepackage{eqnarray} % Needed to organize equations
-\usepackage{tabularx} % See if that fixes tables
-\usepackage{siunitx}
-\sisetup{group-digits = true}
-\sisetup{group-minimum-digits = 4}
-\sisetup{group-separator = {,}}
-
-\usepackage{acronym} % Loads chemical equation module... use \ce{UO2} in text
-\usepackage[version=3]{mhchem} % Handle abbreviations
-\usepackage{url} % Needed for url field
-\usepackage[hidelinks]{hyperref}
-\usepackage{sidecap} % Needed for SCfigures - side captions
-\usepackage{wrapfig} % Needed for wrapped text figures
-\usepackage[usenames,dvipsnames,svgnames,table]{xcolor} % Needed for coloured text
-\usepackage{enumitem} % for lists with no spacing
-\usepackage{longtable} % Needed for tables spanning more than one page
-\usepackage{ltablex}
-\usepackage{gensymb}
-\usepackage{pstricks}
-\usepackage{xcolor}
-
- \newcommand{\includecoderange}[4][C++]{\lstinputlisting[
-  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
-  breakatwhitespace=true,         % sets if automatic breaks should only happen at whitespace
-  breaklines=true,                 % sets automatic line breaking
-  captionpos=t,                    % sets the caption-position to bottom
-  commentstyle=\color{Mahogany},    % comment style
-  frame=single,                    % adds a frame around the code
-  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
-  keywordstyle=\color{blue},       % keyword style
-  language=#1,                 % the language of the code
-  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
-  numbersep=5pt,                   % how far the line-numbers are from the code
-  numberstyle=\tiny\color{black!50}, % the style that is used for the line-numbers
-  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
-  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
-  showstringspaces=false,          % underline spaces within strings only
-  showtabs=false,                  % show tabs within strings adding particular underscores
-  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
-  stringstyle=\color{JungleGreen},     % string literal style
-  tabsize=2,                       % sets default tabsize to 2 spaces
-  title=\lstname,                   % show the filename of files included with \lstinputlisting; also try caption instead of title
-  caption=#3 (lines {#4}),
-  linerange={#4},
-  upquote=true,  
-  backgroundcolor=\color{black!5},
-  ]{#2}}
-  \renewcommand{\lstlistingname}{ROS File}% Listing -> Algorithm
-\renewcommand{\lstlistlistingname}{List of \lstlistingname s}% List of Listings -> List of Algorithms
 \begin{document}
-Beginning text
-Text with missing character
+
+
+  %%-----------Table of Contents----------------------
+  \renewcommand{\contentsname}{Table of Contents}
+  \tableofcontents{}
+  \addcontentsline{toc}{chapter}{Table of Contents}
+
+  %%------------List of Abbreviations-----------------------
+  \glsaddall
+  \printglossary[title=List of Abbreviations,type=\acronymtype]
+  \printglossaries
+  %%------------Dedication----------------------------
+ % \include{dedication}
+
+
+  %%-------------Include your chapters----------------
+  %% You can rename the files.
+  \include{1introduction2}
+
+  
+ 
 \end{document}

@@ -1,21 +1,19 @@
 \chapter{Software}
 \label{chap:code}
-\section{Chapter Summary}
-This chapter discusses the complete ROS package built and presents the algorithms used in the MASS source code. Much of the code simply facilitates the handling and communication of data across the various nodes as well as inputting and parsing commands from the user. Since the system was primarily designed to be a research platform many of the testing, debugging, and experimentation portions of the code have been included in the final version for future work. The ROS package contains typical elements such as \node{CMakeLists.txt}, \node{package.xml}, messages, services, configuration and launch files, URDF descriptions, source code, and headers. The following sections discuss the package framework and core functionality using pseudo code algorithms. The complete code can be found in Appendix \ref{app:code}. Beginning with a discussion of the ROS framework this chapter presents the novel algorithms developed for this work.\\
 \section{Package Files}
 
-A package is the most atomic structure in ROS, meaning it is the root of all projects created for ROS. At its minimum, a package is simply a directory containing \node{package.xml}. As the package grows to contain its own software nodes, a \node{CMakeLists.txt} file is used to define which software files need to be compiled. Other components of a ROS package can include messages, services, dependencies, header files, and source code. Packages big and small are all self contained so they can be easily shared and implemented on other systems.\\
+A package is the most atomic structure in \acrshort{ros}, meaning it is the root of all projects created for \acrshort{ros}. At its minimum, a package is simply a directory containing \node{package.xml}. As the package expands to contain software nodes, a \node{CMakeLists.txt} file is used to define which software files need to be compiled. The \node{CMakeLists.txt} file also includes the required information to complile the package's messages, services, dependencies, and header files. Packages are self contained so they can be easily shared and implemented on other systems.\\
 
 \subsection{package.xml}
 The file \node{package.xml} contains the package name, version number, description, maintainer, and license. As well, it contains a list of all the other packages necessary to build and run the package. It contains a reference to \node{plugin_description.xml} so the compiler is aware there are custom plugins for this package and what file they are located in.\\
 
 The \node{package.xml} for the MASS can be found in Appendix \ref{app:pack}.
 \subsection{plugin\_description.xml}
-This package uses a custom plugin and tool for RViz. The plugin, called ``Control Panel'' is a ``ControlPanel'' object in the ``control\_panel'' namespace and extends the ``RViz::Panel'' class. The ``Selection Tool'' tool is a fork of the ``SelectionTool'' class called ``selection\_tool'' and extends the ``RViz::Tool'' class. It has been modified to function more effectively when used with the MASS GUI.\\
+This package uses a custom plugin and tool for RViz. The plugin, called ``Control Panel'' is a \textbf{ControlPanel} object in the ``control\_panel'' namespace and extends the \textbf{RViz::Panel} class. The ``Selection Tool'' tool is a fork of the \textbf{SelectionTool} class called \textbf{selection\_tool} and extends the \textbf{RViz::Tool} class. It has been modified to function more effectively when used with the MASS \acrshort{gui}.\\
 
 The \node{plugin_description.xml} for the MASS can be found in Appendix \ref{app:plug}.
 \subsection{CMakeLists.txt}
-The \node{CMakeLists.txt} file is the first file ROS uses when compiling the package. Within this file all the nodes, messages, services, configuration files, and dependencies are declared. They can be found listed in Table \ref{tab:cmakelists}. The file can be found in Appendix \ref{app:cmake}.\\
+The \node{CMakeLists.txt} file is the first file \acrshort{ros} uses when compiling the package. Within this file all the nodes, messages, services, configuration files, and dependencies are declared. They can be found listed in Table \ref{tab:cmakelists}. The file can be found in Appendix \ref{app:cmake}.\\
 \begin{table}[h!]
 \begin{adjustwidth}{-.5in}{-.5in}  
 \begin{tabular}{|c|c|c|c|}
@@ -32,7 +30,6 @@ Nodes & Messages & Services & Configuration Files \\ \hline
 \tabitem arm\_msg \\
 \tabitem trajectory\_point \\
 \tabitem trajectory\_msg \\
-\tabitem trajectory\_array \\
 \tabitem empty \\} & \parbox[t]{4cm}{
 \tabitem localize\_cloud \\
 \tabitem thickness\_service \\
@@ -46,11 +43,11 @@ Nodes & Messages & Services & Configuration Files \\ \hline
 \end{adjustwidth}
 \end{table}
 \section{Launch Files}
-Two launch files are provided: \node{main.launch} and \node{simulation.launch}. The launch files appear in their entirety in Appendix \ref{app:launch} and are explained as follows: 
+Two launch files are provided: main.launch and simulation.launch. The launch files appear in their entirety in Appendix \ref{app:launch} and are explained as follows: 
 
 \subsection{main.launch}
 
-The \node{main.launch} file performs the following actions (using the syntax \node{package_name} : \node{node_name}):
+The main.launch file performs the following actions (using the syntax \node{package_name} : \node{node_name}):
 \begin{itemize}
 
 \item Include other launch files
@@ -75,7 +72,7 @@ The \node{main.launch} file performs the following actions (using the syntax \no
 \item \node{laser_filters} : \node{scan_to_scan_filter_chain}
 \item \node{laser_assembler} : \node{laser_scan_assembler}
 \item \node{hector_mapping} : \node{hector_mapping}
-\item \node{RViz} : \node{RViz}
+\item \node{rviz} : \node{rviz}
 \item \node{rqt_reconfigure} : \node{rqt_reconfigure}
 \item \node{tf} : \node{static_transform_publisher}
 
@@ -95,7 +92,7 @@ The \node{main.launch} file performs the following actions (using the syntax \no
 
 \begin{itemize}
 
-\item \node{MASS} : \node{RViz_main.RViz}
+\item \node{MASS} : \node{rviz_main.rviz}
 \item \node{MASS} : \node{my_laser_config.yaml}
 \item \node{husky_navigation} : \node{planner.yaml}
 \item \node{husky_navigation} : \node{costmap_common.yaml}
@@ -105,25 +102,25 @@ The \node{main.launch} file performs the following actions (using the syntax \no
 
 \end{itemize}
 
-Since the MASS is a modified Husky UGV, the URDF description has been modified accordingly. A separate package for the modified URDF description called \node{MASS_husky_description} was made and the launch file containing the URDF description is included. Including a launch file within another launch file effectively copies all the code from the included launch file into the main launch file, but keeping them separate allows the user to keep the package modular and makes the launch file more compact and readable.\\
+Since the MASS is a modified Husky UGV, the \acrshort{urdf} description has been modified accordingly. A separate package for the modified \acrshort{urdf} description called \node{MASS_husky_description} was made and the launch file pointing to the \acrshort{urdf} description is included. Including a launch file within another launch file effectively copies all the code from the included launch file into the main launch file, but keeping them separate allows the user to keep the package modular and makes the launch files more compact and readable.\\
 
-Following the inclusion of the URDF launch file, the Husky specific nodes are launched. The node responsible for communication between ROS and the Husky is called \node{husky_node}. When launched the parameters indicating which USB port it is connected to, the controller and diagnostic frequencies, wheel diameter, and speed and acceleration limits are set. Launch files from the \node{husky_control} package are included to instruct the controller how to properly handle \node{move_base} velocity and joystick commands, perform EKF localization, and display the Husky's movements in RViz. As well, the driver for the IMU on board the Husky is launched.\\
+Following the inclusion of the \acrshort{urdf} launch file, the Husky specific nodes are launched. The node responsible for communication between \acrshort{ros} and the Husky is called \node{husky_node}. When launched the parameters indicating which USB port it is connected to, the controller and diagnostic frequencies, wheel diameter, and speed and acceleration limits are set. Launch files from the \node{husky_control} package are included to instruct the controller how to properly handle \node{move_base} velocity and joystick commands, perform \acrshort{ekf} localization, and display the Husky's movements in RViz. As well, the driver for the \acrshort{imu} on board the Husky is launched.\\
 
-When the \node{move_base} node is launched the local and global planner configurations are loaded from a file or stated explicitly. Parameters like the Husky footprint size and recovery behaviours are not intended to be modified frequently, so they are stored in a file. The user may want to change other parameters like maximum velocity and the safety buffer from obstacles, or have multiple launch files with different settings. They are able to set or overwrite parameters from a configuration file explicitly in the launch file. Whether the parameters are set using a configuration file or from the launch file the effect is the same, however, the launch file takes priority so if the same parameter is set using both methods, the values in the launch file will be used.\\
+When the \node{move_base} node is launched the local and global planner configurations are loaded from a file or stated explicitly. Parameters like the Husky footprint size and recovery behaviours are not intended to be modified frequently, so they are stored in a file. The user may want to change other parameters like maximum velocity and the safety buffer from obstacles, or have multiple launch files with different settings. They are able to set or overwrite parameters from a configuration file explicitly in the launch file. Whether the parameters are set using a configuration file or from the launch file the effect is the same, however, the launch file takes priority so if the same parameter is set using both methods, the value in the launch file will be used.\\
 
-When the \node{scan_to_scan_filter} node is launched it loads the configuration file that sets the LiDAR distance, intensity, and angular range to be used. As well, the LiDAR driver and \node{laser_scan_assembler} node is launched.\\
+When the \node{scan_to_scan_filter} node is launched it loads the configuration file that sets the \acrshort{lidar} distance, intensity, and angular range to be used. As well, the \acrshort{lidar} driver and \node{laser_scan_assembler} node is launched.\\
 
-To publish the joint states of the robot, \node{cube_node}, \node{denso_node}, and \node{joint_fusion} are launched. The \node{joint_fusion} node combines the individual joint states from the other two nodes and publishes them as a single joint state message. The node \node{robot_state_publisher} uses the joint state message and the URDF file to publish the tf tree of the robot. The tf tree, as its name implies, is a tree structure of coordinate frame transformations. It is used by ROS to calculate the transformation between any two frames present and is used by RViz along with the URDF to display the current pose of the MASS and its manipulator.\\
+To publish the joint states of the robot, \node{cube_node}, \node{denso_node}, and \node{joint_fusion} are launched. The \node{joint_fusion} node combines the individual joint states from the other two nodes and publishes them as a single joint state message. The node \node{robot_state_publisher} uses the joint state message and the \acrshort{urdf} file to publish the tf tree of the robot. The tf tree, as its name implies, is a tree structure of coordinate frame transformations. It is used by \acrshort{ros} to calculate the transformation between any two frames present and is used by RViz along with the \acrshort{urdf} to display the current pose of the MASS and its manipulator.\\
 
-The node \node{hector_mapping} performs SLAM while the robot is operating. When launched, the parameter for \var{base_frame} is set so it has a point of reference for its local coordinate frame.\\
+The node \node{hector_mapping} performs \acrshort{slam} while the robot is operating. When launched, the parameter for \var{base_frame} is set so it has a point of reference for its local coordinate frame. For the MASS, the value for \var{base_frame} used is ``base\_footprint''\\
 
-When RViz is launched, ``RViz\_MASS.RViz'' is loaded to configure the RViz environment optimally for use with the MASS. Different `.RViz' files can be loaded for different scenarios, for example the ``RViz\_debug.RViz'' configuration is loaded when debugging because it displays many of the point clouds and visualizations that are helpful in debugging but unnecessary during normal operation.\\
+When RViz is launched, rviz\_MASS.rviz is loaded to configure the RViz environment optimally for use with the MASS. Different .rviz files can be loaded for different scenarios, for example the rviz\_debug.rviz configuration is loaded when debugging because it displays many of the point clouds and visualizations that are helpful in debugging but unnecessary during normal operation.\\
 
-The final section of the launch file launches the trajectory generation, localization, and thickness estimation services, the \node{rqt_reconfigure} GUI, and a \node{static_transform_publisher} that aligns the map to the world coordinate frame.\\
+The final section of the launch file launches the trajectory generation, localization, and thickness estimation services, the \node{rqt_reconfigure} \acrshort{gui}, and a \node{static_transform_publisher} that aligns the map to the world coordinate frame.\\
 
 \subsection{simulation.launch}
 
-For demonstration, experimentation, or debugging purposes, the user may want to launch an environment where they can use the MASS control panel in RViz with the localization, trajectory generation, and thickness estimation services without connecting to the physical robot. The \node{simulation.launch} file allows the user to do so by launching the following nodes and files:
+For demonstration, experimentation, or debugging purposes, the user may want to launch an environment where they can use the MASS control panel in RViz with the localization, trajectory generation, and thickness estimation services without connecting to the physical robot. The simulation.launch file allows the user to do so by launching the following nodes and files:
 
 \begin{itemize}
 
@@ -132,8 +129,8 @@ For demonstration, experimentation, or debugging purposes, the user may want to 
 \item \node{MASS} : \node{cloud_localizer}
 \item \node{MASS} : \node{trajectory_server}
 \item \node{MASS} : \node{thickness_server}
-\item \node{RViz} : \node{RViz}
-\item \node{MASS} : \node{RViz_debug.RViz}
+\item \node{rviz} : \node{rviz}
+\item \node{MASS} : \node{rviz_debug.rviz}
 \item \node{rqt_reconfigure} : \node{rqt_reconfigure}
 \item \node{tf} : \node{static_transform_publisher}
 \end{itemize}
@@ -144,11 +141,11 @@ Messages are a convenient way of grouping together variables into a single objec
 
 \subsection{trajectory\_point.msg}
 \includecode{CleanedCode/msg/trajectory_point.msg}{trajectory\_point.msg}
-Each point in the trajectory requires the position and surface normal at that position. The \var{trajectory_point} message contains that information as well as a \var{d} parameter. The \var{d} parameter is used when sorting lines of points to keep track of the approximate total distance along the surface (see Section \ref{sec:sortlines}).\\
+Each point used in computing the trajectory requires the position and surface normal at that position. The \var{trajectory_point} message contains that information as well as a \var{d} parameter. The \var{d} parameter is used when sorting lines of points to keep track of the approximate total distance along the surface (see Section \ref{sec:sortlines}).\\
 \subsection{trajectory\_msg.msg}
 \label{sec:trajmsg}
 \includecode{CleanedCode/msg/trajectory_msg.msg}{trajectory\_msg.msg}
-Messages in ROS can contain a limited variety of datatypes, but among them is the ability to include other messages or arrays of messages (see \url{http://wiki.ros.org/msg}). For the manipulator trajectories in this work, an array of \var{trajectory_point} messages is used.\\
+Messages in \acrshort{ros} can contain a limited variety of datatypes, but among them is the ability to include other messages or arrays of messages (see \url{http://wiki.ros.org/msg}). For the manipulator trajectories in this work, an array of \var{trajectory_point} messages is used.\\
 
 \subsection{arm\_msg.msg}
 \includecode{CleanedCode/msg/arm_msg.msg}{arm\_msg.msg}
@@ -156,14 +153,14 @@ The \var{arm_msg} message was designed to make it easy to send commands to the D
 
 \subsection{cube\_msg.msg}
 \includecode{CleanedCode/msg/cube_msg.msg}{cube\_msg.msg}
-Originally the \node{cube_node} was designed to handle multiple Powercubes at once, but as research continued, the Powercube manipulator was replaced with the DENSO manipulator. Additional joint variables can easily be added should a user want to control multiple Powercubes, however, control of a single Powercube is all that is required within this work. The variables in the \var{cube_msg} message contain the desired position or velocity (depending on the value of \var{pose}), the maximum velocity (used only in position commands), and maximum acceleration allowed to reach the position (or velocity) goal.\\
+Originally the \node{cube_node} was designed to handle multiple Powercubes at once, but as research progressed, the Powercube manipulator was replaced with the DENSO manipulator. Additional joint variables can easily be added should a user want to control multiple Powercubes, however, a single Powercube for the nodding head servo is all that is required within this work. The variables in the \var{cube_msg} message contain the desired position or velocity (depending on the value of \var{pose}), the maximum velocity (used only in position commands), and maximum acceleration allowed to reach the position (or velocity) goal.\\
 
 \subsection{marker\_val.msg}
 \includecode{CleanedCode/msg/marker_val.msg}{marker\_val.msg}
-When the localization algorithm attempts to detect the markers, it is possible there may be many potential keypoints to choose from, meaning multiple marker candidates exist. The \var{marker_val} message is used to hold them so a sorting algorithm can find the closest match in the marker file. The i, j, and k variables hold the position of the first, second, and third keypoint within the array of keypoint candidates. The \var{val} variable holds a value representing how accurately the keypoints match the recorded keypoints in the marker file. The value for \var{val} is calculated using a weighted sum of the the distances between $P_1-P_2$, $P_2-P_3$, and the angle between $\mathbf{P_1P_2}$ and $\mathbf{P_2P_3}$. \\
+When the localization algorithm attempts to detect the markers, it is possible there may be many potential keypoints to choose from, meaning multiple marker candidates exist. The \var{marker_val} message is used to hold them so a sorting algorithm can find the closest match in the marker file. The \var{i}, \var{j}, and \var{k} variables hold the position of the first, second, and third keypoint within the array of keypoint candidates. The \var{val} variable holds a value representing how accurately the keypoints correspond to the recorded keypoints in the marker file. The value for \var{val} is calculated using a weighted sum of the the distances between $P_1-P_2$, $P_2-P_3$, and the angle between $\mathbf{P_1P_2}$ and $\mathbf{P_2P_3}$. \\
 
 \section{Services}
-In ROS services are able to receive and return variables and messages. In order for ROS to determine what messages or variables to expect and what to return, a `.srv' file is used to explicitly declare the messages a service is expecting and what message it will return. The division between incoming and outgoing data is marked by a line containing ``\texttt{----}''. The three services built for this work are the ``Cloud Localization Service'', ``Trajectory Generation Service'', and ``Thickness Estimation Service'' discussed below, their source code can be found in Appendix \ref{app:sourcesrv}.\\
+In \acrshort{ros} services are able to receive and return variables and messages. In order for \acrshort{ros} to determine what messages or variables to expect and what to return, a .srv file is used to explicitly declare the message types a service is expecting and what message types it will return. The division between request and response data is marked by a line containing ``\texttt{----}''. The three services built for this work are the ``Cloud Localization Service'', ``Trajectory Generation Service'', and ``Thickness Estimation Service'' discussed below, their source code can be found in Appendix \ref{app:sourcesrv}.\\
 \subsection{Cloud Localization Service}
 \includecode{CleanedCode/srv/localize_cloud.srv}{localize\_cloud.srv}
 This localization service expects a point cloud to localize, a string to indicate the location of the marker file, and a boolean used to instruct the service if the point cloud scan is to set the world coordinate frame or localize within it. The service returns the localized cloud and a transformation matrix from the robot's frame of reference to the marker's frame.\\
@@ -173,7 +170,7 @@ This localization service expects a point cloud to localize, a string to indicat
 %caption={[pointcloud\_localization\_service.cpp (lines 86, 91, and 100)] pointcloud\_localization\_service.cpp (lines 86, 91, and 100)},
 %linerange={86-86,91-91,100-100},]{CleanedCode/src/pointcloud_localization_service.cpp}
   
-Three helper functions were used to simplify the main portions of the code. They perform dot products, cross products, and normalized cross products. The main function initializes the node, advertises its service on the \node{\localize_pcd} topic, and configures a visualization to show the possible marker keypoint locations on topic \node{\visualization_marker}. The \node{rqt_reconfigure} callbacks are set and the visualization marker style is set. The node then ``spins'', meaning it will wait until a message is received and execute the appropriate callback. A callback function ROS was written for each topic the service subscribes to.\\
+Three helper functions were used to simplify the main portions of the code. They perform dot products, cross products, and normalized cross products. The \func{main} function initializes the node, advertises its service on the \node{\localize_pcd} topic, and configures a visualization to show the possible marker keypoint locations on topic \node{\visualization_marker}. The \node{rqt_reconfigure} callbacks are set and the visualization marker style is set. The node then ``spins'', meaning it will wait until a message is received and execute the appropriate callback. A callback is a function written for a topic the service subscribes to.\\
 
 The callback function to localize the cloud is explained in Algorithm \ref{alg:localize}.
 \begin{algorithm}[H]
@@ -198,7 +195,7 @@ The callback function to localize the cloud is explained in Algorithm \ref{alg:l
 \end{algorithm}
 
 \subsubsection{Clustering Points}
-Since the LiDAR scanner's resolution is smaller than the size of the marker keypoint, it will typically detect multiple data points per marker keypoint. The keypoint candidates are determined by taking the mean location of all data points within a certain radius and with sufficiently high reflected intensity. The algorithm to cluster data points into keypoint candidates is Algorithm \ref{alg:cluster} (note, the data has already been filtered for intensity so all data points remaining are possible marker keypoints).
+Since the \acrshort{lidar} scanner's resolution is smaller than the size of the marker keypoint, it will typically detect multiple data points per marker keypoint. The keypoint candidates are determined by taking the mean location of all data points within a certain radius and with sufficiently high reflected intensity. The algorithm to cluster data points into keypoint candidates is Algorithm \ref{alg:cluster} (note, the data has already been filtered for intensity so all data points remaining are possible marker keypoints).
 
 \begin{algorithm}[H]
 \caption{Clustering Algorithm}
@@ -228,7 +225,7 @@ Since the LiDAR scanner's resolution is smaller than the size of the marker keyp
 \end{algorithmic}
 \end{algorithm}
 \subsubsection{Determining Marker Keypoints}
-After the clustering algorithm, an array of keypoint candidates is produced. If there are less than three points, the marker has not been detected and the service reports a failure. If there are three or more keypoint candidates, they must be checked to ensure they fit the marker model. If there are multiple groups of keypoint candidates that fit the marker model, the best fit is chosen. If none of the keypoints fit the marker model, the service reports it could not detect the marker. Once the marker is located, a $3\times3$ matrix holding the XYZ positions of the marker keypoints and a $4\times4$ transformation matrix of its position relative to the scanner is stored in the matrices indicated by the pointers passed to the function. The algorithm for fitting keypoint candidates and selecting the best three is Algorithm \ref{alg:keypoint}.
+After the clustering algorithm, an array of keypoint candidates is produced. If there are less than three points, the marker has not been detected and the service reports a failure. If there are three or more keypoint candidates, they must be checked to ensure they fit one of the marker models. If there are multiple groups of keypoint candidates that fit a marker model, the best fit is chosen. If none of the keypoints fit a marker model, the service reports it could not detect a marker. Once a marker is located, a $3\times3$ matrix holding the XYZ positions of the marker keypoints and a $4\times4$ transformation matrix of its position relative to the scanner is stored in the matrices indicated by the pointers passed to the function. The algorithm for fitting keypoint candidates and selecting the best three is Algorithm \ref{alg:keypoint}.
 \begin{spacing}{0.8}
 \begin{algorithm}[H]
 \caption{Keypoint Selection Algorithm}
@@ -288,10 +285,10 @@ When the service is called, it executes the \func{generate} function. The trajec
 \begin{raggedright}
 \Function{generate}{Point cloud selection, Full point cloud}
 \State Extract intersection between horizontal plane (at \var{mid_height}) and point cloud selection
-\State Sort extracted line (at \var{chunk_radius} downsampling)
+\State Sort extracted line (using \var{chunk_radius} for downsampling)
 \For{$ ctr:=1 $ \textbf{to} Size of sorted line}
 \State Extract intersection between vertical plane (passing through robot centre and point of sorted line at index \var{ctr}) and point cloud selection
-\State Sort extracted line (at \var{downsample_radius} downsampling)
+\State Sort extracted line (using \var{downsample_radius} for downsampling)
 \State Add extracted line to \var{rib_array}
 \EndFor
 \State Set \var{height} = 0
@@ -305,9 +302,9 @@ When the service is called, it executes the \func{generate} function. The trajec
 \State Select point at \var{height} in rib \var{ctr} of \var{rib_array}
 \State Calculate point normal, apply offset, and add point to \var{arm_trajectory}
 \EndFor
-\If{\var{height} > (\var{wall_height} \textbf{or} max height of point cloud selection)}
-\State Break while loop
-\EndIf
+%\If{\var{height} > (\var{wall_height} \textbf{or} max height of point cloud selection)}
+%\State Break while loop
+%\EndIf
 \State Increment \var{height} by \var{height_step}
 \EndWhile
 \EndFunction\\
@@ -330,11 +327,11 @@ When the service is called, it executes the \func{generate} function. The trajec
 \If{No intersection exists}
 \State Extract intersection between vertical plane (parallel with robot's X-axis, but intersecting nearest point in point cloud selection
 \EndIf 
-\State Sort extracted line (at \var{chunk_radius} downsampling)
+\State Sort extracted line (using \var{chunk_radius} for downsampling)
 \For{$ ctr:=1 $ \textbf{to} Size of sorted line}
 \State Rotate a horizontal plane around robot's Y-axis (or X-axis) to intersect with point \var{ctr} of sorted line
 \State Extract intersection between rotated plane and point cloud selection
-\State Sort extracted line (at \var{downsample_radius} downsampling)
+\State Sort extracted line (using \var{downsample_radius} for downsampling)
 \State Add extracted line to \var{rib_array}
 \EndFor
 \State \var{height} = \var{wall_height}
@@ -348,9 +345,9 @@ When the service is called, it executes the \func{generate} function. The trajec
 \State Select point at \var{height} in rib \var{ctr} of \var{rib_array}
 \State Calculate point normal, apply offset, and add point to \var{arm_trajectory}
 \EndFor
-\If{\var{height} > max height of point cloud selection (measured along the surface)}
-\State Break while loop
-\EndIf
+%\If{\var{height} > max height of point cloud selection (measured along the surface)}
+%\State Break while loop
+%\EndIf
 \State Increment \var{height} by \var{height_step}
 \EndWhile
 \EndFunction\\
@@ -385,42 +382,42 @@ The algorithm for calculating shotcrete thickness is Algorithm \ref{alg:thick}.
 \end{algorithm}
 
 \subsection{Map Reset Service}
-The Hector SLAM package does not have the functionality to halt the mapping process. It also does not support 3D mapping so it will not take in to account the rotation of the LiDAR's nodding head. This means that when the nodding head moves to generate a point cloud, the SLAM algorithm will attempt to interpret the new laser scan data as robot motion, most often ending up distorting the map and losing its position. For this reason, the map must be reset after every point cloud scan. The Hector SLAM package can reset the map upon receiving an empty service call on the \node{move_base/clear_costmaps} topic, so the message ``empty.srv'' was generated to perform such actions. Before each reset the map is saved to disk so SLAM can resume after the scan is taken.\\
+The Hector \acrshort{slam} package does not have the functionality to halt the mapping process. It also does not support 3D mapping so it will not take in to account the rotation of the \acrshort{lidar}'s nodding head. This means that when the nodding head moves to generate a point cloud, the \acrshort{slam} algorithm will attempt to interpret the new laser scan data as robot motion, most often ending up distorting the map and losing its position. For this reason, the map must be reset after every point cloud scan. The Hector \acrshort{slam} package can reset the map upon receiving an empty service call on the \node{move_base/clear_costmaps} topic, so the message ``empty.srv'' was generated to perform such actions. Before each reset the map is saved to disk so \acrshort{slam} can resume after the scan is taken.\\
 
 \section{Configuration Files}
-Configuration files used by the \node{rqt_reconfigure} node make the parameters within them available for modification through the \node{rqt_reconfigure} GUI. A configuration file contains the variables' name, data type, priority level, and text description as well as the default, maximum, and minimum value. The configuration files for this work can be found in Appendix \ref{app:cfgs}.\\
+Configuration files used by the \node{rqt_reconfigure} node make the parameters within them available for modification through the \node{rqt_reconfigure} \acrshort{gui}. A configuration file contains the variables' name, data type, priority level, and text description as well as the default, maximum, and minimum value. The configuration files for this work can be found in Appendix \ref{app:cfgs}.\\
 
-The control panel configuration file (ROS File \ref{code:cpcfg} in Appendix \ref{app:cfgs}) generates an interface in the \node{rqt_reconfigure} GUI which can be seen in Figure \ref{fig:cpgui}. The variable names are seen on the left of the slider bars, with the maximum and minimum values on the right and left side of the slider respectively. To the right of the slider bars, the user can manually enter in a number instead of using the slider. When the user hovers the mouse over a variable, the text description appears in a black box (as shown for the ``init\_clear'' parameter in Figure \ref{fig:cpgui}).
+The control panel configuration file (\acrshort{ros} File \ref{code:cpcfg} in Appendix \ref{app:cfgs}) generates an interface in the \node{rqt_reconfigure} \acrshort{gui} which can be seen in Figure \ref{fig:cpgui}. The variable names are seen on the left of the slider bars, with the maximum and minimum values on the right and left side of the slider respectively. To the right of the slider bars, the user can manually enter in a number instead of using the slider. When the user hovers the mouse over a variable, the text description appears in a black box (as shown for the ``init\_clear'' parameter in Figure \ref{fig:cpgui}).
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{Pics/control_panel.png}
-    \caption{\texttt{rqt\_reconfigure} GUI for Control Panel Parameters}
+    \caption{\texttt{rqt\_reconfigure} \acrshort{gui} for Control Panel Parameters}
     \label{fig:cpgui}
 \end{figure}
 
 \subsection{YAML Files}
-Files with the `.yaml' extension are used for parameters that should be easily changed, but do not require modification during runtime. For example, the data from the laser scanner is filtered before being used to create point clouds. Due to the range of motion of the nodding head and the angular bounds of the laser scanner, it is capable of detecting portions of the robot to which it is mounted. This data can be cropped out at a later time, but it is more efficient to limit the distance, angle, and intensity values of the LiDAR data so that the \node{laser_scan_assembler} node does not have to handle as much data. The ROS File \ref{code:yaml} in Appendix \ref{app:cfgs} shows the `.yaml' configuration file for the \node{scan_filter_chain} node that sets the minimum distance, maximum angle, and maximum intensity values to keep.\\
+Files with the .yaml extension are used for parameters that should be easily changed, but do not require modification during runtime. For example, the data from the laser scanner is filtered before being used to create point clouds. Due to the range of motion of the nodding head and the angular bounds of the laser scanner, it is capable of detecting portions of the robot to which it is mounted. This data can be cropped out at a later time, but it is more efficient to limit the distance, angle, and intensity values of the \acrshort{lidar} data so that the \node{laser_scan_assembler} node does not have to handle as much data. The \acrshort{ros} File \ref{code:yaml} in Appendix \ref{app:cfgs} shows the .yaml configuration file for the \node{scan_filter_chain} node that sets the minimum distance, maximum angle, and maximum intensity values to keep.\\
 
 \section{URDF}
-The Unified Robot Description Format (URDF) is an XML format for representing a robot model. A URDF file representing the system in this work can be found in Appendix \ref{app:urdf}. The Graphviz diagram for visualizing the URDF model can be seen in Figure \ref{fig:urdf}. In the URDF file each link within the robot is given a name. The links are shown in Figure \ref{fig:urdf} as black boxes. The links are then connected with joints (either revolute or prismatic), shown as blue ellipses in Figure \ref{fig:urdf}. The position and orientation of each link is specified in the URDF, as well as the 3D mesh for visualizing the links. With a complete URDF, ROS only requires the angle (or extension) of each joint in order to display a 3D rendered model of the robot within RViz. The \node{robot_state_publisher} node listens for the joint angles and broadcasts the tf tree containing the coordinate frame transformations for each link.\\
+The Unified Robot Description Format (\acrshort{urdf}) is an \acrshort{xml} format for representing a robot model. A \acrshort{urdf} file representing the system in this work can be found in Appendix \ref{app:urdf}. Graphviz is a tool for visualizing \acrshort{urdf} structures. The Graphviz diagram for the MASS \acrshort{urdf} can be seen in Figure \ref{fig:urdf}. In the \acrshort{urdf} file each link within the robot is given a name. The links are shown in Figure \ref{fig:urdf} as black boxes. The links are then connected with joints (either revolute or prismatic), shown as blue ellipses in Figure \ref{fig:urdf}. The position and orientation of each link is specified in the \acrshort{urdf}, as well as the 3D mesh for visualizing the links. With a complete \acrshort{urdf}, \acrshort{ros} only requires the angle (or extension) of each joint in order to display a 3D rendered model of the robot within RViz. The \node{robot_state_publisher} node listens for the joint angles and broadcasts the tf tree containing the coordinate frame transformations for each link.\\
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{Pics/urdf.png}
-    \caption{Graphviz Diagram of URDF File}
+    \caption{Graphviz Diagram of \acrshort{urdf} File}
     \label{fig:urdf}
 \end{figure}
 
 \section{Header Files}
-Header files are often used to define various global functions and variables to be made available to the corresponding source files that include it. These globals can be made public or private, restricting or allowing them to be accessed by other programs. The two source files requiring custom headers are \node{control_panel.cpp} and \node{control_dashboard.cpp}. As well, the \node{marker_selector} plugin has a custom header file for its internal functionality. The header files can be found in Appendix \ref{app:headers}.\\
+Header files are often used to define various global functions and variables to be made available to the source files that include it. These globals can be made public or private, restricting or allowing them to be accessed by other programs. The two source files requiring custom headers are \node{control_panel.cpp} and \node{control_dashboard.cpp}. As well, the \node{marker_selector} plugin has a custom header file for its internal functionality. The header files can be found in Appendix \ref{app:headers}.\\
 
 \section{Source Files}
-The main component of the source code for this work is the control panel. The \node{control_dashboard} is embedded as a panel in RViz and creates the QNode object \node{control_panel}. The reason for this configuration is modularity; if the control panel is to be moved out of the RViz environment, \node{control_panel} is left unchanged and \node{control_dashboard} is replaced with a standalone container for the GUI. The complete code for all source files can be found in Appendix \ref{app:source}.
+The main component of the source code for this work is the control panel. The \node{control_dashboard} is embedded as a panel in RViz and creates the \textbf{QNode} object \node{control_panel}. The reason for this configuration is modularity; if the Control Panel is to be moved out of the RViz environment, \node{control_panel} is left unchanged and \node{control_dashboard} is replaced with a standalone container for the \acrshort{gui}. The complete code for all source files can be found in Appendix \ref{app:source}.
 \subsection{Control Dashboard}
-The \node{control_dashboard} node was designed as an RViz panel with the intention to make it replaceable should the designer decide to develop a standalone application instead of using RViz as the environment for the GUI. To mimimize the amount of work required to convert the panel to a standalone application, as little code as possible was implemented in the node.\\
+The \node{control_dashboard} node was designed as an RViz panel with the intention to make it replaceable should the designer decide to develop a standalone application instead of using RViz as the environment for the \acrshort{gui}. To mimimize the amount of work required to convert the panel to a standalone application, as little code as possible was implemented in the node.\\
 
-The dashboard performs the actions that an operator would during manual control. When the robot is finished taking a scan, the dashboard instructs \node{control_panel} to generate a trajectory. Upon completion of the shotcrete application or radiation scan the dashboard instructs \node{control_panel} to advance the robot to complete its task if required. After arriving at its new location the dashboard instructs the robot to begin a scan and generate a trajectory. The GUI layout uses \node{control_dashboard} to call the appropriate \node{control_panel} functions when the GUI buttons are pressed, meaning all commands are passed through \node{control_dashboard}.\\
+The dashboard performs the actions that an operator would during manual control. When the robot is finished taking a scan, the dashboard instructs \node{control_panel} to generate a trajectory. Upon completion of the shotcrete application or radiation scan the dashboard instructs \node{control_panel} to advance the robot to complete its task if required. After arriving at its new location the dashboard instructs the robot to begin a scan and generate a trajectory. The \acrshort{gui} layout uses \node{control_dashboard} to call the appropriate \node{control_panel} functions when the \acrshort{gui} buttons are pressed, meaning all commands are passed through \node{control_dashboard}.\\
 \subsection{Control Panel}
 The \node{control_panel} node is the central controller of the system. It is responsible for executing the commands that are passed to it through \node{control_dashboard}. This node performs the following tasks:
 \begin{itemize}
@@ -428,7 +425,7 @@ The \node{control_panel} node is the central controller of the system. It is res
 \begin{itemize}
 \item Default Shotcrete Region
 \item Auto-crop Region
-\item Move\_base Goal
+\item \node{move_base} Goal
 \item Laser Scanned Point Clouds
 \item Manipulator Workspace
 \item Trajectory Display
@@ -475,11 +472,11 @@ The \node{control_panel} node is the central controller of the system. It is res
 \item Calculate Dot Product
 \item Calculate Manipulator Roll, Pitch, and Yaw for a Given Surface Normal
 \item Move Via Point to Workspace
-\item Find and Publish New Base Goal Location
+\item Find and Publish New Robot Goal Location
 \end{itemize}
 \end{itemize}
 \subsubsection{Visualization}
-Figures \ref{fig:cropb} to \ref{fig:cands} show the visualizations that \node{control_panel} generates. The default area the robot will apply shotcrete to is shown in teal in Figure \ref{fig:cropb}. Since the scanner can capture some of the robot body when generating point clouds, it is useful to automatically crop a region that is likely to contain the robot but unlikely to contain sections of the mine surface. The auto-crop region is shown in orange in Figure \ref{fig:cropb}. For debugging purposes, the user may want to be aware of the keypoint candidates the localization algorithm is using, so they are published as translucent red boxes as seen in Figure \ref{fig:cands}. When a trajectory is generated many of the via points must be moved to within the manipulator's workspace due to its small size. The points that must be moved are shown as red points in Figure \ref{fig:trajviz} and the points that lie within the workspace are shown in green.\\
+Figures \ref{fig:cropb} to \ref{fig:cands} show the visualizations that \node{control_panel} generates. The default area the robot will apply shotcrete to is shown in teal in Figure \ref{fig:cropb}. Since the scanner can capture some of the robot body when generating point clouds, it is useful to automatically crop a region that is likely to contain the robot but unlikely to contain sections of the mine surface. The auto-crop region is shown in orange in Figure \ref{fig:cropb}. For debugging purposes, the user may want to be aware of the keypoint candidates the localization algorithm is using, so they are published as translucent red boxes as seen in Figure \ref{fig:cands}. When a trajectory is generated many of the via points must be moved to within the manipulator's workspace due to its small size. The points that must be moved are shown as red points in Figure \ref{fig:trajviz} and the points that lie within the workspace are shown in green. A visualization of the robot workspace is available, as shown in Figure \ref{fig:worksp}.\\
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{Pics/cropboxespng.png}
@@ -488,15 +485,15 @@ Figures \ref{fig:cropb} to \ref{fig:cands} show the visualizations that \node{co
 \end{figure}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{Pics/workspace.png}
-    \caption{Visualization of DENSO Workspace}
-    \label{fig:worksp}
-\end{figure}
-\begin{figure}[h]
-    \centering
     \includegraphics[width=\textwidth]{Pics/traj_viz.png}
     \caption{Trajectory Vizualization: Surface Path (Red), End-Effector Path (Green), Surface Normal (Blue), Via Points Within Manipulator Workspace (Green), and Via Points Outside Manipulator Workspace (Red)}
     \label{fig:trajviz}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{Pics/workspace.png}
+    \caption{Visualization of DENSO Workspace}
+    \label{fig:worksp}
 \end{figure}
 \begin{figure}[h]
     \centering
@@ -508,13 +505,13 @@ Figures \ref{fig:cropb} to \ref{fig:cands} show the visualizations that \node{co
 \label{sub:admin}
 Most of the administrative functions are functions that are used internally during autonomous mode. When manually controlling the robot, they can be controlled directly. Through the use of administrative functions, the operator can manually drive the robot to a location of their choosing, perform a scan (and either set the location as the world coordinate frame or localize the cloud within it), generate a trajectory, load a trajectory or point cloud from file, step through the via points one at a time, set the manipulator speed, or initiate a software E-Stop (emergency stop) command. \\
 
-The \node{control_panel} is also responsible for recording the marker location. The process of recording a marker is presented in Section \ref{sec:manual}. Internally, \node{control_panel} will calculate the marker parameters and store them in a file for use during localization.\\
+The \node{control_panel} is also responsible for recording the marker location. The process of recording a marker is presented in Section \ref{sec:manual}. Internally, \node{control_panel} will calculate the marker parameters and store them in the marker file for use during localization.\\
 \subsubsection{Internal Functions}
-In order to perform the required tasks, several internally used functions were created. The ``Delete Point From Point Cloud'', ``Find and Delete Nearest Neighbour'', and ``Delete Points Within Area'' are used together to remove sections of a point cloud or line of points. These functions essentially downsample the point cloud but remove the downsampled points as they are used.\\
+In order to perform the required tasks, several internally used functions were created. The \func{DeletePointFromPointCloud}, \func{FindAndDeleteNearestNeighbour}, and \func{DeletePointsWithinArea} functions are used together to remove sections of a point cloud or line of points. These functions essentially downsample the point cloud but remove the downsampled points as they are used.\\
 
 Since the manipulator workspace is small, it is difficult to test if the trajectory execution is successful. For this reason a function that moves via points outside the workspace to within the workspace is used. This function will move points too far for the manipulator to reach without losing degrees-of-freedom to the edge of the dextrous workspace. At that point, rather than using the surface normal, the end-effector aims in the direction defined by the vector from the workspace centre to the new via point location. As well, there is a wedge shaped region directly behind the manipulator base which it cannot reach, so points located within that region are moved inside the workspace as well. These actions are performed with the help of the vector length function.\\
 
-The manipulator requires Roll-Pitch-Yaw (RPY) angles to define the end-effector orientation, so \node{control_panel} calculates the corresponding RPY at each via point based on the surface normal. To calculate the RPY, a dot product function is used. While there are dot product functions available through the Eigen software library, they require different data types, so a modified dot product function was used instead of performing data type conversions on the input and output values of the Eigen dot product function.\\
+The manipulator requires Roll-Pitch-Yaw (\acrshort{rpy}) angles to define the end-effector orientation, so \node{control_panel} calculates the corresponding \acrshort{rpy} at each via point based on the surface normal. To calculate the \acrshort{rpy}, a dot product function is used. While there are dot product functions available through the Eigen software library, they require different data types, so a modified dot product function was used instead of performing data type conversions on the input and output values of the Eigen dot product function.\\
 
 Once the MASS has completed scanning or shotcreting the area within its workspace, it may be required to advance the base to a new location to complete the scanning or shotcreting process. It does so using Algorithm \ref{alg:findandmove}.
 
@@ -534,12 +531,12 @@ Once the MASS has completed scanning or shotcreting the area within its workspac
 \end{algorithm}
 
 \subsection{DENSO and Powercube Nodes}
-The \node{denso_node} is the software interface between the DENSO controller and the ROS package. The node communicates with the DENSO controller via ethernet using the bCAP communication protocol and WINCAPSIII formatted messages. Once a connection has been established the node activates the remote operation task loaded on the controller and begins sending commands. After initialization, the node waits for an \var{arm_msg} message and sends the appropriate commands to the controller to achieve the desired manipulator motion. When not sending commands to the manipulator, it is reading the manipulator's current pose so it can broadcast the data for other nodes to receive such as the \node{robot_state_publisher} responsible for displaying the 3D model of the robot in RViz\\
+The \node{denso_node} is the software interface between the DENSO controller and the \acrshort{ros} package. The node communicates with the DENSO controller via ethernet using the bCAP communication protocol and use the WINCAPSIII format for the messages. Once a connection has been established the node activates the remote operation task on the controller and can begin sending commands. After initialization, the node waits for an \var{arm_msg} message and sends the appropriate command to the controller to achieve the desired manipulator motion. When not sending commands to the manipulator, it is reading the manipulator's current pose so it can broadcast the data for other nodes to receive such as the \node{robot_state_publisher} responsible for displaying the 3D model of the robot in RViz.\\
 
 The \node{cube_node} sends commands to the Powercube through a virtual serial port created by the USB-Serial adapter connected to the system. Similar to the DENSO node, it initializes the device and waits for \var{cube_msg} messages to instruct it to move the Powercube to the desired position. Like the DENSO node, it also continually broadcasts the position of the Powercube.\\
  
 \subsection{Additional Nodes}
-To follow the data flow structure of this package a modified version of RViz's Selection Tool was used. The modifications allow the tool to broadcast a point cloud message containing the selected points. This point cloud message is used by the various services and nodes that require user input (such as marker selection or area to shotcrete).\\
+To utilize the data structure of this package a modified version of RViz's Selection Tool was used. The modifications allow the tool to broadcast a point cloud message containing the selected points. This point cloud message is used by the various services and nodes that require user input (such as the marker or shotcrete area selection).\\
 
 The \node{robot_state_publisher} node that provides the tf tree of the system was designed to have a single source broadcasting the joint states over the \node{/joint_states} topic. However, in this work there are three separate sources for joint states: the Husky, the DENSO manipulator, and the Powercube module. To fuse the three separate joint state messages the \node{joint_state_fusion} node subscribes to all three sources and broadcasts a single message containing the pose of all the links in the system.\\
 \section{External Packages and Libraries}
@@ -549,7 +546,7 @@ Some of the nodes in this work use messages or functions created for other packa
 \begin{itemize}
 \item roscpp
 \item rospy
-\item RViz
+\item rviz
 \item sensor\_msgs
 \item std\_msgs
 \item tf
@@ -568,3 +565,6 @@ Some of the nodes in this work use messages or functions created for other packa
 \item qt\_build
 \item dynamic\_reconfigure
 \end{itemize}
+
+\section{Chapter Summary}
+This chapter gave an overview of the complete \acrshort{ros} package built and presented the algorithms used in the MASS source code. Much of the code simply facilitates the handling and communication of data across the various nodes as well as inputting and parsing commands from the user. Since the system was primarily designed to be a research platform, many of the testing, debugging, and experimentation portions of the code have been included in the final version for future work. The \acrshort{ros} package contains \node{CMakeLists.txt}, \node{package.xml}, messages, services, configuration and launch files, \acrshort{urdf} descriptions, source code, and headers. Using pseudo code algorithms, the package framework and core functionality was discussed. The complete code can be found in Appendix \ref{app:code}. The novel algorithms developed for this work were presented.\\

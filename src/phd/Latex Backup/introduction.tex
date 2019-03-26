@@ -85,7 +85,7 @@ The problem with the current approach to uranium underground drift mining includ
 
 The scope of this project is to construct and test both the hardware and software system for a proof-of-concept prototype that addresses the issues discussed in the problem statement. The focus is on developing a modular and adaptable system on which future research and novel algorithms can be developed. The actual application of shotcrete and measurement of radiation is outside the scope of this work, however, should the appropriate end-effector be installed the system must be capable of performing these tasks.\\
 
-A successful proof-of-concept prototype will be capable of autonomously navigating the mock mine constructed for this work, positioning itself for shotcreting and scanning tasks, perform the motions required for that task using a manipulator with equal degrees-of-freedom (DOF) to a shotcreting machine, and advance itself if necessary to cover an area larger than its stationary workspace. The prototype must generate measurements and a visual representation of the shotcrete thickness as well as a 3D point cloud representation of the entire mine area it operates within.\\
+A successful proof-of-concept prototype will be capable of autonomously navigating the mock mine constructed for this work, positioning itself for shotcreting and scanning tasks, perform the motions required for that task using a manipulator with equal degrees-of-freedom (\acrshort{dof}) to a shotcreting machine, and advance itself if necessary to cover an area larger than its stationary workspace. The prototype must generate measurements and a visual representation of the shotcrete thickness as well as a 3D point cloud representation of the entire mine area it operates within.\\
 
 The assumptions are that the operator knows the approximate size and shape (to within a half meter) of the drift and is capable of selecting an area to scan or shotcrete using a computer system. It is also assumed the robot may unintentionally move during the shotcrete application process, so localization of the robot must be performed in order to generate thickness estimates.\\
 
@@ -95,16 +95,16 @@ This robot is only intended to operate in a research environment, meaning the mo
 \label{sec:contributions}
 
 \subsection{Construction of the Prototype}
-A mobile-manipulator system was built to demonstrate the functionality of the algorithms developed. The system is a skid-steered base with a 6-DOF serial manipulator and a LiDAR scanner on a nodding head. The controller for the manipulator, additional batteries, and a generator fit in a bespoke trailer built for this work through a collaborative effort.\\
+A mobile-manipulator system was built to demonstrate the functionality of the algorithms developed. The system is a skid-steered base with a 6-\acrshort{dof} serial manipulator and a \acrshort{lidar} scanner on a nodding head. The controller for the manipulator, additional batteries, and a generator fit in a bespoke trailer built for this work through a collaborative effort.\\
 
 \subsection{Software Algorithms}
-A graphical user interface and the accompanying software was developed for use on the prototype as well as future generations of shotcrete and scanning robots. The algorithms for performing the required tasks are modular and are functional on the research platform, final product, or other robots having similar needs. The algorithms are implemented as individual nodes in the Robot Operating System (ROS) framework allowing users to easily apply them to their own hardware and software packages.\\
+A graphical user interface and the accompanying software was developed for use on the prototype as well as future generations of shotcrete and scanning robots. The algorithms for performing the required tasks are modular and are functional on the research platform, final product, or other robots having similar needs. The algorithms are implemented as individual nodes in the Robot Operating System (\acrshort{ros}) framework allowing users to easily apply them to their own hardware and software packages.\\
 
 \subsection{Trajectory Generation}
 An algorithm for generating manipulator trajectories for shotcrete spraying and radiation scanning was developed, implemented, and tested. The algorithm requires minimal input from the operator and is robust to a number of environmental factors such as surface roughness.\\
 
 \subsection{Shotcrete Thickness Estimation}
-The best approach to shotcrete thickness estimation was determined and implemented as a modular portion of the software developed for this work. Modern point cloud comparison methods were implemented in the software package allowing portability through the ROS framework. It is more accessible to other researchers and easier to use by untrained end-users who choose to use ROS instead of stand alone point cloud comparison software.
+The best approach to shotcrete thickness estimation was determined and implemented as a modular portion of the software developed for this work. Modern point cloud comparison methods were implemented in the software package allowing portability through the \acrshort{ros} framework. It is more accessible to other researchers and easier to use by untrained end-users who choose to use \acrshort{ros} instead of stand alone point cloud comparison software.
 
 \subsection{Localization}
 A novel localization algorithm was developed and implemented in the same modular way as the trajectory generation and thickness estimation algorithms. The localization approach was designed for use in underground mining, adapting to the specific challenges associated with the environment.\\

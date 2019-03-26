@@ -3,7 +3,7 @@
 \section{Hardware}
 \subsection{Husky}
 %https://www.clearpathrobotics.com/husky-unmanned-ground-vehicle-robot/
-Clearpath's Husky Unmanned Ground Vehicle (Husky UGV) is the mobile base used for the proof of concept prototype. It is a four wheeled skid steer vehicle, capable of driving on uneven ground or loose gravel. It has a wheel diameter of 330 mm, and external dimensions of 990 mm $\times$ 670 mm $\times$ 390 mm. It's maximum payload is 75 kg and maximum speed is 1.0 m/s. Skid steer vehicles have notoriously unreliable odometry data which makes the Husky an excellent choice as a mobile base, since it creates a more realistic representation of the final product.\\
+Clearpath Robotics's Husky Unmanned Ground Vehicle (Husky UGV) shown in Figure \ref{fig:husky} is the mobile base used for the proof-of-concept prototype. It is a four wheeled skid steer vehicle, capable of driving on uneven ground or loose gravel. It has a wheel diameter of 330 mm, and external dimensions of 990 mm $\times$ 670 mm $\times$ 390 mm. Its maximum payload is 75 kg and has a maximum speed is 1.0 m/s. Skid steer vehicles have notoriously unreliable odometry data which makes the Husky an excellent choice as a mobile base, since it creates a more realistic representation of the final product.\\
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Pics/husky.jpg}
@@ -15,10 +15,10 @@ Clearpath's Husky Unmanned Ground Vehicle (Husky UGV) is the mobile base used fo
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{Pics/DSC0433.JPG}
-    \caption{Husky With Peripherals Attached}
+    \caption{Husky with Peripherals Attached}
     \label{fig:peripherals}
 \end{figure}
-The Husky required a few modifications to support the additional hardware used. A top plate was machined to mount the manipulator, as well as a mounting bracket for the nodding head servo. A trailer hitch was installed and a trailer was built to allow the Husky to tow additional batteries, a generator, and the controller for the manipulator.\\
+The Husky required a few modifications to support the additional hardware used. A top plate was machined to mount the manipulator as well as a mounting bracket for the nodding head servo. A trailer hitch was installed and a trailer was built to allow the Husky to tow additional batteries, a generator, and the controller for the manipulator.\\
 \subsection{DENSO VP6242}
 \begin{figure}[H]
     \centering
@@ -27,46 +27,46 @@ The Husky required a few modifications to support the additional hardware used. 
     \label{fig:densofig}
 \end{figure}
 %https://www.denso-wave.com/en/robot/product/five-six/vp.html
-The final product will likely use hydraulics to position the shotcreting and scanning end-effector. Since the payload and forces will require a high strength and rigidity manipulator, using electric motors unnecessarily expensive. Designing a manipulator for this task is outside the scope of this research, so a suitable analogue was chosen. The requirements of the manipulator is that it can position it's end-effector with 6 Degrees-of-Freedom like the final version, but does not require the same workspace, strength, or rigidity the final product would in order to accurately position the end-effector and apply shotcrete. The DENSO manipulator was chosen since it fulfils all the application requirements and was an available UOIT asset for use in this work. It has a maximum reach of 432 mm and a maximum payload of 2.5 kg.\\ 
+The final product will likely use hydraulics to position the shotcreting and scanning end-effector. Since the payload and forces will require a high strength and rigidity manipulator, using electric motors would be infeasible. Designing a manipulator for this task is outside the scope of this research, so a suitable analogue was chosen. The requirements of the manipulator is that it can position its end-effector with 6 degrees-of-freedom like the final version, but does not require the same workspace, strength, or rigidity the final product would in order to accurately position the end-effector and apply shotcrete. The DENSO manipulator shown in Figure \ref{fig:densofig} was chosen since it fulfils all the application requirements and was available at \acrshort{uoit} for use in this work. It has a maximum reach of 432 mm and a maximum payload of 2.5 kg.\\ 
 \subsection{LMS101}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\textwidth]{Pics/sick.png}
-    \caption{SICK LMS101 LiDAR \cite{sickpage}}
+    \includegraphics[width=0.3\textwidth]{Pics/sick.png}
+    \caption{SICK LMS101 \acrshort{lidar} \cite{sickpage}}
     \label{fig:sick}
 \end{figure}
-%https://www.sick.com/de/en/detection-and-ranging-solutions/2d-LiDAR-sensors/lms1xx/lms101-10000/p/p346868?ff_data=JmZmX2lkPXAzNDY4NjgmZmZfbWFzdGVySWQ9cDM0Njg2OCZmZl90aXRsZT1MTVMxMDEtMTAwMDAmZmZfcXVlcnk9JmZmX3Bvcz04JmZmX29yaWdQb3M9OCZmZl9wYWdlPTEmZmZfcGFnZVNpemU9OCZmZl9vcmlnUGFnZVNpemU9OCZmZl9zaW1pPTkzLjA=
-The LMS101 is a LiDAR scanner manufactured by SICK. It has an aperture angle of 270$\degree$, angular resolution of 0.25$\degree$ at 25 Hz, and optimal range of 0.5 m - 20 m. SICK is a well know brand of LiDAR scanners, with lots of software drivers available for the various systems it works with. The ROS driver for this LiDAR does not natively support 0.25$\degree$ resolution, so it has been modified accordingly. It has a systematic error of $\pm$30 mm and statistical error	of 12 mm, though through testing it was found the LiDAR performs much better in the given test conditions. With and IP rating of IP65, it is suitable for indoor use but can be replaced with another model from the same family with equal performance but higher IP rating (up to IP67).\\
+%https://www.sick.com/de/en/detection-and-ranging-solutions/2d-\acrshort{lidar}-sensors/lms1xx/lms101-10000/p/p346868?ff_data=JmZmX2lkPXAzNDY4NjgmZmZfbWFzdGVySWQ9cDM0Njg2OCZmZl90aXRsZT1MTVMxMDEtMTAwMDAmZmZfcXVlcnk9JmZmX3Bvcz04JmZmX29yaWdQb3M9OCZmZl9wYWdlPTEmZmZfcGFnZVNpemU9OCZmZl9vcmlnUGFnZVNpemU9OCZmZl9zaW1pPTkzLjA=
+The LMS101 shown in Figure \ref{fig:sick} is a \acrshort{lidar} scanner manufactured by SICK. It has an aperture angle of 270$\degree$, angular resolution of 0.25$\degree$ at 25 Hz, and optimal range of 0.5 m - 20 m. SICK is a well know brand of \acrshort{lidar} scanners, with lots of software drivers available for the various systems it works with. The \acrshort{ros} driver for this \acrshort{lidar} does not natively support 0.25$\degree$ resolution, so it has been modified accordingly for this work. It has a systematic error of $\pm$30 mm and statistical error of 12 mm, though through testing it was found the \acrshort{lidar} performs much better in the given test conditions. With an Ingress Protection (\acrshort{ip}) rating of \acrshort{ip}65, it is suitable for indoor use but can be replaced with another model from the same family with equal performance but higher \acrshort{ip} rating (up to \acrshort{ip}67).\\
 \subsection{Schunk Powercube PR70}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{Pics/powercube.png}
+    \includegraphics[width=0.3\textwidth]{Pics/powercube.png}
     \caption{Schunk Powercube PR70 \cite{schunkpage}}
     \label{fig:schunk}
 \end{figure}
-The LiDAR used must be mounted on a nodding head to generate point clouds. The Powercube PR70 made by Schunk was chosen for this task partly since it was already an asset of the UOIT MARS lab. The module has higher accuracy and payload than the application requires, but since it was an unused asset it was chosen for this application for practicality reasons. It has a nominal torque of 15 Nm, repeat accuracy of 0.03$\degree$, maximum angular velocity of 240$\degree$/s, and maximum acceleration of 960$\degree$/s$^2$. \\
+The \acrshort{lidar} used must be mounted on a nodding head to generate 3D point clouds. The Powercube PR70 made by Schunk was chosen for this task partly since it was already an asset of the \acrshort{uoit} \acrshort{mars} Lab and can be seen in Figure \ref{fig:schunk}. The module has higher accuracy and payload than the application requires, but since it was an unused asset it was chosen for this application for practicality reasons. It has a nominal torque of 15 Nm, repeat accuracy of 0.03$\degree$, maximum angular velocity of 240$\degree$/s, and maximum acceleration of 960$\degree$/s$^2$. \\
 \section{Software}
 \label{sec:software}
-All software integrated and developed for this research is intended for use within the ROS framework. Since ROS is an open source community with many packages available for use in research, it offers a wide selection of resources useful to this work.\\
+All software integrated and developed for this research is intended for use within the \acrshort{ros} framework. Since \acrshort{ros} is an open source community with many packages available for use in research, it offers a wide selection of resources useful to this work.\\
 
-Many of the tasks required for operation of the MASS have already been developed by the ROS community. Hardware drivers, motion controllers, LiDAR scan to point cloud assemblers, navigation, and mapping packages are already available through ROS. The following packages are necessary for the MASS to function.\\
+Many of the tasks required for operation of the MASS have already been developed by the \acrshort{ros} community. Hardware drivers, motion controllers, \acrshort{lidar} scan to point cloud assemblers, navigation, and mapping packages are already available through \acrshort{ros}. The following packages are necessary for the MASS to function.\\
 \subsection{RViz}
 \label{sec:RViz}
 
 Complete documentation on RViz can be found at \url{http://wiki.ros.org/RViz}\\
 
-RViz is a powerful visualization tool developed for use with ROS. There is a large quantity of information that can be generated using ROS that is not easily interpreted without the use of an interactive graphical user interface. RViz allows users to view, interact with, interpret, and modify the data handled within ROS. RViz is an invaluable tool in mobile robotics; it can display a model of the robot, a map the robot has generated of its environment, the path it intends to follow, and display sensor data the robot acquires. The user can interact with RViz and send commands to the robot such as: position goals, movement commands, status changes, or selecting parts of the sensor data to be used in other software algorithms.\\
+RViz is a powerful visualization tool developed for use with \acrshort{ros}. There is a large quantity of information that can be generated using \acrshort{ros} that is not easily interpreted without the use of an interactive graphical user interface. RViz allows users to view, interact with, interpret, and modify the data handled within \acrshort{ros}. RViz is an invaluable tool in mobile robotics: it can display a model of the robot, a map the robot has generated of its environment, the path it intends to follow, and display sensor data the robot acquires. The user can interact with RViz and send commands to the robot such as: position goals, movement commands, status changes, or selecting parts of the sensor data to be used in other software algorithms.\\
 
 RViz is designed to be adaptable for whatever the operator needs. Custom tools and plugins are easily developed to make RViz helpful in the context it is used. In this work, a custom tool was implemented for selecting sections of the mine surface to be scanned or shotcreted. A custom plugin called the control panel was created to provide a user-friendly interface to command and control all relevant aspects of the MASS.\\
 
-RViz configurations can be saved to a file and loaded at launch when the robot control system is brought online. The configuration file for this work sets the RViz environment in a way that is practical for the operator, but includes options to reveal information useful for debugging and research. For example, under most circumstances the point cloud representation of the mine surface should be shown but individual laser scans hidden. If the operator wanted to see the instantaneous view of the robot's environment represented as a laser scan, the topic's checkbox simply needs to be checked. Similarly, point clouds are cropped to remove sections of the robot detected be the scanner can be visualized by enabling the appropriate display. When generating trajectories the surface path, surface normals, and end-effector path is shown, however the operator may only want some or none of the information displayed so they are all easily hidden or shown. This is all accomplished in the ``Displays'' panel of RViz. The configuration file subscribes RViz to all the available topics and automatically hides the topics containing information that does not need to be displayed.\\
+RViz configurations can be saved to a file and loaded at launch when the robot control system is brought online. The configuration file for this work sets the RViz environment in a way that is practical for the operator, but includes options to reveal information useful for debugging and research. For example, under most circumstances the point cloud representation of the mine surface should be shown but individual laser scans hidden. If the operator wanted to see the instantaneous view of the robot's environment represented as a laser scan, the topic's checkbox simply needs to be checked. When generating trajectories the surface path, surface normals, and end-effector path are shown, however, the operator may only want some or none of the information displayed so they are all easily hidden or shown. This is all accomplished through the ``Displays'' panel of RViz. The configuration file subscribes RViz to all the relevant topics and automatically hides the topics containing information that does not need to be displayed.\\
 
 \subsection{Husky}
 
 Complete documentation of the Husky package can be found at \url{http://wiki.ros.org/Robots/Husky}\\
 
-The Husky package is made by Clearpath Robotics to provide ROS functionality to their Husky Unmanned Ground Vehicle (UGV). The package consists of the following subpackages:
+The Husky package is made by Clearpath Robotics to provide \acrshort{ros} functionality to their Husky Unmanned Ground Vehicle (UGV). The package consists of the following subpackages:
 
 \begin{itemize}
     \item \node{husky_base}
@@ -81,7 +81,7 @@ The Husky package is made by Clearpath Robotics to provide ROS functionality to 
 
 \paragraph{husky\_base}
 
-The \node{husky_base} package provides the low level communication between ROS and the robot. It contains all the necessary drivers to allow the robot to operate under ROS control.\\
+The \node{husky_base} package provides the low level communication between \acrshort{ros} and the robot. It contains all the necessary drivers to allow the robot to operate under \acrshort{ros} control.\\
 
 \paragraph{husky\_bringup}
 
@@ -89,19 +89,19 @@ The \node{husky_bringup} package contains a number of scripts to that launch all
 
 \paragraph{husky\_gazebo}
 
-Gazebo is a simulation tool used in ROS. With a fully defined robot model, Gazebo can simulate the robot in a user defined environment. If an operator intends to test their algorithms on a Husky robot, but does not have access to a physical robot they can test their software on a simulated version of the Husky. Similarly, if the operator wants to test their robot in a scenario that may cause damage to the robot, or in an environment they are unable to create, they can use Gazebo to test their algorithms in simulation.\\
+Gazebo is a simulation tool used in \acrshort{ros}. With a fully defined robot model, Gazebo can simulate the robot in a user defined environment. If an operator intends to test their algorithms on a Husky robot, but does not have access to a physical robot they can test their software on a simulated version of the Husky. Similarly, if the operator wants to test their robot in a scenario that may cause damage to the robot or in an environment they are unable to create, they can use Gazebo to test their algorithms in simulation.\\
 
 \paragraph{husky\_viz}
 
-RViz configurations can be saved and loaded by ROS. The \node{husky_viz} package contains various configurations for RViz that optimize its configuration for use with the Husky.\\
+RViz configurations can be saved and loaded by \acrshort{ros}. The \node{husky_viz} package contains various configurations for RViz that optimize its configuration for use with the Husky.\\
 
 \paragraph{husky\_control}
 
-The package \node{husky_control} turns motion goals in to actual robot motion. The motion goals are published using ROS topics, and the \node{husky_control} package subscribes to these topics and moves the robot accordingly. The motion goals can be provided directly from the operator using an input device such as a joystick, or generated from autonomous navigation packages acting on a goal location provided by the operator. The source of the motion commands does not affect how the package functions, so it is able to receive motion command from a wide variety of sources as long as the commands are formatted using the appropriate ROS message type.\\ 
+The package \node{husky_control} turns motion goals into actual robot motion. The motion goals are published using \acrshort{ros} topics and the \node{husky_control} package subscribes to these topics and moves the robot accordingly. The motion goals can be provided directly from the operator using an input device such as a joystick or generated from autonomous navigation packages acting on a goal location provided by the operator. The source of the motion commands does not affect how the package functions, so it is able to receive motion commands from a wide variety of sources as long as the commands are formatted using the appropriate \acrshort{ros} message type.\\ 
 
 \paragraph{husky\_description}
 
-In order to visualize the robot in the RViz environment, the robot requires a description. The robot description contains all the relevant information about the robot parts, which way they can move, what colour they are, and how to visually represent them. The description also contains the relevant physical characteristics to simulate the robot in Gazebo. The \node{husky_description} package uses the Unified Robot Description Format (URDF) to describe the model for the Husky UGV.\\
+In order to visualize the robot in the RViz environment, the robot requires a description. The robot description contains all the relevant information about the robot parts, which way they can move, what material they are, and how to visually represent them. The description also contains the relevant physical characteristics to simulate the robot in Gazebo. The \node{husky_description} package uses the Unified Robot Description Format (\acrshort{urdf}) to describe the model for the Husky UGV.\\
 
 \paragraph{husky\_msgs}
 
@@ -111,9 +111,7 @@ To communicate with other packages, or within the Husky packages, custom message
 
 \paragraph{husky\_navigation}
 
-The \node{husky_navigation} package provides configurations and examples for using varous navigation packages with the Husky. It contains all the relevant information a navigation package requires to successfuly apply the navigation algorithm on the Husky. Parameters such as the robot's footprint size, how far away to stay from obstacles, what sort of behaviours to exhibit when encountering obstacles, and what sensor information is available are contained within the configuration files. Navigation packages configure their global and local planners with the files contained in the \node{husky_navigation} package. The configuration file for producing costmaps for use in navigation is shown in Appendix \ref{app:huskyconfig} .\\
-
-The package contains launch files to use various navigation packages with the Husky robot as well as demos that will launch the required accompanying packages as well. Launch files for AMCL, Gmapping, Frontier Exploration, and Move Base packages are included, as well as an empty map for use when the robot is being simulated in Gazebo.\\ 
+The \node{husky_navigation} package provides configurations and examples for using varous navigation packages with the Husky. It contains all the relevant information a navigation package requires to successfuly apply the navigation algorithm on the Husky. Parameters such as the robot's footprint size, how far away to stay from obstacles, what sort of behaviours to exhibit when encountering obstacles, and what sensor information is available are contained within the configuration files. Navigation packages configure their global and local planners with the files contained in the \node{husky_navigation} package. The configuration file for producing costmaps for use in navigation is shown in Appendix \ref{app:huskyconfig} . The package contains launch files to use various navigation packages with the Husky robot as well as demos that will launch the required accompanying packages. Launch files for \acrshort{amcl}, GMapping, Frontier Exploration, and Move Base packages are included as well as an empty map for use when the robot is being simulated in Gazebo.\\ 
 
 \subsection{Move Base}
 
@@ -126,7 +124,7 @@ Complete documentation of the Move Base package can be found at \url{http://wiki
     \label{fig:movebaseoverview}
 \end{figure}
 
-The \node{move_base} package takes high level commands such as a location goal and performs the necessary actions to drive the robot to that location. a graphical overview of the package is shown in Figure \ref{fig:movebaseoverview}. It divides the task among two planners, the global planner and the local planner. The global planner is responsible for creating the overall plan for the robot path. It uses a global costmap generated by the map server, which holds the map generated by the SLAM algorithm or loaded from file. The global costmap includes things like the inflation layer, which acts as a safety buffer by creating a region surrounding any obstacles within the map that the robot cannot enter. The local costmap is generated based on what the robot's sensors currently detect. If a person were to walk in front of the robot they would appear in the local costmap and the local planner would generate a path around the obstacle, attempting to continue along the path generated by the global planner. If a person or object is placed close enough to the robot such that the robot is now within the inflation layer of obstacle, it is considered stuck. Once stuck, the robot must execute recovery behaviours to become unstuck. Figure \ref{fig:recovery} shows what recovery behaviours \node{move_base} uses to free itself. First the robot deletes obstacles from the map that are further away than a user specified distance. If the robot is then free to move, it will continue its navigation. If the robot is still stuck, it will rotate on the spot to get an updated view of its surroundings. If it still cannot move it will clear the map of all obstacles that are not within the area it needs to rotate in place, and if still stuck will rotate once more to scan its environment for obstacles. Once the second clearing rotation is complete if it is still unable to move it will abort its current goal and release a message notifying the system it was unable to reach its target location.\\
+The \node{move_base} package takes high level commands such as a location goal and performs the necessary actions to drive the robot to that location. A graphical overview of the package is shown in Figure \ref{fig:movebaseoverview}. It divides the task among two planners, the global planner and the local planner. The global planner is responsible for creating the overall plan for the robot path. It uses a global costmap generated by the map server, which holds the map generated by the \acrshort{slam} algorithm or loaded from file. The global costmap includes things like the inflation layer, which acts as a safety buffer by creating a region surrounding any obstacles within the map that the robot cannot enter. The local costmap is generated based on what the robot's sensors currently detect. If a person were to walk in front of the robot they would appear in the local costmap and the local planner would generate a path around the obstacle, attempting to return to the path generated by the global planner. If a person or object is placed close enough to the robot such that the robot is now within the inflation layer of the obstacle, it is considered stuck. Once stuck, the robot must execute recovery behaviours to become unstuck. Figure \ref{fig:recovery} shows what recovery behaviours \node{move_base} uses to free itself. First the robot deletes obstacles from the map that are further away than a user specified distance. If the robot is then free to move, it will continue its navigation. If the robot is still stuck, it will rotate on the spot to get an updated view of its surroundings. If it still cannot move it will clear the map of all obstacles that are not within the area it needs to rotate in place. If it is still stuck, it will rotate once more to scan its environment for obstacles. Once the second clearing rotation is complete, if it is still unable to move, it will abort its current goal and release a message notifying the system it was unable to reach its target location.\\
 
 \begin{figure}[H]
     \centering
@@ -140,31 +138,31 @@ The \node{move_base} package takes high level commands such as a location goal a
 
 Complete documentation of the Laser Assembler package can be found at \url{http://wiki.ros.org/laser_assembler}\\
 
-The \node{laser_assembler} package converts the stream of laserscan data to a point cloud. When MASS creates a point cloud representation of it's surroundings, it tells \node{laser_assembler} package when to start and stop recording the laser scans generated by the LMS100 LiDAR scanner. The assembler will store all of the laserscans, along with the coordinate frame transformation from a fixed frame to the LiDAR frame at that moment. When the point cloud scan is complete, \node{laser_assembler} is notified and produces a point cloud in the coordinate frame requested by the user. Discussed further in Section \ref{sec:locsourceerror}, the parameter \var{ignore_laser_skew} is set to false so that each point in the laser scan is transformed using the current pose of the LiDAR rather than the whole scan at once.\\
+The \node{laser_assembler} package converts the stream of laser scan data to a point cloud. When the MASS creates a point cloud representation of its surroundings, it tells the \node{laser_assembler} package when to start and stop recording the laser scans generated by the LMS101 \acrshort{lidar} scanner. The assembler will store all of the laser scans, along with the coordinate frame transformation from a fixed frame to the \acrshort{lidar} frame at that moment. When the point cloud scan is complete, \node{laser_assembler} is notified and produces a point cloud in the coordinate frame requested by the user. Discussed further in Section \ref{sec:locsourceerror}, the parameter \var{ignore_laser_skew} can be set so that each point in the laser scan is transformed using the current pose of the \acrshort{lidar} rather than transforming the whole scan at once. Accuracy can be improved if the position of the nodding head is updated more than once during the time it takes to perform a single point cloud scan.\\
 
 \subsection{Hector SLAM}
 
-Complete documentation of the Hector SLAM package can be found at \url{http://wiki.ros.org/hector_slam}\\
+Complete documentation of the Hector \acrshort{slam} package can be found at \url{http://wiki.ros.org/hector_slam}\\
 
-The \node{hector_slam} package contains the \node{hector_mapping} package used by the MASS to perform SLAM. The two main SLAM packages available for use with ROS are Gmapping and Hector SLAM. Gmapping is a more popular algorithm, but requires odometry from the robot. Hector SLAM can perform SLAM without the need for odometry. While the MASS does measure its odometry, it is intended for use on uneven rocky ground and odometry may not be reliable. For that reason, Hector SLAM was chosen as the SLAM algorithm for use on the MASS. However, thanks to the modularity that ROS offers it is a simple task to utilize other SLAM algorithms like Gmapping on the MASS.\\
+The \node{hector_slam} package contains the \node{hector_mapping} package used by the MASS to perform \acrshort{slam}. The two main \acrshort{slam} packages available for use with \acrshort{ros} are GMapping and Hector \acrshort{slam}. GMapping is a more popular algorithm, but requires odometry from the robot. Hector \acrshort{slam} can perform \acrshort{slam} without the need for odometry. While the MASS does measure its odometry, it is intended for use on uneven rocky ground and odometry may not be reliable. For that reason, Hector \acrshort{slam} was chosen as the \acrshort{slam} algorithm for use on the MASS. However, thanks to the modularity that \acrshort{ros} offers, it is a simple task to utilize other \acrshort{slam} algorithms like GMapping on the MASS.\\
 
 \subsection{RQT Reconfigure}
 
 Complete documentation of the RQT Reconfigure package can be found at \url{http://wiki.ros.org/rqt_reconfigure}\\
 
-If a node has been configured with parameters that can change at runtime, \node{rqt_reconfigure} can be used to modify them. When the user launches the GUI, it will poll the ROS parameter server to determine which nodes have dynamically reconfigurable variables and what their values and acceptable ranges are. It then presents the user with a window that shows a list of nodes on the left. When a node is selected the configurable parameters are shown on the right, most often in the form of a slider bar. An example \node{rqt_reconfigure} GUI window can be seen in figure \ref{fig:dyngui2}.
+If a node has been configured with parameters that can change at runtime, \node{rqt_reconfigure} can be used to modify them. When the user launches the Graphical User Interface (\acrshort{gui}), it will poll the \acrshort{ros} parameter server to determine which nodes have dynamically reconfigurable variables and what their values and acceptable ranges are. It then presents the user with a window that shows a list of nodes on the left. When a node is selected, the configurable parameters are shown on the right, most often in the form of a slider bar. An example \node{rqt_reconfigure} \acrshort{gui} window can be seen in Figure \ref{fig:dyngui2}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{Pics/dyngui.png}
-    \caption{\texttt{rqt\_reconfigure} GUI}
+    \includegraphics[width=\textwidth]{Pics/dyngui.png}
+    \caption{\texttt{rqt\_reconfigure} \acrshort{gui}}
     \label{fig:dyngui2}
 \end{figure}
 
 \subsection{The MASS ROS Package}
 \label{sub:software}
 
-A thorough discussion of the source code is provided in Chapter \ref{chap:code}, however an overview of the MASS would be incomplete without mentioning the ROS package that provides its functionality. The complete code can be found in Appendix \ref{app:code}.\\ 
+A thorough discussion of the source code is provided in Chapter \ref{chap:code}, however, an overview of the MASS would be incomplete without mentioning the \acrshort{ros} package that provides its functionality. The complete code can be found in Appendix \ref{app:code}.\\ 
 
 \begin{figure}[H]
     \centering
@@ -173,11 +171,11 @@ A thorough discussion of the source code is provided in Chapter \ref{chap:code},
     \label{fig:panel}
 \end{figure}
 
-The main interface between the user and the control system occurs within an RViz window. Along with the regular features of RViz, this software adds a panel and a tool to the RViz interface. The additional features can be seen in Figure \ref{fig:panel}. The code for the control panel is split between two files. For the system's current purpose it would be far less functional to have a standalone Graphical User Interface (GUI) and not use RViz for visualization therefore \node{control_dashboard} was designed as a plugin for RViz. As future work on this project continues, the need for RViz visualization may diminish, so the node was designed to make converting it to run without RViz a trivial task. Eventually, when this system is implemented in a mine, no graphical interface at all will be required on the machine itself. For that reason, the core functionality of the system lies in the \node{control_panel} node. The \node{control_dashboard} node simply relays the actions from the user interface to the \node{control_panel} node.\\
+The main interface between the user and the control system occurs within an RViz window. Along with the regular features of RViz, this software adds a panel and a tool to the RViz interface. The additional features can be seen in Figure \ref{fig:panel} labeled as Control Panel (right) and Selection Tool (top). The code for the control panel is split between two files. For the system's current purpose, it would be far less functional to have a standalone \acrshort{gui} and not use RViz for visualization. Therefore, \node{control_dashboard} was designed as a plugin for RViz. As future work on this project continues, the need for RViz visualization may diminish, so the node was designed to make converting it to run without RViz a trivial task. Eventually, when this system is implemented in a mine, no graphical interface at all will be required on the machine itself. For that reason, the core functionality of the system lies in the \node{control_panel} node. The \node{control_dashboard} node simply relays the actions from the user interface to the \node{control_panel} node.\\
 
-The \node{control_panel} node is the heart of the control system. It is responsible for calling the localization, trajectory generation, and thickness estimation services, as well as communication with the DENSO arm, PowerCube servo, and Husky UGV. Other MASS-specific requirements such as cropping regions from the robots perception that are occupied by the robot itself, or  modifying trajectory points to fit within the DENSO arm's workspace are performed by the \node{control_panel} node. \\
+The \node{control_panel} node is the heart of the control system. It is responsible for calling the localization, trajectory generation, and thickness estimation services, as well as communication with the DENSO arm, Powercube servo, and Husky UGV. Other MASS-specific requirements such as cropping regions from the robots perception that are occupied by the robot itself or  modifying trajectory points to fit within the DENSO arm's workspace are performed by the \node{control_panel} node. \\
 
-The main contribution to the ROS community are the localization, trajectory generation, and thickness estimation services. These three services are intended to be as portable as possible so they can be useful in any robotics project, regardless of the system configuration. Should other researchers have a need for the service they provide, one simply needs to install the package and will be able to launch the desired service from the terminal or their own launch file. Unfortunately, due to this document's confidentiality the source code will not be made available, so the functionality of the compiled binaries are provided as-is.\\
+The main contribution of this work to the \acrshort{ros} community are the localization, trajectory generation, and thickness estimation services. These three services are intended to be as portable as possible so they can be useful in any robotics project, regardless of the system configuration. Should other researchers have a need for the service they provide, one simply needs to install the package and they will be able to launch the desired service from the terminal or their own launch file. Unfortunately, due to this document's confidentiality, the source code will not be made available, so the functionality of the compiled binaries are provided as-is. Any of the parameters that can be modified by the user are still accessible, but the source code cannot be viewed or modified.\\
 
 \subsubsection{MASS GUI}
 \label{sub:gui}
@@ -185,18 +183,18 @@ The main contribution to the ROS community are the localization, trajectory gene
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=\textwidth]{Pics/gui.pdf}
-    \caption{MASS GUI}
+    \caption{MASS \acrshort{gui}}
     \label{fig:thegui}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 %FIX THIS FIGURE"CALCULATE THICKNESS"
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55555
 
-The four tabs of the MASS GUI control panel can be seen in Figure \ref{fig:thegui}. The main tab, called ``Operation'' is for use while the robot is operating. The red ``Stop'' button is a software activated emergency stop. The operation tab has a LiDAR scan button that commands the robot to perform a LiDAR scan using the nodding head and displays the resulting point cloud in the RViz window. The ``Set Home'' button is pressed when the robot is in a location the operator intends to define as the origin. The home position is then used as the coordinate frame into which all other point clouds are transformed in to. The ``Radiation Scan'' button generates a trajectory based on the current selection and performs the motions of a radiation scan. Clicking ``Apply Shotcrete'' generates a trajectory based on the current selection and performs the motions for shotcrete application. If no area is selected, the default region (defined with respect to the robot's centre) is used. ``Apply Continuously'' does the same thing but will drive forward and repeat the process until the operator stops it. Every time a point cloud is acquired, it is saved to disk. The textbox allows the user to declare where they would like the point clouds saved. The interface for recording localization markers is also present, and usage is discussed in Section \ref{sub:admin}.\\
+The tabs of the MASS \acrshort{gui} control panel can be seen in Figure \ref{fig:thegui}. The main tab, called ``Operation'' is for use while the robot is operating. The red ``Stop'' button is a software activated emergency stop. The operation tab has a \acrshort{lidar} scan button that commands the robot to perform a \acrshort{lidar} scan using the nodding head and displays the resulting point cloud in the RViz window. The ``Set Home'' button is pressed when the robot is in a location the operator intends to define as the origin. The home position is then used as the coordinate frame into which all other point clouds are transformed into. The Generate Trajectory button generates a trajectory based on the current selection. Clicking Apply Shotcrete performs the motions for shotcrete application. If no area is selected, the default region (modified using \node{rqt_reconfigure}) is used and the system enters autonomous shotcrete mode. While in autonomous shotcrete mode the system will apply shotcrete and advance the robot until it is halted using the Stop button. Every time a point cloud is acquired, it is saved to disk. The textbox allows the user to declare where they would like the point clouds to be saved. The interface for recording localization markers is also present and its usage is discussed in Section \ref{sub:admin}. The load button can be used to load the indicated point cloud file from disk for display or analysis purposes.\\
 
-Though the shotcrete thickness is automatically displayed after applying shotcrete, the user may want to perform additional thickness calculations with RViz data or previously saved data. Selecting an area of a point cloud and clicking ``Set Initial Cloud'' and repeating the steps for the final cloud allows the operator to calculate the shotcrete thickness at a specified region by pressing ``Calculate Thickness''. If they simply want to calculate thickness from two previously saved files, the filenames and locations can be entered and the calculation is performed upon pressing ``Estimate Thickness''. The resulting data can be saved to disk using the ``Save'' button, or an analysis of the data can be printed to the terminal window by pressing ``Compare Results''.\\
+Though the shotcrete thickness is automatically saved and displayed after applying shotcrete, the user may want to perform additional thickness calculations with RViz data or previously saved data. Selecting an area of a point cloud, clicking Set Initial Cloud, and repeating the steps for the final point cloud allows the operator to calculate the shotcrete thickness at a specified region by pressing Calculate Thickness. If they simply want to calculate thickness from two previously saved files, the file names and locations can be entered and the calculation is performed upon pressing Estimate Thickness. The resulting data can be saved to disk using the Save button.\\
 
-The testing tab has many features useful in testing and developing new algorithms. Table \ref{tab:testing} explains each button's function.\\
+If the debug version is launched, the testing tab shown in Figure \ref{fig:ttab} is available. The testing tab has many features useful for testing and developing new algorithms. Table \ref{tab:testing} explains each button's function.\\
 \begin{table}[h!] 
 \begin{tabular}{|L{0.2\textwidth}|L{0.8\textwidth}|}
 \hline
@@ -214,20 +212,20 @@ Plot Path & Show the intended path the robot will travel to reach the desired lo
 Execute Path & Move robot to desired location\\ \hline
 Show Nav Goal & Show robot's desired location\\ \hline
 Estimate Thickness & Calculate thickness from previous two point cloud scans\\ \hline
-Nav Mode & Move LiDAR nodding head to a position for navigation (-1.57, other positions can be commanded by changing the value of the text box)\\ \hline
+Nav Mode & Move \acrshort{lidar} nodding head to a position for navigation (-1.57 radians, other positions can be commanded by changing the value of the text box)\\ \hline
 Localize & Localize the robot\\ \hline
 Auto Crop & Automatically crop an area behind the robot that the trailer is likely to occupy from the point cloud\\ \hline
 Load Scan & Load a point cloud from file and treat it as if it was a newly acquired scan\\ \hline
 Load Trajectory & Load a trajectory from file (at the location specified under ``Trajectory Save Location'')\\ \hline
-Reset Map & Reset the SLAM map\\ \hline
-Scan & Perform a LiDAR scan\\ \hline
+Reset Map & Reset the \acrshort{slam} map\\ \hline
+Scan & Perform a \acrshort{lidar} scan\\ \hline
 
 \end{tabular}
 \caption{Testing Functions}
 \label{tab:testing}
 \end{table}
 
-The final tab allows the user to manually command the manipulator. The user can initialize the arm, shut it down, or clear the errors. When sending a pose, the user can specify a target location and Point-to-Point motion (PTP), Continuous Path motion (CP), or use the Tool coordinate frame (T). Alternatively, the user can specify specific joint angles to move to. The user can also set the speed of the manipulator, or use the text box to send a WINCAPSIII formatted command. The current robot pose is displayed as well.\\
+The Denso Control tab allows the user to manually command the manipulator. The user can initialize the arm, shut it down, or clear the errors. When sending a pose, the user can specify a target location and Point-to-Point motion (PTP), Continuous Path motion (CP), or use the Tool coordinate frame (T). Alternatively, the user can specify specific joint angles to move to. The user can also set the speed of the manipulator, or use the text box to send a command formatted using DENSO's WINCAPSIII communication protocol. The current robot pose is displayed as well.\\
 \clearpage
 \section{Operation Overview}
 \label{sec:manual}
@@ -263,7 +261,7 @@ This section is intended to serve as an overview of how the MASS performs the fo
      \multicolumn{2}{l}{
      \begin{minipage}{\textwidth} 	
 \scriptsize
-     \textbf{Manual Navigation} The MASS can be driven using a standard USB joystick connected to any computer on the same network that hes been configured and running ROS.
+     \textbf{Manual Navigation} The MASS can be driven using a standard USB joystick connected to any computer on the same network that hes been configured and running \acrshort{ros}.
      \end{minipage}
      }\\
       
@@ -271,13 +269,14 @@ This section is intended to serve as an overview of how the MASS performs the fo
 \begin{minipage}{.4\textwidth} 	
 \scriptsize
 \raggedright
-        \textbf{Autonomous Navigation} The MASS can autonomously navigate to a goal specified using the 2D Nav Goal tool located at the top of the RViz window (see Figure \ref{fig:goal2}). The MASS performs SLAM as it is navigating and is capable of avoiding obstacles and planning paths around them. To set a goal click the RViz window where the robot should to navigate to, and drag the cursor in the direction the robot should face. A green arrow is shown representing the final position and orientation the navigation system will attempt to achieve. Though not required, it is recommended the operator perform a non-homing scan (by clicking the ``Scan'' button) so RViz can display a rendering of the environment.
+        \textbf{Autonomous Navigation} The MASS can autonomously navigate to a goal specified using the 2D Nav Goal tool located at the top of the RViz window (see Figure \ref{fig:goal2}). The MASS performs \acrshort{slam} as it is navigating and is capable of avoiding obstacles and planning paths around them. To set a goal click the RViz window where the robot should to navigate to, and drag the cursor in the direction the robot should face. A green arrow is shown representing the final position and orientation the navigation system will attempt to achieve. Though not required, it is recommended the operator perform a non-homing scan (by clicking the ``Scan'' button) so RViz can display a rendering of the environment.
       \end{minipage}%
       &
         \begin{minipage}{.6\textwidth}
         \vspace{1pt}
       \begin{center}
             \includegraphics[width=\linewidth]{Pics/Manual/afar_goal.png}
+      \captionsetup[figure]{font=scriptsize}
       \captionof{figure}{Setting a Navigation Goal}
       \label{fig:goal2}
 		\end{center}
@@ -316,6 +315,7 @@ This section is intended to serve as an overview of how the MASS performs the fo
         \vspace{1pt}
       \begin{center}
             \includegraphics[width=\linewidth]{Pics/Manual/marker1_selecting.png}
+      \captionsetup[figure]{font=scriptsize}
       \captionof{figure}{Selecting a Marker Keypoint}
       \label{fig:afar2}
 		\end{center}
@@ -324,6 +324,7 @@ This section is intended to serve as an overview of how the MASS performs the fo
         \vspace{1pt}
       \begin{center}
             \includegraphics[width=\linewidth]{Pics/Manual/marker_2view.png}
+      \captionsetup[figure]{font=scriptsize}
       \captionof{figure}{Marker Keypoints are Easily Visible When Colours are Set to Indicate Intensity}
       \label{fig:xx2}
 		\end{center}
@@ -342,13 +343,15 @@ This section is intended to serve as an overview of how the MASS performs the fo
         \vspace{1pt}
       \begin{center}
             \includegraphics[width=\linewidth]{Pics/Manual/marker1_selected.png}
+      \captionsetup[figure]{font=scriptsize}
       \captionof{figure}{Selected Points Highlighted in Blue}
       \label{fig:xx3}
 		\end{center}
         \vspace{1pt}
       \begin{center}
             \includegraphics[width=\linewidth]{Pics/Manual/marker1_selected_zoom.png}
-      \captionof{figure}{A Closer Look at Selected Points}
+      \captionsetup[figure]{font=scriptsize}
+      \captionof{figure}{A Closer View of the Selected Points}
       \label{fig:xx4}
 		\end{center}
     \end{minipage}%
@@ -356,7 +359,7 @@ This section is intended to serve as an overview of how the MASS performs the fo
 \begin{tabularx}{\textwidth}{m{0.3\textwidth} m{0.7\textwidth} }
  \multicolumn{2}{l}{\textbf{Selecting Marker Keypoints (Continued)}}\\ \midrule
  \begin{minipage}{.3\textwidth} 	
-%\scriptsize
+\scriptsize
 \raggedright
       Click the Cluster Pt. 1 button (see Figure \ref{fig:xx5}).
       \end{minipage}%
@@ -365,12 +368,13 @@ This section is intended to serve as an overview of how the MASS performs the fo
         \vspace{1pt}
       \begin{center}
             \includegraphics[width=.5\linewidth]{Pics/Manual/cluster1.png}
+      \captionsetup[figure]{font=scriptsize}
       \captionof{figure}{Teaching the First Marker Keypoint}
       \label{fig:xx5}
 		\end{center}
     \end{minipage}\\
      \begin{minipage}{.3\textwidth} 	
-%\scriptsize
+\scriptsize
 \raggedright
       Repeat the process for the second and third marker keypoints (see Figures \ref{fig:xx7} and \ref{fig:xx8}).
       \end{minipage}%
@@ -379,12 +383,14 @@ This section is intended to serve as an overview of how the MASS performs the fo
         \vspace{1pt}
       \begin{center}
             \includegraphics[width=.5\linewidth]{Pics/Manual/cluster2.png}
+      \captionsetup[figure]{font=scriptsize}
       \captionof{figure}{Teaching the Second Marker Keypoint}
       \label{fig:xx7}
 		\end{center}
         \vspace{1pt}
       \begin{center}
             \includegraphics[width=.5\linewidth]{Pics/Manual/cluster3.png}
+      \captionsetup[figure]{font=scriptsize}
       \captionof{figure}{Teaching the Third Marker Keypoint}
       \label{fig:xx8}
 		\end{center}
@@ -402,6 +408,7 @@ This section is intended to serve as an overview of how the MASS performs the fo
         \vspace{1pt}
       \begin{center}
             \includegraphics[width=.5\linewidth]{Pics/Manual/operation_recorded.png}
+      \captionsetup[figure]{font=scriptsize}
       \captionof{figure}{Fiducial Marker Completed}
       \label{fig:xx9}
 		\end{center}
@@ -412,13 +419,14 @@ This section is intended to serve as an overview of how the MASS performs the fo
 \begin{minipage}{.5\textwidth} 	
 \scriptsize
 \raggedright
-       Multiple fiducial markers can be used, the localization algorithm will select the best one to use for localization. All fiducial markers are stored in a file at the same location where point clouds are automatically saved. The point cloud and fiducial marker save location is indicated by the ``Point cloud save location'' text box in the operation tab of the Control Panel (see Figure \ref{fig:xx11}). Additional markers can be added using the same procedure as the first marker. New markers must be added using a localized point cloud if the operator requires all point clouds to be localized to the same coordinate frame. To localize a point cloud and teach a new marker, the robot must take a scan from a position that includes both the old marker keypoints as well as the new ones to be taught. Figure \ref{fig:afar2} shows a point cloud scan taken from a location in which two individual fiducial markers can be taught.
+       Multiple fiducial markers can be used, the localization algorithm will select the best one to use for localization. All fiducial markers are stored in a file at the same location where point clouds are automatically saved. The point cloud and fiducial marker save location is indicated by the ``Point cloud Save Location'' text box in the operation tab of the Control Panel (see Figure \ref{fig:xx11}). Additional markers can be added using the same procedure as the first marker. New markers must be added using a localized point cloud if the operator requires all point clouds to be localized to the same coordinate frame. To localize a point cloud and teach a new marker, the robot must take a scan from a position that includes both the old marker keypoints as well as the new ones to be taught. Figure \ref{fig:afar2} shows a point cloud scan taken from a location in which two individual fiducial markers can be taught.
       \end{minipage}%
       &
         \begin{minipage}{.5\textwidth}
         \vspace{1pt}
       \begin{center}
             \includegraphics[width=.8\linewidth]{Pics/Manual/operation_save.png}
+      \captionsetup[figure]{font=scriptsize}
       \captionof{figure}{Point Cloud Save Location is the Same as the Marker Save Location}
       \label{fig:xx11}
 		\end{center}
@@ -431,13 +439,14 @@ This section is intended to serve as an overview of how the MASS performs the fo
 \begin{minipage}{.3\textwidth} 	
 \scriptsize
 \raggedright
-       To autonomously apply shotcrete to a selected area, use the Selection Tool located at the top of the RViz window and drag a box to encompass the desired area to apply shotcrete (see Figure \ref{fig:xx12}). More complex selections can be achieved by holding the Ctrl button while selecting additional areas or points.
+       To autonomously apply shotcrete to a selected area, use the Selection Tool located at the top of the RViz window and drag a box to encompass the desired area to apply shotcrete (see Figure \ref{fig:xx12}). More complex selections can be achieved by holding the keyboard's Ctrl button while selecting additional areas or points.
       \end{minipage}%
       &
         \begin{minipage}{.7\textwidth}
         \vspace{1pt}
       \begin{center}
             \includegraphics[width=\linewidth]{Pics/Manual/shotcrete_selecting.png}
+      \captionsetup[figure]{font=scriptsize}
       \captionof{figure}{Manual Selection of Shotcrete Area}
       \label{fig:xx12}
 		\end{center}
@@ -457,6 +466,7 @@ This section is intended to serve as an overview of how the MASS performs the fo
         \vspace{1pt}
       \begin{center}
             \includegraphics[width=\linewidth]{Pics/Manual/shotcrete_trajectory.png}
+      \captionsetup[figure]{font=scriptsize}
       \captionof{figure}{Trajectory Generated from Shotcrete Selection}
       \label{fig:xx14}
 		\end{center}
@@ -468,13 +478,14 @@ This section is intended to serve as an overview of how the MASS performs the fo
 \begin{minipage}{.3\textwidth} 	
 \scriptsize
 \raggedright
-       Inspect the trajectory to ensure a satisfactory result. Via points outside the robot's workspace are shown in red, while via points within the workspace are shown in green (see Figure \ref{fig:xx15}). The path along the surface the robot will follow is shown in red, the path the end effector will follow is shown in green, and the surface normals are shown in blue.
+       Inspect the trajectory to ensure a satisfactory result. Via points outside the robot's workspace are shown in red, while via points within the workspace are shown in green (see Figure \ref{fig:xx15}). The path along the surface the robot will follow is shown in red, the path the end-effector will follow is shown in green, and the surface normals are shown in blue.
       \end{minipage}%
       &
         \begin{minipage}{.7\textwidth}
         \vspace{1pt}
       \begin{center}
             \includegraphics[width=\linewidth]{Pics/Manual/goodbadpts_robot.png}
+      \captionsetup[figure]{font=scriptsize}
       \captionof{figure}{Robot Workspace (White) with Via Points Highlighted in Red (Outside Workspace) or Green (Within Workspace)}
       \label{fig:xx15}
 		\end{center}
@@ -489,6 +500,7 @@ This section is intended to serve as an overview of how the MASS performs the fo
         \vspace{1pt}
       \begin{center}
             \includegraphics[width=.5\linewidth]{Pics/Manual/operation_apply.png}
+      \captionsetup[figure]{font=scriptsize}
       \captionof{figure}{Apply Shotcrete Button}
       \label{fig:xx16}
 		\end{center}
@@ -527,6 +539,7 @@ This section is intended to serve as an overview of how the MASS performs the fo
         \vspace{1pt}
       \begin{center}
             \includegraphics[width=\linewidth]{Pics/Manual/autokeep.png}
+      \captionsetup[figure]{font=scriptsize}
       \captionof{figure}{Points to be Kept for Automatic Shotcrete Application}
       \label{fig:xx18}
 		\end{center}
@@ -538,7 +551,7 @@ This section is intended to serve as an overview of how the MASS performs the fo
     \begin{minipage}{.3\textwidth} 	
 \scriptsize
 \raggedright
-     To ensure the robot does not attempt to apply shotcrete to itself it is important to ensure the occlusion zone is set appropriately. Using \node{rqt_reconfigure}, the area to be cropped in which the robot's components may be detected by the LiDAR scan is set. The volume enclosed by orange lines will be automatically removed before shotcrete trajectory generation (see Figure \ref{fig:xx19}).
+     To ensure the robot does not attempt to apply shotcrete to itself it is important to ensure the occlusion zone is set appropriately. Using \node{rqt_reconfigure}, the area to be cropped in which the robot's components may be detected by the \acrshort{lidar} scan is set. The volume enclosed by orange lines will be automatically removed before shotcrete trajectory generation (see Figure \ref{fig:xx19}).
       \end{minipage}%
       &
         \begin{minipage}{.7\textwidth}
@@ -546,6 +559,7 @@ This section is intended to serve as an overview of how the MASS performs the fo
       \begin{center}
             \includegraphics[width=\linewidth]{Pics/Manual/auto_occlude.png}
             \captionsetup[figure]{justification=raggedright}
+      \captionsetup[figure]{font=scriptsize}
       \captionof{figure}{Points to be Removed Before Trajectory Generation}
       \label{fig:xx19}
 		\end{center}
@@ -560,6 +574,7 @@ This section is intended to serve as an overview of how the MASS performs the fo
         \vspace{1pt}
       \begin{center}
             \includegraphics[width=.5\linewidth]{Pics/Manual/operation_apply.png}
+      \captionsetup[figure]{font=scriptsize}
       \captionof{figure}{Clicking Apply Shotcrete Without a Selection Begins the Autonomous Shotcreting Process}
       \label{fig:xx20}
 		\end{center}
@@ -580,6 +595,7 @@ This section is intended to serve as an overview of how the MASS performs the fo
         \vspace{1pt}
       \begin{center}
             \includegraphics[width=\linewidth]{Pics/Manual/thickness_result.png}
+      \captionsetup[figure]{font=scriptsize}
       \captionof{figure}{Automatic Thickness Estimate}\label{fig:thickeg2}
 		\end{center}
     \end{minipage}
@@ -590,14 +606,14 @@ This section is intended to serve as an overview of how the MASS performs the fo
 \begin{minipage}{.5\textwidth} 	
 \scriptsize
 \raggedright
-       To apply the shotcrete thickness estimation algorithm to point clouds saved to disk, use the Thickness Estimation tab of the Control Panel to indicate the location of the initial and final scans, then click the Estimate Thickness button (see Figure \ref{fig:xx22}). The resulting estimate can be saved by clicking the save button.
+       To apply the shotcrete thickness estimation algorithm to point clouds saved to disk, use the Thickness tab of the Control Panel to indicate the file location of the initial and final scans, then click the Estimate Thickness button (see Figure \ref{fig:xx22}). The resulting estimate can be saved by clicking the save button.
       \end{minipage}%
       &
         \begin{minipage}{.5\textwidth}
         \vspace{1pt}
       \begin{center}
             \includegraphics[width=.7\linewidth]{Pics/Manual/thickness_estimate.png}
-            \captionsetup[figure]{justification=raggedright}
+            \captionsetup[figure]{font=scriptsize,justification=raggedright}
       \captionof{figure}{Estimating Shotcrete Thickness From two Saved Scans}
       \label{fig:xx22}
 		\end{center}
@@ -613,6 +629,7 @@ This section is intended to serve as an overview of how the MASS performs the fo
         \vspace{1pt}
       \begin{center}
             \includegraphics[width=.7\linewidth]{Pics/Manual/operation_load.png}
+      \captionsetup[figure]{font=scriptsize}
       \captionof{figure}{Point Cloud Files can be Loaded From Disk}
       \label{fig:load2}
 		\end{center}
@@ -631,6 +648,7 @@ This section is intended to serve as an overview of how the MASS performs the fo
         \vspace{1pt}
       \begin{center}
             \includegraphics[width=.5\linewidth]{Pics/Manual/thickness_selection.png}
+      \captionsetup[figure]{font=scriptsize}
       \captionof{figure}{Calculating Shotcrete Thickness for a Specific Selection}
       \label{fig:xx24}
 		\end{center}
@@ -642,6 +660,7 @@ This section is intended to serve as an overview of how the MASS performs the fo
       \begin{center}
             \includegraphics[width=\linewidth]{Pics/Manual/pre_selecting.png}
       \begin{minipage}{.8\linewidth}
+      \captionsetup[figure]{font=scriptsize}
       \captionof{figure}{Selecting the Initial Point Cloud}
       \label{fig:xx25}
       \end{minipage}
@@ -652,6 +671,7 @@ This section is intended to serve as an overview of how the MASS performs the fo
       \begin{center}
             \includegraphics[width=\linewidth]{Pics/Manual/post_selecting.png}
       \begin{minipage}{.8\linewidth}
+      \captionsetup[figure]{font=scriptsize}
       \captionof{figure}{Selecting the Final Point Cloud}
       \label{fig:xx26}
       \end{minipage}
@@ -662,4 +682,4 @@ This section is intended to serve as an overview of how the MASS performs the fo
 
 \section{Chapter Summary}
 
-The hardware and software components of the MASS were discussed. The Husky UGV, DENSO manipulator, SICK LiDAR, are Powercube servo are the main hardware systems used. The software packages for RViz, Husky, and SLAM along with their dependent packages are available through ROS and were configured to operate with the MASS. A brief overview of the MASS software package was presented, and a pseudo manual describing the typical operation of the MASS features was provided.\\
+The hardware and software components of the MASS were discussed. The Husky UGV, DENSO manipulator, SICK \acrshort{lidar}, are Powercube servo are the main hardware systems used. The software packages for RViz, Husky, and \acrshort{slam} along with their dependent packages are available through \acrshort{ros} and were configured to operate with the MASS. A brief overview of the MASS software package was presented, and a pseudo manual describing the typical operation of the MASS features was provided.\\
