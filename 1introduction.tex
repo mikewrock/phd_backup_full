@@ -1,0 +1,115 @@
+\chapter{Introduction}
+\label{chap:introduction}
+
+The research goals in this work are twofold: build a robotic system to complete specific tasks required in underground uranium mining, as well as create, implement, and test the software framework and algorithms that allow the robot to perform these tasks. Though a primary requirement is to demonstrate a functional proof-of-concept prototype, designing a system on which further research can be performed is of equal importance.\\
+
+This research aims to improve worker safety in underground uranium mines, doing so by not only removing workers from a hazardous environment but performing tasks (some of which are directly related to establishing a safe environment) with greater accuracy, consistency, and measurability.\\
+
+As this is a research project in a research institution, a functional software and hardware prototype would not be sufficient. The prototype must also serve as a tool for developing other novel solutions to the problems discussed herein or problems that may be entirely unrelated to this work but require a similar robotic system or software platform. Both the hardware and software in this work is intended to be as modular and reusable as possible to not limit the potential research that can be performed using the final product.\\
+
+The hardware in this work is not intended to replace existing hardware, but must serve as an appropriate analog to a system that could be deployed in an underground uranium mine. Choosing equipment capable of functioning in the harsh conditions of the mine would add significant cost to the project. Instead, hardware was selected such that it had equivalent functionality though it may lack the appropriate characteristics to endure the conditions it would be exposed to in the mine. As well, the mock mine constructed for testing is one third the scale of the real mine, meaning the robotic system was also built at the same scale.\\
+
+The software framework developed in this work is the main contribution of this research. If implemented on existing or novel hardware designed for use in a mine, minimal modification to the code is required. One simply needs to replace the current hardware drivers with the appropriate drivers for the hardware replacements. The algorithms and implementation is highly modular and capable of functioning on a wide variety of hardware systems. Moreover, the software was designed in such a way that it can be used in applications entirely unrelated to this work with no modification to the code.\\
+
+\section{Intended Application}
+\label{sec:prob}
+The goal of this work is to develop novel algorithms for use on autonomous robots in underground uranium drift mining and test them using a real robot in an artifically constructed scale mine. Though a specific application was chosen, the algorithms presented may be useful in many other robotic applications both within the mining industry and beyond.\\
+
+\subsection{Underground Drift Mining}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{Pics/raisebore.jpg}
+    \caption{Raisebore Mining Technique \cite{weblink}}
+    \label{fig:raisebore}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{Pics/boxhole.jpg}
+    \caption{Boxhole Mining Technique \cite{weblink}}
+    \label{fig:boxhole}
+\end{figure}
+%https://www.cameco.com/businesses/mining-methods#raisebore-mining
+A drift is simply a mining term to describe a nearly horizontal passageway within a mine. Prospecting drifts may intersect the ore body, but most drifts usually follow an ore vein, allowing the miners to extract ore as the drift progresses. Drifts are also frequently used to provide access to areas of the mine where other mining methods are employed. Two methods of mining that require drifts can be seen in Figures \ref{fig:raisebore} and \ref{fig:boxhole}. These methods use the drifts (also labeled as chambers) to position the mining equipment above or below the ore body for extraction. Drifts are also used to place freeze lines for the freeze walls used to prevent the mine from flooding in areas with water bearing soil, as seen in Figure \ref{fig:boxhole}.\\
+
+Drifts are typically created using the drill and blast method. Drills are used to create holes into which explosives are placed. After detonation, the blasted rock is removed and the mine is reinforced. Rock bolts and mesh are applied to the mine surface, followed by an application of a sprayable concrete liner called shotcrete. When small sections of the mine are modified, the rock bolts and mesh may be omitted, relying on the shotcrete alone for reinforcement.\\
+
+When mining uranium ore, the shotcrete serves dual purposes. First and foremost, the shotcrete reinforces the mine. Reinforcement is necessary to prevent the workers from injuries caused by rock fall or becoming trapped should the mine collapse. However, in a uranium mine, the shotcrete serves an additional purpose: protection from radiation and radon gas. As uranium decays, it produces multiple types of radiation and radioactive byproducts. Among these byproducts is an odourless and colourless radioactive gas called radon. Inhalation of radon gas and its progeny has been shown to increase the rate of lung cancer in uranium mine workers \cite{radon}. For this reason, shotcrete must be applied to all surfaces of the mine, unlike typical mines that do not require application of shotcrete to the drift face.\\
+
+%radon: http://nuclearsafety.gc.ca/eng/resources/fact-sheets/radon-fact-sheet.cfm
+\subsection{Surface Scanning}
+
+Since naturally occurring uranium ore has a known radiation signature, the ore concentration can be determined by measuring the radiation energy emitted. This radiation energy is harmful to those exposed to it, so workers attempt to maximize their distance from the ore when protection from a layer of shotcrete is not available. If the drift intersects the ore body, geologists may want to inspect the drift face containing ore. To do so, they use a radiation sensor such as a Geiger-M{\"u}ller counter mounted on the end of a long pole (to maximize their distance from the radioactive ore). This method is crude at best, the geologists are not able to position the sensors with very high precision or accurately record the position at which they have taken the measurement. The measurements themselves lack accuracy as well, since the radiation sensors currently in use are unshielded and yield measurements in a cone shaped region originating at the sensor. The use of a shielded sensor can narrow the beam angle from which the sensor detects radiation, allowing the geologist a higher resolution scan of the drift face (provided they are able to accurately aim and record the position of the sensor at the time of measurement). A higher resolution scan can provide geologists with a more accurate representation of the ore body, allowing further insight in developing models to represent and predict uranium ore deposits.\\
+
+
+\subsection{Shotcrete Reinforcement}
+
+Shotcrete is applied after rock bolts and mesh are applied to the drift surface. The rock bolts are driven deep in to the rock to hold the rock mesh securely to the surface. The rock mesh provides additional support and protection from falling rock before the shotcrete is applied. As well, the rock mesh provides strength to the shotcrete layer.\\
+
+The work instructions for applying wet shotcrete in Cameco's MacArthur River underground uranium mine can be found in Appendix \ref{sec:shotcreteapp}. The instructions are summarized as follows:
+\begin{itemize}
+\item Clean the area
+\item Wash the surface
+\item Clear the lines
+\item Apply shotcrete
+\end{itemize}
+
+Cleaning the area is necessary because foreign objects and dirt between the shotcrete layer and the mine surface will lower the amount of adhesion, possibly leading to shagging (sections of shotcrete detaching from the mine surface). When particles of shotcrete do not adhere to the surface they can bounce off it, forming rebound. Even with ideal application technique there is still likely to be rebound. The shotcrete rebound can land on and possibly damage equipment, which is why all services (air, water, electrical cables/boxes etc.) must be protected or cleared from the area as well. Washing the surface not only clears debris but ensures the surface is moist before shotcrete application, reducing the risk of low hydration causing cracking and reduced adhesion. Finally, before application the shotcrete lines must be cleared of the `slick' material left in the lines. Once cleared the operator can begin applying shotcrete provided they have achieved the correct shotcrete mix and application settings.\\
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=.5\textwidth]{Pics/application.png}
+    \caption{Shotcrete Application Guideline \cite{camedoc}}
+    \label{fig:instshot}
+\end{figure}
+
+To apply shotcrete the operator typically begins at the bottom of the area and works their way up to the top, as shown in Figure \ref{fig:instshot}. When applying shotcrete, the offset from and angle to the surface have a significant effect on the amount of rebound. The relationship between offset, angle, and rebound is shown in Figure \ref{fig:rebound}. Work instructions describe the maximum attainable layer thickness given the specific shotcrete mix used, to achieve a thicker shotcrete layer the operator must wait 30 minutes before applying another layer. The work instructions do not include a method of estimating the shotcrete layer thickness.\\
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.8\textwidth]{Pics/angle.png}
+    \caption{Rebound Effect of Offset and Angle to Application Surface \cite{camedoc}}
+    \label{fig:rebound}
+\end{figure}
+
+\subsection{Shotcrete Thickness}
+
+Sufficient thickness of the shotcrete layer is essential in ensuring worker safety. Not only is the shotcrete required to protect the workers from radiation and radon gas, but it is responsible for providing structural support to the mine. There are both destructive and non-destructive methods of measuring shotcrete thickness, but often it is simply estimated visually by the operator. For this reason, more shotcrete than necessary may be used to ensure a sufficient factor of safety given the visual estimation of the operator may not be very accurate and even less so with novice operators.\\
+
+\subsection{Problem Statement}
+
+The problems with the current approach to underground uranium drift mining include worker safety, measurement accuracy, and quality control. Any time a worker's presence is required near exposed ore or unreinforced sections of the mine, the risk to their safety increases. When performing radiation scans of the drift face, the workers are not only exposed to increased risk and environmental hazards but are unable to accurately position and record the location at which the scans are taken. When shotcrete is applied, much of the quality of work is dependant on the operator's skill. The main form of quality control, visual estimation, is heavily dependant on operator experience and does not guarantee any level of accuracy. At the time of research, there were no dedicated robotic systems designed for testing autonomous shotcrete application algorithms. As well, there are no published algorithms for generating and executing shotcrete spray trajectories.\\
+
+\section{Scope}
+\label{sec:scope}
+
+The scope of this project is to construct and test both the hardware and software system for a proof-of-concept prototype that addresses the issues discussed in the problem statement. The focus is on developing a modular and adaptable system on which future research and novel algorithms can be developed. The actual application of shotcrete and measurement of radiation is outside the scope of this work, however, should the appropriate end-effector be installed the system must be capable of performing these tasks.\\
+
+A successful proof-of-concept prototype will be capable of autonomously navigating within the mock mine constructed for this work, positioning itself for shotcreting and scanning tasks, perform the motions required for that task using a manipulator with equal degrees-of-freedom (\acrshort{dof}) to a shotcreting machine, and advance itself if necessary to cover an area larger than its stationary workspace. Documentation and design of the end-effector can be found in \cite{travis}. The prototype must produce measurements and a visual representation of the shotcrete thickness as well as a 3D point cloud representation of the entire mine area it operates within.\\
+
+The assumptions are that the operator knows the approximate size and shape (to within a half meter) of the drift. They must be capable of selecting an area to scan or shotcrete using a graphical user interface (\acrshort{gui}). It is also assumed the robot may unintentionally move during the shotcrete application process, so localization of the robot must be performed in order to generate the thickness estimates.\\
+
+This robot is only intended to operate in a research environment, meaning the modifications necessary to protect the hardware from the mine environment is outside the scope of this work. The robot must be capable of performing any of the actions a production level model would, but its design is not required to be as robust as would be necessary to undergo continuous operation in an underground uranium drift mine. The software algorithms in this work must be functional when implemented on a robot capable of operating in underground mining conditions with minimal modification to the developed code.\\
+
+\section{Summary of Contributions}
+\label{sec:contributions}
+
+\subsection{Construction of the Prototype}
+A mobile-manipulator system was constructed to demonstrate the functionality of the algorithms developed. The system is a skid-steered base with a 6-\acrshort{dof} serial manipulator and a light detection and ranging (\acrshort{lidar}) scanner on a nodding head. The controller for the manipulator, additional batteries, and a generator fit in a bespoke trailer built for this work through a collaborative effort.\\
+
+\subsection{Software Algorithms}
+A \acrshort{gui} and the accompanying software was developed for use on the prototype as well as future generations of shotcreting and scanning robots. The algorithms for performing the required tasks are modular and  function on the research platform, final product, or other robots having similar needs. The algorithms are implemented individually as nodes in the Robot Operating System (\acrshort{ros}) framework allowing users to easily apply them to their own hardware and software packages.\\
+
+\subsection{Trajectory Generation}
+An algorithm for generating manipulator trajectories for shotcrete spraying and radiation scanning was developed, implemented, and tested. The algorithm requires minimal input from the operator and is robust to a number of environmental factors, such as surface roughness, yet allows for fine tuning to improve results.\\
+
+\subsection{Shotcrete Thickness Estimation}
+The ideal approach to shotcrete thickness estimation was determined and implemented as a modular portion of the software developed for this work. Modern point cloud comparison methods were implemented in the software package allowing portability through the \acrshort{ros} framework. It is more accessible to other researchers and easier to use by untrained end-users who choose to use \acrshort{ros} instead of stand alone point cloud comparison software.
+
+\subsection{Localization}
+A novel localization algorithm was developed and implemented in the \acrshort{ros} framework using the same modular approach as the trajectory generation and thickness estimation algorithms. The localization method was designed for use in underground mining, adapting to the specific challenges and exploiting the unique advantages associated with the environment.\\
+
+\section{Thesis Outline}
+\label{sec:outline}
+
+The following chapters discuss the development of the Mobile Autonomous Shotcreting and Scanning System, herein referred to as MASS. Chapter \ref{chap:background} provides and overview of the current state of the art, followed by Chapters \ref{chap:localiz}, \ref{chap:traj}, and \ref{chap:thick} discussing robot localization, trajectory generation, and thickness estimation, respectively. Chapter \ref{chap:overview} provides an overview of the prototype system and Chapter \ref{chap:code} provides a thorough discussion of the software. The testing and results are presented in Chapter \ref{chap:testing}. Conclusions and recommendations for future work are given in Chapter \ref{chap:conclusions}.\\

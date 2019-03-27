@@ -1,0 +1,85 @@
+\appendix
+\chapter{Shotcrete Work Instructions}
+\label{sec:shotcreteapp}
+\includepdf[pages=-]{Appendix/MCAWetShotcreteApplication.pdf}
+\chapter{Sample Files}
+\section{HuskyStatus Message}
+\label{app:huskystatus}
+\includecode[pythonstyle]{Code/HuskyStatus.msg}{HuskyStatus.msg}
+\section{Husky Costmap Configuration File}
+\label{app:huskyconfig}
+\includecode[pythonstyle]{Code/costmap_common.yaml}{Husky Costmap Configuration File (costmap\_common.yaml)}
+\chapter{Complete Source Code}
+\label{app:code}
+\section{Package.xml}
+\label{app:pack} 
+  \begin{adjustwidth}{-1in}{-.8in}
+\includecode[xmlstyle]{CleanedCode/package.xml}{Package.xml}
+\end{adjustwidth}
+\section{Plugin Description}
+\label{app:plug} 
+  \begin{adjustwidth}{-1in}{-.8in}
+\includecode[xmlstyle]{CleanedCode/plugin_description.xml}{plugin\_description.xml}
+\end{adjustwidth}
+\section{Cmakelists}
+\label{app:cmake} 
+  \begin{adjustwidth}{-1in}{-.8in}
+\includecode[xmlstyle]{CleanedCode/CMakeLists.txt}{CMakeLists.txt}
+\end{adjustwidth}
+\section{Launch Files}
+\label{app:launch}
+  \begin{adjustwidth}{-1in}{-.8in}
+\includecode[xmlstyle]{CleanedCode/launch/main.launch}{main.launch}
+\includecode[xmlstyle]{CleanedCode/launch/simulation.launch}{simulation.launch}
+\end{adjustwidth}
+\section{Configuration Files}
+\label{app:cfgs}
+  \begin{adjustwidth}{-1in}{-.8in}
+\includecodelabel{CleanedCode/cfg/param_config.cfg}{Control Panel Configuration File param\_config.cfg}{code:cpcfg}
+\includecode{CleanedCode/cfg/localize_config.cfg}{Localization Configuration File localize\_config.cfg}\includecode{CleanedCode/cfg/trajectory_config.cfg}{Trajectory Generation Configuration File trajectory\_config.cfg}
+\includecodelabel{CleanedCode/cfg/laser_config.yaml}{\acrshort{lidar} Filter Configuration File laser\_config.yaml}{code:yaml}
+\end{adjustwidth}
+\section{URDF}
+\label{app:urdf}
+  \begin{adjustwidth}{-1in}{-.8in}
+\includecode[xmlstyle]{CleanedCode/urdf/base.urdf.xacro}{base.urdf.xacro}
+\includecode[xmlstyle]{CleanedCode/urdf/decorations.urdf.xacro}{decorations.urdf.xacro}
+\includecode[xmlstyle]{CleanedCode/urdf/description.xacro}{description.xacro}
+\includecode[xmlstyle]{CleanedCode/urdf/husky.urdf.xacro}{husky.urdf.xacro}
+\includecode[xmlstyle]{CleanedCode/urdf/materials.urdf.xacro}{materials.urdf.xacro}
+\includecode[xmlstyle]{CleanedCode/urdf/parts.urdf.xacro}{parts.urdf.xacro}
+\includecode[xmlstyle]{CleanedCode/urdf/wheel.urdf.xacro}{wheel.urdf.xacro}
+\end{adjustwidth}
+\section{Header Files}
+\label{app:headers}
+  \begin{adjustwidth}{-1in}{-.8in}
+\includecode{CleanedCode/include/control_dashboard.h}{control\_dashboard.h}
+\includecode{CleanedCode/include/control_panel.hpp}{control\_panel.hpp}
+\includecode{CleanedCode/include/marker_selector.h}{marker\_selector.h}
+\end{adjustwidth}
+\section{Source Files}
+\label{app:source}
+  \begin{adjustwidth}{-1in}{-.8in}
+\includecode{CleanedCode/src/control_dashboard.cpp}{control\_dashboard.cpp}
+\includecode{CleanedCode/src/control_panel.cpp}{control\_panel.cpp}
+\includecode{CleanedCode/src/denso_node.cpp}{denso\_node.cpp}
+\includecode{CleanedCode/src/cube_node.cpp}{cube\_node.cpp}
+\includecode{CleanedCode/src/marker_selector.cpp}{marker\_selector.cpp}
+\includecode{CleanedCode/src/joint_state_fusion.cpp}{joint\_state\_fusion.cpp}
+\end{adjustwidth}
+\section{Services}
+\label{app:sourcesrv}
+  \begin{adjustwidth}{-1in}{-.8in}
+\includecode{CleanedCode/src/trajectory_service.cpp}{trajectory\_service.cpp}
+\includecode{CleanedCode/src/pointcloud_localization_service.cpp}{pointcloud\_localization\_service.cpp}
+\includecode{CleanedCode/src/thickness_service.cpp}{thickness\_service.cpp}
+\end{adjustwidth}
+\section{Transformation Matrix Calculation}
+\label{app:tmat}
+  \begin{adjustwidth}{-1in}{-.8in}
+\includecodelines{CleanedCode/src/pointcloud_localization_service.cpp}{pointcloud\_localization\_service.cpp}{342-367}
+\end{adjustwidth}
+\chapter{DENSO Documentation}
+\section{Table of Shoulder, Elbow, and Wrist Figures}
+\label{sec:fig}
+\includepdf[pages=288]{Appendix/setting-e.pdf}

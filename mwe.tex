@@ -1,0 +1,35 @@
+\include{packagesClasses2}
+%% make dots on all table of contents
+%\usepackage{tocloft}
+%\renewcommand{\cftpartleader}{\cftdontfill{\cftdotsep}} % for parts
+%\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}} % for chapters
+%\documentclass[12pt]{uoitthesis}
+
+\usepackage[acronym]{glossaries}
+\makeglossaries 
+\input{nomenclature.tex}
+
+
+\begin{document}
+
+
+  %%-----------Table of Contents----------------------
+  \renewcommand{\contentsname}{Table of Contents}
+  \tableofcontents{}
+  \addcontentsline{toc}{chapter}{Table of Contents}
+
+  %%------------List of Abbreviations-----------------------
+  \glsaddall
+  \printglossary[title=List of Abbreviations,type=\acronymtype]
+  \printglossaries
+  %%------------Dedication----------------------------
+ % \include{dedication}
+
+
+  %%-------------Include your chapters----------------
+  %% You can rename the files.
+  \include{1introduction2}
+
+  
+ 
+\end{document}
