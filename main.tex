@@ -126,7 +126,9 @@
 \begin{document}
 
   \uoittitlepage
-
+\etocdepthtag.toc{mtchapter}
+\etocsettagdepth{mtchapter}{subsection}
+\etocsettagdepth{mtappendix}{subsection}
   \setcounter{secnumdepth}{3} \setcounter{tocdepth}{3}
   \pagenumbering{roman} \setcounter{page}{1}
   \doublespacing
@@ -170,11 +172,10 @@
 %  % You can rename the files.
   \include{1introduction}
   \include{2background}
-  \include{3localization}
-  \include{4trajectory}
-  \include{5thickness}
-  \include{6overview}
-  \include{7code}
+  \include{3overview}
+  \include{4localization}
+  \include{5trajectory}
+  \include{6thickness}
   \include{8testing}
   \include{9conclusions}
 
@@ -182,8 +183,7 @@
   %\bibliography{references}
   \printbibliography[
 heading=bibintoc,
-title={References}
-]
+title={References}]
   \include{appendix}
   
  

@@ -52,11 +52,11 @@ The \acrshort{lidar} used must be mounted on a nodding head to generate 3D point
     \caption{MASS Nodding Head Assembly}
     \label{fig:lidarmass}
 \end{figure}
-\section{Software}
+\section{Open Source Software}
 \label{sec:software}
 All software integrated and developed for this research is intended for use within the \acrshort{ros} framework. Since \acrshort{ros} is an open source community with many packages available for use in research, it offers a wide selection of resources useful to this work.\\
 
-Many of the tasks required for operation of the MASS have already been developed by the \acrshort{ros} community. Hardware drivers, motion controllers, \acrshort{lidar} scan to point cloud assemblers, navigation, and mapping packages are already available through \acrshort{ros}. The following packages are necessary for the MASS to function.\\
+Many of the tasks required for operation of the MASS have already been developed by the \acrshort{ros} community. Hardware drivers, motion controllers, \acrshort{lidar} scan to point cloud assemblers, navigation, and mapping packages are already available for use through \acrshort{ros} and the open source licenses they contain. The following open source packages were implemented on the MASS.\\
 \subsection{RViz}
 \label{sec:RViz}
 
@@ -165,32 +165,72 @@ If a node has been configured with parameters that can change at runtime, \node{
     \label{fig:dyngui2}
 \end{figure}
 
-\subsection{The MASS ROS Package}
+\section{Software Contributions}
 \label{sub:software}
 
-A thorough discussion of the source code is provided in Chapter \ref{chap:code}, however, an overview of the MASS would be incomplete without mentioning the \acrshort{ros} package that provides its functionality. The complete code can be found in Appendix \ref{app:code}.\\ 
+A thorough discussion of the source code is provided in Appendix \ref{chapp:code} with the complete code given in Appendix \ref{app:code}. The following table of contents outlines the software contributions of this work:
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{Pics/sixpt9.png}
-    \caption{RViz User Interface}
-    \label{fig:panel}
-\end{figure}
+%\begin{minipage}[b]{\textwidth}
+\newcommand*{\DotsAndPage}
+{\nobreak\leaders\hbox{\normalsize\hbox to .75ex {\hss.\hss}}%
+\hfill\nobreak
+\makebox[\rightskip][r]{\normalsize \etocpage}\par}
 
+\newcommand*{\NoDotsOrPage}
+{\nobreak\leaders\hbox{\normalsize\hbox to .75ex {\hss \hss}}%
+\hfill\nobreak
+\makebox[\rightskip][r]{\normalsize}\par}
+\etocsetstyle {chapter}
+{\parindent 0pt
+\nobreak
+\etocskipfirstprefix}
+{}
+{\large\centering
+Appendix \ref{chapp:code}: Source Code Discussion\par}
+{}
+\etocsetstyle {section}
+{\leftskip 0pt \rightskip .75cm \parfillskip-\rightskip
+\nobreak\medskip
+\etocskipfirstprefix}
+{\leftskip 0pt \rightskip .75cm \parfillskip-\rightskip
+\pagebreak[1]\smallskip}
+{\normalsize
+\etocname\DotsAndPage }
+{\parfillskip 0pt plus 1fil\relax }
+
+\etocsetstyle {subsection}
+{\leftskip 5pt \rightskip .75cm \parfillskip-\rightskip
+\nobreak\medskip
+\etocskipfirstprefix}
+{\leftskip 5pt \rightskip .75cm \parfillskip-\rightskip
+\pagebreak[1]\smallskip}
+{\normalsize
+\etocname\NoDotsOrPage}
+{\parfillskip 0pt plus 1fil\relax }
+\etocsettagdepth{mtchapter}{none}
+\etocsettagdepth{mtappendix}{subsection}
+\etocsettocstyle{\bigskip\medskip}{\medskip\vfill}
+\def\contentsname{\empty}
+\tableofcontents
 The main interface between the user and the control system occurs within an RViz window. Along with the regular features of RViz, this software adds a panel and a tool to the RViz interface. The additional features can be seen in Figure \ref{fig:panel} labeled as Control Panel (right) and Selection Tool (top). The code for the control panel is split between two files. For the system's current purpose, it would be far less functional to have a standalone \acrshort{gui} and not use RViz for visualization. Therefore, \node{control_dashboard} was designed as a plugin for RViz. As future work on this project continues, the need for RViz visualization may diminish, so the node was designed to make converting it to run without RViz a trivial task. Eventually, when this system is implemented in a mine, no graphical interface at all will be required on the machine itself. For that reason, the core functionality of the system lies in the \node{control_panel} node. The \node{control_dashboard} node simply relays the actions from the user interface to the \node{control_panel} node.\\
-
-The \node{control_panel} node is the heart of the control system. It is responsible for calling the localization, trajectory generation, and thickness estimation services, as well as communication with the DENSO arm, Powercube servo, and Husky UGV. Other MASS-specific requirements such as cropping regions from the robots perception that are occupied by the robot itself or  modifying trajectory points to fit within the DENSO arm's workspace are performed by the \node{control_panel} node. \\
-
-The main contribution of this work to the \acrshort{ros} community are the localization, trajectory generation, and thickness estimation services. These three services are intended to be as portable as possible so they can be useful in any robotics project, regardless of the system configuration. Should other researchers have a need for the service they provide, one simply needs to install the package and they will be able to launch the desired service from the terminal or their own launch file. Unfortunately, due to this document's confidentiality, the source code will not be made available, so the functionality of the compiled binaries are provided as-is. Any of the parameters that can be modified by the user are still accessible, but the source code cannot be viewed or modified.\\
-
-\subsubsection{MASS GUI}
-\label{sub:gui}
 
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=.7\textwidth]{Pics/guidrawing.pdf}
     \caption{MASS \acrshort{gui} Panel}
     \label{fig:thegui}
+\end{figure}
+
+The \node{control_panel} node is the heart of the control system. It is responsible for calling the localization, trajectory generation, and thickness estimation services, as well as communication with the DENSO arm, Powercube servo, and Husky UGV. Other MASS-specific requirements such as cropping regions from the robots perception that are occupied by the robot itself or  modifying trajectory points to fit within the DENSO arm's workspace are performed by the \node{control_panel} node. \\
+
+The main contribution of this work to the \acrshort{ros} community are the localization, trajectory generation, and thickness estimation services. These three services are intended to be as portable as possible so they can be useful in any robotics project, regardless of the system configuration. Should other researchers have a need for the service they provide, one simply needs to install the package and they will be able to launch the desired service from the terminal or their own launch file. Unfortunately, due to this document's confidentiality, the source code will not be made available, so the functionality of the compiled binaries are provided as-is. Any of the parameters that can be modified by the user are still accessible, but the source code cannot be viewed or modified.\\
+\subsection{User Interface}
+\label{sub:gui}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Pics/sixpt9.png}
+    \caption{RViz User Interface}
+    \label{fig:panel}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 %FIX THIS FIGURE"CALCULATE THICKNESS"

@@ -9,7 +9,7 @@
     \caption{\acrshort{mars} Lab Mock Mine}
     \label{fig:mockmine}
 \end{figure}
-Testing of the MASS occurred in the Mechatronic and Robotic Systems (\acrshort{mars}) Laboratory mock mine at \acrshort{uoit}. Figure \ref{fig:mockmine} shows a picture of the mock mine used for testing. The mine is 6 m long, 3 m wide, 1.5 m tall, and the roof overhang is 1 m. Since Cameco's MacArthur River mine corridors are approximately 6 m tall and 5-8 m wide, the mock mine is considered a quarter scale representation. It is constructed from wood framing with foam surfaces and features. Figure \ref{fig:surfacefeature} shows an image of some of the surface features installed on the mine. The uneven surfaces and features are similar to what can be found in the MacArthur River mine. Due to practicality, the surface roughness is much smoother than the actual mine. The main difference with the lack of surface roughness is the normal estimation will be more accurate over smaller regions, but using a larger radius to calculate the surface normals will yield similar results. Through testing it was determined the measurement error of the \acrshort{lidar} produced results similar to what would be obtained under ideal conditions with realistic surface roughness. Currently the mock mine floor is plywood material, but it has been designed to support a gravel surface. The gravel adds an additional source or error when using wheel odometry for dead-reckoning estimates, as does the skid-steer drive of the robot. For these reasons the wheel odometry was regarded as highly unreliable. The MASS relies on a number of alternate sensors and algorithms to estimate its pose since the software designed for the MASS treats dead-reckoning as an unacceptable source for localization.\\
+Testing of the MASS occurred in the Mechatronic and Robotic Systems (\acrshort{mars}) Laboratory mock mine at \acrshort{uoit}. Figure \ref{fig:mockmine} shows a picture of the mock mine used for testing. The mine is 6 m long, 3 m wide, 1.5 m tall, and the roof overhang is 1 m. Since Cameco's MacArthur River mine corridors are approximately 6 m tall and 5-8 m wide, the mock mine is considered a quarter scale representation. It is constructed from wood framing with foam surfaces and features. Figure \ref{fig:surfacefeature} shows an image of some of the surface features installed on the mine. The uneven surfaces and features are similar to what can be found in the MacArthur River mine. Due to practicality, the surface roughness is much smoother than the actual mine. The main difference with the lack of surface roughness is the normal estimation will be more accurate over smaller regions, but using a larger radius to calculate the surface normals will yield similar results. Through testing it was determined the measurement error of the \acrshort{lidar} produced results similar to what would be obtained under ideal conditions with realistic surface roughness. Currently the mock mine floor is plywood material, but it has been designed to support a gravel surface. The gravel adds an additional source of error when using wheel odometry for dead-reckoning estimates, as does the skid-steer drive of the robot. For these reasons the wheel odometry was regarded as highly unreliable. The MASS relies on a number of alternate sensors and algorithms to estimate its pose since the software designed for the MASS treats dead-reckoning as an unacceptable source for localization.\\
 \begin{figure}[htb]
     \centering
     \includegraphics[width=.8\textwidth]{Pics/sfeats.jpg}
@@ -23,12 +23,12 @@ Testing of the MASS occurred in the Mechatronic and Robotic Systems (\acrshort{m
 \label{see:loctestscenario}
 The MASS has a number of options for verifying its fiducial based location estimation algorithm. In order of increasing accuracy, they are:
 \begin{itemize}
-    \item Odometry
-    \item Inertial Measurement
-    \item Laser Scan Matching
-    \item Simultaneous Localization and Mapping
-    \item Adaptive Monte Carlo Localization
-    \item OptiTrack Motion Capture
+    \item Odometry - Tracking motion from wheel encoders
+    \item Inertial Measurement - Tracking motion using acceleration and rotation data
+    \item Laser Scan Matching - Generating odometry from sequential laser scans
+    \item Simultaneous Localization and Mapping - Using laser scan data for mapping and localization
+    \item Adaptive Monte Carlo Localization - Localizing within a previously generated map
+    \item OptiTrack Motion Capture - External tracking hardware
 \end{itemize}
 
 Odometry is measured using encoders mounted along the drive-train of the wheels. The main source of error in odometry readings is from wheel slippage, but there is no way to detect if the wheels are slipping from the encoder readings alone. Inertial measurement units (\acrshort{imu}) use accelerometers, gyroscopes, and sometimes magnetometers to estimate relative motions of the unit. Accelerometers can estimate position by integrating the acceleration data twice to produce position data, but the effect of noise in the signal is amplified with each integration. Gyroscopes can measure angular acceleration, but the data and its accompanying noise must also be integrated twice to estimate orientation. A magnetometer can provide an absolute reference using the Earth's magnetic field, but must be calibrated for its environment and performs poorly in the presence of electronic interference or ferrous materials. Since there is no absolute reference, all position estimates are made relative to the previous readings. This means any error introduced in an estimate is added to all the errors of the previous estimates and the cumulative error can grow unbounded. Dead-reckoning is generally regarded as a low accuracy form of localization. Since the MASS is a skid-steered vehicle, the odometry estimates are particularly unreliable due to the slippage that occurs when turning. Dead-reckoning estimation is most accurate when odometry and inertial measurement data are fused using a Kalman filter, however, without an absolute measurement of the system, it is impossible to provide a sufficiently accurate position estimate to use as a ground truth for comparison to the fiducial based location estimation algorithm.\\
@@ -71,7 +71,7 @@ Since the OptiTrack motion capture system is the most reliable localization syst
 
 \subsubsection{Localization Test}
 
-The localization test was intended to verify the accuracy of the localization algorithm. The localization algorithm must detect the fiducial marker and determine its location. To do so, it uses the \acrshort{lidar} and nodding head to create a point cloud of the environment, detect the position and orientation of the fiducial marker, and calculate the coordinate frame transformation from the \acrshort{lidar} to the marker. The inverse of the transformation indicates where the scan was taken from. The aim of this test is to confirm the algorithm is capable of providing localization estimates within 5 cm of the ground truth location.\\
+The localization test was intended to verify the accuracy of the localization algorithm by comparing the location determined by the robot to the location determined by the fixed tracking system known as ground truth. The localization algorithm must detect the fiducial marker and determine its location. To do so, it uses the \acrshort{lidar} and nodding head to create a point cloud of the environment, detect the position and orientation of the fiducial marker, and calculate the coordinate frame transformation from the \acrshort{lidar} to the marker. The inverse of the transformation indicates where the scan was taken from. The aim of this test is to confirm the algorithm is capable of providing localization estimates within 5 cm of the ground truth location.\\
 
 \begin{figure}
     \centering
@@ -154,7 +154,7 @@ X(m) & Y(m) & X(m) & Y(m) & (m) & X(m) & Y(m) & X(m) & Y(m) & (m) \\ \hline \hli
 \end{table}
 \end{center}
 
-Defining the error as the absolute distance between the localization system's position estimate and ground truth, the mean error was 37.8 mm with a standard deviation of 18.3 mm. Shown visually, the distribution of error across the testing data can be seen in Figure \ref{fig:locerrordist}. Table \ref{tab:optiresults} shows each localization scan and its respective accuracy. \\
+Defining the error as the absolute distance between the localization system's position estimate and ground truth, the mean error was 37.8 mm with a standard deviation of 18.3 mm. Shown visually, the distribution of error across the testing data can be seen in Figure \ref{fig:locerrordist}. This table illustrates the majority of the localization tests yielded an accuracy between 30 mm and 50 mm, with a large number of results having an accuracy better than 30 mm. It also shows there are few results with worse than 50 mm accuracy. It can be concluded the localization system will most often give an estimate better than 50 mm, but can be as bad as 90 mm. Table \ref{tab:optiresults} shows each localization scan and its respective accuracy. \\
 
 \begin{figure}
     \centering
@@ -183,7 +183,7 @@ Another limiting factor in the accuracy of the localization estimate is the accu
     \label{fig:bumps}
 \end{figure}
 \clearpage
-For determining the accuracy of the point-to-mesh (\acrshort{p2m}) thickness estimation technique (in which the distance is calculated normal to the mesh surface), infrared (IR) reflective stickers were placed on the simulated shotcrete and mine surface such that they are collinear along a normal to the simulated shotcrete surface. When the \acrshort{lidar} scans were analyzed, it became apparent how the reflectivity of the surface affects the distance measurement error as shown in Figure \ref{fig:bumps}. It was found the false contours protruded from the surface approximately 20 mm.\\
+For determining the accuracy of the point-to-mesh (\acrshort{p2m}) thickness estimation technique (in which the distance is calculated normal to the mesh surface), infrared (IR) reflective stickers were placed on the simulated shotcrete and mine surface such that they are collinear along a vector normal to the simulated shotcrete surface. When the \acrshort{lidar} scans were analyzed, it became apparent how the reflectivity of the surface affects the distance measurement error as shown in Figure \ref{fig:bumps}. It was found the false contours protruded from the surface approximately 20 mm.\\
 
 The \acrshort{lidar} scanner is mounted on a servo motor acting as a nodding head. The servo is a SCHUNK PR70 rotary module having a 0.08\degree\hspace{0pt} repeatability. Since the encoder is relative, there is no absolute accuracy specifications provided by the manufacturer. It uses end stops and a homing routine to determine its position when brought online. When the nodding head moves the \acrshort{lidar} scanner, each individual laser scan is combined to form a point cloud. If the nodding head reports an incorrect position, the laser scan will be positioned incorrectly in the point cloud. Nodding head position error can come from the servo itself, or occur due to software latency. Since the operating system is not designed as a real-time operating system, the servo position data may get delayed when being sent to the laser scan assembler. The \acrshort{lidar}, DENSO controller, and WiFi connection require the MASS to have an on-board router. For teleoperation and communication with the OptiTrack system the on board router must connect to a wireless network. The network is not configured to prioritize \acrshort{lidar} data, presenting an additional source of latency. Figure \ref{fig:headlag} shows a point cloud where the laser scan data had significant latency. Though all non-essential processes are halted during the scanning process, due to the current hardware limitations of the MASS many scans had latency errors.\\
 \clearpage
@@ -195,7 +195,7 @@ The \acrshort{lidar} scanner is mounted on a servo motor acting as a nodding hea
 \end{figure}
 The mounting bracket for the laser scanner was designed to flex as little as possible. If the mounting bracket flexes or vibrates, the calculated position of the \acrshort{lidar} will differ from the true position. Since the laser scan assembler uses the forward displacement solution to calculate the nodding head position and cannot detect mechanical vibration or deformation, these sources of error can cause inaccuracy in the assembled point clouds. With this potential for error in mind, the mounting bracket was designed to allow as little vibration and deformation as possible.\\
 
-The \acrshort{lidar} scanner measures a single point at a time and uses an internal rotating mirror to sweep the laser in a horizontal line at a frequency of 25 Hz. If the nodding head moves fast enough the position of the first point in the scan will be on a different plane than the last point in the scan. If the nodding head transmits the servo position at a higher frequency than the \acrshort{lidar} scans, the laser scan assembler can transform each individual point measurement into the fixed coordinate frame rather than the whole scan at once. This is a fairly CPU intensive process and it was determined that a sufficiently slow slew rate could achieve accurate results. The maximum skew is defined as:
+The \acrshort{lidar} scanner measures a single point at a time and uses an internal rotating mirror to sweep the laser in a horizontal line at a frequency of 25 Hz. If the nodding head moves fast enough the position of the first point in the scan will be on a different plane than the last point in the scan. If the nodding head transmits the servo position at a higher frequency than the \acrshort{lidar} scans, the laser scan assembler can transform each individual point measurement into the fixed coordinate frame rather than the whole scan at once. The slew rate of the nodding head was chosen such that the skew effect is negligible. The maximum skew is defined as:
 
 \begin{align}
     S_{max} = tan\left(\frac{\omega_H}{f_L}\right)
@@ -227,11 +227,11 @@ Though the edge effect can lower the accuracy of the measured location of the fi
     \caption{Keypoint Detected at a Distance}
     \label{fig:keypointinaccuracy}
 \end{figure}
-The software algorithm for localization has a minimal loss of accuracy. Occasionally the operating system must perform mathematical operations using values with more digits than a variable can hold. For example, $\pi$ is infinite and non-repeating so it is impossible to perform any calculations with a truly accurate value of $\pi$. However, the computer can perform operations with sufficient accuracy that rounding errors are likely not a significant source of error.\\
+The software algorithm for localization has an accuracy of approximately 39 mm. Occasionally the operating system must perform mathematical operations using values with more digits than a variable can hold. For example, $\pi$ is infinite and non-repeating so it is impossible to perform any calculations with a truly accurate value of $\pi$. However, the computer can perform operations with sufficient accuracy that rounding errors are likely not a significant source of error.\\
 
 \subsection{Trajectory Generation}
 
-The testing of the trajectory generation algorithm is difficult to quantify. Throughout development, visual confirmation was the main criteria for verifying successful trajectory generation. Simply said, if it was unsuccessful it would be immediately apparent. As the development process continued, the algorithm demonstrated consistently suitable trajectories. The criteria for failure are:
+The testing of the trajectory generation algorithm is difficult to quantify. Throughout development, visual confirmation was the main criteria for verifying successful trajectory generation. If the trajectory fails, the end-effector path shown will appear erratic with large motions beyond the desired work area. As the development process continued, the algorithm demonstrated consistently suitable trajectories. The criteria for failure are:
 
 \begin{itemize}
     \item No trajectory generated
@@ -336,6 +336,7 @@ There were 19 locations chosen as pre-shotcrete scans, and 12 locations chosen a
 \end{figure}
 \clearpage
 \begin{table}[]
+\begin{adjustbox}{max width=\textwidth}
 \begin{tabular}{cc|c|c|c|c|c|c|c|c|c|c|c|c|}
 \cline{3-14}
 \multicolumn{1}{l}{}                         &        & \multicolumn{12}{c|}{Post Shotcrete}                        \\ \cline{3-14} 
@@ -362,10 +363,10 @@ There were 19 locations chosen as pre-shotcrete scans, and 12 locations chosen a
 \multicolumn{1}{ |c| }{}&19&32.9&31.2&13.1&10.8&23.0&18.4&19.7&10.4&22.6&44.8&21.7&27.6\\ \hline
 
 \end{tabular}
+\end{adjustbox}
 \caption[Thickness Estimation Results]{Mean Thickness Estimation Error (in mm)}
 \label{tab:thickres}
 \end{table}
-
 \subsubsection{Thickness Estimation Sources of Error}
 
 Taking multiple scans at a single location for use as a control measurement removes the potential source of error from the localization algorithm, but factors like systematic measurement error, robot vibration or deformation, edge veiling, and other environmental conditions are still present. Any sources of error discussed in Section \ref{sec:locsourceerror} not dependant on the software algorithm is also a source of error in thickness estimation.\\

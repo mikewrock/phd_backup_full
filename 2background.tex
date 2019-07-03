@@ -1,5 +1,8 @@
 \chapter{Background}
 \label{chap:background}
+
+The intention of this chapter is to provide a background of the current start of the art with respect to autonomous shotcrete robots. To provide context the literature review summarizes the research done in the fields of automated robotics then discusses sensor technologies for localization and interaction. Finally autonomous shotcrete robots are investigated.\\
+
 \section{Literature Review}
 \subsection{Autonomous Robotics in Mining}
 Automated robotics in the mining industry began in 1967 when the first unmanned rail haulage system was used at the underground mine known as ``General Blumenthal'' in Germany. Nine years later the first remote controlled manipulator for use in the extraction of thin coal seams was demonstrated \cite{mani}. Over the next 20 years more than 160 papers were published on applications for robotic mining and currently they number in the thousands. With so much research done in this field, there are surprisingly few mines that fully exploit the potential of automated mining equipment.\\
@@ -13,7 +16,8 @@ Robots far outperform human operators when it comes to efficiency, being able to
 \caption[]{Miner or Robot: The Differing Possibilities \cite{table}}
 \small
 \hfill{}
-\resizebox{6.5in}{!} {
+%\resizebox{6.5in}{!} {
+\begin{adjustbox}{max width=\textwidth}
 \begin{tabular}{p{3in} p{2.5in} p{2in} p{3in}}
 \toprule
 Function & Miner & Robot\\
@@ -34,7 +38,8 @@ machinery diagnostics & visual & simply\\
 sensing & acoustic (50-12000 Hz) & visual in non-optic range, acoustic in non-audible range, ranging, exact measurement of speed, temperature, depth, forces, acceleration, slip, travel\\
 \bottomrule
 \end{tabular}
-}
+%}
+\end{adjustbox}
 \hfill{}
 \label{tab:table}
 \end{table}

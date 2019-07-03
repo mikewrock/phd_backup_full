@@ -1,5 +1,5 @@
 \chapter{Software}
-\label{chap:code}
+\label{chapp:code}
 \section{Package Files}
 
 A package is the most atomic structure in \acrshort{ros}, meaning it is the root of all projects created for \acrshort{ros}. At its minimum, a package is simply a directory containing \node{package.xml}. As the package expands to contain software nodes, a \node{CMakeLists.txt} file is used to define which software files need to be compiled. The \node{CMakeLists.txt} file also includes the required information to complile the package's messages, services, dependencies, and header files. Packages are self contained so they can be easily shared and implemented on other systems.\\
@@ -14,7 +14,8 @@ The \node{plugin_description.xml} for the MASS can be found in Appendix \ref{app
 \subsection{CMakeLists.txt}
 The \node{CMakeLists.txt} file is the first file \acrshort{ros} uses when compiling the package. Within this file all the nodes, messages, services, configuration files, and dependencies are declared. They can be found listed in Table \ref{tab:cmakelists}. The file can be found in Appendix \ref{app:cmake}.\\
 \begin{table}[h!]
-\begin{adjustwidth}{-.5in}{-.5in}  
+%\begin{adjustwidth}{-.5in}{-.5in}  
+\begin{adjustbox}{max width=\textwidth}
 \begin{tabular}{|c|c|c|c|}
 \hline
 Nodes & Messages & Services & Configuration Files \\ \hline
@@ -37,9 +38,10 @@ Nodes & Messages & Services & Configuration Files \\ \hline
 \tabitem localize\_config \\
 \tabitem trajectory\_config \\}\\ \hline
 \end{tabular}
+%\end{adjustwidth}
+\end{adjustbox}
 \caption[]{Contents of the \node{CMakeLists.txt} file}
 \label{tab:cmakelists}
-\end{adjustwidth}
 \end{table}
 \section{Launch Files}
 Two launch files are provided: main.launch and simulation.launch. The launch files appear in their entirety in Appendix \ref{app:launch} and are explained as follows: 
